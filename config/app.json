@@ -1,0 +1,46 @@
+{
+  "app": {
+    "name": "Music Tracker",
+    "version": "4.0.0",
+    "environment": "development"
+  },
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8000,
+    "cors_origins": ["http://localhost:5173"]
+  },
+  "database": {
+    "url": "sqlite:///data/musique.db",
+    "echo": false,
+    "pool_size": 5
+  },
+  "tracker": {
+    "enabled": true,
+    "interval_seconds": 120,
+    "listen_start_hour": 6,
+    "listen_end_hour": 23
+  },
+  "scheduler": {
+    "enabled": true,
+    "tasks": [
+      {
+        "name": "generate_haiku",
+        "enabled": true,
+        "frequency": 1,
+        "unit": "week"
+      },
+      {
+        "name": "analyze_patterns",
+        "enabled": true,
+        "frequency": 1,
+        "unit": "week"
+      },
+      {
+        "name": "sync_discogs",
+        "enabled": true,
+        "frequency": 1,
+        "unit": "month"
+      }
+    ]
+  }
+}

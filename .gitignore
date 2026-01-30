@@ -1,0 +1,44 @@
+# Secrets
+config/secrets.json
+backend/.env
+frontend/.env
+.env
+
+# Base de données
+data/musique.db
+data/musique.db-journal
+*.db
+*.db-journal
+
+# Build
+frontend/dist/
+frontend/node_modules/
+backend/.venv/
+backend/__pycache__/
+backend/**/__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Test coverage
+htmlcov/
+.coverage
+coverage.xml
+*.cover
+
+# Backups (keep structure only)
+data/backups/*.db
+data/backups/*.json
+!data/backups/.gitkeep
