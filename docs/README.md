@@ -2,6 +2,41 @@
 
 Bienvenue dans la documentation du projet AIME - AI Music Enabler !
 
+## � Structure de la documentation
+
+### 📖 Documentation principale (ce dossier)
+- **API.md** - Documentation complète de l'API REST
+- **ARCHITECTURE.md** - Architecture technique du système
+- **QUICKSTART.md** - Guide de démarrage rapide
+- **TROUBLESHOOTING.md** - Résolution des problèmes courants
+- **GITHUB-REPO-INFO.md** - Informations pour GitHub (description, topics, SEO)
+
+### 📝 Historique des modifications (`/changelogs`)
+- **CHANGELOG.md** - Journal principal des modifications
+- **CHANGELOG-UI-ENRICHMENT.md** - Améliorations de l'interface utilisateur
+- **CHANGELOG-UNIFIED-ALBUM-DISPLAY.md** - Unification de l'affichage des albums
+
+### 🎵 Documentation des fonctionnalités (`/features`)
+- **NOUVELLES-FONCTIONNALITES.md** - Dernières fonctionnalités ajoutées (v4.0.0)
+- **JOURNAL-TIMELINE-DOC.md** - Documentation de la vue Journal/Timeline
+- **LASTFM-IMPORT-TRACKER-DOC.md** - Tracker Last.fm et import d'historique
+- **ROON-TRACKER-DOC.md** - Tracker Roon et configuration
+
+### 🔧 Configuration (`/config`)
+- **TRACKER-CONFIG-OPTIMALE.md** - Configuration optimale du tracker d'écoute
+
+### 🐛 Debug et corrections (`/debug`)
+- **DEBUG-DISCOGS.md** - Debug de l'intégration Discogs
+- **EXPLICATION-404-DISCOGS.md** - Gestion des erreurs 404 Discogs
+- **CORRECTIONS-SYNC-DISCOGS.md** - Corrections de synchronisation
+- **AMELIORATIONS-SYNC-ENRICHIE.md** - Améliorations de la synchronisation
+- **ENRICHISSEMENT-RETROACTIF.md** - Enrichissement rétroactif des données
+
+### 🏗️ Spécifications techniques (`/specs`)
+- **SPECIFICATION-REACT-REBUILD.md** - Spécifications du rebuild React/TypeScript
+
+---
+
 ## 🚀 Démarrage Rapide
 
 **Nouveau sur le projet ?** Commencez ici :
@@ -17,14 +52,15 @@ Bienvenue dans la documentation du projet AIME - AI Music Enabler !
 - **[README Principal](../README.md)** - Vue d'ensemble du projet
 - **[Guide de Démarrage Rapide](QUICKSTART.md)** - Installation pas à pas
 - **[STATUS](../STATUS.md)** - État actuel de l'application
-- **[CHANGELOG](../CHANGELOG.md)** - Historique des modifications
+- **[Historique des modifications](changelogs/CHANGELOG.md)** - Toutes les versions
 
 ### Pour les Développeurs
 
 - **[Documentation API](API.md)** - Référence complète des endpoints REST
 - **[Architecture](ARCHITECTURE.md)** - Structure technique détaillée
-- **[Spécification](../SPECIFICATION-REACT-REBUILD.md)** - Cahier des charges complet
+- **[Spécifications](specs/)** - Cahiers des charges et specs techniques
 - **[Résumé du Projet](../PROJECT-SUMMARY.md)** - Ce qui a été créé et pourquoi
+- **[Nouvelles Fonctionnalités](features/NOUVELLES-FONCTIONNALITES.md)** - Version 4.0.0
 
 ### Résolution de Problèmes
 
@@ -34,6 +70,7 @@ Bienvenue dans la documentation du projet AIME - AI Music Enabler !
   - Problèmes de configuration
   - Reloads infinis du serveur
   - Et 7 autres problèmes documentés
+- **[Debug et Corrections](debug/)** - Historique des problèmes résolus
 
 ## 🎯 Navigation par Besoin
 
@@ -48,6 +85,69 @@ Bienvenue dans la documentation du projet AIME - AI Music Enabler !
 
 ### "Je veux utiliser l'API"
 → [API.md](API.md)
+
+### "Je veux voir les nouvelles fonctionnalités"
+→ [features/NOUVELLES-FONCTIONNALITES.md](features/NOUVELLES-FONCTIONNALITES.md)
+
+---
+
+## ✍️ Conventions pour la documentation
+
+### Placement des nouveaux fichiers
+
+| Type de document | Emplacement | Exemple |
+|------------------|-------------|---------|
+| Changelog général | `/docs/changelogs/` | `CHANGELOG-FEATURE-X.md` |
+| Nouvelle fonctionnalité | `/docs/features/` | `PLAYLIST-GENERATOR-DOC.md` |
+| Configuration | `/docs/config/` | `SCHEDULER-CONFIG.md` |
+| Debug/Correction | `/docs/debug/` | `FIX-SPOTIFY-API.md` |
+| Spécification technique | `/docs/specs/` | `SPEC-MOBILE-APP.md` |
+| Documentation API/Architecture | `/docs/` | `API-v2.md` |
+
+### Nommage des fichiers
+- Utiliser des MAJUSCULES pour les fichiers de documentation
+- Séparer les mots par des tirets `-`
+- Suffixer avec `-DOC` pour les documentations de fonctionnalités
+- Suffixer avec `-SPEC` pour les spécifications
+- Préfixer avec `CHANGELOG-` pour les historiques
+- Préfixer avec `DEBUG-` ou `FIX-` pour les corrections
+
+### Format recommandé
+- Format : **Markdown** (`.md`)
+- Encodage : **UTF-8**
+- Langue : Français pour la doc interne, Anglais pour l'API publique
+- Structure : Titre principal H1, sections H2-H3, emojis pour la navigation
+
+---
+
+## 🔄 Mise à jour de la documentation
+
+### Lors de l'ajout d'une fonctionnalité
+1. Créer un fichier dans `/docs/features/` avec description complète
+2. Ajouter une entrée dans `/docs/changelogs/CHANGELOG.md`
+3. Mettre à jour `/docs/API.md` si nouveaux endpoints
+4. Mettre à jour le `README.md` principal si impact majeur
+
+### Lors d'une correction de bug
+1. Documenter dans `/docs/debug/` si le fix est complexe
+2. Ajouter une note dans le changelog
+3. Mettre à jour `/docs/TROUBLESHOOTING.md` si applicable
+
+### Lors d'un changement de configuration
+1. Mettre à jour `/docs/config/`
+2. Documenter les migrations nécessaires
+3. Ajouter des exemples de configuration
+
+---
+
+## 📊 Documentation vivante
+
+Cette documentation est **vivante** et doit être mise à jour en continu :
+- ✅ Toujours synchroniser avec le code
+- ✅ Inclure des exemples concrets
+- ✅ Maintenir les liens à jour
+- ✅ Supprimer la documentation obsolète
+- ✅ Versionner les changements majeurs
 
 ### "Je veux voir ce qui a été fait"
 → [PROJECT-SUMMARY.md](../PROJECT-SUMMARY.md)
