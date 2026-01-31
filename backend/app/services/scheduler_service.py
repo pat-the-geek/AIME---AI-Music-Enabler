@@ -6,10 +6,13 @@ from sqlalchemy.orm import Session
 from collections import Counter
 import logging
 import os
+import json
+from io import StringIO
 
 from app.database import SessionLocal
 from app.services.ai_service import AIService
 from app.services.spotify_service import SpotifyService
+from app.services.markdown_export_service import MarkdownExportService
 from app.models import Album, Track, ListeningHistory, Metadata
 
 logger = logging.getLogger(__name__)
@@ -318,10 +321,8 @@ class SchedulerService:
             db.close()
     
     async def _generate_random_haikus(self):
-        """Générer haikus pour 5 albums aléatoires et exporter."""
+        """Générer haikus pour 5 albums aléatoires et exporter en markdown structuré."""
         import random
-        import json
-        from io import StringIO
         
         self.last_executions['generate_haiku_scheduled'] = datetime.now(timezone.utc).isoformat()
         logger.info("🎋 Génération haikus pour 5 albums random")
@@ -336,15 +337,37 @@ class SchedulerService:
             
             selected_albums = random.sample(all_albums, 5)
             
-            # Générer markdown avec haikus
+            # Générer markdown structuré avec table des matières
             markdown_content = StringIO()
-            markdown_content.write("# 🎵 Haikus Générés - Sélection Aléatoire\n\n")
-            markdown_content.write(f"Généré: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n\n")
+            markdown_content.write("# 🎋 Haikus Générés - Sélection Aléatoire\n\n")
+            markdown_content.write(f"**Généré le:** {datetime.now().strftime('%d/%m/%Y à %H:%M')}\n")
+            markdown_content.write(f"**Nombre de haikus:** {len(selected_albums)}\n\n")
+            markdown_content.write("---\n\n")
             
+            # Table des matières
+            markdown_content.write("## Table des matières\n\n")
+            for i, album in enumerate(selected_albums, 1):
+                artist_name = album.artists[0].name if album.artists else "Artiste inconnu"
+                album_anchor = f"{album.title.replace(' ', '-').lower()}"
+                markdown_content.write(f"{i}. [{album.title} - {artist_name}](#{album_anchor})\n")
+            
+            markdown_content.write("\n---\n\n")
+            
+            # Générer haikus pour chaque album
             for i, album in enumerate(selected_albums, 1):
                 artist_name = album.artists[0].name if album.artists else "Artiste inconnu"
                 
-                markdown_content.write(f"## {i}. {album.title} - {artist_name}\n\n")
+                markdown_content.write(f"## {i}. {album.title}\n\n")
+                markdown_content.write(f"**Artiste:** {artist_name}\n")
+                
+                if album.year:
+                    markdown_content.write(f"- **Année:** {album.year}\n")
+                if album.support:
+                    markdown_content.write(f"- **Support:** {album.support}\n")
+                if album.discogs_id:
+                    markdown_content.write(f"- **Discogs ID:** {album.discogs_id}\n")
+                
+                markdown_content.write("\n")
                 
                 # Générer haiku
                 haiku_data = {
@@ -359,10 +382,25 @@ class SchedulerService:
                 except Exception as e:
                     logger.error(f"Erreur génération haiku pour {album.title}: {e}")
                     markdown_content.write(f"```\n[Haiku non disponible]\n```\n\n")
+                
+                # Liens
+                links = []
+                if album.spotify_url:
+                    links.append(f"[Spotify]({album.spotify_url})")
+                if album.discogs_url:
+                    links.append(f"[Discogs]({album.discogs_url})")
+                
+                if links:
+                    markdown_content.write("**Liens:** " + " | ".join(links) + "\n")
+                
+                # Image de couverture
+                if album.images:
+                    image_url = album.images[0].url
+                    markdown_content.write(f"\n![{album.title}]({image_url})\n")
+                
+                markdown_content.write("\n---\n\n")
             
             # Créer chemin absolu pour le répertoire de sortie
-            # __file__ = /backend/app/services/scheduler_service.py
-            # Remonter 4 fois pour atteindre la racine du projet
             current_dir = os.path.abspath(__file__)
             for _ in range(4):
                 current_dir = os.path.dirname(current_dir)
@@ -393,50 +431,20 @@ class SchedulerService:
             db.close()
     
     async def _export_collection_markdown(self):
-        """Exporter la collection complète en markdown."""
-        import json
-        from io import StringIO
-        
+        """Exporter la collection complète en markdown avec le même format que l'API."""
         self.last_executions['export_collection_markdown'] = datetime.now(timezone.utc).isoformat()
         logger.info("📝 Export collection en markdown")
         db = SessionLocal()
         
         try:
-            # Récupérer tous les albums
-            albums = db.query(Album).all()
+            # Utiliser le même service que l'API pour garantir l'identité du format
+            markdown_content = MarkdownExportService.get_collection_markdown(db)
             
-            if not albums:
+            if not markdown_content:
                 logger.warning("Aucun album à exporter")
                 return
             
-            # Générer markdown
-            markdown_content = StringIO()
-            markdown_content.write("# 📚 Collection Complète\n\n")
-            markdown_content.write(f"Exporté: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n")
-            markdown_content.write(f"Total albums: {len(albums)}\n\n")
-            
-            # Grouper par artiste
-            by_artist = {}
-            for album in albums:
-                for artist in album.artists:
-                    if artist.name not in by_artist:
-                        by_artist[artist.name] = []
-                    by_artist[artist.name].append(album)
-            
-            # Écrire contenu
-            for artist_name in sorted(by_artist.keys()):
-                markdown_content.write(f"## 🎤 {artist_name}\n\n")
-                
-                for album in by_artist[artist_name]:
-                    year_info = f" ({album.year})" if album.year else ""
-                    support_info = f" [{album.support}]" if album.support else ""
-                    markdown_content.write(f"- **{album.title}**{year_info}{support_info}\n")
-                
-                markdown_content.write("\n")
-            
             # Créer chemin absolu pour le répertoire de sortie
-            # __file__ = /backend/app/services/scheduler_service.py
-            # Remonter 4 fois pour atteindre la racine du projet
             current_dir = os.path.abspath(__file__)
             for _ in range(4):
                 current_dir = os.path.dirname(current_dir)
@@ -452,7 +460,7 @@ class SchedulerService:
             
             # Sauvegarder fichier
             with open(filepath, 'w', encoding='utf-8') as f:
-                f.write(markdown_content.getvalue())
+                f.write(markdown_content)
             
             logger.info(f"✅ Collection markdown sauvegardée: {filepath}")
             
@@ -467,44 +475,67 @@ class SchedulerService:
             db.close()
     
     async def _export_collection_json(self):
-        """Exporter la collection complète en JSON."""
-        import json
-        
+        """Exporter la collection complète en JSON avec le même format que l'API."""
         self.last_executions['export_collection_json'] = datetime.now(timezone.utc).isoformat()
         logger.info("📊 Export collection en JSON")
         db = SessionLocal()
         
         try:
-            # Récupérer tous les albums
-            albums = db.query(Album).all()
+            # Récupérer tous les albums de collection Discogs, triés par titre
+            albums = db.query(Album).filter(Album.source == 'discogs').order_by(Album.title).all()
             
             if not albums:
                 logger.warning("Aucun album à exporter")
                 return
             
-            # Préparer données JSON
-            collection_data = {
-                'export_date': datetime.now().isoformat(),
-                'total_albums': len(albums),
-                'albums': []
+            # Construire les données JSON avec le même format que l'API
+            data = {
+                "export_date": datetime.now().isoformat(),
+                "total_albums": len(albums),
+                "albums": []
             }
             
             for album in albums:
+                # Traiter les images
+                images = []
+                if album.images:
+                    for img in album.images:
+                        images.append({
+                            "url": img.url,
+                            "type": img.image_type,
+                            "source": img.source
+                        })
+                
+                # Traiter les métadonnées
+                metadata = {}
+                if album.album_metadata:
+                    meta = album.album_metadata
+                    metadata = {
+                        "ai_info": meta.ai_info,
+                        "resume": meta.resume,
+                        "labels": meta.labels,
+                        "film_title": meta.film_title,
+                        "film_year": meta.film_year,
+                        "film_director": meta.film_director
+                    }
+                
                 album_data = {
-                    'id': album.id,
-                    'title': album.title,
-                    'year': album.year,
-                    'support': album.support,
-                    'source': album.source,
-                    'spotify_url': album.spotify_url,
-                    'artists': [artist.name for artist in album.artists],
-                    'tracks_count': len(album.tracks) if album.tracks else 0
+                    "id": album.id,
+                    "title": album.title,
+                    "artists": [artist.name for artist in album.artists],
+                    "year": album.year,
+                    "support": album.support,
+                    "discogs_id": album.discogs_id,
+                    "spotify_url": album.spotify_url,
+                    "discogs_url": album.discogs_url,
+                    "images": images,
+                    "created_at": album.created_at.isoformat() if album.created_at else None,
+                    "metadata": metadata
                 }
-                collection_data['albums'].append(album_data)
+                
+                data["albums"].append(album_data)
             
             # Créer chemin absolu pour le répertoire de sortie
-            # __file__ = /backend/app/services/scheduler_service.py
-            # Remonter 4 fois pour atteindre la racine du projet
             current_dir = os.path.abspath(__file__)
             for _ in range(4):
                 current_dir = os.path.dirname(current_dir)
@@ -520,7 +551,7 @@ class SchedulerService:
             
             # Sauvegarder fichier
             with open(filepath, 'w', encoding='utf-8') as f:
-                json.dump(collection_data, f, ensure_ascii=False, indent=2)
+                json.dump(data, f, ensure_ascii=False, indent=2)
             
             logger.info(f"✅ Collection JSON sauvegardée: {filepath}")
             
