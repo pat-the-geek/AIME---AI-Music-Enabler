@@ -15,6 +15,9 @@ Implémentation complète des pages **Journal d'Écoute** et **Timeline Horaire*
 ### Route
 `/journal`
 
+### Capture d'écran
+![Page Journal d'Écoute](../../Screen%20captures/Journal.png)
+
 ### Fonctionnalités Implémentées
 
 #### 1. **Affichage des Écoutes**
@@ -76,6 +79,10 @@ Mise à jour automatique selon les filtres appliqués.
 
 ### Route
 `/timeline`
+
+### Captures d'écran
+![Page Timeline - Vue générale](../../Screen%20captures/TimeLine.png)
+![Page Timeline - Détail](../../Screen%20captures/TimeLine%20-%20Detail.png)
 
 ### Fonctionnalités Implémentées
 

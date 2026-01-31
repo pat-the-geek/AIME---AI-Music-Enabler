@@ -23,14 +23,33 @@ Application web moderne pour tracker et analyser l'historique d'écoute musicale
    - Import collection depuis Discogs API
    - Synchronisation manuelle
    - Visualisation avec pochettes
+   
+   ![Albums Collection](Screen%20captures/Collection%20-%20Albums.png)
 
 3. **Journal d'Écoute**
    - Liste chronologique inversée
    - Marquage favoris
    - Affichage images multiples (artiste, album Spotify, album Last.fm)
    - Info IA expandable
+   
+   ![Journal d'Écoute](Screen%20captures/Journal.png)
+   
+   ![Détail Album](Screen%20captures/Collection%20-%20Album%20-%20Detail.png)
 
-4. **API REST Complète**
+4. **Timeline Horaire**
+   - Visualisation par heure et par jour
+   - Vue d'ensemble des écoutes
+   
+   ![Timeline](Screen%20captures/TimeLine.png)
+   ![Détail Timeline](Screen%20captures/TimeLine%20-%20Detail.png)
+
+5. **Gestion des Trackers**
+   - Configuration Last.fm et Roon
+   - Suivi automatique des écoutes
+   
+   ![Paramètres Trackers](Screen%20captures/Settings%20-%20Roon%20-%20Lastfm%20-%20Trackers.png)
+
+6. **API REST Complète**
    - Endpoints pour collection, historique, playlists, services
    - Documentation Swagger auto-générée
    - Validation Pydantic

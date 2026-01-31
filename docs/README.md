@@ -91,6 +91,26 @@ Bienvenue dans la documentation du projet AIME - AI Music Enabler !
 
 ---
 
+## 📸 Captures d'Écran
+
+Voici un aperçu visuel de l'application :
+
+### Collection & Albums
+![Collection - Albums](../Screen%20captures/Collection%20-%20Albums.png)
+![Détail Album](../Screen%20captures/Collection%20-%20Album%20-%20Detail.png)
+
+### Journal d'Écoute
+![Journal d'Écoute](../Screen%20captures/Journal.png)
+
+### Timeline Horaire
+![Timeline](../Screen%20captures/TimeLine.png)
+![Détail Timeline](../Screen%20captures/TimeLine%20-%20Detail.png)
+
+### Paramètres & Trackers
+![Paramètres Trackers](../Screen%20captures/Settings%20-%20Roon%20-%20Lastfm%20-%20Trackers.png)
+
+---
+
 ## ✍️ Conventions pour la documentation
 
 ### Placement des nouveaux fichiers
