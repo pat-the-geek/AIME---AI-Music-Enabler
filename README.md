@@ -214,6 +214,22 @@ cd frontend
 npm run test
 ```
 
+## � Documentation
+
+- **[Guide de Démarrage Rapide](docs/QUICKSTART.md)** - Installation en 5 minutes
+- **[Documentation Complète](docs/)** - Guide complet avec index
+- **[Structure du Projet](STRUCTURE.md)** - Organisation des fichiers
+- **[Dépannage](docs/TROUBLESHOOTING.md)** - Solutions aux problèmes courants
+- **[Architecture](docs/ARCHITECTURE.md)** - Détails techniques
+- **[API REST](docs/API.md)** - Documentation endpoints
+- **[Nouvelles Fonctionnalités](docs/features/NOUVELLES-FONCTIONNALITES.md)** - Version 4.0.0
+
+### Documentation des Fonctionnalités
+
+- **[Tracker Last.fm](docs/features/LASTFM-IMPORT-TRACKER-DOC.md)** - Configuration et import
+- **[Tracker Roon](docs/features/ROON-TRACKER-DOC.md)** - Intégration Roon
+- **[Journal/Timeline](docs/features/JOURNAL-TIMELINE-DOC.md)** - Vue chronologique
+
 ## 🔧 Dépannage
 
 Si vous rencontrez des problèmes lors de l'installation ou du démarrage:
@@ -231,14 +247,15 @@ Si vous rencontrez des problèmes lors de l'installation ou du démarrage:
 4. ✅ Chemin base de données incorrect (solution: variable d'environnement PROJECT_ROOT)
 5. ✅ Reloads infinis d'Uvicorn (solution: --reload-dir app)
 
-## 📝 TODO
+## 📝 Roadmap
 
-- [ ] Implémenter Timeline horaire complète
-- [ ] Implémenter page Analytics avec charts
-- [ ] Implémenter générateur de playlists
-- [ ] Ajouter tests frontend
-- [ ] Ajouter migration script JSON → SQLite
-- [ ] Dark mode
+- [ ] Export playlists (M3U, Spotify, Apple Music)
+- [ ] Visualisations avancées (genres, découverte)
+- [ ] Recommandations IA personnalisées
+- [ ] Notifications (email, alertes nouveaux albums)
+- [ ] Application mobile (React Native)
+- [ ] Partage de playlists
+- [ ] Dark mode amélioré
 - [ ] Responsive mobile complet
 
 ## 🤝 Contribution
