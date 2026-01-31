@@ -7,7 +7,7 @@ from typing import Optional, List
 class AlbumBase(BaseModel):
     """Schéma de base pour un album."""
     title: str = Field(..., max_length=500, description="Titre de l'album")
-    year: Optional[int] = Field(None, ge=1900, le=2100, description="Année de sortie")
+    year: Optional[int] = Field(None, ge=0, le=2100, description="Année de sortie (0 si inconnue)")
     support: Optional[str] = Field(None, max_length=50, description="Support (Vinyle, CD, Digital)")
     discogs_id: Optional[str] = Field(None, max_length=100, description="ID Discogs")
     spotify_url: Optional[str] = Field(None, max_length=500, description="URL Spotify")
@@ -22,7 +22,7 @@ class AlbumCreate(AlbumBase):
 class AlbumUpdate(BaseModel):
     """Schéma pour mettre à jour un album."""
     title: Optional[str] = Field(None, max_length=500)
-    year: Optional[int] = Field(None, ge=1900, le=2100)
+    year: Optional[int] = Field(None, ge=0, le=2100)
     support: Optional[str] = Field(None, max_length=50)
     discogs_id: Optional[str] = Field(None, max_length=100)
     spotify_url: Optional[str] = Field(None, max_length=500)

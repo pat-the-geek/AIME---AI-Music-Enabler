@@ -80,9 +80,12 @@ class TrackerService:
         """Obtenir le statut du tracker."""
         next_run_time = None
         if self.is_running:
-            job = self.scheduler.get_job('lastfm_tracker')
-            if job and job.next_run_time:
-                next_run_time = job.next_run_time.isoformat()
+            try:
+                job = self.scheduler.get_job('lastfm_tracker')
+                if job and job.next_run_time:
+                    next_run_time = job.next_run_time.isoformat()
+            except Exception as e:
+                logger.warning(f"⚠️ Erreur obtention statut tracker: {e}")
         
         return {
             "running": self.is_running,

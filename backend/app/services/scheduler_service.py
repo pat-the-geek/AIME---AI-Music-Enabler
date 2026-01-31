@@ -93,13 +93,19 @@ class SchedulerService:
         """Obtenir le statut du scheduler."""
         jobs = []
         if self.is_running:
-            for job in self.scheduler.get_jobs():
-                jobs.append({
-                    'id': job.id,
-                    'name': job.name,
-                    'next_run': job.next_run_time.isoformat() if job.next_run_time else None,
-                    'last_execution': self.last_executions.get(job.id)
-                })
+            try:
+                for job in self.scheduler.get_jobs():
+                    try:
+                        jobs.append({
+                            'id': job.id,
+                            'name': job.name,
+                            'next_run': job.next_run_time.isoformat() if job.next_run_time else None,
+                            'last_execution': self.last_executions.get(job.id)
+                        })
+                    except Exception as e:
+                        logger.warning(f"⚠️ Erreur traitement job {getattr(job, 'id', 'unknown')}: {e}")
+            except Exception as e:
+                logger.warning(f"⚠️ Erreur obtention jobs scheduler: {e}")
         
         return {
             'running': self.is_running,

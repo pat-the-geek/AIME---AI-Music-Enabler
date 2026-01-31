@@ -27,7 +27,7 @@ import AlbumDetailDialog from '@/components/AlbumDetailDialog'
 
 interface TimelineData {
   date: string
-  hours: Record<number, Array<{
+  hours: Record<string, Array<{
     id: number
     time: string
     artist: string
@@ -201,7 +201,7 @@ export default function Timeline() {
       <Box sx={{ overflowX: 'auto', pb: 2 }}>
         <Box sx={{ display: 'flex', minWidth: 'max-content', gap: 0 }}>
           {hourRange.map((hour) => {
-            const tracks = data?.hours[hour] || []
+            const tracks = data?.hours[String(hour)] || []
             const displayTracks = tracks.slice(0, 20) // Limite 20 tracks/heure
             const hasMore = tracks.length > 20
 

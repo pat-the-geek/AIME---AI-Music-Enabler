@@ -374,9 +374,12 @@ async def get_timeline(
     
     peak_hour = hour_counts.most_common(1)[0][0] if hour_counts else None
     
+    # Convertir les clés d'heure en chaînes de caractères (JSON exige des clés string)
+    hours_dict = {str(hour): tracks for hour, tracks in hours.items()}
+    
     return TimelineResponse(
         date=date,
-        hours=dict(hours),
+        hours=hours_dict,
         stats={
             "total_tracks": len(history),
             "unique_artists": len(unique_artists),

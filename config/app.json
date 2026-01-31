@@ -7,7 +7,9 @@
   "server": {
     "host": "127.0.0.1",
     "port": 8000,
-    "cors_origins": ["http://localhost:5173"]
+    "cors_origins": [
+      "http://localhost:5173"
+    ]
   },
   "database": {
     "url": "sqlite:///data/musique.db",
@@ -26,6 +28,8 @@
     "listen_start_hour": 8,
     "listen_end_hour": 22
   },
+  "roon_server": "192.168.1.253",
+  "roon_token": "e729179f-2e37-4494-b494-c9054522350d",
   "scheduler": {
     "enabled": true,
     "tasks": [

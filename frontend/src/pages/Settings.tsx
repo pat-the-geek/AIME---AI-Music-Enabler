@@ -192,7 +192,7 @@ export default function Settings() {
         setSnackbar({
           open: true,
           message: `⚠️ Impossible de se connecter: ${data.error || 'Erreur inconnue'}`,
-          severity: 'warning'
+          severity: 'error'
         })
       }
     },
@@ -207,7 +207,7 @@ export default function Settings() {
 
   const handleTestRoonConnection = async () => {
     if (!roonServer.trim()) {
-      setSnackbar({ open: true, message: '⚠️ Veuillez saisir une adresse serveur', severity: 'warning' })
+      setSnackbar({ open: true, message: '⚠️ Veuillez saisir une adresse serveur', severity: 'error' })
       return
     }
     setTestingRoonConnection(true)
@@ -217,7 +217,7 @@ export default function Settings() {
 
   const handleSaveRoonConfig = () => {
     if (!roonServer.trim()) {
-      setSnackbar({ open: true, message: '⚠️ Veuillez saisir une adresse serveur', severity: 'warning' })
+      setSnackbar({ open: true, message: '⚠️ Veuillez saisir une adresse serveur', severity: 'error' })
       return
     }
     saveRoonConfigMutation.mutate(roonServer)
@@ -415,15 +415,15 @@ export default function Settings() {
             </Alert>
           )}
 
-          {allServicesStatus?.roon_tracker && !allServicesStatus.roon_tracker.connected && (
+          {roonStatus?.configured && !roonStatus?.connected && (
             <Alert severity="error" sx={{ mb: 2 }}>
-              ❌ Non connecté au serveur Roon ({allServicesStatus.roon_tracker.server || 'non configuré'})
+              ❌ Non connecté au serveur Roon ({roonStatus?.server || 'non configuré'})
             </Alert>
           )}
 
-          {allServicesStatus?.roon_tracker?.connected && (
+          {roonStatus?.connected && (
             <Alert severity="info" sx={{ mb: 2 }}>
-              📡 Connecté au serveur Roon - {allServicesStatus.roon_tracker.zones_count || 0} zone(s) disponible(s)
+              📡 Connecté au serveur Roon - {roonStatus?.zones_count || 0} zone(s) disponible(s)
             </Alert>
           )}
 

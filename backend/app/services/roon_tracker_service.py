@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class RoonTrackerService:
     """Service de tracking Roon en arrière-plan."""
     
-    def __init__(self, config: dict):
+    def __init__(self, config: dict, roon_service: 'RoonService' = None):
         self.config = config
         self.scheduler = AsyncIOScheduler()
         self.is_running = False
@@ -29,13 +29,25 @@ class RoonTrackerService:
         spotify_config = config.get('spotify', {})
         euria_config = config.get('euria', {})
         
-        # Récupérer l'adresse du serveur (priorité à roon_server pour compatibilité)
-        roon_server = config.get('roon_server') or roon_config.get('server')
-        
-        self.roon = RoonService(
-            server=roon_server,
-            token=roon_config.get('token')
-        )
+        # Utiliser l'instance Roon passée en paramètre (singleton partagé)
+        # ou en créer une nouvelle si nécessaire
+        if roon_service is not None:
+            self.roon = roon_service
+        else:
+            # Récupérer l'adresse du serveur (priorité à roon_server pour compatibilité)
+            roon_server = config.get('roon_server') or roon_config.get('server')
+            
+            # N'initialiser RoonService que si serveur est configuré
+            self.roon = None
+            if roon_server:
+                try:
+                    self.roon = RoonService(
+                        server=roon_server,
+                        token=roon_config.get('token')
+                    )
+                except Exception as e:
+                    logger.error(f"❌ Erreur initialisation RoonService: {e}")
+                    self.roon = None
         
         self.spotify = SpotifyService(
             client_id=spotify_config.get('client_id'),
@@ -55,7 +67,7 @@ class RoonTrackerService:
             logger.info("🎵 Tracker Roon déjà en cours d'exécution")
             return
         
-        if not self.roon.is_connected():
+        if not self.roon or not self.roon.is_connected():
             logger.error("❌ Impossible de démarrer le tracker Roon: non connecté au serveur")
             return
         
@@ -86,19 +98,32 @@ class RoonTrackerService:
         """Obtenir le statut du tracker."""
         next_run_time = None
         if self.is_running:
-            job = self.scheduler.get_job('roon_tracker')
-            if job and job.next_run_time:
-                next_run_time = job.next_run_time.isoformat()
+            try:
+                job = self.scheduler.get_job('roon_tracker')
+                if job and job.next_run_time:
+                    next_run_time = job.next_run_time.isoformat()
+            except Exception as e:
+                logger.warning(f"⚠️ Erreur obtention next_run_time: {e}")
+        
+        # Obtenir les zones de manière sécurisée
+        zones_count = 0
+        try:
+            if self.roon.is_connected():
+                zones = self.roon.get_zones()
+                zones_count = len(zones) if zones else 0
+        except Exception as e:
+            logger.warning(f"⚠️ Erreur obtention zones Roon: {e}")
         
         return {
             "running": self.is_running,
-            "connected": self.roon.is_connected(),
+            "connected": self.roon.is_connected() if self.roon else False,
+            "configured": self.config.get('roon_server') is not None,
             "last_track": self.last_track_key,
             "interval_seconds": self.config.get('roon_tracker', {}).get('interval_seconds', 120),
             "last_poll_time": self.last_poll_time.isoformat() if self.last_poll_time else None,
             "next_run_time": next_run_time,
-            "server": self.config.get('roon', {}).get('server'),
-            "zones_count": len(self.roon.get_zones())
+            "server": self.config.get('roon_server') or self.config.get('roon', {}).get('server'),
+            "zones_count": zones_count
         }
     
     async def _poll_roon(self):
@@ -271,11 +296,13 @@ class RoonTrackerService:
                 db.flush()
             
             # Enregistrer l'écoute avec source Roon
-            timestamp = int(datetime.now().timestamp())
+            now = datetime.now(timezone.utc)
             history = ListeningHistory(
                 track_id=track.id,
-                timestamp=timestamp,
-                source='roon'  # Identifier la source
+                timestamp=int(now.timestamp()),
+                date=now.strftime("%Y-%m-%d %H:%M"),
+                source='roon',  # Identifier la source
+                loved=False
             )
             db.add(history)
             

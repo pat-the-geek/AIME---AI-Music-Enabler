@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session, joinedload
 from datetime import datetime, timezone
 from pydantic import BaseModel
+import logging
 
 from app.database import get_db
 from app.core.config import get_settings
@@ -16,6 +17,7 @@ from app.services.ai_service import AIService
 from app.services.lastfm_service import LastFMService
 from app.models import Album, Artist, Image, Metadata, Track, ListeningHistory
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
@@ -62,7 +64,9 @@ def get_roon_tracker():
         settings = get_settings()
         # Fusionner secrets et app_config pour le tracker Roon
         config = {**settings.secrets, **settings.app_config}
-        _roon_tracker_instance = RoonTrackerService(config)
+        # Passer l'instance Roon persistante au tracker
+        roon_service = get_roon_service()
+        _roon_tracker_instance = RoonTrackerService(config, roon_service=roon_service)
     return _roon_tracker_instance
 
 
@@ -91,9 +95,15 @@ def get_roon_service():
         if hasattr(_roon_service_instance, 'server') and _roon_service_instance.server == roon_server:
             return _roon_service_instance
     
-    # Créer une nouvelle instance avec le nouveau serveur
+    # Callback pour sauvegarder le token quand il est reçu
+    def save_token(token: str):
+        settings.app_config['roon_token'] = token
+        settings.save_app_config()
+        logger.info(f"💾 Token Roon sauvegardé dans la configuration")
+    
+    # Créer une nouvelle instance avec le nouveau serveur et le callback de sauvegarde
     roon_token = settings.app_config.get('roon_token')
-    _roon_service_instance = RoonService(server=roon_server, token=roon_token)
+    _roon_service_instance = RoonService(server=roon_server, token=roon_token, on_token_received=save_token)
     return _roon_service_instance
 
 

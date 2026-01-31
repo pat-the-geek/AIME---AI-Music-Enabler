@@ -1,6 +1,8 @@
 """Service d'intégration avec Roon via pyroon."""
 import logging
-from typing import Optional, Dict
+import threading
+import time
+from typing import Optional, Dict, Callable
 from roonapi import RoonApi
 
 logger = logging.getLogger(__name__)
@@ -9,16 +11,19 @@ logger = logging.getLogger(__name__)
 class RoonService:
     """Service pour communiquer avec Roon."""
     
-    def __init__(self, server: str, token: Optional[str] = None, app_info: Optional[Dict] = None):
+    def __init__(self, server: str, token: Optional[str] = None, app_info: Optional[Dict] = None, 
+                 on_token_received: Optional[Callable[[str], None]] = None):
         """Initialiser le service Roon.
         
         Args:
             server: Adresse IP du serveur Roon (ex: "192.168.1.100")
             token: Token d'authentification sauvegardé (optionnel)
             app_info: Informations sur l'application (optionnel)
+            on_token_received: Callback appelé quand un nouveau token est reçu
         """
         self.server = server
         self._token = token
+        self.on_token_received = on_token_received
         
         # Informations par défaut de l'application
         self.app_info = app_info or {
@@ -31,17 +36,45 @@ class RoonService:
         
         self.roon_api = None
         self.zones = {}
-        self._connect()
+        
+        # Connecter avec timeout pour éviter blocage
+        self._connect_with_timeout()
+    
+    def _connect_with_timeout(self, timeout: int = 3):
+        """Se connecter avec timeout pour éviter blocage indéfini."""
+        thread = threading.Thread(target=self._connect, daemon=True)
+        thread.start()
+        thread.join(timeout=timeout)
+        
+        if thread.is_alive():
+            logger.warning(f"⚠️ Timeout connexion Roon après {timeout}s - serveur peut être inaccessible")
+            self.roon_api = None
     
     def _connect(self):
         """Se connecter au serveur Roon."""
         try:
-            self.roon_api = RoonApi(self.app_info, self._token, self.server)
+            # RoonApi nécessite (app_info, token, host, port)
+            # Port par défaut Roon : 9330
+            self.roon_api = RoonApi(self.app_info, self._token, self.server, 9330)
             
             # Enregistrer le callback pour les changements d'état
             self.roon_api.register_state_callback(self._state_callback)
             
-            logger.info(f"✅ Connecté au serveur Roon: {self.server}")
+            # Donner un peu de temps à RoonApi pour se connecter et obtenir le token
+            time.sleep(1)
+            
+            # Essayer d'extraire le token après approbation
+            if self.roon_api and hasattr(self.roon_api, 'token') and self.roon_api.token:
+                new_token = self.roon_api.token
+                # Si c'est un nouveau token (pas le même qu'avant), le sauvegarder
+                if new_token != self._token:
+                    logger.info(f"✅ Nouveau token Roon reçu après approbation")
+                    self._token = new_token
+                    # Appeler le callback pour sauvegarder le token
+                    if self.on_token_received:
+                        self.on_token_received(new_token)
+            
+            logger.info(f"✅ Connecté au serveur Roon: {self.server}:9330")
         except Exception as e:
             logger.error(f"❌ Erreur connexion Roon: {e}")
             self.roon_api = None
