@@ -50,9 +50,11 @@ class Settings(BaseSettings):
     listen_start_hour: int = 6
     listen_end_hour: int = 23
     
-    # Cache pour les configurations chargées
-    _app_config_cache: dict = None
-    _secrets_cache: dict = None
+    def __init__(self, **kwargs):
+        """Initialiser avec cache."""
+        super().__init__(**kwargs)
+        self._app_config_cache = None
+        self._secrets_cache = None
     
     def load_config_file(self, filename: str) -> dict:
         """Charger un fichier de configuration JSON."""
