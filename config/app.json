@@ -38,12 +38,25 @@
   },
   "scheduler": {
     "enabled": true,
+    "output_dir": "Scheduled Output",
     "tasks": [
       {
         "name": "generate_haiku",
         "enabled": true,
         "frequency": 1,
-        "unit": "week"
+        "unit": "day"
+      },
+      {
+        "name": "export_collection_markdown",
+        "enabled": true,
+        "frequency": 1,
+        "unit": "day"
+      },
+      {
+        "name": "export_collection_json",
+        "enabled": true,
+        "frequency": 1,
+        "unit": "day"
       },
       {
         "name": "analyze_patterns",

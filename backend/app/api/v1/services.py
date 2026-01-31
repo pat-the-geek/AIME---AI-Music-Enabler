@@ -313,6 +313,9 @@ async def trigger_scheduler_task(task_name: str):
     
     Tasks disponibles:
     - daily_enrichment: Enrichissement quotidien (50 albums)
+    - generate_haiku_scheduled: Génération haikus pour 5 albums aléatoires
+    - export_collection_markdown: Export collection en markdown
+    - export_collection_json: Export collection en JSON
     - weekly_haiku: Génération de haïku hebdomadaire
     - monthly_analysis: Analyse mensuelle des patterns
     - optimize_ai_descriptions: Optimiser descriptions IA des albums populaires

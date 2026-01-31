@@ -1,7 +1,7 @@
 """Service de scheduler optimisé par IA pour tâches intelligentes."""
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from sqlalchemy.orm import Session
 from collections import Counter
 import logging
@@ -48,6 +48,30 @@ class SchedulerService:
             self._daily_enrichment,
             trigger=CronTrigger(hour=2, minute=0),  # 2h du matin
             id='daily_enrichment',
+            replace_existing=True
+        )
+        
+        # Tâche quotidienne : générer haikus pour 5 albums random
+        self.scheduler.add_job(
+            self._generate_random_haikus,
+            trigger=CronTrigger(hour=6, minute=0),  # 6h du matin
+            id='generate_haiku_scheduled',
+            replace_existing=True
+        )
+        
+        # Tâche quotidienne : exporter collection en markdown
+        self.scheduler.add_job(
+            self._export_collection_markdown,
+            trigger=CronTrigger(hour=8, minute=0),  # 8h du matin
+            id='export_collection_markdown',
+            replace_existing=True
+        )
+        
+        # Tâche quotidienne : exporter collection en JSON
+        self.scheduler.add_job(
+            self._export_collection_json,
+            trigger=CronTrigger(hour=10, minute=0),  # 10h du matin
+            id='export_collection_json',
             replace_existing=True
         )
         
@@ -292,10 +316,201 @@ class SchedulerService:
         finally:
             db.close()
     
+    async def _generate_random_haikus(self):
+        """Générer haikus pour 5 albums aléatoires et exporter."""
+        from datetime import timezone
+        import random
+        import json
+        import os
+        
+        self.last_executions['generate_haiku_scheduled'] = datetime.now(timezone.utc).isoformat()
+        logger.info("🎋 Génération haikus pour 5 albums random")
+        db = SessionLocal()
+        
+        try:
+            # Récupérer 5 albums aléatoires
+            all_albums = db.query(Album).all()
+            if len(all_albums) < 5:
+                logger.warning("Pas assez d'albums pour générer haikus")
+                return
+            
+            selected_albums = random.sample(all_albums, 5)
+            
+            # Générer markdown avec haikus
+            from io import StringIO
+            markdown_content = StringIO()
+            markdown_content.write("# 🎵 Haikus Générés - Sélection Aléatoire\n\n")
+            markdown_content.write(f"Généré: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n\n")
+            
+            for i, album in enumerate(selected_albums, 1):
+                artist_name = album.artists[0].name if album.artists else "Artiste inconnu"
+                
+                markdown_content.write(f"## {i}. {album.title} - {artist_name}\n\n")
+                
+                # Générer haiku
+                haiku_data = {
+                    'album_title': album.title,
+                    'artist_name': artist_name,
+                    'genre': album.genre or 'Genre inconnu'
+                }
+                
+                try:
+                    haiku = await self.ai.generate_haiku(haiku_data)
+                    markdown_content.write(f"```\n{haiku}\n```\n\n")
+                except Exception as e:
+                    logger.error(f"Erreur génération haiku pour {album.title}: {e}")
+                    markdown_content.write(f"```\n[Haiku non disponible]\n```\n\n")
+            
+            # Créer répertoire s'il n'existe pas
+            output_dir = self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output')
+            os.makedirs(output_dir, exist_ok=True)
+            
+            # Générer nom fichier avec date/heure
+            timestamp = datetime.now().strftime('%Y%m%d-%H%M%S')
+            filename = f"generate-haiku-{timestamp}.md"
+            filepath = os.path.join(output_dir, filename)
+            
+            # Sauvegarder fichier
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(markdown_content.getvalue())
+            
+            logger.info(f"✅ Haikus sauvegardés: {filepath}")
+            
+        except Exception as e:
+            logger.error(f"❌ Erreur génération haikus: {e}")
+        finally:
+            db.close()
+    
+    async def _export_collection_markdown(self):
+        """Exporter la collection complète en markdown."""
+        from datetime import timezone
+        import os
+        
+        self.last_executions['export_collection_markdown'] = datetime.now(timezone.utc).isoformat()
+        logger.info("📝 Export collection en markdown")
+        db = SessionLocal()
+        
+        try:
+            # Récupérer tous les albums
+            albums = db.query(Album).all()
+            
+            if not albums:
+                logger.warning("Aucun album à exporter")
+                return
+            
+            # Générer markdown
+            from io import StringIO
+            markdown_content = StringIO()
+            markdown_content.write("# 📚 Collection Complète\n\n")
+            markdown_content.write(f"Exporté: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n")
+            markdown_content.write(f"Total albums: {len(albums)}\n\n")
+            
+            # Grouper par artiste
+            by_artist = {}
+            for album in albums:
+                for artist in album.artists:
+                    if artist.name not in by_artist:
+                        by_artist[artist.name] = []
+                    by_artist[artist.name].append(album)
+            
+            # Écrire contenu
+            for artist_name in sorted(by_artist.keys()):
+                markdown_content.write(f"## 🎤 {artist_name}\n\n")
+                
+                for album in by_artist[artist_name]:
+                    year_info = f" ({album.year})" if album.year else ""
+                    markdown_content.write(f"- **{album.title}**{year_info}\n")
+                    
+                    if album.description:
+                        markdown_content.write(f"  - {album.description[:100]}...\n")
+                
+                markdown_content.write("\n")
+            
+            # Créer répertoire s'il n'existe pas
+            output_dir = self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output')
+            os.makedirs(output_dir, exist_ok=True)
+            
+            # Générer nom fichier avec date/heure
+            timestamp = datetime.now().strftime('%Y%m%d-%H%M%S')
+            filename = f"export-markdown-{timestamp}.md"
+            filepath = os.path.join(output_dir, filename)
+            
+            # Sauvegarder fichier
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(markdown_content.getvalue())
+            
+            logger.info(f"✅ Collection markdown sauvegardée: {filepath}")
+            
+        except Exception as e:
+            logger.error(f"❌ Erreur export markdown: {e}")
+        finally:
+            db.close()
+    
+    async def _export_collection_json(self):
+        """Exporter la collection complète en JSON."""
+        from datetime import timezone
+        import json
+        import os
+        
+        self.last_executions['export_collection_json'] = datetime.now(timezone.utc).isoformat()
+        logger.info("📊 Export collection en JSON")
+        db = SessionLocal()
+        
+        try:
+            # Récupérer tous les albums
+            albums = db.query(Album).all()
+            
+            if not albums:
+                logger.warning("Aucun album à exporter")
+                return
+            
+            # Préparer données JSON
+            collection_data = {
+                'export_date': datetime.now().isoformat(),
+                'total_albums': len(albums),
+                'albums': []
+            }
+            
+            for album in albums:
+                album_data = {
+                    'id': album.id,
+                    'title': album.title,
+                    'year': album.year,
+                    'genre': album.genre,
+                    'description': album.description,
+                    'spotify_url': album.spotify_url,
+                    'artists': [artist.name for artist in album.artists],
+                    'tracks_count': len(album.tracks) if album.tracks else 0
+                }
+                collection_data['albums'].append(album_data)
+            
+            # Créer répertoire s'il n'existe pas
+            output_dir = self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output')
+            os.makedirs(output_dir, exist_ok=True)
+            
+            # Générer nom fichier avec date/heure
+            timestamp = datetime.now().strftime('%Y%m%d-%H%M%S')
+            filename = f"export-json-{timestamp}.json"
+            filepath = os.path.join(output_dir, filename)
+            
+            # Sauvegarder fichier
+            with open(filepath, 'w', encoding='utf-8') as f:
+                json.dump(collection_data, f, ensure_ascii=False, indent=2)
+            
+            logger.info(f"✅ Collection JSON sauvegardée: {filepath}")
+            
+        except Exception as e:
+            logger.error(f"❌ Erreur export JSON: {e}")
+        finally:
+            db.close()
+    
     async def trigger_task(self, task_name: str) -> dict:
         """Déclencher manuellement une tâche."""
         tasks = {
             'daily_enrichment': self._daily_enrichment,
+            'generate_haiku_scheduled': self._generate_random_haikus,
+            'export_collection_markdown': self._export_collection_markdown,
+            'export_collection_json': self._export_collection_json,
             'weekly_haiku': self._weekly_haiku,
             'monthly_analysis': self._monthly_analysis,
             'optimize_ai_descriptions': self._optimize_ai_descriptions
