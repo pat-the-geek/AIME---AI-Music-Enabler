@@ -250,7 +250,7 @@ class RoonTrackerService:
             # Créer/récupérer album
             album = db.query(Album).filter_by(title=album_title).first()
             if not album:
-                album = Album(title=album_title, support="Roon")
+                album = Album(title=album_title, source='roon', support='Roon')
                 if artist not in album.artists:
                     album.artists.append(artist)
                 db.add(album)

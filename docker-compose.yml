@@ -11,12 +11,47 @@ services:
     volumes:
       - ./data:/app/data
       - ./config:/app/config
+      - ./backend:/app/backend
     environment:
       - ENVIRONMENT=production
       - PYTHONUNBUFFERED=1
+      - PROJECT_ROOT=/app
     restart: unless-stopped
     networks:
       - music-tracker-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      - init-db
+    labels:
+      - "com.aime.service=backend"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  init-db:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: music-tracker-init
+    command: python -c "from app.database import init_db; init_db(); print('Database initialized')"
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    environment:
+      - ENVIRONMENT=production
+      - PYTHONUNBUFFERED=1
+      - PROJECT_ROOT=/app
+    networks:
+      - music-tracker-network
+    profiles:
+      - init
 
   frontend:
     build:
@@ -25,12 +60,33 @@ services:
     container_name: music-tracker-frontend
     ports:
       - "80:80"
-    depends_on:
-      - backend
     restart: unless-stopped
     networks:
       - music-tracker-network
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    labels:
+      - "com.aime.service=frontend"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 networks:
   music-tracker-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  data:
+  config:

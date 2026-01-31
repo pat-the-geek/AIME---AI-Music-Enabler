@@ -222,7 +222,7 @@ class TrackerService:
             # Créer/récupérer album
             album = db.query(Album).filter_by(title=album_title).first()
             if not album:
-                album = Album(title=album_title)
+                album = Album(title=album_title, source='lastfm')
                 if artist not in album.artists:
                     album.artists.append(artist)
                 db.add(album)

@@ -17,7 +17,7 @@ from fastapi.exceptions import RequestValidationError
 from app.core.config import get_settings
 from app.core.exception_handler import setup_exception_handlers, add_process_time_header, add_request_id_header
 from app.database import init_db, engine
-from app.api.v1 import collection, history, playlists, services, search
+from app.api.v1 import collection, history, playlists, services, search, analytics
 
 # Configuration du logging amélioré
 logging.basicConfig(
@@ -38,25 +38,36 @@ async def lifespan(app: FastAPI):
     """Gestion du cycle de vie de l'application."""
     # Startup
     try:
-        logger.info("Démarrage de l'application AIME - AI Music Enabler")
+        logger.info("🚀 Démarrage de l'application AIME - AI Music Enabler")
+        
+        # Initialiser la base de données
         init_db()
-        logger.info("Base de données initialisée")
+        logger.info("✅ Base de données initialisée")
+        
+        # Valider les composants au démarrage
+        from app.services.health_monitor import health_monitor
+        if not health_monitor.validate_startup():
+            logger.error("❌ Startup validation failed - aborting")
+            raise RuntimeError("Application startup validation failed")
+        
+        logger.info("✅ Tous les composants validés")
         global services_initialized
         services_initialized = True
+        logger.info("✅ Application ready to serve requests")
     except Exception as e:
-        logger.error(f"Erreur lors du démarrage: {e}", exc_info=True)
-        raise
+        logger.error(f"❌ Erreur lors du démarrage: {e}", exc_info=True)
+        raise RuntimeError(f"Failed to start application: {str(e)}")
     
     yield
     
     # Shutdown
     try:
-        logger.info("Arrêt de l'application AIME - AI Music Enabler")
+        logger.info("🛑 Arrêt de l'application AIME - AI Music Enabler")
         # Dispose du pool de connexions
         engine.dispose()
-        logger.info("Ressources libérées")
+        logger.info("✅ Ressources libérées")
     except Exception as e:
-        logger.error(f"Erreur lors de l'arrêt: {e}", exc_info=True)
+        logger.error(f"❌ Erreur lors de l'arrêt: {e}", exc_info=True)
 
 # Créer l'application FastAPI avec lifespan
 app = FastAPI(
@@ -87,6 +98,7 @@ setup_exception_handlers(app)
 # Inclure les routers
 app.include_router(collection.router, prefix="/api/v1/collection", tags=["Collection"])
 app.include_router(history.router, prefix="/api/v1/history", tags=["History"])
+app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["Analytics"])
 app.include_router(playlists.router, prefix="/api/v1/playlists", tags=["Playlists"])
 app.include_router(services.router, prefix="/api/v1/services", tags=["Services"])
 app.include_router(search.router, prefix="/api/v1/search", tags=["Search"])

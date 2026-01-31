@@ -30,6 +30,12 @@
   },
   "roon_server": "192.168.1.253",
   "roon_token": "e729179f-2e37-4494-b494-c9054522350d",
+  "euria": {
+    "url": "https://api.infomaniak.com/2/ai/106561/openai/v1/chat/completions",
+    "bearer": "xAw7abygtFt9iB0cOJANoFPpkjPwjtSwTycaS_AGBd9sQedV11GH1ejHfYzL8zz3nWNNIL15pv18nkf2",
+    "max_attempts": 5,
+    "default_error_message": "Aucune information disponible"
+  },
   "scheduler": {
     "enabled": true,
     "tasks": [

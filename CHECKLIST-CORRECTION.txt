@@ -1,0 +1,161 @@
+📋 CORRECTION DISCOGS - CHECKLIST FINALE
+=========================================
+
+ORGANISATION DU RÉPERTOIRE PRINCIPAL
+====================================
+
+📚 Documentation Principale
+  - README.md                          (Guide principal du projet)
+  - STRUCTURE.md                       (Arborescence complète)
+  - PROJECT-SUMMARY.md                 (Résumé du projet)
+  
+🔧 Configuration & Déploiement
+  - docker-compose.yml                 (Orchestration des services)
+  - DEPLOYMENT-REPORT.sh               (Rapport de déploiement)
+  - INSTALLATION-CHECKLIST.md          (Checklist d'installation)
+
+📋 Rapports & Audits
+  - AUDIT-INFRASTRUCTURE-2026-01-31.md (Audit infrastructure)
+  - RAPPORT-CORRECTION-DISCOGS.md      (Rapport correction source)
+  - CORRECTION-COMPLETE.md             (Rapport complétion)
+  - STATUS.md                          (Statut actuel)
+  
+🧪 Tests & Validation
+  - TESTING.md                         (Documentation tests)
+  - ROBUSTNESS-QUICKSTART.md           (Guide robustesse)
+  - ROBUSTNESS-SUMMARY.md              (Résumé robustesse)
+  
+✨ Features & Améliorations
+  - EXPORT-MARKDOWN-FEATURE.md         (Feature export markdown)
+  - CHECKLIST-CORRECTION.txt           (Ce fichier - Organisation)
+
+📁 Répertoires Principaux
+  - /backend                           (API FastAPI + logique métier)
+  - /frontend                          (Application React + TypeScript)
+  - /docs                              (Documentation détaillée)
+  - /scripts                           (Scripts utilitaires)
+  - /config                            (Fichiers de configuration)
+  - /data                              (Base de données & backups)
+  - /Screen captures                   (Captures d'écran UI)
+
+✅ TÂCHES COMPLÉTÉES
+
+Base de Données
+  ✅ Ajout colonne 'source' (TEXT, NOT NULL)
+  ✅ Index sur 'source' créé
+  ✅ Migration appliquée sur musique.db
+  ✅ 235 albums Discogs marqués
+  ✅ 1 album Roon réidentifié
+  ✅ 159 albums manual préservés
+
+Modèles
+  ✅ Album.py - Ajout colonne source
+  ✅ Album.py - Ajout classe AlbumSource
+  ✅ Album.py - Méthodes is_collection_album() et is_valid_support()
+
+Code
+  ✅ discogs_service.py - Albums marqués source='discogs'
+  ✅ tracker_service.py - Albums marqués source='lastfm'
+  ✅ roon_tracker_service.py - Albums marqués source='roon'
+  ✅ collection.py - API /albums filtrée sur Discogs uniquement
+  ✅ collection.py - Nouveau endpoint /listenings
+  ✅ collection.py - Nouveau endpoint /source-stats
+
+Scripts
+  ✅ migrate_add_source.py - Migration
+  ✅ validate_correction.py - Validation (PASSÉ)
+  ✅ cleanup_check.py - Nettoyage/vérification
+  ✅ init_db.py - Initialisation
+
+Documentation
+  ✅ CORRECTION-DISCOGS-SOURCE.md
+  ✅ TYPES-SUPPORT.md
+  ✅ RAPPORT-CORRECTION-DISCOGS.md
+  ✅ CORRECTION-COMPLETE.md
+  ✅ Ce checklist
+
+Validations
+  ✅ Tous les albums Discogs ont discogs_id
+  ✅ Tous les supports Discogs sont valides (Vinyle/CD/Unknown)
+  ✅ Aucun album sans source
+  ✅ Toutes les relations intactes
+  ✅ Pas d'albums orphelins
+
+RÉSUMÉ FINAL
+============
+
+Collection Discogs: 235 albums ✅
+Albums d'écoutes: 160 albums ✅
+Total: 395 albums
+
+Sources identifiées:
+  - discogs: 235
+  - manual: 159
+  - roon: 1
+
+Supports Discogs:
+  - Vinyle: 154 ✓
+  - CD: 78 ✓
+  - Unknown: 3 ✓
+
+FICHIERS MODIFIÉS
+=================
+
+Créés (9):
+  - backend/migrate_add_source.py
+  - backend/validate_correction.py
+  - backend/cleanup_check.py
+  - backend/init_db.py
+  - backend/alembic/env.py
+  - backend/alembic/versions/001_add_source_column.py
+  - backend/alembic/versions/002_fix_invalid_supports.py
+  - docs/CORRECTION-DISCOGS-SOURCE.md
+  - docs/TYPES-SUPPORT.md
+
+Modifiés (6):
+  - backend/app/models/album.py (+source)
+  - backend/app/api/v1/services.py (+source='discogs')
+  - backend/app/api/v1/collection.py (+filtre, +2 endpoints)
+  - backend/app/services/tracker_service.py (+source='lastfm')
+  - backend/app/services/roon_tracker_service.py (+source='roon')
+  - backend/migrate_source_column.sh
+
+Rapports (2):
+  - RAPPORT-CORRECTION-DISCOGS.md
+  - CORRECTION-COMPLETE.md
+
+API ENDPOINTS
+=============
+
+Discogs Collection (Filtré):
+  GET /api/v1/collection/albums
+  → 235 albums uniquement
+
+Écoutes (Non-Discogs):
+  GET /api/v1/collection/listenings
+  → 160 albums
+
+Statistiques Complètes:
+  GET /api/v1/collection/source-stats
+  → Vue par source
+
+Stats Discogs:
+  GET /api/v1/collection/stats
+  → Stats Discogs uniquement
+
+USAGE
+=====
+
+Valider la correction:
+  cd backend
+  python3 validate_correction.py ../data/musique.db
+
+Vérifier les anomalies:
+  python3 cleanup_check.py ../data/musique.db check
+
+Déplacer un album (si nécessaire):
+  python3 cleanup_check.py ../data/musique.db move 123 lastfm
+
+STATUS: ✅ COMPLÉTÉE ET VALIDÉE
+Date: 31 janvier 2026
+Intégrité: 100% ✓

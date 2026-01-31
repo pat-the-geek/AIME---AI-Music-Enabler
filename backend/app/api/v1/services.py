@@ -441,6 +441,7 @@ async def sync_discogs_collection(
                     title=album_data['title'],
                     year=year,
                     support=support,
+                    source='discogs',  # Marquer comme album de collection Discogs
                     discogs_id=str(album_data['release_id']),
                     discogs_url=album_data.get('discogs_url'),
                     spotify_url=spotify_url
