@@ -39,36 +39,59 @@
   "scheduler": {
     "enabled": true,
     "output_dir": "Scheduled Output",
+    "max_files_per_type": 5,
     "tasks": [
       {
-        "name": "generate_haiku",
+        "name": "daily_enrichment",
         "enabled": true,
         "frequency": 1,
-        "unit": "day"
+        "unit": "day",
+        "time": "02:00"
+      },
+      {
+        "name": "generate_haiku_scheduled",
+        "enabled": true,
+        "frequency": 1,
+        "unit": "day",
+        "time": "06:00",
+        "description": "Génération haikus pour 5 albums aléatoires"
       },
       {
         "name": "export_collection_markdown",
         "enabled": true,
         "frequency": 1,
-        "unit": "day"
+        "unit": "day",
+        "time": "08:00",
+        "description": "Export collection en markdown"
       },
       {
         "name": "export_collection_json",
         "enabled": true,
         "frequency": 1,
-        "unit": "day"
+        "unit": "day",
+        "time": "10:00",
+        "description": "Export collection en JSON"
       },
       {
-        "name": "analyze_patterns",
+        "name": "weekly_haiku",
         "enabled": true,
         "frequency": 1,
-        "unit": "week"
+        "unit": "week",
+        "time": "20:00",
+        "day": "sunday"
       },
       {
-        "name": "sync_discogs",
+        "name": "monthly_analysis",
         "enabled": true,
         "frequency": 1,
-        "unit": "month"
+        "unit": "month",
+        "time": "03:00"
+      },
+      {
+        "name": "optimize_ai_descriptions",
+        "enabled": true,
+        "frequency": 6,
+        "unit": "hour"
       }
     ]
   }

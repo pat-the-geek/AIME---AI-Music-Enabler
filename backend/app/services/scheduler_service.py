@@ -5,6 +5,7 @@ from datetime import datetime, timedelta, timezone
 from sqlalchemy.orm import Session
 from collections import Counter
 import logging
+import os
 
 from app.database import SessionLocal
 from app.services.ai_service import AIService
@@ -318,10 +319,9 @@ class SchedulerService:
     
     async def _generate_random_haikus(self):
         """Générer haikus pour 5 albums aléatoires et exporter."""
-        from datetime import timezone
         import random
         import json
-        import os
+        from io import StringIO
         
         self.last_executions['generate_haiku_scheduled'] = datetime.now(timezone.utc).isoformat()
         logger.info("🎋 Génération haikus pour 5 albums random")
@@ -337,7 +337,6 @@ class SchedulerService:
             selected_albums = random.sample(all_albums, 5)
             
             # Générer markdown avec haikus
-            from io import StringIO
             markdown_content = StringIO()
             markdown_content.write("# 🎵 Haikus Générés - Sélection Aléatoire\n\n")
             markdown_content.write(f"Généré: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n\n")
@@ -351,7 +350,7 @@ class SchedulerService:
                 haiku_data = {
                     'album_title': album.title,
                     'artist_name': artist_name,
-                    'genre': album.genre or 'Genre inconnu'
+                    'year': album.year or 'Année inconnue'
                 }
                 
                 try:
@@ -361,8 +360,15 @@ class SchedulerService:
                     logger.error(f"Erreur génération haiku pour {album.title}: {e}")
                     markdown_content.write(f"```\n[Haiku non disponible]\n```\n\n")
             
-            # Créer répertoire s'il n'existe pas
-            output_dir = self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output')
+            # Créer chemin absolu pour le répertoire de sortie
+            # __file__ = /backend/app/services/scheduler_service.py
+            # Remonter 4 fois pour atteindre la racine du projet
+            current_dir = os.path.abspath(__file__)
+            for _ in range(4):
+                current_dir = os.path.dirname(current_dir)
+            project_root = current_dir
+            output_dir = os.path.join(project_root, self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output'))
+            
             os.makedirs(output_dir, exist_ok=True)
             
             # Générer nom fichier avec date/heure
@@ -376,15 +382,20 @@ class SchedulerService:
             
             logger.info(f"✅ Haikus sauvegardés: {filepath}")
             
+            # Nettoyer les anciens fichiers
+            self._cleanup_old_files()
+            
         except Exception as e:
             logger.error(f"❌ Erreur génération haikus: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
         finally:
             db.close()
     
     async def _export_collection_markdown(self):
         """Exporter la collection complète en markdown."""
-        from datetime import timezone
-        import os
+        import json
+        from io import StringIO
         
         self.last_executions['export_collection_markdown'] = datetime.now(timezone.utc).isoformat()
         logger.info("📝 Export collection en markdown")
@@ -399,7 +410,6 @@ class SchedulerService:
                 return
             
             # Générer markdown
-            from io import StringIO
             markdown_content = StringIO()
             markdown_content.write("# 📚 Collection Complète\n\n")
             markdown_content.write(f"Exporté: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n")
@@ -419,15 +429,20 @@ class SchedulerService:
                 
                 for album in by_artist[artist_name]:
                     year_info = f" ({album.year})" if album.year else ""
-                    markdown_content.write(f"- **{album.title}**{year_info}\n")
-                    
-                    if album.description:
-                        markdown_content.write(f"  - {album.description[:100]}...\n")
+                    support_info = f" [{album.support}]" if album.support else ""
+                    markdown_content.write(f"- **{album.title}**{year_info}{support_info}\n")
                 
                 markdown_content.write("\n")
             
-            # Créer répertoire s'il n'existe pas
-            output_dir = self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output')
+            # Créer chemin absolu pour le répertoire de sortie
+            # __file__ = /backend/app/services/scheduler_service.py
+            # Remonter 4 fois pour atteindre la racine du projet
+            current_dir = os.path.abspath(__file__)
+            for _ in range(4):
+                current_dir = os.path.dirname(current_dir)
+            project_root = current_dir
+            output_dir = os.path.join(project_root, self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output'))
+            
             os.makedirs(output_dir, exist_ok=True)
             
             # Générer nom fichier avec date/heure
@@ -441,16 +456,19 @@ class SchedulerService:
             
             logger.info(f"✅ Collection markdown sauvegardée: {filepath}")
             
+            # Nettoyer les anciens fichiers
+            self._cleanup_old_files()
+            
         except Exception as e:
             logger.error(f"❌ Erreur export markdown: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
         finally:
             db.close()
     
     async def _export_collection_json(self):
         """Exporter la collection complète en JSON."""
-        from datetime import timezone
         import json
-        import os
         
         self.last_executions['export_collection_json'] = datetime.now(timezone.utc).isoformat()
         logger.info("📊 Export collection en JSON")
@@ -476,16 +494,23 @@ class SchedulerService:
                     'id': album.id,
                     'title': album.title,
                     'year': album.year,
-                    'genre': album.genre,
-                    'description': album.description,
+                    'support': album.support,
+                    'source': album.source,
                     'spotify_url': album.spotify_url,
                     'artists': [artist.name for artist in album.artists],
                     'tracks_count': len(album.tracks) if album.tracks else 0
                 }
                 collection_data['albums'].append(album_data)
             
-            # Créer répertoire s'il n'existe pas
-            output_dir = self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output')
+            # Créer chemin absolu pour le répertoire de sortie
+            # __file__ = /backend/app/services/scheduler_service.py
+            # Remonter 4 fois pour atteindre la racine du projet
+            current_dir = os.path.abspath(__file__)
+            for _ in range(4):
+                current_dir = os.path.dirname(current_dir)
+            project_root = current_dir
+            output_dir = os.path.join(project_root, self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output'))
+            
             os.makedirs(output_dir, exist_ok=True)
             
             # Générer nom fichier avec date/heure
@@ -499,10 +524,55 @@ class SchedulerService:
             
             logger.info(f"✅ Collection JSON sauvegardée: {filepath}")
             
+            # Nettoyer les anciens fichiers
+            self._cleanup_old_files()
+            
         except Exception as e:
             logger.error(f"❌ Erreur export JSON: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
         finally:
             db.close()
+    
+    def _cleanup_old_files(self):
+        """Nettoyer les anciens fichiers en conservant seulement les N derniers de chaque type."""
+        import glob
+        
+        max_files = self.config.get('scheduler', {}).get('max_files_per_type', 5)
+        
+        # Calculer le chemin du répertoire de sortie
+        current_dir = os.path.abspath(__file__)
+        for _ in range(4):
+            current_dir = os.path.dirname(current_dir)
+        project_root = current_dir
+        output_dir = os.path.join(project_root, self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output'))
+        
+        if not os.path.exists(output_dir):
+            return
+        
+        # Définir les patterns pour chaque type de fichier
+        file_patterns = {
+            'generate-haiku-*.md': 'haiku',
+            'export-markdown-*.md': 'markdown',
+            'export-json-*.json': 'json'
+        }
+        
+        for pattern, file_type in file_patterns.items():
+            files = glob.glob(os.path.join(output_dir, pattern))
+            
+            if len(files) > max_files:
+                # Trier par date de modification (les plus anciens en premier)
+                files_sorted = sorted(files, key=lambda x: os.path.getmtime(x))
+                
+                # Supprimer les fichiers en excès (garder seulement les max_files les plus récents)
+                files_to_delete = files_sorted[:-max_files]
+                
+                for file_path in files_to_delete:
+                    try:
+                        os.remove(file_path)
+                        logger.info(f"🗑️ Supprimé fichier ancien ({file_type}): {os.path.basename(file_path)}")
+                    except Exception as e:
+                        logger.error(f"❌ Erreur suppression {file_path}: {e}")
     
     async def trigger_task(self, task_name: str) -> dict:
         """Déclencher manuellement une tâche."""

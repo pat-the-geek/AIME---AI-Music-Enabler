@@ -17,12 +17,16 @@ import {
   DialogActions,
   LinearProgress,
   Snackbar,
+  Chip,
+  Grid,
 } from '@mui/material'
 import {
   PlayArrow,
   Stop,
   CloudDownload,
   Sync,
+  Schedule,
+  CheckCircle,
 } from '@mui/icons-material'
 import apiClient from '@/api/client'
 
@@ -50,6 +54,7 @@ export default function Settings() {
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' })
   const [roonServer, setRoonServer] = useState('')
   const [testingRoonConnection, setTestingRoonConnection] = useState(false)
+  const [maxFilesPerType, setMaxFilesPerType] = useState(5)
   
   const queryClient = useQueryClient()
 
@@ -85,6 +90,20 @@ export default function Settings() {
       return response.data
     },
     refetchInterval: 5000, // Rafraîchir toutes les 5 secondes
+  })
+
+  // Récupérer la configuration du scheduler
+  const { data: schedulerConfig } = useQuery({
+    queryKey: ['scheduler-config'],
+    queryFn: async () => {
+      const response = await apiClient.get('/services/scheduler/config')
+      return response.data
+    },
+    onSuccess: (data) => {
+      if (data?.max_files_per_type) {
+        setMaxFilesPerType(data.max_files_per_type)
+      }
+    },
   })
 
   // Pour la compatibilité avec le code existant
@@ -214,6 +233,26 @@ export default function Settings() {
     await testRoonConnectionMutation.mutateAsync(roonServer)
     setTestingRoonConnection(false)
   }
+
+  const updateSchedulerConfigMutation = useMutation({
+    mutationFn: async (maxFiles: number) => {
+      const response = await apiClient.patch('/services/scheduler/config', null, {
+        params: { max_files_per_type: maxFiles }
+      })
+      return response.data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['scheduler-config'] })
+      setSnackbar({
+        open: true,
+        message: `✅ Configuration mise à jour! Limite: ${maxFilesPerType} fichiers par type`,
+        severity: 'success'
+      })
+    },
+    onError: (error: any) => {
+      setSnackbar({ open: true, message: `Erreur: ${error.message}`, severity: 'error' })
+    },
+  })
 
   const handleSaveRoonConfig = () => {
     if (!roonServer.trim()) {
@@ -573,6 +612,46 @@ export default function Settings() {
           {schedulerStatus?.jobs && schedulerStatus.jobs.length > 0 && (
             <Box sx={{ mb: 2 }}>
               <Typography variant="subtitle2" gutterBottom>
+                📋 Tâches Planifiées Configuration:
+              </Typography>
+              {schedulerConfig?.tasks && schedulerConfig.tasks.map((task: any) => {
+                const jobStatus = schedulerStatus?.jobs?.find((j: any) => j.id === task.name)
+                const isEnabled = task.enabled !== false
+                
+                return (
+                  <Alert key={task.name} severity={isEnabled ? "info" : "warning"} sx={{ mb: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Box>
+                      <Typography variant="body2">
+                        <strong>{task.name}</strong>
+                        {task.description && (
+                          <Typography variant="caption" display="block" color="text.secondary">
+                            {task.description}
+                          </Typography>
+                        )}
+                      </Typography>
+                      <Typography variant="caption" component="div">
+                        {task.time ? `⏰ ${task.time}` : `📅 Toutes les ${task.frequency}${task.unit === 'day' ? 'j' : task.unit === 'week' ? 'sem' : 'mois'}`}
+                      </Typography>
+                      {jobStatus?.next_run && (
+                        <Typography variant="caption" display="block" color="success.main">
+                          Prochaine: {new Date(jobStatus.next_run).toLocaleString('fr-FR')}
+                        </Typography>
+                      )}
+                    </Box>
+                    <Chip
+                      size="small"
+                      label={isEnabled ? '✅ Activée' : '⏸️ Désactivée'}
+                      color={isEnabled ? 'success' : 'error'}
+                    />
+                  </Alert>
+                )
+              })}
+            </Box>
+          )}
+
+          {!schedulerConfig?.tasks && schedulerStatus?.jobs && schedulerStatus.jobs.length > 0 && (
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="subtitle2" gutterBottom>
                 Tâches planifiées:
               </Typography>
               {schedulerStatus.jobs.map((job: any) => (
@@ -615,9 +694,55 @@ export default function Settings() {
           </Stack>
 
           <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2 }}>
-            💡 Le scheduler exécute automatiquement des tâches optimisées par IA :
-            enrichissement quotidien, génération de haïkus hebdomadaires, analyse mensuelle et optimisation des descriptions.
+            💡 <strong>Nouvelles tâches automatiques quotidiennes:</strong>
+            <br/>
+            🎋 <strong>6h00</strong> - Génération haikus pour 5 albums aléatoires
+            <br/>
+            📝 <strong>8h00</strong> - Export collection en markdown
+            <br/>
+            📊 <strong>10h00</strong> - Export collection en JSON
+            <br/>
+            Les fichiers générés sont sauvegardés dans le répertoire "Scheduled Output" avec des noms horodatés.
           </Typography>
+
+          <Divider sx={{ my: 3 }} />
+
+          {/* Configuration fichiers générés */}
+          <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+            ⚙️ Configuration des fichiers générés
+          </Typography>
+
+          <Box sx={{ mt: 2, p: 2, backgroundColor: 'background.paper', borderRadius: 1, border: '1px solid', borderColor: 'divider' }}>
+            <Typography variant="body2" gutterBottom>
+              Nombre maximum de fichiers à conserver par type (haikus, markdown, JSON):
+            </Typography>
+            
+            <Stack direction="row" spacing={2} sx={{ mt: 2, alignItems: 'center' }}>
+              <TextField
+                type="number"
+                value={maxFilesPerType}
+                onChange={(e) => setMaxFilesPerType(Math.max(1, parseInt(e.target.value) || 1))}
+                inputProps={{ min: 1, max: 50 }}
+                variant="outlined"
+                size="small"
+                sx={{ width: 100 }}
+                label="Limite"
+              />
+              
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => updateSchedulerConfigMutation.mutate(maxFilesPerType)}
+                disabled={updateSchedulerConfigMutation.isPending}
+              >
+                {updateSchedulerConfigMutation.isPending ? 'Mise à jour...' : 'Appliquer'}
+              </Button>
+
+              <Typography variant="caption" color="text.secondary">
+                Les {maxFilesPerType} derniers fichiers de chaque type seront conservés
+              </Typography>
+            </Stack>
+          </Box>
         </CardContent>
       </Card>
 

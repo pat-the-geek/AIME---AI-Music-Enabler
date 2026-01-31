@@ -42,3 +42,5 @@ coverage.xml
 data/backups/*.db
 data/backups/*.json
 !data/backups/.gitkeep
+# Fichiers générés par le scheduler
+Scheduled Output/

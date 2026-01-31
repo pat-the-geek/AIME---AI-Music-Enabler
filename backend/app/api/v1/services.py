@@ -291,6 +291,40 @@ async def get_scheduler_status():
     return scheduler.get_status()
 
 
+@router.get("/scheduler/config")
+async def get_scheduler_config():
+    """Configuration des tâches du scheduler."""
+    settings = get_settings()
+    scheduler_config = settings.app_config.get('scheduler', {})
+    return {
+        'enabled': scheduler_config.get('enabled', True),
+        'output_dir': scheduler_config.get('output_dir', 'Scheduled Output'),
+        'max_files_per_type': scheduler_config.get('max_files_per_type', 5),
+        'tasks': scheduler_config.get('tasks', [])
+    }
+
+
+@router.patch("/scheduler/config")
+async def update_scheduler_config(max_files_per_type: int = None):
+    """Mettre à jour la configuration du scheduler.
+    
+    Args:
+        max_files_per_type: Nombre maximum de fichiers à conserver par type
+    """
+    settings = get_settings()
+    
+    if max_files_per_type is not None:
+        if max_files_per_type < 1:
+            raise HTTPException(status_code=400, detail="max_files_per_type doit être >= 1")
+        
+        settings.app_config['scheduler']['max_files_per_type'] = max_files_per_type
+        logger.info(f"✅ Configuration mise à jour: max_files_per_type={max_files_per_type}")
+    
+    return {
+        'max_files_per_type': settings.app_config['scheduler'].get('max_files_per_type', 5)
+    }
+
+
 @router.post("/scheduler/start")
 async def start_scheduler():
     """Démarrer le scheduler de tâches optimisées."""
