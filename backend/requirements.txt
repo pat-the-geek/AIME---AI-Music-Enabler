@@ -16,6 +16,7 @@ httpx==0.26.0
 pylast==5.2.0
 python3-discogs-client==2.6
 spotipy==2.23.0
+roonapi==0.1.6
 
 # Background tasks
 apscheduler==3.10.4

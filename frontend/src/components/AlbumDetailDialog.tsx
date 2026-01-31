@@ -194,17 +194,20 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
                       </Box>
                     )}
 
-                    {albumDetail.discogs_url && (
+                    {/* Liens externes */}
+                    {(albumDetail.discogs_url || albumDetail.spotify_url || !editSpotifyUrl) && (
                       <Box sx={{ display: 'flex', gap: 1, flexDirection: 'column' }}>
-                        <Box sx={{ display: 'flex', gap: 1 }}>
-                          <Button 
-                            variant="outlined" 
-                            size="small"
-                            href={albumDetail.discogs_url}
-                            target="_blank"
-                          >
-                            Voir sur Discogs
-                          </Button>
+                        <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                          {albumDetail.discogs_url && (
+                            <Button 
+                              variant="outlined" 
+                              size="small"
+                              href={albumDetail.discogs_url}
+                              target="_blank"
+                            >
+                              📀 Voir sur Discogs
+                            </Button>
+                          )}
                           {albumDetail.spotify_url && !editSpotifyUrl && (
                             <Button 
                               variant="outlined" 

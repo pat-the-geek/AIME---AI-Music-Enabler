@@ -7,7 +7,6 @@ import {
   Avatar,
   Chip,
   IconButton,
-  Button,
   ToggleButtonGroup,
   ToggleButton,
   CircularProgress,
@@ -15,7 +14,6 @@ import {
   Divider,
   Card,
   CardContent,
-  CardMedia,
 } from '@mui/material'
 import {
   NavigateBefore,
@@ -39,6 +37,9 @@ interface TimelineData {
     loved: boolean
     album_image?: string
     album_lastfm_image?: string
+    year?: number
+    spotify_url?: string
+    discogs_url?: string
   }>>
   stats: {
     total_tracks: number
@@ -165,7 +166,7 @@ export default function Timeline() {
               </Typography>
             </Box>
             
-            {data?.stats.peak_hour !== null && (
+            {data?.stats?.peak_hour !== null && (
               <>
                 <Divider orientation="vertical" flexItem />
                 <Box>
@@ -173,7 +174,7 @@ export default function Timeline() {
                     Heure de pointe
                   </Typography>
                   <Typography variant="h6">
-                    {data.stats.peak_hour}h
+                    {data?.stats?.peak_hour}h
                   </Typography>
                 </Box>
               </>
@@ -285,7 +286,7 @@ export default function Timeline() {
                                       {track.artist}
                                     </Typography>
                                     <Typography variant="caption" color="text.secondary" display="block" noWrap>
-                                      {track.album}
+                                      {track.album}{track.year ? ` (${track.year})` : ''}
                                     </Typography>
                                     {(track.spotify_url || track.discogs_url) && (
                                       <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5 }}>
@@ -359,7 +360,7 @@ export default function Timeline() {
         <Typography variant="caption" color="text.secondary">
           💡 <strong>Astuce :</strong> Faites défiler horizontalement pour voir toutes les heures. 
           La limite est de 20 écoutes affichées par heure pour des raisons de performance.
-          {data?.stats.peak_hour !== null && ` L'heure de pointe (${data.stats.peak_hour}h) est mise en évidence.`}
+          {data?.stats?.peak_hour !== null && ` L'heure de pointe (${data?.stats?.peak_hour}h) est mise en évidence.`}
           {' '}Cliquez sur une écoute pour voir les détails de l'album.
         </Typography>
       </Paper>

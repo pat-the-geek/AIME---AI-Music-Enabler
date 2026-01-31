@@ -344,7 +344,7 @@ export default function Journal() {
                     </Typography>
                     {viewMode === 'detailed' && (
                       <Typography variant="caption" color="text.secondary">
-                        {entry.album}
+                        {entry.album}{entry.year ? ` (${entry.year})` : ''}
                       </Typography>
                     )}
                     <Box sx={{ mt: 0.5 }}>

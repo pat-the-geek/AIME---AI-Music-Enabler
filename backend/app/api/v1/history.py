@@ -19,6 +19,165 @@ from app.schemas import (
 router = APIRouter()
 
 
+@router.get("/haiku")
+async def generate_haiku(
+    days: int = Query(7, ge=1, le=365, description="Nombre de jours à analyser"),
+    db: Session = Depends(get_db)
+):
+    """Générer un haïku basé sur l'historique d'écoute récent."""
+    from app.services.ai_service import AIService
+    from app.core.config import get_settings
+    from datetime import timedelta
+    
+    settings = get_settings()
+    secrets = settings.secrets
+    euria_config = secrets.get('euria', {})
+    
+    ai_service = AIService(
+        url=euria_config.get('url'),
+        bearer=euria_config.get('bearer')
+    )
+    
+    # Analyser l'historique récent
+    cutoff_timestamp = int((datetime.now() - timedelta(days=days)).timestamp())
+    recent_history = db.query(ListeningHistory).join(Track).join(Album).join(Album.artists).filter(
+        ListeningHistory.timestamp >= cutoff_timestamp
+    ).all()
+    
+    if not recent_history:
+        raise HTTPException(status_code=404, detail="Pas d'historique d'écoute récent")
+    
+    # Extraire données
+    artists = Counter()
+    albums = Counter()
+    for entry in recent_history:
+        track = entry.track
+        album = track.album
+        if album and album.artists:
+            for artist in album.artists:
+                artists[artist.name] += 1
+        if album:
+            albums[album.title] += 1
+    
+    listening_data = {
+        'top_artists': [name for name, _ in artists.most_common(5)],
+        'top_albums': [title for title, _ in albums.most_common(5)],
+        'total_tracks': len(recent_history),
+        'days': days
+    }
+    
+    haiku = await ai_service.generate_haiku(listening_data)
+    
+    return {
+        "haiku": haiku,
+        "period_days": days,
+        "total_tracks": len(recent_history),
+        "top_artists": listening_data['top_artists'],
+        "top_albums": listening_data['top_albums']
+    }
+
+
+@router.get("/patterns")
+async def listening_patterns(
+    db: Session = Depends(get_db)
+):
+    """Analyser les patterns d'écoute."""
+    history = db.query(ListeningHistory).join(Track).join(Album).join(Album.artists).all()
+    
+    if not history:
+        raise HTTPException(status_code=404, detail="Pas d'historique d'écoute")
+    
+    # Patterns par heure
+    hourly_patterns = Counter()
+    for entry in history:
+        dt = datetime.fromtimestamp(entry.timestamp)
+        hourly_patterns[dt.hour] += 1
+    
+    # Patterns par jour de la semaine
+    weekday_patterns = Counter()
+    weekday_names = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+    for entry in history:
+        dt = datetime.fromtimestamp(entry.timestamp)
+        weekday_patterns[weekday_names[dt.weekday()]] += 1
+    
+    # Détection de sessions d'écoute
+    sorted_history = sorted(history, key=lambda x: x.timestamp)
+    sessions = []
+    current_session = []
+    last_timestamp = 0
+    
+    for entry in sorted_history:
+        if last_timestamp and (entry.timestamp - last_timestamp) > 1800:  # 30 min gap
+            if len(current_session) >= 3:
+                sessions.append({
+                    'track_count': len(current_session),
+                    'start_time': datetime.fromtimestamp(current_session[0]).isoformat(),
+                    'duration_minutes': (current_session[-1] - current_session[0]) // 60
+                })
+            current_session = []
+        current_session.append(entry.timestamp)
+        last_timestamp = entry.timestamp
+    
+    if len(current_session) >= 3:
+        sessions.append({
+            'track_count': len(current_session),
+            'start_time': datetime.fromtimestamp(current_session[0]).isoformat(),
+            'duration_minutes': (current_session[-1] - current_session[0]) // 60
+        })
+    
+    # Artistes par corrélation (qui sont souvent écoutés ensemble)
+    artist_pairs = Counter()
+    sorted_by_time = sorted(history, key=lambda x: x.timestamp)
+    
+    for i in range(len(sorted_by_time) - 1):
+        entry1 = sorted_by_time[i]
+        entry2 = sorted_by_time[i + 1]
+        
+        # Si écoutés dans la même session (< 30 min)
+        if entry2.timestamp - entry1.timestamp < 1800:
+            track1 = entry1.track
+            track2 = entry2.track
+            
+            if track1.album and track1.album.artists and track2.album and track2.album.artists:
+                artist1 = track1.album.artists[0].name
+                artist2 = track2.album.artists[0].name
+                
+                if artist1 != artist2:
+                    pair = tuple(sorted([artist1, artist2]))
+                    artist_pairs[pair] += 1
+    
+    # Top corrélations
+    top_correlations = [
+        {"artist1": pair[0], "artist2": pair[1], "count": count}
+        for pair, count in artist_pairs.most_common(10)
+    ]
+    
+    # Temps moyen d'écoute par jour
+    daily_listening = Counter()
+    for entry in history:
+        dt = datetime.fromtimestamp(entry.timestamp)
+        date_str = dt.strftime('%Y-%m-%d')
+        daily_listening[date_str] += 1
+    
+    avg_tracks_per_day = sum(daily_listening.values()) / len(daily_listening) if daily_listening else 0
+    
+    return {
+        "total_tracks": len(history),
+        "hourly_patterns": dict(sorted(hourly_patterns.items())),
+        "weekday_patterns": weekday_patterns,
+        "peak_hour": hourly_patterns.most_common(1)[0][0] if hourly_patterns else None,
+        "peak_weekday": weekday_patterns.most_common(1)[0][0] if weekday_patterns else None,
+        "listening_sessions": {
+            "total_sessions": len(sessions),
+            "avg_tracks_per_session": sum(s['track_count'] for s in sessions) / len(sessions) if sessions else 0,
+            "longest_sessions": sorted(sessions, key=lambda x: x['track_count'], reverse=True)[:5]
+        },
+        "artist_correlations": top_correlations,
+        "daily_average": round(avg_tracks_per_day, 1),
+        "unique_days": len(daily_listening)
+    }
+
+
 @router.get("/tracks", response_model=ListeningHistoryListResponse)
 async def list_history(
     page: int = Query(1, ge=1),
@@ -100,6 +259,7 @@ async def list_history(
             artist=', '.join(artists),
             title=track.title,
             album=album.title if album else "Unknown",
+            year=album.year if album else None,
             album_id=album.id if album else None,
             track_id=track.id if track else None,
             loved=entry.loved,
@@ -156,7 +316,7 @@ async def get_timeline(
     history = db.query(ListeningHistory).filter(
         ListeningHistory.date >= start_date,
         ListeningHistory.date <= end_date
-    ).order_by(ListeningHistory.timestamp).all()
+    ).order_by(ListeningHistory.timestamp.desc()).all()
     
     # Organiser par heure
     hours = defaultdict(list)
@@ -188,6 +348,7 @@ async def get_timeline(
             "artist": ', '.join(artists),
             "title": track.title,
             "album": album.title if album else "Unknown",
+            "year": album.year if album else None,
             "album_id": album.id if album else None,
             "loved": entry.loved,
             "album_image": album_image,

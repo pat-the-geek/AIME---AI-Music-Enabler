@@ -36,6 +36,7 @@ export interface ListeningHistory {
   artist: string
   title: string
   album: string
+  year?: number
   album_id?: number
   track_id?: number
   loved: boolean

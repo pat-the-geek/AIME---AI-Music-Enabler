@@ -26,6 +26,24 @@ import {
 } from '@mui/icons-material'
 import apiClient from '@/api/client'
 
+// Helper pour formater les dates
+const formatLastActivity = (isoDate: string | null | undefined): string => {
+  if (!isoDate) return 'Jamais'
+  try {
+    const date = new Date(isoDate)
+    return date.toLocaleString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    })
+  } catch {
+    return 'Date invalide'
+  }
+}
+
 export default function Settings() {
   const [importLimit, setImportLimit] = useState(1000)
   const [importDialogOpen, setImportDialogOpen] = useState(false)
@@ -33,14 +51,22 @@ export default function Settings() {
   
   const queryClient = useQueryClient()
 
-  const { data: trackerStatus, isLoading, refetch: refetchStatus } = useQuery({
-    queryKey: ['tracker-status'],
+  // Récupérer tous les statuts en une seule requête
+  const { data: allServicesStatus, isLoading, refetch: refetchAllStatus } = useQuery({
+    queryKey: ['all-services-status'],
     queryFn: async () => {
-      const response = await apiClient.get('/services/tracker/status')
+      const response = await apiClient.get('/services/status/all')
       return response.data
     },
     refetchInterval: 5000, // Rafraîchir toutes les 5 secondes
   })
+
+  // Pour la compatibilité avec le code existant
+  const trackerStatus = allServicesStatus?.tracker
+  const schedulerStatus = allServicesStatus?.scheduler
+  const manualOps = allServicesStatus?.manual_operations
+
+  const refetchStatus = refetchAllStatus
 
   const startTrackerMutation = useMutation({
     mutationFn: () => apiClient.post('/services/tracker/start'),
@@ -165,10 +191,120 @@ export default function Settings() {
             </Button>
           </Stack>
 
-          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2 }}>
-            💡 Le tracker surveille Last.fm toutes les {trackerStatus?.interval_seconds || 120} secondes 
-            pour détecter les nouvelles écoutes et les enregistrer automatiquement.
+          <Stack spacing={1} sx={{ mt: 2 }}>
+            <Typography variant="caption" color="text.secondary">
+              💡 Le tracker surveille Last.fm toutes les {trackerStatus?.interval_seconds || 120} secondes 
+              pour détecter les nouvelles écoutes et les enregistrer automatiquement.
+            </Typography>
+            
+            {trackerStatus?.last_poll_time && (
+              <Typography variant="caption" color="text.secondary">
+                🕐 Dernière vérification : {new Date(trackerStatus.last_poll_time).toLocaleString('fr-FR', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit'
+                })}
+              </Typography>
+            )}
+            
+            {trackerStatus?.last_track && (
+              <Typography variant="caption" color="primary.main">
+                🎵 Dernier morceau détecté : {trackerStatus.last_track}
+              </Typography>
+            )}
+          </Stack>
+        </CardContent>
+      </Card>
+
+      {/* Tracker Roon */}
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            🎵 Tracker Roon
           </Typography>
+          
+          <Divider sx={{ mb: 2 }} />
+          
+          {isLoading ? (
+            <CircularProgress />
+          ) : allServicesStatus?.roon_tracker?.running ? (
+            <Alert severity="success" sx={{ mb: 2 }}>
+              ✅ Le tracker Roon est actif et surveille vos écoutes
+            </Alert>
+          ) : (
+            <Alert severity="warning" sx={{ mb: 2 }}>
+              ⏸️ Le tracker Roon est arrêté - Aucune nouvelle écoute n'est enregistrée
+            </Alert>
+          )}
+
+          {allServicesStatus?.roon_tracker && !allServicesStatus.roon_tracker.connected && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              ❌ Non connecté au serveur Roon ({allServicesStatus.roon_tracker.server || 'non configuré'})
+            </Alert>
+          )}
+
+          {allServicesStatus?.roon_tracker?.connected && (
+            <Alert severity="info" sx={{ mb: 2 }}>
+              📡 Connecté au serveur Roon - {allServicesStatus.roon_tracker.zones_count || 0} zone(s) disponible(s)
+            </Alert>
+          )}
+
+          <Stack direction="row" spacing={2}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                const action = allServicesStatus?.roon_tracker?.running ? 'stop' : 'start'
+                apiClient.post(`/services/roon-tracker/${action}`).then(() => {
+                  refetchStatus()
+                  setSnackbar({
+                    open: true,
+                    message: `Tracker Roon ${action === 'start' ? 'démarré' : 'arrêté'}!`,
+                    severity: 'success'
+                  })
+                }).catch((error) => {
+                  setSnackbar({
+                    open: true,
+                    message: `Erreur: ${error.response?.data?.detail || error.message}`,
+                    severity: 'error'
+                  })
+                })
+              }}
+              disabled={!allServicesStatus?.roon_tracker?.connected}
+              startIcon={allServicesStatus?.roon_tracker?.running ? <Stop /> : <PlayArrow />}
+              color={allServicesStatus?.roon_tracker?.running ? 'error' : 'success'}
+            >
+              {allServicesStatus?.roon_tracker?.running ? 'Arrêter' : 'Démarrer'} le Tracker
+            </Button>
+            
+            <Button
+              variant="outlined"
+              onClick={() => refetchStatus()}
+            >
+              Actualiser le statut
+            </Button>
+          </Stack>
+
+          <Stack spacing={1} sx={{ mt: 2 }}>
+            <Typography variant="caption" color="text.secondary">
+              💡 Le tracker surveille Roon toutes les {allServicesStatus?.roon_tracker?.interval_seconds || 120} secondes 
+              pour détecter les nouvelles écoutes et les enregistrer automatiquement.
+            </Typography>
+            
+            {allServicesStatus?.roon_tracker?.last_poll_time && (
+              <Typography variant="caption" color="text.secondary">
+                🕐 Dernière vérification : {formatLastActivity(allServicesStatus.roon_tracker.last_poll_time)}
+              </Typography>
+            )}
+            
+            {allServicesStatus?.roon_tracker?.last_track && (
+              <Typography variant="caption" color="primary.main">
+                🎵 Dernier morceau détecté : {allServicesStatus.roon_tracker.last_track}
+              </Typography>
+            )}
+          </Stack>
         </CardContent>
       </Card>
 
@@ -185,6 +321,12 @@ export default function Settings() {
             Importez votre historique d'écoute existant depuis Last.fm. 
             Cette opération peut prendre plusieurs minutes selon le nombre de tracks.
           </Alert>
+
+          {manualOps?.lastfm_import && (
+            <Typography variant="caption" color="success.main" sx={{ display: 'block', mb: 2 }}>
+              🕐 Dernière importation : {formatLastActivity(manualOps.lastfm_import)}
+            </Typography>
+          )}
 
           <Button
             variant="contained"
@@ -216,6 +358,12 @@ export default function Settings() {
             Synchronisez votre collection Discogs pour enrichir la base de données.
           </Alert>
 
+          {manualOps?.discogs_sync && (
+            <Typography variant="caption" color="success.main" sx={{ display: 'block', mb: 2 }}>
+              🕐 Dernière synchronisation : {formatLastActivity(manualOps.discogs_sync)}
+            </Typography>
+          )}
+
           <Button
             variant="contained"
             onClick={() => syncDiscogsMatch.mutate()}
@@ -225,6 +373,76 @@ export default function Settings() {
           >
             Synchroniser Discogs
           </Button>
+        </CardContent>
+      </Card>
+
+      {/* Scheduler de tâches optimisé */}
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            📅 Scheduler Intelligent (IA)
+          </Typography>
+          
+          <Divider sx={{ mb: 2 }} />
+          
+          {schedulerStatus?.running ? (
+            <Alert severity="success" sx={{ mb: 2 }}>
+              ✅ Le scheduler est actif avec {schedulerStatus.job_count} tâches planifiées
+            </Alert>
+          ) : (
+            <Alert severity="warning" sx={{ mb: 2 }}>
+              ⏸️ Le scheduler est arrêté - Les tâches automatiques ne s'exécutent pas
+            </Alert>
+          )}
+
+          {schedulerStatus?.jobs && schedulerStatus.jobs.length > 0 && (
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="subtitle2" gutterBottom>
+                Tâches planifiées:
+              </Typography>
+              {schedulerStatus.jobs.map((job: any) => (
+                <Alert key={job.id} severity="info" sx={{ mb: 1 }}>
+                  <Typography variant="body2">
+                    <strong>{job.id}</strong>
+                  </Typography>
+                  <Typography variant="caption" component="div">
+                    Prochaine exécution: {job.next_run ? new Date(job.next_run).toLocaleString('fr-FR') : 'Non planifiée'}
+                  </Typography>
+                  {job.last_execution && (
+                    <Typography variant="caption" color="success.main" component="div">
+                      🕐 Dernière exécution : {formatLastActivity(job.last_execution)}
+                    </Typography>
+                  )}
+                </Alert>
+              ))}
+            </Box>
+          )}
+
+          <Stack direction="row" spacing={2}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                const action = schedulerStatus?.running ? 'stop' : 'start'
+                apiClient.post(`/services/scheduler/${action}`).then(() => {
+                  refetchScheduler()
+                  setSnackbar({
+                    open: true,
+                    message: `Scheduler ${action === 'start' ? 'démarré' : 'arrêté'}!`,
+                    severity: 'success'
+                  })
+                })
+              }}
+              startIcon={schedulerStatus?.running ? <Stop /> : <PlayArrow />}
+              color={schedulerStatus?.running ? 'error' : 'success'}
+            >
+              {schedulerStatus?.running ? 'Arrêter' : 'Démarrer'} le Scheduler
+            </Button>
+          </Stack>
+
+          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2 }}>
+            💡 Le scheduler exécute automatiquement des tâches optimisées par IA :
+            enrichissement quotidien, génération de haïkus hebdomadaires, analyse mensuelle et optimisation des descriptions.
+          </Typography>
         </CardContent>
       </Card>
 

@@ -6,6 +6,8 @@ from datetime import datetime, timezone
 from app.database import get_db
 from app.core.config import get_settings
 from app.services.tracker_service import TrackerService
+from app.services.roon_tracker_service import RoonTrackerService
+from app.services.scheduler_service import SchedulerService
 from app.services.discogs_service import DiscogsService
 from app.services.spotify_service import SpotifyService
 from app.services.ai_service import AIService
@@ -14,17 +16,51 @@ from app.models import Album, Artist, Image, Metadata, Track, ListeningHistory
 
 router = APIRouter()
 
-# Instance globale du tracker
+# Instances globales
 _tracker_instance = None
+_roon_tracker_instance = None
+_scheduler_instance = None
+
+# Tracking des dernières exécutions manuelles
+_last_executions = {
+    'discogs_sync': None,
+    'lastfm_import': None,
+    'enrichment': None,
+    'spotify_enrich': None
+}
 
 
 def get_tracker():
-    """Obtenir l'instance du tracker."""
+    """Obtenir l'instance du tracker Last.fm."""
     global _tracker_instance
     if _tracker_instance is None:
         settings = get_settings()
-        _tracker_instance = TrackerService(settings.secrets)
+        # Fusionner secrets et app_config pour le tracker
+        config = {**settings.secrets, **settings.app_config}
+        _tracker_instance = TrackerService(config)
     return _tracker_instance
+
+
+def get_roon_tracker():
+    """Obtenir l'instance du tracker Roon."""
+    global _roon_tracker_instance
+    if _roon_tracker_instance is None:
+        settings = get_settings()
+        # Fusionner secrets et app_config pour le tracker Roon
+        config = {**settings.secrets, **settings.app_config}
+        _roon_tracker_instance = RoonTrackerService(config)
+    return _roon_tracker_instance
+
+
+def get_scheduler():
+    """Obtenir l'instance du scheduler."""
+    global _scheduler_instance
+    if _scheduler_instance is None:
+        settings = get_settings()
+        # Fusionner secrets et app_config pour le scheduler
+        config = {**settings.secrets, **settings.app_config}
+        _scheduler_instance = SchedulerService(config)
+    return _scheduler_instance
 
 
 @router.get("/tracker/status")
@@ -32,6 +68,44 @@ async def get_tracker_status():
     """Statut du tracker Last.fm."""
     tracker = get_tracker()
     return tracker.get_status()
+
+
+@router.get("/status/all")
+async def get_all_services_status():
+    """Récupérer le statut de tous les services avec leurs dernières activités."""
+    tracker = get_tracker()
+    roon_tracker = get_roon_tracker()
+    scheduler = get_scheduler()
+    
+    return {
+        "tracker": tracker.get_status(),
+        "roon_tracker": roon_tracker.get_status(),
+        "scheduler": scheduler.get_status(),
+        "manual_operations": _last_executions
+    }
+
+
+@router.get("/roon-tracker/status")
+async def get_roon_tracker_status():
+    """Statut du tracker Roon."""
+    tracker = get_roon_tracker()
+    return tracker.get_status()
+
+
+@router.post("/roon-tracker/start")
+async def start_roon_tracker():
+    """Démarrer le tracker Roon."""
+    tracker = get_roon_tracker()
+    await tracker.start()
+    return {"status": "started"}
+
+
+@router.post("/roon-tracker/stop")
+async def stop_roon_tracker():
+    """Arrêter le tracker Roon."""
+    tracker = get_roon_tracker()
+    await tracker.stop()
+    return {"status": "stopped"}
 
 
 @router.post("/tracker/start")
@@ -50,6 +124,47 @@ async def stop_tracker():
     return {"status": "stopped"}
 
 
+@router.get("/scheduler/status")
+async def get_scheduler_status():
+    """Statut du scheduler de tâches optimisées."""
+    scheduler = get_scheduler()
+    return scheduler.get_status()
+
+
+@router.post("/scheduler/start")
+async def start_scheduler():
+    """Démarrer le scheduler de tâches optimisées."""
+    scheduler = get_scheduler()
+    await scheduler.start()
+    return {"status": "started"}
+
+
+@router.post("/scheduler/stop")
+async def stop_scheduler():
+    """Arrêter le scheduler de tâches optimisées."""
+    scheduler = get_scheduler()
+    await scheduler.stop()
+    return {"status": "stopped"}
+
+
+@router.post("/scheduler/trigger/{task_name}")
+async def trigger_scheduler_task(task_name: str):
+    """Déclencher manuellement une tâche planifiée.
+    
+    Tasks disponibles:
+    - daily_enrichment: Enrichissement quotidien (50 albums)
+    - weekly_haiku: Génération de haïku hebdomadaire
+    - monthly_analysis: Analyse mensuelle des patterns
+    - optimize_ai_descriptions: Optimiser descriptions IA des albums populaires
+    """
+    scheduler = get_scheduler()
+    try:
+        result = await scheduler.trigger_task(task_name)
+        return result
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
 @router.post("/discogs/sync")
 async def sync_discogs_collection(
     limit: int = None,
@@ -60,8 +175,12 @@ async def sync_discogs_collection(
     Args:
         limit: Nombre maximum d'albums à synchroniser (optionnel, pour tests)
     """
+    global _last_executions
     import logging
     logger = logging.getLogger(__name__)
+    
+    # Enregistrer le début de l'opération
+    _last_executions['discogs_sync'] = datetime.now(timezone.utc).isoformat()
     
     logger.info("🔄 Début synchronisation Discogs")
     settings = get_settings()
@@ -279,9 +398,13 @@ async def enrich_all_albums(
     db: Session = Depends(get_db)
 ):
     """Enrichir tous les albums avec Spotify et IA."""
+    global _last_executions
     import logging
     import asyncio
     logger = logging.getLogger(__name__)
+    
+    # Enregistrer le début de l'opération
+    _last_executions['enrichment'] = datetime.now(timezone.utc).isoformat()
     
     logger.info(f"🔄 Début enrichissement de {limit} albums")
     settings = get_settings()
@@ -381,14 +504,18 @@ async def enrich_spotify_urls(
     limit: int = 20,
     db: Session = Depends(get_db)
 ):
-    """Enrichir uniquement les URLs Spotify manquantes.
+    """Enrichir les URLs Spotify et années manquantes.
     
     Args:
         limit: Nombre d'albums à traiter (0 = tous les albums sans limite)
     """
+    global _last_executions
     import logging
     import asyncio
     logger = logging.getLogger(__name__)
+    
+    # Enregistrer le début de l'opération
+    _last_executions['spotify_enrich'] = datetime.now(timezone.utc).isoformat()
     
     logger.info(f"🎵 Début enrichissement Spotify de {limit if limit > 0 else 'TOUS les'} albums")
     settings = get_settings()
@@ -402,16 +529,17 @@ async def enrich_spotify_urls(
     )
     
     try:
-        # Récupérer uniquement les albums sans spotify_url
-        query = db.query(Album).filter(Album.spotify_url == None)
+        # Récupérer les albums sans spotify_url ou sans année
+        query = db.query(Album).filter((Album.spotify_url == None) | (Album.year == None))
         if limit > 0:
             albums = query.limit(limit).all()
         else:
             albums = query.all()
         
-        logger.info(f"📀 {len(albums)} albums sans Spotify URL")
+        logger.info(f"📀 {len(albums)} albums à enrichir")
         
         spotify_added = 0
+        year_added = 0
         errors = 0
         
         for idx, album in enumerate(albums, 1):
@@ -421,13 +549,18 @@ async def enrich_spotify_urls(
                 if idx % 10 == 0:
                     logger.info(f"📊 Progress: {idx}/{len(albums)}")
                 
-                # Enrichir Spotify
-                spotify_url = await spotify_service.search_album_url(artist_name, album.title)
-                if spotify_url:
-                    album.spotify_url = spotify_url
-                    spotify_added += 1
+                # Enrichir avec détails Spotify (URL + année)
+                spotify_details = await spotify_service.search_album_details(artist_name, album.title)
+                if spotify_details:
+                    if not album.spotify_url and spotify_details.get("spotify_url"):
+                        album.spotify_url = spotify_details["spotify_url"]
+                        spotify_added += 1
+                    if not album.year and spotify_details.get("year"):
+                        album.year = spotify_details["year"]
+                        year_added += 1
+                    
                     db.commit()
-                    logger.info(f"🎵 [{idx}/{len(albums)}] Spotify ajouté: {album.title}")
+                    logger.info(f"🎵 [{idx}/{len(albums)}] {album.title} enrichi (URL: {bool(spotify_details.get('spotify_url'))}, Année: {spotify_details.get('year')})")
                 else:
                     logger.warning(f"⚠️ [{idx}/{len(albums)}] Spotify non trouvé pour {album.title}")
                 
@@ -441,12 +574,13 @@ async def enrich_spotify_urls(
                 errors += 1
                 continue
         
-        logger.info(f"✅ Enrichissement Spotify terminé: {spotify_added} ajoutés, {errors} erreurs")
+        logger.info(f"✅ Enrichissement terminé: {spotify_added} URLs ajoutées, {year_added} années ajoutées, {errors} erreurs")
         
         return {
             "status": "success",
             "albums_processed": len(albums),
             "spotify_added": spotify_added,
+            "year_added": year_added,
             "errors": errors
         }
         
@@ -468,10 +602,14 @@ async def import_lastfm_history(
         limit: Nombre maximum de tracks à importer (par batch de 200)
         skip_existing: Ignorer les tracks déjà en base (True) ou tout réimporter (False)
     """
+    global _last_executions
     import logging
     import asyncio
     from collections import defaultdict
     logger = logging.getLogger(__name__)
+    
+    # Enregistrer le début de l'opération
+    _last_executions['lastfm_import'] = datetime.now(timezone.utc).isoformat()
     
     logger.info(f"🔄 Début import historique Last.fm (limit={limit})")
     settings = get_settings()

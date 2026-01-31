@@ -1,12 +1,256 @@
-import { Typography, Box } from '@mui/material'
+import { useState } from 'react'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import {
+  Typography,
+  Box,
+  Grid,
+  Card,
+  CardContent,
+  Button,
+  CircularProgress,
+  Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  IconButton,
+  Chip,
+  Stack
+} from '@mui/material'
+import { Add, PlayArrow, Delete } from '@mui/icons-material'
+import apiClient from '../api/client'
+
+const ALGORITHMS = [
+  { value: 'top_sessions', label: 'Top Sessions', description: 'Pistes des sessions les plus longues' },
+  { value: 'artist_correlations', label: 'Corrélations Artistes', description: 'Artistes écoutés ensemble' },
+  { value: 'artist_flow', label: 'Flux d\'Artistes', description: 'Transitions naturelles entre artistes' },
+  { value: 'time_based', label: 'Basé sur l\'Heure', description: 'Écoutes aux heures de pointe' },
+  { value: 'complete_albums', label: 'Albums Complets', description: 'Albums écoutés en entier' },
+  { value: 'rediscovery', label: 'Redécouverte', description: 'Pistes aimées mais oubliées' },
+  { value: 'ai_generated', label: 'Généré par IA', description: 'Sélection personnalisée par IA' }
+]
 
 export default function Playlists() {
+  const [createDialogOpen, setCreateDialogOpen] = useState(false)
+  const [playlistName, setPlaylistName] = useState('')
+  const [algorithm, setAlgorithm] = useState('top_sessions')
+  const [aiPrompt, setAiPrompt] = useState('')
+  const [maxTracks, setMaxTracks] = useState(25)
+  
+  const queryClient = useQueryClient()
+
+  // Récupérer playlists
+  const { data: playlists, isLoading } = useQuery({
+    queryKey: ['playlists'],
+    queryFn: async () => {
+      const response = await apiClient.get('/api/v1/playlists')
+      return response.data
+    }
+  })
+
+  // Créer playlist
+  const createPlaylistMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const response = await apiClient.post('/api/v1/playlists/generate', data)
+      return response.data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['playlists'] })
+      setCreateDialogOpen(false)
+      setPlaylistName('')
+      setAiPrompt('')
+    }
+  })
+
+  // Supprimer playlist
+  const deletePlaylistMutation = useMutation({
+    mutationFn: async (id: number) => {
+      await apiClient.delete(`/api/v1/playlists/${id}`)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['playlists'] })
+    }
+  })
+
+  const handleCreatePlaylist = () => {
+    const data: any = {
+      name: playlistName || undefined,
+      algorithm,
+      max_tracks: maxTracks
+    }
+    
+    if (algorithm === 'ai_generated' && aiPrompt) {
+      data.ai_prompt = aiPrompt
+    }
+    
+    createPlaylistMutation.mutate(data)
+  }
+
+  if (isLoading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
+        <CircularProgress />
+      </Box>
+    )
+  }
+
   return (
     <Box>
-      <Typography variant="h4">Playlists</Typography>
-      <Typography variant="body1" sx={{ mt: 2 }}>
-        Page en cours de développement...
-      </Typography>
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+        <div>
+          <Typography variant="h4">🎵 Playlists Intelligentes</Typography>
+          <Typography variant="body2" color="text.secondary">
+            Générez des playlists basées sur vos habitudes d'écoute
+          </Typography>
+        </div>
+        <Button
+          variant="contained"
+          startIcon={<Add />}
+          onClick={() => setCreateDialogOpen(true)}
+        >
+          Créer une Playlist
+        </Button>
+      </Box>
+
+      {playlists && playlists.length === 0 ? (
+        <Alert severity="info">
+          Aucune playlist créée. Cliquez sur "Créer une Playlist" pour commencer !
+        </Alert>
+      ) : (
+        <Grid container spacing={3}>
+          {playlists?.map((playlist: any) => (
+            <Grid item xs={12} md={6} lg={4} key={playlist.id}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    {playlist.name}
+                  </Typography>
+                  
+                  <Stack direction="row" spacing={1} mb={2}>
+                    <Chip
+                      label={ALGORITHMS.find(a => a.value === playlist.algorithm)?.label || playlist.algorithm}
+                      size="small"
+                      color="primary"
+                    />
+                    <Chip
+                      label={`${playlist.track_count} tracks`}
+                      size="small"
+                    />
+                  </Stack>
+
+                  {playlist.ai_prompt && (
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontStyle: 'italic' }}>
+                      "{playlist.ai_prompt}"
+                    </Typography>
+                  )}
+
+                  <Typography variant="caption" color="text.secondary">
+                    Créée le {new Date(playlist.created_at).toLocaleDateString('fr-FR')}
+                  </Typography>
+
+                  <Stack direction="row" spacing={1} mt={2}>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      startIcon={<PlayArrow />}
+                      fullWidth
+                    >
+                      Voir les Tracks
+                    </Button>
+                    <IconButton
+                      size="small"
+                      color="error"
+                      onClick={() => {
+                        if (confirm('Supprimer cette playlist ?')) {
+                          deletePlaylistMutation.mutate(playlist.id)
+                        }
+                      }}
+                    >
+                      <Delete />
+                    </IconButton>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      )}
+
+      {/* Dialog création playlist */}
+      <Dialog open={createDialogOpen} onClose={() => setCreateDialogOpen(false)} maxWidth="sm" fullWidth>
+        <DialogTitle>Créer une Playlist Intelligente</DialogTitle>
+        <DialogContent>
+          <Stack spacing={3} sx={{ mt: 1 }}>
+            <TextField
+              label="Nom de la playlist (optionnel)"
+              value={playlistName}
+              onChange={(e) => setPlaylistName(e.target.value)}
+              fullWidth
+              placeholder="Laisser vide pour auto-génération"
+            />
+
+            <FormControl fullWidth>
+              <InputLabel>Algorithme</InputLabel>
+              <Select
+                value={algorithm}
+                label="Algorithme"
+                onChange={(e) => setAlgorithm(e.target.value)}
+              >
+                {ALGORITHMS.map((algo) => (
+                  <MenuItem key={algo.value} value={algo.value}>
+                    <Box>
+                      <Typography variant="body2">{algo.label}</Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {algo.description}
+                      </Typography>
+                    </Box>
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            {algorithm === 'ai_generated' && (
+              <TextField
+                label="Prompt IA"
+                value={aiPrompt}
+                onChange={(e) => setAiPrompt(e.target.value)}
+                multiline
+                rows={3}
+                fullWidth
+                placeholder="Ex: Une playlist énergique pour le sport avec du rock"
+                required
+              />
+            )}
+
+            <TextField
+              label="Nombre maximum de tracks"
+              type="number"
+              value={maxTracks}
+              onChange={(e) => setMaxTracks(Number(e.target.value))}
+              fullWidth
+              inputProps={{ min: 10, max: 100 }}
+            />
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setCreateDialogOpen(false)}>
+            Annuler
+          </Button>
+          <Button
+            onClick={handleCreatePlaylist}
+            variant="contained"
+            disabled={createPlaylistMutation.isPending || (algorithm === 'ai_generated' && !aiPrompt)}
+          >
+            {createPlaylistMutation.isPending ? <CircularProgress size={24} /> : 'Créer'}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }
+

@@ -30,6 +30,7 @@ class ListeningHistoryResponse(BaseModel):
     artist: str
     title: str
     album: str
+    year: Optional[int] = None
     album_id: Optional[int] = None
     track_id: Optional[int] = None
     loved: bool

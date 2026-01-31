@@ -1,4 +1,4 @@
-"""Service de tracking Last.fm en arrière-plan."""
+"""Service de tracking Roon en arrière-plan."""
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from datetime import datetime, timezone
@@ -6,33 +6,32 @@ from sqlalchemy.orm import Session
 import logging
 
 from app.database import SessionLocal
+from app.services.roon_service import RoonService
 from app.services.spotify_service import SpotifyService
-from app.services.lastfm_service import LastFMService
 from app.services.ai_service import AIService
 from app.models import Track, ListeningHistory, Artist, Album, Image, Metadata
 
 logger = logging.getLogger(__name__)
 
 
-class TrackerService:
-    """Service de tracking Last.fm en arrière-plan."""
+class RoonTrackerService:
+    """Service de tracking Roon en arrière-plan."""
     
     def __init__(self, config: dict):
         self.config = config
         self.scheduler = AsyncIOScheduler()
         self.is_running = False
         self.last_track_key = None
-        self.last_poll_time = None  # Dernière fois où le tracker a vérifié Last.fm
+        self.last_poll_time = None  # Dernière fois où le tracker a vérifié Roon
         
         # Initialiser les services
-        lastfm_config = config.get('lastfm', {})
+        roon_config = config.get('roon', {})
         spotify_config = config.get('spotify', {})
         euria_config = config.get('euria', {})
         
-        self.lastfm = LastFMService(
-            api_key=lastfm_config.get('api_key'),
-            api_secret=lastfm_config.get('api_secret'),
-            username=lastfm_config.get('username')
+        self.roon = RoonService(
+            server=roon_config.get('server'),
+            token=roon_config.get('token')
         )
         
         self.spotify = SpotifyService(
@@ -50,87 +49,91 @@ class TrackerService:
     async def start(self):
         """Démarrer le tracker."""
         if self.is_running:
-            logger.info("Tracker déjà en cours d'exécution")
+            logger.info("🎵 Tracker Roon déjà en cours d'exécution")
             return
         
-        interval = self.config.get('tracker', {}).get('interval_seconds', 120)
+        if not self.roon.is_connected():
+            logger.error("❌ Impossible de démarrer le tracker Roon: non connecté au serveur")
+            return
+        
+        interval = self.config.get('roon_tracker', {}).get('interval_seconds', 120)
         
         self.scheduler.add_job(
-            self._poll_lastfm,
+            self._poll_roon,
             trigger=IntervalTrigger(seconds=interval),
-            id='lastfm_tracker',
+            id='roon_tracker',
             replace_existing=True
         )
         
         self.scheduler.start()
         self.is_running = True
-        logger.info(f"Tracker démarré (intervalle: {interval}s)")
+        logger.info(f"🎵 Tracker Roon démarré (intervalle: {interval}s)")
     
     async def stop(self):
         """Arrêter le tracker."""
         if not self.is_running:
-            logger.info("Tracker n'est pas en cours d'exécution")
+            logger.info("🎵 Tracker Roon n'est pas en cours d'exécution")
             return
         
         self.scheduler.shutdown()
         self.is_running = False
-        logger.info("Tracker arrêté")
+        logger.info("🎵 Tracker Roon arrêté")
     
     def get_status(self) -> dict:
         """Obtenir le statut du tracker."""
         next_run_time = None
         if self.is_running:
-            job = self.scheduler.get_job('lastfm_tracker')
+            job = self.scheduler.get_job('roon_tracker')
             if job and job.next_run_time:
                 next_run_time = job.next_run_time.isoformat()
         
         return {
             "running": self.is_running,
+            "connected": self.roon.is_connected(),
             "last_track": self.last_track_key,
-            "interval_seconds": self.config.get('tracker', {}).get('interval_seconds', 120),
+            "interval_seconds": self.config.get('roon_tracker', {}).get('interval_seconds', 120),
             "last_poll_time": self.last_poll_time.isoformat() if self.last_poll_time else None,
-            "next_run_time": next_run_time
+            "next_run_time": next_run_time,
+            "server": self.config.get('roon', {}).get('server'),
+            "zones_count": len(self.roon.get_zones())
         }
     
-    async def _poll_lastfm(self):
-        """Interroger Last.fm et enregistrer les nouveaux tracks."""
+    async def _poll_roon(self):
+        """Interroger Roon et enregistrer les nouveaux tracks."""
         try:
             # Enregistrer l'heure du poll
             self.last_poll_time = datetime.now(timezone.utc)
             
             # Vérifier si nous sommes dans la plage horaire active
             current_hour = datetime.now().hour
-            start_hour = self.config.get('tracker', {}).get('listen_start_hour', 8)
-            end_hour = self.config.get('tracker', {}).get('listen_end_hour', 22)
+            start_hour = self.config.get('roon_tracker', {}).get('listen_start_hour', 8)
+            end_hour = self.config.get('roon_tracker', {}).get('listen_end_hour', 22)
             
             if not (start_hour <= current_hour < end_hour):
-                logger.debug(f"Hors plage horaire d'écoute ({start_hour}h-{end_hour}h), skip polling")
+                logger.debug(f"Hors plage horaire d'écoute Roon ({start_hour}h-{end_hour}h), skip polling")
                 return
             
-            # Récupérer les tracks récents (le plus récent sera le premier)
-            recent_tracks = self.lastfm.get_recent_tracks(limit=1)
+            current_track = self.roon.get_now_playing()
             
-            if not recent_tracks:
-                logger.debug("Aucun track récent trouvé")
+            if not current_track:
+                logger.debug("Aucun track en cours de lecture sur Roon")
                 return
-            
-            current_track = recent_tracks[0]
             
             # Créer clé unique pour éviter doublons
             track_key = f"{current_track['artist']}|{current_track['title']}|{current_track['album']}"
             
             if track_key == self.last_track_key:
-                logger.debug("Même track qu'avant, skip")
+                logger.debug("Même track qu'avant sur Roon, skip")
                 return
             
             self.last_track_key = track_key
-            logger.info(f"Nouveau track détecté: {track_key}")
+            logger.info(f"🎵 Nouveau track Roon détecté: {track_key} (zone: {current_track['zone_name']})")
             
             # Enregistrer en base de données
             await self._save_track(current_track)
             
         except Exception as e:
-            logger.error(f"Erreur polling Last.fm: {e}")
+            logger.error(f"Erreur polling Roon: {e}")
     
     def _check_duplicate(self, db: Session, artist_name: str, track_title: str, album_title: str, source: str) -> bool:
         """Vérifier si le track existe déjà récemment (dans les 5 dernières minutes).
@@ -193,8 +196,8 @@ class TrackerService:
             album_title = track_data['album']
             
             # Vérifier les doublons avant d'enregistrer
-            if self._check_duplicate(db, artist_name, track_title, album_title, 'lastfm'):
-                logger.debug(f"Skip enregistrement doublon: {artist_name} - {track_title}")
+            if self._check_duplicate(db, artist_name, track_title, album_title, 'roon'):
+                logger.debug(f"Skip enregistrement doublon Roon: {artist_name} - {track_title}")
                 db.close()
                 return
             
@@ -219,7 +222,7 @@ class TrackerService:
             # Créer/récupérer album
             album = db.query(Album).filter_by(title=album_title).first()
             if not album:
-                album = Album(title=album_title)
+                album = Album(title=album_title, support="Roon")
                 if artist not in album.artists:
                     album.artists.append(artist)
                 db.add(album)
@@ -230,133 +233,54 @@ class TrackerService:
                 if spotify_details:
                     if spotify_details.get("spotify_url"):
                         album.spotify_url = spotify_details["spotify_url"]
-                        logger.info(f"🎵 URL Spotify ajoutée: {spotify_details['spotify_url']}")
                     if spotify_details.get("year"):
                         album.year = spotify_details["year"]
-                        logger.info(f"📅 Année ajoutée: {spotify_details['year']}")
-                    
-                    # Image Spotify depuis les détails
                     if spotify_details.get("image_url"):
-                        img_spotify = Image(
+                        img = Image(
                             url=spotify_details["image_url"],
                             image_type='album',
                             source='spotify',
                             album_id=album.id
                         )
-                        db.add(img_spotify)
+                        db.add(img)
                 
-                album_image_lastfm = await self.lastfm.get_album_image(artist_name, album_title)
-                if album_image_lastfm:
-                    img_lastfm = Image(
-                        url=album_image_lastfm,
-                        image_type='album',
-                        source='lastfm',
-                        album_id=album.id
-                    )
-                    db.add(img_lastfm)
-                
-                # Générer info IA
-                ai_info = await self.ai.generate_album_info(artist_name, album_title)
-                if ai_info:
-                    metadata = Metadata(
-                        album_id=album.id,
-                        ai_info=ai_info
-                    )
-                    db.add(metadata)
-            else:
-                # Album existant : vérifier si les enrichissements manquent
-                # Vérifier URL Spotify et année
-                if not album.spotify_url or not album.year:
-                    spotify_details = await self.spotify.search_album_details(artist_name, album_title)
-                    if spotify_details:
-                        if not album.spotify_url and spotify_details.get("spotify_url"):
-                            album.spotify_url = spotify_details["spotify_url"]
-                            logger.info(f"🎵 URL Spotify ajoutée: {spotify_details['spotify_url']}")
-                        if not album.year and spotify_details.get("year"):
-                            album.year = spotify_details["year"]
-                            logger.info(f"📅 Année ajoutée: {spotify_details['year']}")
-                
-                # Vérifier images Spotify
-                has_spotify_image = db.query(Image).filter_by(
-                    album_id=album.id,
-                    image_type='album',
-                    source='spotify'
-                ).first() is not None
-                
-                if not has_spotify_image:
-                    album_image_spotify = await self.spotify.search_album_image(artist_name, album_title)
-                    if album_image_spotify:
-                        img_spotify = Image(
-                            url=album_image_spotify,
-                            image_type='album',
-                            source='spotify',
-                            album_id=album.id
-                        )
-                        db.add(img_spotify)
-                        logger.info(f"🎵 Image Spotify ajoutée pour {album_title}")
-                
-                # Vérifier images Last.fm
-                has_lastfm_image = db.query(Image).filter_by(
-                    album_id=album.id,
-                    image_type='album',
-                    source='lastfm'
-                ).first() is not None
-                
-                if not has_lastfm_image:
-                    album_image_lastfm = await self.lastfm.get_album_image(artist_name, album_title)
-                    if album_image_lastfm:
-                        img_lastfm = Image(
-                            url=album_image_lastfm,
-                            image_type='album',
-                            source='lastfm',
-                            album_id=album.id
-                        )
-                        db.add(img_lastfm)
-                        logger.info(f"🎵 Image Last.fm ajoutée pour {album_title}")
-                
-                # Vérifier info IA
-                has_ai_info = db.query(Metadata).filter_by(album_id=album.id).first() is not None
-                
-                if not has_ai_info:
+                # Enrichir avec l'IA
+                try:
                     ai_info = await self.ai.generate_album_info(artist_name, album_title)
                     if ai_info:
-                        metadata = Metadata(
-                            album_id=album.id,
-                            ai_info=ai_info
-                        )
+                        metadata = Metadata(album_id=album.id, ai_info=ai_info)
                         db.add(metadata)
-                        logger.info(f"🤖 Info IA ajoutée pour {album_title}")
+                except Exception as e:
+                    logger.warning(f"⚠️ Erreur enrichissement IA pour {album_title}: {e}")
             
-            # Créer track
+            # Créer/récupérer track
             track = db.query(Track).filter_by(
-                album_id=album.id,
-                title=track_title
+                title=track_title,
+                album_id=album.id
             ).first()
             
             if not track:
                 track = Track(
-                    album_id=album.id,
-                    title=track_title
+                    title=track_title,
+                    album_id=album.id
                 )
                 db.add(track)
                 db.flush()
             
-            # Créer entrée historique
-            now = datetime.now(timezone.utc)
+            # Enregistrer l'écoute avec source Roon
+            timestamp = int(datetime.now().timestamp())
             history = ListeningHistory(
                 track_id=track.id,
-                timestamp=int(now.timestamp()),
-                date=now.strftime("%Y-%m-%d %H:%M"),
-                source='lastfm',
-                loved=False
+                timestamp=timestamp,
+                source='roon'  # Identifier la source
             )
             db.add(history)
             
             db.commit()
-            logger.info(f"✅ Track enregistré: {artist_name} - {track_title}")
+            logger.info(f"✅ Track Roon enregistré: {track_title} - {artist_name}")
             
         except Exception as e:
+            logger.error(f"❌ Erreur sauvegarde track Roon: {e}")
             db.rollback()
-            logger.error(f"❌ Erreur sauvegarde track: {e}")
         finally:
             db.close()

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import {
   Box,
   Typography,
@@ -31,8 +31,6 @@ export default function Collection() {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
   const [selectedAlbum, setSelectedAlbum] = useState<number | null>(null)
   const [detailOpen, setDetailOpen] = useState(false)
-  
-  const queryClient = useQueryClient()
 
   // Debounce de la recherche pour éviter de perdre le focus
   useEffect(() => {

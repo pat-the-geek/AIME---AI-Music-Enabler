@@ -108,6 +108,43 @@ class SpotifyService:
             logger.error(f"Erreur recherche URL album Spotify: {e}")
             return None
     
+    async def search_album_details(self, artist_name: str, album_title: str) -> Optional[dict]:
+        """Rechercher les détails complets d'un album sur Spotify (URL + année)."""
+        try:
+            token = await self._get_access_token()
+            
+            query = f"artist:{artist_name} album:{album_title}"
+            
+            async with httpx.AsyncClient() as client:
+                response = await client.get(
+                    f"{self.api_base_url}/search",
+                    params={"q": query, "type": "album", "limit": 1},
+                    headers={"Authorization": f"Bearer {token}"}
+                )
+                response.raise_for_status()
+                data = response.json()
+                
+                albums = data.get("albums", {}).get("items", [])
+                if albums:
+                    album = albums[0]
+                    release_date = album.get("release_date", "")
+                    year = None
+                    if release_date:
+                        # La date peut être au format YYYY ou YYYY-MM-DD
+                        year = int(release_date.split("-")[0]) if release_date else None
+                    
+                    return {
+                        "spotify_url": album.get("external_urls", {}).get("spotify"),
+                        "year": year,
+                        "image_url": album["images"][0]["url"] if album.get("images") else None
+                    }
+                
+                return None
+                
+        except Exception as e:
+            logger.error(f"Erreur recherche détails album Spotify: {e}")
+            return None
+    
     async def get_artist_spotify_id(self, artist_name: str) -> Optional[str]:
         """Récupérer l'ID Spotify d'un artiste."""
         try:
