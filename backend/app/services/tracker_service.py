@@ -143,6 +143,12 @@ class TrackerService:
                 db.add(album)
                 db.flush()
                 
+                # Récupérer URL Spotify
+                spotify_url = await self.spotify.search_album_url(artist_name, album_title)
+                if spotify_url:
+                    album.spotify_url = spotify_url
+                    logger.info(f"🎵 URL Spotify ajoutée: {spotify_url}")
+                
                 # Récupérer images album
                 album_image_spotify = await self.spotify.search_album_image(artist_name, album_title)
                 if album_image_spotify:
@@ -172,6 +178,65 @@ class TrackerService:
                         ai_info=ai_info
                     )
                     db.add(metadata)
+            else:
+                # Album existant : vérifier si les enrichissements manquent
+                # Vérifier URL Spotify
+                if not album.spotify_url:
+                    spotify_url = await self.spotify.search_album_url(artist_name, album_title)
+                    if spotify_url:
+                        album.spotify_url = spotify_url
+                        logger.info(f"🎵 URL Spotify ajoutée: {spotify_url}")
+                
+                # Vérifier images Spotify
+                has_spotify_image = db.query(Image).filter_by(
+                    album_id=album.id,
+                    image_type='album',
+                    source='spotify'
+                ).first() is not None
+                
+                if not has_spotify_image:
+                    album_image_spotify = await self.spotify.search_album_image(artist_name, album_title)
+                    if album_image_spotify:
+                        img_spotify = Image(
+                            url=album_image_spotify,
+                            image_type='album',
+                            source='spotify',
+                            album_id=album.id
+                        )
+                        db.add(img_spotify)
+                        logger.info(f"🎵 Image Spotify ajoutée pour {album_title}")
+                
+                # Vérifier images Last.fm
+                has_lastfm_image = db.query(Image).filter_by(
+                    album_id=album.id,
+                    image_type='album',
+                    source='lastfm'
+                ).first() is not None
+                
+                if not has_lastfm_image:
+                    album_image_lastfm = await self.lastfm.get_album_image(artist_name, album_title)
+                    if album_image_lastfm:
+                        img_lastfm = Image(
+                            url=album_image_lastfm,
+                            image_type='album',
+                            source='lastfm',
+                            album_id=album.id
+                        )
+                        db.add(img_lastfm)
+                        logger.info(f"🎵 Image Last.fm ajoutée pour {album_title}")
+                
+                # Vérifier info IA
+                has_ai_info = db.query(Metadata).filter_by(album_id=album.id).first() is not None
+                
+                if not has_ai_info:
+                    ai_info = await self.ai.generate_album_info(artist_name, album_title)
+                    if ai_info:
+                        metadata = Metadata(
+                            album_id=album.id,
+                            ai_info=ai_info
+                        )
+                        db.add(metadata)
+                        logger.info(f"🤖 Info IA ajoutée pour {album_title}")
             
             # Créer track
             track = db.query(Track).filter_by(

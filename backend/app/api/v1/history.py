@@ -100,11 +100,15 @@ async def list_history(
             artist=', '.join(artists),
             title=track.title,
             album=album.title if album else "Unknown",
+            album_id=album.id if album else None,
+            track_id=track.id if track else None,
             loved=entry.loved,
             source=entry.source,
             artist_image=artist_image,
             album_image=album_image,
             album_lastfm_image=album_lastfm_image,
+            spotify_url=album.spotify_url if album else None,
+            discogs_url=album.discogs_url if album else None,
             ai_info=ai_info
         ))
     
@@ -164,13 +168,32 @@ async def get_timeline(
         album = track.album
         artists = [a.name for a in album.artists] if album and album.artists else []
         
+        # Récupérer images album
+        album_image = None
+        album_lastfm_image = None
+        if album:
+            album_images = db.query(Image).filter(
+                Image.album_id == album.id,
+                Image.image_type == 'album'
+            ).all()
+            for img in album_images:
+                if img.source == 'spotify':
+                    album_image = img.url
+                elif img.source == 'lastfm':
+                    album_lastfm_image = img.url
+        
         hours[hour].append({
             "id": entry.id,
             "time": dt.strftime("%H:%M"),
             "artist": ', '.join(artists),
             "title": track.title,
             "album": album.title if album else "Unknown",
-            "loved": entry.loved
+            "album_id": album.id if album else None,
+            "loved": entry.loved,
+            "album_image": album_image,
+            "album_lastfm_image": album_lastfm_image,
+            "spotify_url": album.spotify_url if album else None,
+            "discogs_url": album.discogs_url if album else None
         })
     
     # Statistiques

@@ -71,3 +71,57 @@ class LastFMService:
         except Exception as e:
             logger.error(f"Erreur récupération image album Last.fm: {e}")
             return None
+    
+    def get_user_history(self, limit: int = 200, from_timestamp: Optional[int] = None, to_timestamp: Optional[int] = None) -> list:
+        """Récupérer l'historique complet d'écoute d'un utilisateur.
+        
+        Args:
+            limit: Nombre maximum de tracks à récupérer par page (max 200)
+            from_timestamp: Timestamp Unix de début (optionnel)
+            to_timestamp: Timestamp Unix de fin (optionnel)
+            
+        Returns:
+            Liste de tracks avec timestamps
+        """
+        try:
+            user = pylast.User(self.username, self.network)
+            
+            # Utiliser la méthode get_recent_tracks avec time_from et time_to
+            kwargs = {'limit': min(limit, 200)}  # Last.fm limite à 200 par page
+            if from_timestamp:
+                kwargs['time_from'] = from_timestamp
+            if to_timestamp:
+                kwargs['time_to'] = to_timestamp
+            
+            recent_tracks = user.get_recent_tracks(**kwargs)
+            
+            tracks = []
+            for played_track in recent_tracks:
+                # Vérifier si le track a un timestamp (n'est pas "now playing")
+                if not hasattr(played_track, 'timestamp') or not played_track.timestamp:
+                    continue
+                
+                track_info = {
+                    "artist": str(played_track.track.artist),
+                    "title": str(played_track.track.title),
+                    "album": str(played_track.album) if hasattr(played_track, 'album') and played_track.album else "Unknown",
+                    "timestamp": int(played_track.timestamp),
+                    "playback_date": played_track.playback_date
+                }
+                tracks.append(track_info)
+            
+            logger.info(f"✅ Récupéré {len(tracks)} tracks depuis Last.fm")
+            return tracks
+            
+        except Exception as e:
+            logger.error(f"❌ Erreur récupération historique Last.fm: {e}")
+            return []
+    
+    def get_total_scrobbles(self) -> int:
+        """Obtenir le nombre total de scrobbles de l'utilisateur."""
+        try:
+            user = pylast.User(self.username, self.network)
+            return int(user.get_playcount())
+        except Exception as e:
+            logger.error(f"Erreur récupération nombre de scrobbles: {e}")
+            return 0

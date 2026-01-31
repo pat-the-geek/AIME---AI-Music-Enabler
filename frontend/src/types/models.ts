@@ -36,11 +36,15 @@ export interface ListeningHistory {
   artist: string
   title: string
   album: string
+  album_id?: number
+  track_id?: number
   loved: boolean
   source: string
   artist_image?: string
   album_image?: string
   album_lastfm_image?: string
+  spotify_url?: string
+  discogs_url?: string
   ai_info?: string
 }
 

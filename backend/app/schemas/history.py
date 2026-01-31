@@ -30,11 +30,15 @@ class ListeningHistoryResponse(BaseModel):
     artist: str
     title: str
     album: str
+    album_id: Optional[int] = None
+    track_id: Optional[int] = None
     loved: bool
     source: str
     artist_image: Optional[str] = None
     album_image: Optional[str] = None
     album_lastfm_image: Optional[str] = None
+    spotify_url: Optional[str] = None
+    discogs_url: Optional[str] = None
     ai_info: Optional[str] = None
     
     class Config:

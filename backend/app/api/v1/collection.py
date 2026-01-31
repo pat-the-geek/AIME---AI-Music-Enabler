@@ -1,7 +1,8 @@
 """API endpoints pour la collection d'albums."""
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Body
 from sqlalchemy.orm import Session
 from typing import Optional, List
+from pydantic import BaseModel
 import math
 
 from app.database import get_db
@@ -243,6 +244,32 @@ async def update_album(
         created_at=album.created_at,
         updated_at=album.updated_at
     )
+
+
+@router.patch("/albums/{album_id}")
+async def patch_album(
+    album_id: int,
+    patch_data: dict = Body(...),
+    db: Session = Depends(get_db)
+):
+    """Mettre à jour partiellement un album (ex: URL Spotify)."""
+    album = db.query(Album).filter(Album.id == album_id).first()
+    
+    if not album:
+        raise HTTPException(status_code=404, detail="Album non trouvé")
+    
+    # Mettre à jour uniquement les champs fournis
+    if 'spotify_url' in patch_data:
+        album.spotify_url = patch_data['spotify_url']
+    
+    db.commit()
+    db.refresh(album)
+    
+    return {
+        "id": album.id,
+        "spotify_url": album.spotify_url,
+        "message": "Album mis à jour"
+    }
 
 
 @router.delete("/albums/{album_id}", status_code=204)

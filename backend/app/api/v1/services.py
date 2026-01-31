@@ -1,6 +1,7 @@
 """Routes API pour les services externes."""
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session, joinedload
+from datetime import datetime, timezone
 
 from app.database import get_db
 from app.core.config import get_settings
@@ -8,7 +9,8 @@ from app.services.tracker_service import TrackerService
 from app.services.discogs_service import DiscogsService
 from app.services.spotify_service import SpotifyService
 from app.services.ai_service import AIService
-from app.models import Album, Artist, Image, Metadata
+from app.services.lastfm_service import LastFMService
+from app.models import Album, Artist, Image, Metadata, Track, ListeningHistory
 
 router = APIRouter()
 
@@ -372,3 +374,348 @@ async def enrich_all_albums(
         logger.error(f"❌ Erreur enrichissement: {e}")
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Erreur enrichissement: {str(e)}")
+
+
+@router.post("/spotify/enrich-all")
+async def enrich_spotify_urls(
+    limit: int = 20,
+    db: Session = Depends(get_db)
+):
+    """Enrichir uniquement les URLs Spotify manquantes.
+    
+    Args:
+        limit: Nombre d'albums à traiter (0 = tous les albums sans limite)
+    """
+    import logging
+    import asyncio
+    logger = logging.getLogger(__name__)
+    
+    logger.info(f"🎵 Début enrichissement Spotify de {limit if limit > 0 else 'TOUS les'} albums")
+    settings = get_settings()
+    secrets = settings.secrets
+    
+    spotify_config = secrets.get('spotify', {})
+    
+    spotify_service = SpotifyService(
+        client_id=spotify_config.get('client_id'),
+        client_secret=spotify_config.get('client_secret')
+    )
+    
+    try:
+        # Récupérer uniquement les albums sans spotify_url
+        query = db.query(Album).filter(Album.spotify_url == None)
+        if limit > 0:
+            albums = query.limit(limit).all()
+        else:
+            albums = query.all()
+        
+        logger.info(f"📀 {len(albums)} albums sans Spotify URL")
+        
+        spotify_added = 0
+        errors = 0
+        
+        for idx, album in enumerate(albums, 1):
+            try:
+                artist_name = album.artists[0].name if album.artists else ""
+                
+                if idx % 10 == 0:
+                    logger.info(f"📊 Progress: {idx}/{len(albums)}")
+                
+                # Enrichir Spotify
+                spotify_url = await spotify_service.search_album_url(artist_name, album.title)
+                if spotify_url:
+                    album.spotify_url = spotify_url
+                    spotify_added += 1
+                    db.commit()
+                    logger.info(f"🎵 [{idx}/{len(albums)}] Spotify ajouté: {album.title}")
+                else:
+                    logger.warning(f"⚠️ [{idx}/{len(albums)}] Spotify non trouvé pour {album.title}")
+                
+                # Petit délai pour éviter rate limiting
+                if idx % 10 == 0:
+                    await asyncio.sleep(0.5)
+                    
+            except Exception as e:
+                logger.error(f"❌ Erreur Spotify pour {album.title}: {e}")
+                db.rollback()
+                errors += 1
+                continue
+        
+        logger.info(f"✅ Enrichissement Spotify terminé: {spotify_added} ajoutés, {errors} erreurs")
+        
+        return {
+            "status": "success",
+            "albums_processed": len(albums),
+            "spotify_added": spotify_added,
+            "errors": errors
+        }
+        
+    except Exception as e:
+        logger.error(f"❌ Erreur enrichissement Spotify: {e}")
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Erreur enrichissement Spotify: {str(e)}")
+
+
+@router.post("/lastfm/import-history")
+async def import_lastfm_history(
+    limit: int = 1000,
+    skip_existing: bool = True,
+    db: Session = Depends(get_db)
+):
+    """Importer l'historique d'écoute depuis Last.fm.
+    
+    Args:
+        limit: Nombre maximum de tracks à importer (par batch de 200)
+        skip_existing: Ignorer les tracks déjà en base (True) ou tout réimporter (False)
+    """
+    import logging
+    import asyncio
+    from collections import defaultdict
+    logger = logging.getLogger(__name__)
+    
+    logger.info(f"🔄 Début import historique Last.fm (limit={limit})")
+    settings = get_settings()
+    secrets = settings.secrets
+    
+    lastfm_config = secrets.get('lastfm', {})
+    spotify_config = secrets.get('spotify', {})
+    ai_config = secrets.get('euria', {})
+    
+    lastfm_service = LastFMService(
+        api_key=lastfm_config.get('api_key'),
+        api_secret=lastfm_config.get('api_secret'),
+        username=lastfm_config.get('username')
+    )
+    
+    spotify_service = SpotifyService(
+        client_id=spotify_config.get('client_id'),
+        client_secret=spotify_config.get('client_secret')
+    )
+    
+    ai_service = AIService(
+        url=ai_config.get('url'),
+        bearer=ai_config.get('bearer')
+    )
+    
+    try:
+        # Récupérer le nombre total de scrobbles
+        total_scrobbles = lastfm_service.get_total_scrobbles()
+        logger.info(f"📊 Total scrobbles utilisateur: {total_scrobbles}")
+        
+        # Récupérer l'historique par batches (Last.fm limite à 200 par requête)
+        imported_count = 0
+        skipped_count = 0
+        error_count = 0
+        
+        # Calcul du nombre de batches nécessaires
+        batch_size = 200
+        num_batches = min((limit // batch_size) + 1, (total_scrobbles // batch_size) + 1)
+        
+        logger.info(f"📦 {num_batches} batches à traiter (max {limit} tracks)")
+        
+        # Dictionnaire pour accumuler les albums à enrichir (évite doublons)
+        albums_to_enrich = defaultdict(dict)
+        
+        for batch_num in range(num_batches):
+            try:
+                # Récupérer batch de tracks
+                batch_limit = min(batch_size, limit - imported_count - skipped_count)
+                if batch_limit <= 0:
+                    break
+                
+                logger.info(f"📥 Batch {batch_num + 1}/{num_batches}...")
+                tracks = lastfm_service.get_user_history(limit=batch_limit)
+                
+                if not tracks:
+                    logger.warning(f"⚠️ Aucun track dans le batch {batch_num + 1}")
+                    break
+                
+                for track_data in tracks:
+                    try:
+                        artist_name = track_data['artist']
+                        track_title = track_data['title']
+                        album_title = track_data['album']
+                        timestamp = track_data['timestamp']
+                        
+                        # Vérifier si déjà importé (si skip_existing=True)
+                        if skip_existing:
+                            existing = db.query(ListeningHistory).filter_by(
+                                timestamp=timestamp
+                            ).first()
+                            if existing:
+                                skipped_count += 1
+                                continue
+                        
+                        # Créer/récupérer artiste
+                        artist = db.query(Artist).filter_by(name=artist_name).first()
+                        if not artist:
+                            artist = Artist(name=artist_name)
+                            db.add(artist)
+                            db.flush()
+                        
+                        # Créer/récupérer album
+                        album = db.query(Album).filter_by(title=album_title).join(Album.artists).filter(
+                            Artist.name == artist_name
+                        ).first()
+                        
+                        if not album:
+                            album = Album(title=album_title)
+                            album.artists.append(artist)
+                            db.add(album)
+                            db.flush()
+                            
+                            # Marquer pour enrichissement ultérieur
+                            albums_to_enrich[album.id] = {
+                                'artist': artist_name,
+                                'title': album_title,
+                                'album_id': album.id
+                            }
+                        
+                        # Créer/récupérer track
+                        track = db.query(Track).filter_by(
+                            album_id=album.id,
+                            title=track_title
+                        ).first()
+                        
+                        if not track:
+                            track = Track(
+                                album_id=album.id,
+                                title=track_title
+                            )
+                            db.add(track)
+                            db.flush()
+                        
+                        # Créer entrée historique
+                        dt = datetime.fromtimestamp(timestamp, tz=timezone.utc)
+                        history = ListeningHistory(
+                            track_id=track.id,
+                            timestamp=timestamp,
+                            date=dt.strftime("%Y-%m-%d %H:%M"),
+                            source='lastfm',
+                            loved=False
+                        )
+                        db.add(history)
+                        imported_count += 1
+                        
+                        # Commit par petits lots pour éviter timeout
+                        if imported_count % 50 == 0:
+                            db.commit()
+                            logger.info(f"💾 {imported_count} tracks importés...")
+                        
+                    except Exception as e:
+                        logger.error(f"❌ Erreur import track {track_data.get('title', 'Unknown')}: {e}")
+                        error_count += 1
+                        continue
+                
+                # Commit après chaque batch
+                db.commit()
+                logger.info(f"✅ Batch {batch_num + 1} terminé: {imported_count} importés, {skipped_count} ignorés")
+                
+                # Petit délai entre batches pour ne pas saturer Last.fm API
+                if batch_num < num_batches - 1:
+                    await asyncio.sleep(1.0)
+                    
+            except Exception as e:
+                logger.error(f"❌ Erreur batch {batch_num + 1}: {e}")
+                db.rollback()
+                continue
+        
+        db.commit()
+        
+        logger.info(f"📊 Import terminé: {imported_count} tracks importés, {skipped_count} ignorés, {error_count} erreurs")
+        logger.info(f"📀 {len(albums_to_enrich)} nouveaux albums à enrichir")
+        
+        # Enrichissement des nouveaux albums (Spotify + IA) en arrière-plan
+        enriched_count = 0
+        for album_info in list(albums_to_enrich.values())[:50]:  # Limite à 50 albums pour ce batch
+            try:
+                await asyncio.sleep(0.5)  # Délai entre enrichissements
+                
+                album_id = album_info['album_id']
+                artist = album_info['artist']
+                title = album_info['title']
+                
+                album = db.query(Album).filter_by(id=album_id).first()
+                if not album:
+                    continue
+                
+                # Enrichir Spotify
+                if not album.spotify_url:
+                    try:
+                        spotify_url = await spotify_service.search_album_url(artist, title)
+                        if spotify_url:
+                            album.spotify_url = spotify_url
+                    except Exception as e:
+                        logger.warning(f"⚠️ Erreur Spotify pour {title}: {e}")
+                
+                # Images Spotify
+                if not any(img.source == 'spotify' for img in album.images):
+                    try:
+                        album_image = await spotify_service.search_album_image(artist, title)
+                        if album_image:
+                            img = Image(
+                                url=album_image,
+                                image_type='album',
+                                source='spotify',
+                                album_id=album.id
+                            )
+                            db.add(img)
+                    except Exception as e:
+                        logger.warning(f"⚠️ Erreur image Spotify pour {title}: {e}")
+                
+                # Images Last.fm
+                if not any(img.source == 'lastfm' for img in album.images):
+                    try:
+                        lastfm_image = await lastfm_service.get_album_image(artist, title)
+                        if lastfm_image:
+                            img = Image(
+                                url=lastfm_image,
+                                image_type='album',
+                                source='lastfm',
+                                album_id=album.id
+                            )
+                            db.add(img)
+                    except Exception as e:
+                        logger.warning(f"⚠️ Erreur image Last.fm pour {title}: {e}")
+                
+                # Description IA
+                if not album.album_metadata or not album.album_metadata.ai_info:
+                    try:
+                        await asyncio.sleep(1.0)  # Délai plus long pour IA
+                        ai_info = await ai_service.generate_album_info(artist, title)
+                        if ai_info:
+                            if not album.album_metadata:
+                                metadata = Metadata(album_id=album.id, ai_info=ai_info)
+                                db.add(metadata)
+                            else:
+                                album.album_metadata.ai_info = ai_info
+                    except Exception as e:
+                        logger.warning(f"⚠️ Erreur IA pour {title}: {e}")
+                
+                enriched_count += 1
+                if enriched_count % 10 == 0:
+                    db.commit()
+                    logger.info(f"🎨 {enriched_count} albums enrichis...")
+                    
+            except Exception as e:
+                logger.error(f"❌ Erreur enrichissement album: {e}")
+                continue
+        
+        db.commit()
+        logger.info(f"✅ Import historique terminé avec succès!")
+        
+        return {
+            "status": "success",
+            "tracks_imported": imported_count,
+            "tracks_skipped": skipped_count,
+            "tracks_errors": error_count,
+            "albums_enriched": enriched_count,
+            "total_albums_to_enrich": len(albums_to_enrich),
+            "total_scrobbles": total_scrobbles
+        }
+        
+    except Exception as e:
+        logger.error(f"❌ Erreur import historique Last.fm: {e}")
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Erreur import: {str(e)}")
+
