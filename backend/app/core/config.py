@@ -50,6 +50,10 @@ class Settings(BaseSettings):
     listen_start_hour: int = 6
     listen_end_hour: int = 23
     
+    # Cache pour les configurations chargées
+    _app_config_cache: dict = None
+    _secrets_cache: dict = None
+    
     def load_config_file(self, filename: str) -> dict:
         """Charger un fichier de configuration JSON."""
         config_path = self.config_dir / filename
@@ -58,15 +62,30 @@ class Settings(BaseSettings):
                 return json.load(f)
         return {}
     
+    def save_config_file(self, filename: str, data: dict) -> None:
+        """Sauvegarder un fichier de configuration JSON."""
+        config_path = self.config_dir / filename
+        config_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(config_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+    
     @property
     def app_config(self) -> dict:
-        """Configuration de l'application depuis app.json."""
-        return self.load_config_file("app.json")
+        """Configuration de l'application depuis app.json (avec cache)."""
+        if self._app_config_cache is None:
+            self._app_config_cache = self.load_config_file("app.json")
+        return self._app_config_cache
+    
+    def save_app_config(self) -> None:
+        """Sauvegarder app_config dans app.json."""
+        self.save_config_file("app.json", self._app_config_cache)
     
     @property
     def secrets(self) -> dict:
-        """Secrets depuis secrets.json."""
-        return self.load_config_file("secrets.json")
+        """Secrets depuis secrets.json (avec cache)."""
+        if self._secrets_cache is None:
+            self._secrets_cache = self.load_config_file("secrets.json")
+        return self._secrets_cache
     
     class Config:
         env_file = ".env"

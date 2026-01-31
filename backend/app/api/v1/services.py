@@ -2,11 +2,13 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session, joinedload
 from datetime import datetime, timezone
+from pydantic import BaseModel
 
 from app.database import get_db
 from app.core.config import get_settings
 from app.services.tracker_service import TrackerService
 from app.services.roon_tracker_service import RoonTrackerService
+from app.services.roon_service import RoonService
 from app.services.scheduler_service import SchedulerService
 from app.services.discogs_service import DiscogsService
 from app.services.spotify_service import SpotifyService
@@ -15,6 +17,17 @@ from app.services.lastfm_service import LastFMService
 from app.models import Album, Artist, Image, Metadata, Track, ListeningHistory
 
 router = APIRouter()
+
+
+# Pydantic models pour les requêtes
+class RoonConfigRequest(BaseModel):
+    """Modèle pour la configuration Roon."""
+    server: str
+
+
+class RoonTestConnectionRequest(BaseModel):
+    """Modèle pour tester la connexion Roon."""
+    server: str
 
 # Instances globales
 _tracker_instance = None
@@ -106,6 +119,72 @@ async def stop_roon_tracker():
     tracker = get_roon_tracker()
     await tracker.stop()
     return {"status": "stopped"}
+
+
+@router.get("/roon/config")
+async def get_roon_config():
+    """Récupérer la configuration Roon actuelle."""
+    settings = get_settings()
+    return {
+        "server": settings.app_config.get("roon_server", ""),
+        "configured": bool(settings.app_config.get("roon_server"))
+    }
+
+
+@router.post("/roon/config")
+async def save_roon_config(request: RoonConfigRequest):
+    """Sauvegarder la configuration Roon."""
+    settings = get_settings()
+    
+    # Valider l'adresse
+    if not request.server or not request.server.strip():
+        raise HTTPException(status_code=400, detail="L'adresse du serveur ne peut pas être vide")
+    
+    # Sauvegarder dans app.json
+    settings.app_config["roon_server"] = request.server.strip()
+    settings.save_app_config()
+    
+    # Réinitialiser l'instance du tracker Roon pour qu'il utilise la nouvelle config
+    global _roon_tracker_instance
+    _roon_tracker_instance = None
+    
+    return {
+        "status": "success",
+        "server": request.server.strip(),
+        "message": "Configuration sauvegardée. Veuillez autoriser l'extension dans Roon (Settings → Extensions)."
+    }
+
+
+@router.post("/roon/test-connection")
+async def test_roon_connection(request: RoonTestConnectionRequest):
+    """Tester la connexion à un serveur Roon."""
+    if not request.server or not request.server.strip():
+        raise HTTPException(status_code=400, detail="L'adresse du serveur ne peut pas être vide")
+    
+    try:
+        # Créer une instance temporaire du service Roon
+        roon_service = RoonService(server=request.server.strip())
+        
+        # Vérifier si la connexion est établie
+        if roon_service.roon_api is None:
+            return {
+                "connected": False,
+                "error": "Impossible de se connecter au serveur Roon. Vérifiez l'adresse et assurez-vous que Roon Core est démarré."
+            }
+        
+        # Récupérer les zones disponibles
+        zones_count = len(roon_service.zones) if hasattr(roon_service, 'zones') else 0
+        
+        return {
+            "connected": True,
+            "zones_found": zones_count,
+            "message": f"Connexion réussie ! {zones_count} zone(s) détectée(s). N'oubliez pas d'autoriser l'extension dans Roon."
+        }
+    except Exception as e:
+        return {
+            "connected": False,
+            "error": str(e)
+        }
 
 
 @router.post("/tracker/start")

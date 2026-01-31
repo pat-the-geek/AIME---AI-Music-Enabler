@@ -29,8 +29,11 @@ class RoonTrackerService:
         spotify_config = config.get('spotify', {})
         euria_config = config.get('euria', {})
         
+        # Récupérer l'adresse du serveur (priorité à roon_server pour compatibilité)
+        roon_server = config.get('roon_server') or roon_config.get('server')
+        
         self.roon = RoonService(
-            server=roon_config.get('server'),
+            server=roon_server,
             token=roon_config.get('token')
         )
         

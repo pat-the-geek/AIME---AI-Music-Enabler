@@ -48,6 +48,8 @@ export default function Settings() {
   const [importLimit, setImportLimit] = useState(1000)
   const [importDialogOpen, setImportDialogOpen] = useState(false)
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' })
+  const [roonServer, setRoonServer] = useState('')
+  const [testingRoonConnection, setTestingRoonConnection] = useState(false)
   
   const queryClient = useQueryClient()
 
@@ -59,6 +61,20 @@ export default function Settings() {
       return response.data
     },
     refetchInterval: 5000, // Rafraîchir toutes les 5 secondes
+  })
+
+  // Récupérer la configuration Roon
+  const { data: roonConfig } = useQuery({
+    queryKey: ['roon-config'],
+    queryFn: async () => {
+      const response = await apiClient.get('/services/roon/config')
+      return response.data
+    },
+    onSuccess: (data) => {
+      if (data?.server) {
+        setRoonServer(data.server)
+      }
+    },
   })
 
   // Pour la compatibilité avec le code existant
@@ -128,6 +144,72 @@ export default function Settings() {
       setSnackbar({ open: true, message: `Erreur sync: ${error.message}`, severity: 'error' })
     },
   })
+
+  const saveRoonConfigMutation = useMutation({
+    mutationFn: async (server: string) => {
+      const response = await apiClient.post('/services/roon/config', { server })
+      return response.data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['roon-config'] })
+      queryClient.invalidateQueries({ queryKey: ['all-services-status'] })
+      setSnackbar({
+        open: true,
+        message: '✅ Configuration Roon sauvegardée',
+        severity: 'success'
+      })
+    },
+    onError: (error: any) => {
+      setSnackbar({ open: true, message: `Erreur: ${error.message}`, severity: 'error' })
+    },
+  })
+
+  const testRoonConnectionMutation = useMutation({
+    mutationFn: async (server: string) => {
+      const response = await apiClient.post('/services/roon/test-connection', { server })
+      return response.data
+    },
+    onSuccess: (data) => {
+      if (data.connected) {
+        setSnackbar({
+          open: true,
+          message: `✅ Connexion réussie ! ${data.zones_found || 0} zone(s) détectée(s)`,
+          severity: 'success'
+        })
+      } else {
+        setSnackbar({
+          open: true,
+          message: `⚠️ Impossible de se connecter: ${data.error || 'Erreur inconnue'}`,
+          severity: 'warning'
+        })
+      }
+    },
+    onError: (error: any) => {
+      setSnackbar({ 
+        open: true, 
+        message: `❌ Erreur de connexion: ${error.response?.data?.detail || error.message}`, 
+        severity: 'error' 
+      })
+    },
+  })
+
+  const handleTestRoonConnection = async () => {
+    if (!roonServer.trim()) {
+      setSnackbar({ open: true, message: '⚠️ Veuillez saisir une adresse serveur', severity: 'warning' })
+      return
+    }
+    setTestingRoonConnection(true)
+    await testRoonConnectionMutation.mutateAsync(roonServer)
+    setTestingRoonConnection(false)
+  }
+
+  const handleSaveRoonConfig = () => {
+    if (!roonServer.trim()) {
+      setSnackbar({ open: true, message: '⚠️ Veuillez saisir une adresse serveur', severity: 'warning' })
+      return
+    }
+    saveRoonConfigMutation.mutate(roonServer)
+  }
 
   const handleStartImport = () => {
     importHistoryMutation.mutate(importLimit)
@@ -218,7 +300,57 @@ export default function Settings() {
           </Stack>
         </CardContent>
       </Card>
+      {/* Configuration Roon */}
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            🔧 Configuration Roon
+          </Typography>
+          
+          <Divider sx={{ mb: 2 }} />
+          
+          <Alert severity="info" sx={{ mb: 2 }}>
+            Configurez l'adresse de votre serveur Roon pour activer le tracking local. 
+            L'extension doit être autorisée dans les paramètres Roon.
+          </Alert>
 
+          <Stack spacing={2}>
+            <TextField
+              label="Adresse du serveur Roon"
+              placeholder="192.168.1.100 ou roon-core.local"
+              value={roonServer}
+              onChange={(e) => setRoonServer(e.target.value)}
+              fullWidth
+              helperText="Entrez l'adresse IP ou le hostname de votre Roon Core"
+            />
+
+            <Stack direction="row" spacing={2}>
+              <Button
+                variant="outlined"
+                onClick={handleTestRoonConnection}
+                disabled={testingRoonConnection || !roonServer.trim()}
+                startIcon={testingRoonConnection ? <CircularProgress size={20} /> : null}
+              >
+                {testingRoonConnection ? 'Test en cours...' : 'Tester la connexion'}
+              </Button>
+
+              <Button
+                variant="contained"
+                onClick={handleSaveRoonConfig}
+                disabled={saveRoonConfigMutation.isPending || !roonServer.trim()}
+                color="primary"
+              >
+                Enregistrer
+              </Button>
+            </Stack>
+
+            <Typography variant="caption" color="text.secondary">
+              💡 Après avoir sauvegardé, allez dans les paramètres de Roon (Settings → Extensions) 
+              pour autoriser l'extension "AIME - AI Music Enabler".
+            </Typography>
+          </Stack>
+        </CardContent>
+      </Card>
       {/* Tracker Roon */}
       <Card sx={{ mb: 3 }}>
         <CardContent>
