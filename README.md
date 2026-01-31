@@ -49,7 +49,14 @@ Application web moderne pour tracker et analyser l'historique d'écoute musicale
    
    ![Paramètres Trackers](Screen%20captures/Settings%20-%20Roon%20-%20Lastfm%20-%20Trackers.png)
 
-6. **API REST Complète**
+6. **Scheduler et Exports Automatiques**
+   - 🎋 Génération quotidienne de haikus pour 5 albums aléatoires (6h00)
+   - 📝 Export automatique de la collection en Markdown (8h00)
+   - 📊 Export automatique de la collection en JSON (10h00)
+   - 🗑️ Gestion automatique des fichiers (garde les 5 derniers de chaque type)
+   - ⚙️ Configuration modifiable des limites de fichiers
+
+7. **API REST Complète**
    - Endpoints pour collection, historique, playlists, services
    - Documentation Swagger auto-générée
    - Validation Pydantic
@@ -219,7 +226,59 @@ Endpoints principaux:
 - `POST /api/v1/services/discogs/sync` - Synchroniser Discogs
 - `POST /api/v1/services/ai/generate-info` - Générer info IA
 
+### Scheduler (Tâches Automatiques)
+- `GET /api/v1/services/scheduler/config` - Configuration scheduler + max_files_per_type
+- `PATCH /api/v1/services/scheduler/config` - Mettre à jour max_files_per_type
+- `POST /api/v1/services/scheduler/start` - Démarrer scheduler
+- `POST /api/v1/services/scheduler/stop` - Arrêter scheduler
+- `POST /api/v1/services/scheduler/trigger/{task_name}` - Déclencher tâche manuel
+  - `generate_haiku_scheduled` - Générer haikus
+  - `export_collection_markdown` - Export Markdown
+  - `export_collection_json` - Export JSON
+
 Documentation complète: http://localhost:8000/docs
+
+## 📅 Tâches Automatiques (Scheduler)
+
+Le scheduler exécute automatiquement trois tâches quotidiennes:
+
+### 🎋 Génération de Haikus (6h00)
+```
+POST /api/v1/services/scheduler/trigger/generate_haiku_scheduled
+```
+- Sélectionne 5 albums aléatoires
+- Génère un haiku IA pour chaque
+- Export en fichier Markdown horodaté
+- Format: `generate-haiku-YYYYMMDD-HHMMSS.md`
+
+### 📝 Export Markdown (8h00)
+```
+POST /api/v1/services/scheduler/trigger/export_collection_markdown
+```
+- Exporte la collection complète
+- Groupée par artiste
+- Inclut année et support
+- Format: `export-markdown-YYYYMMDD-HHMMSS.md`
+
+### 📊 Export JSON (10h00)
+```
+POST /api/v1/services/scheduler/trigger/export_collection_json
+```
+- Exporte la collection complète
+- Format JSON avec métadonnées
+- Inclut ID, titre, année, support, artistes, nombre de tracks
+- Format: `export-json-YYYYMMDD-HHMMSS.json`
+
+### ⚙️ Configuration Fichiers
+```
+PATCH /api/v1/services/scheduler/config?max_files_per_type=5
+```
+- Modifiable dans les Settings de l'application
+- Valeur par défaut: 5 fichiers par type
+- Les anciens fichiers sont automatiquement supprimés
+- Les logs affichent les suppressions (🗑️)
+
+**Stockage**: Tous les fichiers générés dans le répertoire `Scheduled Output/`
 
 ## 🧪 Tests
 
@@ -248,6 +307,7 @@ npm run test
 - **[Tracker Last.fm](docs/features/LASTFM-IMPORT-TRACKER-DOC.md)** - Configuration et import
 - **[Tracker Roon](docs/features/ROON-TRACKER-DOC.md)** - Intégration Roon
 - **[Journal/Timeline](docs/features/JOURNAL-TIMELINE-DOC.md)** - Vue chronologique
+- **[Scheduler et Exports](docs/SCHEDULER.md)** - Tâches automatiques et configuration
 
 ## 🔧 Dépannage
 
@@ -268,7 +328,7 @@ Si vous rencontrez des problèmes lors de l'installation ou du démarrage:
 
 ## 📝 Roadmap
 
-- [ ] Export playlists (M3U, Spotify, Apple Music)
+- [ ] Exports avancés (M3U, Spotify, Apple Music)
 - [ ] Visualisations avancées (genres, découverte)
 - [ ] Recommandations IA personnalisées
 - [ ] Notifications (email, alertes nouveaux albums)
@@ -276,6 +336,7 @@ Si vous rencontrez des problèmes lors de l'installation ou du démarrage:
 - [ ] Partage de playlists
 - [ ] Dark mode amélioré
 - [ ] Responsive mobile complet
+- [ ] Planification custom des tâches scheduler
 
 ## 🤝 Contribution
 
@@ -287,6 +348,6 @@ MIT License
 
 ---
 
-**Version**: 4.0.0  
-**Date**: 30 janvier 2026  
+**Version**: 4.1.0  
+**Date**: 31 janvier 2026  
 **Auteur**: Patrick Ostertag
