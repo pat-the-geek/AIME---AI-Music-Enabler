@@ -33,6 +33,7 @@ class RoonTestConnectionRequest(BaseModel):
 _tracker_instance = None
 _roon_tracker_instance = None
 _scheduler_instance = None
+_roon_service_instance = None  # Instance persistante pour maintenir la connexion
 
 # Tracking des dernières exécutions manuelles
 _last_executions = {
@@ -74,6 +75,26 @@ def get_scheduler():
         config = {**settings.secrets, **settings.app_config}
         _scheduler_instance = SchedulerService(config)
     return _scheduler_instance
+
+
+def get_roon_service():
+    """Obtenir l'instance persistante du RoonService."""
+    global _roon_service_instance
+    settings = get_settings()
+    roon_server = settings.app_config.get('roon_server')
+    
+    if not roon_server:
+        return None
+    
+    # Si l'instance existe et que le serveur n'a pas changé, la retourner
+    if _roon_service_instance is not None:
+        if hasattr(_roon_service_instance, 'server') and _roon_service_instance.server == roon_server:
+            return _roon_service_instance
+    
+    # Créer une nouvelle instance avec le nouveau serveur
+    roon_token = settings.app_config.get('roon_token')
+    _roon_service_instance = RoonService(server=roon_server, token=roon_token)
+    return _roon_service_instance
 
 
 @router.get("/tracker/status")
@@ -144,14 +165,64 @@ async def save_roon_config(request: RoonConfigRequest):
     settings.app_config["roon_server"] = request.server.strip()
     settings.save_app_config()
     
-    # Réinitialiser l'instance du tracker Roon pour qu'il utilise la nouvelle config
-    global _roon_tracker_instance
+    # Réinitialiser les instances pour qu'elles utilisent la nouvelle config
+    global _roon_tracker_instance, _roon_service_instance
     _roon_tracker_instance = None
+    _roon_service_instance = None
+    
+    # Initialiser immédiatement le service pour que Roon détecte l'extension
+    roon_service = get_roon_service()
+    
+    if roon_service and roon_service.is_connected():
+        return {
+            "status": "success",
+            "server": request.server.strip(),
+            "connected": True,
+            "message": "Configuration sauvegardée. L'extension devrait maintenant apparaître dans Roon → Settings → Extensions."
+        }
+    else:
+        return {
+            "status": "success",
+            "server": request.server.strip(),
+            "connected": False,
+            "message": "Configuration sauvegardée mais impossible de se connecter. Vérifiez l'adresse et assurez-vous que Roon Core est démarré."
+        }
+
+
+@router.get("/roon/status")
+async def get_roon_status():
+    """Récupérer le statut de la connexion Roon."""
+    settings = get_settings()
+    roon_server = settings.app_config.get('roon_server')
+    
+    if not roon_server:
+        return {
+            "configured": False,
+            "connected": False,
+            "message": "Aucun serveur Roon configuré"
+        }
+    
+    roon_service = get_roon_service()
+    
+    if not roon_service or not roon_service.is_connected():
+        return {
+            "configured": True,
+            "connected": False,
+            "server": roon_server,
+            "message": "Impossible de se connecter au serveur Roon"
+        }
+    
+    # Vérifier si on a un token (= extension autorisée)
+    token = roon_service.get_token()
+    zones = roon_service.get_zones()
     
     return {
-        "status": "success",
-        "server": request.server.strip(),
-        "message": "Configuration sauvegardée. Veuillez autoriser l'extension dans Roon (Settings → Extensions)."
+        "configured": True,
+        "connected": True,
+        "authorized": token is not None,
+        "server": roon_server,
+        "zones_count": len(zones),
+        "message": "Connecté et autorisé" if token else "Connecté mais en attente d'autorisation dans Roon"
     }
 
 
@@ -178,7 +249,7 @@ async def test_roon_connection(request: RoonTestConnectionRequest):
         return {
             "connected": True,
             "zones_found": zones_count,
-            "message": f"Connexion réussie ! {zones_count} zone(s) détectée(s). N'oubliez pas d'autoriser l'extension dans Roon."
+            "message": f"Connexion réussie ! {zones_count} zone(s) détectée(s). Cliquez sur 'Enregistrer' pour activer l'extension."
         }
     except Exception as e:
         return {

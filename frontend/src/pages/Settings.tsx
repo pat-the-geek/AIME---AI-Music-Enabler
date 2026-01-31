@@ -77,6 +77,16 @@ export default function Settings() {
     },
   })
 
+  // Récupérer le statut de connexion Roon (avec rafraîchissement)
+  const { data: roonStatus, refetch: refetchRoonStatus } = useQuery({
+    queryKey: ['roon-status'],
+    queryFn: async () => {
+      const response = await apiClient.get('/services/roon/status')
+      return response.data
+    },
+    refetchInterval: 5000, // Rafraîchir toutes les 5 secondes
+  })
+
   // Pour la compatibilité avec le code existant
   const trackerStatus = allServicesStatus?.tracker
   const schedulerStatus = allServicesStatus?.scheduler
@@ -152,10 +162,12 @@ export default function Settings() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['roon-config'] })
+      queryClient.invalidateQueries({ queryKey: ['roon-status'] })
       queryClient.invalidateQueries({ queryKey: ['all-services-status'] })
+      refetchRoonStatus()
       setSnackbar({
         open: true,
-        message: '✅ Configuration Roon sauvegardée',
+        message: '✅ Configuration Roon sauvegardée. Vérifiez Roon → Settings → Extensions',
         severity: 'success'
       })
     },
@@ -309,10 +321,31 @@ export default function Settings() {
           
           <Divider sx={{ mb: 2 }} />
           
-          <Alert severity="info" sx={{ mb: 2 }}>
-            Configurez l'adresse de votre serveur Roon pour activer le tracking local. 
-            L'extension doit être autorisée dans les paramètres Roon.
-          </Alert>
+          {roonStatus?.configured && roonStatus?.connected && (
+            roonStatus.authorized ? (
+              <Alert severity="success" sx={{ mb: 2 }}>
+                ✅ Extension autorisée dans Roon ! ({roonStatus.zones_count} zone(s) détectée(s))
+              </Alert>
+            ) : (
+              <Alert severity="warning" sx={{ mb: 2 }}>
+                ⏳ Extension connectée mais en attente d'autorisation. 
+                Allez dans Roon → Settings → Extensions pour autoriser "AIME - AI Music Enabler".
+              </Alert>
+            )
+          )}
+          
+          {roonStatus?.configured && !roonStatus?.connected && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              ❌ Impossible de se connecter au serveur Roon. Vérifiez l'adresse et que Roon Core est démarré.
+            </Alert>
+          )}
+          
+          {!roonStatus?.configured && (
+            <Alert severity="info" sx={{ mb: 2 }}>
+              Configurez l'adresse de votre serveur Roon pour activer le tracking local. 
+              L'extension doit être autorisée dans les paramètres Roon.
+            </Alert>
+          )}
 
           <Stack spacing={2}>
             <TextField
@@ -342,11 +375,21 @@ export default function Settings() {
               >
                 Enregistrer
               </Button>
+              
+              {roonStatus?.configured && (
+                <Button
+                  variant="text"
+                  onClick={() => refetchRoonStatus()}
+                  size="small"
+                >
+                  Actualiser
+                </Button>
+              )}
             </Stack>
 
             <Typography variant="caption" color="text.secondary">
-              💡 Après avoir sauvegardé, allez dans les paramètres de Roon (Settings → Extensions) 
-              pour autoriser l'extension "AIME - AI Music Enabler".
+              💡 Après avoir enregistré, l'extension "AIME - AI Music Enabler" devrait apparaître dans 
+              Roon → Settings → Extensions. Autorisez-la pour activer le tracking.
             </Typography>
           </Stack>
         </CardContent>
