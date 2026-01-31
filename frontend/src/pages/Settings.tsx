@@ -619,30 +619,32 @@ export default function Settings() {
                 const isEnabled = task.enabled !== false
                 
                 return (
-                  <Alert key={task.name} severity={isEnabled ? "info" : "warning"} sx={{ mb: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Box>
-                      <Typography variant="body2">
-                        <strong>{task.name}</strong>
-                        {task.description && (
-                          <Typography variant="caption" display="block" color="text.secondary">
-                            {task.description}
+                  <Alert key={task.name} severity={isEnabled ? "info" : "warning"} sx={{ mb: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                      <Box>
+                        <Typography variant="body2">
+                          <strong>{task.name}</strong>
+                          {task.description && (
+                            <Typography variant="caption" display="block" color="text.secondary">
+                              {task.description}
+                            </Typography>
+                          )}
+                        </Typography>
+                        <Typography variant="caption" component="div">
+                          {task.time ? `⏰ ${task.time}` : `📅 Toutes les ${task.frequency}${task.unit === 'day' ? 'j' : task.unit === 'week' ? 'sem' : 'mois'}`}
+                        </Typography>
+                        {jobStatus?.next_run && (
+                          <Typography variant="caption" display="block" color="success.main">
+                            Prochaine: {new Date(jobStatus.next_run).toLocaleString('fr-FR')}
                           </Typography>
                         )}
-                      </Typography>
-                      <Typography variant="caption" component="div">
-                        {task.time ? `⏰ ${task.time}` : `📅 Toutes les ${task.frequency}${task.unit === 'day' ? 'j' : task.unit === 'week' ? 'sem' : 'mois'}`}
-                      </Typography>
-                      {jobStatus?.next_run && (
-                        <Typography variant="caption" display="block" color="success.main">
-                          Prochaine: {new Date(jobStatus.next_run).toLocaleString('fr-FR')}
-                        </Typography>
-                      )}
+                      </Box>
+                      <Chip
+                        size="small"
+                        label={isEnabled ? '✅ Activée' : '⏸️ Désactivée'}
+                        color={isEnabled ? 'success' : 'error'}
+                      />
                     </Box>
-                    <Chip
-                      size="small"
-                      label={isEnabled ? '✅ Activée' : '⏸️ Désactivée'}
-                      color={isEnabled ? 'success' : 'error'}
-                    />
                   </Alert>
                 )
               })}

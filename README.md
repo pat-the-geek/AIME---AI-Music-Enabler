@@ -1,4 +1,4 @@
-# 🎵 AIME - AI Music Enabler - Version 4.0.0
+# 🎵 AIME - AI Music Enabler - Version 4.3.0
 
 Application web moderne pour tracker et analyser l'historique d'écoute musicale depuis Last.fm, avec enrichissement automatique via Spotify, Discogs et IA.
 
@@ -55,6 +55,10 @@ Application web moderne pour tracker et analyser l'historique d'écoute musicale
    - 📊 Export automatique de la collection en JSON (10h00)
    - 🗑️ Gestion automatique des fichiers (garde les 5 derniers de chaque type)
    - ⚙️ Configuration modifiable des limites de fichiers
+   - ✨ **NOUVEAU v4.3**: Formats scheduler identiques à l'API (haiku, json, markdown)
+     - Tables des matières avec liens internes
+     - Métadonnées complètes (images, résumés IA, labels)
+     - Source unique pour tous les exports (cohérence garantie)
 
 7. **API REST Complète**
    - Endpoints pour collection, historique, playlists, services
@@ -348,6 +352,17 @@ MIT License
 
 ---
 
-**Version**: 4.1.0  
+**Version**: 4.3.0  
 **Date**: 31 janvier 2026  
 **Auteur**: Patrick Ostertag
+
+### Changelog 4.3.0
+
+**Synchronisation Complète des Formats (31/01/2026)**
+- ✨ Les fichiers générés par le scheduler sont maintenant strictement identiques aux fichiers de l'API
+- 🎋 Format Haiku enrichi: table des matières, métadonnées complètes, images (4x enrichi)
+- 📝 Format Markdown: utilise MarkdownExportService, TOC, résumés IA (12x complet)
+- 📊 Format JSON: images, métadonnées IA, timestamps, Discogs URL (18x riche)
+- 🔧 Correction alignement interface Settings (tâches planifiées cadrées à gauche)
+- 📚 Documentation complète: 6 nouveaux fichiers de documentation
+- ✅ Tests et scripts de vérification automatiques
