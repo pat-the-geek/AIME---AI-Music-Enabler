@@ -848,6 +848,9 @@ async def import_lastfm_history(
         skipped_count = 0
         error_count = 0
         
+        # Tracking des derniers tracks importés par track_id pour la règle des 10 minutes
+        last_import_by_track = {}  # {track_id: (timestamp, entry_id)}
+        
         # Calcul du nombre de batches nécessaires
         batch_size = 200
         # Si limit est None, on veut ALL les scrobbles, donc on calcule le nombre de batches nécessaire
@@ -932,6 +935,16 @@ async def import_lastfm_history(
                             skipped_count += 1
                             continue
                         
+                        # Vérifier la règle des 10 minutes: même track à moins de 10min d'écart = doublon
+                        if track.id in last_import_by_track:
+                            last_ts, _ = last_import_by_track[track.id]
+                            time_diff = timestamp - last_ts
+                            if 0 <= time_diff <= 600:  # Même timestamp ou moins de 10 minutes après
+                                logger.debug(f"⏭️ Doublon 10min: {track_title} (écart {time_diff}s)")
+                                skipped_count += 1
+                                seen_entries.add(entry_key)
+                                continue
+                        
                         # MAINTENANT vérifier si déjà importé en base avec track_id + timestamp (clé unique)
                         if skip_existing:
                             existing = db.query(ListeningHistory).filter_by(
@@ -955,6 +968,9 @@ async def import_lastfm_history(
                         db.add(history)
                         imported_count += 1
                         seen_entries.add(entry_key)
+                        
+                        # Tracker pour la règle 10 minutes
+                        last_import_by_track[track.id] = (timestamp, history)
                         
                         # Marquer album pour enrichissement
                         if album.id not in albums_to_enrich:
