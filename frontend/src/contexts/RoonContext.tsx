@@ -21,7 +21,7 @@ export function RoonProvider({ children }: { children: ReactNode }) {
   })
   const [isLoading, setIsLoading] = useState(true)
 
-  // Vérifier le statut Roon au démarrage
+  // Vérifier le statut Roon au démarrage et périodiquement
   useEffect(() => {
     const checkRoonStatus = async () => {
       try {
@@ -37,7 +37,15 @@ export function RoonProvider({ children }: { children: ReactNode }) {
         setIsLoading(false)
       }
     }
+    
+    // Vérification initiale
     checkRoonStatus()
+    
+    // Vérification périodique toutes les 10 secondes
+    const interval = setInterval(checkRoonStatus, 10000)
+    
+    // Cleanup
+    return () => clearInterval(interval)
   }, [])
 
   // Sauvegarder la zone dans localStorage
