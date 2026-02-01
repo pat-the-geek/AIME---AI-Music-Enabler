@@ -33,6 +33,12 @@ class RoonPlayTrackByIdRequest(BaseModel):
     track_id: int
 
 
+class RoonPlayPlaylistRequest(BaseModel):
+    """Requête pour jouer une playlist entière sur Roon."""
+    zone_name: str
+    playlist_id: int
+
+
 # ============================================================================
 # Helpers
 # ============================================================================
@@ -329,6 +335,97 @@ async def play_track_by_id(request: RoonPlayTrackByIdRequest):
             "track": {
                 "id": track.id,
                 "title": track.title,
+                "artist": artist_name,
+                "album": album.title
+            },
+            "zone": request.zone_name
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {str(e)}")
+    finally:
+        db.close()
+
+
+@router.post("/play-playlist")
+async def play_playlist(request: RoonPlayPlaylistRequest):
+    """Jouer une playlist entière sur Roon.
+    
+    Cette fonction permet de démarrer la lecture d'une playlist
+    en jouant le premier track, puis les suivants automatiquement.
+    """
+    check_roon_enabled()  # Vérifier que Roon est activé
+    
+    from sqlalchemy.orm import Session
+    from app.database import SessionLocal
+    from app.models import Playlist, PlaylistTrack, Track, Album
+    
+    db: Session = SessionLocal()
+    
+    try:
+        # Récupérer la playlist
+        playlist = db.query(Playlist).filter(Playlist.id == request.playlist_id).first()
+        if not playlist:
+            raise HTTPException(status_code=404, detail=f"Playlist {request.playlist_id} non trouvée")
+        
+        # Récupérer les tracks de la playlist
+        playlist_tracks = db.query(PlaylistTrack).filter(
+            PlaylistTrack.playlist_id == request.playlist_id
+        ).order_by(PlaylistTrack.position).all()
+        
+        if not playlist_tracks:
+            raise HTTPException(status_code=400, detail="La playlist est vide")
+        
+        # Récupérer le premier track
+        first_track_id = playlist_tracks[0].track_id
+        first_track = db.query(Track).filter(Track.id == first_track_id).first()
+        
+        if not first_track:
+            raise HTTPException(status_code=404, detail="Premier track non trouvé")
+        
+        # Récupérer l'album et les artistes
+        album = db.query(Album).filter(Album.id == first_track.album_id).first()
+        if not album:
+            raise HTTPException(status_code=404, detail="Album non trouvé")
+        
+        artists = [a.name for a in album.artists] if album.artists else ["Unknown"]
+        artist_name = ", ".join(artists)
+        
+        # Initialiser Roon
+        roon_service = get_roon_service()
+        
+        # Récupérer l'ID de la zone
+        zone_id = roon_service.get_zone_by_name(request.zone_name)
+        if not zone_id:
+            zones = roon_service.get_zones()
+            zone_names = [z.get('display_name', 'Unknown') for z in zones.values()]
+            raise HTTPException(
+                status_code=404,
+                detail=f"Zone '{request.zone_name}' non trouvée. Zones disponibles: {', '.join(zone_names)}"
+            )
+        
+        # Démarrer la lecture du premier track
+        success = roon_service.play_track(
+            zone_or_output_id=zone_id,
+            track_title=first_track.title,
+            artist=artist_name,
+            album=album.title
+        )
+        
+        if not success:
+            raise HTTPException(status_code=500, detail="Erreur démarrage lecture sur Roon")
+        
+        return {
+            "message": f"Lecture de la playlist démarrée: {playlist.name}",
+            "playlist": {
+                "id": playlist.id,
+                "name": playlist.name,
+                "track_count": len(playlist_tracks)
+            },
+            "now_playing": {
+                "title": first_track.title,
                 "artist": artist_name,
                 "album": album.title
             },

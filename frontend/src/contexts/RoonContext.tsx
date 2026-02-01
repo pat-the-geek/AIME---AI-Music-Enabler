@@ -7,6 +7,7 @@ interface RoonContextType {
   zone: string
   setZone: (zone: string) => void
   playTrack: (trackId: number) => Promise<void>
+  playPlaylist: (playlistId: number) => Promise<void>
   isLoading: boolean
 }
 
@@ -60,8 +61,23 @@ export function RoonProvider({ children }: { children: ReactNode }) {
     })
   }
 
+  // Jouer une playlist entière sur Roon
+  const playPlaylist = async (playlistId: number) => {
+    if (!enabled || !available) {
+      throw new Error('Roon n\'est pas disponible')
+    }
+    if (!zone) {
+      throw new Error('Aucune zone Roon sélectionnée. Allez dans Paramètres pour choisir une zone.')
+    }
+    
+    await apiClient.post('/roon/play-playlist', {
+      zone_name: zone,
+      playlist_id: playlistId
+    })
+  }
+
   return (
-    <RoonContext.Provider value={{ enabled, available, zone, setZone: handleSetZone, playTrack, isLoading }}>
+    <RoonContext.Provider value={{ enabled, available, zone, setZone: handleSetZone, playTrack, playPlaylist, isLoading }}>
       {children}
     </RoonContext.Provider>
   )

@@ -25,6 +25,7 @@ import {
 } from '@mui/material'
 import { Add, PlayArrow, Delete } from '@mui/icons-material'
 import apiClient from '../api/client'
+import { useRoon } from '../contexts/RoonContext'
 
 const ALGORITHMS = [
   { value: 'top_sessions', label: 'Top Sessions', description: 'Pistes des sessions les plus longues' },
@@ -46,6 +47,7 @@ export default function Playlists() {
   const [selectedTracks, setSelectedTracks] = useState<number[]>([])
   const [detailDialogOpen, setDetailDialogOpen] = useState(false)
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<number | null>(null)
+  const [playingPlaylistId, setPlayingPlaylistId] = useState<number | null>(null)
   const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
     open: false,
     message: '',
@@ -53,6 +55,7 @@ export default function Playlists() {
   })
   
   const queryClient = useQueryClient()
+  const roon = useRoon()
 
   // Récupérer playlists
   const { data: playlists, isLoading } = useQuery({
@@ -138,6 +141,33 @@ export default function Playlists() {
         message: `❌ ${message}`,
         severity: 'error'
       })
+    }
+  })
+
+  // Jouer playlist sur Roon
+  const playPlaylistMutation = useMutation({
+    mutationFn: async (playlistId: number) => {
+      setPlayingPlaylistId(playlistId)
+      await roon.playPlaylist(playlistId)
+    },
+    onSuccess: (data, playlistId) => {
+      console.log('Playlist playback started:', playlistId)
+      setSnackbar({
+        open: true,
+        message: '✅ Lecture de la playlist démarrée sur Roon',
+        severity: 'success'
+      })
+      setPlayingPlaylistId(null)
+    },
+    onError: (error: any) => {
+      console.error('Error playing playlist:', error)
+      const message = error.response?.data?.detail || error.message || 'Erreur lors du démarrage de la lecture'
+      setSnackbar({
+        open: true,
+        message: `❌ ${message}`,
+        severity: 'error'
+      })
+      setPlayingPlaylistId(null)
     }
   })
 
@@ -271,6 +301,18 @@ export default function Playlists() {
                     >
                       Voir les Tracks
                     </Button>
+                    {roon.enabled && roon.available && (
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="success"
+                        startIcon={<PlayArrow />}
+                        disabled={playPlaylistMutation.isPending || playingPlaylistId === playlist.id}
+                        onClick={() => playPlaylistMutation.mutate(playlist.id)}
+                      >
+                        {playingPlaylistId === playlist.id ? <CircularProgress size={16} /> : '▶ Roon'}
+                      </Button>
+                    )}
                     <IconButton
                       size="small"
                       color="error"
