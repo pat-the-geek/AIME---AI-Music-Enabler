@@ -1,10 +1,13 @@
 """Routes API pour le contrôle Roon."""
+import logging
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 
 from app.core.config import get_settings
 from app.api.v1.services import get_roon_service as get_roon_service_singleton
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
