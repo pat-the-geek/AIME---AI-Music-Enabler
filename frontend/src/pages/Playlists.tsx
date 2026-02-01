@@ -307,7 +307,7 @@ export default function Playlists() {
                         variant="contained"
                         color="success"
                         startIcon={<PlayArrow />}
-                        disabled={playPlaylistMutation.isPending || playingPlaylistId === playlist.id || !roon.available}
+                        disabled={playPlaylistMutation.isPending || playingPlaylistId === playlist.id}
                         onClick={() => playPlaylistMutation.mutate(playlist.id)}
                         title={!roon.available ? "Roon n'est pas disponible - Vérifiez la connexion au serveur Roon" : "Lancer la lecture sur Roon"}
                       >
