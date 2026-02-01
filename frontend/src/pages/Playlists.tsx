@@ -20,7 +20,8 @@ import {
   InputLabel,
   IconButton,
   Chip,
-  Stack
+  Stack,
+  Snackbar,
 } from '@mui/material'
 import { Add, PlayArrow, Delete } from '@mui/icons-material'
 import apiClient from '../api/client'
@@ -43,6 +44,11 @@ export default function Playlists() {
   const [aiPrompt, setAiPrompt] = useState('')
   const [maxTracks, setMaxTracks] = useState(25)
   const [selectedTracks, setSelectedTracks] = useState<number[]>([])
+  const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
+    open: false,
+    message: '',
+    severity: 'success'
+  })
   
   const queryClient = useQueryClient()
 
@@ -59,9 +65,12 @@ export default function Playlists() {
 
   // Créer playlist
   const createPlaylistMutation = useMutation({
-    mutationFn: async (data: any) => {
-      if (createMode === 'manual') {
+    mutationFn: async (payload: { mode: 'ai' | 'manual'; data: any }) => {
+      const { mode, data } = payload
+      
+      if (mode === 'manual') {
         // Création manuelle
+        console.log('Creating manual playlist:', data)
         const response = await apiClient.post('/api/v1/playlists', {
           name: data.name,
           track_ids: data.track_ids
@@ -69,16 +78,32 @@ export default function Playlists() {
         return response.data
       } else {
         // Création par IA
+        console.log('Creating AI playlist:', data)
         const response = await apiClient.post('/api/v1/playlists/generate', data)
         return response.data
       }
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log('Playlist created successfully:', data)
       queryClient.invalidateQueries({ queryKey: ['playlists'] })
       setCreateDialogOpen(false)
       setPlaylistName('')
       setAiPrompt('')
       setSelectedTracks([])
+      setSnackbar({
+        open: true,
+        message: `✅ Playlist "${data.name}" créée avec succès !`,
+        severity: 'success'
+      })
+    },
+    onError: (error: any) => {
+      console.error('Error creating playlist:', error)
+      const message = error.response?.data?.detail || error.message || 'Erreur lors de la création de la playlist'
+      setSnackbar({
+        open: true,
+        message: `❌ ${message}`,
+        severity: 'error'
+      })
     }
   })
 
@@ -95,13 +120,30 @@ export default function Playlists() {
   const handleCreatePlaylist = () => {
     if (createMode === 'manual') {
       if (!playlistName || selectedTracks.length === 0) {
+        setSnackbar({
+          open: true,
+          message: '❌ Veuillez entrer un nom et sélectionner au moins un morceau',
+          severity: 'error'
+        })
         return
       }
       createPlaylistMutation.mutate({
-        name: playlistName,
-        track_ids: selectedTracks
+        mode: 'manual',
+        data: {
+          name: playlistName,
+          track_ids: selectedTracks
+        }
       })
     } else {
+      if (algorithm === 'ai_generated' && !aiPrompt) {
+        setSnackbar({
+          open: true,
+          message: '❌ Veuillez entrer un prompt pour la génération IA',
+          severity: 'error'
+        })
+        return
+      }
+      
       const data: any = {
         name: playlistName || undefined,
         algorithm,
@@ -112,7 +154,10 @@ export default function Playlists() {
         data.ai_prompt = aiPrompt
       }
       
-      createPlaylistMutation.mutate(data)
+      createPlaylistMutation.mutate({
+        mode: 'ai',
+        data
+      })
     }
   }
 
@@ -345,6 +390,18 @@ export default function Playlists() {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Snackbar pour les notifications */}
+      <Snackbar 
+        open={snackbar.open} 
+        autoHideDuration={4000} 
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert severity={snackbar.severity} onClose={() => setSnackbar({ ...snackbar, open: false })}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }
