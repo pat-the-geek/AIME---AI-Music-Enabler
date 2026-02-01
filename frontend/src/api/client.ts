@@ -5,7 +5,7 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 30000, // 30 secondes timeout
+  timeout: 60000, // 60 secondes timeout pour les requêtes longues
 })
 
 // Configuration retry
