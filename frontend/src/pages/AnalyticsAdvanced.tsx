@@ -344,7 +344,10 @@ export default function AnalyticsAdvanced() {
                   <Typography color="text.secondary" gutterBottom>
                     Durée Totale
                   </Typography>
-                  <Typography variant="h4">{advancedStats?.total_hours}h</Typography>
+                  <Typography variant="h4">{advancedStats?.total_hours || 0}h</Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    {advancedStats?.period?.total_tracks || 0} tracks
+                  </Typography>
                 </CardContent>
               </Card>
             </Grid>

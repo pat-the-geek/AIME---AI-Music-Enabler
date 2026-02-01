@@ -18,15 +18,18 @@ import {
   TextField,
   Alert,
   Snackbar,
+  Tooltip,
 } from '@mui/material'
 import {
   Close as CloseIcon,
   Refresh as RefreshIcon,
   Edit as EditIcon,
   Save as SaveIcon,
+  PlayArrow,
 } from '@mui/icons-material'
 import ReactMarkdown from 'react-markdown'
 import apiClient from '@/api/client'
+import { useRoon } from '@/contexts/RoonContext'
 import type { AlbumDetail } from '@/types/models'
 
 interface AlbumDetailDialogProps {
@@ -38,6 +41,8 @@ interface AlbumDetailDialogProps {
 export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetailDialogProps) {
   const [editSpotifyUrl, setEditSpotifyUrl] = useState(false)
   const [spotifyUrlInput, setSpotifyUrlInput] = useState('')
+  const [zoneDialogOpen, setZoneDialogOpen] = useState(false)
+  const [selectedZone, setSelectedZone] = useState<string>('')
   const [snackbar, setSnackbar] = useState({ 
     open: false, 
     message: '', 
@@ -45,6 +50,7 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
   })
   
   const queryClient = useQueryClient()
+  const roon = useRoon()
 
   const { data: albumDetail, isLoading } = useQuery<AlbumDetail>({
     queryKey: ['album', albumId],
@@ -53,6 +59,19 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
       return response.data
     },
     enabled: albumId !== null && open,
+  })
+
+  // Récupérer les zones Roon
+  const { data: roonZones } = useQuery({
+    queryKey: ['roon-zones'],
+    queryFn: async () => {
+      const response = await apiClient.get('/roon/zones')
+      return response.data?.zones || []
+    },
+    enabled: roon?.enabled && roon?.available,
+    refetchInterval: 10000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   })
 
   // Mutation pour rafraîchir les enrichissements
@@ -85,6 +104,24 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
     },
     onError: (error: any) => {
       setSnackbar({ open: true, message: `Erreur: ${error.message}`, severity: 'error' })
+    },
+  })
+
+  // Mutation pour jouer l'album sur Roon
+  const playAlbumMutation = useMutation({
+    mutationFn: async ({ albumId, zoneName }: { albumId: number; zoneName: string }) => {
+      const response = await apiClient.post('/roon/play-album', {
+        zone_name: zoneName,
+        album_id: albumId
+      })
+      return response.data
+    },
+    onSuccess: () => {
+      setZoneDialogOpen(false)
+      setSnackbar({ open: true, message: '🎵 Album en lecture sur Roon !', severity: 'success' })
+    },
+    onError: (error: any) => {
+      setSnackbar({ open: true, message: `❌ ${error.response?.data?.detail || error.message}`, severity: 'error' })
     },
   })
 
@@ -217,6 +254,22 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
                               color="success"
                             >
                               🎵 Écouter sur Spotify
+                            </Button>
+                          )}
+                          {roon?.enabled && (
+                            <Button 
+                              variant="contained" 
+                              color="success"
+                              size="small"
+                              startIcon={<PlayArrow />}
+                              disabled={playAlbumMutation.isPending}
+                              onClick={() => {
+                                setSelectedZone(roon?.zone || '')
+                                setZoneDialogOpen(true)
+                              }}
+                              title={!roon?.available ? "Roon n'est pas disponible - Vérifiez la connexion au serveur Roon" : "Lancer la lecture sur Roon"}
+                            >
+                              {playAlbumMutation.isPending ? <CircularProgress size={16} /> : 'Roon'}
                             </Button>
                           )}
                           {!albumDetail.spotify_url && !editSpotifyUrl && (
@@ -372,6 +425,50 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
         <DialogActions>
           <Button onClick={handleClose}>
             Fermer
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Dialog de sélection de zone Roon */}
+      <Dialog open={zoneDialogOpen} onClose={() => setZoneDialogOpen(false)}>
+        <DialogTitle>Sélectionner une zone Roon</DialogTitle>
+        <DialogContent sx={{ minWidth: 300 }}>
+          <Stack spacing={2} sx={{ pt: 2 }}>
+            {roonZones && roonZones.length > 0 ? (
+              roonZones.map((zone: any) => (
+                <Button
+                  key={zone.zone_id}
+                  variant={selectedZone === zone.name ? 'contained' : 'outlined'}
+                  fullWidth
+                  onClick={() => setSelectedZone(zone.name)}
+                  sx={{ justifyContent: 'flex-start' }}
+                >
+                  <Box sx={{ textAlign: 'left', width: '100%' }}>
+                    <Typography variant="body2">{zone.name}</Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      État: {zone.state}
+                    </Typography>
+                  </Box>
+                </Button>
+              ))
+            ) : (
+              <Typography color="text.secondary">Aucune zone Roon disponible</Typography>
+            )}
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setZoneDialogOpen(false)}>Annuler</Button>
+          <Button
+            variant="contained"
+            color="success"
+            disabled={!selectedZone || playAlbumMutation.isPending}
+            onClick={() => {
+              if (albumId && selectedZone) {
+                playAlbumMutation.mutate({ albumId, zoneName: selectedZone })
+              }
+            }}
+          >
+            {playAlbumMutation.isPending ? <CircularProgress size={20} /> : 'Lancer'}
           </Button>
         </DialogActions>
       </Dialog>

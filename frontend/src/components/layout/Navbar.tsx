@@ -30,7 +30,7 @@ const menuItems = [
   { text: 'Collection', path: '/collection', icon: <LibraryMusic /> },
   { text: 'Journal', path: '/journal', icon: <History /> },
   { text: 'Timeline', path: '/timeline', icon: <Timeline /> },
-  { text: 'Playlists', path: '/playlists', icon: <QueueMusic /> },
+  { text: 'Discover', path: '/collections', icon: <QueueMusic /> },
   { text: 'Analytics', path: '/analytics', icon: <Analytics /> },
   { text: 'Settings', path: '/settings', icon: <Settings /> },
 ]

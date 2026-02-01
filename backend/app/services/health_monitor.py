@@ -109,7 +109,7 @@ class HealthMonitor:
             # 2. Vérifier les importations critiques
             try:
                 from app.services.markdown_export_service import MarkdownExportService
-                from app.api.v1 import collection, history, playlists, search
+                from app.api.v1 import collection, history, search, collections
                 logger.info("✅ All critical modules loaded")
             except ImportError as e:
                 logger.error(f"❌ Failed to import critical modules: {e}")

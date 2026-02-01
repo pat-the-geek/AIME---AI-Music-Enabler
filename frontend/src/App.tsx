@@ -6,7 +6,7 @@ import FloatingRoonController from './components/FloatingRoonController'
 import Collection from './pages/Collection'
 import Journal from './pages/Journal'
 import Timeline from './pages/Timeline'
-import Playlists from './pages/Playlists'
+import Collections from './pages/Collections'
 import Analytics from './pages/Analytics'
 import AnalyticsAdvanced from './pages/AnalyticsAdvanced'
 import Settings from './pages/Settings'
@@ -25,7 +25,7 @@ function App() {
               <Route path="/collection" element={<Collection />} />
               <Route path="/journal" element={<Journal />} />
               <Route path="/timeline" element={<Timeline />} />
-              <Route path="/playlists" element={<Playlists />} />
+              <Route path="/collections" element={<Collections />} />
               <Route path="/analytics" element={<AnalyticsAdvanced />} />
               <Route path="/analytics-simple" element={<Analytics />} />
               <Route path="/settings" element={<Settings />} />

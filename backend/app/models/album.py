@@ -28,6 +28,10 @@ class Album(Base):
     discogs_id = Column(String(100), unique=True, nullable=True)
     spotify_url = Column(String(500), nullable=True)
     discogs_url = Column(String(500), nullable=True)
+    genre = Column(String(200), nullable=True, index=True)  # Genre musical principal
+    image_url = Column(String(1000), nullable=True)  # URL de la couverture
+    ai_description = Column(String(2000), nullable=True)  # Description générée par AI
+    ai_style = Column(String(500), nullable=True)  # Style/ambiance généré par AI
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
     

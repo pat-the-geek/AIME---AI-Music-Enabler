@@ -305,11 +305,19 @@ class RoonTrackerService:
             ).first()
             
             if not track:
+                # Extraire la durée depuis track_data
+                duration_seconds = track_data.get('duration_seconds')
+                
                 track = Track(
                     title=track_title,
-                    album_id=album.id
+                    album_id=album.id,
+                    duration_seconds=duration_seconds
                 )
                 db.add(track)
+                db.flush()
+            elif track_data.get('duration_seconds') and not track.duration_seconds:
+                # Mettre à jour la durée si elle n'existe pas encore
+                track.duration_seconds = track_data.get('duration_seconds')
                 db.flush()
             
             # Enregistrer l'écoute avec source Roon

@@ -82,7 +82,7 @@ export default function Playlists() {
       const response = await apiClient.get('/roon/zones')
       return response.data?.zones || []
     },
-    enabled: roon.enabled && roon.available,
+    enabled: roon?.enabled && roon?.available,
     refetchInterval: 10000, // Rafraîchir toutes les 10 secondes
     refetchOnMount: true,
     refetchOnWindowFocus: true,
@@ -171,7 +171,7 @@ export default function Playlists() {
     mutationFn: async ({ playlistId, zone }: { playlistId: number; zone: string }) => {
       setPlayingPlaylistId(playlistId)
       // Mettre à jour la zone sélectionnée dans RoonContext
-      roon.setZone(zone)
+      roon?.setZone(zone)
       // Appeler l'API Roon avec la zone sélectionnée
       const response = await apiClient.post('/roon/play-playlist', {
         zone_name: zone,
@@ -221,7 +221,7 @@ export default function Playlists() {
   const handlePlaybackControl = async (control: 'play' | 'pause' | 'next' | 'previous' | 'stop') => {
     try {
       setControlLoading(control)
-      await roon.playbackControl(control)
+      await roon?.playbackControl(control)
     } catch (error: any) {
       setSnackbar({
         open: true,
@@ -363,7 +363,7 @@ export default function Playlists() {
                     >
                       Voir les Tracks
                     </Button>
-                    {roon.enabled && (
+                    {roon?.enabled && (
                       <Button
                         size="small"
                         variant="contained"
@@ -372,10 +372,10 @@ export default function Playlists() {
                         disabled={playPlaylistMutation.isPending || playingPlaylistId === playlist.id}
                         onClick={() => {
                           setPendingPlaylistId(playlist.id)
-                          setSelectedZone(roon.zone || '')
+                          setSelectedZone(roon?.zone || '')
                           setZoneDialogOpen(true)
                         }}
-                        title={!roon.available ? "Roon n'est pas disponible - Vérifiez la connexion au serveur Roon" : "Lancer la lecture sur Roon"}
+                        title={!roon?.available ? "Roon n'est pas disponible - Vérifiez la connexion au serveur Roon" : "Lancer la lecture sur Roon"}
                       >
                         {playingPlaylistId === playlist.id ? <CircularProgress size={16} /> : 'Roon'}
                       </Button>
@@ -397,7 +397,7 @@ export default function Playlists() {
                   </Stack>
 
                   {/* Contrôles de lecture - Visible si Roon est disponible */}
-                  {roon.enabled && roon.available && (
+                  {roon?.enabled && roon?.available && (
                     <Stack
                       direction="row"
                       spacing={1}

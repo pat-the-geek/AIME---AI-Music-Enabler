@@ -28,7 +28,8 @@ from fastapi.exceptions import RequestValidationError
 from app.core.config import get_settings
 from app.core.exception_handler import setup_exception_handlers, add_process_time_header, add_request_id_header
 from app.database import init_db, engine
-from app.api.v1 import collection, history, playlists, services, search, analytics, roon
+from app.api.v1 import collection, history, services, search, analytics, roon, collections
+# from app.api.v1 import playlists  # Temporairement désactivé pendant la migration
 
 # Configuration du logging amélioré
 logging.basicConfig(
@@ -115,7 +116,8 @@ setup_exception_handlers(app)
 app.include_router(collection.router, prefix="/api/v1/collection", tags=["Collection"])
 app.include_router(history.router, prefix="/api/v1/history", tags=["History"])
 app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["Analytics"])
-app.include_router(playlists.router, prefix="/api/v1/playlists", tags=["Playlists"])
+# app.include_router(playlists.router, prefix="/api/v1/playlists", tags=["Playlists"])  # Temporairement désactivé
+app.include_router(collections.router, prefix="/api/v1", tags=["Album Collections"])
 app.include_router(services.router, prefix="/api/v1/services", tags=["Services"])
 app.include_router(search.router, prefix="/api/v1/search", tags=["Search"])
 app.include_router(roon.router, prefix="/api/v1/roon", tags=["Roon Control"])
