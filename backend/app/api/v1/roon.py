@@ -27,9 +27,79 @@ class RoonControlRequest(BaseModel):
     control: str  # play, pause, stop, next, previous
 
 
+class RoonPlayTrackByIdRequest(BaseModel):
+    """Requête pour jouer un track par son ID (depuis la base de données)."""
+    zone_name: str
+    track_id: int
+
+
+# ============================================================================
+# Helpers
+# ============================================================================
+
+def is_roon_enabled() -> bool:
+    """Vérifier si le contrôle Roon est activé."""
+    settings = get_settings()
+    roon_control_config = settings.app_config.get('roon_control', {})
+    return roon_control_config.get('enabled', False)
+
+
+def check_roon_enabled():
+    """Vérifier si Roon est activé, sinon lever une exception."""
+    if not is_roon_enabled():
+        raise HTTPException(
+            status_code=403,
+            detail="Le contrôle Roon n'est pas activé. Activez-le dans config/app.json (roon_control.enabled)"
+        )
+
+
 # ============================================================================
 # Endpoints
 # ============================================================================
+
+@router.get("/status")
+async def get_roon_status():
+    """Vérifier si le contrôle Roon est activé et disponible."""
+    enabled = is_roon_enabled()
+    
+    if not enabled:
+        return {
+            "enabled": False,
+            "available": False,
+            "message": "Contrôle Roon désactivé"
+        }
+    
+    # Vérifier la configuration Roon
+    settings = get_settings()
+    roon_config = settings.secrets.get('roon', {})
+    
+    if not roon_config.get('server'):
+        return {
+            "enabled": True,
+            "available": False,
+            "message": "Roon non configuré (serveur manquant)"
+        }
+    
+    # Tester la connexion
+    try:
+        roon_service = RoonService(
+            server=roon_config.get('server'),
+            token=roon_config.get('token')
+        )
+        connected = roon_service.is_connected()
+        
+        return {
+            "enabled": True,
+            "available": connected,
+            "message": "Roon disponible" if connected else "Impossible de se connecter à Roon"
+        }
+    except Exception as e:
+        return {
+            "enabled": True,
+            "available": False,
+            "message": f"Erreur: {str(e)}"
+        }
+
 
 def get_roon_service() -> RoonService:
     """Initialiser le service Roon."""
@@ -53,6 +123,8 @@ def get_roon_service() -> RoonService:
 @router.get("/zones")
 async def get_zones():
     """Récupérer les zones Roon disponibles."""
+    check_roon_enabled()  # Vérifier que Roon est activé
+    
     try:
         roon_service = get_roon_service()
         zones = roon_service.get_zones()
@@ -77,6 +149,8 @@ async def get_zones():
 @router.get("/now-playing")
 async def get_now_playing():
     """Récupérer le morceau en cours de lecture."""
+    check_roon_enabled()  # Vérifier que Roon est activé
+    
     try:
         roon_service = get_roon_service()
         now_playing = roon_service.get_now_playing()
@@ -95,6 +169,8 @@ async def get_now_playing():
 @router.post("/play")
 async def play_track(request: RoonPlayRequest):
     """Démarrer la lecture d'un track sur Roon."""
+    check_roon_enabled()  # Vérifier que Roon est activé
+    
     try:
         roon_service = get_roon_service()
         
@@ -133,6 +209,8 @@ async def play_track(request: RoonPlayRequest):
 @router.post("/control")
 async def control_playback(request: RoonControlRequest):
     """Contrôler la lecture (play, pause, stop, next, previous)."""
+    check_roon_enabled()  # Vérifier que Roon est activé
+    
     try:
         roon_service = get_roon_service()
         
@@ -174,6 +252,8 @@ async def control_playback(request: RoonControlRequest):
 @router.post("/pause-all")
 async def pause_all():
     """Mettre en pause toutes les zones."""
+    check_roon_enabled()  # Vérifier que Roon est activé
+    
     try:
         roon_service = get_roon_service()
         success = roon_service.pause_all()
@@ -187,3 +267,78 @@ async def pause_all():
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur Roon: {str(e)}")
+
+
+@router.post("/play-track")
+async def play_track_by_id(request: RoonPlayTrackByIdRequest):
+    """Jouer un track depuis la base de données AIME sur Roon.
+    
+    Cette fonction facilite la lecture d'un track depuis l'interface web
+    en utilisant directement l'ID du track dans la base de données.
+    """
+    check_roon_enabled()  # Vérifier que Roon est activé
+    
+    from sqlalchemy.orm import Session
+    from app.database import SessionLocal
+    from app.models import Track, Album, Artist
+    
+    # Créer une session de base de données
+    db: Session = SessionLocal()
+    
+    try:
+        # Récupérer le track depuis la base
+        track = db.query(Track).filter(Track.id == request.track_id).first()
+        if not track:
+            raise HTTPException(status_code=404, detail=f"Track {request.track_id} non trouvé")
+        
+        # Récupérer l'album et les artistes
+        album = db.query(Album).filter(Album.id == track.album_id).first()
+        if not album:
+            raise HTTPException(status_code=404, detail="Album non trouvé pour ce track")
+        
+        # Récupérer les artistes de l'album
+        artists = [a.name for a in album.artists] if album.artists else ["Unknown"]
+        artist_name = ", ".join(artists)
+        
+        # Initialiser Roon
+        roon_service = get_roon_service()
+        
+        # Récupérer l'ID de la zone
+        zone_id = roon_service.get_zone_by_name(request.zone_name)
+        if not zone_id:
+            zones = roon_service.get_zones()
+            zone_names = [z.get('display_name', 'Unknown') for z in zones.values()]
+            raise HTTPException(
+                status_code=404,
+                detail=f"Zone '{request.zone_name}' non trouvée. Zones disponibles: {', '.join(zone_names)}"
+            )
+        
+        # Démarrer la lecture
+        success = roon_service.play_track(
+            zone_or_output_id=zone_id,
+            track_title=track.title,
+            artist=artist_name,
+            album=album.title
+        )
+        
+        if not success:
+            raise HTTPException(status_code=500, detail="Erreur démarrage lecture sur Roon")
+        
+        return {
+            "message": f"Lecture démarrée: {track.title} - {artist_name}",
+            "track": {
+                "id": track.id,
+                "title": track.title,
+                "artist": artist_name,
+                "album": album.title
+            },
+            "zone": request.zone_name
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {str(e)}")
+    finally:
+        db.close()
+

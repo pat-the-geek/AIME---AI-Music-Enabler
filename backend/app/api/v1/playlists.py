@@ -6,6 +6,7 @@ from typing import List
 from app.database import get_db
 from app.models import Playlist, PlaylistTrack, Track, Album, Artist
 from app.schemas import (
+    PlaylistCreate,
     PlaylistGenerate,
     PlaylistResponse,
     PlaylistDetailResponse,
@@ -51,6 +52,50 @@ async def list_playlists(
         )
         for p in playlists
     ]
+
+
+@router.post("", response_model=PlaylistResponse, status_code=201)
+async def create_playlist(
+    data: PlaylistCreate,
+    db: Session = Depends(get_db)
+):
+    """Créer une nouvelle playlist manuelle."""
+    # Créer la playlist
+    playlist = Playlist(
+        name=data.name,
+        algorithm="manual",
+        ai_prompt=None,
+        track_count=len(data.track_ids)
+    )
+    db.add(playlist)
+    db.flush()
+    
+    # Ajouter les tracks
+    for position, track_id in enumerate(data.track_ids, start=1):
+        # Vérifier que le track existe
+        track = db.query(Track).filter(Track.id == track_id).first()
+        if not track:
+            db.rollback()
+            raise HTTPException(status_code=404, detail=f"Track {track_id} non trouvé")
+        
+        playlist_track = PlaylistTrack(
+            playlist_id=playlist.id,
+            track_id=track_id,
+            position=position
+        )
+        db.add(playlist_track)
+    
+    db.commit()
+    db.refresh(playlist)
+    
+    return PlaylistResponse(
+        id=playlist.id,
+        name=playlist.name,
+        algorithm=playlist.algorithm,
+        ai_prompt=playlist.ai_prompt,
+        track_count=playlist.track_count,
+        created_at=playlist.created_at
+    )
 
 
 @router.post("/generate", response_model=PlaylistResponse, status_code=201)
@@ -285,6 +330,15 @@ async def play_playlist_on_roon(
     """
     from app.services.roon_service import RoonService
     from app.core.config import get_settings
+    
+    # Vérifier que Roon est activé
+    settings = get_settings()
+    roon_control_config = settings.app_config.get('roon_control', {})
+    if not roon_control_config.get('enabled', False):
+        raise HTTPException(
+            status_code=403,
+            detail="Le contrôle Roon n'est pas activé"
+        )
     
     # Récupérer la playlist
     playlist = db.query(Playlist).filter(Playlist.id == playlist_id).first()

@@ -7,6 +7,7 @@ from enum import Enum
 
 class PlaylistAlgorithm(str, Enum):
     """Algorithmes de génération de playlists."""
+    MANUAL = "manual"
     TOP_SESSIONS = "top_sessions"
     ARTIST_CORRELATIONS = "artist_correlations"
     ARTIST_FLOW = "artist_flow"
@@ -14,6 +15,12 @@ class PlaylistAlgorithm(str, Enum):
     COMPLETE_ALBUMS = "complete_albums"
     REDISCOVERY = "rediscovery"
     AI_GENERATED = "ai_generated"
+
+
+class PlaylistCreate(BaseModel):
+    """Schéma pour créer une playlist manuellement."""
+    name: str = Field(..., max_length=255, description="Nom de la playlist")
+    track_ids: List[int] = Field(default=[], description="IDs des tracks à ajouter")
 
 
 class PlaylistGenerate(BaseModel):
