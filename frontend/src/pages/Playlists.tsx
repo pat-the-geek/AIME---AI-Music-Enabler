@@ -301,14 +301,15 @@ export default function Playlists() {
                     >
                       Voir les Tracks
                     </Button>
-                    {roon.enabled && roon.available && (
+                    {roon.enabled && (
                       <Button
                         size="small"
                         variant="contained"
                         color="success"
                         startIcon={<PlayArrow />}
-                        disabled={playPlaylistMutation.isPending || playingPlaylistId === playlist.id}
+                        disabled={playPlaylistMutation.isPending || playingPlaylistId === playlist.id || !roon.available}
                         onClick={() => playPlaylistMutation.mutate(playlist.id)}
+                        title={!roon.available ? "Roon n'est pas disponible - Vérifiez la connexion au serveur Roon" : "Lancer la lecture sur Roon"}
                       >
                         {playingPlaylistId === playlist.id ? <CircularProgress size={16} /> : '▶ Roon'}
                       </Button>
