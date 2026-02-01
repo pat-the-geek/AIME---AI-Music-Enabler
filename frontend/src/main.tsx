@@ -1,3 +1,12 @@
+/**
+ * AIME - AI Music Enabler Frontend v4.3.0
+ * 
+ * 🎵 Developed with Vibe Coding using VS Code and GitHub Copilot
+ * 
+ * Modern React 18 web application for tracking and analyzing music listening history.
+ * Supports multiple music sources through Last.fm integration: Roon ARC, PlexAmp, Quobuz, etc.
+ */
+
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'

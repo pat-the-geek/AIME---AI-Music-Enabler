@@ -2,21 +2,32 @@
 
 Application web moderne pour tracker et analyser l'historique d'écoute musicale depuis Last.fm, avec enrichissement automatique via Spotify, Discogs et IA.
 
+## � Développement
+
+**Développé avec Vibe Coding** en utilisant **VS Code** et **GitHub Copilot**
+
+Cette application a été entièrement développée en exploitant les capacités d'assistance par IA de GitHub Copilot dans VS Code, démontrant la puissance du "Vibe Coding" - une approche de développement fluide et productive basée sur la collaboration homme-IA.
+
 ## 🏗️ Architecture
 
 - **Frontend**: React 18 + TypeScript + Material-UI
 - **Backend**: FastAPI + Python 3.10+
 - **Base de données**: SQLite
-- **APIs**: Last.fm, Spotify, Discogs, EurIA (Infomaniak AI)
+- **APIs Intégrées**: 
+  - **Last.fm**: Agrégation multi-sources (Roon ARC, PlexAmp, Quobuz, etc.)
+  - **Spotify**: URLs, images, métadonnées tracks
+  - **Discogs**: Collection, vinyl records
+  - **EurIA** (Infomaniak AI): Descriptions automatiques
 
 ## 📋 Fonctionnalités
 
 ### ✅ Implémentées
 
-1. **Tracking Temps Réel**
-   - Surveillance automatique Last.fm toutes les 2 minutes
-   - Détection nouveaux tracks écoutés
-   - Enrichissement métadonnées (images artistes/albums)
+1. **Tracking Temps Réel - Multi-Source**
+   - Surveillance automatique Last.fm toutes les 2 minutes (agrège données de multiples sources)
+   - Support des sources : **Roon ARC**, **PlexAmp**, **Quobuz**, et autres services compatibles Last.fm
+   - Détection nouveaux tracks écoutés en temps réel
+   - Enrichissement métadonnées (images artistes/albums de Spotify, Last.fm, Discogs)
    - Génération automatique descriptions IA
 
 2. **Gestion Collection Discogs**

@@ -1,4 +1,15 @@
-"""Application FastAPI principale."""
+"""
+Application FastAPI principale - AIME (AI Music Enabler) v4.3.0
+
+🎵 Developed with Vibe Coding using VS Code and GitHub Copilot
+
+Modern web application for tracking and analyzing music listening history from Last.fm,
+with automatic enrichment from multiple sources:
+- Last.fm: Listening history, track metadata (aggregates from Roon ARC, PlexAmp, Quobuz, etc.)
+- Spotify: Album URLs, cover images, track details
+- Discogs: Collection management, vinyl records
+- EurIA (Infomaniak AI): Automatic AI descriptions
+"""
 import sys
 import warnings
 import asyncio
