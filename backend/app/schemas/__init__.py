@@ -31,6 +31,7 @@ from app.schemas.history import (
 )
 from app.schemas.playlist import (
     PlaylistAlgorithm,
+    PlaylistCreate,
     PlaylistGenerate,
     PlaylistTrackResponse,
     PlaylistResponse,
@@ -62,6 +63,7 @@ __all__ = [
     "TimelineResponse",
     "StatsResponse",
     "PlaylistAlgorithm",
+    "PlaylistCreate",
     "PlaylistGenerate",
     "PlaylistTrackResponse",
     "PlaylistResponse",
