@@ -64,6 +64,11 @@ async def lifespan(app: FastAPI):
         logger.info("✅ Tous les composants validés")
         global services_initialized
         services_initialized = True
+        
+        # Restaurer les services actifs (trackers, scheduler)
+        from app.api.v1.services import restore_active_services
+        await restore_active_services()
+        
         logger.info("✅ Application ready to serve requests")
     except Exception as e:
         logger.error(f"❌ Erreur lors du démarrage: {e}", exc_info=True)

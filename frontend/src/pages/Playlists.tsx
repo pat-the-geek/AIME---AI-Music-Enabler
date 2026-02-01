@@ -24,7 +24,7 @@ import {
   Snackbar,
   Tooltip,
 } from '@mui/material'
-import { Add, PlayArrow, Delete, Pause, SkipNext } from '@mui/icons-material'
+import { Add, PlayArrow, Delete, Pause, SkipNext, Refresh } from '@mui/icons-material'
 import apiClient from '../api/client'
 import { useRoon } from '../contexts/RoonContext'
 
@@ -76,13 +76,16 @@ export default function Playlists() {
   })
 
   // Récupérer les zones Roon
-  const { data: roonZones } = useQuery({
+  const { data: roonZones, refetch: refetchZones } = useQuery({
     queryKey: ['roon-zones'],
     queryFn: async () => {
       const response = await apiClient.get('/roon/zones')
       return response.data?.zones || []
     },
     enabled: roon.enabled && roon.available,
+    refetchInterval: 10000, // Rafraîchir toutes les 10 secondes
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   })
 
   // Créer playlist
@@ -374,7 +377,7 @@ export default function Playlists() {
                         }}
                         title={!roon.available ? "Roon n'est pas disponible - Vérifiez la connexion au serveur Roon" : "Lancer la lecture sur Roon"}
                       >
-                        {playingPlaylistId === playlist.id ? <CircularProgress size={16} /> : '▶ Roon'}
+                        {playingPlaylistId === playlist.id ? <CircularProgress size={16} /> : 'Roon'}
                       </Button>
                     )}
                     <IconButton
@@ -722,7 +725,18 @@ export default function Playlists() {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>Sélectionner la zone Roon</DialogTitle>
+        <DialogTitle>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span>Sélectionner la zone Roon</span>
+            <IconButton
+              size="small"
+              onClick={() => refetchZones()}
+              title="Rafraîchir la liste des zones"
+            >
+              <Refresh fontSize="small" />
+            </IconButton>
+          </Box>
+        </DialogTitle>
         <DialogContent sx={{ pt: 3 }}>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
             Choisissez la zone sur laquelle démarrer la lecture :

@@ -74,6 +74,17 @@ class RoonService:
                     if self.on_token_received:
                         self.on_token_received(new_token)
             
+            # Attendre que les zones soient chargées
+            max_wait = 3  # Attendre max 3 secondes
+            for i in range(max_wait):
+                if hasattr(self.roon_api, 'zones') and self.roon_api.zones:
+                    self.zones = self.roon_api.zones
+                    logger.info(f"✅ {len(self.zones)} zone(s) Roon disponible(s)")
+                    break
+                time.sleep(1)
+            else:
+                logger.warning("⚠️ Aucune zone Roon trouvée après connexion")
+            
             logger.info(f"✅ Connecté au serveur Roon: {self.server}:9330")
         except Exception as e:
             logger.error(f"❌ Erreur connexion Roon: {e}")

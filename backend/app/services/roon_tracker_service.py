@@ -71,6 +71,23 @@ class RoonTrackerService:
             logger.error("❌ Impossible de démarrer le tracker Roon: non connecté au serveur")
             return
         
+        # Vérifier que les zones sont disponibles
+        zones = self.roon.get_zones()
+        if not zones:
+            logger.warning("⚠️ Aucune zone Roon disponible - attente de la mise à jour des zones...")
+            # Attendre un peu que les zones soient chargées (jusqu'à 5 secondes)
+            import asyncio
+            for i in range(5):
+                await asyncio.sleep(1)
+                zones = self.roon.get_zones()
+                if zones:
+                    logger.info(f"✅ Zones Roon disponibles: {list(zones.keys())}")
+                    break
+            
+            if not zones:
+                logger.error("❌ Impossible de démarrer le tracker Roon: aucune zone disponible après 5s")
+                return
+        
         interval = self.config.get('roon_tracker', {}).get('interval_seconds', 120)
         
         self.scheduler.add_job(

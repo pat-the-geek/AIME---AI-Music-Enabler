@@ -21,7 +21,6 @@ import {
   ExpandMore,
   ExpandLess,
   Close,
-  VolumeUp,
 } from '@mui/icons-material'
 
 export default function FloatingRoonController() {
@@ -57,7 +56,7 @@ export default function FloatingRoonController() {
             }}
             onClick={() => setExpanded(!expanded)}
           >
-            <VolumeUp sx={{ color: 'rgba(255, 255, 255, 0.5)' }} />
+            <PlayArrow sx={{ color: 'rgba(255, 255, 255, 0.5)' }} />
           </Box>
         </Tooltip>
       </Box>

@@ -4,36 +4,63 @@
 
 ### Racine du projet `/`
 ```
-├── README.md                    # Vue d'ensemble du projet
-├── PROJECT-SUMMARY.md           # Résumé complet du projet
-├── STATUS.md                    # État actuel de l'application
-├── TESTING.md                   # Guide de test
-├── STRUCTURE.md                 # Ce fichier - structure du projet
-├── docker-compose.yml           # Configuration Docker
-├── .env                         # Variables d'environnement (ignoré par Git)
-└── .gitignore                   # Fichiers ignorés par Git
+├── README.md                    # 📖 Vue d'ensemble et guide principal
+├── STRUCTURE.md                 # 📁 Ce fichier - structure du projet
+├── docker-compose.yml           # 🐳 Configuration Docker
+├── .env                         # 🔐 Variables d'environnement (ignoré par Git)
+├── .gitignore                   # 🚫 Fichiers ignorés par Git
+├── backend/                     # 🔧 API FastAPI
+├── frontend/                    # ⚛️ Application React
+├── config/                      # ⚙️ Configuration application
+├── data/                        # 🗄️ Base de données SQLite
+├── docs/                        # 📚 Documentation complète
+├── scripts/                     # 🛠️ Scripts de déploiement
+├── Scheduled Output/            # 📦 Exports automatiques (haikus, markdown, json)
+└── Screen captures/             # 🖼️ Captures d'écran de l'UI
 ```
 
 ### Documentation `/docs`
 ```
 docs/
-├── README.md                    # Index de la documentation
-├── API.md                       # Documentation API REST
-├── ARCHITECTURE.md              # Architecture technique
-├── QUICKSTART.md                # Guide de démarrage rapide
-├── TROUBLESHOOTING.md           # Résolution des problèmes
-├── GITHUB-REPO-INFO.md          # Info GitHub (description, topics, SEO)
+├── README.md                    # 📋 Index de la documentation
+├── API.md                       # 🔌 Documentation API REST
+├── QUICKSTART.md                # 🚀 Guide de démarrage rapide
+├── TROUBLESHOOTING.md           # 🔧 Résolution des problèmes
+├── GITHUB-REPO-INFO.md          # 📝 Info GitHub (description, topics, SEO)
+├── PROJECT-SUMMARY.md           # 📊 Résumé complet du projet
+├── STATUS.md                    # ✅ État actuel de l'application
+├── QUICK-REFERENCE.md           # ⚡ Référence rapide
+├── INSTALLATION-CHECKLIST.md   # ✓ Checklist installation
+├── RELIABILITY-GUIDE.md         # 🛡️ Guide fiabilité système
 │
-├── changelogs/                  # 📝 Historique des modifications
-│   ├── CHANGELOG.md
-│   ├── CHANGELOG-UI-ENRICHMENT.md
-│   └── CHANGELOG-UNIFIED-ALBUM-DISPLAY.md
+├── architecture/                # 🏗️ Documentation architecture
+│   ├── ARCHITECTURE-COMPLETE.md # Architecture complète du système
+│   ├── ARCHITECTURE-SCHEMA.md   # Schémas visuels (ASCII art)
+│   └── DATABASE-SCHEMA.md       # Schéma relationnel (Mermaid ER)
+│
+├── guides/                      # 📖 Guides utilisateur
+│   ├── AUTO-RESTART-TEST-GUIDE.md # Guide test auto-restart services
+│   └── TESTING.md               # Guide de test complet
 │
 ├── features/                    # 🎵 Documentation des fonctionnalités
 │   ├── NOUVELLES-FONCTIONNALITES.md
 │   ├── JOURNAL-TIMELINE-DOC.md
 │   ├── LASTFM-IMPORT-TRACKER-DOC.md
-│   └── ROON-TRACKER-DOC.md
+│   ├── ROON-TRACKER-DOC.md
+│   │
+│   └── roon/                    # 🎛️ Intégration Roon
+│       ├── ROON-INTEGRATION-COMPLETE.md   # Guide complet intégration
+│       ├── ROON-ZONES-FIX.md              # Fix zones au démarrage
+│       ├── ROON-BUGS-TRACKING.md          # Suivi bugs et investigation
+│       ├── ROON-FINAL-STATUS.md           # Statut final implémentation
+│       ├── ROON-IMPLEMENTATION-COMPLETE.md
+│       ├── ROON-IMPLEMENTATION-SUMMARY.md
+│       └── FRONTEND-CHANGES-ROON-PLAYLISTS.md
+│
+├── changelogs/                  # 📝 Historique des modifications
+│   ├── CHANGELOG.md
+│   ├── CHANGELOG-UI-ENRICHMENT.md
+│   └── CHANGELOG-UNIFIED-ALBUM-DISPLAY.md
 │
 ├── config/                      # 🔧 Documentation de configuration
 │   └── TRACKER-CONFIG-OPTIMALE.md
@@ -43,7 +70,27 @@ docs/
 │   ├── EXPLICATION-404-DISCOGS.md
 │   ├── CORRECTIONS-SYNC-DISCOGS.md
 │   ├── AMELIORATIONS-SYNC-ENRICHIE.md
-│   └── ENRICHISSEMENT-RETROACTIF.md
+│   ├── ENRICHISSEMENT-RETROACTIF.md
+│   ├── LASTFM-IMPORT-CHANGES.md
+│   ├── LASTFM-IMPORT-COMPLETE.md
+│   ├── LASTFM-IMPORT-ENHANCEMENT.md
+│   ├── PLAYLIST-CREATION-TROUBLESHOOT.md
+│   ├── app.log
+│   ├── backend-restart.log
+│   ├── backend.log
+│   └── startup.log
+│
+├── scripts-util/                # 🔨 Scripts utilitaires
+│   ├── analyze_duplicates.py
+│   ├── apply_10min_dedup.py
+│   ├── check_db_final.py
+│   ├── cleanup_duplicates.py
+│   ├── find_album_dups.py
+│   ├── merge_duplicate_albums.py
+│   ├── merge_duplicate_tracks.py
+│   ├── test_lastfm_import.py
+│   ├── verify_db.py
+│   └── test-playlist-endpoints.sh
 │
 └── specs/                       # 🏗️ Spécifications techniques
     └── SPECIFICATION-REACT-REBUILD.md
@@ -79,7 +126,8 @@ backend/
     │   ├── listening_history.py
     │   ├── playlist.py
     │   ├── metadata.py
-    │   └── image.py
+    │   ├── image.py
+    │   └── service_state.py     # 🆕 États services (auto-restart)
     │
     ├── schemas/                 # 📋 Schémas Pydantic
     │   ├── album.py
@@ -124,18 +172,22 @@ frontend/
     │
     ├── components/              # 🧩 Composants réutilisables
     │   ├── AlbumDetailDialog.tsx
+    │   ├── FloatingRoonController.tsx  # 🆕 Widget Roon flottant
     │   └── layout/
     │       ├── Layout.tsx
     │       ├── Sidebar.tsx
     │       └── TopBar.tsx
+    │
+    ├── contexts/                # 🔄 Contextes React
+    │   └── RoonContext.tsx      # 🆕 État global Roon
     │
     ├── pages/                   # 📄 Pages de l'application
     │   ├── Collection.tsx       # Collection Discogs
     │   ├── Journal.tsx          # Historique d'écoute
     │   ├── Timeline.tsx         # Vue chronologique
     │   ├── Analytics.tsx        # Analytics & patterns
-    │   ├── Playlists.tsx        # Playlists intelligentes
-    │   └── Settings.tsx         # Configuration
+    │   ├── Playlists.tsx        # Playlists intelligentes + Roon controls 🆕
+    │   └── Settings.tsx         # Configuration trackers/scheduler
     │
     ├── styles/                  # 🎨 Styles
     │   └── theme.ts             # Thème Material-UI
@@ -175,6 +227,15 @@ scripts/
 ├── test_sync_enhanced.py        # Tester synchronisation
 ├── find_404_releases.py         # Trouver releases 404
 └── validate_corrections.py      # Valider corrections
+```
+
+### Tests Backend `/backend`
+```
+backend/
+├── create_service_states_table.py  # 🆕 Migration table service_states
+├── test_auto_restart.py            # 🆕 Tests auto-restart services
+├── test_markdown_export.py         # Tests export Markdown
+└── validate_startup.py             # Validation démarrage
 ```
 
 ---

@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from typing import Optional
 import logging
 
-from app.database import get_db
+from app.database import get_db, SessionLocal
 from app.core.config import get_settings
 from app.services.tracker_service import TrackerService
 from app.services.roon_tracker_service import RoonTrackerService
@@ -16,7 +16,7 @@ from app.services.discogs_service import DiscogsService
 from app.services.spotify_service import SpotifyService
 from app.services.ai_service import AIService
 from app.services.lastfm_service import LastFMService
-from app.models import Album, Artist, Image, Metadata, Track, ListeningHistory
+from app.models import Album, Artist, Image, Metadata, Track, ListeningHistory, ServiceState
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -45,6 +45,82 @@ _last_executions = {
     'enrichment': None,
     'spotify_enrich': None
 }
+
+
+# ===== Helper Functions pour Persistance des États =====
+
+def save_service_state(service_name: str, is_active: bool):
+    """Sauvegarder l'état d'un service dans la DB."""
+    db = SessionLocal()
+    try:
+        state = db.query(ServiceState).filter_by(service_name=service_name).first()
+        if state is None:
+            state = ServiceState(service_name=service_name)
+            db.add(state)
+        
+        state.is_active = is_active
+        state.last_updated = datetime.now(timezone.utc)
+        db.commit()
+        logger.info(f"💾 État du service '{service_name}' sauvegardé: {'actif' if is_active else 'inactif'}")
+    except Exception as e:
+        logger.error(f"❌ Erreur sauvegarde état service '{service_name}': {e}")
+        db.rollback()
+    finally:
+        db.close()
+
+
+def get_service_state(service_name: str) -> bool:
+    """Récupérer l'état d'un service depuis la DB."""
+    db = SessionLocal()
+    try:
+        state = db.query(ServiceState).filter_by(service_name=service_name).first()
+        return state.is_active if state else False
+    except Exception as e:
+        logger.error(f"❌ Erreur récupération état service '{service_name}': {e}")
+        return False
+    finally:
+        db.close()
+
+
+async def restore_active_services():
+    """Restaurer automatiquement les services qui étaient actifs."""
+    logger.info("🔄 Restauration des services actifs...")
+    db = SessionLocal()
+    try:
+        # Récupérer tous les services actifs
+        active_services = db.query(ServiceState).filter_by(is_active=True).all()
+        
+        for service_state in active_services:
+            service_name = service_state.service_name
+            try:
+                if service_name == 'tracker':
+                    tracker = get_tracker()
+                    await tracker.start()
+                    logger.info(f"✅ Tracker Last.fm restauré")
+                elif service_name == 'roon_tracker':
+                    # Pour Roon, attendre un peu plus que les zones soient disponibles
+                    import asyncio
+                    logger.info(f"⏳ Attente connexion Roon avant restauration du tracker...")
+                    await asyncio.sleep(2)  # Donner 2s de plus à Roon pour se connecter
+                    
+                    roon_tracker = get_roon_tracker()
+                    await roon_tracker.start()
+                    logger.info(f"✅ Tracker Roon restauré")
+                elif service_name == 'scheduler':
+                    scheduler = get_scheduler()
+                    await scheduler.start()
+                    logger.info(f"✅ Scheduler restauré")
+                else:
+                    logger.warning(f"⚠️ Service inconnu: {service_name}")
+            except Exception as e:
+                logger.error(f"❌ Erreur restauration service '{service_name}': {e}")
+        
+        if not active_services:
+            logger.info("ℹ️ Aucun service actif à restaurer")
+    except Exception as e:
+        logger.error(f"❌ Erreur lors de la restauration des services: {e}")
+    finally:
+        db.close()
 
 
 def get_tracker():
@@ -142,6 +218,7 @@ async def start_roon_tracker():
     """Démarrer le tracker Roon."""
     tracker = get_roon_tracker()
     await tracker.start()
+    save_service_state('roon_tracker', True)
     return {"status": "started"}
 
 
@@ -150,6 +227,7 @@ async def stop_roon_tracker():
     """Arrêter le tracker Roon."""
     tracker = get_roon_tracker()
     await tracker.stop()
+    save_service_state('roon_tracker', False)
     return {"status": "stopped"}
 
 
@@ -274,6 +352,7 @@ async def start_tracker():
     """Démarrer le tracker Last.fm."""
     tracker = get_tracker()
     await tracker.start()
+    save_service_state('tracker', True)
     return {"status": "started"}
 
 
@@ -282,6 +361,7 @@ async def stop_tracker():
     """Arrêter le tracker Last.fm."""
     tracker = get_tracker()
     await tracker.stop()
+    save_service_state('tracker', False)
     return {"status": "stopped"}
 
 
@@ -331,6 +411,7 @@ async def start_scheduler():
     """Démarrer le scheduler de tâches optimisées."""
     scheduler = get_scheduler()
     await scheduler.start()
+    save_service_state('scheduler', True)
     return {"status": "started"}
 
 
@@ -339,6 +420,7 @@ async def stop_scheduler():
     """Arrêter le scheduler de tâches optimisées."""
     scheduler = get_scheduler()
     await scheduler.stop()
+    save_service_state('scheduler', False)
     return {"status": "stopped"}
 
 

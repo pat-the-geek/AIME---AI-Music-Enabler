@@ -7,6 +7,7 @@ from app.models.listening_history import ListeningHistory
 from app.models.image import Image
 from app.models.metadata import Metadata
 from app.models.playlist import Playlist, PlaylistTrack
+from app.models.service_state import ServiceState
 
 __all__ = [
     "Artist",
@@ -18,4 +19,5 @@ __all__ = [
     "Metadata",
     "Playlist",
     "PlaylistTrack",
+    "ServiceState",
 ]

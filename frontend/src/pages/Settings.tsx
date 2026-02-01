@@ -102,6 +102,9 @@ export default function Settings() {
       return response.data
     },
     enabled: roonEnabled && roonAvailable,
+    refetchInterval: 10000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   })
 
   // Récupérer la configuration du scheduler

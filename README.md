@@ -1,4 +1,4 @@
-# 🎵 AIME - AI Music Enabler - Version 4.3.0
+# 🎵 AIME - AI Music Enabler - Version 4.3.1
 
 Application web moderne pour tracker et analyser l'historique d'écoute musicale depuis Last.fm, avec enrichissement automatique via Spotify, Discogs et IA.
 
@@ -15,6 +15,7 @@ Cette application a été entièrement développée en exploitant les capacités
 - **Base de données**: SQLite
 - **APIs Intégrées**: 
   - **Last.fm**: Agrégation multi-sources (Roon ARC, PlexAmp, Quobuz, etc.)
+  - **Roon**: Contrôle direct via pyroon, zones, lecture en cours, commandes playback
   - **Spotify**: URLs, images, métadonnées tracks
   - **Discogs**: Collection, vinyl records
   - **EurIA** (Infomaniak AI): Descriptions automatiques
@@ -57,6 +58,7 @@ Cette application a été entièrement développée en exploitant les capacités
 5. **Gestion des Trackers**
    - Configuration Last.fm et Roon
    - Suivi automatique des écoutes
+   - **✨ Auto-restart** : Les trackers redémarrent automatiquement après un redémarrage serveur
    
    ![Paramètres Trackers](Screen%20captures/Settings%20-%20Roon%20-%20Lastfm%20-%20Trackers.png)
 
@@ -71,8 +73,16 @@ Cette application a été entièrement développée en exploitant les capacités
      - Métadonnées complètes (images, résumés IA, labels)
      - Source unique pour tous les exports (cohérence garantie)
 
-7. **API REST Complète**
-   - Endpoints pour collection, historique, playlists, services
+7. **Contrôle Roon Direct** ✨ **NOUVEAU v4.3.1**
+   - **Widget Flottant** : Affichage en temps réel du morceau en cours
+   - **Contrôles Intégrés** : Play, Pause, Next, Previous, Stop depuis les playlists
+   - **Tracking Multi-Zone** : Détection automatique des zones Roon actives
+   - **Démarrage Automatique** : Le tracker Roon redémarre après un reboot serveur
+   - **Interface Moderne** : Glassmorphism design avec animations fluides
+   - ⚠️ **Bugs connus** : Démarrage lectures et cohérence état en cours d'investigation
+
+8. **API REST Complète**
+   - Endpoints pour collection, historique, playlists, services, Roon
    - Documentation Swagger auto-générée
    - Validation Pydantic
 
@@ -82,6 +92,14 @@ Cette application a été entièrement développée en exploitant les capacités
 - Génération playlists (7 algorithmes)
 - Analytics et statistiques avancées
 - Export playlists (M3U, JSON, CSV)
+
+### ⚠️ Limitations Connues
+
+**Intégration Roon:**
+- 🔴 Démarrage des lectures via commandes AIME peut être instable
+- 🔴 Désynchronisation possible entre état affiché et état réel Roon
+- 💡 **Workaround**: Utiliser contrôles natifs Roon puis rafraîchir AIME
+- 📖 **Détails**: Voir [ROON-INTEGRATION-COMPLETE.md](docs/features/roon/ROON-INTEGRATION-COMPLETE.md#-problèmes-connus)
 
 ## 🚀 Installation
 
@@ -235,11 +253,24 @@ Endpoints principaux:
 - `GET /api/v1/playlists/{id}/export` - Exporter playlist
 
 ### Services
-- `GET /api/v1/services/tracker/status` - Statut tracker
-- `POST /api/v1/services/tracker/start` - Démarrer tracker
-- `POST /api/v1/services/tracker/stop` - Arrêter tracker
+- `GET /api/v1/services/tracker/status` - Statut tracker Last.fm
+- `POST /api/v1/services/tracker/start` - Démarrer tracker Last.fm
+- `POST /api/v1/services/tracker/stop` - Arrêter tracker Last.fm
+- `GET /api/v1/services/roon-tracker/status` - Statut tracker Roon
+- `POST /api/v1/services/roon-tracker/start` - Démarrer tracker Roon
+- `POST /api/v1/services/roon-tracker/stop` - Arrêter tracker Roon
 - `POST /api/v1/services/discogs/sync` - Synchroniser Discogs
 - `POST /api/v1/services/ai/generate-info` - Générer info IA
+
+### Roon Control ✨ **NOUVEAU**
+- `GET /api/v1/roon/status` - Statut connexion Roon
+- `GET /api/v1/roon/zones` - Liste des zones disponibles
+- `GET /api/v1/roon/now-playing` - Morceau en cours de lecture
+- `POST /api/v1/roon/play` - Démarrer lecture
+- `POST /api/v1/roon/pause` - Mettre en pause
+- `POST /api/v1/roon/next` - Morceau suivant
+- `POST /api/v1/roon/previous` - Morceau précédent
+- `POST /api/v1/roon/stop` - Arrêter lecture
 
 ### Scheduler (Tâches Automatiques)
 - `GET /api/v1/services/scheduler/config` - Configuration scheduler + max_files_per_type
@@ -311,8 +342,8 @@ npm run test
 
 - **[Guide de Démarrage Rapide](docs/QUICKSTART.md)** - Installation en 5 minutes
 - **[Documentation Complète](docs/)** - Guide complet avec index
-- **[Structure du Projet](STRUCTURE.md)** - Organisation des fichiers
-- **[Dépannage](docs/TROUBLESHOOTING.md)** - Solutions aux problèmes courants
+- **[Structure du Projet](STRUCTURE.md)** - Organisation des fichiers- **[Architecture Complète](docs/architecture/ARCHITECTURE-COMPLETE.md)** - Architecture système détaillée
+- **[Schéma Base de Données](docs/architecture/DATABASE-SCHEMA.md)** - Modèle relationnel (Mermaid)- **[Dépannage](docs/TROUBLESHOOTING.md)** - Solutions aux problèmes courants
 - **[Architecture](docs/ARCHITECTURE.md)** - Détails techniques
 - **[API REST](docs/API.md)** - Documentation endpoints
 - **[Nouvelles Fonctionnalités](docs/features/NOUVELLES-FONCTIONNALITES.md)** - Version 4.0.0
@@ -321,6 +352,8 @@ npm run test
 
 - **[Tracker Last.fm](docs/features/LASTFM-IMPORT-TRACKER-DOC.md)** - Configuration et import
 - **[Tracker Roon](docs/features/ROON-TRACKER-DOC.md)** - Intégration Roon
+- **[Intégration Roon Complète](docs/features/roon/ROON-INTEGRATION-COMPLETE.md)** - Guide complet Roon
+- **[Bugs Roon](docs/features/roon/ROON-BUGS-TRACKING.md)** - Suivi bugs et workarounds
 - **[Journal/Timeline](docs/features/JOURNAL-TIMELINE-DOC.md)** - Vue chronologique
 - **[Scheduler et Exports](docs/SCHEDULER.md)** - Tâches automatiques et configuration
 
@@ -363,9 +396,21 @@ MIT License
 
 ---
 
-**Version**: 4.3.0  
-**Date**: 31 janvier 2026  
+**Version**: 4.3.1  
+**Date**: 1er février 2026  
 **Auteur**: Patrick Ostertag
+
+### Changelog 4.3.1
+
+**Intégration Roon Complète + Auto-Restart (01/02/2026)**
+- 🎛️ **Contrôle Roon Direct**: Widget flottant avec affichage temps réel du morceau en cours
+- ▶️ **Commandes Playback**: Play, Pause, Next, Previous, Stop intégrés dans les playlists
+- 🔄 **Auto-Restart des Services**: Trackers (Last.fm, Roon) et Scheduler redémarrent automatiquement
+- 🗄️ **Persistance États**: Nouvelle table `service_states` pour la restauration automatique
+- 🎯 **Gestion Zones Roon**: Détection automatique et attente du chargement des zones
+- 🐛 **Fix Zones Vides**: Correction du problème de zones non disponibles au démarrage
+- 📱 **Interface Moderne**: Glassmorphism design avec animations fluides
+- 📚 **Documentation**: [Auto-Restart Guide](docs/guides/AUTO-RESTART-TEST-GUIDE.md), [Roon Zones Fix](docs/features/roon/ROON-ZONES-FIX.md)
 
 ### Changelog 4.3.0
 
