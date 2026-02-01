@@ -469,9 +469,9 @@ export default function Settings() {
                 label="Zone de lecture"
                 onChange={(e) => setZone(e.target.value)}
               >
-                {roonZones?.zones?.map((zoneName: string) => (
-                  <MenuItem key={zoneName} value={zoneName}>
-                    {zoneName}
+                {roonZones?.zones?.map((zoneObj: { zone_id: string; name: string; state: string }) => (
+                  <MenuItem key={zoneObj.zone_id} value={zoneObj.name}>
+                    {zoneObj.name} ({zoneObj.state})
                   </MenuItem>
                 ))}
               </Select>
