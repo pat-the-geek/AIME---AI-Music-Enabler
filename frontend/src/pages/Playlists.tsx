@@ -53,6 +53,10 @@ export default function Playlists() {
   const [pendingPlaylistId, setPendingPlaylistId] = useState<number | null>(null)
   const [selectedZone, setSelectedZone] = useState<string>('')
   const [controlLoading, setControlLoading] = useState<string | null>(null)
+  const [activePlaylistId, setActivePlaylistId] = useState<number | null>(() => {
+    const stored = localStorage.getItem('active_playlist_id')
+    return stored ? parseInt(stored, 10) : null
+  })
   const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
     open: false,
     message: '',
@@ -95,9 +99,11 @@ export default function Playlists() {
         })
         return response.data
       } else {
-        // Création par IA
+        // Création par IA (peut prendre du temps)
         console.log('Creating AI playlist:', data)
-        const response = await apiClient.post('/playlists/generate', data)
+        const response = await apiClient.post('/playlists/generate', data, {
+          timeout: 120000, // 2 minutes pour la génération AI
+        })
         return response.data
       }
     },
@@ -160,6 +166,7 @@ export default function Playlists() {
   // Jouer playlist sur Roon
   const playPlaylistMutation = useMutation({
     mutationFn: async ({ playlistId, zone }: { playlistId: number; zone: string }) => {
+      setPlayingPlaylistId(playlistId)
       // Mettre à jour la zone sélectionnée dans RoonContext
       roon.setZone(zone)
       // Appeler l'API Roon avec la zone sélectionnée
@@ -169,12 +176,15 @@ export default function Playlists() {
       })
       return response.data
     },
-    onSuccess: (data) => {
+    onSuccess: (data, variables) => {
       console.log('Playlist playback started:', data)
       setZoneDialogOpen(false)
+      
+      // Stocker l'ID de la playlist active
+      const playlistId = variables.playlistId
+      setActivePlaylistId(playlistId)
+      localStorage.setItem('active_playlist_id', playlistId.toString())
       setPendingPlaylistId(null)
-      // IMPORTANT: Garder playingPlaylistId pour afficher le track en cours
-      // Pas de setPlayingPlaylistId(null) ici!
       
       // Construire le message avec info de queue
       let message = `✅ Lecture démarrée: ${data.now_playing?.title || 'Playlist'}`
@@ -190,6 +200,7 @@ export default function Playlists() {
         message: message,
         severity: 'success'
       })
+      setPlayingPlaylistId(null)
     },
     onError: (error: any) => {
       console.error('Error playing playlist:', error)
@@ -450,8 +461,8 @@ export default function Playlists() {
                     </Stack>
                   )}
 
-                  {/* Info du track actuellement joué - SEULEMENT pour la playlist active */}
-                  {roon.nowPlaying && playingPlaylistId === playlist.id && (
+                  {/* Info du track actuellement joué - uniquement pour la playlist active */}
+                  {roon.nowPlaying && activePlaylistId === playlist.id && (
                     <Box
                       sx={{
                         p: 1.5,
@@ -746,8 +757,6 @@ export default function Playlists() {
           <Button
             onClick={() => {
               if (selectedZone && pendingPlaylistId) {
-                // Set la playlist active AVANT de lancer la mutation
-                setPlayingPlaylistId(pendingPlaylistId)
                 playPlaylistMutation.mutate({
                   playlistId: pendingPlaylistId,
                   zone: selectedZone
