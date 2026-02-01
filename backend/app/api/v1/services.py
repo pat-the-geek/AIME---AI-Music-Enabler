@@ -862,6 +862,10 @@ async def import_lastfm_history(
         # Dictionnaire pour accumuler les albums à enrichir (évite doublons)
         albums_to_enrich = defaultdict(dict)
         
+        # Set pour tracker les (track_id, timestamp) vus dans la session actuelle
+        # Évite les doublons créés dans une même boucle avant commit
+        seen_entries = set()
+        
         for batch_num in range(num_batches):
             try:
                 # Récupérer batch de tracks avec pagination (page = batch_num + 1)
@@ -919,7 +923,16 @@ async def import_lastfm_history(
                             db.add(track)
                             db.flush()
                         
-                        # MAINTENANT vérifier si déjà importé avec track_id + timestamp (clé unique)
+                        # Créer clé unique pour cette entrée
+                        entry_key = (track.id, timestamp)
+                        
+                        # Vérifier si DÉJÀ vu dans cette session (avant commit)
+                        if entry_key in seen_entries:
+                            logger.debug(f"⏭️ Doublon dans session: {track_title} @ {timestamp}")
+                            skipped_count += 1
+                            continue
+                        
+                        # MAINTENANT vérifier si déjà importé en base avec track_id + timestamp (clé unique)
                         if skip_existing:
                             existing = db.query(ListeningHistory).filter_by(
                                 track_id=track.id,
@@ -927,6 +940,7 @@ async def import_lastfm_history(
                             ).first()
                             if existing:
                                 skipped_count += 1
+                                seen_entries.add(entry_key)
                                 continue
                         
                         # Créer entrée historique
@@ -940,6 +954,7 @@ async def import_lastfm_history(
                         )
                         db.add(history)
                         imported_count += 1
+                        seen_entries.add(entry_key)
                         
                         # Marquer album pour enrichissement
                         if album.id not in albums_to_enrich:
