@@ -111,9 +111,15 @@ apiClient.interceptors.response.use(
       return Promise.reject(error)
     }
 
-    // Ne pas réessayer les GET avec body ou les requests non-HTTP
+    // Ne pas réessayer les erreurs non-retryable
     if (!isRetryableError(error)) {
       console.error('Non-retryable API Error:', error)
+      return Promise.reject(error)
+    }
+
+    // Ne pas réessayer les POST/PUT/DELETE (trop risqué)
+    if (config.method && !['get', 'head'].includes(config.method)) {
+      console.error('Not retrying mutation:', config.method?.toUpperCase(), config.url)
       return Promise.reject(error)
     }
 

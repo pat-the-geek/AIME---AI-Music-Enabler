@@ -11,7 +11,6 @@ import {
   CircularProgress,
   Alert,
   Chip,
-  Divider,
   List,
   ListItem,
   ListItemText,
@@ -23,30 +22,16 @@ import {
 import {
   BarChart,
   Bar,
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  ScatterChart,
-  Scatter,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  Radar,
   AreaChart,
   Area
 } from 'recharts'
 import apiClient from '../api/client'
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d', '#ffc658', '#ff7c7c', '#0099ff', '#ffb300']
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -72,15 +57,6 @@ export default function AnalyticsAdvanced() {
     return { startDate, endDate }
   }
 
-  const { startDate: defaultStart, endDate: defaultEnd } = getDefaultDates()
-
-  const [tabValue, setTabValue] = useState(0)
-  const [haikuDays, setHaikuDays] = useState(7)
-  const [startDate, setStartDate] = useState(defaultStart)
-  const [endDate, setEndDate] = useState(defaultEnd)
-  const [comparisonMode, setComparisonMode] = useState(false)
-  
-  // Dates pour la comparaison - 45 jours avant aujourd'hui jusqu'à aujourd'hui
   const getComparisonDates = () => {
     const today = new Date()
     const endDate = today.toISOString().split('T')[0]
@@ -89,6 +65,12 @@ export default function AnalyticsAdvanced() {
     return { startDate, midDate, endDate }
   }
 
+  const { startDate: defaultStart, endDate: defaultEnd } = getDefaultDates()
+
+  const [tabValue, setTabValue] = useState(0)
+  const [haikuDays, setHaikuDays] = useState(7)
+  const [startDate, setStartDate] = useState(defaultStart)
+  const [endDate, setEndDate] = useState(defaultEnd)
   const { startDate: compStartDate, midDate: compMidDate, endDate: compEndDate } = getComparisonDates()
 
   const [period1Start, setPeriod1Start] = useState(compStartDate)
@@ -112,7 +94,7 @@ export default function AnalyticsAdvanced() {
   })
 
   // Stats avancées
-  const { data: advancedStats, isLoading: statsLoading } = useQuery({
+  const { data: advancedStats } = useQuery({
     queryKey: ['advanced-stats', startDate, endDate],
     queryFn: async () => {
       try {

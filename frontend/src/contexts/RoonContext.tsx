@@ -24,7 +24,7 @@ export function RoonProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const checkRoonStatus = async () => {
       try {
-        const response = await apiClient.get('/api/v1/roon/status')
+        const response = await apiClient.get('/roon/status')
         const data = response.data
         setEnabled(data.enabled)
         setAvailable(data.available)
@@ -54,7 +54,7 @@ export function RoonProvider({ children }: { children: ReactNode }) {
       throw new Error('Aucune zone Roon sélectionnée. Allez dans Paramètres pour choisir une zone.')
     }
     
-    await apiClient.post('/api/v1/roon/play-track', {
+    await apiClient.post('/roon/play-track', {
       zone_name: zone,
       track_id: trackId
     })

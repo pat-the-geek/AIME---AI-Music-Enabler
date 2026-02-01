@@ -44,6 +44,8 @@ export default function Playlists() {
   const [aiPrompt, setAiPrompt] = useState('')
   const [maxTracks, setMaxTracks] = useState(25)
   const [selectedTracks, setSelectedTracks] = useState<number[]>([])
+  const [detailDialogOpen, setDetailDialogOpen] = useState(false)
+  const [selectedPlaylistId, setSelectedPlaylistId] = useState<number | null>(null)
   const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
     open: false,
     message: '',
@@ -56,7 +58,7 @@ export default function Playlists() {
   const { data: playlists, isLoading } = useQuery({
     queryKey: ['playlists'],
     queryFn: async () => {
-      const response = await apiClient.get('/api/v1/playlists')
+      const response = await apiClient.get('/playlists')
       return response.data
     }
   })
@@ -71,7 +73,7 @@ export default function Playlists() {
       if (mode === 'manual') {
         // Création manuelle
         console.log('Creating manual playlist:', data)
-        const response = await apiClient.post('/api/v1/playlists', {
+        const response = await apiClient.post('/playlists', {
           name: data.name,
           track_ids: data.track_ids
         })
@@ -79,7 +81,7 @@ export default function Playlists() {
       } else {
         // Création par IA
         console.log('Creating AI playlist:', data)
-        const response = await apiClient.post('/api/v1/playlists/generate', data)
+        const response = await apiClient.post('/playlists/generate', data)
         return response.data
       }
     },
@@ -98,6 +100,8 @@ export default function Playlists() {
     },
     onError: (error: any) => {
       console.error('Error creating playlist:', error)
+      console.error('Error response:', error.response)
+      console.error('Error message:', error.message)
       const message = error.response?.data?.detail || error.message || 'Erreur lors de la création de la playlist'
       setSnackbar({
         open: true,
@@ -110,11 +114,42 @@ export default function Playlists() {
   // Supprimer playlist
   const deletePlaylistMutation = useMutation({
     mutationFn: async (id: number) => {
-      await apiClient.delete(`/api/v1/playlists/${id}`)
+      console.log('Deleting playlist:', id)
+      await apiClient.delete(`/playlists/${id}`)
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['playlists'] })
+    onSuccess: (data, playlistId) => {
+      console.log('Playlist deleted successfully:', playlistId)
+      // Attendre un peu avant de recharger
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['playlists'] })
+        queryClient.invalidateQueries({ queryKey: ['playlist'] })
+      }, 300)
+      setSnackbar({
+        open: true,
+        message: '✅ Playlist supprimée avec succès',
+        severity: 'success'
+      })
+    },
+    onError: (error: any) => {
+      console.error('Error deleting playlist:', error)
+      const message = error.response?.data?.detail || error.message || 'Erreur lors de la suppression'
+      setSnackbar({
+        open: true,
+        message: `❌ ${message}`,
+        severity: 'error'
+      })
     }
+  })
+
+  // Récupérer les détails d'une playlist
+  const { data: playlistDetail } = useQuery({
+    queryKey: ['playlist', selectedPlaylistId],
+    queryFn: async () => {
+      if (!selectedPlaylistId) return null
+      const response = await apiClient.get(`/playlists/${selectedPlaylistId}`)
+      return response.data
+    },
+    enabled: !!selectedPlaylistId
   })
 
   const handleCreatePlaylist = () => {
@@ -229,19 +264,26 @@ export default function Playlists() {
                       variant="outlined"
                       startIcon={<PlayArrow />}
                       fullWidth
+                      onClick={() => {
+                        setSelectedPlaylistId(playlist.id)
+                        setDetailDialogOpen(true)
+                      }}
                     >
                       Voir les Tracks
                     </Button>
                     <IconButton
                       size="small"
                       color="error"
+                      disabled={deletePlaylistMutation.isPending}
                       onClick={() => {
+                        console.log('Delete button clicked for playlist:', playlist.id)
                         if (confirm('Supprimer cette playlist ?')) {
+                          console.log('Confirmed deletion, calling mutate...')
                           deletePlaylistMutation.mutate(playlist.id)
                         }
                       }}
                     >
-                      <Delete />
+                      {deletePlaylistMutation.isPending ? <CircularProgress size={20} /> : <Delete />}
                     </IconButton>
                   </Stack>
                 </CardContent>
@@ -391,10 +433,60 @@ export default function Playlists() {
         </DialogActions>
       </Dialog>
 
+      {/* Dialog détails playlist */}
+      <Dialog open={detailDialogOpen} onClose={() => setDetailDialogOpen(false)} maxWidth="sm" fullWidth>
+        <DialogTitle>Détails de la Playlist</DialogTitle>
+        <DialogContent>
+          {playlistDetail ? (
+            <Stack spacing={2} sx={{ mt: 1 }}>
+              <Typography variant="h6">{playlistDetail.name}</Typography>
+              <Typography variant="body2" color="text.secondary">
+                Algorithme: {playlistDetail.algorithm}
+              </Typography>
+              {playlistDetail.ai_prompt && (
+                <Typography variant="body2" color="text.secondary">
+                  Prompt: {playlistDetail.ai_prompt}
+                </Typography>
+              )}
+              <Typography variant="body2" color="text.secondary">
+                Nombre de morceaux: {playlistDetail.track_count}
+              </Typography>
+
+              {playlistDetail.tracks && playlistDetail.tracks.length > 0 ? (
+                <Box>
+                  <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                    Morceaux:
+                  </Typography>
+                  <Box sx={{ maxHeight: 300, overflow: 'auto' }}>
+                    {playlistDetail.tracks.map((track: any, idx: number) => (
+                      <Box key={idx} sx={{ py: 1, borderBottom: '1px solid #eee' }}>
+                        <Typography variant="body2">{idx + 1}. {track.title}</Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {track.artist}
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Box>
+                </Box>
+              ) : (
+                <Typography variant="body2" color="text.secondary">
+                  Aucun morceau dans cette playlist
+                </Typography>
+              )}
+            </Stack>
+          ) : (
+            <CircularProgress />
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDetailDialogOpen(false)}>Fermer</Button>
+        </DialogActions>
+      </Dialog>
+
       {/* Snackbar pour les notifications */}
       <Snackbar 
         open={snackbar.open} 
-        autoHideDuration={4000} 
+        autoHideDuration={3000} 
         onClose={() => setSnackbar({ ...snackbar, open: false })}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
