@@ -449,3 +449,56 @@ async def play_playlist(request: RoonPlayPlaylistRequest):
     finally:
         db.close()
 
+
+@router.get("/debug/playlist/{playlist_id}")
+async def debug_playlist(playlist_id: int):
+    """Afficher les infos d'une playlist pour diagnostic."""
+    check_roon_enabled()
+    
+    from sqlalchemy.orm import Session
+    from app.database import SessionLocal
+    from app.models import Playlist, PlaylistTrack, Track, Album
+    
+    db: Session = SessionLocal()
+    
+    try:
+        playlist = db.query(Playlist).filter(Playlist.id == playlist_id).first()
+        if not playlist:
+            raise HTTPException(status_code=404, detail=f"Playlist {playlist_id} non trouvée")
+        
+        playlist_tracks = db.query(PlaylistTrack).filter(
+            PlaylistTrack.playlist_id == playlist_id
+        ).order_by(PlaylistTrack.position).all()
+        
+        tracks_info = []
+        for pt in playlist_tracks:
+            track = db.query(Track).filter(Track.id == pt.track_id).first()
+            if track:
+                album = db.query(Album).filter(Album.id == track.album_id).first()
+                artists = [a.name for a in album.artists] if (album and album.artists) else ["Unknown"]
+                
+                tracks_info.append({
+                    "position": pt.position,
+                    "track_id": track.id,
+                    "title": track.title,
+                    "artist": ", ".join(artists),
+                    "album": album.title if album else "Unknown"
+                })
+        
+        return {
+            "playlist": {
+                "id": playlist.id,
+                "name": playlist.name,
+                "algorithm": playlist.algorithm
+            },
+            "track_count": len(tracks_info),
+            "tracks": tracks_info[:5]  # Montrer les 5 premiers tracks
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {str(e)}")
+    finally:
+        db.close()
+

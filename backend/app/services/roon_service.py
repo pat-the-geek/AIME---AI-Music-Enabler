@@ -190,7 +190,7 @@ class RoonService:
         Args:
             zone_or_output_id: ID de la zone ou output
             track_title: Titre du morceau
-            artist: Artiste
+            artist: Artiste(s) - Roon cherche généralement le premier artiste
             album: Album (optionnel)
         
         Returns:
@@ -201,12 +201,21 @@ class RoonService:
             return False
         
         try:
+            # Si plusieurs artistes séparés par des virgules, prendre le premier
+            # (Roon cherche généralement par le premier artiste)
+            primary_artist = artist.split(',')[0].strip() if artist else "Unknown"
+            
             # Construire le chemin de navigation Roon
             # Format: ["Library", "Artists", "Artist Name", "Album Name"]
             # ou si pas d'album: ["Library", "Artists", "Artist Name"]
-            path = ["Library", "Artists", artist]
+            path = ["Library", "Artists", primary_artist]
             if album:
                 path.append(album)
+            
+            logger.info(f"🎵 Tentative de lecture: {track_title}")
+            logger.info(f"   Artistes: {artist} (primary: {primary_artist})")
+            logger.info(f"   Album: {album or 'N/A'}")
+            logger.debug(f"   Path Roon: {path}")
             
             # Utiliser la vraie méthode play_media de l'API Roon
             # action peut être: "Play Now", "Queue", "Start Radio", etc.
@@ -219,14 +228,26 @@ class RoonService:
             )
             
             if result:
-                logger.info(f"✅ Lecture démarrée: {track_title} - {artist}")
+                logger.info(f"✅ Lecture démarrée: {track_title} - {primary_artist}")
                 return True
             else:
-                logger.warning(f"❌ Impossible de démarrer la lecture: {track_title} - {artist}")
+                logger.warning(f"❌ Impossible de démarrer la lecture (play_media retourna False)")
+                logger.warning(f"   Track: {track_title}")
+                logger.warning(f"   Artiste principal: {primary_artist} (tous: {artist})")
+                logger.warning(f"   Album: {album}")
+                logger.warning(f"   Path: {path}")
+                logger.warning(f"   Zone: {zone_or_output_id}")
+                logger.warning(f"   💡 Suggestions:")
+                logger.warning(f"      - Vérifiez que '{primary_artist}' existe dans Roon (exactement avec cette casse)")
+                logger.warning(f"      - Vérifiez que '{album}' existe sous cet artiste")
+                logger.warning(f"      - Parcourez manuellement Library > Artists > {primary_artist} dans Roon pour vérifier")
                 return False
             
         except Exception as e:
-            logger.error(f"❌ Erreur lecture morceau: {e}")
+            logger.error(f"❌ Erreur lecture: {e}")
+            logger.error(f"   Track: {track_title}, Artiste: {artist}, Album: {album}")
+            import traceback
+            logger.error(f"   Traceback: {traceback.format_exc()}")
             return False
     
     def playback_control(self, zone_or_output_id: str, control: str = "play") -> bool:
