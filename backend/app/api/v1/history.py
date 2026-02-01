@@ -181,7 +181,7 @@ async def listening_patterns(
 @router.get("/tracks", response_model=ListeningHistoryListResponse)
 async def list_history(
     page: int = Query(1, ge=1),
-    page_size: int = Query(50, ge=1, le=200),
+    page_size: int = Query(50, ge=1, le=1000),
     source: Optional[str] = Query(None),
     loved: Optional[bool] = Query(None),
     artist: Optional[str] = Query(None),
