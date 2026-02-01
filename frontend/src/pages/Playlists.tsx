@@ -301,7 +301,7 @@ export default function Playlists() {
                     >
                       Voir les Tracks
                     </Button>
-                    {roon.enabled && (
+                    {roon.enabled && roon.available && (
                       <Button
                         size="small"
                         variant="contained"
@@ -309,7 +309,6 @@ export default function Playlists() {
                         startIcon={<PlayArrow />}
                         disabled={playPlaylistMutation.isPending || playingPlaylistId === playlist.id}
                         onClick={() => playPlaylistMutation.mutate(playlist.id)}
-                        title={!roon.available ? "Roon non disponible - Vérifiez la configuration" : ""}
                       >
                         {playingPlaylistId === playlist.id ? <CircularProgress size={16} /> : '▶ Roon'}
                       </Button>

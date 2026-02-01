@@ -199,7 +199,12 @@ async def play_track(request: RoonPlayRequest):
         )
         
         if not success:
-            raise HTTPException(status_code=500, detail="Erreur démarrage lecture")
+            raise HTTPException(
+                status_code=501,
+                detail="La lecture directe de morceaux n'est pas supportée par l'API Roon actuelle. "
+                       "Cette fonctionnalité nécessite l'extension Roon SDK complète. "
+                       "Pour une intégration complète, utilisez l'extension Roon native ou mettez en place un serveur Roon avec extension."
+            )
         
         return {
             "message": f"Lecture démarrée: {request.track_title} - {request.artist}",
@@ -328,7 +333,12 @@ async def play_track_by_id(request: RoonPlayTrackByIdRequest):
         )
         
         if not success:
-            raise HTTPException(status_code=500, detail="Erreur démarrage lecture sur Roon")
+            raise HTTPException(
+                status_code=501,
+                detail="La lecture directe de morceaux n'est pas supportée par l'API Roon actuelle. "
+                       "Cette fonctionnalité nécessite l'extension Roon SDK complète. "
+                       "Pour une intégration complète, utilisez l'extension Roon native ou mettez en place un serveur Roon avec extension."
+            )
         
         return {
             "message": f"Lecture démarrée: {track.title} - {artist_name}",
@@ -415,7 +425,12 @@ async def play_playlist(request: RoonPlayPlaylistRequest):
         )
         
         if not success:
-            raise HTTPException(status_code=500, detail="Erreur démarrage lecture sur Roon")
+            raise HTTPException(
+                status_code=501,
+                detail="La lecture directe de morceaux n'est pas supportée par l'API Roon actuelle. "
+                       "Cette fonctionnalité nécessite l'extension Roon SDK complète. "
+                       "Pour une intégration complète, utilisez l'extension Roon native ou mettez en place un serveur Roon avec extension."
+            )
         
         return {
             "message": f"Lecture de la playlist démarrée: {playlist.name}",
