@@ -16,6 +16,7 @@ from app.schemas import (
 from app.services.playlist_generator import PlaylistGenerator
 from app.services.ai_service import AIService
 from app.core.config import get_settings
+from app.api.v1.services import get_roon_service
 
 router = APIRouter()
 
@@ -328,9 +329,6 @@ async def play_playlist_on_roon(
     Returns:
         Statut de la lecture
     """
-    from app.services.roon_service import RoonService
-    from app.core.config import get_settings
-    
     # Vérifier que Roon est activé
     settings = get_settings()
     roon_control_config = settings.app_config.get('roon_control', {})
@@ -356,18 +354,12 @@ async def play_playlist_on_roon(
     if not playlist_tracks:
         raise HTTPException(status_code=400, detail="Playlist vide")
     
-    # Initialiser Roon
-    settings = get_settings()
-    roon_config = settings.secrets.get('roon', {})
-    
-    if not roon_config.get('server'):
-        raise HTTPException(status_code=503, detail="Roon non configuré")
-    
+    # Initialiser Roon avec le singleton
     try:
-        roon_service = RoonService(
-            server=roon_config.get('server'),
-            token=roon_config.get('token')
-        )
+        roon_service = get_roon_service()
+        
+        if roon_service is None:
+            raise HTTPException(status_code=503, detail="Roon non configuré")
         
         if not roon_service.is_connected():
             raise HTTPException(status_code=503, detail="Impossible de se connecter à Roon")

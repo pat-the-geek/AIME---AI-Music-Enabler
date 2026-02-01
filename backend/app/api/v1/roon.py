@@ -3,8 +3,8 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 
-from app.services.roon_service import RoonService
 from app.core.config import get_settings
+from app.api.v1.services import get_roon_service as get_roon_service_singleton
 
 router = APIRouter()
 
@@ -86,12 +86,16 @@ async def get_roon_status():
             "message": "Roon non configuré (serveur manquant)"
         }
     
-    # Tester la connexion
+    # Utiliser le singleton pour éviter de créer plusieurs connexions
     try:
-        roon_service = RoonService(
-            server=roon_config.get('server'),
-            token=roon_config.get('token')
-        )
+        roon_service = get_roon_service_singleton()
+        if roon_service is None:
+            return {
+                "enabled": True,
+                "available": False,
+                "message": "Roon non configuré (serveur manquant)"
+            }
+        
         connected = roon_service.is_connected()
         
         return {
@@ -107,18 +111,12 @@ async def get_roon_status():
         }
 
 
-def get_roon_service() -> RoonService:
-    """Initialiser le service Roon."""
-    settings = get_settings()
-    roon_config = settings.secrets.get('roon', {})
+def get_roon_service():
+    """Obtenir l'instance singleton du service Roon."""
+    roon_service = get_roon_service_singleton()
     
-    if not roon_config.get('server'):
+    if roon_service is None:
         raise HTTPException(status_code=503, detail="Roon non configuré")
-    
-    roon_service = RoonService(
-        server=roon_config.get('server'),
-        token=roon_config.get('token')
-    )
     
     if not roon_service.is_connected():
         raise HTTPException(status_code=503, detail="Impossible de se connecter à Roon")

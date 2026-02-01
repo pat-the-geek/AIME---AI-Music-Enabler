@@ -40,7 +40,7 @@ class RoonService:
         # Connecter avec timeout pour éviter blocage
         self._connect_with_timeout()
     
-    def _connect_with_timeout(self, timeout: int = 3):
+    def _connect_with_timeout(self, timeout: int = 15):
         """Se connecter avec timeout pour éviter blocage indéfini."""
         thread = threading.Thread(target=self._connect, daemon=True)
         thread.start()
