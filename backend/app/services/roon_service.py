@@ -201,18 +201,29 @@ class RoonService:
             return False
         
         try:
-            # ⚠️ IMPORTANT: Roon API ne supporte pas directement la recherche de tracks par titre/artiste
-            # et la lecture via l'API. Cette fonctionnalité nécessite une intégration plus complexe
-            # utilisant le protocole Roon Core Control (pas disponible dans pyroon).
-            # 
-            # Pour une implémentation complète:
-            # 1. Utiliser l'extension Roon SDK (Java/Node.js)
-            # 2. Implémenter le protocole de navigation Roon
-            # 3. Gérer la recherche multi-critères
-            #
-            # Pour l'instant, retourner une erreur non-bloquante
-            logger.warning(f"❌ Lecture directe de track non supportée par l'API Roon (limitation API)")
-            return False
+            # Construire le chemin de navigation Roon
+            # Format: ["Library", "Artists", "Artist Name", "Album Name"]
+            # ou si pas d'album: ["Library", "Artists", "Artist Name"]
+            path = ["Library", "Artists", artist]
+            if album:
+                path.append(album)
+            
+            # Utiliser la vraie méthode play_media de l'API Roon
+            # action peut être: "Play Now", "Queue", "Start Radio", etc.
+            # Si None, Roon utilisera l'action par défaut (généralement "Play Now")
+            result = self.roon_api.play_media(
+                zone_or_output_id=zone_or_output_id,
+                path=path,
+                action=None,  # Utilise l'action par défaut
+                report_error=True
+            )
+            
+            if result:
+                logger.info(f"✅ Lecture démarrée: {track_title} - {artist}")
+                return True
+            else:
+                logger.warning(f"❌ Impossible de démarrer la lecture: {track_title} - {artist}")
+                return False
             
         except Exception as e:
             logger.error(f"❌ Erreur lecture morceau: {e}")

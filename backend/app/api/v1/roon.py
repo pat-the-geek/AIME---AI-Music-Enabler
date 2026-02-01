@@ -200,10 +200,9 @@ async def play_track(request: RoonPlayRequest):
         
         if not success:
             raise HTTPException(
-                status_code=501,
-                detail="La lecture directe de morceaux n'est pas supportée par l'API Roon actuelle. "
-                       "Cette fonctionnalité nécessite l'extension Roon SDK complète. "
-                       "Pour une intégration complète, utilisez l'extension Roon native ou mettez en place un serveur Roon avec extension."
+                status_code=500,
+                detail="Erreur lors du démarrage de la lecture sur Roon. "
+                       "Vérifiez que l'artiste et l'album sont présents dans votre bibliothèque Roon."
             )
         
         return {
@@ -334,10 +333,9 @@ async def play_track_by_id(request: RoonPlayTrackByIdRequest):
         
         if not success:
             raise HTTPException(
-                status_code=501,
-                detail="La lecture directe de morceaux n'est pas supportée par l'API Roon actuelle. "
-                       "Cette fonctionnalité nécessite l'extension Roon SDK complète. "
-                       "Pour une intégration complète, utilisez l'extension Roon native ou mettez en place un serveur Roon avec extension."
+                status_code=500,
+                detail="Erreur lors du démarrage de la lecture sur Roon. "
+                       "Vérifiez que l'artiste et l'album sont présents dans votre bibliothèque Roon."
             )
         
         return {
@@ -426,10 +424,9 @@ async def play_playlist(request: RoonPlayPlaylistRequest):
         
         if not success:
             raise HTTPException(
-                status_code=501,
-                detail="La lecture directe de morceaux n'est pas supportée par l'API Roon actuelle. "
-                       "Cette fonctionnalité nécessite l'extension Roon SDK complète. "
-                       "Pour une intégration complète, utilisez l'extension Roon native ou mettez en place un serveur Roon avec extension."
+                status_code=500,
+                detail="Erreur lors du démarrage de la lecture sur Roon. "
+                       "Vérifiez que l'artiste et l'album sont présents dans votre bibliothèque Roon."
             )
         
         return {
