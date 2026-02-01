@@ -98,7 +98,7 @@ export default function Settings() {
   const { data: roonZones } = useQuery({
     queryKey: ['roon-zones'],
     queryFn: async () => {
-      const response = await apiClient.get('/api/v1/roon/zones')
+      const response = await apiClient.get('/roon/zones')
       return response.data
     },
     enabled: roonEnabled && roonAvailable,

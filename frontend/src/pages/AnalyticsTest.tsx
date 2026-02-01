@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Box, Typography, Card, CardContent, Grid } from '@mui/material'
+import apiClient from '../api/client'
 
 export default function AnalyticsTest() {
   const [patterns, setPatterns] = useState<any>(null)
@@ -10,8 +11,8 @@ export default function AnalyticsTest() {
     const fetchData = async () => {
       try {
         console.log('Fetching patterns...')
-        const response = await fetch('http://localhost:8000/api/v1/history/patterns')
-        const data = await response.json()
+        const response = await apiClient.get('/history/patterns')
+        const data = response.data
         console.log('Data received:', data)
         setPatterns(data)
       } catch (err) {

@@ -116,7 +116,7 @@ export default function AnalyticsAdvanced() {
   const { data: discoveryStats } = useQuery({
     queryKey: ['discovery-stats'],
     queryFn: async () => {
-      const response = await apiClient.get('/api/v1/analytics/discovery-stats', {
+      const response = await apiClient.get('/analytics/discovery-stats', {
         params: { days: 30 }
       })
       return response.data
@@ -127,7 +127,7 @@ export default function AnalyticsAdvanced() {
   const { data: heatmap } = useQuery({
     queryKey: ['listening-heatmap'],
     queryFn: async () => {
-      const response = await apiClient.get('/api/v1/analytics/listening-heatmap', {
+      const response = await apiClient.get('/analytics/listening-heatmap', {
         params: { days: 90 }
       })
       return response.data

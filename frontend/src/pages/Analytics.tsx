@@ -41,7 +41,7 @@ export default function Analytics() {
   const { data: patterns, isLoading: patternsLoading } = useQuery({
     queryKey: ['listening-patterns'],
     queryFn: async () => {
-      const response = await apiClient.get('/api/v1/history/patterns')
+      const response = await apiClient.get('/history/patterns')
       return response.data
     }
   })
@@ -50,7 +50,7 @@ export default function Analytics() {
   const { data: haiku, isLoading: haikuLoading, refetch: refetchHaiku } = useQuery({
     queryKey: ['haiku', haikuDays],
     queryFn: async () => {
-      const response = await apiClient.get(`/api/v1/history/haiku?days=${haikuDays}`)
+      const response = await apiClient.get(`/history/haiku?days=${haikuDays}`)
       return response.data
     },
     enabled: false
