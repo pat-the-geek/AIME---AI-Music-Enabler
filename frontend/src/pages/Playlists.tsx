@@ -22,8 +22,9 @@ import {
   Chip,
   Stack,
   Snackbar,
+  Tooltip,
 } from '@mui/material'
-import { Add, PlayArrow, Delete } from '@mui/icons-material'
+import { Add, PlayArrow, Delete, Pause, SkipNext } from '@mui/icons-material'
 import apiClient from '../api/client'
 import { useRoon } from '../contexts/RoonContext'
 
@@ -51,6 +52,7 @@ export default function Playlists() {
   const [zoneDialogOpen, setZoneDialogOpen] = useState(false)
   const [pendingPlaylistId, setPendingPlaylistId] = useState<number | null>(null)
   const [selectedZone, setSelectedZone] = useState<string>('')
+  const [controlLoading, setControlLoading] = useState<string | null>(null)
   const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
     open: false,
     message: '',
@@ -200,6 +202,22 @@ export default function Playlists() {
       setPlayingPlaylistId(null)
     }
   })
+
+  // Gérer les contrôles Roon (play, pause, next, previous)
+  const handlePlaybackControl = async (control: 'play' | 'pause' | 'next' | 'previous' | 'stop') => {
+    try {
+      setControlLoading(control)
+      await roon.playbackControl(control)
+    } catch (error: any) {
+      setSnackbar({
+        open: true,
+        message: `❌ ${error.message}`,
+        severity: 'error'
+      })
+    } finally {
+      setControlLoading(null)
+    }
+  }
 
   // Récupérer les détails d'une playlist
   const { data: playlistDetail } = useQuery({
@@ -363,6 +381,117 @@ export default function Playlists() {
                       {deletePlaylistMutation.isPending ? <CircularProgress size={20} /> : <Delete />}
                     </IconButton>
                   </Stack>
+
+                  {/* Contrôles de lecture - Visible si Roon est disponible */}
+                  {roon.enabled && roon.available && (
+                    <Stack
+                      direction="row"
+                      spacing={1}
+                      mt={2}
+                      sx={{
+                        pt: 2,
+                        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Tooltip title="Piste précédente">
+                        <IconButton
+                          size="small"
+                          disabled={controlLoading !== null}
+                          onClick={() => handlePlaybackControl('previous')}
+                          sx={{
+                            color: 'rgba(255, 255, 255, 0.7)',
+                            '&:hover': { color: '#fff' },
+                          }}
+                        >
+                          {controlLoading === 'previous' ? (
+                            <CircularProgress size={20} />
+                          ) : (
+                            <SkipNext sx={{ transform: 'scaleX(-1)' }} fontSize="small" />
+                          )}
+                        </IconButton>
+                      </Tooltip>
+
+                      <Tooltip title="Pause">
+                        <IconButton
+                          size="small"
+                          disabled={controlLoading !== null}
+                          onClick={() => handlePlaybackControl('pause')}
+                          sx={{
+                            color: '#4caf50',
+                            '&:hover': { backgroundColor: 'rgba(76, 175, 80, 0.2)' },
+                          }}
+                        >
+                          {controlLoading === 'pause' ? (
+                            <CircularProgress size={20} />
+                          ) : (
+                            <Pause fontSize="small" />
+                          )}
+                        </IconButton>
+                      </Tooltip>
+
+                      <Tooltip title="Piste suivante">
+                        <IconButton
+                          size="small"
+                          disabled={controlLoading !== null}
+                          onClick={() => handlePlaybackControl('next')}
+                          sx={{
+                            color: 'rgba(255, 255, 255, 0.7)',
+                            '&:hover': { color: '#fff' },
+                          }}
+                        >
+                          {controlLoading === 'next' ? (
+                            <CircularProgress size={20} />
+                          ) : (
+                            <SkipNext fontSize="small" />
+                          )}
+                        </IconButton>
+                      </Tooltip>
+                    </Stack>
+                  )}
+
+                  {/* Info du track actuellement joué */}
+                  {roon.nowPlaying && (
+                    <Box
+                      sx={{
+                        p: 1.5,
+                        mt: 2,
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        borderRadius: 1,
+                        borderLeft: '3px solid #4caf50',
+                      }}
+                    >
+                      <Stack spacing={0.5}>
+                        <Typography variant="caption" sx={{ color: '#4caf50', fontWeight: 600 }}>
+                          ▶ En cours de lecture
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            fontWeight: 500,
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}
+                          title={roon.nowPlaying.title}
+                        >
+                          {roon.nowPlaying.title}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          color="text.secondary"
+                          sx={{
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}
+                          title={roon.nowPlaying.artist}
+                        >
+                          {roon.nowPlaying.artist}
+                        </Typography>
+                      </Stack>
+                    </Box>
+                  )}
                 </CardContent>
               </Card>
             </Grid>

@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { Box } from '@mui/material'
 import ErrorBoundary from './components/ErrorBoundary'
 import Navbar from './components/layout/Navbar'
+import FloatingRoonController from './components/FloatingRoonController'
 import Collection from './pages/Collection'
 import Journal from './pages/Journal'
 import Timeline from './pages/Timeline'
@@ -17,6 +18,7 @@ function App() {
       <RoonProvider>
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Navbar />
+          <FloatingRoonController />
           <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
             <Routes>
               <Route path="/" element={<Navigate to="/collection" replace />} />

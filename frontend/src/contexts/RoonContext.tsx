@@ -1,6 +1,14 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import apiClient from '@/api/client'
 
+interface NowPlayingTrack {
+  title: string
+  artist: string
+  album: string
+  zone_name: string
+  zone_id: string
+}
+
 interface RoonContextType {
   enabled: boolean
   available: boolean
@@ -9,6 +17,8 @@ interface RoonContextType {
   playTrack: (trackId: number) => Promise<void>
   playPlaylist: (playlistId: number) => Promise<void>
   isLoading: boolean
+  nowPlaying: NowPlayingTrack | null
+  playbackControl: (control: 'play' | 'pause' | 'next' | 'previous' | 'stop') => Promise<void>
 }
 
 const RoonContext = createContext<RoonContextType | undefined>(undefined)
@@ -20,6 +30,7 @@ export function RoonProvider({ children }: { children: ReactNode }) {
     return localStorage.getItem('roon_zone') || ''
   })
   const [isLoading, setIsLoading] = useState(true)
+  const [nowPlaying, setNowPlaying] = useState<NowPlayingTrack | null>(null)
 
   // Vérifier le statut Roon au démarrage et périodiquement
   useEffect(() => {
@@ -47,6 +58,40 @@ export function RoonProvider({ children }: { children: ReactNode }) {
     // Cleanup
     return () => clearInterval(interval)
   }, [])
+
+  // Polling pour le track actuellement joué
+  useEffect(() => {
+    const fetchNowPlaying = async () => {
+      if (!enabled || !available) {
+        setNowPlaying(null)
+        return
+      }
+      
+      try {
+        const response = await apiClient.get('/roon/now-playing')
+        if (response.data?.title) {
+          setNowPlaying(response.data as NowPlayingTrack)
+        } else {
+          setNowPlaying(null)
+        }
+      } catch (error) {
+        console.debug('Aucun track en cours de lecture')
+        setNowPlaying(null)
+      }
+    }
+
+    // Vérification initiale
+    if (enabled && available) {
+      fetchNowPlaying()
+    }
+
+    // Polling toutes les 3 secondes quand Roon est disponible
+    const interval = enabled && available ? setInterval(fetchNowPlaying, 3000) : null
+    
+    return () => {
+      if (interval) clearInterval(interval)
+    }
+  }, [enabled, available])
 
   // Sauvegarder la zone dans localStorage
   const handleSetZone = (newZone: string) => {
@@ -84,8 +129,23 @@ export function RoonProvider({ children }: { children: ReactNode }) {
     })
   }
 
+  // Contrôler la lecture (play, pause, next, previous, stop)
+  const playbackControl = async (control: 'play' | 'pause' | 'next' | 'previous' | 'stop') => {
+    if (!enabled || !available) {
+      throw new Error('Roon n\'est pas disponible')
+    }
+    if (!zone) {
+      throw new Error('Aucune zone Roon sélectionnée')
+    }
+
+    await apiClient.post('/roon/control', {
+      zone_name: zone,
+      control
+    })
+  }
+
   return (
-    <RoonContext.Provider value={{ enabled, available, zone, setZone: handleSetZone, playTrack, playPlaylist, isLoading }}>
+    <RoonContext.Provider value={{ enabled, available, zone, setZone: handleSetZone, playTrack, playPlaylist, isLoading, nowPlaying, playbackControl }}>
       {children}
     </RoonContext.Provider>
   )
