@@ -321,84 +321,107 @@ class SchedulerService:
             db.close()
     
     async def _generate_random_haikus(self):
-        """Générer haikus pour 5 albums aléatoires et exporter en markdown structuré."""
+        """Générer haikus pour 5 albums - Format IDENTIQUE à l'API /collection/markdown/presentation."""
         import random
         
         self.last_executions['generate_haiku_scheduled'] = datetime.now(timezone.utc).isoformat()
-        logger.info("🎋 Génération haikus pour 5 albums random")
+        logger.info("🎋 Génération haikus pour 5 albums random - Format API")
         db = SessionLocal()
         
         try:
             # Récupérer 5 albums aléatoires
-            all_albums = db.query(Album).all()
+            all_albums = db.query(Album).filter(Album.source == 'discogs').all()
             if len(all_albums) < 5:
                 logger.warning("Pas assez d'albums pour générer haikus")
                 return
             
             selected_albums = random.sample(all_albums, 5)
             
-            # Générer markdown structuré avec table des matières
-            markdown_content = StringIO()
-            markdown_content.write("# 🎋 Haikus Générés - Sélection Aléatoire\n\n")
-            markdown_content.write(f"**Généré le:** {datetime.now().strftime('%d/%m/%Y à %H:%M')}\n")
-            markdown_content.write(f"**Nombre de haikus:** {len(selected_albums)}\n\n")
-            markdown_content.write("---\n\n")
+            # Générer markdown - Format IDENTIQUE à l'API
+            markdown = "# Album Haïku\n"
             
-            # Table des matières
-            markdown_content.write("## Table des matières\n\n")
-            for i, album in enumerate(selected_albums, 1):
-                artist_name = album.artists[0].name if album.artists else "Artiste inconnu"
-                album_anchor = f"{album.title.replace(' ', '-').lower()}"
-                markdown_content.write(f"{i}. [{album.title} - {artist_name}](#{album_anchor})\n")
+            # Date du jour
+            now = datetime.now()
+            # Formater la date: "The 1 of February, 2026"
+            day = now.strftime("%-d" if os.name != 'nt' else "%#d")  # Pas de zéro au jour
+            month = now.strftime("%B")
+            year = now.strftime("%Y")
+            date_str = f"#### The {day} of {month}, {year}"
+            markdown += f"{date_str}\n"
+            markdown += f"\t\t{len(selected_albums)} albums from Discogs collection\n"
             
-            markdown_content.write("\n---\n\n")
+            # Haïku global
+            haiku_text = ""
+            try:
+                haiku_prompt = "Génère un haïku court sur la musique et les albums. Réponds uniquement avec le haïku en 3 lignes, sans numérotation."
+                haiku_text = await self.ai.ask_for_ia(haiku_prompt, max_tokens=100)
+                # Ajouter chaque ligne du haïku avec indentation
+                for line in haiku_text.strip().split('\n'):
+                    markdown += f"\t\t{line.strip()}\n"
+            except Exception as e:
+                logger.warning(f"⚠️ Erreur génération haïku global: {e}")
+                # Haïku par défaut
+                markdown += "\t\tMusique qui danse,\n"
+                markdown += "\t\talbums en harmonie,\n"
+                markdown += "\t\tcœur qui s'envole.\n"
             
-            # Générer haikus pour chaque album
-            for i, album in enumerate(selected_albums, 1):
-                artist_name = album.artists[0].name if album.artists else "Artiste inconnu"
+            markdown += "---\n"
+            
+            # Générer une section pour chaque album
+            for album in selected_albums:
+                # Artiste en titre
+                if album.artists:
+                    artist_name = album.artists[0].name
+                    markdown += f"# {artist_name}\n"
                 
-                markdown_content.write(f"## {i}. {album.title}\n\n")
-                markdown_content.write(f"**Artiste:** {artist_name}\n")
-                
+                # Titre, année et infos
+                title_line = f"#### {album.title}"
                 if album.year:
-                    markdown_content.write(f"- **Année:** {album.year}\n")
-                if album.support:
-                    markdown_content.write(f"- **Support:** {album.support}\n")
-                if album.discogs_id:
-                    markdown_content.write(f"- **Discogs ID:** {album.discogs_id}\n")
+                    title_line += f" ({album.year})"
+                markdown += f"{title_line}\n"
                 
-                markdown_content.write("\n")
-                
-                # Générer haiku
-                haiku_data = {
-                    'album_title': album.title,
-                    'artist_name': artist_name,
-                    'year': album.year or 'Année inconnue'
-                }
-                
-                try:
-                    haiku = await self.ai.generate_haiku(haiku_data)
-                    markdown_content.write(f"```\n{haiku}\n```\n\n")
-                except Exception as e:
-                    logger.error(f"Erreur génération haiku pour {album.title}: {e}")
-                    markdown_content.write(f"```\n[Haiku non disponible]\n```\n\n")
-                
-                # Liens
-                links = []
+                # Liens Spotify et Discogs
+                markdown += "\t###### 🎧"
                 if album.spotify_url:
-                    links.append(f"[Spotify]({album.spotify_url})")
+                    markdown += f" [Listen with Spotify]({album.spotify_url})"
+                markdown += "  👥"
                 if album.discogs_url:
-                    links.append(f"[Discogs]({album.discogs_url})")
+                    markdown += f" [Read on Discogs]({album.discogs_url})"
+                markdown += "\n\t###### 💿 "
+                markdown += f"{album.support if album.support else 'Digital'}\n"
                 
-                if links:
-                    markdown_content.write("**Liens:** " + " | ".join(links) + "\n")
+                # Description générée par l'IA
+                description = ""
+                try:
+                    album_lower = album.title.lower()
+                    artist_lower = (album.artists[0].name.lower() if album.artists else "artiste inconnu")
+                    description_prompt = f"""Présente moi l'album {album_lower} de {artist_lower}. 
+N'ajoute pas de questions ou de commentaires. 
+Limite ta réponse à 35 mots maximum.
+Réponds uniquement en français."""
+                    description = await self.ai.ask_for_ia(description_prompt, max_tokens=100)
+                    
+                    # Fallback si pas de description
+                    if not description or len(description) < 10:
+                        description = f"Album {album.title} sorti en {album.year if album.year else '?'}. Œuvre musicale enrichissante, à découvrir absolument."
+                except Exception as e:
+                    logger.warning(f"⚠️ Erreur génération description pour {album.title}: {e}")
+                    description = f"Album {album.title} sorti en {album.year if album.year else '?'}. Œuvre musicale enrichissante, à découvrir absolument."
                 
-                # Image de couverture
-                if album.images:
+                # Ajouter la description avec indentation
+                description = description.strip()
+                for line in description.split('\n'):
+                    markdown += f"\t\t{line}\n"
+                
+                # Image HTML
+                if album.images and album.images[0].url:
                     image_url = album.images[0].url
-                    markdown_content.write(f"\n![{album.title}]({image_url})\n")
+                    markdown += f"\n\n<img src='{image_url}' />\n"
                 
-                markdown_content.write("\n---\n\n")
+                markdown += "---\n"
+            
+            # Footer
+            markdown += "\t\tPython generated with love, for iA Presenter using Euria AI from Infomaniak\n"
             
             # Créer chemin absolu pour le répertoire de sortie
             current_dir = os.path.abspath(__file__)
@@ -416,9 +439,10 @@ class SchedulerService:
             
             # Sauvegarder fichier
             with open(filepath, 'w', encoding='utf-8') as f:
-                f.write(markdown_content.getvalue())
+                f.write(markdown)
             
             logger.info(f"✅ Haikus sauvegardés: {filepath}")
+            logger.info(f"📄 Format: Album Haïku (identique à API)")
             
             # Nettoyer les anciens fichiers
             self._cleanup_old_files()
