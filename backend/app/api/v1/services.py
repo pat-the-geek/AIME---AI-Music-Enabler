@@ -992,97 +992,41 @@ async def import_lastfm_history(
         logger.info(f"📊 Import terminé: {imported_count} tracks importés, {skipped_count} ignorés, {error_count} erreurs")
         logger.info(f"📀 {len(albums_to_enrich)} nouveaux albums à enrichir")
         
-        # Enrichissement des nouveaux albums (Spotify + IA)
-        enriched_count = 0
-        total_albums_to_enrich = len(albums_to_enrich)
-        
-        for album_index, album_info in enumerate(albums_to_enrich.values(), 1):
+        # Queue enrichment des albums en arrière-plan (ne pas bloquer l'endpoint)
+        if len(albums_to_enrich) > 0:
             try:
-                await asyncio.sleep(0.5)  # Délai entre enrichissements
+                from app.services.scheduler_service import SchedulerService
+                import asyncio
+                from concurrent.futures import ThreadPoolExecutor
                 
-                album_id = album_info['album_id']
-                artist = album_info['artist']
-                title = album_info['title']
+                scheduler = SchedulerService(settings.dict())
                 
-                logger.info(f"🎨 Enrichissement album {album_index}/{total_albums_to_enrich}: {artist} - {title}")
-                
-                album = db.query(Album).filter_by(id=album_id).first()
-                if not album:
-                    continue
-                
-                # Enrichir Spotify
-                if not album.spotify_url:
+                # Créer une fonction wrapper synchrone qui exécute le coroutine
+                def run_enrichment():
+                    loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(loop)
                     try:
-                        spotify_url = await spotify_service.search_album_url(artist, title)
-                        if spotify_url:
-                            album.spotify_url = spotify_url
-                    except Exception as e:
-                        logger.warning(f"⚠️ Erreur Spotify pour {title}: {e}")
+                        loop.run_until_complete(scheduler.enrich_imported_albums(albums_to_enrich))
+                    finally:
+                        loop.close()
                 
-                # Images Spotify
-                if not any(img.source == 'spotify' for img in album.images):
-                    try:
-                        album_image = await spotify_service.search_album_image(artist, title)
-                        if album_image:
-                            img = Image(
-                                url=album_image,
-                                image_type='album',
-                                source='spotify',
-                                album_id=album.id
-                            )
-                            db.add(img)
-                    except Exception as e:
-                        logger.warning(f"⚠️ Erreur image Spotify pour {title}: {e}")
-                
-                # Images Last.fm
-                if not any(img.source == 'lastfm' for img in album.images):
-                    try:
-                        lastfm_image = await lastfm_service.get_album_image(artist, title)
-                        if lastfm_image:
-                            img = Image(
-                                url=lastfm_image,
-                                image_type='album',
-                                source='lastfm',
-                                album_id=album.id
-                            )
-                            db.add(img)
-                    except Exception as e:
-                        logger.warning(f"⚠️ Erreur image Last.fm pour {title}: {e}")
-                
-                # Description IA
-                if not album.album_metadata or not album.album_metadata.ai_info:
-                    try:
-                        await asyncio.sleep(1.0)  # Délai plus long pour IA
-                        ai_info = await ai_service.generate_album_info(artist, title)
-                        if ai_info:
-                            if not album.album_metadata:
-                                metadata = Metadata(album_id=album.id, ai_info=ai_info)
-                                db.add(metadata)
-                            else:
-                                album.album_metadata.ai_info = ai_info
-                    except Exception as e:
-                        logger.warning(f"⚠️ Erreur IA pour {title}: {e}")
-                
-                enriched_count += 1
-                if enriched_count % 10 == 0:
-                    db.commit()
-                    logger.info(f"💾 {enriched_count}/{total_albums_to_enrich} albums enrichis...")
-                    
+                # Utiliser ThreadPoolExecutor pour exécuter en arrière-plan sans bloquer
+                executor = ThreadPoolExecutor(max_workers=1)
+                executor.submit(run_enrichment)
+                logger.info(f"✅ Tâche d'enrichissement en arrière-plan démarrée pour {len(albums_to_enrich)} albums")
             except Exception as e:
-                logger.error(f"❌ Erreur enrichissement album: {e}")
-                continue
-        
-        db.commit()
-        logger.info(f"✅ Import historique terminé avec succès!")
+                logger.warning(f"⚠️ Impossible de démarrer enrichissement en arrière-plan: {e}")
+                # Si l'enrichissement en arrière-plan échoue, ce n'est pas critique
+                # Les albums resteront dans la DB, juste sans enrichissement
         
         return {
             "status": "success",
             "tracks_imported": imported_count,
             "tracks_skipped": skipped_count,
             "tracks_errors": error_count,
-            "albums_enriched": enriched_count,
-            "total_albums_to_enrich": len(albums_to_enrich),
-            "total_scrobbles": total_scrobbles
+            "albums_to_enrich": len(albums_to_enrich),
+            "total_scrobbles": total_scrobbles,
+            "note": "Album enrichment (Spotify + IA descriptions) running in background"
         }
         
     except Exception as e:

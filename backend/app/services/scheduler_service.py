@@ -629,6 +629,118 @@ Réponds uniquement en français."""
                     except Exception as e:
                         logger.error(f"❌ Erreur suppression {file_path}: {e}")
     
+    async def enrich_imported_albums(self, albums_to_enrich: dict) -> dict:
+        """Enrichir les albums importés en arrière-plan (Spotify + IA)."""
+        self.last_executions['enrich_imported_albums'] = datetime.now(timezone.utc).isoformat()
+        logger.info(f"🎨 Enrichissement de {len(albums_to_enrich)} albums importés (en arrière-plan)")
+        db = SessionLocal()
+        
+        enriched_count = 0
+        total_albums = len(albums_to_enrich)
+        
+        try:
+            for album_index, album_info in enumerate(albums_to_enrich.values(), 1):
+                try:
+                    album_id = album_info['album_id']
+                    artist = album_info['artist']
+                    title = album_info['title']
+                    
+                    logger.info(f"🎨 Enrichissement album {album_index}/{total_albums}: {artist} - {title}")
+                    
+                    album = db.query(Album).filter_by(id=album_id).first()
+                    if not album:
+                        continue
+                    
+                    # Enrichir Spotify
+                    if not album.spotify_url:
+                        try:
+                            spotify_url = await self.spotify.search_album_url(artist, title)
+                            if spotify_url:
+                                album.spotify_url = spotify_url
+                        except Exception as e:
+                            logger.warning(f"⚠️ Erreur Spotify pour {title}: {e}")
+                    
+                    # Images Spotify
+                    if not any(img.source == 'spotify' for img in album.images):
+                        try:
+                            from app.models import Image
+                            album_image = await self.spotify.search_album_image(artist, title)
+                            if album_image:
+                                img = Image(
+                                    url=album_image,
+                                    image_type='album',
+                                    source='spotify',
+                                    album_id=album.id
+                                )
+                                db.add(img)
+                        except Exception as e:
+                            logger.warning(f"⚠️ Erreur image Spotify pour {title}: {e}")
+                    
+                    # Images Last.fm (appel direct HTTP)
+                    if not any(img.source == 'lastfm' for img in album.images):
+                        try:
+                            from app.services.lastfm_service import LastFMService
+                            lastfm_service = LastFMService()
+                            lastfm_image = await lastfm_service.get_album_image(artist, title)
+                            if lastfm_image:
+                                from app.models import Image
+                                img = Image(
+                                    url=lastfm_image,
+                                    image_type='album',
+                                    source='lastfm',
+                                    album_id=album.id
+                                )
+                                db.add(img)
+                        except Exception as e:
+                            logger.warning(f"⚠️ Erreur image Last.fm pour {title}: {e}")
+                    
+                    # Description IA
+                    if not album.album_metadata or not album.album_metadata.ai_info:
+                        try:
+                            # Délai pour ne pas saturer l'API IA
+                            import asyncio
+                            await asyncio.sleep(1.0)
+                            ai_info = await self.ai.generate_album_info(artist, title)
+                            if ai_info:
+                                if not album.album_metadata:
+                                    metadata = Metadata(album_id=album.id, ai_info=ai_info)
+                                    db.add(metadata)
+                                else:
+                                    album.album_metadata.ai_info = ai_info
+                        except Exception as e:
+                            logger.warning(f"⚠️ Erreur IA pour {title}: {e}")
+                    
+                    enriched_count += 1
+                    if enriched_count % 10 == 0:
+                        db.commit()
+                        logger.info(f"💾 {enriched_count}/{total_albums} albums enrichis...")
+                        
+                except Exception as e:
+                    logger.error(f"❌ Erreur enrichissement album: {e}")
+                    db.rollback()
+                    continue
+            
+            db.commit()
+            logger.info(f"✅ Enrichissement d'import terminé: {enriched_count} albums enrichis")
+            
+            return {
+                'status': 'completed',
+                'albums_enriched': enriched_count,
+                'total_albums': total_albums
+            }
+            
+        except Exception as e:
+            logger.error(f"❌ Erreur enrichissement import: {e}")
+            db.rollback()
+            return {
+                'status': 'error',
+                'error': str(e),
+                'albums_enriched': enriched_count,
+                'total_albums': total_albums
+            }
+        finally:
+            db.close()
+    
     async def trigger_task(self, task_name: str) -> dict:
         """Déclencher manuellement une tâche."""
         tasks = {
