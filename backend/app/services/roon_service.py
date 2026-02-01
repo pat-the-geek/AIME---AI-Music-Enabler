@@ -183,3 +183,104 @@ class RoonService:
             True si connecté, False sinon
         """
         return self.roon_api is not None
+    
+    def play_track(self, zone_or_output_id: str, track_title: str, artist: str, album: str = None) -> bool:
+        """Démarrer la lecture d'un morceau sur une zone.
+        
+        Args:
+            zone_or_output_id: ID de la zone ou output
+            track_title: Titre du morceau
+            artist: Artiste
+            album: Album (optionnel)
+        
+        Returns:
+            True si succès, False sinon
+        """
+        if not self.roon_api:
+            logger.error("API Roon non disponible")
+            return False
+        
+        try:
+            # Construire le chemin de recherche
+            # Roon utilise une navigation hiérarchique: Library -> Artists -> Artist -> Albums -> Album -> Tracks
+            opts = {
+                "hierarchy": "browse",
+                "zone_or_output_id": zone_or_output_id
+            }
+            
+            # Utiliser browse pour trouver le morceau
+            # Alternative: utiliser play_media avec le chemin complet
+            search_path = f"Library/Artists/{artist}"
+            if album:
+                search_path += f"/Albums/{album}"
+            search_path += f"/{track_title}"
+            
+            # Tenter de jouer via play_media
+            self.roon_api.play_media(zone_or_output_id, search_path, action="play")
+            logger.info(f"✅ Lecture démarrée: {track_title} - {artist}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"❌ Erreur lecture morceau: {e}")
+            return False
+    
+    def playback_control(self, zone_or_output_id: str, control: str = "play") -> bool:
+        """Contrôler la lecture sur une zone.
+        
+        Args:
+            zone_or_output_id: ID de la zone ou output
+            control: Commande (play, pause, stop, next, previous)
+        
+        Returns:
+            True si succès, False sinon
+        """
+        if not self.roon_api:
+            logger.error("API Roon non disponible")
+            return False
+        
+        try:
+            self.roon_api.playback_control(zone_or_output_id, control)
+            logger.info(f"✅ Contrôle lecture: {control} sur zone {zone_or_output_id}")
+            return True
+        except Exception as e:
+            logger.error(f"❌ Erreur contrôle lecture: {e}")
+            return False
+    
+    def pause_all(self) -> bool:
+        """Mettre en pause toutes les zones.
+        
+        Returns:
+            True si succès, False sinon
+        """
+        if not self.roon_api:
+            logger.error("API Roon non disponible")
+            return False
+        
+        try:
+            self.roon_api.pause_all()
+            logger.info("✅ Toutes les zones mises en pause")
+            return True
+        except Exception as e:
+            logger.error(f"❌ Erreur pause globale: {e}")
+            return False
+    
+    def get_zone_by_name(self, zone_name: str) -> Optional[str]:
+        """Récupérer l'ID d'une zone par son nom.
+        
+        Args:
+            zone_name: Nom de la zone
+        
+        Returns:
+            ID de la zone ou None si non trouvée
+        """
+        if not self.roon_api:
+            return None
+        
+        try:
+            zone_info = self.roon_api.zone_by_name(zone_name)
+            if zone_info:
+                return zone_info.get('zone_id')
+        except Exception as e:
+            logger.error(f"❌ Erreur recherche zone: {e}")
+        
+        return None

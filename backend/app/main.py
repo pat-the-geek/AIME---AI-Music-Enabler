@@ -28,7 +28,7 @@ from fastapi.exceptions import RequestValidationError
 from app.core.config import get_settings
 from app.core.exception_handler import setup_exception_handlers, add_process_time_header, add_request_id_header
 from app.database import init_db, engine
-from app.api.v1 import collection, history, playlists, services, search, analytics
+from app.api.v1 import collection, history, playlists, services, search, analytics, roon
 
 # Configuration du logging amélioré
 logging.basicConfig(
@@ -113,6 +113,7 @@ app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["Analytic
 app.include_router(playlists.router, prefix="/api/v1/playlists", tags=["Playlists"])
 app.include_router(services.router, prefix="/api/v1/services", tags=["Services"])
 app.include_router(search.router, prefix="/api/v1/search", tags=["Search"])
+app.include_router(roon.router, prefix="/api/v1/roon", tags=["Roon Control"])
 
 
 @app.get("/")

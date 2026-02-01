@@ -262,3 +262,103 @@ async def export_playlist(
             lines.append(f"{pt.position}. {', '.join(artists)} - {track.title} ({album.title if album else 'Unknown'})")
         
         return {"format": "txt", "content": "\n".join(lines)}
+
+
+# ============================================================================
+# Routes Contrôle Roon
+# ============================================================================
+
+@router.post("/{playlist_id}/play-on-roon")
+async def play_playlist_on_roon(
+    playlist_id: int,
+    zone_name: str,
+    db: Session = Depends(get_db)
+):
+    """Jouer une playlist sur Roon.
+    
+    Args:
+        playlist_id: ID de la playlist
+        zone_name: Nom de la zone Roon (ex: "Living Room")
+        
+    Returns:
+        Statut de la lecture
+    """
+    from app.services.roon_service import RoonService
+    from app.core.config import get_settings
+    
+    # Récupérer la playlist
+    playlist = db.query(Playlist).filter(Playlist.id == playlist_id).first()
+    if not playlist:
+        raise HTTPException(status_code=404, detail="Playlist non trouvée")
+    
+    # Récupérer les tracks
+    playlist_tracks = (
+        db.query(PlaylistTrack)
+        .filter(PlaylistTrack.playlist_id == playlist_id)
+        .order_by(PlaylistTrack.position)
+        .all()
+    )
+    
+    if not playlist_tracks:
+        raise HTTPException(status_code=400, detail="Playlist vide")
+    
+    # Initialiser Roon
+    settings = get_settings()
+    roon_config = settings.secrets.get('roon', {})
+    
+    if not roon_config.get('server'):
+        raise HTTPException(status_code=503, detail="Roon non configuré")
+    
+    try:
+        roon_service = RoonService(
+            server=roon_config.get('server'),
+            token=roon_config.get('token')
+        )
+        
+        if not roon_service.is_connected():
+            raise HTTPException(status_code=503, detail="Impossible de se connecter à Roon")
+        
+        # Récupérer l'ID de la zone
+        zone_id = roon_service.get_zone_by_name(zone_name)
+        if not zone_id:
+            available_zones = roon_service.get_zones()
+            zone_names = [z.get('display_name', 'Unknown') for z in available_zones.values()]
+            raise HTTPException(
+                status_code=404,
+                detail=f"Zone '{zone_name}' non trouvée. Zones disponibles: {', '.join(zone_names)}"
+            )
+        
+        # Jouer le premier track
+        first_pt = playlist_tracks[0]
+        first_track = first_pt.track
+        album = first_track.album
+        
+        if not album:
+            raise HTTPException(status_code=400, detail="Album non trouvé pour le premier track")
+        
+        artists = [a.name for a in album.artists] if album.artists else ["Unknown"]
+        artist_name = ", ".join(artists)
+        
+        success = roon_service.play_track(
+            zone_or_output_id=zone_id,
+            track_title=first_track.title,
+            artist=artist_name,
+            album=album.title
+        )
+        
+        if not success:
+            raise HTTPException(status_code=500, detail="Erreur démarrage lecture sur Roon")
+        
+        return {
+            "message": f"Playlist '{playlist.name}' en lecture sur {zone_name}",
+            "playlist_id": playlist_id,
+            "track_count": len(playlist_tracks),
+            "first_track": first_track.title,
+            "zone": zone_name
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur Roon: {str(e)}")
+
