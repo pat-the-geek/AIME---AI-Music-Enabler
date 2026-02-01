@@ -172,9 +172,19 @@ export default function Playlists() {
       console.log('Playlist playback started:', data)
       setZoneDialogOpen(false)
       setPendingPlaylistId(null)
+      
+      // Construire le message avec info de queue
+      let message = `✅ Lecture démarrée: ${data.now_playing?.title || 'Playlist'}`
+      if (data.queue?.skipped_tracks > 0) {
+        message += ` (${data.queue.skipped_tracks} track(s) non trouvé(es) dans Roon)`
+      }
+      if (data.queue?.queued_tracks > 0) {
+        message += ` • ${data.queue.queued_tracks} en queue`
+      }
+      
       setSnackbar({
         open: true,
-        message: `✅ Lecture démarrée: ${data.now_playing?.title || 'Playlist'}`,
+        message: message,
         severity: 'success'
       })
       setPlayingPlaylistId(null)

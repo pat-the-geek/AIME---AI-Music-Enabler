@@ -429,6 +429,9 @@ async def play_playlist(request: RoonPlayPlaylistRequest):
         
         # Ajouter les autres tracks à la queue
         queued_count = 0
+        skipped_count = 0
+        skipped_tracks = []
+        
         for i in range(1, len(playlist_tracks)):
             track_id = playlist_tracks[i].track_id
             track = db.query(Track).filter(Track.id == track_id).first()
@@ -437,14 +440,27 @@ async def play_playlist(request: RoonPlayPlaylistRequest):
                 track_artists = [a.name for a in track_album.artists] if (track_album and track_album.artists) else ["Unknown"]
                 track_artist_name = ", ".join(track_artists)
                 
-                # Ajouter à la queue
-                if roon_service.queue_tracks(
-                    zone_or_output_id=zone_id,
-                    track_title=track.title,
-                    artist=track_artist_name,
-                    album=track_album.title if track_album else None
-                ):
-                    queued_count += 1
+                # Ajouter à la queue (ignorer les erreurs individuelles)
+                try:
+                    if roon_service.queue_tracks(
+                        zone_or_output_id=zone_id,
+                        track_title=track.title,
+                        artist=track_artist_name,
+                        album=track_album.title if track_album else None
+                    ):
+                        queued_count += 1
+                    else:
+                        skipped_count += 1
+                        skipped_tracks.append(f"{track.title} - {track_artist_name}")
+                except Exception as e:
+                    skipped_count += 1
+                    skipped_tracks.append(f"{track.title} - {track_artist_name}")
+                    logger.warning(f"⚠️ Impossible d'ajouter à queue: {track.title} ({e})")
+        
+        # Construire le message de réponse
+        queue_message = f"{queued_count} tracks en attente"
+        if skipped_count > 0:
+            queue_message += f" ({skipped_count} track(s) non trouvé(es) dans Roon)"
         
         return {
             "message": f"Lecture de la playlist démarrée: {playlist.name}",
@@ -461,7 +477,8 @@ async def play_playlist(request: RoonPlayPlaylistRequest):
             "queue": {
                 "total_tracks": len(playlist_tracks),
                 "queued_tracks": queued_count,
-                "message": f"{queued_count} tracks supplémentaires en attente"
+                "skipped_tracks": skipped_count,
+                "message": queue_message
             },
             "zone": request.zone_name
         }
