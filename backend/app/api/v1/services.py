@@ -874,7 +874,7 @@ async def enrich_spotify_urls(
 @router.post("/lastfm/import-history")
 async def import_lastfm_history(
     limit: Optional[int] = None,
-    skip_existing: bool = False,
+    skip_existing: bool = True,
     db: Session = Depends(get_db)
 ):
     """Importer l'historique d'écoute COMPLET depuis Last.fm.
