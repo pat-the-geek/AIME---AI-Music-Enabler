@@ -49,7 +49,7 @@ const formatLastActivity = (isoDate: string | null | undefined): string => {
 }
 
 export default function Settings() {
-  const [importLimit, setImportLimit] = useState(1000)
+  const [importLimit, setImportLimit] = useState<number | null>(null) // null = import ALL
   const [importDialogOpen, setImportDialogOpen] = useState(false)
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' })
   const [roonServer, setRoonServer] = useState('')
@@ -136,8 +136,10 @@ export default function Settings() {
   })
 
   const importHistoryMutation = useMutation({
-    mutationFn: async (limit: number) => {
-      const response = await apiClient.post(`/services/lastfm/import-history?limit=${limit}&skip_existing=true`, null, {
+    mutationFn: async (limit: number | null) => {
+      // Si limit est null, on n'ajoute pas le paramètre limit (backend importera TOUS les scrobbles)
+      const url = limit === null ? `/services/lastfm/import-history?skip_existing=true` : `/services/lastfm/import-history?limit=${limit}&skip_existing=true`
+      const response = await apiClient.post(url, null, {
         timeout: 600000, // 10 minutes
       })
       return response.data
@@ -772,7 +774,7 @@ export default function Settings() {
       </Card>
 
       {/* Dialog Import */}
-      <Dialog open={importDialogOpen} onClose={() => !importHistoryMutation.isPending && setImportDialogOpen(false)}>
+      <Dialog open={importDialogOpen} onClose={() => !importHistoryMutation.isPending && setImportDialogOpen(false)} maxWidth="sm" fullWidth>
         <DialogTitle>Importer l'historique Last.fm</DialogTitle>
         <DialogContent>
           <Box sx={{ pt: 2 }}>
@@ -780,14 +782,51 @@ export default function Settings() {
               ⚠️ L'import peut prendre plusieurs minutes. Ne fermez pas cette fenêtre pendant l'opération.
             </Alert>
 
+            <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: 'bold' }}>
+              Choisissez le nombre de scrobbles à importer:
+            </Typography>
+
+            <Stack spacing={2} sx={{ mb: 3 }}>
+              <Button
+                variant={importLimit === null ? "contained" : "outlined"}
+                onClick={() => setImportLimit(null)}
+                disabled={importHistoryMutation.isPending}
+                sx={{ justifyContent: 'flex-start' }}
+              >
+                🌟 Importer TOUS les scrobbles (par défaut)
+              </Button>
+              <Button
+                variant={importLimit === 1000 ? "contained" : "outlined"}
+                onClick={() => setImportLimit(1000)}
+                disabled={importHistoryMutation.isPending}
+                sx={{ justifyContent: 'flex-start' }}
+              >
+                ⚡ Importer les 1000 derniers scrobbles
+              </Button>
+              <Button
+                variant={importLimit === 500 ? "contained" : "outlined"}
+                onClick={() => setImportLimit(500)}
+                disabled={importHistoryMutation.isPending}
+                sx={{ justifyContent: 'flex-start' }}
+              >
+                📊 Importer les 500 derniers scrobbles
+              </Button>
+            </Stack>
+
+            <Divider sx={{ my: 2 }} />
+
             <TextField
               fullWidth
               type="number"
-              label="Nombre de tracks à importer"
-              value={importLimit}
-              onChange={(e) => setImportLimit(Math.max(1, parseInt(e.target.value) || 1))}
+              label="Ou entrez une limite personnalisée"
+              value={importLimit === null ? '' : importLimit}
+              onChange={(e) => {
+                const val = e.target.value.trim()
+                setImportLimit(val === '' ? null : Math.max(1, parseInt(val) || 1))
+              }}
               disabled={importHistoryMutation.isPending}
-              helperText="Last.fm limite à 200 tracks par requête. L'import se fera par batches."
+              placeholder="Laissez vide pour tout importer"
+              helperText="Last.fm limite à 200 tracks par requête. L'import se fera par batches automatiquement."
               sx={{ mb: 2 }}
             />
 

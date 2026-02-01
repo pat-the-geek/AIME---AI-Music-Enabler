@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session, joinedload
 from datetime import datetime, timezone
 from pydantic import BaseModel
+from typing import Optional
 import logging
 
 from app.database import get_db
@@ -790,14 +791,14 @@ async def enrich_spotify_urls(
 
 @router.post("/lastfm/import-history")
 async def import_lastfm_history(
-    limit: int = 1000,
+    limit: Optional[int] = None,
     skip_existing: bool = True,
     db: Session = Depends(get_db)
 ):
-    """Importer l'historique d'écoute depuis Last.fm.
+    """Importer l'historique d'écoute COMPLET depuis Last.fm.
     
     Args:
-        limit: Nombre maximum de tracks à importer (par batch de 200)
+        limit: Nombre maximum de tracks à importer (None = tout importer, le défaut)
         skip_existing: Ignorer les tracks déjà en base (True) ou tout réimporter (False)
     """
     global _last_executions
@@ -809,7 +810,11 @@ async def import_lastfm_history(
     # Enregistrer le début de l'opération
     _last_executions['lastfm_import'] = datetime.now(timezone.utc).isoformat()
     
-    logger.info(f"🔄 Début import historique Last.fm (limit={limit})")
+    if limit is None:
+        logger.info(f"🔄 Début import COMPLET historique Last.fm (tous les scrobbles)")
+    else:
+        logger.info(f"🔄 Début import historique Last.fm (limit={limit})")
+    
     settings = get_settings()
     secrets = settings.secrets
     
@@ -845,9 +850,14 @@ async def import_lastfm_history(
         
         # Calcul du nombre de batches nécessaires
         batch_size = 200
-        num_batches = min((limit // batch_size) + 1, (total_scrobbles // batch_size) + 1)
-        
-        logger.info(f"📦 {num_batches} batches à traiter (max {limit} tracks)")
+        # Si limit est None, on veut ALL les scrobbles, donc on calcule le nombre de batches nécessaire
+        # Si limit est fourni, on ne fetch que jusqu'à cette limite
+        if limit is None:
+            num_batches = (total_scrobbles // batch_size) + (1 if total_scrobbles % batch_size > 0 else 0)
+            logger.info(f"📦 {num_batches} batches à traiter pour récupérer TOUS les {total_scrobbles} scrobbles")
+        else:
+            num_batches = (limit // batch_size) + 1
+            logger.info(f"📦 {num_batches} batches à traiter (max {limit} tracks)")
         
         # Dictionnaire pour accumuler les albums à enrichir (évite doublons)
         albums_to_enrich = defaultdict(dict)
@@ -855,9 +865,12 @@ async def import_lastfm_history(
         for batch_num in range(num_batches):
             try:
                 # Récupérer batch de tracks
-                batch_limit = min(batch_size, limit - imported_count - skipped_count)
-                if batch_limit <= 0:
-                    break
+                if limit is None:
+                    batch_limit = batch_size
+                else:
+                    batch_limit = min(batch_size, limit - imported_count - skipped_count)
+                    if batch_limit <= 0:
+                        break
                 
                 logger.info(f"📥 Batch {batch_num + 1}/{num_batches}...")
                 tracks = lastfm_service.get_user_history(limit=batch_limit)
@@ -961,15 +974,19 @@ async def import_lastfm_history(
         logger.info(f"📊 Import terminé: {imported_count} tracks importés, {skipped_count} ignorés, {error_count} erreurs")
         logger.info(f"📀 {len(albums_to_enrich)} nouveaux albums à enrichir")
         
-        # Enrichissement des nouveaux albums (Spotify + IA) en arrière-plan
+        # Enrichissement des nouveaux albums (Spotify + IA)
         enriched_count = 0
-        for album_info in list(albums_to_enrich.values())[:50]:  # Limite à 50 albums pour ce batch
+        total_albums_to_enrich = len(albums_to_enrich)
+        
+        for album_index, album_info in enumerate(albums_to_enrich.values(), 1):
             try:
                 await asyncio.sleep(0.5)  # Délai entre enrichissements
                 
                 album_id = album_info['album_id']
                 artist = album_info['artist']
                 title = album_info['title']
+                
+                logger.info(f"🎨 Enrichissement album {album_index}/{total_albums_to_enrich}: {artist} - {title}")
                 
                 album = db.query(Album).filter_by(id=album_id).first()
                 if not album:
@@ -1031,7 +1048,7 @@ async def import_lastfm_history(
                 enriched_count += 1
                 if enriched_count % 10 == 0:
                     db.commit()
-                    logger.info(f"🎨 {enriched_count} albums enrichis...")
+                    logger.info(f"💾 {enriched_count}/{total_albums_to_enrich} albums enrichis...")
                     
             except Exception as e:
                 logger.error(f"❌ Erreur enrichissement album: {e}")
