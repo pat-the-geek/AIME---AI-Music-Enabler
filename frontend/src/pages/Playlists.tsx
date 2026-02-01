@@ -37,10 +37,12 @@ const ALGORITHMS = [
 
 export default function Playlists() {
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
+  const [createMode, setCreateMode] = useState<'ai' | 'manual'>('ai')
   const [playlistName, setPlaylistName] = useState('')
   const [algorithm, setAlgorithm] = useState('top_sessions')
   const [aiPrompt, setAiPrompt] = useState('')
   const [maxTracks, setMaxTracks] = useState(25)
+  const [selectedTracks, setSelectedTracks] = useState<number[]>([])
   
   const queryClient = useQueryClient()
 
@@ -53,17 +55,30 @@ export default function Playlists() {
     }
   })
 
+
+
   // Créer playlist
   const createPlaylistMutation = useMutation({
     mutationFn: async (data: any) => {
-      const response = await apiClient.post('/api/v1/playlists/generate', data)
-      return response.data
+      if (createMode === 'manual') {
+        // Création manuelle
+        const response = await apiClient.post('/api/v1/playlists', {
+          name: data.name,
+          track_ids: data.track_ids
+        })
+        return response.data
+      } else {
+        // Création par IA
+        const response = await apiClient.post('/api/v1/playlists/generate', data)
+        return response.data
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['playlists'] })
       setCreateDialogOpen(false)
       setPlaylistName('')
       setAiPrompt('')
+      setSelectedTracks([])
     }
   })
 
@@ -78,17 +93,27 @@ export default function Playlists() {
   })
 
   const handleCreatePlaylist = () => {
-    const data: any = {
-      name: playlistName || undefined,
-      algorithm,
-      max_tracks: maxTracks
+    if (createMode === 'manual') {
+      if (!playlistName || selectedTracks.length === 0) {
+        return
+      }
+      createPlaylistMutation.mutate({
+        name: playlistName,
+        track_ids: selectedTracks
+      })
+    } else {
+      const data: any = {
+        name: playlistName || undefined,
+        algorithm,
+        max_tracks: maxTracks
+      }
+      
+      if (algorithm === 'ai_generated' && aiPrompt) {
+        data.ai_prompt = aiPrompt
+      }
+      
+      createPlaylistMutation.mutate(data)
     }
-    
-    if (algorithm === 'ai_generated' && aiPrompt) {
-      data.ai_prompt = aiPrompt
-    }
-    
-    createPlaylistMutation.mutate(data)
   }
 
   if (isLoading) {
@@ -183,58 +208,124 @@ export default function Playlists() {
 
       {/* Dialog création playlist */}
       <Dialog open={createDialogOpen} onClose={() => setCreateDialogOpen(false)} maxWidth="sm" fullWidth>
-        <DialogTitle>Créer une Playlist Intelligente</DialogTitle>
+        <DialogTitle>Créer une Playlist</DialogTitle>
         <DialogContent>
           <Stack spacing={3} sx={{ mt: 1 }}>
-            <TextField
-              label="Nom de la playlist (optionnel)"
-              value={playlistName}
-              onChange={(e) => setPlaylistName(e.target.value)}
-              fullWidth
-              placeholder="Laisser vide pour auto-génération"
-            />
-
+            {/* Mode de création */}
             <FormControl fullWidth>
-              <InputLabel>Algorithme</InputLabel>
+              <InputLabel>Type de playlist</InputLabel>
               <Select
-                value={algorithm}
-                label="Algorithme"
-                onChange={(e) => setAlgorithm(e.target.value)}
+                value={createMode}
+                label="Type de playlist"
+                onChange={(e) => setCreateMode(e.target.value as 'ai' | 'manual')}
               >
-                {ALGORITHMS.map((algo) => (
-                  <MenuItem key={algo.value} value={algo.value}>
-                    <Box>
-                      <Typography variant="body2">{algo.label}</Typography>
-                      <Typography variant="caption" color="text.secondary">
-                        {algo.description}
-                      </Typography>
-                    </Box>
-                  </MenuItem>
-                ))}
+                <MenuItem value="ai">
+                  <Box>
+                    <Typography variant="body2">🤖 Intelligente (IA)</Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      Générée automatiquement selon un algorithme
+                    </Typography>
+                  </Box>
+                </MenuItem>
+                <MenuItem value="manual">
+                  <Box>
+                    <Typography variant="body2">✋ Manuelle</Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      Sélectionnez vos morceaux
+                    </Typography>
+                  </Box>
+                </MenuItem>
               </Select>
             </FormControl>
 
-            {algorithm === 'ai_generated' && (
-              <TextField
-                label="Prompt IA"
-                value={aiPrompt}
-                onChange={(e) => setAiPrompt(e.target.value)}
-                multiline
-                rows={3}
-                fullWidth
-                placeholder="Ex: Une playlist énergique pour le sport avec du rock"
-                required
-              />
-            )}
+            {createMode === 'manual' ? (
+              <>
+                {/* Création manuelle */}
+                <TextField
+                  label="Nom de la playlist"
+                  value={playlistName}
+                  onChange={(e) => setPlaylistName(e.target.value)}
+                  fullWidth
+                  required
+                  placeholder="Ma playlist"
+                />
 
-            <TextField
-              label="Nombre maximum de tracks"
-              type="number"
-              value={maxTracks}
-              onChange={(e) => setMaxTracks(Number(e.target.value))}
-              fullWidth
-              inputProps={{ min: 10, max: 100 }}
-            />
+                <Box>
+                  <Typography variant="body2" gutterBottom>
+                    Morceaux sélectionnés ({selectedTracks.length})
+                  </Typography>
+                  {selectedTracks.length === 0 ? (
+                    <Alert severity="info">
+                      Utilisez le Journal ou la Timeline pour ajouter des morceaux à votre playlist.
+                      Cliquez sur "Ajouter à une playlist" pour sélectionner des morceaux.
+                    </Alert>
+                  ) : (
+                    <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                      {selectedTracks.map((trackId) => (
+                        <Chip
+                          key={trackId}
+                          label={`Track #${trackId}`}
+                          onDelete={() => setSelectedTracks(prev => prev.filter(id => id !== trackId))}
+                        />
+                      ))}
+                    </Box>
+                  )}
+                </Box>
+              </>
+            ) : (
+              <>
+                {/* Création IA */}
+                <TextField
+                  label="Nom de la playlist (optionnel)"
+                  value={playlistName}
+                  onChange={(e) => setPlaylistName(e.target.value)}
+                  fullWidth
+                  placeholder="Laisser vide pour auto-génération"
+                />
+
+                <FormControl fullWidth>
+                  <InputLabel>Algorithme</InputLabel>
+                  <Select
+                    value={algorithm}
+                    label="Algorithme"
+                    onChange={(e) => setAlgorithm(e.target.value)}
+                  >
+                    {ALGORITHMS.map((algo) => (
+                      <MenuItem key={algo.value} value={algo.value}>
+                        <Box>
+                          <Typography variant="body2">{algo.label}</Typography>
+                          <Typography variant="caption" color="text.secondary">
+                            {algo.description}
+                          </Typography>
+                        </Box>
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+                {algorithm === 'ai_generated' && (
+                  <TextField
+                    label="Prompt IA"
+                    value={aiPrompt}
+                    onChange={(e) => setAiPrompt(e.target.value)}
+                    multiline
+                    rows={3}
+                    fullWidth
+                    placeholder="Ex: Une playlist énergique pour le sport avec du rock"
+                    required
+                  />
+                )}
+
+                <TextField
+                  label="Nombre maximum de tracks"
+                  type="number"
+                  value={maxTracks}
+                  onChange={(e) => setMaxTracks(Number(e.target.value))}
+                  fullWidth
+                  inputProps={{ min: 10, max: 100 }}
+                />
+              </>
+            )}
           </Stack>
         </DialogContent>
         <DialogActions>
@@ -244,7 +335,11 @@ export default function Playlists() {
           <Button
             onClick={handleCreatePlaylist}
             variant="contained"
-            disabled={createPlaylistMutation.isPending || (algorithm === 'ai_generated' && !aiPrompt)}
+            disabled={
+              createPlaylistMutation.isPending || 
+              (createMode === 'manual' && (!playlistName || selectedTracks.length === 0)) ||
+              (createMode === 'ai' && algorithm === 'ai_generated' && !aiPrompt)
+            }
           >
             {createPlaylistMutation.isPending ? <CircularProgress size={24} /> : 'Créer'}
           </Button>

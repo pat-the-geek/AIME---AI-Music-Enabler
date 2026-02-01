@@ -24,6 +24,8 @@ import {
   ToggleButtonGroup,
   ToggleButton,
   Divider,
+  Snackbar,
+  Alert,
 } from '@mui/material'
 import {
   Favorite,
@@ -32,11 +34,13 @@ import {
   FilterList,
   ViewList,
   ViewModule,
+  PlayArrow,
 } from '@mui/icons-material'
 import ReactMarkdown from 'react-markdown'
 import apiClient from '@/api/client'
 import type { ListeningHistory, PaginatedResponse } from '@/types/models'
 import AlbumDetailDialog from '@/components/AlbumDetailDialog'
+import { useRoon } from '@/contexts/RoonContext'
 
 export default function Journal() {
   const [page, setPage] = useState(1)
@@ -51,8 +55,14 @@ export default function Journal() {
   const [showFilters, setShowFilters] = useState(false)
   const [selectedAlbumId, setSelectedAlbumId] = useState<number | null>(null)
   const [albumDialogOpen, setAlbumDialogOpen] = useState(false)
+  const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
+    open: false,
+    message: '',
+    severity: 'success'
+  })
 
   const queryClient = useQueryClient()
+  const { enabled: roonEnabled, available: roonAvailable, playTrack } = useRoon()
 
   // Debounce de la recherche
   useEffect(() => {
@@ -104,6 +114,15 @@ export default function Journal() {
 
   const handleToggleLove = (trackId: number) => {
     toggleLoveMutation.mutate(trackId)
+  }
+
+  const handlePlayOnRoon = async (trackId: number) => {
+    try {
+      await playTrack(trackId)
+      setSnackbar({ open: true, message: 'Lecture démarrée sur Roon', severity: 'success' })
+    } catch (error: any) {
+      setSnackbar({ open: true, message: error.message || 'Erreur lors de la lecture sur Roon', severity: 'error' })
+    }
   }
 
   const handleResetFilters = () => {
@@ -383,6 +402,18 @@ export default function Journal() {
                   </Grid>
 
                   <Grid item>
+                    {roonEnabled && roonAvailable && (
+                      <IconButton 
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handlePlayOnRoon(entry.id)
+                        }}
+                        color="primary"
+                        title="Écouter sur Roon"
+                      >
+                        <PlayArrow />
+                      </IconButton>
+                    )}
                     <IconButton onClick={() => handleToggleLove(entry.id)}>
                       {entry.loved ? (
                         <Favorite color="error" />
@@ -480,6 +511,18 @@ export default function Journal() {
         open={albumDialogOpen}
         onClose={handleCloseAlbumDetail}
       />
+
+      {/* Snackbar pour les notifications */}
+      <Snackbar 
+        open={snackbar.open} 
+        autoHideDuration={4000} 
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert severity={snackbar.severity} onClose={() => setSnackbar({ ...snackbar, open: false })}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }

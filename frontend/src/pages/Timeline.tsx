@@ -14,6 +14,8 @@ import {
   Divider,
   Card,
   CardContent,
+  Snackbar,
+  Alert,
 } from '@mui/material'
 import {
   NavigateBefore,
@@ -21,9 +23,11 @@ import {
   ViewList,
   ViewModule,
   Favorite,
+  PlayArrow,
 } from '@mui/icons-material'
 import apiClient from '@/api/client'
 import AlbumDetailDialog from '@/components/AlbumDetailDialog'
+import { useRoon } from '@/contexts/RoonContext'
 
 interface TimelineData {
   date: string
@@ -56,6 +60,13 @@ export default function Timeline() {
   const [viewMode, setViewMode] = useState<'detailed' | 'compact'>('detailed')
   const [selectedAlbumId, setSelectedAlbumId] = useState<number | null>(null)
   const [albumDialogOpen, setAlbumDialogOpen] = useState(false)
+  const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
+    open: false,
+    message: '',
+    severity: 'success'
+  })
+
+  const { enabled: roonEnabled, available: roonAvailable, playTrack } = useRoon()
 
   const { data, isLoading } = useQuery<TimelineData>({
     queryKey: ['timeline', selectedDate],
@@ -102,6 +113,15 @@ export default function Timeline() {
   const handleCloseAlbumDetail = () => {
     setAlbumDialogOpen(false)
     setSelectedAlbumId(null)
+  }
+
+  const handlePlayOnRoon = async (trackId: number) => {
+    try {
+      await playTrack(trackId)
+      setSnackbar({ open: true, message: 'Lecture démarrée sur Roon', severity: 'success' })
+    } catch (error: any) {
+      setSnackbar({ open: true, message: error.message || 'Erreur lors de la lecture sur Roon', severity: 'error' })
+    }
   }
 
   if (isLoading) {
@@ -277,7 +297,22 @@ export default function Timeline() {
                                   <Box sx={{ flex: 1, minWidth: 0 }}>
                                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 0.5 }}>
                                       <Chip label={track.time} size="small" />
-                                      {track.loved && <Favorite color="error" fontSize="small" />}
+                                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                        {roonEnabled && roonAvailable && (
+                                          <IconButton 
+                                            size="small"
+                                            onClick={(e) => {
+                                              e.stopPropagation()
+                                              handlePlayOnRoon(track.id)
+                                            }}
+                                            color="primary"
+                                            title="Écouter sur Roon"
+                                          >
+                                            <PlayArrow fontSize="small" />
+                                          </IconButton>
+                                        )}
+                                        {track.loved && <Favorite color="error" fontSize="small" />}
+                                      </Box>
                                     </Box>
                                     <Typography variant="subtitle2" noWrap>
                                       {track.title}
@@ -324,16 +359,31 @@ export default function Timeline() {
                                 )}
                                 
                                 {/* Métadonnées compactes */}
-                                <Box sx={{ flex: 1, minWidth: 0 }}>
-                                  <Typography variant="caption" display="block" noWrap>
-                                    {track.time} {track.loved && '❤️'}
-                                  </Typography>
-                                  <Typography variant="caption" fontWeight="bold" display="block" noWrap>
-                                    {track.title}
-                                  </Typography>
-                                  <Typography variant="caption" color="text.secondary" display="block" noWrap>
-                                    {track.artist}
-                                  </Typography>
+                                <Box sx={{ flex: 1, minWidth: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                  <Box sx={{ flex: 1, minWidth: 0 }}>
+                                    <Typography variant="caption" display="block" noWrap>
+                                      {track.time} {track.loved && '❤️'}
+                                    </Typography>
+                                    <Typography variant="caption" fontWeight="bold" display="block" noWrap>
+                                      {track.title}
+                                    </Typography>
+                                    <Typography variant="caption" color="text.secondary" display="block" noWrap>
+                                      {track.artist}
+                                    </Typography>
+                                  </Box>
+                                  {roonEnabled && roonAvailable && (
+                                    <IconButton 
+                                      size="small"
+                                      onClick={(e) => {
+                                        e.stopPropagation()
+                                        handlePlayOnRoon(track.id)
+                                      }}
+                                      color="primary"
+                                      title="Écouter sur Roon"
+                                    >
+                                      <PlayArrow fontSize="small" />
+                                    </IconButton>
+                                  )}
                                 </Box>
                               </Box>
                             )}
@@ -371,6 +421,18 @@ export default function Timeline() {
         open={albumDialogOpen}
         onClose={handleCloseAlbumDetail}
       />
+
+      {/* Snackbar pour les notifications */}
+      <Snackbar 
+        open={snackbar.open} 
+        autoHideDuration={4000} 
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert severity={snackbar.severity} onClose={() => setSnackbar({ ...snackbar, open: false })}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }

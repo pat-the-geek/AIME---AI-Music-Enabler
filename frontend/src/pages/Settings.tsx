@@ -18,17 +18,19 @@ import {
   LinearProgress,
   Snackbar,
   Chip,
-  Grid,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material'
 import {
   PlayArrow,
   Stop,
   CloudDownload,
   Sync,
-  Schedule,
-  CheckCircle,
 } from '@mui/icons-material'
 import apiClient from '@/api/client'
+import { useRoon } from '@/contexts/RoonContext'
 
 // Helper pour formater les dates
 const formatLastActivity = (isoDate: string | null | undefined): string => {
@@ -57,6 +59,7 @@ export default function Settings() {
   const [maxFilesPerType, setMaxFilesPerType] = useState(5)
   
   const queryClient = useQueryClient()
+  const { enabled: roonEnabled, available: roonAvailable, zone, setZone } = useRoon()
 
   // Récupérer tous les statuts en une seule requête
   const { data: allServicesStatus, isLoading, refetch: refetchAllStatus } = useQuery({
@@ -69,16 +72,15 @@ export default function Settings() {
   })
 
   // Récupérer la configuration Roon
-  const { data: roonConfig } = useQuery({
+  useQuery({
     queryKey: ['roon-config'],
     queryFn: async () => {
       const response = await apiClient.get('/services/roon/config')
-      return response.data
-    },
-    onSuccess: (data) => {
+      const data = response.data
       if (data?.server) {
         setRoonServer(data.server)
       }
+      return data
     },
   })
 
@@ -92,17 +94,26 @@ export default function Settings() {
     refetchInterval: 5000, // Rafraîchir toutes les 5 secondes
   })
 
+  // Récupérer les zones Roon disponibles
+  const { data: roonZones } = useQuery({
+    queryKey: ['roon-zones'],
+    queryFn: async () => {
+      const response = await apiClient.get('/api/v1/roon/zones')
+      return response.data
+    },
+    enabled: roonEnabled && roonAvailable,
+  })
+
   // Récupérer la configuration du scheduler
-  const { data: schedulerConfig } = useQuery({
+  const { data: schedulerConfig, refetch: refetchScheduler } = useQuery({
     queryKey: ['scheduler-config'],
     queryFn: async () => {
       const response = await apiClient.get('/services/scheduler/config')
-      return response.data
-    },
-    onSuccess: (data) => {
+      const data = response.data
       if (data?.max_files_per_type) {
         setMaxFilesPerType(data.max_files_per_type)
       }
+      return data
     },
   })
 
@@ -436,6 +447,49 @@ export default function Settings() {
           </Stack>
         </CardContent>
       </Card>
+
+      {/* Zone Roon pour le contrôle */}
+      {roonEnabled && roonAvailable && (
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              🎛️ Contrôle Roon
+            </Typography>
+            
+            <Divider sx={{ mb: 2 }} />
+            
+            <Alert severity="info" sx={{ mb: 2 }}>
+              Sélectionnez la zone Roon à utiliser pour le contrôle de lecture depuis l'application.
+            </Alert>
+
+            <FormControl fullWidth>
+              <InputLabel>Zone de lecture</InputLabel>
+              <Select
+                value={zone}
+                label="Zone de lecture"
+                onChange={(e) => setZone(e.target.value)}
+              >
+                {roonZones?.zones?.map((zoneName: string) => (
+                  <MenuItem key={zoneName} value={zoneName}>
+                    {zoneName}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            {zone && (
+              <Typography variant="caption" color="success.main" sx={{ display: 'block', mt: 2 }}>
+                ✅ Zone sélectionnée : {zone}
+              </Typography>
+            )}
+
+            <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2 }}>
+              💡 Cette zone sera utilisée lorsque vous cliquez sur "Écouter sur Roon" dans le Journal ou la Timeline.
+            </Typography>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Tracker Roon */}
       <Card sx={{ mb: 3 }}>
         <CardContent>
