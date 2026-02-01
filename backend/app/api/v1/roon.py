@@ -384,21 +384,6 @@ async def play_playlist(request: RoonPlayPlaylistRequest):
         if not playlist_tracks:
             raise HTTPException(status_code=400, detail="La playlist est vide")
         
-        # Récupérer le premier track
-        first_track_id = playlist_tracks[0].track_id
-        first_track = db.query(Track).filter(Track.id == first_track_id).first()
-        
-        if not first_track:
-            raise HTTPException(status_code=404, detail="Premier track non trouvé")
-        
-        # Récupérer l'album et les artistes
-        album = db.query(Album).filter(Album.id == first_track.album_id).first()
-        if not album:
-            raise HTTPException(status_code=404, detail="Album non trouvé")
-        
-        artists = [a.name for a in album.artists] if album.artists else ["Unknown"]
-        artist_name = ", ".join(artists)
-        
         # Initialiser Roon
         roon_service = get_roon_service()
         
@@ -412,27 +397,54 @@ async def play_playlist(request: RoonPlayPlaylistRequest):
                 detail=f"Zone '{request.zone_name}' non trouvée. Zones disponibles: {', '.join(zone_names)}"
             )
         
-        # Démarrer la lecture du premier track
-        success = roon_service.play_track(
-            zone_or_output_id=zone_id,
-            track_title=first_track.title,
-            artist=artist_name,
-            album=album.title
-        )
+        # Trouver le premier track disponible dans Roon
+        first_track = None
+        first_track_index = 0
+        skipped_at_start = 0
         
-        if not success:
+        for idx, pt in enumerate(playlist_tracks):
+            track = db.query(Track).filter(Track.id == pt.track_id).first()
+            if not track:
+                continue
+            
+            album = db.query(Album).filter(Album.id == track.album_id).first()
+            if not album:
+                continue
+            
+            artists = [a.name for a in album.artists] if album.artists else ["Unknown"]
+            artist_name = ", ".join(artists)
+            
+            # Tenter de lancer ce track
+            success = roon_service.play_track(
+                zone_or_output_id=zone_id,
+                track_title=track.title,
+                artist=artist_name,
+                album=album.title
+            )
+            
+            if success:
+                # Track trouvé et lancé !
+                first_track = track
+                first_track_index = idx
+                break
+            else:
+                # Track non trouvé, essayer le suivant
+                skipped_at_start += 1
+                logger.info(f"⏭️  Track non trouvé ({track.title}), essai du suivant...")
+        
+        if not first_track:
             raise HTTPException(
                 status_code=500,
-                detail="Erreur lors du démarrage de la lecture sur Roon. "
-                       "Vérifiez que l'artiste et l'album sont présents dans votre bibliothèque Roon."
+                detail="Aucun track de la playlist n'a pu être trouvé dans votre bibliothèque Roon. "
+                       "Vérifiez que au moins un artiste et album sont présents."
             )
         
-        # Ajouter les autres tracks à la queue
+        # Maintenant ajouter les autres tracks à la queue (après le premier trouvé)
         queued_count = 0
-        skipped_count = 0
+        skipped_count = skipped_at_start  # Inclure les tracks ignorés au début
         skipped_tracks = []
         
-        for i in range(1, len(playlist_tracks)):
+        for i in range(first_track_index + 1, len(playlist_tracks)):
             track_id = playlist_tracks[i].track_id
             track = db.query(Track).filter(Track.id == track_id).first()
             if track:
@@ -461,6 +473,11 @@ async def play_playlist(request: RoonPlayPlaylistRequest):
         queue_message = f"{queued_count} tracks en attente"
         if skipped_count > 0:
             queue_message += f" ({skipped_count} track(s) non trouvé(es) dans Roon)"
+        
+        # Récupérer album du premier track trouvé pour la réponse
+        album = db.query(Album).filter(Album.id == first_track.album_id).first()
+        artists = [a.name for a in album.artists] if (album and album.artists) else ["Unknown"]
+        artist_name = ", ".join(artists)
         
         return {
             "message": f"Lecture de la playlist démarrée: {playlist.name}",
