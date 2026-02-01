@@ -792,14 +792,14 @@ async def enrich_spotify_urls(
 @router.post("/lastfm/import-history")
 async def import_lastfm_history(
     limit: Optional[int] = None,
-    skip_existing: bool = True,
+    skip_existing: bool = False,
     db: Session = Depends(get_db)
 ):
     """Importer l'historique d'écoute COMPLET depuis Last.fm.
     
     Args:
         limit: Nombre maximum de tracks à importer (None = tout importer, le défaut)
-        skip_existing: Ignorer les tracks déjà en base (True) ou tout réimporter (False)
+        skip_existing: Ignorer les tracks déjà en base (False) ou tout réimporter (True)
     """
     global _last_executions
     import logging
@@ -864,7 +864,7 @@ async def import_lastfm_history(
         
         for batch_num in range(num_batches):
             try:
-                # Récupérer batch de tracks
+                # Récupérer batch de tracks avec pagination (page = batch_num + 1)
                 if limit is None:
                     batch_limit = batch_size
                 else:
@@ -872,8 +872,9 @@ async def import_lastfm_history(
                     if batch_limit <= 0:
                         break
                 
-                logger.info(f"📥 Batch {batch_num + 1}/{num_batches}...")
-                tracks = lastfm_service.get_user_history(limit=batch_limit)
+                page_num = batch_num + 1
+                logger.info(f"📥 Batch {batch_num + 1}/{num_batches} (Page {page_num})...")
+                tracks = lastfm_service.get_user_history(limit=batch_limit, page=page_num)
                 
                 if not tracks:
                     logger.warning(f"⚠️ Aucun track dans le batch {batch_num + 1}")
@@ -886,16 +887,7 @@ async def import_lastfm_history(
                         album_title = track_data['album']
                         timestamp = track_data['timestamp']
                         
-                        # Vérifier si déjà importé (si skip_existing=True)
-                        if skip_existing:
-                            existing = db.query(ListeningHistory).filter_by(
-                                timestamp=timestamp
-                            ).first()
-                            if existing:
-                                skipped_count += 1
-                                continue
-                        
-                        # Créer/récupérer artiste
+                        # Créer/récupérer artiste d'abord pour construire la clé unique
                         artist = db.query(Artist).filter_by(name=artist_name).first()
                         if not artist:
                             artist = Artist(name=artist_name)
@@ -912,15 +904,8 @@ async def import_lastfm_history(
                             album.artists.append(artist)
                             db.add(album)
                             db.flush()
-                            
-                            # Marquer pour enrichissement ultérieur
-                            albums_to_enrich[album.id] = {
-                                'artist': artist_name,
-                                'title': album_title,
-                                'album_id': album.id
-                            }
                         
-                        # Créer/récupérer track
+                        # Créer/récupérer track pour avoir le track_id
                         track = db.query(Track).filter_by(
                             album_id=album.id,
                             title=track_title
@@ -934,6 +919,16 @@ async def import_lastfm_history(
                             db.add(track)
                             db.flush()
                         
+                        # MAINTENANT vérifier si déjà importé avec track_id + timestamp (clé unique)
+                        if skip_existing:
+                            existing = db.query(ListeningHistory).filter_by(
+                                track_id=track.id,
+                                timestamp=timestamp
+                            ).first()
+                            if existing:
+                                skipped_count += 1
+                                continue
+                        
                         # Créer entrée historique
                         dt = datetime.fromtimestamp(timestamp, tz=timezone.utc)
                         history = ListeningHistory(
@@ -945,6 +940,14 @@ async def import_lastfm_history(
                         )
                         db.add(history)
                         imported_count += 1
+                        
+                        # Marquer album pour enrichissement
+                        if album.id not in albums_to_enrich:
+                            albums_to_enrich[album.id] = {
+                                'artist': artist_name,
+                                'title': album_title,
+                                'album_id': album.id
+                            }
                         
                         # Commit par petits lots pour éviter timeout
                         if imported_count % 50 == 0:

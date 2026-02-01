@@ -138,7 +138,8 @@ export default function Settings() {
   const importHistoryMutation = useMutation({
     mutationFn: async (limit: number | null) => {
       // Si limit est null, on n'ajoute pas le paramètre limit (backend importera TOUS les scrobbles)
-      const url = limit === null ? `/services/lastfm/import-history?skip_existing=true` : `/services/lastfm/import-history?limit=${limit}&skip_existing=true`
+      // skip_existing par défaut: false (pour importer complètement)
+      const url = limit === null ? `/services/lastfm/import-history?skip_existing=false` : `/services/lastfm/import-history?limit=${limit}&skip_existing=false`
       const response = await apiClient.post(url, null, {
         timeout: 600000, // 10 minutes
       })

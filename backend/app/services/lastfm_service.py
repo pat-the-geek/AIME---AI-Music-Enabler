@@ -72,49 +72,92 @@ class LastFMService:
             logger.error(f"Erreur récupération image album Last.fm: {e}")
             return None
     
-    def get_user_history(self, limit: int = 200, from_timestamp: Optional[int] = None, to_timestamp: Optional[int] = None) -> list:
-        """Récupérer l'historique complet d'écoute d'un utilisateur.
+    def get_user_history(self, limit: int = 200, page: int = 1, from_timestamp: Optional[int] = None, to_timestamp: Optional[int] = None) -> list:
+        """Récupérer l'historique d'écoute d'un utilisateur avec pagination via requête HTTP.
         
         Args:
             limit: Nombre maximum de tracks à récupérer par page (max 200)
+            page: Numéro de page (1-based, défaut 1)
             from_timestamp: Timestamp Unix de début (optionnel)
             to_timestamp: Timestamp Unix de fin (optionnel)
             
         Returns:
-            Liste de tracks avec timestamps
+            Liste de tracks avec timestamps de la page spécifiée
         """
         try:
-            user = pylast.User(self.username, self.network)
+            import requests
             
-            # Utiliser la méthode get_recent_tracks avec time_from et time_to
-            kwargs = {'limit': min(limit, 200)}  # Last.fm limite à 200 par page
+            # Construire les paramètres pour l'appel API HTTP
+            params = {
+                'method': 'user.getRecentTracks',
+                'user': self.username,
+                'api_key': self.api_key,
+                'limit': min(limit, 200),  # Last.fm limite à 200 par page
+                'page': max(1, page),  # Page doit être >= 1
+                'format': 'json'
+            }
+            
             if from_timestamp:
-                kwargs['time_from'] = from_timestamp
+                params['from'] = from_timestamp
             if to_timestamp:
-                kwargs['time_to'] = to_timestamp
+                params['to'] = to_timestamp
             
-            recent_tracks = user.get_recent_tracks(**kwargs)
+            # Appel API HTTP direct
+            response = requests.post('https://ws.audioscrobbler.com/2.0/', params=params, timeout=10)
+            response.raise_for_status()
+            result = response.json()
             
             tracks = []
-            for played_track in recent_tracks:
-                # Vérifier si le track a un timestamp (n'est pas "now playing")
-                if not hasattr(played_track, 'timestamp') or not played_track.timestamp:
-                    continue
+            if result and 'recenttracks' in result:
+                recent_tracks = result['recenttracks']
                 
-                track_info = {
-                    "artist": str(played_track.track.artist),
-                    "title": str(played_track.track.title),
-                    "album": str(played_track.album) if hasattr(played_track, 'album') and played_track.album else "Unknown",
-                    "timestamp": int(played_track.timestamp),
-                    "playback_date": played_track.playback_date
-                }
-                tracks.append(track_info)
+                # Les tracks peuvent être une liste ou un dict (si un seul track)
+                track_list = recent_tracks.get('track', [])
+                if isinstance(track_list, dict):
+                    track_list = [track_list]
+                
+                for track_data in track_list:
+                    # Vérifier si c'est un vrai scrobble avec timestamp
+                    if '@attr' in track_data and track_data['@attr'].get('nowplaying'):
+                        continue  # Skip "now playing" tracks
+                    
+                    if 'date' not in track_data:
+                        continue  # Skip tracks sans timestamp
+                    
+                    timestamp = int(track_data['date'].get('uts', 0))
+                    if not timestamp:
+                        continue
+                    
+                    # Parser artiste
+                    artist_data = track_data.get('artist', {})
+                    if isinstance(artist_data, dict):
+                        artist = artist_data.get('#text', 'Unknown')
+                    else:
+                        artist = str(artist_data) if artist_data else 'Unknown'
+                    
+                    # Parser album
+                    album_data = track_data.get('album', {})
+                    if isinstance(album_data, dict):
+                        album = album_data.get('#text', 'Unknown')
+                    else:
+                        album = str(album_data) if album_data else 'Unknown'
+                    
+                    track_info = {
+                        "artist": artist,
+                        "title": track_data.get('name', 'Unknown'),
+                        "album": album,
+                        "timestamp": timestamp,
+                        "playback_date": track_data['date'].get('#text', '')
+                    }
+                    tracks.append(track_info)
             
-            logger.info(f"✅ Récupéré {len(tracks)} tracks depuis Last.fm")
+            logger.info(f"✅ Récupéré {len(tracks)} tracks depuis Last.fm (page {page})")
             return tracks
             
         except Exception as e:
-            logger.error(f"❌ Erreur récupération historique Last.fm: {e}")
+            logger.error(f"❌ Erreur récupération historique Last.fm (page {page}): {e}")
+            import traceback
+            logger.error(traceback.format_exc())
             return []
     
     def get_total_scrobbles(self) -> int:
