@@ -48,6 +48,9 @@ export default function Playlists() {
   const [detailDialogOpen, setDetailDialogOpen] = useState(false)
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<number | null>(null)
   const [playingPlaylistId, setPlayingPlaylistId] = useState<number | null>(null)
+  const [zoneDialogOpen, setZoneDialogOpen] = useState(false)
+  const [pendingPlaylistId, setPendingPlaylistId] = useState<number | null>(null)
+  const [selectedZone, setSelectedZone] = useState<string>('')
   const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
     open: false,
     message: '',
@@ -66,7 +69,15 @@ export default function Playlists() {
     }
   })
 
-
+  // Récupérer les zones Roon
+  const { data: roonZones } = useQuery({
+    queryKey: ['roon-zones'],
+    queryFn: async () => {
+      const response = await apiClient.get('/roon/zones')
+      return response.data?.zones || []
+    },
+    enabled: roon.enabled && roon.available,
+  })
 
   // Créer playlist
   const createPlaylistMutation = useMutation({
@@ -146,15 +157,24 @@ export default function Playlists() {
 
   // Jouer playlist sur Roon
   const playPlaylistMutation = useMutation({
-    mutationFn: async (playlistId: number) => {
+    mutationFn: async ({ playlistId, zone }: { playlistId: number; zone: string }) => {
       setPlayingPlaylistId(playlistId)
-      await roon.playPlaylist(playlistId)
+      // Mettre à jour la zone sélectionnée dans RoonContext
+      roon.setZone(zone)
+      // Appeler l'API Roon avec la zone sélectionnée
+      const response = await apiClient.post('/roon/play-playlist', {
+        zone_name: zone,
+        playlist_id: playlistId
+      })
+      return response.data
     },
-    onSuccess: (data, playlistId) => {
-      console.log('Playlist playback started:', playlistId)
+    onSuccess: (data) => {
+      console.log('Playlist playback started:', data)
+      setZoneDialogOpen(false)
+      setPendingPlaylistId(null)
       setSnackbar({
         open: true,
-        message: '✅ Lecture de la playlist démarrée sur Roon',
+        message: `✅ Lecture démarrée: ${data.now_playing?.title || 'Playlist'}`,
         severity: 'success'
       })
       setPlayingPlaylistId(null)
@@ -308,7 +328,11 @@ export default function Playlists() {
                         color="success"
                         startIcon={<PlayArrow />}
                         disabled={playPlaylistMutation.isPending || playingPlaylistId === playlist.id}
-                        onClick={() => playPlaylistMutation.mutate(playlist.id)}
+                        onClick={() => {
+                          setPendingPlaylistId(playlist.id)
+                          setSelectedZone(roon.zone || '')
+                          setZoneDialogOpen(true)
+                        }}
                         title={!roon.available ? "Roon n'est pas disponible - Vérifiez la connexion au serveur Roon" : "Lancer la lecture sur Roon"}
                       >
                         {playingPlaylistId === playlist.id ? <CircularProgress size={16} /> : '▶ Roon'}
@@ -537,6 +561,66 @@ export default function Playlists() {
           {snackbar.message}
         </Alert>
       </Snackbar>
+
+      {/* Modal de sélection de zone Roon */}
+      <Dialog
+        open={zoneDialogOpen}
+        onClose={() => {
+          setZoneDialogOpen(false)
+          setPendingPlaylistId(null)
+        }}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle>Sélectionner la zone Roon</DialogTitle>
+        <DialogContent sx={{ pt: 3 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            Choisissez la zone sur laquelle démarrer la lecture :
+          </Typography>
+          <FormControl fullWidth>
+            <InputLabel>Zone de lecture</InputLabel>
+            <Select
+              value={selectedZone}
+              label="Zone de lecture"
+              onChange={(e) => setSelectedZone(e.target.value)}
+            >
+              {roonZones?.map((zone: { zone_id: string; name: string; state: string }) => (
+                <MenuItem key={zone.zone_id} value={zone.name}>
+                  {zone.name} ({zone.state})
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          {selectedZone && (
+            <Typography variant="caption" color="success.main" sx={{ display: 'block', mt: 2 }}>
+              ✅ Zone sélectionnée : {selectedZone}
+            </Typography>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => {
+            setZoneDialogOpen(false)
+            setPendingPlaylistId(null)
+          }}>
+            Annuler
+          </Button>
+          <Button
+            onClick={() => {
+              if (selectedZone && pendingPlaylistId) {
+                playPlaylistMutation.mutate({
+                  playlistId: pendingPlaylistId,
+                  zone: selectedZone
+                })
+              }
+            }}
+            variant="contained"
+            color="success"
+            disabled={!selectedZone || playPlaylistMutation.isPending}
+          >
+            {playPlaylistMutation.isPending ? <CircularProgress size={20} /> : 'Lancer'}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }

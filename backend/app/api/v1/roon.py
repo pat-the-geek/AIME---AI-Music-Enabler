@@ -427,6 +427,25 @@ async def play_playlist(request: RoonPlayPlaylistRequest):
                        "Vérifiez que l'artiste et l'album sont présents dans votre bibliothèque Roon."
             )
         
+        # Ajouter les autres tracks à la queue
+        queued_count = 0
+        for i in range(1, len(playlist_tracks)):
+            track_id = playlist_tracks[i].track_id
+            track = db.query(Track).filter(Track.id == track_id).first()
+            if track:
+                track_album = db.query(Album).filter(Album.id == track.album_id).first()
+                track_artists = [a.name for a in track_album.artists] if (track_album and track_album.artists) else ["Unknown"]
+                track_artist_name = ", ".join(track_artists)
+                
+                # Ajouter à la queue
+                if roon_service.queue_tracks(
+                    zone_or_output_id=zone_id,
+                    track_title=track.title,
+                    artist=track_artist_name,
+                    album=track_album.title if track_album else None
+                ):
+                    queued_count += 1
+        
         return {
             "message": f"Lecture de la playlist démarrée: {playlist.name}",
             "playlist": {
@@ -438,6 +457,11 @@ async def play_playlist(request: RoonPlayPlaylistRequest):
                 "title": first_track.title,
                 "artist": artist_name,
                 "album": album.title
+            },
+            "queue": {
+                "total_tracks": len(playlist_tracks),
+                "queued_tracks": queued_count,
+                "message": f"{queued_count} tracks supplémentaires en attente"
             },
             "zone": request.zone_name
         }
@@ -501,4 +525,54 @@ async def debug_playlist(playlist_id: int):
         raise HTTPException(status_code=500, detail=f"Erreur: {str(e)}")
     finally:
         db.close()
+
+
+class RoonPlaybackControlRequest(BaseModel):
+    """Requête pour contrôler la lecture."""
+    zone_name: str
+    control: str  # play, pause, stop, next, previous
+
+
+@router.post("/control")
+async def control_playback(request: RoonPlaybackControlRequest):
+    """Contrôler la lecture sur une zone Roon."""
+    check_roon_enabled()
+    
+    try:
+        roon_service = get_roon_service()
+        
+        # Récupérer l'ID de la zone
+        zone_id = roon_service.get_zone_by_name(request.zone_name)
+        if not zone_id:
+            zones = roon_service.get_zones()
+            zone_names = [z.get('display_name', 'Unknown') for z in zones.values()]
+            raise HTTPException(
+                status_code=404,
+                detail=f"Zone '{request.zone_name}' non trouvée. Zones disponibles: {', '.join(zone_names)}"
+            )
+        
+        # Valider la commande
+        valid_controls = ["play", "pause", "stop", "next", "previous"]
+        if request.control.lower() not in valid_controls:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Commande invalide: {request.control}. Valides: {', '.join(valid_controls)}"
+            )
+        
+        # Exécuter la commande
+        success = roon_service.playback_control(zone_id, request.control.lower())
+        
+        if not success:
+            raise HTTPException(status_code=500, detail=f"Erreur lors de l'exécution de {request.control}")
+        
+        return {
+            "message": f"Commande exécutée: {request.control}",
+            "zone": request.zone_name,
+            "control": request.control
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {str(e)}")
 

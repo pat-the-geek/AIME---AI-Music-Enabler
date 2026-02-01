@@ -250,6 +250,52 @@ class RoonService:
             logger.error(f"   Traceback: {traceback.format_exc()}")
             return False
     
+    def queue_tracks(self, zone_or_output_id: str, track_title: str, artist: str, album: str = None) -> bool:
+        """Ajouter un morceau à la queue Roon.
+        
+        Args:
+            zone_or_output_id: ID de la zone ou output
+            track_title: Titre du morceau
+            artist: Artiste(s) - Roon cherche par le premier artiste
+            album: Album (optionnel)
+        
+        Returns:
+            True si succès, False sinon
+        """
+        if not self.roon_api:
+            logger.error("API Roon non disponible")
+            return False
+        
+        try:
+            # Prendre le premier artiste
+            primary_artist = artist.split(',')[0].strip() if artist else "Unknown"
+            
+            # Construire le chemin de navigation
+            path = ["Library", "Artists", primary_artist]
+            if album:
+                path.append(album)
+            
+            logger.debug(f"📋 Ajout à queue: {track_title} - {primary_artist}")
+            
+            # Utiliser action="Queue" pour ajouter à la file d'attente
+            result = self.roon_api.play_media(
+                zone_or_output_id=zone_or_output_id,
+                path=path,
+                action="Queue",  # Ajouter à la queue au lieu de Play Now
+                report_error=True
+            )
+            
+            if result:
+                logger.info(f"✅ Ajouté à la queue: {track_title}")
+                return True
+            else:
+                logger.warning(f"❌ Impossible d'ajouter à la queue: {track_title}")
+                return False
+            
+        except Exception as e:
+            logger.error(f"❌ Erreur queue: {e}")
+            return False
+    
     def playback_control(self, zone_or_output_id: str, control: str = "play") -> bool:
         """Contrôler la lecture sur une zone.
         
