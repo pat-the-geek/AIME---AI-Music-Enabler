@@ -64,17 +64,37 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export default function AnalyticsAdvanced() {
+  // Calculer les dates par défaut (90 derniers jours)
+  const getDefaultDates = () => {
+    const today = new Date()
+    const endDate = today.toISOString().split('T')[0]
+    const startDate = new Date(today.getTime() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+    return { startDate, endDate }
+  }
+
+  const { startDate: defaultStart, endDate: defaultEnd } = getDefaultDates()
+
   const [tabValue, setTabValue] = useState(0)
   const [haikuDays, setHaikuDays] = useState(7)
-  const [startDate, setStartDate] = useState('2026-01-01')
-  const [endDate, setEndDate] = useState('2026-01-31')
+  const [startDate, setStartDate] = useState(defaultStart)
+  const [endDate, setEndDate] = useState(defaultEnd)
   const [comparisonMode, setComparisonMode] = useState(false)
   
-  // Dates pour la comparaison
-  const [period1Start, setPeriod1Start] = useState('2026-01-01')
-  const [period1End, setPeriod1End] = useState('2026-01-15')
-  const [period2Start, setPeriod2Start] = useState('2026-01-16')
-  const [period2End, setPeriod2End] = useState('2026-01-31')
+  // Dates pour la comparaison - 45 jours avant aujourd'hui jusqu'à aujourd'hui
+  const getComparisonDates = () => {
+    const today = new Date()
+    const endDate = today.toISOString().split('T')[0]
+    const midDate = new Date(today.getTime() - 45 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+    const startDate = new Date(today.getTime() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+    return { startDate, midDate, endDate }
+  }
+
+  const { startDate: compStartDate, midDate: compMidDate, endDate: compEndDate } = getComparisonDates()
+
+  const [period1Start, setPeriod1Start] = useState(compStartDate)
+  const [period1End, setPeriod1End] = useState(compMidDate)
+  const [period2Start, setPeriod2Start] = useState(compMidDate)
+  const [period2End, setPeriod2End] = useState(compEndDate)
 
   // Patterns d'écoute
   const { data: patterns, isLoading: patternsLoading } = useQuery({
