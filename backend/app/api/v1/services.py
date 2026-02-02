@@ -1,5 +1,5 @@
 """Routes API pour les services externes."""
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session, joinedload
 from datetime import datetime, timezone
 from pydantic import BaseModel
@@ -445,57 +445,232 @@ async def trigger_scheduler_task(task_name: str):
         raise HTTPException(status_code=400, detail=str(e))
 
 
+@router.get("/scheduler/optimization-results")
+async def get_optimization_results():
+    """Récupérer les résultats d'optimisation IA du scheduler.
+    
+    Retourne les données d'optimisation du fichier config/OPTIMIZATION-RESULTS.json
+    """
+    import json
+    import os
+    from pathlib import Path
+    
+    # Remonter depuis backend/app/api/v1/services.py vers la racine du projet
+    current_file = Path(__file__).resolve()
+    project_root = current_file.parent.parent.parent.parent.parent
+    results_file = project_root / 'config' / 'OPTIMIZATION-RESULTS.json'
+    
+    if not results_file.exists():
+        return {
+            "status": "NOT_AVAILABLE",
+            "message": "Les résultats d'optimisation ne sont pas encore disponibles"
+        }
+    
+    try:
+        with open(results_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:
+        logger.error(f"Erreur lors de la lecture des résultats d'optimisation: {e}")
+        raise HTTPException(status_code=500, detail="Impossible de lire les résultats d'optimisation")
+
+
+# Variable globale pour stocker la progression
+_sync_progress = {
+    "status": "idle",
+    "current": 0,
+    "total": 0,
+    "current_album": "",
+    "synced": 0,
+    "skipped": 0,
+    "errors": 0
+}
+
+# État de l'importation Last.fm
+_lastfm_import_progress = {
+    "status": "idle",
+    "current_batch": 0,
+    "total_batches": 0,
+    "imported": 0,
+    "skipped": 0,
+    "errors": 0,
+    "total_scrobbles": 0
+}
+
+@router.get("/discogs/sync/progress")
+async def get_sync_progress():
+    """Obtenir la progression de la synchronisation."""
+    return _sync_progress
+
+@router.get("/lastfm/import/progress")
+async def get_lastfm_import_progress():
+    """Obtenir la progression de l'importation Last.fm."""
+    return _lastfm_import_progress
+
+@router.post("/lastfm/clean-duplicates")
+async def clean_lastfm_duplicates(db: Session = Depends(get_db)):
+    """Nettoyer les doublons dans l'historique d'écoute Last.fm.
+    
+    Utilise la règle des 10 minutes: si le même track a été écouté il y a moins de 10 minutes,
+    c'est un doublon (bug Last.fm). Garde seulement la première occurrence.
+    """
+    from sqlalchemy import func
+    
+    try:
+        logger.info("🔍 Début nettoyage des doublons Last.fm...")
+        
+        # Compter les entrées initiales
+        total_initial = db.query(ListeningHistory).count()
+        logger.info(f"📊 Total initial: {total_initial} entrées")
+        
+        # Chercher les tracks avec plusieurs entrées
+        duplicates = db.query(
+            ListeningHistory.track_id,
+            func.count(ListeningHistory.id).label('count'),
+            func.min(ListeningHistory.timestamp).label('min_ts'),
+            func.max(ListeningHistory.timestamp).label('max_ts')
+        ).group_by(
+            ListeningHistory.track_id
+        ).having(
+            func.count(ListeningHistory.id) > 1
+        ).all()
+        
+        logger.info(f"📀 Tracks avec doublons potentiels: {len(duplicates)}")
+        
+        duplicates_deleted = 0
+        
+        # Pour chaque track avec doublons
+        for track_id, count, min_ts, max_ts in duplicates:
+            time_diff = abs(max_ts - min_ts)
+            
+            # Si tous les timestamps sont dans une fenêtre de 10 minutes
+            if time_diff < 600:
+                # Récupérer toutes les entrées et garder seulement la première
+                entries = db.query(ListeningHistory).filter_by(
+                    track_id=track_id
+                ).order_by(ListeningHistory.timestamp).all()
+                
+                # Marquer les entrées 2+ pour suppression
+                for entry in entries[1:]:
+                    db.delete(entry)
+                    duplicates_deleted += 1
+        
+        if duplicates_deleted > 0:
+            logger.info(f"🗑️ Suppression de {duplicates_deleted} doublons...")
+            db.commit()
+            logger.info(f"✅ {duplicates_deleted} doublons supprimés")
+        else:
+            logger.info(f"✅ Aucun doublon trouvé!")
+        
+        # Compter les entrées finales
+        total_final = db.query(ListeningHistory).count()
+        logger.info(f"📊 Total final: {total_final} entrées")
+        
+        return {
+            "status": "success",
+            "total_initial": total_initial,
+            "duplicates_deleted": duplicates_deleted,
+            "total_final": total_final,
+            "removed_entries": total_initial - total_final
+        }
+        
+    except Exception as e:
+        logger.error(f"❌ Erreur nettoyage: {e}")
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Erreur nettoyage: {str(e)}")
+
 @router.post("/discogs/sync")
 async def sync_discogs_collection(
+    background_tasks: BackgroundTasks,
     limit: int = None,
     db: Session = Depends(get_db)
 ):
-    """Synchroniser la collection Discogs.
+    """Synchroniser la collection Discogs en arrière-plan.
     
     Args:
         limit: Nombre maximum d'albums à synchroniser (optionnel, pour tests)
     """
-    global _last_executions
+    global _sync_progress
+    
+    # Vérifier si une sync est déjà en cours
+    if _sync_progress["status"] == "running":
+        raise HTTPException(status_code=409, detail="Une synchronisation est déjà en cours")
+    
+    # Initialiser la progression
+    _sync_progress = {
+        "status": "starting",
+        "current": 0,
+        "total": 0,
+        "current_album": "",
+        "synced": 0,
+        "skipped": 0,
+        "errors": 0
+    }
+    
+    # Lancer la synchronisation en arrière-plan
+    background_tasks.add_task(_sync_discogs_task, limit)
+    
+    return {
+        "status": "started",
+        "message": "Synchronisation démarrée en arrière-plan"
+    }
+
+async def _sync_discogs_task(limit: int = None):
+    """Tâche de synchronisation Discogs en arrière-plan."""
+    global _last_executions, _sync_progress
     import logging
     logger = logging.getLogger(__name__)
     
-    # Enregistrer le début de l'opération
-    _last_executions['discogs_sync'] = datetime.now(timezone.utc).isoformat()
-    
-    logger.info("🔄 Début synchronisation Discogs")
-    settings = get_settings()
-    secrets = settings.secrets
-    discogs_config = secrets.get('discogs', {})
-    spotify_config = secrets.get('spotify', {})
-    ai_config = secrets.get('euria', {})
-    
-    discogs_service = DiscogsService(
-        api_key=discogs_config.get('api_key'),
-        username=discogs_config.get('username')
-    )
-    
-    # Initialiser les services Spotify et IA
-    spotify_service = SpotifyService(
-        client_id=spotify_config.get('client_id'),
-        client_secret=spotify_config.get('client_secret')
-    )
-    
-    ai_service = AIService(
-        url=ai_config.get('url'),
-        bearer=ai_config.get('bearer')
-    )
+    db = SessionLocal()
     
     try:
+        # Enregistrer le début de l'opération
+        _last_executions['discogs_sync'] = datetime.now(timezone.utc).isoformat()
+        _sync_progress["status"] = "running"
+        
+        logger.info("🔄 Début synchronisation Discogs")
+        settings = get_settings()
+        secrets = settings.secrets
+        discogs_config = secrets.get('discogs', {})
+        spotify_config = secrets.get('spotify', {})
+        ai_config = secrets.get('euria', {})
+        
+        discogs_service = DiscogsService(
+            api_key=discogs_config.get('api_key'),
+            username=discogs_config.get('username')
+        )
+        
+        # Initialiser les services Spotify et IA
+        spotify_service = SpotifyService(
+            client_id=spotify_config.get('client_id'),
+            client_secret=spotify_config.get('client_secret')
+        )
+        
+        ai_service = AIService(
+            url=ai_config.get('url'),
+            bearer=ai_config.get('bearer')
+        )
+        
+        _sync_progress["current_album"] = "Récupération de la collection..."
         logger.info("📡 Récupération collection Discogs...")
         albums_data = discogs_service.get_collection(limit=limit)
         logger.info(f"✅ {len(albums_data)} albums récupérés de Discogs")
+        
+        _sync_progress["total"] = len(albums_data)
+        _sync_progress["current_album"] = "Début de l'import..."
         
         synced_count = 0
         skipped_count = 0
         error_count = 0
         
-        for album_data in albums_data:
+        for idx, album_data in enumerate(albums_data, 1):
             try:
+                # Mettre à jour la progression
+                _sync_progress["current"] = idx
+                _sync_progress["current_album"] = f"{album_data.get('title', 'Unknown')} - {album_data.get('artists', ['Unknown'])[0]}"
+                _sync_progress["synced"] = synced_count
+                _sync_progress["skipped"] = skipped_count
+                _sync_progress["errors"] = error_count
+                
                 # Vérifier si l'album existe déjà
                 existing = db.query(Album).filter_by(
                     discogs_id=str(album_data['release_id'])
@@ -503,6 +678,7 @@ async def sync_discogs_collection(
                 
                 if existing:
                     skipped_count += 1
+                    _sync_progress["skipped"] = skipped_count
                     continue
                 
                 # Créer/récupérer artistes (dédoublonner pour éviter UNIQUE constraint)
@@ -603,28 +779,35 @@ async def sync_discogs_collection(
                 db.add(metadata)
                 
                 synced_count += 1
+                _sync_progress["synced"] = synced_count
+                
+                # Commit tous les 10 albums pour éviter les transactions trop longues
+                if synced_count % 10 == 0:
+                    db.commit()
+                    logger.info(f"💾 {synced_count} albums sauvegardés...")
                 
             except Exception as e:
                 logger.error(f"❌ Erreur import album {album_data.get('title', 'Unknown')}: {e}")
                 error_count += 1
+                _sync_progress["errors"] = error_count
                 db.rollback()  # Rollback pour cet album uniquement
                 continue
         
+        # Commit final
         db.commit()
         logger.info(f"✅ Synchronisation terminée: {synced_count} albums ajoutés, {skipped_count} ignorés, {error_count} erreurs")
         
-        return {
-            "status": "success",
-            "synced_albums": synced_count,
-            "skipped_albums": skipped_count,
-            "error_albums": error_count,
-            "total_albums": len(albums_data)
-        }
+        # Marquer comme terminé
+        _sync_progress["status"] = "completed"
+        _sync_progress["current_album"] = "Terminé !"
         
     except Exception as e:
         logger.error(f"❌ Erreur synchronisation Discogs: {e}")
+        _sync_progress["status"] = "error"
+        _sync_progress["current_album"] = f"Erreur: {str(e)}"
         db.rollback()
-        raise HTTPException(status_code=500, detail=f"Erreur synchronisation: {str(e)}")
+    finally:
+        db.close()
 
 
 @router.post("/ai/generate-info")
@@ -883,11 +1066,22 @@ async def import_lastfm_history(
         limit: Nombre maximum de tracks à importer (None = tout importer, le défaut)
         skip_existing: Ignorer les tracks déjà en base (False) ou tout réimporter (True)
     """
-    global _last_executions
+    global _last_executions, _lastfm_import_progress
     import logging
     import asyncio
     from collections import defaultdict
     logger = logging.getLogger(__name__)
+    
+    # Initialiser la progression
+    _lastfm_import_progress = {
+        "status": "starting",
+        "current_batch": 0,
+        "total_batches": 0,
+        "imported": 0,
+        "skipped": 0,
+        "errors": 0,
+        "total_scrobbles": 0
+    }
     
     # Enregistrer le début de l'opération
     _last_executions['lastfm_import'] = datetime.now(timezone.utc).isoformat()
@@ -921,9 +1115,12 @@ async def import_lastfm_history(
     )
     
     try:
+        _lastfm_import_progress["status"] = "running"
+        
         # Récupérer le nombre total de scrobbles
         total_scrobbles = lastfm_service.get_total_scrobbles()
         logger.info(f"📊 Total scrobbles utilisateur: {total_scrobbles}")
+        _lastfm_import_progress["total_scrobbles"] = total_scrobbles
         
         # Récupérer l'historique par batches (Last.fm limite à 200 par requête)
         imported_count = 0
@@ -944,6 +1141,8 @@ async def import_lastfm_history(
             num_batches = (limit // batch_size) + 1
             logger.info(f"📦 {num_batches} batches à traiter (max {limit} tracks)")
         
+        _lastfm_import_progress["total_batches"] = num_batches
+        
         # Dictionnaire pour accumuler les albums à enrichir (évite doublons)
         albums_to_enrich = defaultdict(dict)
         
@@ -953,6 +1152,12 @@ async def import_lastfm_history(
         
         for batch_num in range(num_batches):
             try:
+                # Mettre à jour la progression
+                _lastfm_import_progress["current_batch"] = batch_num + 1
+                _lastfm_import_progress["imported"] = imported_count
+                _lastfm_import_progress["skipped"] = skipped_count
+                _lastfm_import_progress["errors"] = error_count
+                
                 # Récupérer batch de tracks avec pagination (page = batch_num + 1)
                 if limit is None:
                     batch_limit = batch_size
@@ -976,23 +1181,25 @@ async def import_lastfm_history(
                         album_title = track_data['album']
                         timestamp = track_data['timestamp']
                         
-                        # Créer/récupérer artiste d'abord pour construire la clé unique
+                        # Créer/récupérer artiste d'abord
                         artist = db.query(Artist).filter_by(name=artist_name).first()
                         if not artist:
                             artist = Artist(name=artist_name)
                             db.add(artist)
                             db.flush()
                         
-                        # Créer/récupérer album
-                        album = db.query(Album).filter_by(title=album_title).join(Album.artists).filter(
-                            Artist.name == artist_name
-                        ).first()
+                        # Chercher album par titre SEUL (pas filtrer par artiste!)
+                        # Car un album peut avoir plusieurs artistes, on ne doit pas le dédupliquer par artiste principal
+                        album = db.query(Album).filter_by(title=album_title).first()
                         
                         if not album:
                             album = Album(title=album_title)
-                            album.artists.append(artist)
                             db.add(album)
                             db.flush()
+                        
+                        # Vérifier que l'artiste est associé à l'album (sinon l'ajouter)
+                        if artist not in album.artists:
+                            album.artists.append(artist)
                         
                         # Créer/récupérer track pour avoir le track_id
                         track = db.query(Track).filter_by(
@@ -1011,31 +1218,44 @@ async def import_lastfm_history(
                         # Créer clé unique pour cette entrée
                         entry_key = (track.id, timestamp)
                         
-                        # Vérifier si DÉJÀ vu dans cette session (avant commit)
+                        # PRIORITÉ 1: Vérifier si déjà importé en base avec track_id + timestamp
+                        # C'est la clé unique de déduplication (même track au même moment = doublon)
+                        existing = db.query(ListeningHistory).filter_by(
+                            track_id=track.id,
+                            timestamp=timestamp
+                        ).first()
+                        if existing:
+                            logger.debug(f"⏭️ Track déjà importé (BD): {track_title} @ {timestamp}")
+                            skipped_count += 1
+                            continue
+                        
+                        # PRIORITÉ 2: RÈGLE DES 10 MINUTES DANS LA BASE - TOUJOURS APPLIQUÉE
+                        # Éviter les imports dupliqués par Last.fm
+                        # Si le même track a été enregistré dans la BD il y a moins de 10 minutes, c'est un doublon
+                        recent_same_track = db.query(ListeningHistory).filter(
+                            ListeningHistory.track_id == track.id,
+                            ListeningHistory.timestamp >= timestamp - 600,  # 10 minutes avant
+                            ListeningHistory.timestamp <= timestamp + 600   # 10 minutes après
+                        ).first()
+                        if recent_same_track:
+                            logger.debug(f"⏭️ Règle 10 min (BD): {track_title} trouvé à {recent_same_track.timestamp} (diff: {abs(timestamp - recent_same_track.timestamp)}s)")
+                            skipped_count += 1
+                            continue
+                        
+                        # PRIORITÉ 2: Vérifier si DÉJÀ vu dans cette session (avant commit)
                         if entry_key in seen_entries:
                             logger.debug(f"⏭️ Doublon dans session: {track_title} @ {timestamp}")
                             skipped_count += 1
                             continue
                         
-                        # Vérifier la règle des 10 minutes: même track à moins de 10min d'écart = doublon
+                        # PRIORITÉ 3: RÈGLE DES 10 MINUTES - Éviter les scrobbles dupliqués par Last.fm
+                        # Si le même track a été écouté il y a moins de 10 minutes, c'est probablement un doublon
                         if track.id in last_import_by_track:
-                            last_ts, _ = last_import_by_track[track.id]
-                            time_diff = timestamp - last_ts
-                            if 0 <= time_diff <= 600:  # Même timestamp ou moins de 10 minutes après
-                                logger.debug(f"⏭️ Doublon 10min: {track_title} (écart {time_diff}s)")
+                            last_timestamp, last_history = last_import_by_track[track.id]
+                            time_diff_seconds = abs(timestamp - last_timestamp)
+                            if time_diff_seconds < 600:  # 10 minutes = 600 secondes
+                                logger.debug(f"⏭️ Règle 10 min: {track_title} écouté il y a {time_diff_seconds}s (doublon Last.fm)")
                                 skipped_count += 1
-                                seen_entries.add(entry_key)
-                                continue
-                        
-                        # MAINTENANT vérifier si déjà importé en base avec track_id + timestamp (clé unique)
-                        if skip_existing:
-                            existing = db.query(ListeningHistory).filter_by(
-                                track_id=track.id,
-                                timestamp=timestamp
-                            ).first()
-                            if existing:
-                                skipped_count += 1
-                                seen_entries.add(entry_key)
                                 continue
                         
                         # Créer entrée historique
@@ -1087,6 +1307,12 @@ async def import_lastfm_history(
         
         db.commit()
         
+        # Marquer l'import comme terminé
+        _lastfm_import_progress["status"] = "completed"
+        _lastfm_import_progress["imported"] = imported_count
+        _lastfm_import_progress["skipped"] = skipped_count
+        _lastfm_import_progress["errors"] = error_count
+        
         logger.info(f"📊 Import terminé: {imported_count} tracks importés, {skipped_count} ignorés, {error_count} erreurs")
         logger.info(f"📀 {len(albums_to_enrich)} nouveaux albums à enrichir")
         
@@ -1128,6 +1354,7 @@ async def import_lastfm_history(
         }
         
     except Exception as e:
+        _lastfm_import_progress["status"] = "error"
         logger.error(f"❌ Erreur import historique Last.fm: {e}")
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Erreur import: {str(e)}")

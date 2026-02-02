@@ -57,6 +57,8 @@ export default function Settings() {
   const [roonServer, setRoonServer] = useState('')
   const [testingRoonConnection, setTestingRoonConnection] = useState(false)
   const [maxFilesPerType, setMaxFilesPerType] = useState(5)
+  const [syncProgress, setSyncProgress] = useState<any>(null)
+  const [lastfmImportProgress, setLastfmImportProgress] = useState<any>(null)
   
   const queryClient = useQueryClient()
   const { enabled: roonEnabled, available: roonAvailable, zone, setZone } = useRoon()
@@ -120,6 +122,16 @@ export default function Settings() {
     },
   })
 
+  // Récupérer les résultats d'optimisation IA
+  const { data: optimizationResults, refetch: refetchOptimization } = useQuery({
+    queryKey: ['scheduler-optimization-results'],
+    queryFn: async () => {
+      const response = await apiClient.get('/services/scheduler/optimization-results')
+      return response.data
+    },
+    refetchInterval: 60000, // Rafraîchir toutes les minutes
+  })
+
   // Pour la compatibilité avec le code existant
   const trackerStatus = allServicesStatus?.tracker
   const schedulerStatus = allServicesStatus?.scheduler
@@ -157,14 +169,48 @@ export default function Settings() {
       const response = await apiClient.post(url, null, {
         timeout: 600000, // 10 minutes
       })
-      return response.data
+      
+      // Polling pour suivre la progression
+      return new Promise((resolve, reject) => {
+        const pollInterval = setInterval(async () => {
+          try {
+            const progressResponse = await apiClient.get('/services/lastfm/import/progress')
+            const progress = progressResponse.data
+            
+            // Mettre à jour l'état de progression
+            setLastfmImportProgress(progress)
+            
+            // Vérifier si terminé
+            if (progress.status === 'completed') {
+              clearInterval(pollInterval)
+              setLastfmImportProgress(null)
+              resolve(progress)
+            } else if (progress.status === 'error') {
+              clearInterval(pollInterval)
+              setLastfmImportProgress(null)
+              reject(new Error('Erreur lors de l\'importation'))
+            }
+          } catch (error) {
+            clearInterval(pollInterval)
+            setLastfmImportProgress(null)
+            reject(error)
+          }
+        }, 1000) // Vérifier toutes les secondes
+        
+        // Timeout de sécurité
+        setTimeout(() => {
+          clearInterval(pollInterval)
+          setLastfmImportProgress(null)
+          reject(new Error('Timeout de l\'importation'))
+        }, 600000)
+      })
     },
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       setImportDialogOpen(false)
       queryClient.invalidateQueries({ queryKey: ['history'] })
       setSnackbar({
         open: true,
-        message: `✅ Import terminé! ${data.tracks_imported} tracks importés, ${data.albums_enriched} albums enrichis`,
+        message: `✅ Import terminé! ${data.imported} tracks importés, ${data.skipped} ignorés`,
         severity: 'success'
       })
     },
@@ -175,14 +221,51 @@ export default function Settings() {
 
   const syncDiscogsMatch = useMutation({
     mutationFn: async () => {
-      const response = await apiClient.post('/services/discogs/sync?limit=10')
-      return response.data
+      // Démarrer la synchronisation en arrière-plan
+      const response = await apiClient.post('/services/discogs/sync', null, {
+        timeout: 600000 // 10 minutes
+      })
+      
+      // Polling pour suivre la progression
+      return new Promise((resolve, reject) => {
+        const pollInterval = setInterval(async () => {
+          try {
+            const progressResponse = await apiClient.get('/services/discogs/sync/progress')
+            const progress = progressResponse.data
+            
+            // Mettre à jour l'état de progression
+            setSyncProgress(progress)
+            
+            // Vérifier si terminé
+            if (progress.status === 'completed') {
+              clearInterval(pollInterval)
+              setSyncProgress(null)
+              resolve(progress)
+            } else if (progress.status === 'error') {
+              clearInterval(pollInterval)
+              setSyncProgress(null)
+              reject(new Error(progress.current_album))
+            }
+          } catch (error) {
+            clearInterval(pollInterval)
+            setSyncProgress(null)
+            reject(error)
+          }
+        }, 1000) // Vérifier toutes les secondes
+        
+        // Timeout de sécurité
+        setTimeout(() => {
+          clearInterval(pollInterval)
+          setSyncProgress(null)
+          reject(new Error('Timeout de synchronisation'))
+        }, 600000)
+      })
     },
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       queryClient.invalidateQueries({ queryKey: ['albums'] })
       setSnackbar({
         open: true,
-        message: `✅ ${data.synced_albums} albums synchronisés depuis Discogs`,
+        message: `✅ ${data.synced} albums synchronisés depuis Discogs (${data.skipped} déjà présents, ${data.errors} erreurs)`,
         severity: 'success'
       })
     },
@@ -602,10 +685,34 @@ export default function Settings() {
             </Typography>
           )}
 
+          {lastfmImportProgress && (lastfmImportProgress.status === 'running' || lastfmImportProgress.status === 'starting') && (
+            <Box sx={{ mb: 2, p: 2, backgroundColor: 'background.paper', border: '1px solid', borderColor: 'primary.main', borderRadius: 1 }}>
+              <Typography variant="body2" color="primary" gutterBottom>
+                📥 Import en cours... Batch {lastfmImportProgress.current_batch}/{lastfmImportProgress.total_batches}
+              </Typography>
+              {lastfmImportProgress.total_batches > 0 && (
+                <LinearProgress 
+                  variant="determinate" 
+                  value={(lastfmImportProgress.current_batch / lastfmImportProgress.total_batches) * 100} 
+                  sx={{ mb: 1 }}
+                />
+              )}
+              {lastfmImportProgress.total_batches === 0 && (
+                <LinearProgress sx={{ mb: 1 }} />
+              )}
+              <Typography variant="caption" color="text.secondary" display="block">
+                📊 Total: {lastfmImportProgress.total_scrobbles} scrobbles
+              </Typography>
+              <Typography variant="caption" display="block" color="text.secondary">
+                ✅ {lastfmImportProgress.imported} importés | ⏭️ {lastfmImportProgress.skipped} ignorés | ❌ {lastfmImportProgress.errors} erreurs
+              </Typography>
+            </Box>
+          )}
+
           <Button
             variant="contained"
             onClick={() => setImportDialogOpen(true)}
-            disabled={importHistoryMutation.isPending}
+            disabled={importHistoryMutation.isPending || (lastfmImportProgress && (lastfmImportProgress.status === 'running' || lastfmImportProgress.status === 'starting'))}
             startIcon={importHistoryMutation.isPending ? <CircularProgress size={20} /> : <CloudDownload />}
             color="primary"
           >
@@ -638,10 +745,34 @@ export default function Settings() {
             </Typography>
           )}
 
+          {syncProgress && (syncProgress.status === 'running' || syncProgress.status === 'starting') && (
+            <Box sx={{ mb: 2, p: 2, backgroundColor: 'background.paper', border: '1px solid', borderColor: 'primary.main', borderRadius: 1 }}>
+              <Typography variant="body2" color="primary" gutterBottom>
+                📥 Synchronisation en cours... {syncProgress.current}/{syncProgress.total}
+              </Typography>
+              {syncProgress.total > 0 && (
+                <LinearProgress 
+                  variant="determinate" 
+                  value={(syncProgress.current / syncProgress.total) * 100} 
+                  sx={{ mb: 1 }}
+                />
+              )}
+              {syncProgress.total === 0 && (
+                <LinearProgress sx={{ mb: 1 }} />
+              )}
+              <Typography variant="caption" color="text.secondary" display="block">
+                {syncProgress.current_album}
+              </Typography>
+              <Typography variant="caption" display="block" color="text.secondary">
+                ✅ {syncProgress.synced} synchronisés | ⏭️ {syncProgress.skipped} ignorés | ❌ {syncProgress.errors} erreurs
+              </Typography>
+            </Box>
+          )}
+
           <Button
             variant="contained"
             onClick={() => syncDiscogsMatch.mutate()}
-            disabled={syncDiscogsMatch.isPending}
+            disabled={syncDiscogsMatch.isPending || (syncProgress && (syncProgress.status === 'running' || syncProgress.status === 'starting'))}
             startIcon={syncDiscogsMatch.isPending ? <CircularProgress size={20} /> : <Sync />}
             color="secondary"
           >
@@ -807,6 +938,145 @@ export default function Settings() {
           </Box>
         </CardContent>
       </Card>
+
+      {/* Résultats d'Optimisation IA */}
+      {optimizationResults?.optimization?.status && optimizationResults.optimization.status !== 'NOT_AVAILABLE' && (
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              🤖 Résultats d'Optimisation IA
+            </Typography>
+            
+            <Divider sx={{ mb: 2 }} />
+            
+            <Alert severity="success" sx={{ mb: 2 }}>
+              ✅ Optimisation complétée le {new Date(optimizationResults.optimization.last_run).toLocaleString('fr-FR')}
+            </Alert>
+
+            {/* Configuration Actuelle */}
+            <Box sx={{ mb: 3, p: 2, backgroundColor: 'background.paper', borderRadius: 1, border: '1px solid', borderColor: 'divider' }}>
+              <Typography variant="subtitle2" gutterBottom>
+                📊 Configuration Optimisée Actuellement Appliquée:
+              </Typography>
+              <Stack spacing={1} sx={{ mt: 1 }}>
+                <Typography variant="body2">
+                  ⏰ <strong>Heure d'exécution:</strong> {optimizationResults.optimization?.current_configuration?.execution_time}
+                </Typography>
+                <Typography variant="body2">
+                  📦 <strong>Taille des lots:</strong> {optimizationResults.optimization?.current_configuration?.batch_size} albums
+                </Typography>
+                <Typography variant="body2">
+                  ⏱️ <strong>Délai d'attente:</strong> {optimizationResults.optimization?.current_configuration?.timeout_seconds}s
+                </Typography>
+                <Typography variant="body2">
+                  📅 <strong>Planification:</strong> {optimizationResults.optimization?.current_configuration?.schedule}
+                </Typography>
+              </Stack>
+            </Box>
+
+            {/* État de la Base de Données */}
+            {optimizationResults.optimization?.database_analysis && (
+              <Box sx={{ mb: 3, p: 2, backgroundColor: 'background.paper', borderRadius: 1, border: '1px solid', borderColor: 'divider' }}>
+                <Typography variant="subtitle2" gutterBottom>
+                  📈 État de la Base de Données:
+                </Typography>
+                <Stack spacing={1} sx={{ mt: 1 }}>
+                  <Typography variant="body2">
+                    💿 <strong>Albums:</strong> {optimizationResults.optimization.database_analysis.total_albums}
+                  </Typography>
+                  <Typography variant="body2">
+                    🎤 <strong>Artistes:</strong> {optimizationResults.optimization.database_analysis.total_artists}
+                  </Typography>
+                  <Typography variant="body2">
+                    🎵 <strong>Morceaux:</strong> {optimizationResults.optimization.database_analysis.total_tracks}
+                  </Typography>
+                  <Typography variant="body2">
+                    🖼️ <strong>Couvertures d'image:</strong> {optimizationResults.optimization.database_analysis.images_coverage_pct.toFixed(1)}% ({optimizationResults.optimization.database_analysis.images_missing} manquantes)
+                  </Typography>
+                  <Typography variant="body2">
+                    📊 <strong>Écoutes (7j):</strong> {optimizationResults.optimization.database_analysis.listening_7days} ({optimizationResults.optimization.database_analysis.daily_avg.toFixed(1)}/jour)
+                  </Typography>
+                  <Typography variant="body2">
+                    ⏰ <strong>Heures de pointe:</strong> {optimizationResults.optimization.database_analysis.peak_hours?.join(', ')}h
+                  </Typography>
+                </Stack>
+              </Box>
+            )}
+
+            {/* Améliorations Apportées */}
+            {optimizationResults.optimization?.improvements && (
+              <Box sx={{ mb: 3, p: 2, backgroundColor: 'background.paper', borderRadius: 1, border: '1px solid', borderColor: 'divider' }}>
+                <Typography variant="subtitle2" gutterBottom>
+                  ✨ Améliorations Appliquées:
+                </Typography>
+                <Stack spacing={2} sx={{ mt: 1 }}>
+                  {optimizationResults.optimization.improvements.execution_time && (
+                    <Box>
+                      <Typography variant="body2" color="primary.main">
+                        <strong>⏰ Heure d'exécution</strong>
+                      </Typography>
+                      <Typography variant="caption">
+                        Avant: {optimizationResults.optimization.improvements.execution_time.before} → Après: <strong>{optimizationResults.optimization.improvements.execution_time.after}</strong>
+                        <br/>
+                        Raison: {optimizationResults.optimization.improvements.execution_time.reason}
+                      </Typography>
+                    </Box>
+                  )}
+                  {optimizationResults.optimization.improvements.timeout && (
+                    <Box>
+                      <Typography variant="body2" color="primary.main">
+                        <strong>⏱️ Délai d'attente</strong>
+                      </Typography>
+                      <Typography variant="caption">
+                        Avant: {optimizationResults.optimization.improvements.timeout.before}s → Après: <strong>{optimizationResults.optimization.improvements.timeout.after}s</strong>
+                        <br/>
+                        Raison: {optimizationResults.optimization.improvements.timeout.reason}
+                      </Typography>
+                    </Box>
+                  )}
+                </Stack>
+              </Box>
+            )}
+
+            {/* Recommandations IA */}
+            {optimizationResults.optimization?.ai_recommendations && (
+              <Box sx={{ mb: 3, p: 2, backgroundColor: '#e3f2fd', borderRadius: 1, border: '1px solid', borderColor: 'primary.light' }}>
+                <Typography variant="subtitle2" gutterBottom sx={{ color: 'primary.main' }}>
+                  💡 Recommandations IA (Euria):
+                </Typography>
+                <Stack spacing={1} sx={{ mt: 1 }}>
+                  <Typography variant="caption">
+                    <strong>Heure optimale:</strong> {optimizationResults.optimization.ai_recommendations.optimal_execution_time}
+                  </Typography>
+                  <Typography variant="caption">
+                    <strong>Taille optimale des lots:</strong> {optimizationResults.optimization.ai_recommendations.optimal_batch_size}
+                  </Typography>
+                  <Typography variant="caption">
+                    <strong>Délai d'attente recommandé:</strong> {optimizationResults.optimization.ai_recommendations.recommended_timeout}
+                  </Typography>
+                  {optimizationResults.optimization.ai_recommendations.enrichment_priority && (
+                    <Typography variant="caption">
+                      <strong>Priorité d'enrichissement:</strong> {optimizationResults.optimization.ai_recommendations.enrichment_priority.join(' → ')}
+                    </Typography>
+                  )}
+                </Stack>
+              </Box>
+            )}
+
+            {/* Prochaine Optimisation */}
+            <Box sx={{ p: 2, backgroundColor: 'success.light', borderRadius: 1, border: '1px solid', borderColor: 'success.main' }}>
+              <Typography variant="body2" sx={{ color: 'success.dark' }}>
+                <strong>📅 Prochaine ré-optimisation IA:</strong><br/>
+                {new Date(optimizationResults.optimization?.next_run).toLocaleString('fr-FR')}
+                <br/>
+                <Typography variant="caption" component="div" sx={{ mt: 1 }}>
+                  Fréquence: {optimizationResults.optimization?.frequency}
+                </Typography>
+              </Typography>
+            </Box>
+          </CardContent>
+        </Card>
+      )}
 
       {/* À propos */}
       <Card>

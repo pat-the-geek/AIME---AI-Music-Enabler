@@ -72,6 +72,66 @@ class LastFMService:
             logger.error(f"Erreur récupération image album Last.fm: {e}")
             return None
     
+    async def get_album_artists(self, artist_name: str, album_title: str) -> list:
+        """Récupérer les vrais artistes d'un album depuis Last.fm.
+        
+        Certains albums sont des compilations ou des collaborations.
+        Last.fm peut retourner des artistes collaboratifs.
+        
+        Args:
+            artist_name: Artiste principal du track
+            album_title: Titre de l'album
+            
+        Returns:
+            Liste des artistes de l'album (peut contenir plusieurs)
+        """
+        try:
+            import requests
+            
+            # Essayer de récupérer les infos d'album depuis Last.fm
+            params = {
+                'method': 'album.getInfo',
+                'artist': artist_name,
+                'album': album_title,
+                'api_key': self.api_key,
+                'format': 'json'
+            }
+            
+            response = requests.post('https://ws.audioscrobbler.com/2.0/', params=params, timeout=10)
+            response.raise_for_status()
+            result = response.json()
+            
+            artists = []
+            
+            if result and 'album' in result:
+                album_info = result['album']
+                
+                # Artist principal
+                if 'artist' in album_info:
+                    artist_str = album_info['artist']
+                    if isinstance(artist_str, dict):
+                        artist_str = artist_str.get('#text', artist_name)
+                    artists.append(str(artist_str).strip())
+                
+                # Tags peuvent contenir info sur collaborations
+                if 'tags' in album_info and 'tag' in album_info['tags']:
+                    tags = album_info['tags']['tag']
+                    if not isinstance(tags, list):
+                        tags = [tags]
+                    # On ne récupère pas les tags comme artistes
+            
+            # Si pas d'info, retourner juste l'artiste principal
+            if not artists:
+                artists = [artist_name]
+            
+            logger.info(f"✅ Artistes d'album {album_title}: {artists}")
+            return artists
+            
+        except Exception as e:
+            logger.debug(f"⚠️ Impossible récupérer artistes d'album {album_title}: {e}")
+            # En cas d'erreur, retourner l'artiste du track
+            return [artist_name]
+    
     def get_user_history(self, limit: int = 200, page: int = 1, from_timestamp: Optional[int] = None, to_timestamp: Optional[int] = None) -> list:
         """Récupérer l'historique d'écoute d'un utilisateur avec pagination via requête HTTP.
         

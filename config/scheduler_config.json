@@ -1,0 +1,10 @@
+{
+  "enabled": true,
+  "schedule": "daily_02:00",
+  "services": [
+    "audit_database",
+    "fix_malformed_artists",
+    "enrich_musicbrainz_images",
+    "auto_enrichment"
+  ]
+}

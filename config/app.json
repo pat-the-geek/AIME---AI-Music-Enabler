@@ -43,13 +43,63 @@
     "enabled": true,
     "output_dir": "Scheduled Output",
     "max_files_per_type": 5,
+    "enrichment_scheduler": {
+      "enabled": true,
+      "schedule": "daily_05:00",
+      "description": "Pipeline automatique d'enrichissement et correction de données",
+      "services": [
+        {
+          "name": "audit_database",
+          "description": "Audit complet de la base de données",
+          "enabled": true
+        },
+        {
+          "name": "fix_malformed_artists",
+          "description": "Correction des artistes collaboratifs mal formatés",
+          "enabled": true,
+          "last_run": "2026-02-02",
+          "items_fixed": 5
+        },
+        {
+          "name": "enrich_musicbrainz_images",
+          "description": "Enrichissement d'images via MusicBrainz (545 albums)",
+          "enabled": true,
+          "target_albums": 545,
+          "batch_size": 50,
+          "rate_limit": "60/min"
+        },
+        {
+          "name": "auto_enrichment",
+          "description": "Enrichissement automatique complet (images, descriptions, genres)",
+          "enabled": true,
+          "features": {
+            "enrich_images": true,
+            "generate_descriptions": true,
+            "detect_genres": true,
+            "fix_artist_formatting": true
+          },
+          "sources": [
+            "musicbrainz",
+            "discogs",
+            "spotify"
+          ],
+          "rate_limits": {
+            "musicbrainz_per_minute": 60,
+            "discogs_per_minute": 120,
+            "spotify_per_minute": 60
+          }
+        }
+      ]
+    },
     "tasks": [
       {
         "name": "daily_enrichment",
         "enabled": true,
         "frequency": 1,
         "unit": "day",
-        "time": "02:00"
+        "time": "05:00",
+        "description": "Enrichissement automatique: images, artistes, descriptions, genres",
+        "pipeline": "improvement_pipeline.py"
       },
       {
         "name": "generate_haiku_scheduled",
@@ -95,6 +145,16 @@
         "enabled": true,
         "frequency": 6,
         "unit": "hour"
+      },
+      {
+        "name": "optimize_scheduler_with_ai",
+        "enabled": true,
+        "frequency": 1,
+        "unit": "week",
+        "day": "sunday",
+        "time": "03:00",
+        "description": "Optimisation hebdomadaire des paramètres du scheduler via l'IA Euria",
+        "pipeline": "optimize_scheduler_with_ai.py"
       }
     ]
   }

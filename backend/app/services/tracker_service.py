@@ -101,20 +101,23 @@ class TrackerService:
             # Enregistrer l'heure du poll
             self.last_poll_time = datetime.now(timezone.utc)
             
-            # Vérifier si nous sommes dans la plage horaire active
-            current_hour = datetime.now().hour
-            start_hour = self.config.get('tracker', {}).get('listen_start_hour', 8)
-            end_hour = self.config.get('tracker', {}).get('listen_end_hour', 22)
+            # 🔍 DEBUG: Log à chaque poll pour tracer
+            logger.debug(f"📡 Polling Last.fm à {self.last_poll_time.isoformat()}")
             
-            if not (start_hour <= current_hour < end_hour):
-                logger.debug(f"Hors plage horaire d'écoute ({start_hour}h-{end_hour}h), skip polling")
-                return
+            # ⚠️ DÉSACTIVÉ: Le filtre horaire empêchait l'enregistrement des lectures
+            # Les lectures détectées par Last.fm doivent être enregistrées 24h/24
+            # current_hour = datetime.now().hour
+            # start_hour = self.config.get('tracker', {}).get('listen_start_hour', 8)
+            # end_hour = self.config.get('tracker', {}).get('listen_end_hour', 22)
+            # if not (start_hour <= current_hour < end_hour):
+            #     logger.debug(f"Hors plage horaire d'écoute ({start_hour}h-{end_hour}h), skip polling")
+            #     return
             
             # Récupérer les tracks récents (le plus récent sera le premier)
             recent_tracks = self.lastfm.get_recent_tracks(limit=1)
             
             if not recent_tracks:
-                logger.debug("Aucun track récent trouvé")
+                logger.debug("❌ Aucun track récent trouvé")
                 return
             
             current_track = recent_tracks[0]
@@ -123,17 +126,17 @@ class TrackerService:
             track_key = f"{current_track['artist']}|{current_track['title']}|{current_track['album']}"
             
             if track_key == self.last_track_key:
-                logger.debug("Même track qu'avant, skip")
+                logger.debug(f"⏭️ Même track qu'avant, skip: {track_key}")
                 return
             
             self.last_track_key = track_key
-            logger.info(f"Nouveau track détecté: {track_key}")
+            logger.info(f"✨ Nouveau track détecté: {track_key}")
             
             # Enregistrer en base de données
             await self._save_track(current_track)
             
         except Exception as e:
-            logger.error(f"Erreur polling Last.fm: {e}")
+            logger.error(f"❌ Erreur polling Last.fm: {e}", exc_info=True)
     
     def _check_duplicate(self, db: Session, artist_name: str, track_title: str, album_title: str, source: str) -> bool:
         """Vérifier si le track existe déjà récemment (dans les 5 dernières minutes).
@@ -151,6 +154,8 @@ class TrackerService:
         # Timestamp il y a 5 minutes
         five_minutes_ago = int(datetime.now(timezone.utc).timestamp()) - 300
         
+        logger.debug(f"🔍 Vérification doublons: {artist_name} - {track_title} ({album_title})")
+        
         # Chercher le track et l'album correspondant
         track = db.query(Track).join(Album).join(Album.artists).filter(
             Track.title == track_title,
@@ -159,6 +164,7 @@ class TrackerService:
         ).first()
         
         if not track:
+            logger.debug(f"✅ Pas de track en base pour: {artist_name} - {track_title}")
             return False  # Pas de doublon si le track n'existe pas
         
         # Vérifier si une entrée récente existe pour ce track
@@ -168,7 +174,10 @@ class TrackerService:
         ).all()
         
         if not recent_entries:
+            logger.debug(f"✅ Aucune entrée récente (< 5 min) pour ce track")
             return False  # Pas d'entrée récente
+        
+        logger.debug(f"⚠️ {len(recent_entries)} entrée(s) récente(s) trouvée(s) pour ce track")
         
         # Vérifier les doublons par source
         for entry in recent_entries:
@@ -176,7 +185,7 @@ class TrackerService:
             
             if entry.source == source:
                 # Doublon de la même source
-                logger.warning(f"⚠️ Doublon détecté ({source}): {artist_name} - {track_title} " +
+                logger.warning(f"🔄 DOUBLON DÉTECTÉ ({source}): {artist_name} - {track_title} " +
                              f"déjà enregistré il y a {int(time_diff)}s")
                 return True
             else:
@@ -344,19 +353,22 @@ class TrackerService:
                 db.add(track)
                 db.flush()
             
-            # Créer entrée historique
+            # Créer entrée historique avec timestamp correct
             now = datetime.now(timezone.utc)
+            timestamp = int(now.timestamp())
+            date_str = now.strftime("%Y-%m-%d %H:%M")
+            
             history = ListeningHistory(
                 track_id=track.id,
-                timestamp=int(now.timestamp()),
-                date=now.strftime("%Y-%m-%d %H:%M"),
+                timestamp=timestamp,
+                date=date_str,
                 source='lastfm',
                 loved=False
             )
             db.add(history)
             
             db.commit()
-            logger.info(f"✅ Track enregistré: {artist_name} - {track_title}")
+            logger.info(f"✅ Track enregistré: {artist_name} - {track_title} (timestamp={timestamp}, date={date_str})")
             
         except Exception as e:
             db.rollback()

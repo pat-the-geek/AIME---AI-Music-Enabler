@@ -1,0 +1,43 @@
+{
+  "auto_enrichment": {
+    "enabled": true,
+    "schedule": "daily_05:00",
+    "sources": [
+      "musicbrainz",
+      "discogs",
+      "spotify"
+    ],
+    "features": {
+      "enrich_images": true,
+      "generate_descriptions": true,
+      "detect_genres": true,
+      "fix_artist_formatting": true
+    },
+    "rate_limits": {
+      "musicbrainz_per_minute": 60,
+      "discogs_per_minute": 120,
+      "spotify_per_minute": 60
+    },
+    "batch_size": 50,
+    "timeout_seconds": 30
+  },
+  "data_quality": {
+    "min_completion_pct": 80,
+    "image_priority": [
+      "spotify",
+      "lastfm",
+      "musicbrainz",
+      "discogs"
+    ],
+    "validate_artists": true,
+    "remove_duplicates": true
+  },
+  "import_settings": {
+    "auto_enrich_on_import": true,
+    "enrich_sources": [
+      "musicbrainz",
+      "lastfm"
+    ],
+    "validate_on_import": true
+  }
+}

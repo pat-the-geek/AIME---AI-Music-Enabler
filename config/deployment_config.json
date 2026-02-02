@@ -1,0 +1,23 @@
+{
+  "deployment_date": "2026-02-02T18:55:19.930254",
+  "environment": "production",
+  "database": {
+    "path": "/Users/patrickostertag/Documents/DataForIA/AIME - AI Music Enabler/backend/data/musique.db",
+    "status": "active"
+  },
+  "services": {
+    "scheduler": "disabled (manuel)",
+    "api": "requires fastapi/uvicorn",
+    "improvements": "enabled"
+  },
+  "automation": {
+    "daily_improvement": "02:00",
+    "backup_frequency": "weekly",
+    "audit_frequency": "daily"
+  },
+  "credentials": {
+    "lastfm": "from config/secrets.json",
+    "spotify": "from config/secrets.json",
+    "euria": "from config/secrets.json"
+  }
+}

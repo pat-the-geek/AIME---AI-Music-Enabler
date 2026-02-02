@@ -680,7 +680,15 @@ Réponds uniquement en français."""
                     if not any(img.source == 'lastfm' for img in album.images):
                         try:
                             from app.services.lastfm_service import LastFMService
-                            lastfm_service = LastFMService()
+                            from config.settings import get_settings
+                            settings = get_settings()
+                            secrets = settings.secrets
+                            lastfm_config = secrets.get('lastfm', {})
+                            lastfm_service = LastFMService(
+                                api_key=lastfm_config.get('api_key'),
+                                api_secret=lastfm_config.get('api_secret'),
+                                username=lastfm_config.get('username')
+                            )
                             lastfm_image = await lastfm_service.get_album_image(artist, title)
                             if lastfm_image:
                                 from app.models import Image
@@ -691,8 +699,9 @@ Réponds uniquement en français."""
                                     album_id=album.id
                                 )
                                 db.add(img)
+                                logger.info(f"✅ Image Last.fm ajoutée pour {artist} - {title}")
                         except Exception as e:
-                            logger.warning(f"⚠️ Erreur image Last.fm pour {title}: {e}")
+                            logger.error(f"❌ Erreur image Last.fm pour {artist} - {title}: {e}")
                     
                     # Description IA
                     if not album.album_metadata or not album.album_metadata.ai_info:
@@ -714,6 +723,8 @@ Réponds uniquement en français."""
                     if enriched_count % 10 == 0:
                         db.commit()
                         logger.info(f"💾 {enriched_count}/{total_albums} albums enrichis...")
+                    if enriched_count % 50 == 0:
+                        db.flush()  # Flush plus souvent pour éviter les locks
                         
                 except Exception as e:
                     logger.error(f"❌ Erreur enrichissement album: {e}")

@@ -5,6 +5,7 @@ from typing import Optional
 from datetime import datetime
 from collections import defaultdict, Counter
 import math
+import logging
 
 from app.database import get_db
 from app.models import ListeningHistory, Track, Album, Artist, Image, Metadata
@@ -15,6 +16,8 @@ from app.schemas import (
     TimelineResponse,
     StatsResponse,
 )
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -310,13 +313,18 @@ async def get_timeline(
     db: Session = Depends(get_db)
 ):
     """Timeline horaire pour une journée."""
+    # Format les plages de dates correctement (format: YYYY-MM-DD HH:MM)
     start_date = f"{date} 00:00"
     end_date = f"{date} 23:59"
+    
+    logger.debug(f"📅 Timeline query: date={date}, start={start_date}, end={end_date}")
     
     history = db.query(ListeningHistory).filter(
         ListeningHistory.date >= start_date,
         ListeningHistory.date <= end_date
     ).order_by(ListeningHistory.timestamp.desc()).all()
+    
+    logger.debug(f"📊 Found {len(history)} entries for timeline date {date}")
     
     # Organiser par heure
     hours = defaultdict(list)

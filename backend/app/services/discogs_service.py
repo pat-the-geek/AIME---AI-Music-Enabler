@@ -56,13 +56,21 @@ class DiscogsService:
             user = self.client.identity()
             logger.info(f"✅ Utilisateur: {user.username}, {user.num_collection} releases")
             
-            collection = user.collection_folders[0].releases
-            logger.info(f"📁 Folder: {user.collection_folders[0].name}, Count: {user.collection_folders[0].count}")
+            collection_folder = user.collection_folders[0]
+            logger.info(f"📁 Folder: {collection_folder.name}, Count: {collection_folder.count}")
+            
+            # Configurer la pagination pour récupérer tous les albums
+            # La bibliothèque discogs_client charge une page à la fois automatiquement
+            collection = collection_folder.releases
+            collection.per_page = 100  # Augmenter la taille de page pour réduire les requêtes
+            
+            logger.info(f"📄 Configuration pagination: {collection.per_page} items par page")
             
             albums = []
             count = 0
             errors_404 = []
             
+            # Itérer sur TOUTES les releases (la bibliothèque gère automatiquement la pagination)
             for release in collection:
                 if limit and count >= limit:
                     logger.info(f"⚠️ Limite de {limit} albums atteinte")
@@ -73,8 +81,9 @@ class DiscogsService:
                     release_data = release.release
                     count += 1
                     
-                    if count % 10 == 0:
-                        logger.info(f"📀 Traitement album {count}...")
+                    # Log de progression avec indication de pagination
+                    if count % 50 == 0:
+                        logger.info(f"📀 Traitement album {count}/{user.num_collection}...")
                     
                     # Valider les données avant de les ajouter
                     album_info = self._extract_album_info(release_data, count)

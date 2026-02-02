@@ -1,0 +1,133 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                    SCHEDULER SETTINGS - STATUS BOARD                       ║
+║                         2 Février 2026                                     ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+CONFIGURATION VISIBILITÉ
+
+ ✅ Tous les éléments planifiés sont visibles dans les settings
+ ✅ Configuration centralisée dans config/app.json
+ ✅ Détails supplémentaires dans enrichment_config.json
+ ✅ Documentation complète disponible
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+PIPELINE ENRICHISSEMENT QUOTIDIEN (02:00)
+
+ État: ✅ ENABLED
+
+ Services:
+   ✓ audit_database              Audit complet (quotidien)
+   ✓ fix_malformed_artists       5 albums déjà corrigés
+   ✓ enrich_musicbrainz_images   545 albums cibles
+   ✓ auto_enrichment             4 features activées
+
+
+───────────────────────────────────────────────────────────────────────────────
+
+AUTRES TÂCHES PLANIFIÉES
+
+ 06:00 → generate_haiku_scheduled       Génération haikus 5 albums
+ 08:00 → export_collection_markdown     Export collection MD
+ 10:00 → export_collection_json         Export collection JSON
+ 20:00 → weekly_haiku                   Haiku hebdomadaire (dim)
+ 03:00 → monthly_analysis               Analyse mensuelle
+ 6H    → optimize_ai_descriptions       Optimisation descriptions
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+AUTO ENRICHMENT FEATURES (ACTIFS)
+
+ ✅ enrich_images              Images via MusicBrainz/Discogs/Spotify
+ ✅ generate_descriptions      Descriptions automatiques
+ ✅ detect_genres              Détection genres
+ ✅ fix_artist_formatting      Formatage artistes collaboratifs
+
+
+───────────────────────────────────────────────────────────────────────────────
+
+SOURCES API & RATE LIMITS
+
+ MusicBrainz          60 req/min
+ Discogs              120 req/min
+ Spotify              60 req/min
+ LastFM               ∞ (selon config)
+
+ Image Priority:      Spotify → LastFM → MusicBrainz → Discogs
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+AMÉLIORATIONS ATTENDUES (4 semaines)
+
+ Images:              58% → 10% sans images (~450 nouvelles)
+ Genres:              0 → ~150-200 albums détectés
+ Descriptions:        Partielles → 100% couverture
+ Quality Score:       85 → 92/100
+
+
+───────────────────────────────────────────────────────────────────────────────
+
+FICHIERS DE SETTINGS
+
+ config/app.json                  ← Configuration principale (scheduler section)
+ config/scheduler_config.json     ← Services du pipeline
+ config/enrichment_config.json    ← Paramètres enrichissement
+ config/SCHEDULER-SETTINGS.md     ← Documentation complète
+ config/SETTINGS-INFO.md          ← Informations rapides
+ config/SETTINGS-STATUS.txt       ← Ce fichier
+ config/secrets.json              ← Credentials API
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+VÉRIFICATION - TOUS LES ÉLÉMENTS VISIBLES
+
+ ✓ enrichment_scheduler              config/app.json:45-97
+ ✓ Tous les services                 config/app.json:47-94
+ ✓ Toutes les tâches (tasks)         config/app.json:99-147
+ ✓ Features enrichissement            config/enrichment_config.json:7-11
+ ✓ Rate limits API                   config/enrichment_config.json:13-17
+ ✓ Data quality settings             config/enrichment_config.json:19-24
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+GESTION - ACTIVATION/DÉSACTIVATION
+
+ Désactiver enrichissement:
+   app.json → scheduler.enrichment_scheduler.enabled = false
+
+ Désactiver une feature:
+   enrichment_config.json → auto_enrichment.features.[feature] = false
+
+ Changer heure d'exécution:
+   app.json → scheduler.tasks[].time = "HH:MM"
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+DOCUMENTATION RAPIDE
+
+ config/SCHEDULER-SETTINGS.md   │ Documentation détaillée + monitoring
+ docs/PRODUCTION.md              │ Guide production complet
+ docs/IMPROVEMENTS.md            │ Détails améliorations
+ docs/AUDIT-2026-02-02.md        │ Rapport audit initial
+ docs/DEPLOYMENT_REPORT.json     │ Rapport déploiement
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ STATUS FINAL: TOUS LES ÉLÉMENTS SCHEDULÉS SONT VISIBLES DANS LES SETTINGS
+
+   • Configuration centralisée et bien organisée
+   • Documentation complète et accessible
+   • Tous les paramètres paramétrables
+   • Système prêt pour production
+   • Monitoring possible via logs
+
+
+═══════════════════════════════════════════════════════════════════════════════
+Last Updated: 2 Février 2026, 18:15
