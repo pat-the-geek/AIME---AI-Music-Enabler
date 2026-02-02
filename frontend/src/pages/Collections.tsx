@@ -376,6 +376,9 @@ export default function Collections() {
       >
         <DialogTitle>Découvrir une Nouvelle Collection</DialogTitle>
         <DialogContent>
+          <Alert severity="info" sx={{ mb: 2 }}>
+            Les albums proviennent de votre libraire Discogs et de votre historique des écoutes (Last.fm, Roon, etc).
+          </Alert>
           <Stack spacing={3} mt={2}>
             <TextField
               label="Nom de la collection"

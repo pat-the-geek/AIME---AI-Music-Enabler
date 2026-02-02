@@ -183,6 +183,8 @@ class AlbumCollectionService:
         - genre: genre musical
         - title: titre de l'album
         - artist name: nom de l'artiste
+        
+        Si aucun album ne matche, retourne des albums aléatoires avec ai_description.
         """
         logger.info(f"🔍 Recherche AI enrichie: {query}")
         
@@ -220,6 +222,15 @@ class AlbumCollectionService:
         
         logger.info(f"✅ {len(albums)} albums trouvés pour la requête AI: {query}")
         logger.info(f"   Termes recherchés: {', '.join(search_terms)}")
+        
+        # FALLBACK: Si aucun album ne matche, retourner albums aléatoires avec ai_description
+        if not albums:
+            logger.warning(f"⚠️ Aucun album ne matche la requête '{query}'. Fallback: albums aléatoires avec AI descriptions")
+            from sqlalchemy import func
+            albums = self.db.query(Album).filter(
+                Album.ai_description.isnot(None)
+            ).order_by(func.random()).limit(limit).all()
+            logger.info(f"📊 Fallback: {len(albums)} albums aléatoires retournés")
         
         return albums
     
