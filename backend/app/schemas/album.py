@@ -50,6 +50,7 @@ class AlbumDetail(AlbumResponse):
     film_title: Optional[str] = None
     film_year: Optional[int] = None
     film_director: Optional[str] = None
+    artist_images: dict = Field(default_factory=dict, description="Images des artistes (nom -> URL)")
     
     class Config:
         from_attributes = True

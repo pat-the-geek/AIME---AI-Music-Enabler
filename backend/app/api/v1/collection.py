@@ -122,7 +122,15 @@ async def get_album(
 ):
     """Détail d'un album."""
     from sqlalchemy.orm import joinedload
-    album = db.query(Album).options(joinedload(Album.images)).filter(Album.id == album_id).first()
+    from app.models import Image
+    import logging
+    
+    logger = logging.getLogger(__name__)
+    
+    album = db.query(Album).options(
+        joinedload(Album.images),
+        joinedload(Album.artists)
+    ).filter(Album.id == album_id).first()
     
     if not album:
         raise HTTPException(status_code=404, detail="Album non trouvé")
@@ -130,6 +138,21 @@ async def get_album(
     # Formater la réponse
     artists = [a.name for a in album.artists]
     images = [img.url for img in album.images]
+    
+    # Récupérer les images d'artiste - approche directe SQL
+    artist_images = {}
+    for artist in album.artists:
+        # Requête directe SQL pour éviter les problèmes d'ORM
+        artist_image = db.query(Image).filter(
+            Image.artist_id == artist.id,
+            Image.image_type == 'artist'
+        ).first()
+        
+        if artist_image and artist_image.url:
+            artist_images[artist.name] = artist_image.url
+            logger.info(f"✅ Image trouvée pour {artist.name}: {artist_image.url[:60]}...")
+        else:
+            logger.warning(f"❌ Pas d'image pour artiste {artist.name} (ID: {artist.id})")
     
     ai_info = None
     resume = None
@@ -145,6 +168,12 @@ async def get_album(
         film_title = album.album_metadata.film_title
         film_year = album.album_metadata.film_year
         film_director = album.album_metadata.film_director
+    
+    # Log avant de retourner
+    logger.info(f"📤 Retour pour album {album_id}:")
+    logger.info(f"   - Title: {album.title}")
+    logger.info(f"   - Artists: {artists}")
+    logger.info(f"   - Artist Images: {artist_images}")
     
     return AlbumDetail(
         id=album.id,
@@ -162,6 +191,7 @@ async def get_album(
         film_title=film_title,
         film_year=film_year,
         film_director=film_director,
+        artist_images=artist_images,
         created_at=album.created_at,
         updated_at=album.updated_at
     )

@@ -23,6 +23,7 @@ class TrackerService:
         self.is_running = False
         self.last_track_key = None
         self.last_poll_time = None  # Dernière fois où le tracker a vérifié Last.fm
+        self.recent_detections = {}  # Tracking des détections récentes (track_key -> timestamp) pour la règle 10min
         
         # Initialiser les services
         lastfm_config = config.get('lastfm', {})
@@ -125,10 +126,31 @@ class TrackerService:
             # Créer clé unique pour éviter doublons
             track_key = f"{current_track['artist']}|{current_track['title']}|{current_track['album']}"
             
+            # RÈGLE 1: Vérifier si on vient de détecter ce track (same track consecutively)
             if track_key == self.last_track_key:
                 logger.debug(f"⏭️ Même track qu'avant, skip: {track_key}")
                 return
             
+            # RÈGLE 2: Vérifier la règle des 10 minutes - éviter les doublons immédiats
+            now = int(datetime.now(timezone.utc).timestamp())
+            ten_minutes_ago = now - 600  # 10 minutes en secondes
+            
+            if track_key in self.recent_detections:
+                last_detection = self.recent_detections[track_key]
+                time_diff = now - last_detection
+                if time_diff < 600:  # Moins de 10 minutes
+                    logger.info(f"🔄 DOUBLON 10min DÉTECTÉ (tracker): {track_key} " +
+                              f"(écart: {time_diff}s). Skip enregistrement.")
+                    return
+            
+            # Nettoyer les anciennes détections (> 10 min)
+            expired_keys = [k for k, v in self.recent_detections.items() if now - v > 600]
+            for k in expired_keys:
+                del self.recent_detections[k]
+                logger.debug(f"🧹 Détection expirée (>10min): {k}")
+            
+            # Enregistrer cette détection
+            self.recent_detections[track_key] = now
             self.last_track_key = track_key
             logger.info(f"✨ Nouveau track détecté: {track_key}")
             
@@ -139,7 +161,7 @@ class TrackerService:
             logger.error(f"❌ Erreur polling Last.fm: {e}", exc_info=True)
     
     def _check_duplicate(self, db: Session, artist_name: str, track_title: str, album_title: str, source: str) -> bool:
-        """Vérifier si le track existe déjà récemment (dans les 5 dernières minutes).
+        """Vérifier si le track existe déjà récemment (dans les 10 dernières minutes) - RÈGLE DES 10 MINUTES.
         
         Args:
             db: Session de base de données
@@ -151,16 +173,18 @@ class TrackerService:
         Returns:
             True si c'est un doublon, False sinon
         """
-        # Timestamp il y a 5 minutes
-        five_minutes_ago = int(datetime.now(timezone.utc).timestamp()) - 300
+        # Timestamp il y a 10 minutes (RÈGLE DES 10 MINUTES)
+        ten_minutes_ago = int(datetime.now(timezone.utc).timestamp()) - 600
         
         logger.debug(f"🔍 Vérification doublons: {artist_name} - {track_title} ({album_title})")
         
         # Chercher le track et l'album correspondant
+        # AMÉLIORATION: Utiliser LOWER() pour case-insensitive matching sur le nom d'artiste
+        from sqlalchemy import func
         track = db.query(Track).join(Album).join(Album.artists).filter(
-            Track.title == track_title,
-            Album.title == album_title,
-            Artist.name == artist_name
+            func.lower(Track.title) == func.lower(track_title),
+            func.lower(Album.title) == func.lower(album_title),
+            func.lower(Artist.name) == func.lower(artist_name)
         ).first()
         
         if not track:
@@ -170,11 +194,11 @@ class TrackerService:
         # Vérifier si une entrée récente existe pour ce track
         recent_entries = db.query(ListeningHistory).filter(
             ListeningHistory.track_id == track.id,
-            ListeningHistory.timestamp >= five_minutes_ago
+            ListeningHistory.timestamp >= ten_minutes_ago
         ).all()
         
         if not recent_entries:
-            logger.debug(f"✅ Aucune entrée récente (< 5 min) pour ce track")
+            logger.debug(f"✅ Aucune entrée récente (< 10 min) pour ce track")
             return False  # Pas d'entrée récente
         
         logger.debug(f"⚠️ {len(recent_entries)} entrée(s) récente(s) trouvée(s) pour ce track")
@@ -227,9 +251,13 @@ class TrackerService:
                         artist_id=artist.id
                     )
                     db.add(img)
+                    logger.info(f"🎤 Image artiste créée pour nouveau artiste: {artist_name}")
             
-            # Créer/récupérer album
-            album = db.query(Album).filter_by(title=album_title).first()
+            # Créer/récupérer album - AVEC FILTRE ARTISTE pour éviter les doublons
+            album = db.query(Album).filter(
+                Album.title == album_title,
+                Album.artists.any(Artist.id == artist.id)
+            ).first()
             if not album:
                 album = Album(title=album_title, source='lastfm')
                 if artist not in album.artists:

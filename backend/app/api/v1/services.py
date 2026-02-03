@@ -990,7 +990,7 @@ async def enrich_single_album(
             "ai_description": False
         }
         
-        # 1. Enrichir avec Spotify
+        # 1. Enrichir avec Spotify - UNIQUEMENT CE QUI MANQUE
         try:
             logger.info(f"🔍 Recherche Spotify pour {album.title}")
             spotify_service = SpotifyService(
@@ -1000,42 +1000,74 @@ async def enrich_single_album(
             
             artist_name = album.artists[0].name if album.artists else ''
             logger.info(f"🔍 Recherche: artist={artist_name}, album={album.title}")
+            
+            # Enrichir l'image de l'artiste UNIQUEMENT si elle n'existe pas du tout
+            if artist_name and album.artists:
+                artist = album.artists[0]
+                existing_artist_image = db.query(Image).filter(
+                    Image.artist_id == artist.id,
+                    Image.image_type == 'artist'
+                ).first()
+                
+                if not existing_artist_image:
+                    artist_image = await spotify_service.search_artist_image(artist_name)
+                    if artist_image:
+                        img = Image(
+                            url=artist_image,
+                            image_type='artist',
+                            source='spotify',
+                            artist_id=artist.id
+                        )
+                        db.add(img)
+                        enrichment_details["images"] = True
+                        updated = True
+                        logger.info(f"🎤 Image artiste ajoutée: {artist_image}")
+                else:
+                    logger.info(f"✓ Image artiste déjà présente, conservation")
+            
+            # Récupérer les détails Spotify
             spotify_details = await spotify_service.search_album_details(artist_name, album.title)
             logger.info(f"📊 Résultat Spotify: {spotify_details}")
             
             if spotify_details:
-                # Mettre à jour l'URL Spotify
-                album.spotify_url = spotify_details.get('spotify_url')
-                enrichment_details["spotify_url"] = album.spotify_url
-                updated = True
-                logger.info(f"✨ URL Spotify trouvée: {album.spotify_url}")
-                
-                # Mettre à jour l'année si elle est disponible
-                if spotify_details.get('year'):
-                    album.year = spotify_details.get('year')
+                # Mettre à jour l'URL Spotify UNIQUEMENT si elle manque
+                if spotify_details.get("spotify_url") and not album.spotify_url:
+                    album.spotify_url = spotify_details["spotify_url"]
+                    enrichment_details["spotify_url"] = album.spotify_url
                     updated = True
-                    logger.info(f"📅 Année Spotify trouvée: {album.year}")
+                    logger.info(f"✨ URL Spotify ajoutée: {album.spotify_url}")
+                elif album.spotify_url:
+                    logger.info(f"✓ URL Spotify déjà présente, conservation")
                 
-                # Mettre à jour les images (forcer la mise à jour même si elles existent)
+                # Mettre à jour l'année UNIQUEMENT si elle manque
+                if spotify_details.get('year') and not album.year:
+                    album.year = spotify_details['year']
+                    updated = True
+                    logger.info(f"📅 Année ajoutée: {album.year}")
+                elif album.year:
+                    logger.info(f"✓ Année déjà présente, conservation")
+                
+                # Ajouter l'image d'album UNIQUEMENT si elle n'existe pas du tout
                 image_url = spotify_details.get('image_url')
-                logger.info(f"🎨 Image URL depuis Spotify: {image_url}")
                 if image_url:
-                    # Supprimer les anciennes images
-                    db.query(Image).filter(Image.album_id == album.id).delete()
+                    existing_album_image = db.query(Image).filter(
+                        Image.album_id == album.id,
+                        Image.image_type == 'album'
+                    ).first()
                     
-                    # Ajouter la nouvelle image
-                    image = Image(
-                        album_id=album.id,
-                        url=image_url,
-                        image_type='album',
-                        source='spotify'
-                    )
-                    db.add(image)
-                    enrichment_details["images"] = True
-                    updated = True
-                    logger.info(f"🖼️ Image Spotify ajoutée/mise à jour: {image_url}")
-                else:
-                    logger.warning(f"⚠️ Pas d'image trouvée dans les détails Spotify")
+                    if not existing_album_image:
+                        image = Image(
+                            album_id=album.id,
+                            url=image_url,
+                            image_type='album',
+                            source='spotify'
+                        )
+                        db.add(image)
+                        enrichment_details["images"] = True
+                        updated = True
+                        logger.info(f"🖼️ Image album ajoutée: {image_url}")
+                    else:
+                        logger.info(f"✓ Image album déjà présente, conservation")
         except Exception as e:
             logger.warning(f"⚠️ Erreur Spotify pour {album.title}: {e}")
         

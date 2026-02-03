@@ -27,6 +27,7 @@ export interface AlbumDetail extends Album {
   film_title?: string
   film_year?: number
   film_director?: string
+  artist_images?: Record<string, string>
 }
 
 export interface ListeningHistory {

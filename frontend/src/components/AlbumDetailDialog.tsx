@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import {
   Dialog,
@@ -61,6 +61,18 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
     },
     enabled: albumId !== null && open,
   })
+
+  // Debug: log albumDetail quand elle change
+  useEffect(() => {
+    if (albumDetail) {
+      console.log('📸 AlbumDetail reçue:', {
+        title: albumDetail.title,
+        artists: albumDetail.artists,
+        artist_images: albumDetail.artist_images,
+        has_artist_images: albumDetail.artist_images && Object.keys(albumDetail.artist_images).length > 0
+      })
+    }
+  }, [albumDetail])
 
   // Récupérer les zones Roon
   const { data: roonZones } = useQuery({
@@ -159,15 +171,44 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography variant="h5">
-              {albumDetail?.title || 'Chargement...'}
-            </Typography>
-            <IconButton onClick={handleClose}>
-              <CloseIcon />
-            </IconButton>
-          </Box>
+        <DialogTitle sx={{ position: 'relative', paddingRight: '120px' }}>
+          <Typography variant="h5">
+            {albumDetail?.title || 'Chargement...'}
+          </Typography>
+          
+          {/* Vignette de l'artiste - coin supérieur droit */}
+          {albumDetail?.artist_images && 
+            Object.keys(albumDetail.artist_images).length > 0 && 
+            albumDetail.artist_images[Object.keys(albumDetail.artist_images)[0]] && (
+              <Tooltip title={albumDetail.artists?.[0] || 'Artiste'}>
+                <Box
+                  component="img"
+                  src={albumDetail.artist_images[Object.keys(albumDetail.artist_images)[0]]}
+                  alt={albumDetail.artists?.[0] || 'Artiste'}
+                  sx={{
+                    position: 'absolute',
+                    top: 95,
+                    right: 42,
+                    width: 70,
+                    height: 70,
+                    borderRadius: 1.5,
+                    objectFit: 'cover',
+                    boxShadow: 2,
+                    border: '2px solid',
+                    borderColor: 'primary.main',
+                    cursor: 'pointer'
+                  }}
+                />
+              </Tooltip>
+            )}
+          
+          {/* Bouton fermer */}
+          <IconButton 
+            onClick={handleClose}
+            sx={{ position: 'absolute', top: 12, right: 12 }}
+          >
+            <CloseIcon />
+          </IconButton>
         </DialogTitle>
         
         <DialogContent dividers>
@@ -194,7 +235,7 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
                 
                 <Grid item xs={12} md={7}>
                   <Stack spacing={2}>
-                    <Box>
+                    <Box sx={{ paddingRight: '95px' }}>
                       <Typography variant="overline" color="text.secondary">
                         Artiste(s)
                       </Typography>
