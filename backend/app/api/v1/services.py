@@ -992,13 +992,16 @@ async def enrich_single_album(
         
         # 1. Enrichir avec Spotify
         try:
+            logger.info(f"🔍 Recherche Spotify pour {album.title}")
             spotify_service = SpotifyService(
                 client_id=secrets.get('spotify', {}).get('client_id', ''),
                 client_secret=secrets.get('spotify', {}).get('client_secret', '')
             )
             
             artist_name = album.artists[0].name if album.artists else ''
+            logger.info(f"🔍 Recherche: artist={artist_name}, album={album.title}")
             spotify_details = await spotify_service.search_album_details(album.title, artist_name)
+            logger.info(f"📊 Résultat Spotify: {spotify_details}")
             
             if spotify_details:
                 # Mettre à jour l'URL Spotify
@@ -1033,7 +1036,7 @@ async def enrich_single_album(
         except Exception as e:
             logger.warning(f"⚠️ Erreur Spotify pour {album.title}: {e}")
         
-        # 2. Enrichir avec IA (descriptions)
+        # 2. Enrichir avec IA (descriptions) - de façon optionnelle sans bloquer
         try:
             from app.services.ai_service import AIService
             ai_service = AIService(
@@ -1042,24 +1045,33 @@ async def enrich_single_album(
             )
             
             artist_name = album.artists[0].name if album.artists else 'Unknown'
-            ai_info = await ai_service.generate_album_info(artist_name, album.title)
-            
-            if ai_info:
-                if not album.album_metadata:
-                    metadata = Metadata(album_id=album.id, ai_info=ai_info)
-                    db.add(metadata)
-                else:
-                    album.album_metadata.ai_info = ai_info
-                enrichment_details["ai_description"] = True
-                updated = True
-                logger.info(f"🤖 Description IA ajoutée")
+            try:
+                # Ajouter un timeout pour l'IA pour ne pas bloquer
+                ai_info = await asyncio.wait_for(
+                    ai_service.generate_album_info(artist_name, album.title),
+                    timeout=10
+                )
+                
+                if ai_info:
+                    if not album.album_metadata:
+                        metadata = Metadata(album_id=album.id, ai_info=ai_info)
+                        db.add(metadata)
+                    else:
+                        album.album_metadata.ai_info = ai_info
+                    enrichment_details["ai_description"] = True
+                    updated = True
+                    logger.info(f"🤖 Description IA ajoutée")
+            except asyncio.TimeoutError:
+                logger.warning(f"⚠️ Timeout IA pour {album.title}")
         except Exception as e:
             logger.warning(f"⚠️ Erreur IA pour {album.title}: {e}")
         
         # Sauvegarder les modifications
         if updated:
             db.commit()
-            logger.info(f"✅ Album {album.title} enrichi avec succès")
+            logger.info(f"✅ Album {album.title} enrichi avec succès - Spotify OK")
+        else:
+            logger.warning(f"⚠️ Album {album.title} - aucun enrichissement appliqué")
         
         return {
             "status": "success",
@@ -1072,7 +1084,7 @@ async def enrich_single_album(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"❌ Erreur enrichissement album {album_id}: {e}")
+        logger.error(f"❌ Erreur enrichissement album {album_id}: {e}", exc_info=True)
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Erreur enrichissement: {str(e)}")
 

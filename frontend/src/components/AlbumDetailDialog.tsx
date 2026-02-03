@@ -80,12 +80,10 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
       const response = await apiClient.post(`/services/ai/enrich-album/${id}`)
       return response.data
     },
-    onSuccess: () => {
-      // Attendre que la DB soit synchronisée et faire refetch agressif
-      setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['album', albumId] })
-        refetch()
-      }, 1000)
+    onSuccess: async () => {
+      // Invalider le cache et attendre le refetch
+      queryClient.invalidateQueries({ queryKey: ['album', albumId] })
+      await refetch()
       queryClient.invalidateQueries({ queryKey: ['albums'] })
       setSnackbar({ open: true, message: 'Album enrichi avec succès (images, Spotify, descriptions) !', severity: 'success' })
     },
