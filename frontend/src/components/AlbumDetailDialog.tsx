@@ -26,6 +26,8 @@ import {
   Edit as EditIcon,
   Save as SaveIcon,
   PlayArrow,
+  Code as CodeIcon,
+  Preview as PreviewIcon,
 } from '@mui/icons-material'
 import ReactMarkdown from 'react-markdown'
 import apiClient from '@/api/client'
@@ -43,6 +45,7 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
   const [spotifyUrlInput, setSpotifyUrlInput] = useState('')
   const [zoneDialogOpen, setZoneDialogOpen] = useState(false)
   const [selectedZone, setSelectedZone] = useState<string>('')
+  const [resumeViewMode, setResumeViewMode] = useState<'markdown' | 'raw'>('markdown')
   const [snackbar, setSnackbar] = useState({ 
     open: false, 
     message: '', 
@@ -428,12 +431,45 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
                 <>
                   <Divider sx={{ my: 3 }} />
                   <Box>
-                    <Typography variant="h6" gutterBottom>
-                      📝 Résumé
-                    </Typography>
-                    <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.7 }}>
-                      {albumDetail.resume}
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+                      <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
+                        📝 Résumé
+                      </Typography>
+                      <Tooltip title={resumeViewMode === 'markdown' ? 'Afficher le texte brut' : 'Afficher formaté'}>
+                        <IconButton
+                          size="small"
+                          onClick={() => setResumeViewMode(resumeViewMode === 'markdown' ? 'raw' : 'markdown')}
+                          color={resumeViewMode === 'markdown' ? 'primary' : 'default'}
+                        >
+                          {resumeViewMode === 'markdown' ? <CodeIcon fontSize="small" /> : <PreviewIcon fontSize="small" />}
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
+                    {resumeViewMode === 'markdown' ? (
+                      <Box 
+                        sx={{ 
+                          backgroundColor: 'action.hover',
+                          p: 2,
+                          borderRadius: 1,
+                          '& p': { mb: 1.5 },
+                          '& p:last-child': { mb: 0 },
+                          '& em': { fontStyle: 'italic' },
+                          '& strong': { fontWeight: 'bold' },
+                          '& h1, & h2, & h3': { mt: 2, mb: 1 },
+                          '& h1:first-child, & h2:first-child, & h3:first-child': { mt: 0 },
+                          '& ul, & ol': { mb: 1.5, pl: 2 },
+                          '& li': { mb: 0.5 },
+                          '& blockquote': { borderLeft: '3px solid', borderColor: 'primary.main', pl: 2, fontStyle: 'italic' },
+                          '& code': { backgroundColor: 'rgba(0, 0, 0, 0.05)', p: '2px 6px', borderRadius: '4px', fontFamily: 'monospace' },
+                        }}
+                      >
+                        <ReactMarkdown>{albumDetail.resume}</ReactMarkdown>
+                      </Box>
+                    ) : (
+                      <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.7, backgroundColor: 'action.hover', p: 2, borderRadius: 1, fontFamily: 'monospace' }}>
+                        {albumDetail.resume}
+                      </Typography>
+                    )}
                   </Box>
                 </>
               )}

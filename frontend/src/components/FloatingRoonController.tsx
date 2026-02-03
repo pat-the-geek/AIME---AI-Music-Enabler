@@ -111,8 +111,8 @@ export default function FloatingRoonController() {
         <Box
           sx={{
             p: 1.5,
-            backgroundColor: 'rgba(76, 175, 80, 0.2)',
-            borderBottom: '1px solid rgba(76, 175, 80, 0.3)',
+            backgroundColor: '#ffffff',
+            borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -145,7 +145,7 @@ export default function FloatingRoonController() {
               variant="caption"
               sx={{
                 fontWeight: 600,
-                color: '#4caf50',
+                color: '#000000',
                 textTransform: 'uppercase',
                 letterSpacing: 0.5,
               }}
@@ -160,7 +160,7 @@ export default function FloatingRoonController() {
                 e.stopPropagation()
                 setHidden(true)
               }}
-              sx={{ color: 'rgba(255, 255, 255, 0.5)' }}
+              sx={{ color: 'rgba(0, 0, 0, 0.5)' }}
             >
               <Close fontSize="small" />
             </IconButton>
@@ -170,7 +170,7 @@ export default function FloatingRoonController() {
                 e.stopPropagation()
                 setExpanded(!expanded)
               }}
-              sx={{ color: 'rgba(255, 255, 255, 0.5)' }}
+              sx={{ color: 'rgba(0, 0, 0, 0.5)' }}
             >
               {expanded ? <ExpandLess fontSize="small" /> : <ExpandMore fontSize="small" />}
             </IconButton>
@@ -180,6 +180,22 @@ export default function FloatingRoonController() {
         {/* Contenu détaillé */}
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent sx={{ py: 2 }}>
+            {/* Image de l'album */}
+            {nowPlaying.image_url && (
+              <Box
+                component="img"
+                src={nowPlaying.image_url}
+                alt={nowPlaying.album}
+                sx={{
+                  width: '100%',
+                  height: 200,
+                  objectFit: 'cover',
+                  borderRadius: 1,
+                  marginBottom: 2,
+                }}
+              />
+            )}
+            
             {/* Titre du track */}
             <Typography
               variant="subtitle2"
@@ -200,7 +216,7 @@ export default function FloatingRoonController() {
             <Typography
               variant="caption"
               sx={{
-                color: 'rgba(255, 255, 255, 0.7)',
+                color: '#ffffff',
                 display: 'block',
                 mb: 0.5,
                 overflow: 'hidden',
@@ -216,7 +232,7 @@ export default function FloatingRoonController() {
             <Typography
               variant="caption"
               sx={{
-                color: 'rgba(255, 255, 255, 0.5)',
+                color: '#ffffff',
                 display: 'block',
                 mb: 2,
                 overflow: 'hidden',
@@ -232,7 +248,7 @@ export default function FloatingRoonController() {
             <Typography
               variant="caption"
               sx={{
-                color: 'rgba(76, 175, 80, 0.8)',
+                color: '#ffffff',
                 display: 'block',
                 mb: 2,
                 fontSize: '0.7rem',

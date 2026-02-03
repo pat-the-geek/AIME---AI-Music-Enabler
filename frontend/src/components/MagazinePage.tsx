@@ -1026,22 +1026,26 @@ export default function MagazinePage({ page, index }: PageProps) {
             {page.title}
           </Typography>
 
-          <Paper elevation={6} sx={{
-            background: `linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%)`,
-            border: '3px solid #2c3e50',
-            padding: '32px',
-            borderRadius: '16px',
-            marginBottom: '48px',
-            boxShadow: `0 8px 32px ${accentColor}40`
-          }}>
-          <Typography variant="h6" sx={{
-            lineHeight: 2,
+          <Box sx={{
+            '& p': { mb: 1.5, lineHeight: 1.8 },
+            '& p:last-child': { mb: 0 },
+            '& em': { fontStyle: 'italic', color: colors.text },
+            '& strong': { fontWeight: 'bold', color: colors.text },
+            '& h1, & h2, & h3': { mt: 2, mb: 1, fontWeight: 700 },
+            '& h1:first-child, & h2:first-child, & h3:first-child': { mt: 0 },
+            '& ul, & ol': { mb: 1.5, pl: 2 },
+            '& li': { mb: 0.5 },
+            '& blockquote': { borderLeft: '4px solid', borderColor: 'primary.main', pl: 2, fontStyle: 'italic', my: 1 },
+            '& code': { backgroundColor: 'rgba(0, 0, 0, 0.05)', p: '2px 6px', borderRadius: '4px', fontFamily: 'monospace' },
             color: colors.text,
-            fontWeight: 500
+            fontWeight: 500,
+            lineHeight: 2,
+            marginBottom: '48px',
+            fontSize: '1.15em',
+            textAlign: 'left'
           }}>
-            {playlist.description}
-          </Typography>
-          </Paper>
+            <ReactMarkdown>{playlist.description}</ReactMarkdown>
+          </Box>
 
         <Grid container spacing={3}>
           {playlist.albums.map((album: any, idx: number) => (

@@ -6,6 +6,8 @@ from typing import Optional
 
 from app.core.config import get_settings
 from app.api.v1.services import get_roon_service as get_roon_service_singleton
+from app.models.album import Album
+from app.database import SessionLocal
 
 logger = logging.getLogger(__name__)
 
@@ -165,11 +167,46 @@ async def get_now_playing():
         if not now_playing:
             return {"message": "Aucune lecture en cours"}
         
-        return now_playing
+        # Convertir en dict mutable pour ajouter image_url
+        result = dict(now_playing)
+        
+        logger.info(f"🎵 Now playing from Roon: {result}")
+        
+        # Essayer de récupérer l'image depuis la base de données si elle n'est pas disponible
+        if not result.get('image_url'):
+            try:
+                db = SessionLocal()
+                
+                # Chercher l'album par titre exact ou approché
+                logger.info(f"🔍 Cherche album: {result['album']}")
+                album = db.query(Album).filter(
+                    Album.title.ilike(f"%{result['album']}%")
+                ).first()
+                
+                if album:
+                    logger.info(f"✅ Album trouvé: {album.title}, images: {len(album.images)}, image_url: {album.image_url}")
+                    # Chercher une image associée
+                    if album.images and len(album.images) > 0:
+                        result['image_url'] = album.images[0].url
+                        logger.info(f"📸 Image trouvée dans relations: {album.images[0].url[:80]}...")
+                    # Sinon, utiliser l'image_url directe de l'album
+                    elif album.image_url:
+                        result['image_url'] = album.image_url
+                        logger.info(f"📸 Image trouvée dans album.image_url: {album.image_url[:80]}...")
+                else:
+                    logger.info(f"❌ Album non trouvé pour: {result['album']}")
+                    
+                db.close()
+            except Exception as e:
+                logger.error(f"❌ Erreur lors de la recherche d'image: {e}", exc_info=True)
+        
+        logger.info(f"🎵 Now playing après lookup image: image_url={result.get('image_url', 'NONE')}")
+        return result
         
     except HTTPException:
         raise
     except Exception as e:
+        logger.error(f"❌ Erreur Roon: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Erreur Roon: {str(e)}")
 
 

@@ -7,6 +7,7 @@ interface NowPlayingTrack {
   album: string
   zone_name: string
   zone_id: string
+  image_url?: string
 }
 
 interface RoonContextType {

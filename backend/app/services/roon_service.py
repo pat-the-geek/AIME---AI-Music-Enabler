@@ -113,7 +113,8 @@ class RoonService:
                 'artist': str,
                 'album': str,
                 'zone_id': str,
-                'zone_name': str
+                'zone_name': str,
+                'image_url': str (optionnel)
             }
         """
         if not self.roon_api or not hasattr(self.roon_api, 'zones'):
@@ -140,13 +141,25 @@ class RoonService:
                 # Extraire la durée (en secondes)
                 duration_seconds = now_playing.get('length')
                 
+                # Chercher l'image depuis les métadonnées Roon (artist image)
+                image_url = None
+                try:
+                    # Chercher image_key dans l'objet now_playing
+                    if 'image_key' in now_playing:
+                        image_key = now_playing['image_key']
+                        if hasattr(self.roon_api, 'get_image'):
+                            image_url = self.roon_api.get_image(image_key)
+                except Exception as e:
+                    logger.debug(f"⚠️ Impossible de récupérer l'image Roon: {e}")
+                
                 return {
                     'title': three_line.get('line1', 'Unknown Title'),
                     'artist': three_line.get('line2', 'Unknown Artist'),
                     'album': three_line.get('line3', 'Unknown Album'),
                     'zone_id': zone_id,
                     'zone_name': zone_info.get('display_name', 'Unknown Zone'),
-                    'duration_seconds': duration_seconds
+                    'duration_seconds': duration_seconds,
+                    'image_url': image_url
                 }
             
             # Aucune zone en lecture
