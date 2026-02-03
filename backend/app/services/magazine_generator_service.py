@@ -20,6 +20,42 @@ class MagazineGeneratorService:
         self.db = db
         self.ai_service = ai_service
     
+    def _clean_markdown_text(self, text: str) -> str:
+        """Nettoyer le texte en supprimant les délimiteurs markdown inutiles."""
+        if not text:
+            return text
+        
+        # Supprimer les délimiteurs de bloc markdown
+        text = text.strip()
+        if text.startswith('```markdown'):
+            text = text[11:].lstrip('\n')  # Remove opening ```markdown
+        if text.startswith('```'):
+            text = text[3:].lstrip('\n')
+        if text.endswith('```'):
+            text = text[:-3].rstrip('\n')  # Remove closing ```
+        
+        return text.strip()
+    
+    def _ensure_markdown_format(self, text: str) -> str:
+        """Assurer que le texte est correctement formaté en markdown."""
+        if not text:
+            return text
+        
+        text = self._clean_markdown_text(text)
+        
+        # Si le texte ne contient aucun formatage markdown, ajouter du gras
+        if not any(marker in text for marker in ['**', '*', '#', '-', '>']):
+            # Mettre en gras le premier mot ou la première phrase
+            if len(text) > 50:
+                sentences = text.split('. ')
+                if sentences:
+                    sentences[0] = f"**{sentences[0]}**"
+                    text = '. '.join(sentences)
+            else:
+                text = f"**{text}**"
+        
+        return text
+    
     def _get_artist_name(self, album: Album) -> str:
         """Obtenir le nom de l'artiste principal de l'album."""
         if album.artists:
@@ -119,7 +155,7 @@ Présente le résultat en markdown."""
         try:
             description = await self.ai_service.ask_for_ia(prompt, max_tokens=600)
             if description and description != "Aucune information disponible":
-                return description
+                return self._ensure_markdown_format(description)
         except Exception as e:
             logger.warning(f"⚠️ Erreur génération description remaster/deluxe pour {album.title}: {e}")
         
@@ -458,12 +494,14 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
             ])
         
         # Générer une description courte de l'artiste
-        artist_bio_prompt = f"Génère une description courte et inspirante (50-80 mots) sur l'artiste {artist.name} et son style musical. Sois poétique et utilise du formatage markdown (gras, italique)."
-        artist_bio = await self.ai_service.ask_for_ia(artist_bio_prompt, max_tokens=150)
+        artist_bio_prompt = f"Génère une bio courte et inspirante (50-80 mots) de {artist.name}. IMPORTANT: Utilise du markdown structuré avec **gras** pour les mots-clés, *italique* pour les adjectifs, et des symboles ✨ 🎵. Sois poétique."
+        artist_bio = await self.ai_service.ask_for_ia(artist_bio_prompt, max_tokens=180)
         
         # Fallback pour la bio
         if not artist_bio or artist_bio == "Aucune information disponible":
-            artist_bio = f"**{artist.name}** est un artiste visionnaire dont la musique transcende les genres. Sa **palette sonore** unique mêle *sensibilité* et *innovation*. Chaque composition raconte une histoire *profonde*, offrant aux auditeurs une **expérience intime** et *transformatrice*. Un créateur dont l'art inspire et **touche l'âme**."
+            artist_bio = f"**{artist.name}** est un artiste visionnaire dont la musique transcende les genres. Sa **palette sonore** unique mêle *sensibilité* et *innovation*. Chaque composition raconte une histoire *profonde*, offrant aux auditeurs une **expérience intime** et *transformatrice*. Un créateur dont l'art inspire et **touche l'âme**. ✨"
+        else:
+            artist_bio = self._ensure_markdown_format(artist_bio)
         
         # Générer des contenus variés pour chaque album via l'IA
         albums_with_content = []
@@ -472,9 +510,9 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
         for album in albums:
             # Vérifier si c'est un remaster/deluxe pour utiliser le prompt spécifique
             if self._is_remaster_or_deluxe(album.title):
-                # Si l'album a déjà une description riche, l'utiliser
+                # Si l'album a déjà une description riche, l'utiliser (nettoyée)
                 if album.ai_description and len(album.ai_description) > 500:
-                    ai_content = album.ai_description
+                    ai_content = self._clean_markdown_text(album.ai_description)
                     logger.info(f"♻️ Réutilisation description existante pour: {album.title}")
                 else:
                     # Générer maintenant avec fallback rapide (sera enrichi en arrière-plan)
@@ -482,9 +520,9 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
                     logger.info(f"📦 Fallback pour {album.title} (enrichissement en arrière-plan prévu)")
                 content_type = "remaster_detail"
             else:
-                # Pour les albums normaux, utiliser la description existante ou générer une courte
+                # Pour les albums normaux, utiliser la description existante (nettoyée) ou générer une courte
                 if album.ai_description and len(album.ai_description) > 100:
-                    ai_content = album.ai_description
+                    ai_content = self._clean_markdown_text(album.ai_description)
                     logger.info(f"♻️ Réutilisation description pour: {album.title}")
                     content_type = "existing"
                 else:
@@ -512,16 +550,18 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
             filler_type = random.choice(["quote", "fact", "trivia"])
             try:
                 if filler_type == "quote":
-                    prompt = "Donne une citation courte (15-25 mots) d'un musicien célèbre. Retourne en markdown avec guillemets et auteur en *italique*."
+                    prompt = "Donne une citation courte (15-25 mots) d'un musicien célèbre. Formate en markdown avec le guillemet en **gras** et l'auteur en *italique*. Ajoute un emoji musical."
                 elif filler_type == "fact":
-                    prompt = f"Écris un fait musical court (15-25 mots) sur {random.choice([a.genre for a in albums if a.genre])}. Format markdown."
+                    genre = random.choice([a.genre for a in albums if a.genre]) or "musique"
+                    prompt = f"Écris un fait musical court (15-25 mots) sur {genre}. Utilise du markdown: mot-clé en **gras**, descriptions en *italique*. Ajoute un emoji pertinent."
                 else:  # trivia
                     years = [a.year for a in albums if a.year]
                     year = random.choice(years) if years else 2000
-                    prompt = f"Anecdote musicale (20-30 mots) sur l'année {year}. Format markdown."
+                    prompt = f"Anecdote musicale (20-30 mots) sur l'année {year}. Formate en markdown avec années/artistes en **gras** et détails en *italique*. Ajoute un emoji."
                 
-                filler_text = await self.ai_service.ask_for_ia(prompt, max_tokens=60)
+                filler_text = await self.ai_service.ask_for_ia(prompt, max_tokens=80)
                 if filler_text:
+                    filler_text = self._ensure_markdown_format(filler_text)
                     filler_content.append({
                         "type": filler_type,
                         "text": filler_text
@@ -579,8 +619,10 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
         album = random.choice(albums)
         artist_names = ", ".join([a.name for a in album.artists]) if album.artists else "Artiste inconnu"
         
-        # Utiliser la description existante (potentiellement enrichie)
+        # Utiliser la description existante (potentiellement enrichie) avec nettoyage
         description = album.ai_description
+        if description:
+            description = self._clean_markdown_text(description)
         
         # Si l'album est un remaster/deluxe SANS description riche, utiliser un fallback
         # (l'enrichissement se fera en arrière-plan)
@@ -588,7 +630,7 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
             logger.info(f"📀 Album remaster/deluxe sans description riche: {album.title}, utilisation fallback")
             description = self._get_creative_fallback(album, "remaster")
         elif description:
-            logger.info(f"♻️ Utilisation description existante pour {album.title}: {len(description)} chars")
+            logger.info(f"♻️ Utilisation description existante pour {album.title}: {len(description)} chars (nettoyée)")
         
         # Layout IA
         layout_suggestion = await self._generate_layout_suggestion(
@@ -636,8 +678,8 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
         # Générer des haikus créatifs et descriptions variées pour chaque album
         haikus = []
         for album in selected_albums:
-            # Générer un haïku unique
-            haiku_prompt = f"Crée un haïku poétique (5-7-5 syllabes) sur l'album '{album.title}' de {self._get_artist_name(album)}. Sois créatif et émotionnel. Réponds UNIQUEMENT avec le haïku en 3 lignes, sans autre texte."
+            # Générer un haïku unique avec formatage markdown
+            haiku_prompt = f"Crée un haïku poétique (5-7-5 syllabes) sur l'album '{album.title}' de {self._get_artist_name(album)}. Format markdown: mots-clés en **gras**, adjectifs en *italique*. Sois poétique et émotionnel. Réponds UNIQUEMENT avec le haïku en 3 lignes."
             haiku = await self.ai_service.ask_for_ia(haiku_prompt, max_tokens=100)
             
             # Utiliser fallback si l'IA échoue
@@ -658,6 +700,9 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
             if description == "Aucune information disponible" or not description or len(description.strip()) < 50:
                 description = self._get_creative_fallback(album, "description")
                 logger.info(f"📝 Fallback créatif utilisé pour {album.title} (page 3)")
+            else:
+                # Nettoyer et formater le texte généré
+                description = self._ensure_markdown_format(description)
             
             # Générer un layout unique et varié pour chaque haiku
             individual_layout = await self._generate_layout_suggestion(
