@@ -127,6 +127,8 @@ class SpotifyService:
                 albums = data.get("albums", {}).get("items", [])
                 if albums:
                     album = albums[0]
+                    logger.info(f"🎵 Album trouvé: {album.get('name')}")
+                    logger.info(f"📸 Images dans réponse: {album.get('images')}")
                     release_date = album.get("release_date", "")
                     year = None
                     if release_date:
