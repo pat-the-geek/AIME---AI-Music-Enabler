@@ -9,6 +9,7 @@ import Timeline from './pages/Timeline'
 import Collections from './pages/Collections'
 import Analytics from './pages/Analytics'
 import AnalyticsAdvanced from './pages/AnalyticsAdvanced'
+import Magazine from './pages/Magazine'
 import Settings from './pages/Settings'
 import { RoonProvider } from './contexts/RoonContext'
 
@@ -21,7 +22,8 @@ function App() {
           <FloatingRoonController />
           <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
             <Routes>
-              <Route path="/" element={<Navigate to="/collection" replace />} />
+              <Route path="/" element={<Navigate to="/magazine" replace />} />
+              <Route path="/magazine" element={<Magazine />} />
               <Route path="/collection" element={<Collection />} />
               <Route path="/journal" element={<Journal />} />
               <Route path="/timeline" element={<Timeline />} />

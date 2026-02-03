@@ -252,6 +252,24 @@ class TrackerService:
                     )
                     db.add(img)
                     logger.info(f"🎤 Image artiste créée pour nouveau artiste: {artist_name}")
+            else:
+                # Artiste existant : vérifier si l'image manque
+                has_artist_image = db.query(Image).filter_by(
+                    artist_id=artist.id,
+                    image_type='artist'
+                ).first() is not None
+                
+                if not has_artist_image:
+                    artist_image = await self.spotify.search_artist_image(artist_name)
+                    if artist_image:
+                        img = Image(
+                            url=artist_image,
+                            image_type='artist',
+                            source='spotify',
+                            artist_id=artist.id
+                        )
+                        db.add(img)
+                        logger.info(f"🎤 Image artiste ajoutée pour artiste existant: {artist_name}")
             
             # Créer/récupérer album - AVEC FILTRE ARTISTE pour éviter les doublons
             album = db.query(Album).filter(

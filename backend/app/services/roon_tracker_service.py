@@ -288,6 +288,24 @@ class RoonTrackerService:
                     )
                     db.add(img)
                     logger.info(f"🎤 Image artiste créée pour nouveau artiste: {artist_name}")
+            else:
+                # Artiste existant : vérifier si l'image manque
+                has_artist_image = db.query(Image).filter_by(
+                    artist_id=artist.id,
+                    image_type='artist'
+                ).first() is not None
+                
+                if not has_artist_image:
+                    artist_image = await self.spotify.search_artist_image(artist_name)
+                    if artist_image:
+                        img = Image(
+                            url=artist_image,
+                            image_type='artist',
+                            source='spotify',
+                            artist_id=artist.id
+                        )
+                        db.add(img)
+                        logger.info(f"🎤 Image artiste ajoutée pour artiste existant: {artist_name}")
             
             # Créer/récupérer album - AVEC FILTRE ARTISTE pour éviter les doublons
             album = db.query(Album).filter(
@@ -325,6 +343,74 @@ class RoonTrackerService:
                         db.add(metadata)
                 except Exception as e:
                     logger.warning(f"⚠️ Erreur enrichissement IA pour {album_title}: {e}")
+            else:
+                # Album existant : enrichir si manquant (URL Spotify, année, images)
+                needs_update = False
+                
+                if not album.spotify_url or not album.year:
+                    spotify_details = await self.spotify.search_album_details(artist_name, album_title)
+                    if spotify_details:
+                        if not album.spotify_url and spotify_details.get("spotify_url"):
+                            album.spotify_url = spotify_details["spotify_url"]
+                            logger.info(f"🎵 URL Spotify ajoutée pour album existant: {album_title}")
+                            needs_update = True
+                        if not album.year and spotify_details.get("year"):
+                            album.year = spotify_details["year"]
+                            logger.info(f"📅 Année ajoutée pour album existant: {album_title}")
+                            needs_update = True
+                        
+                        # Vérifier si l'image Spotify manque
+                        if spotify_details.get("image_url"):
+                            has_album_image = db.query(Image).filter_by(
+                                album_id=album.id,
+                                image_type='album',
+                                source='spotify'
+                            ).first() is not None
+                            
+                            if not has_album_image:
+                                img = Image(
+                                    url=spotify_details["image_url"],
+                                    image_type='album',
+                                    source='spotify',
+                                    album_id=album.id
+                                )
+                                db.add(img)
+                                logger.info(f"🖼️ Image album ajoutée pour album existant: {album_title}")
+                                needs_update = True
+                else:
+                    # Vérifier uniquement l'image si URL et année existent
+                    has_album_image = db.query(Image).filter_by(
+                        album_id=album.id,
+                        image_type='album',
+                        source='spotify'
+                    ).first() is not None
+                    
+                    if not has_album_image:
+                        album_image = await self.spotify.search_album_image(artist_name, album_title)
+                        if album_image:
+                            img = Image(
+                                url=album_image,
+                                image_type='album',
+                                source='spotify',
+                                album_id=album.id
+                            )
+                            db.add(img)
+                            logger.info(f"🖼️ Image album ajoutée pour album existant: {album_title}")
+                            needs_update = True
+                
+                # Vérifier info IA pour les albums existants (IMPORTANT: enrichissement IA)
+                has_ai_info = db.query(Metadata).filter_by(album_id=album.id).first() is not None
+                
+                if not has_ai_info:
+                    try:
+                        ai_info = await self.ai.generate_album_info(artist_name, album_title)
+                        if ai_info:
+                            metadata = Metadata(album_id=album.id, ai_info=ai_info)
+                            db.add(metadata)
+                            logger.info(f"🤖 Info IA ajoutée pour album existant: {album_title}")
+                            needs_update = True
+                    except Exception as e:
+                        logger.warning(f"⚠️ Erreur enrichissement IA pour album existant {album_title}: {e}")
             
             # Créer/récupérer track
             track = db.query(Track).filter_by(

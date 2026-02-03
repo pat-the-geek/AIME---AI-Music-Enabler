@@ -696,3 +696,112 @@ async def control_playback(request: RoonPlaybackControlRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur: {str(e)}")
 
+
+# ============================================================================
+# Route supplémentaire pour magazine
+# ============================================================================
+
+class RoonPlayByNameRequest(BaseModel):
+    """Requête pour jouer un album par son nom d'artiste et titre."""
+    artist_name: Optional[str] = None
+    album_title: str
+    zone_name: Optional[str] = None  # Zone optionnelle
+
+
+@router.post("/play-album-by-name")
+async def play_album_by_name(request: RoonPlayByNameRequest):
+    """Jouer un album via son nom d'artiste et titre (depuis le magazine).
+    
+    Cherche l'album dans la base de données et le joue sur la première zone disponible.
+    """
+    logger.info(f"📡 Requête play_album_by_name: {request.artist_name} - {request.album_title}")
+    
+    check_roon_enabled()
+    
+    from sqlalchemy.orm import Session
+    from app.database import SessionLocal
+    from app.models import Album
+    
+    db: Session = SessionLocal()
+    
+    try:
+        # Initialiser Roon en premier
+        logger.info("🔌 Initialisation du service Roon...")
+        try:
+            roon_service = get_roon_service_singleton()
+            logger.info("✅ Service Roon initialisé")
+        except Exception as e:
+            logger.error(f"❌ Impossible d'initialiser Roon: {e}")
+            raise HTTPException(status_code=503, detail=f"Roon non disponible: {str(e)}")
+        
+        # Vérifier la connectivité
+        try:
+            zones = roon_service.get_zones()
+            logger.info(f"📍 Zones Roon trouvées: {list(zones.keys())}")
+            if not zones:
+                logger.error("❌ Aucune zone Roon disponible")
+                raise HTTPException(status_code=503, detail="Aucune zone Roon disponible. Vérifiez que Roon Core est en ligne.")
+        except Exception as e:
+            logger.error(f"❌ Erreur lors de la récupération des zones: {e}")
+            raise HTTPException(status_code=503, detail=f"Impossible de communiquer avec Roon: {str(e)}")
+        
+        # Déterminer la zone à utiliser
+        zone_id = None
+        if request.zone_name:
+            zone_id = roon_service.get_zone_by_name(request.zone_name)
+            if not zone_id:
+                raise HTTPException(status_code=404, detail=f"Zone '{request.zone_name}' non trouvée")
+        else:
+            zone_id = list(zones.keys())[0]
+            logger.info(f"📍 Utilisation de la zone par défaut: {zone_id}")
+        
+        # Chercher l'album par titre et artiste
+        query = db.query(Album).filter(Album.title == request.album_title)
+        
+        if request.artist_name:
+            from app.models import Artist
+            query = query.join(Artist, Album.artists).filter(
+                Artist.name == request.artist_name
+            )
+        
+        album = query.first()
+        
+        if album:
+            logger.info(f"✅ Album trouvé en base: ID={album.id}")
+            artist_name = ", ".join([a.name for a in album.artists]) if album.artists else request.artist_name or "Unknown"
+        else:
+            logger.warning(f"⚠️ Album non trouvé en base: {request.artist_name} - {request.album_title}")
+            artist_name = request.artist_name or "Unknown"
+        
+        # Jouer l'album
+        logger.info(f"▶️ Lancement de la lecture: {artist_name} - {request.album_title}")
+        try:
+            success = roon_service.play_album(
+                zone_or_output_id=zone_id,
+                artist=artist_name,
+                album=request.album_title
+            )
+            logger.info(f"{'✅' if success else '⚠️'} Résultat play_album: {success}")
+        except Exception as e:
+            logger.error(f"❌ Erreur lors de l'appel play_album: {e}")
+            raise HTTPException(status_code=500, detail=f"Erreur Roon play_album: {str(e)}")
+        
+        return {
+            "status": "playing" if success else "not_found",
+            "message": "Album en lecture" if success else "Album lancé (non trouvé dans la librairie Roon)",
+            "album_id": album.id if album else None,
+            "artist": artist_name,
+            "album": request.album_title
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Erreur play_album_by_name: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Erreur: {str(e)}")
+    finally:
+        try:
+            db.close()
+        except:
+            pass
+

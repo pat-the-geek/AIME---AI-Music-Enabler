@@ -23,10 +23,12 @@ import {
   QueueMusic,
   Analytics,
   Settings,
+  NewspaperOutlined,
 } from '@mui/icons-material'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 const menuItems = [
+  { text: 'Magazine', path: '/magazine', icon: <NewspaperOutlined /> },
   { text: 'Collection', path: '/collection', icon: <LibraryMusic /> },
   { text: 'Journal', path: '/journal', icon: <History /> },
   { text: 'Timeline', path: '/timeline', icon: <Timeline /> },
@@ -49,7 +51,7 @@ export default function Navbar() {
 
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar position="fixed" sx={{ backgroundColor: '#000000' }}>
         <Toolbar>
           {isMobile && (
             <IconButton
@@ -63,7 +65,7 @@ export default function Navbar() {
           )}
           
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            🎵 AIME - AI Music Enabler
+            AIME - AI Music Enabler
           </Typography>
 
           {!isMobile && (

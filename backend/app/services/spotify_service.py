@@ -61,9 +61,9 @@ class SpotifyService:
         try:
             token = await self._get_access_token()
             
-            query = f"artist:{artist_name} album:{album_title}"
-            
             async with httpx.AsyncClient() as client:
+                # Stratégie 1: Recherche avec artiste et album
+                query = f"artist:{artist_name} album:{album_title}"
                 response = await client.get(
                     f"{self.api_base_url}/search",
                     params={"q": query, "type": "album", "limit": 1},
@@ -74,6 +74,23 @@ class SpotifyService:
                 
                 albums = data.get("albums", {}).get("items", [])
                 if albums and albums[0].get("images"):
+                    logger.info(f"✅ Album trouvé avec artiste: {albums[0]['name']}")
+                    return albums[0]["images"][0]["url"]
+                
+                # Stratégie 2: Recherche uniquement par titre d'album (fallback)
+                logger.info(f"⚠️ Recherche avec artiste échouée, essai sans artiste...")
+                query_fallback = f"album:{album_title}"
+                response = await client.get(
+                    f"{self.api_base_url}/search",
+                    params={"q": query_fallback, "type": "album", "limit": 1},
+                    headers={"Authorization": f"Bearer {token}"}
+                )
+                response.raise_for_status()
+                data = response.json()
+                
+                albums = data.get("albums", {}).get("items", [])
+                if albums and albums[0].get("images"):
+                    logger.info(f"✅ Album trouvé sans artiste: {albums[0]['name']}")
                     return albums[0]["images"][0]["url"]
                 
                 return None
@@ -113,9 +130,9 @@ class SpotifyService:
         try:
             token = await self._get_access_token()
             
-            query = f"artist:{artist_name} album:{album_title}"
-            
             async with httpx.AsyncClient() as client:
+                # Stratégie 1: Recherche avec artiste et album
+                query = f"artist:{artist_name} album:{album_title}"
                 response = await client.get(
                     f"{self.api_base_url}/search",
                     params={"q": query, "type": "album", "limit": 1},
@@ -127,7 +144,35 @@ class SpotifyService:
                 albums = data.get("albums", {}).get("items", [])
                 if albums:
                     album = albums[0]
-                    logger.info(f"🎵 Album trouvé: {album.get('name')}")
+                    logger.info(f"✅ Album trouvé avec artiste: {album.get('name')}")
+                    logger.info(f"📸 Images dans réponse: {album.get('images')}")
+                    release_date = album.get("release_date", "")
+                    year = None
+                    if release_date:
+                        # La date peut être au format YYYY ou YYYY-MM-DD
+                        year = int(release_date.split("-")[0]) if release_date else None
+                    
+                    return {
+                        "spotify_url": album.get("external_urls", {}).get("spotify"),
+                        "year": year,
+                        "image_url": album["images"][0]["url"] if album.get("images") else None
+                    }
+                
+                # Stratégie 2: Recherche uniquement par titre d'album (fallback)
+                logger.info(f"⚠️ Recherche avec artiste échouée, essai sans artiste...")
+                query_fallback = f"album:{album_title}"
+                response = await client.get(
+                    f"{self.api_base_url}/search",
+                    params={"q": query_fallback, "type": "album", "limit": 1},
+                    headers={"Authorization": f"Bearer {token}"}
+                )
+                response.raise_for_status()
+                data = response.json()
+                
+                albums = data.get("albums", {}).get("items", [])
+                if albums:
+                    album = albums[0]
+                    logger.info(f"✅ Album trouvé sans artiste: {album.get('name')}")
                     logger.info(f"📸 Images dans réponse: {album.get('images')}")
                     release_date = album.get("release_date", "")
                     year = None

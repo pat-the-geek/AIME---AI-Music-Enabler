@@ -76,6 +76,8 @@ export default function Timeline() {
       const response = await apiClient.get(`/history/timeline?date=${selectedDate}`)
       return response.data
     },
+    refetchInterval: 30000, // Rafraîchir toutes les 30 secondes
+    refetchOnWindowFocus: true,
   })
 
   const handlePrevDay = () => {

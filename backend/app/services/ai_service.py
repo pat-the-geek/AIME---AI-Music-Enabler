@@ -11,10 +11,10 @@ logger = logging.getLogger(__name__)
 # Circuit breaker pour le service IA
 ai_circuit_breaker = CircuitBreaker(
     "EurIA",
-    failure_threshold=5,
+    failure_threshold=10,  # Augmenté de 5 à 10 pour plus de tolérance
     success_threshold=3,
     timeout=60,
-    recovery_timeout=300
+    recovery_timeout=120  # Réduit de 300 à 120 secondes
 )
 
 

@@ -194,6 +194,8 @@ async def list_history(
     db: Session = Depends(get_db)
 ):
     """Journal chronologique d'écoute."""
+    from datetime import datetime as dt_module
+    
     query = db.query(ListeningHistory).join(Track).join(Album).join(Album.artists)
     
     # Filtres
@@ -206,9 +208,15 @@ async def list_history(
     if album:
         query = query.filter(Album.title.ilike(f"%{album}%"))
     if start_date:
-        query = query.filter(ListeningHistory.date >= start_date)
+        # Convertir date YYYY-MM-DD en timestamp Unix (début du jour)
+        start_dt = dt_module.strptime(f"{start_date} 00:00", "%Y-%m-%d %H:%M")
+        start_timestamp = int(start_dt.timestamp())
+        query = query.filter(ListeningHistory.timestamp >= start_timestamp)
     if end_date:
-        query = query.filter(ListeningHistory.date <= end_date)
+        # Convertir date YYYY-MM-DD en timestamp Unix (fin du jour)
+        end_dt = dt_module.strptime(f"{end_date} 23:59", "%Y-%m-%d %H:%M")
+        end_timestamp = int(end_dt.timestamp())
+        query = query.filter(ListeningHistory.timestamp <= end_timestamp)
     
     # Tri chronologique inversé
     query = query.order_by(ListeningHistory.timestamp.desc())
@@ -313,15 +321,22 @@ async def get_timeline(
     db: Session = Depends(get_db)
 ):
     """Timeline horaire pour une journée."""
-    # Format les plages de dates correctement (format: YYYY-MM-DD HH:MM)
-    start_date = f"{date} 00:00"
-    end_date = f"{date} 23:59"
+    # Convertir la date en timestamps Unix (meilleure performance et précision)
+    from datetime import datetime as dt_module
     
-    logger.debug(f"📅 Timeline query: date={date}, start={start_date}, end={end_date}")
+    # Début du jour à 00:00
+    start_dt = dt_module.strptime(f"{date} 00:00", "%Y-%m-%d %H:%M")
+    start_timestamp = int(start_dt.timestamp())
+    
+    # Fin du jour à 23:59
+    end_dt = dt_module.strptime(f"{date} 23:59", "%Y-%m-%d %H:%M")
+    end_timestamp = int(end_dt.timestamp())
+    
+    logger.debug(f"📅 Timeline query: date={date}, start_ts={start_timestamp}, end_ts={end_timestamp}")
     
     history = db.query(ListeningHistory).filter(
-        ListeningHistory.date >= start_date,
-        ListeningHistory.date <= end_date
+        ListeningHistory.timestamp >= start_timestamp,
+        ListeningHistory.timestamp <= end_timestamp
     ).order_by(ListeningHistory.timestamp.desc()).all()
     
     logger.debug(f"📊 Found {len(history)} entries for timeline date {date}")
@@ -404,12 +419,20 @@ async def get_stats(
     db: Session = Depends(get_db)
 ):
     """Statistiques d'écoute."""
+    from datetime import datetime as dt_module
+    
     query = db.query(ListeningHistory)
     
     if start_date:
-        query = query.filter(ListeningHistory.date >= start_date)
+        # Convertir date YYYY-MM-DD en timestamp Unix (début du jour)
+        start_dt = dt_module.strptime(f"{start_date} 00:00", "%Y-%m-%d %H:%M")
+        start_timestamp = int(start_dt.timestamp())
+        query = query.filter(ListeningHistory.timestamp >= start_timestamp)
     if end_date:
-        query = query.filter(ListeningHistory.date <= end_date)
+        # Convertir date YYYY-MM-DD en timestamp Unix (fin du jour)
+        end_dt = dt_module.strptime(f"{end_date} 23:59", "%Y-%m-%d %H:%M")
+        end_timestamp = int(end_dt.timestamp())
+        query = query.filter(ListeningHistory.timestamp <= end_timestamp)
     
     history = query.all()
     

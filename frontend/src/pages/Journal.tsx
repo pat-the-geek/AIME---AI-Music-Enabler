@@ -90,6 +90,8 @@ export default function Journal() {
       const response = await apiClient.get(`/history/tracks?${params}`)
       return response.data
     },
+    refetchInterval: 30000, // Rafraîchir toutes les 30 secondes
+    refetchOnWindowFocus: true,
   })
 
   // Stats en temps réel
@@ -102,6 +104,7 @@ export default function Journal() {
       const response = await apiClient.get(`/history/stats?${params}`)
       return response.data
     },
+    refetchInterval: 30000, // Rafraîchir toutes les 30 secondes
   })
 
   const toggleLoveMutation = useMutation({
