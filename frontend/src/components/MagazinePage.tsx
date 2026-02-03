@@ -1,6 +1,9 @@
-import { Box, Typography, Grid, Card, CardContent, CardMedia, Stack, Paper, Avatar, Chip, Button } from '@mui/material'
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { Box, Typography, Grid, Card, CardContent, CardMedia, Stack, Paper, Avatar, Chip, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
+import apiClient from '@/api/client'
 
 interface AILayout {
   imagePosition?: string
@@ -25,6 +28,22 @@ interface PageProps {
 }
 
 export default function MagazinePage({ page, index }: PageProps) {
+  // States pour le dialog de sélection de zone
+  const [zoneDialogOpen, setZoneDialogOpen] = useState(false)
+  const [selectedZone, setSelectedZone] = useState<string>('')
+  const [albumToPlay, setAlbumToPlay] = useState<any>(null)
+
+  // Récupérer les zones Roon
+  const { data: roonZones } = useQuery({
+    queryKey: ['roon-zones'],
+    queryFn: async () => {
+      const response = await apiClient.get('/roon/zones')
+      return response.data?.zones || []
+    },
+    refetchInterval: 10000,
+    refetchOnMount: true,
+  })
+
   // Thème journal unique avec fond blanc
   const colorSchemes: Record<string, { bg: string; text: string; accent: string; secondary: string }> = {
     newspaper: { bg: '#ffffff', text: '#1a1a1a', accent: '#c41e3a', secondary: '#2c3e50' }
@@ -34,16 +53,25 @@ export default function MagazinePage({ page, index }: PageProps) {
   const colors = colorSchemes.newspaper
 
   // Fonction pour jouer dans Roon
-  const handlePlayInRoon = async (album: any) => {
+  const handlePlayInRoon = (album: any) => {
+    setAlbumToPlay(album)
+    setZoneDialogOpen(true)
+  }
+
+  // Fonction pour confirmer et lancer la lecture
+  const confirmPlayInRoon = async () => {
+    if (!selectedZone || !albumToPlay) return
+
     try {
-      console.log('📤 Envoi à Roon:', { artist_name: album.artist_name, album_title: album.title })
+      console.log('📤 Envoi à Roon:', { artist_name: albumToPlay.artist_name, album_title: albumToPlay.title, zone: selectedZone })
       
       const response = await fetch('/api/v1/roon/play-album-by-name', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          artist_name: album.artist_name || album.artist,
-          album_title: album.title
+          artist_name: albumToPlay.artist_name || albumToPlay.artist,
+          album_title: albumToPlay.title,
+          zone_name: selectedZone
         })
       })
       
@@ -51,7 +79,7 @@ export default function MagazinePage({ page, index }: PageProps) {
       
       if (response.ok) {
         console.log('✅ Lecture lancée dans Roon:', data)
-        alert(`Album lancé : ${album.title}`)
+        alert(`Album lancé : ${albumToPlay.title}`)
       } else {
         console.error('❌ Erreur Roon (Status ' + response.status + '):', data)
         const errorMsg = data?.detail || 'Impossible de lancer la lecture dans Roon'
@@ -60,6 +88,10 @@ export default function MagazinePage({ page, index }: PageProps) {
     } catch (error) {
       console.error('Erreur API Roon:', error)
       alert(`Erreur de connexion: ${(error as Error).message}`)
+    } finally {
+      setZoneDialogOpen(false)
+      setSelectedZone('')
+      setAlbumToPlay(null)
     }
   }
 
@@ -1143,16 +1175,58 @@ export default function MagazinePage({ page, index }: PageProps) {
 
   // Default empty page
   return (
-    <Box sx={{
-      width: '100%',
-      backgroundColor: colors.bg,
-      color: colors.text,
-      padding: '60px 20px',
-      textAlign: 'center'
-    }}>
-      <Typography variant="h4" sx={{ color: accentColor, fontWeight: 700 }}>
-        Page vide
-      </Typography>
-    </Box>
+    <>
+      <Box sx={{
+        width: '100%',
+        backgroundColor: colors.bg,
+        color: colors.text,
+        padding: '60px 20px',
+        textAlign: 'center'
+      }}>
+        <Typography variant="h4" sx={{ color: accentColor, fontWeight: 700 }}>
+          Page vide
+        </Typography>
+      </Box>
+
+      {/* Dialog de sélection de zone Roon */}
+      <Dialog open={zoneDialogOpen} onClose={() => setZoneDialogOpen(false)}>
+        <DialogTitle>Sélectionner une zone Roon</DialogTitle>
+        <DialogContent sx={{ minWidth: 300 }}>
+          <Stack spacing={2} sx={{ pt: 2 }}>
+            {roonZones && roonZones.length > 0 ? (
+              roonZones.map((zone: any) => (
+                <Button
+                  key={zone.zone_id}
+                  variant={selectedZone === zone.name ? 'contained' : 'outlined'}
+                  fullWidth
+                  onClick={() => setSelectedZone(zone.name)}
+                  sx={{ justifyContent: 'flex-start' }}
+                >
+                  <Box sx={{ textAlign: 'left', width: '100%' }}>
+                    <Typography variant="body2">{zone.name}</Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      État: {zone.state}
+                    </Typography>
+                  </Box>
+                </Button>
+              ))
+            ) : (
+              <Typography color="text.secondary">Aucune zone Roon disponible</Typography>
+            )}
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setZoneDialogOpen(false)}>Annuler</Button>
+          <Button
+            variant="contained"
+            color="success"
+            disabled={!selectedZone}
+            onClick={confirmPlayInRoon}
+          >
+            Lancer la lecture
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   )
 }
