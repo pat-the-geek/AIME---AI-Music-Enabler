@@ -97,7 +97,48 @@ Pastel Blues de Nina Simone est un chef-d'œuvre de 1965. Blues et jazz s'entrel
 
 ---
 
-### 3. Optimisation Descriptions (Scheduler Daily Task)
+### 2. Description Courte (35 mots)
+
+**Fichier:** `backend/app/services/scheduler_service.py` → `_generate_random_haikus()`
+
+**Contexte d'utilisation:**
+- Génération quotidienne des haïkus pour 5 albums (6h00)
+- Export markdown de présentation d'albums
+- Format court pour accompagner les haïkus
+
+**Prompt:**
+```
+Présente moi l'album {album_title} de {artist_name}. 
+N'ajoute pas de questions ou de commentaires. 
+Limite ta réponse à 35 mots maximum.
+Réponds uniquement en français.
+```
+
+**Paramètres:**
+- `max_tokens`: 100
+- Variables:
+  - `{album_title}`: Titre de l'album (lowercase)
+  - `{artist_name}`: Nom de l'artiste (lowercase)
+
+**Fallback:**
+```
+Album {titre} sorti en {année}. Œuvre musicale enrichissante, à découvrir absolument.
+```
+
+**Exemple de sortie:**
+```
+Kind of Blue de Miles Davis est un chef-d'œuvre de jazz modal sorti en 1959. 
+Album révolutionnaire qui a redéfini le genre et reste incontournable aujourd'hui.
+```
+
+**Utilisation:**
+- Inclus dans le fichier markdown quotidien de présentation
+- Accompagne l'image et les liens Spotify/Discogs
+- Format court adapté à la lecture rapide
+
+---
+
+### 3. Description Longue - Optimisation (Scheduler Daily Task)
 
 **Fichier:** `backend/app/services/scheduler_service.py` → `_optimize_ai_descriptions()`
 
@@ -524,22 +565,33 @@ Réponds uniquement en français.
 - **Asynchrone:** Oui
 
 ### SchedulerService
-- **Prompts:** 
-  1. Haïku global (1x/jour à 6h00)
-  2. Description courte (5x/jour pour haïku albums à 6h00)
-  3. Description longue - Optimisation (1x/jour à 2h00)
-     - Enrichit automatiquement les 10 albums les plus écoutés sans description
-     - Sélection intelligente par popularité (nombre d'écoutes)
-     - Génère descriptions 2000 caractères pour albums populaires
-- **Fréquence:** Cron programmé
-- **Asynchrone:** Oui
+- **Prompts utilisés:** 
+  1. **Haïku global** (tâche: `generate_haiku_scheduled`)
+     - **Horaire:** 1x/jour à 6h00
+     - **Prompt:** Haïku court sur la musique (3 lignes)
+     - **Fonction:** `_generate_random_haikus()` → `ai.ask_for_ia()`
+  
+  2. **Description courte 35 mots** (tâche: `generate_haiku_scheduled`)
+     - **Horaire:** 1x/jour à 6h00 (5 albums)
+     - **Prompt:** Présentation album courte (35 mots max)
+     - **Fonction:** `_generate_random_haikus()` → `ai.ask_for_ia()`
+     - **Output:** Fichier markdown de présentation quotidienne
+  
+  3. **Description longue - Optimisation** (tâche: `optimize_ai_descriptions`)
+     - **Horaire:** 1x/jour à 2h00
+     - **Prompt:** Description album complète (1800-2000 caractères)
+     - **Fonction:** `_optimize_ai_descriptions()` → `ai.generate_album_info()`
+     - **Limite:** 10 albums les plus écoutés sans description
+     - **Critères:** Albums triés par nombre d'écoutes décroissant
+     - **Impact:** Enrichissement progressif des albums populaires
+  
+  4. **Haïku contextuel hebdomadaire** (tâche: `weekly_haiku`)
+     - **Horaire:** 1x/semaine
+     - **Prompt:** Haïku basé sur écoutes des 7 derniers jours
+     - **Fonction:** `_weekly_haiku()` → `ai.generate_haiku()`
 
-**Détails tâche d'optimisation:**
-- **Tâche:** `optimize_ai_descriptions`
-- **Horaire:** Quotidien à 2h00
-- **Limite:** 10 albums par exécution
-- **Critères:** Albums sans description IA triés par nombre d'écoutes
-- **Impact:** Enrichissement progressif de la collection avec priorité au contenu populaire
+- **Fréquence:** Cron programmé (apscheduler)
+- **Asynchrone:** Oui (toutes les tâches)
 
 ### API Endpoints
 - **`/history/haiku`:** Haïku contextuel
