@@ -5,18 +5,19 @@
 ### Racine du projet `/`
 ```
 ├── README.md                    # 📖 Vue d'ensemble et guide principal
-├── STRUCTURE.md                 # 📁 Ce fichier - structure du projet
 ├── docker-compose.yml           # 🐳 Configuration Docker
 ├── .env                         # 🔐 Variables d'environnement (ignoré par Git)
 ├── .gitignore                   # 🚫 Fichiers ignorés par Git
 ├── backend/                     # 🔧 API FastAPI
 ├── frontend/                    # ⚛️ Application React
 ├── config/                      # ⚙️ Configuration application
-├── data/                        # 🗄️ Base de données SQLite
+├── data/                        # 🗄️ Base de données SQLite + exports
+│   ├── musique.db               # Base de données principale
+│   ├── backups/                 # Sauvegardes de la base
+│   └── scheduled-output/        # 📦 Exports automatiques (haikus, markdown, json)
 ├── docs/                        # 📚 Documentation complète
-├── scripts/                     # 🛠️ Scripts de déploiement
-├── Scheduled Output/            # 📦 Exports automatiques (haikus, markdown, json)
-└── Screen captures/             # 🖼️ Captures d'écran de l'UI
+│   └── screenshots/             # 🖼️ Captures d'écran de l'UI
+└── scripts/                     # 🛠️ Scripts de déploiement
 ```
 
 ### Documentation `/docs`

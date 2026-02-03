@@ -36,7 +36,7 @@ Cette application a été entièrement développée en exploitant les capacités
    - Synchronisation manuelle
    - Visualisation avec pochettes
    
-   ![Albums Collection](Screen%20captures/Collection%20-%20Albums.png)
+   ![Albums Collection](docs/screenshots/Screen%20captures/Collection%20-%20Albums.png)
 
 3. **Journal d'Écoute**
    - Liste chronologique inversée
@@ -44,23 +44,23 @@ Cette application a été entièrement développée en exploitant les capacités
    - Affichage images multiples (artiste, album Spotify, album Last.fm)
    - Info IA expandable
    
-   ![Journal d'Écoute](Screen%20captures/Journal.png)
+   ![Journal d'Écoute](docs/screenshots/Screen%20captures/Journal.png)
    
-   ![Détail Album](Screen%20captures/Collection%20-%20Album%20-%20Detail.png)
+   ![Détail Album](docs/screenshots/Screen%20captures/Collection%20-%20Album%20-%20Detail.png)
 
 4. **Timeline Horaire**
    - Visualisation par heure et par jour
    - Vue d'ensemble des écoutes
    
-   ![Timeline](Screen%20captures/TimeLine.png)
-   ![Détail Timeline](Screen%20captures/TimeLine%20-%20Detail.png)
+   ![Timeline](docs/screenshots/Screen%20captures/TimeLine.png)
+   ![Détail Timeline](docs/screenshots/Screen%20captures/TimeLine%20-%20Detail.png)
 
 5. **Gestion des Trackers**
    - Configuration Last.fm et Roon
    - Suivi automatique des écoutes
    - **✨ Auto-restart** : Les trackers redémarrent automatiquement après un redémarrage serveur
    
-   ![Paramètres Trackers](Screen%20captures/Settings%20-%20Roon%20-%20Lastfm%20-%20Trackers.png)
+   ![Paramètres Trackers](docs/screenshots/Screen%20captures/Settings%20-%20Roon%20-%20Lastfm%20-%20Trackers.png)
 
 6. **Scheduler et Exports Automatiques**
    - 🎋 Génération quotidienne de haikus pour 5 albums aléatoires (6h00)
@@ -342,8 +342,11 @@ npm run test
 
 - **[Guide de Démarrage Rapide](docs/QUICKSTART.md)** - Installation en 5 minutes
 - **[Documentation Complète](docs/)** - Guide complet avec index
-- **[Structure du Projet](STRUCTURE.md)** - Organisation des fichiers- **[Architecture Complète](docs/architecture/ARCHITECTURE-COMPLETE.md)** - Architecture système détaillée
-- **[Schéma Base de Données](docs/architecture/DATABASE-SCHEMA.md)** - Modèle relationnel (Mermaid)- **[Dépannage](docs/TROUBLESHOOTING.md)** - Solutions aux problèmes courants
+- **[Structure du Projet](docs/STRUCTURE.md)** - Organisation des fichiers
+- **[Architecture Complète](docs/architecture/ARCHITECTURE-COMPLETE.md)** - Architecture système détaillée
+- **[Schéma Base de Données](docs/architecture/DATABASE-SCHEMA.md)** - Modèle relationnel (Mermaid)
+- **[Catalogue Prompts IA](docs/AI-PROMPTS.md)** - 🤖 Tous les prompts EurIA utilisés
+- **[Dépannage](docs/TROUBLESHOOTING.md)** - Solutions aux problèmes courants
 - **[Architecture](docs/ARCHITECTURE.md)** - Détails techniques
 - **[API REST](docs/API.md)** - Documentation endpoints
 - **[Nouvelles Fonctionnalités](docs/features/NOUVELLES-FONCTIONNALITES.md)** - Version 4.0.0

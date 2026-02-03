@@ -22,6 +22,7 @@
 | Fichier | Description |
 |---------|-------------|
 | **[API.md](API.md)** | Documentation API REST complète |
+| **[AI-PROMPTS.md](AI-PROMPTS.md)** | 🤖 Catalogue complet des prompts IA (EurIA) ⭐ **NOUVEAU** |
 | **[QUICKSTART.md](QUICKSTART.md)** | Guide de démarrage rapide |
 | **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** | Résolution problèmes courants |
 | **[PROJECT-SUMMARY.md](PROJECT-SUMMARY.md)** | Résumé complet du projet |

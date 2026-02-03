@@ -57,21 +57,6 @@ erDiagram
         datetime created_at
     }
     
-    PLAYLIST {
-        int id PK
-        string name
-        string algorithm "top_sessions, ai_generated"
-        text ai_prompt
-        int track_count
-        datetime created_at
-    }
-    
-    PLAYLIST_TRACK {
-        int playlist_id PK,FK
-        int track_id PK,FK
-        int position
-    }
-    
     METADATA {
         int id PK
         int album_id FK,UK
@@ -108,24 +93,34 @@ erDiagram
         datetime created_at
     }
     
+    ALBUM_COLLECTIONS {
+        int album_id PK,FK
+        int collection_id PK,FK
+    }
+    
+    COLLECTION_ALBUMS {
+        int id PK
+        string name
+        text description
+        datetime created_at
+    }
+    
     %% Relations
     ALBUM ||--o{ TRACK : contains
     ALBUM ||--o| METADATA : has
     ALBUM ||--o{ IMAGE : has
     ALBUM }o--o{ ARTIST : created_by
+    ALBUM }o--o{ COLLECTION_ALBUMS : grouped_in
     
     ARTIST ||--o{ IMAGE : has
     
     TRACK ||--o{ LISTENING_HISTORY : logged_in
-    TRACK }o--o{ PLAYLIST : included_in
-    
-    PLAYLIST ||--o{ PLAYLIST_TRACK : contains
     
     ALBUM_ARTIST }o--|| ALBUM : links
     ALBUM_ARTIST }o--|| ARTIST : links
     
-    PLAYLIST_TRACK }o--|| PLAYLIST : belongs_to
-    PLAYLIST_TRACK }o--|| TRACK : references
+    ALBUM_COLLECTIONS }o--|| ALBUM : links
+    ALBUM_COLLECTIONS }o--|| COLLECTION_ALBUMS : links
 ```
 
 ## Description des Tables
@@ -142,6 +137,7 @@ Albums musicaux provenant de différentes sources (Discogs, Last.fm, Roon, Spoti
   - One-to-One avec `metadata`
   - One-to-Many avec `images`
   - Many-to-Many avec `artists` (via `album_artist`)
+  - Many-to-Many avec `collections` (via `album_collections`)
 
 #### **artists**
 Artistes musicaux avec enrichissement Spotify/Last.fm.
@@ -158,7 +154,6 @@ Pistes musicales appartenant à des albums.
 - **Relations**:
   - Many-to-One avec `album`
   - One-to-Many avec `listening_history`
-  - Many-to-Many avec `playlists` (via `playlist_tracks`)
 
 ### 📊 Tables de Données
 
@@ -186,16 +181,10 @@ URLs d'images pour albums et artistes.
 
 ### 🎯 Tables Fonctionnelles
 
-#### **playlists**
-Playlists générées (top sessions, IA).
+#### **collection_albums**
+Collections personnalisées d'albums.
 - **PK**: `id`
-- **Relations**: One-to-Many avec `playlist_tracks`
-
-#### **playlist_tracks**
-Table de liaison playlists-tracks avec position.
-- **PK Composite**: `playlist_id`, `track_id`
-- **FK**: `playlist_id`, `track_id` (CASCADE DELETE)
-- **Relations**: Many-to-One avec `playlist` et `track`
+- **Relations**: Many-to-Many avec `albums` (via `album_collections`)
 
 #### **service_states**
 États de persistance des services background (auto-restart).
@@ -209,10 +198,15 @@ Table associative Many-to-Many entre albums et artistes.
 - **PK Composite**: `album_id`, `artist_id`
 - **FK**: `album_id`, `artist_id` (CASCADE DELETE)
 
+#### **album_collections**
+Table associative Many-to-Many entre albums et collections.
+- **PK Composite**: `album_id`, `collection_id`
+- **FK**: `album_id`, `collection_id` (CASCADE DELETE)
+
 ## Statistiques
 
-- **10 tables** principales + 2 tables de liaison
-- **7 relations One-to-Many**
+- **11 tables** principales
+- **5 relations One-to-Many**
 - **3 relations Many-to-Many**
 - **1 relation One-to-One**
 - **12 index** pour optimisation
@@ -227,4 +221,4 @@ Les migrations Alembic sont dans `/backend/alembic/versions/`:
 
 ---
 
-*Dernière mise à jour: 1er février 2026 - v4.3.1*
+*Dernière mise à jour: 3 février 2026 - v4.3.1*

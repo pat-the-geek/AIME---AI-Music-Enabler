@@ -41,7 +41,7 @@
   },
   "scheduler": {
     "enabled": true,
-    "output_dir": "Scheduled Output",
+    "output_dir": "data/scheduled-output",
     "max_files_per_type": 5,
     "enrichment_scheduler": {
       "enabled": true,
