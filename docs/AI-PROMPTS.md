@@ -149,6 +149,111 @@ LIMIT 10
 
 ---
 
+## 🔧 Prompts d'Optimisation Système
+
+### Optimisation Scheduler (Script)
+
+**Fichier:** `scripts/optimize_scheduler_with_ai.py` → `create_optimization_prompt()`
+
+**Contexte d'utilisation:**
+- Script d'analyse et optimisation des paramètres du scheduler
+- Exécution ponctuelle (non automatisée)
+- Recommandations basées sur les données réelles d'utilisation
+
+**Objectif:**
+L'IA analyse les statistiques de la base de données (volumes, patterns d'écoute, coverage) et recommande les paramètres optimaux pour le scheduler d'enrichissement.
+
+**Prompt:**
+```
+Tu es un expert en optimisation de systèmes de musique et d'IA. 
+Analyse ces données de base de données musicale et recommande les paramètres OPTIMAUX du scheduler d'enrichissement.
+
+📊 DONNÉES ACTUELLES DE LA BASE DE DONNÉES:
+- Albums: {total_albums} ({albums_without_images} sans images, {image_coverage_pct}% couverts)
+- Artistes: {total_artists}
+- Morceaux: {total_tracks} (durée moyenne: {avg_track_duration_sec}s)
+- Écoutes totales: {total_scrobbles}
+- Écoutes (7 derniers jours): {recent_scrobbles_7days} (~{daily_avg_scrobbles}/jour)
+- Dernière import: {last_import_date}
+- Heures de pointe d'écoute: {peak_listening_hours}
+- Artistes nécessitant descriptions: ~{artists_count}
+
+🎯 OBJECTIFS DU SCHEDULER D'ENRICHISSEMENT:
+1. Enrichir les images des albums (priority=MusicBrainz→Discogs→Spotify)
+2. Générer les descriptions automatiques pour les albums
+3. Détecter les genres musicaux
+4. Corriger le formatage des artistes collaboratifs
+
+⏰ TÂCHES À OPTIMISER:
+- Heure d'exécution quotidienne (actuellement 02:00)
+- Fréquence d'enrichissement (batch size, interval)
+- Rate limits par API (MusicBrainz: 60/min, Discogs: 120/min, Spotify: 60/min)
+- Batch size pour les enrichissements par lot
+- Timeout et retry strategy
+
+💡 CONSIDÉRATIONS:
+- L'IA doit recommander l'HEURE OPTIMALE basée sur les patterns d'écoute
+- Proposer un batch_size optimal basé sur le volume de données
+- Recommander les rate limits adaptés à la charge
+- Suggérer les timeouts appropriés
+
+📋 RÉPONDS AVEC CE FORMAT JSON EXACT (et RIEN d'autre):
+{
+  "optimal_execution_time": "HH:MM (explication courte)",
+  "optimal_batch_size": "nombre (pourquoi)",
+  "recommended_rate_limits": {
+    "musicbrainz_per_minute": "nombre",
+    "discogs_per_minute": "nombre", 
+    "spotify_per_minute": "nombre"
+  },
+  "timeout_seconds": "nombre",
+  "enrichment_priority": ["source1", "source2", "source3"],
+  "weekly_schedule": "recommandation pour exécutions additionnelles",
+  "optimization_notes": "observations et justifications (2-3 phrases)"
+}
+```
+
+**Paramètres:**
+- `max_tokens`: 1200
+- `temperature`: 0.3 (basse pour réponses précises et factuelles)
+
+**Variables interpolées:**
+- `{total_albums}`, `{albums_without_images}`, `{image_coverage_pct}`: Statistiques albums
+- `{total_artists}`, `{total_tracks}`: Tailles collection
+- `{total_scrobbles}`, `{recent_scrobbles_7days}`, `{daily_avg_scrobbles}`: Activité d'écoute
+- `{last_import_date}`: Dernière synchronisation
+- `{peak_listening_hours}`: Top 3 heures de pointe (array)
+- `{avg_track_duration_sec}`: Durée moyenne des morceaux
+- `{artists_count}`: Nombre d'artistes sans description
+
+**Exemple de réponse IA:**
+```json
+{
+  "optimal_execution_time": "05:00 (hors heures de pointe d'écoute et après les tâches de maintenance courantes)",
+  "optimal_batch_size": "50 (équilibre entre charge API et rapidité d'exécution, adapté aux 545 albums sans images)",
+  "recommended_rate_limits": {
+    "musicbrainz_per_minute": "60",
+    "discogs_per_minute": "120",
+    "spotify_per_minute": "60"
+  },
+  "timeout_seconds": "30 (suffisant pour la plupart des requêtes API musicales)",
+  "enrichment_priority": ["MusicBrainz", "Discogs", "Spotify"],
+  "weekly_schedule": "1x/jour suffit pour cette taille de collection",
+  "optimization_notes": "L'heure optimale évite les pics d'écoute et maximise les ressources disponibles. Le batch size est ajusté pour éviter les dépassements de rate limits tout en traitant efficacement les données manquantes."
+}
+```
+
+**Post-traitement:**
+1. Parsing de la réponse JSON
+2. Application automatique des recommandations dans `config/enrichment_config.json` et `config/app.json`
+3. Génération du rapport d'optimisation dans `docs/SCHEDULER-OPTIMIZATION-REPORT.md`
+4. Sauvegarde des résultats dans `config/OPTIMIZATION-RESULTS.json`
+
+**Résultat visible:**
+Le texte "💡 Recommandations IA (Euria):" affiché dans l'interface Settings provient de ces recommandations appliquées.
+
+---
+
 ## 🎋 Prompts de Haïkus
 
 ### 1. Haïku Global (Scheduler)
@@ -440,6 +545,14 @@ Réponds uniquement en français.
 - **`/history/haiku`:** Haïku contextuel
 - **`/services/ai/generate-info`:** Description album longue (manuel)
 - **`/playlists/generate`:** Playlist IA (désactivé)
+
+### Scripts Python
+- **`scripts/optimize_scheduler_with_ai.py`:** Optimisation scheduler
+  - **Prompt:** Analyse DB + recommandations paramètres optimaux
+  - **Fréquence:** Exécution manuelle ponctuelle
+  - **Température:** 0.3 (précision maximale)
+  - **Output:** JSON avec recommandations appliquées automatiquement
+  - **Résultat visible:** "💡 Recommandations IA (Euria)" dans l'interface Settings
 
 ---
 
