@@ -537,7 +537,7 @@ export default function Collections() {
               onChange={(e) => setSelectedZone(e.target.value)}
               label="Zone"
             >
-              {roonZones?.map((zone: any) => (
+              {(roonZones || []).map((zone: any) => (
                 <MenuItem key={zone.zone_id} value={zone.display_name}>
                   {zone.display_name}
                 </MenuItem>
