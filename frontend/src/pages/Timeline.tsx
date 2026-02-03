@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   Box,
   Typography,
@@ -24,6 +24,7 @@ import {
   ViewModule,
   Favorite,
   PlayArrow,
+  Refresh,
 } from '@mui/icons-material'
 import apiClient from '@/api/client'
 import AlbumDetailDialog from '@/components/AlbumDetailDialog'
@@ -67,8 +68,9 @@ export default function Timeline() {
   })
 
   const { enabled: roonEnabled, available: roonAvailable, playTrack } = useRoon()
+  const queryClient = useQueryClient()
 
-  const { data, isLoading } = useQuery<TimelineData>({
+  const { data, isLoading, isFetching } = useQuery<TimelineData>({
     queryKey: ['timeline', selectedDate],
     queryFn: async () => {
       const response = await apiClient.get(`/history/timeline?date=${selectedDate}`)
@@ -214,6 +216,14 @@ export default function Timeline() {
               <ViewModule />
             </ToggleButton>
           </ToggleButtonGroup>
+
+          <IconButton
+            onClick={() => queryClient.invalidateQueries({ queryKey: ['timeline'] })}
+            disabled={isFetching}
+            title="Rafraîchir les données"
+          >
+            <Refresh />
+          </IconButton>
         </Box>
       </Paper>
 

@@ -35,6 +35,7 @@ import {
   ViewList,
   ViewModule,
   PlayArrow,
+  Refresh,
 } from '@mui/icons-material'
 import ReactMarkdown from 'react-markdown'
 import apiClient from '@/api/client'
@@ -179,6 +180,15 @@ export default function Journal() {
                 <ViewModule />
               </ToggleButton>
             </ToggleButtonGroup>
+            
+            <Button
+              variant="outlined"
+              startIcon={<Refresh />}
+              onClick={() => queryClient.invalidateQueries({ queryKey: ['history'] })}
+              disabled={isFetching}
+            >
+              Rafraîchir
+            </Button>
             
             <Button
               variant="outlined"
