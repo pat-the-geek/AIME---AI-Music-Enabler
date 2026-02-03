@@ -81,10 +81,10 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
       return response.data
     },
     onSuccess: async () => {
-      // Invalider le cache et attendre le refetch
-      queryClient.invalidateQueries({ queryKey: ['album', albumId] })
+      // Vider le cache et refetcher agressivement
+      queryClient.removeQueries({ queryKey: ['album', albumId] })
+      queryClient.removeQueries({ queryKey: ['albums'] })
       await refetch()
-      queryClient.invalidateQueries({ queryKey: ['albums'] })
       setSnackbar({ open: true, message: 'Album enrichi avec succès (images, Spotify, descriptions) !', severity: 'success' })
     },
     onError: (error: any) => {
