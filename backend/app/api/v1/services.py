@@ -1018,6 +1018,7 @@ async def enrich_single_album(
                 
                 # Mettre à jour les images (forcer la mise à jour même si elles existent)
                 image_url = spotify_details.get('image_url')
+                logger.info(f"🎨 Image URL depuis Spotify: {image_url}")
                 if image_url:
                     # Supprimer les anciennes images
                     db.query(Image).filter(Image.album_id == album.id).delete()
@@ -1032,7 +1033,9 @@ async def enrich_single_album(
                     db.add(image)
                     enrichment_details["images"] = True
                     updated = True
-                    logger.info(f"🖼️ Image Spotify ajoutée/mise à jour")
+                    logger.info(f"🖼️ Image Spotify ajoutée/mise à jour: {image_url}")
+                else:
+                    logger.warning(f"⚠️ Pas d'image trouvée dans les détails Spotify")
         except Exception as e:
             logger.warning(f"⚠️ Erreur Spotify pour {album.title}: {e}")
         
