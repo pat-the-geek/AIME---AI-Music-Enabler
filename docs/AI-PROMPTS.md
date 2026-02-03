@@ -97,6 +97,58 @@ Pastel Blues de Nina Simone est un chef-d'œuvre de 1965. Blues et jazz s'entrel
 
 ---
 
+### 3. Optimisation Descriptions (Scheduler Daily Task)
+
+**Fichier:** `backend/app/services/scheduler_service.py` → `_optimize_ai_descriptions()`
+
+**Contexte d'utilisation:**
+- Tâche scheduler automatique quotidienne
+- Enrichissement intelligent des albums les plus écoutés
+- Priorité aux albums populaires sans description
+
+**Logique:**
+1. Identifie les 10 albums les plus écoutés sans description IA
+2. Utilise le même prompt que la description longue (2000 caractères)
+3. Génère et sauvegarde les descriptions une par une
+
+**Prompt utilisé:**
+→ Utilise `ai.generate_album_info(artist_name, album_title)` (voir Description Longue ci-dessus)
+
+**Sélection des albums:**
+```sql
+SELECT album.id, album.title, COUNT(listening_history.id) as play_count
+FROM albums
+JOIN tracks ON tracks.album_id = albums.id
+JOIN listening_history ON listening_history.track_id = tracks.id
+LEFT JOIN metadata ON metadata.album_id = albums.id
+WHERE metadata.ai_info IS NULL
+GROUP BY album.id
+ORDER BY COUNT(listening_history.id) DESC
+LIMIT 10
+```
+
+**Paramètres:**
+- Limite: 10 albums par exécution
+- Tri: Par nombre d'écoutes décroissant
+- Filtre: Albums sans description existante
+
+**Logs:**
+```
+🤖 Optimisation descriptions IA
+✨ Description IA ajoutée: {album_title} ({play_count} écoutes)
+🤖 Optimisation terminée: {generated} descriptions générées
+```
+
+**Exemple de sortie logs:**
+```
+2026-02-03 02:00:00 - INFO - 🤖 Optimisation descriptions IA
+2026-02-03 02:00:15 - INFO - ✨ Description IA ajoutée: Pastel Blues (45 écoutes)
+2026-02-03 02:00:30 - INFO - ✨ Description IA ajoutée: Kind of Blue (38 écoutes)
+2026-02-03 02:01:20 - INFO - 🤖 Optimisation terminée: 8 descriptions générées
+```
+
+---
+
 ## 🎋 Prompts de Haïkus
 
 ### 1. Haïku Global (Scheduler)
@@ -368,11 +420,21 @@ Réponds uniquement en français.
 
 ### SchedulerService
 - **Prompts:** 
-  1. Haïku global (1x/jour)
-  2. Description courte (5x/jour pour haïku albums)
-  3. Description longue (enrichissement quotidien)
+  1. Haïku global (1x/jour à 6h00)
+  2. Description courte (5x/jour pour haïku albums à 6h00)
+  3. Description longue - Optimisation (1x/jour à 2h00)
+     - Enrichit automatiquement les 10 albums les plus écoutés sans description
+     - Sélection intelligente par popularité (nombre d'écoutes)
+     - Génère descriptions 2000 caractères pour albums populaires
 - **Fréquence:** Cron programmé
 - **Asynchrone:** Oui
+
+**Détails tâche d'optimisation:**
+- **Tâche:** `optimize_ai_descriptions`
+- **Horaire:** Quotidien à 2h00
+- **Limite:** 10 albums par exécution
+- **Critères:** Albums sans description IA triés par nombre d'écoutes
+- **Impact:** Enrichissement progressif de la collection avec priorité au contenu populaire
 
 ### API Endpoints
 - **`/history/haiku`:** Haïku contextuel
