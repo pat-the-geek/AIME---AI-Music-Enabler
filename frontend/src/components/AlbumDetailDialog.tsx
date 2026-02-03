@@ -48,12 +48,13 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
     message: '', 
     severity: 'success' as 'success' | 'error' 
   })
+  const [refreshKey, setRefreshKey] = useState(0)
   
   const queryClient = useQueryClient()
   const roon = useRoon()
 
   const { data: albumDetail, isLoading, refetch } = useQuery<AlbumDetail>({
-    queryKey: ['album', albumId],
+    queryKey: ['album', albumId, refreshKey],
     queryFn: async () => {
       const response = await apiClient.get(`/collection/albums/${albumId}`)
       return response.data
@@ -81,10 +82,9 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
       return response.data
     },
     onSuccess: async () => {
-      // Vider le cache et refetcher agressivement
-      queryClient.removeQueries({ queryKey: ['album', albumId] })
+      // Forcer un refresh en incrémentant la clé
+      setRefreshKey(prev => prev + 1)
       queryClient.removeQueries({ queryKey: ['albums'] })
-      await refetch()
       setSnackbar({ open: true, message: 'Album enrichi avec succès (images, Spotify, descriptions) !', severity: 'success' })
     },
     onError: (error: any) => {
