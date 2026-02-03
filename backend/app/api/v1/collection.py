@@ -121,7 +121,8 @@ async def get_album(
     db: Session = Depends(get_db)
 ):
     """Détail d'un album."""
-    album = db.query(Album).filter(Album.id == album_id).first()
+    from sqlalchemy.orm import joinedload
+    album = db.query(Album).options(joinedload(Album.images)).filter(Album.id == album_id).first()
     
     if not album:
         raise HTTPException(status_code=404, detail="Album non trouvé")
