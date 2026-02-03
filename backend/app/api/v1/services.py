@@ -963,6 +963,120 @@ async def enrich_all_albums(
         raise HTTPException(status_code=500, detail=f"Erreur enrichissement: {str(e)}")
 
 
+@router.post("/ai/enrich-album/{album_id}")
+async def enrich_single_album(
+    album_id: int,
+    db: Session = Depends(get_db)
+):
+    """Enrichir un album spécifique avec images, Spotify, et IA."""
+    import logging
+    import asyncio
+    logger = logging.getLogger(__name__)
+    
+    try:
+        logger.info(f"🔄 Enrichissement de l'album {album_id}")
+        settings = get_settings()
+        secrets = settings.secrets
+        
+        # Récupérer l'album
+        album = db.query(Album).filter(Album.id == album_id).first()
+        if not album:
+            raise HTTPException(status_code=404, detail="Album non trouvé")
+        
+        updated = False
+        enrichment_details = {
+            "spotify_url": None,
+            "images": False,
+            "ai_description": False
+        }
+        
+        # 1. Enrichir avec Spotify
+        try:
+            spotify_service = SpotifyService(
+                client_id=secrets.get('spotify', {}).get('client_id', ''),
+                client_secret=secrets.get('spotify', {}).get('client_secret', '')
+            )
+            
+            artist_name = album.artists[0].name if album.artists else ''
+            spotify_details = await spotify_service.search_album_details(album.title, artist_name)
+            
+            if spotify_details:
+                # Mettre à jour l'URL Spotify
+                album.spotify_url = spotify_details.get('spotify_url')
+                enrichment_details["spotify_url"] = album.spotify_url
+                updated = True
+                logger.info(f"✨ URL Spotify trouvée: {album.spotify_url}")
+                
+                # Mettre à jour l'année si elle est disponible
+                if spotify_details.get('year'):
+                    album.year = spotify_details.get('year')
+                    updated = True
+                    logger.info(f"📅 Année Spotify trouvée: {album.year}")
+                
+                # Mettre à jour les images (forcer la mise à jour même si elles existent)
+                image_url = spotify_details.get('image_url')
+                if image_url:
+                    # Supprimer les anciennes images
+                    db.query(Image).filter(Image.album_id == album.id).delete()
+                    
+                    # Ajouter la nouvelle image
+                    image = Image(
+                        album_id=album.id,
+                        url=image_url,
+                        height=None,
+                        width=None
+                    )
+                    db.add(image)
+                    enrichment_details["images"] = True
+                    updated = True
+                    logger.info(f"🖼️ Image Spotify ajoutée/mise à jour")
+        except Exception as e:
+            logger.warning(f"⚠️ Erreur Spotify pour {album.title}: {e}")
+        
+        # 2. Enrichir avec IA (descriptions)
+        try:
+            from app.services.ai_service import AIService
+            ai_service = AIService(
+                url=secrets.get('euria', {}).get('url', ''),
+                bearer=secrets.get('euria', {}).get('bearer', '')
+            )
+            
+            artist_name = album.artists[0].name if album.artists else 'Unknown'
+            ai_info = await ai_service.generate_album_info(artist_name, album.title)
+            
+            if ai_info:
+                if not album.album_metadata:
+                    metadata = Metadata(album_id=album.id, ai_info=ai_info)
+                    db.add(metadata)
+                else:
+                    album.album_metadata.ai_info = ai_info
+                enrichment_details["ai_description"] = True
+                updated = True
+                logger.info(f"🤖 Description IA ajoutée")
+        except Exception as e:
+            logger.warning(f"⚠️ Erreur IA pour {album.title}: {e}")
+        
+        # Sauvegarder les modifications
+        if updated:
+            db.commit()
+            logger.info(f"✅ Album {album.title} enrichi avec succès")
+        
+        return {
+            "status": "success",
+            "album_id": album_id,
+            "album_title": album.title,
+            "enrichment_details": enrichment_details,
+            "message": f"Album enrichi avec succès"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Erreur enrichissement album {album_id}: {e}")
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Erreur enrichissement: {str(e)}")
+
+
 @router.post("/spotify/enrich-all")
 async def enrich_spotify_urls(
     limit: int = 20,

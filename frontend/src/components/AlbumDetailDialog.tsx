@@ -52,7 +52,7 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
   const queryClient = useQueryClient()
   const roon = useRoon()
 
-  const { data: albumDetail, isLoading } = useQuery<AlbumDetail>({
+  const { data: albumDetail, isLoading, refetch } = useQuery<AlbumDetail>({
     queryKey: ['album', albumId],
     queryFn: async () => {
       const response = await apiClient.get(`/collection/albums/${albumId}`)
@@ -74,15 +74,20 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
     refetchOnWindowFocus: true,
   })
 
-  // Mutation pour rafraîchir les enrichissements
-  const refreshEnrichmentMutation = useMutation({
+  // Mutation pour enrichir complètement l'album
+  const enrichAlbumMutation = useMutation({
     mutationFn: async (id: number) => {
-      const response = await apiClient.post(`/services/ai/generate-info?album_id=${id}`)
+      const response = await apiClient.post(`/services/ai/enrich-album/${id}`)
       return response.data
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['album', albumId] })
-      setSnackbar({ open: true, message: 'Enrichissements rafraîchis avec succès !', severity: 'success' })
+      // Attendre que la DB soit synchronisée et faire refetch agressif
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['album', albumId] })
+        refetch()
+      }, 1000)
+      queryClient.invalidateQueries({ queryKey: ['albums'] })
+      setSnackbar({ open: true, message: 'Album enrichi avec succès (images, Spotify, descriptions) !', severity: 'success' })
     },
     onError: (error: any) => {
       setSnackbar({ open: true, message: `Erreur: ${error.message}`, severity: 'error' })
@@ -127,7 +132,7 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
 
   const handleRefreshEnrichment = () => {
     if (albumId) {
-      refreshEnrichmentMutation.mutate(albumId)
+      enrichAlbumMutation.mutate(albumId)
     }
   }
 
@@ -330,41 +335,54 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
                 </Grid>
               </Grid>
 
-              {/* Description IA */}
-              {albumDetail.ai_info && (
-                <>
-                  <Divider sx={{ my: 3 }} />
-                  <Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-                      <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        🤖 Description IA
-                      </Typography>
-                      <Button
-                        variant="outlined"
-                        size="small"
-                        onClick={handleRefreshEnrichment}
-                        disabled={refreshEnrichmentMutation.isPending}
-                        startIcon={refreshEnrichmentMutation.isPending ? <CircularProgress size={16} /> : <RefreshIcon />}
-                      >
-                        Rafraîchir
-                      </Button>
-                    </Box>
-                    <Box 
-                      sx={{ 
-                        backgroundColor: 'action.hover',
-                        p: 2,
-                        borderRadius: 1,
-                        '& p': { mb: 1.5 },
-                        '& p:last-child': { mb: 0 },
-                        '& em': { fontStyle: 'italic' },
-                        '& strong': { fontWeight: 'bold' },
-                      }}
-                    >
-                      <ReactMarkdown>{albumDetail.ai_info}</ReactMarkdown>
-                    </Box>
+              {/* Section Enrichissement */}
+              <Divider sx={{ my: 3 }} />
+              <Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+                  <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    {albumDetail.ai_info ? '🤖 Description IA' : '✨ Enrichissement'}
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={handleRefreshEnrichment}
+                    disabled={enrichAlbumMutation.isPending}
+                    startIcon={enrichAlbumMutation.isPending ? <CircularProgress size={16} /> : <RefreshIcon />}
+                    title="Rafraîchir: images, Spotify, descriptions"
+                  >
+                    Rafraîchir
+                  </Button>
+                </Box>
+                {albumDetail.ai_info ? (
+                  <Box 
+                    sx={{ 
+                      backgroundColor: 'action.hover',
+                      p: 2,
+                      borderRadius: 1,
+                      '& p': { mb: 1.5 },
+                      '& p:last-child': { mb: 0 },
+                      '& em': { fontStyle: 'italic' },
+                      '& strong': { fontWeight: 'bold' },
+                    }}
+                  >
+                    <ReactMarkdown>{albumDetail.ai_info}</ReactMarkdown>
                   </Box>
-                </>
-              )}
+                ) : (
+                  <Box
+                    sx={{
+                      backgroundColor: 'action.hover',
+                      p: 2,
+                      borderRadius: 1,
+                      textAlign: 'center',
+                      color: 'text.secondary',
+                    }}
+                  >
+                    <Typography variant="body2">
+                      Cliquez sur &quot;Rafraîchir&quot; pour enrichir cet album avec des images, des liens Spotify et une description IA
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
 
               {/* Résumé */}
               {albumDetail.resume && (
