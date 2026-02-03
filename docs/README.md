@@ -41,30 +41,30 @@ Bienvenue dans la documentation du projet AIME - AI Music Enabler !
 
 **Nouveau sur le projet ?** Commencez ici :
 
-1. 📖 [Guide de Démarrage Rapide](QUICKSTART.md) - Installation et premier lancement (5 min)
-2. 🏗️ [Architecture du Projet](ARCHITECTURE.md) - Comprendre la structure technique
-3. 🔧 [Guide de Dépannage](TROUBLESHOOTING.md) - Solutions aux problèmes courants ⭐ **Important!**
+1. 📖 [Guide de Démarrage Rapide](guides/utilisateur/QUICKSTART.md) - Installation et premier lancement (5 min)
+2. 🏗️ [Architecture du Projet](architecture/ARCHITECTURE.md) - Comprendre la structure technique
+3. 🔧 [Guide de Dépannage](guides/troubleshooting/TROUBLESHOOTING.md) - Solutions aux problèmes courants ⭐ **Important!**
 
 ## 📋 Documentation Complète
 
 ### Pour les Utilisateurs
 
 - **[README Principal](../README.md)** - Vue d'ensemble du projet
-- **[Guide de Démarrage Rapide](QUICKSTART.md)** - Installation pas à pas
+- **[Guide de Démarrage Rapide](guides/utilisateur/QUICKSTART.md)** - Installation pas à pas
 - **[STATUS](../STATUS.md)** - État actuel de l'application
 - **[Historique des modifications](changelogs/CHANGELOG.md)** - Toutes les versions
 
 ### Pour les Développeurs
 
-- **[Documentation API](API.md)** - Référence complète des endpoints REST
-- **[Architecture](ARCHITECTURE.md)** - Structure technique détaillée
+- **[Documentation API](api/API.md)** - Référence complète des endpoints REST
+- **[Architecture](architecture/ARCHITECTURE.md)** - Structure technique détaillée
 - **[Spécifications](specs/)** - Cahiers des charges et specs techniques
 - **[Résumé du Projet](../PROJECT-SUMMARY.md)** - Ce qui a été créé et pourquoi
 - **[Nouvelles Fonctionnalités](features/NOUVELLES-FONCTIONNALITES.md)** - Version 4.0.0
 
 ### Résolution de Problèmes
 
-- **[Guide de Dépannage](TROUBLESHOOTING.md)** ⭐ **Consultez d'abord ce document!**
+- **[Guide de Dépannage](guides/troubleshooting/TROUBLESHOOTING.md)** ⭐ **Consultez d'abord ce document!**
   - Python 3.14 incompatibilité
   - Erreurs de base de données
   - Problèmes de configuration
@@ -75,16 +75,16 @@ Bienvenue dans la documentation du projet AIME - AI Music Enabler !
 ## 🎯 Navigation par Besoin
 
 ### "Je veux installer l'application"
-→ [QUICKSTART.md](QUICKSTART.md)
+→ [QUICKSTART.md](guides/utilisateur/QUICKSTART.md)
 
 ### "J'ai une erreur au démarrage"
-→ [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+→ [TROUBLESHOOTING.md](guides/troubleshooting/TROUBLESHOOTING.md)
 
 ### "Je veux comprendre l'architecture"
-→ [ARCHITECTURE.md](ARCHITECTURE.md)
+→ [ARCHITECTURE.md](architecture/ARCHITECTURE.md)
 
 ### "Je veux utiliser l'API"
-→ [API.md](API.md)
+→ [API.md](api/API.md)
 
 ### "Je veux voir les nouvelles fonctionnalités"
 → [features/NOUVELLES-FONCTIONNALITES.md](features/NOUVELLES-FONCTIONNALITES.md)
@@ -185,7 +185,7 @@ Les problèmes suivants ont été identifiés et corrigés dans la version 4.0.1
 4. ✅ **Chemin Base de Données** - Variable PROJECT_ROOT ajoutée
 5. ✅ **Reloads Infinis Uvicorn** - Option --reload-dir app
 
-Voir [TROUBLESHOOTING.md](TROUBLESHOOTING.md) pour les détails et solutions.
+Voir [TROUBLESHOOTING.md](guides/troubleshooting/TROUBLESHOOTING.md) pour les détails et solutions.
 
 ## 📊 Structure de la Documentation
 
@@ -236,19 +236,19 @@ tail -f backend/logs/app.log  # si logs activés
 
 1. ✅ Vérifiez que vous avez Python 3.10-3.13 (pas 3.14 sauf si prêt pour SQLAlchemy dev)
 2. ✅ Vérifiez que vous avez Node.js 18+
-3. ✅ Lisez le [QUICKSTART.md](QUICKSTART.md)
+3. ✅ Lisez le [QUICKSTART.md](guides/utilisateur/QUICKSTART.md)
 
 ### Si Vous Avez un Problème
 
-1. 🔍 Consultez [TROUBLESHOOTING.md](TROUBLESHOOTING.md) en premier
+1. 🔍 Consultez [TROUBLESHOOTING.md](guides/troubleshooting/TROUBLESHOOTING.md) en premier
 2. 📝 Vérifiez les logs dans le terminal
 3. 🧪 Testez le health endpoint: `curl http://localhost:8000/health`
 4. 🗄️ Vérifiez que la base existe: `ls -lh data/musique.db`
 
 ### Pour Contribuer
 
-1. Lisez l'[ARCHITECTURE.md](ARCHITECTURE.md) pour comprendre le code
-2. Consultez l'[API.md](API.md) pour les endpoints
+1. Lisez l'[ARCHITECTURE.md](architecture/ARCHITECTURE.md) pour comprendre le code
+2. Consultez l'[API.md](api/API.md) pour les endpoints
 3. Suivez les conventions TypeScript/Python du projet
 4. Documentez vos changements dans [CHANGELOG.md](../CHANGELOG.md)
 
@@ -271,4 +271,4 @@ Pour toute question non couverte dans la documentation :
 **Version**: 4.0.1  
 **Statut**: ✅ Application Opérationnelle
 
-**Note**: Si vous lisez ce document pour la première fois, nous vous recommandons fortement de commencer par le [Guide de Démarrage Rapide](QUICKSTART.md) puis de consulter le [Guide de Dépannage](TROUBLESHOOTING.md) pour éviter les problèmes courants.
+**Note**: Si vous lisez ce document pour la première fois, nous vous recommandons fortement de commencer par le [Guide de Démarrage Rapide](guides/utilisateur/QUICKSTART.md) puis de consulter le [Guide de Dépannage](guides/troubleshooting/TROUBLESHOOTING.md) pour éviter les problèmes courants.
