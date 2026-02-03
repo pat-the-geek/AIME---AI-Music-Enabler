@@ -1000,7 +1000,7 @@ async def enrich_single_album(
             
             artist_name = album.artists[0].name if album.artists else ''
             logger.info(f"🔍 Recherche: artist={artist_name}, album={album.title}")
-            spotify_details = await spotify_service.search_album_details(album.title, artist_name)
+            spotify_details = await spotify_service.search_album_details(artist_name, album.title)
             logger.info(f"📊 Résultat Spotify: {spotify_details}")
             
             if spotify_details:
