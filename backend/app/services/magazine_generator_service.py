@@ -560,10 +560,18 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
     
     async def _generate_page_2_album_detail(self) -> Dict[str, Any]:
         """Page 2: Album du jour avec description longue."""
-        # Récupérer un album aléatoire avec description IA
+        # Récupérer un album aléatoire avec description IA RICHE (> 500 chars)
         albums = self.db.query(Album).filter(
-            Album.ai_description.isnot(None)
+            Album.ai_description.isnot(None),
+            func.length(Album.ai_description) > 500  # Description riche uniquement
         ).all()
+        
+        # Fallback : accepter des descriptions plus courtes si aucune description riche
+        if not albums:
+            logger.warning("⚠️ Aucun album avec description riche, fallback vers descriptions courtes")
+            albums = self.db.query(Album).filter(
+                Album.ai_description.isnot(None)
+            ).all()
         
         if not albums:
             return self._empty_page()
@@ -571,11 +579,16 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
         album = random.choice(albums)
         artist_names = ", ".join([a.name for a in album.artists]) if album.artists else "Artiste inconnu"
         
-        # Vérifier si c'est un remaster/deluxe et régénérer la description si nécessaire
+        # Utiliser la description existante (potentiellement enrichie)
         description = album.ai_description
-        if self._is_remaster_or_deluxe(album.title):
-            logger.info(f"📀 Album remaster/deluxe détecté: {album.title}, génération description spécifique")
-            description = await self._generate_remaster_description(album)
+        
+        # Si l'album est un remaster/deluxe SANS description riche, utiliser un fallback
+        # (l'enrichissement se fera en arrière-plan)
+        if self._is_remaster_or_deluxe(album.title) and (not description or len(description) < 500):
+            logger.info(f"📀 Album remaster/deluxe sans description riche: {album.title}, utilisation fallback")
+            description = self._get_creative_fallback(album, "remaster")
+        elif description:
+            logger.info(f"♻️ Utilisation description existante pour {album.title}: {len(description)} chars")
         
         # Layout IA
         layout_suggestion = await self._generate_layout_suggestion(

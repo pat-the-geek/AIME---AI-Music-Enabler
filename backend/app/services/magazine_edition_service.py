@@ -73,8 +73,12 @@ class MagazineEditionService:
             # Enrichissement complet (attendre que les descriptions soient enrichies)
             if magazine_data.get('enrichment_started'):
                 logger.info(f"⏳ Attente de l'enrichissement pour l'édition {edition_id}...")
-                # Attendre 2 minutes max pour les enrichissements (10-15 albums × 5-10s)
-                await asyncio.sleep(120)
+                # Attendre 3 minutes max pour les enrichissements (2-3 albums × 5-15s chacun)
+                await asyncio.sleep(180)
+                
+                # IMPORTANT: Regénérer le magazine pour récupérer les descriptions enrichies depuis la DB
+                logger.info(f"🔄 Rechargement du magazine avec descriptions enrichies...")
+                magazine_data = await self.magazine_service.generate_magazine()
             
             # Construction de l'édition
             edition = {

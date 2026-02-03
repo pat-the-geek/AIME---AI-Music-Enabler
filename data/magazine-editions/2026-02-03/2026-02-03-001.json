@@ -1,402 +1,9 @@
 {
   "id": "2026-02-03-001",
   "edition_number": 1,
-  "generated_at": "2026-02-03T19:45:52.441666+00:00",
+  "generated_at": "2026-02-03T20:13:06.038019+00:00",
   "albums": [],
   "pages": [
-    {
-      "page_number": 5,
-      "type": "playlist_theme",
-      "title": "Playlist: Horizons Oubliés",
-      "layout": {
-        "columns": 2,
-        "imagePosition": "left",
-        "imageSize": "medium",
-        "textLayout": "vertical",
-        "composition": "minimalist",
-        "accentColor": "#06b6d4",
-        "specialEffect": "zoom"
-      },
-      "content": {
-        "playlist": {
-          "theme": "Horizons Oubliés",
-          "description": "*Horizons Oubliés* est une playlist curated avec soin, mêlant **mélodies intemporelles** et *productions modernes*. Chaque album a été sélectionné pour son **pouvoir émotionnel** et son *authenticité artistique*. Plongez-vous dans cette **expérience sonore** unique et laissez la musique vous **transporter** vers des univers *nouveaux* et *captivants*.",
-          "albums": [
-            {
-              "id": 31,
-              "title": "Ode",
-              "artist": "Stephan Eicher",
-              "image_url": "https://i.discogs.com/sEkZ3w3dmQR8U_GBQ3A1U2cpcXaIQXqT-9Ng3AG_JF4/rs:fit/g:sm/q:90/h:544/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1MDQx/MDEwLTE2Njc0OTg1/MjItNzk3Mi5qcGVn.jpeg",
-              "year": 2022,
-              "layout": {
-                "columns": 3,
-                "imagePosition": "center",
-                "imageSize": "massive",
-                "textLayout": "double-column",
-                "composition": "minimalist",
-                "accentColor": "#06b6d4",
-                "specialEffect": "overlay"
-              },
-              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Horizons Oubliés*."
-            },
-            {
-              "id": 13,
-              "title": "Imagine",
-              "artist": "John Lennon",
-              "image_url": "https://i.discogs.com/ZQ06ek9-_qYX8JoXJZBRGPPHh7sKELcoB4Ajkr2FWvg/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyNjEx/NDk0LTE2OTkyMzUw/MjUtMjIzMi5qcGVn.jpeg",
-              "year": 2018,
-              "layout": {
-                "columns": 4,
-                "imagePosition": "left",
-                "imageSize": "medium",
-                "textLayout": "double-column",
-                "composition": "classic",
-                "accentColor": "#ff6b35",
-                "specialEffect": "blur"
-              },
-              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
-            },
-            {
-              "id": 15,
-              "title": "Yellow Submarine",
-              "artist": "The Beatles",
-              "image_url": "https://i.discogs.com/4_xYsk5OBS8C8V03EVrz1BtS9RT-kNI_M7RWSNlbHtw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQwMzY5/MzctMTM3MDU0MzY4/Ny03MzI5LmpwZWc.jpeg",
-              "year": 2012,
-              "layout": {
-                "columns": 3,
-                "imagePosition": "diagonal",
-                "imageSize": "massive",
-                "textLayout": "vertical",
-                "composition": "magazine",
-                "accentColor": "#f59e0b",
-                "specialEffect": "none"
-              },
-              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
-            },
-            {
-              "id": 88,
-              "title": "Wish",
-              "artist": "The Cure",
-              "image_url": "https://i.discogs.com/PxIn2hhqJPMcLkVvq_A_HLW3nRt9NW239vYUG2ZYVwM/rs:fit/g:sm/q:90/h:583/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1Mjc5/NzgzLTE2Njk0MDU1/OTctODQzNS5qcGVn.jpeg",
-              "year": 2022,
-              "layout": {
-                "columns": 2,
-                "imagePosition": "fullwidth",
-                "imageSize": "small",
-                "textLayout": "vertical",
-                "composition": "zen",
-                "accentColor": "#00b4d8",
-                "specialEffect": "none"
-              },
-              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
-            },
-            {
-              "id": 89,
-              "title": "Disintegration",
-              "artist": "The Cure",
-              "image_url": "https://i.discogs.com/jJ5NVJVDmzMVcA-YUFcwGa2-OfdnJ3IQ7Oip27N_Sys/rs:fit/g:sm/q:90/h:588/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk2MTA5/NzAtMTUyNzM1Nzgz/Mi01NjA1LmpwZWc.jpeg",
-              "year": 1989,
-              "layout": {
-                "columns": 5,
-                "imagePosition": "center",
-                "imageSize": "huge",
-                "textLayout": "single",
-                "composition": "zen",
-                "accentColor": "#00b4d8",
-                "specialEffect": "none"
-              },
-              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
-            },
-            {
-              "id": 178,
-              "title": "Aladdin Sane",
-              "artist": "David Bowie",
-              "image_url": "https://i.discogs.com/GRCkybUp0qFCQaBOAl_rRomCEzweg2xSJKnJv-CW4Cg/rs:fit/g:sm/q:90/h:550/w:550/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NDkw/Ni0xNDEyNzc1NzU1/LTQwMTIuanBlZw.jpeg",
-              "year": 1973,
-              "layout": {
-                "columns": 4,
-                "imagePosition": "split",
-                "imageSize": "tiny",
-                "textLayout": "vertical",
-                "composition": "bold",
-                "accentColor": "#f59e0b",
-                "specialEffect": "gradient"
-              },
-              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
-            },
-            {
-              "id": 152,
-              "title": "Gorillaz",
-              "artist": "Gorillaz",
-              "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/487131c63dafa5ca8c8d4cdf7e490c7a.gif",
-              "year": 2001,
-              "layout": {
-                "columns": 3,
-                "imagePosition": "fullwidth",
-                "imageSize": "tiny",
-                "textLayout": "vertical",
-                "composition": "zen",
-                "accentColor": "#06b6d4",
-                "specialEffect": "tilt"
-              },
-              "reason": "*Gorillaz* apporte une **profondeur émotionnelle** incomparable à cette playlist."
-            }
-          ]
-        }
-      },
-      "dimensions": {
-        "card_style": "detailed",
-        "image_position": "top"
-      }
-    },
-    {
-      "page_number": 2,
-      "type": "album_detail",
-      "title": "Album du Jour",
-      "layout": {
-        "columns": 1,
-        "imagePosition": "top",
-        "imageSize": "large",
-        "textLayout": "asymmetric",
-        "composition": "chaos",
-        "accentColor": "#ec4899",
-        "specialEffect": "blur"
-      },
-      "content": {
-        "album": {
-          "id": 340,
-          "title": "Aguaplano",
-          "artist": "Paolo Conte",
-          "year": 1987,
-          "genre": null,
-          "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/5b46141baec4dd46c6c71249eaff8f08.jpg",
-          "description": "Aguaplano par Paolo Conte (1987)",
-          "style": null
-        }
-      },
-      "dimensions": {
-        "image_size": "medium",
-        "description_length": "full",
-        "font_size": "large"
-      }
-    },
-    {
-      "page_number": 3,
-      "type": "albums_haikus",
-      "title": "Haïkus Musicaux",
-      "layout": {
-        "columns": 1,
-        "imagePosition": "center",
-        "imageSize": "large",
-        "textLayout": "masonry",
-        "composition": "bold",
-        "accentColor": "#667eea",
-        "specialEffect": "gradient"
-      },
-      "content": {
-        "albums": [
-          {
-            "id": 1185,
-            "title": "Hinterland",
-            "artist": "Strange Cargo",
-            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/ad051eb3d2f015da9c15ae0c40ae09d9.jpg",
-            "genre": null
-          },
-          {
-            "id": 1014,
-            "title": "Love in the Wind",
-            "artist": "The Sha La Das",
-            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/b3b7d10c1c27a28d62c1f4a71934998a.jpg",
-            "genre": null
-          },
-          {
-            "id": 738,
-            "title": "Small Changes",
-            "artist": "Michael Kiwanuka",
-            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/52e7ac80552fb6377c37741fce858968.png",
-            "genre": null
-          },
-          {
-            "id": 774,
-            "title": "Le Mépris (Original Motion Picture Soundtrack)",
-            "artist": "Georges Delerue",
-            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/b7f1b3eeb5a02684157e60f251207942.jpg",
-            "genre": null
-          }
-        ],
-        "haikus": [
-          {
-            "album_id": 1185,
-            "album_title": "Hinterland",
-            "haiku": "Vibrations sonores\n**Magie** entre les instants\nL'infini enfin",
-            "layout": {
-              "columns": 2,
-              "imagePosition": "floating",
-              "imageSize": "large",
-              "textLayout": "masonry",
-              "composition": "modern",
-              "accentColor": "#00b4d8",
-              "specialEffect": "shadow"
-            },
-            "description": "**Hinterland** de *Strange Cargo* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
-          },
-          {
-            "album_id": 1014,
-            "album_title": "Love in the Wind",
-            "haiku": "Vibrations sonores\n**Magie** entre les instants\nL'infini enfin",
-            "layout": {
-              "columns": 4,
-              "imagePosition": "split",
-              "imageSize": "massive",
-              "textLayout": "double-column",
-              "composition": "chaos",
-              "accentColor": "#ec4899",
-              "specialEffect": "none"
-            },
-            "description": "La **poésie musicale** de *Love in the Wind* de The Sha La Das transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
-          },
-          {
-            "album_id": 738,
-            "album_title": "Small Changes",
-            "haiku": "Vibrations sonores\n**Magie** entre les instants\nL'infini enfin",
-            "layout": {
-              "columns": 3,
-              "imagePosition": "top",
-              "imageSize": "tiny",
-              "textLayout": "single",
-              "composition": "dramatic",
-              "accentColor": "#ec4899",
-              "specialEffect": "zoom"
-            },
-            "description": "La **poésie musicale** de *Small Changes* de Michael Kiwanuka transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
-          },
-          {
-            "album_id": 774,
-            "album_title": "Le Mépris (Original Motion Picture Soundtrack)",
-            "haiku": "Notes qui dansent\n**Harmonie** dans l'espace\nL'âme prend son vol",
-            "layout": {
-              "columns": 4,
-              "imagePosition": "corner",
-              "imageSize": "large",
-              "textLayout": "single",
-              "composition": "minimalist",
-              "accentColor": "#00b4d8",
-              "specialEffect": "tilt"
-            },
-            "description": "Le Mépris (Original Motion Picture Soundtrack) par Georges Delerue"
-          }
-        ]
-      },
-      "dimensions": {
-        "image_size": "medium",
-        "columns": 2,
-        "spacing": "normal"
-      }
-    },
-    {
-      "page_number": 1,
-      "type": "artist_showcase",
-      "title": "Hemanth965",
-      "layout": {
-        "columns": 1,
-        "imagePosition": "floating",
-        "imageSize": "fullscreen",
-        "textLayout": "double-column",
-        "composition": "minimalist",
-        "accentColor": "#764ba2",
-        "specialEffect": "tilt"
-      },
-      "content": {
-        "artist": {
-          "name": "Hemanth965",
-          "albums_count": 6,
-          "haiku": "Notes qui résonnent\n**Esprit** libéré enfin\nMusique de l'âme",
-          "bio": "**Hemanth965** est un artiste visionnaire dont la musique transcende les genres. Sa **palette sonore** unique mêle *sensibilité* et *innovation*. Chaque composition raconte une histoire *profonde*, offrant aux auditeurs une **expérience intime** et *transformatrice*. Un créateur dont l'art inspire et **touche l'âme**.",
-          "image_url": "https://i.scdn.co/image/ab6761610000e5ebca5b8b3962de6c4e819ebb29"
-        },
-        "albums": [
-          {
-            "id": 997,
-            "title": "A Space in Time (Deluxe Version)",
-            "year": null,
-            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/57dbc7c4254a098b966bae6d90cffda9.jpg",
-            "genre": null,
-            "artist": "Ten Years After",
-            "description": "**A Space in Time (Deluxe Version)** de Ten Years After (date inconnue)\n\nCette édition spéciale offre une expérience d'écoute enrichie de l'œuvre originale. Les remasters audio apportent une clarté et une profondeur sonore modernisées, révélant des détails inédits dans les arrangements.\n\nLa démarche artistique respecte l'esprit de l'album original tout en bénéficiant des technologies contemporaines. Les textures sonores gagnent en présence, les dynamiques sont mieux préservées, et l'équilibre général offre une immersion renouvelée.\n\nCette réédition témoigne de l'intemporalité de l'œuvre de Ten Years After, permettant aux nouvelles générations de découvrir cet album emblématique dans des conditions d'écoute optimales.",
-            "content_type": "remaster_detail"
-          },
-          {
-            "id": 1298,
-            "title": "Hit Me Hard And Soft",
-            "year": 2024,
-            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/6db576307ee7bdd81056432542b6bab7.jpg",
-            "genre": null,
-            "artist": "Billie Eilish",
-            "description": "Dans *Hit Me Hard And Soft*, Billie Eilish nous offre un **voyage sonore** particulier. Sorti en 2024, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
-            "content_type": "story"
-          },
-          {
-            "id": 398,
-            "title": "Petite Amie (Live & Bonus)",
-            "year": null,
-            "image_url": "https://i.scdn.co/image/ab67616d0000b273e19544f4326fe1176d69b399",
-            "genre": "Rock Alternatif",
-            "artist": "Juliette Armanet",
-            "description": "**Petite Amie (Live & Bonus)** de Juliette Armanet (date inconnue)\n\nCette édition spéciale offre une expérience d'écoute enrichie de l'œuvre originale. Les remasters audio apportent une clarté et une profondeur sonore modernisées, révélant des détails inédits dans les arrangements.\n\nLa démarche artistique respecte l'esprit de l'album original tout en bénéficiant des technologies contemporaines. Les textures sonores gagnent en présence, les dynamiques sont mieux préservées, et l'équilibre général offre une immersion renouvelée.\n\nCette réédition témoigne de l'intemporalité de l'œuvre de Juliette Armanet, permettant aux nouvelles générations de découvrir cet album emblématique dans des conditions d'écoute optimales.",
-            "content_type": "remaster_detail"
-          },
-          {
-            "id": 153,
-            "title": "Scary Monsters",
-            "year": 2018,
-            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/6ea07d6117805246df1c2e1f85a4df81.jpg",
-            "genre": null,
-            "artist": "David Bowie",
-            "description": "*Scary Monsters* marque un moment dans la carrière de David Bowie. Ce disque de 2018 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
-            "content_type": "poetic"
-          },
-          {
-            "id": 1358,
-            "title": "Tomorrow Comes Today",
-            "year": 2025,
-            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/a1529f3edb3536f8b1628161a2762bc5.jpg",
-            "genre": null,
-            "artist": "Gorillaz",
-            "description": "Dans *Tomorrow Comes Today*, Gorillaz nous offre un **voyage sonore** particulier. Sorti en 2025, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
-            "content_type": "mood"
-          },
-          {
-            "id": 1057,
-            "title": "23",
-            "year": null,
-            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/2357ab46c0cd490fc94ab3d0f12cc277.png",
-            "genre": null,
-            "artist": "Blonde Redhead",
-            "description": "**23** de *Blonde Redhead* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
-            "content_type": "technical"
-          }
-        ],
-        "filler": [
-          {
-            "type": "fact",
-            "text": "Aucune information disponible"
-          },
-          {
-            "type": "quote",
-            "text": "Aucune information disponible"
-          },
-          {
-            "type": "quote",
-            "text": "Aucune information disponible"
-          }
-        ]
-      },
-      "dimensions": {
-        "image_height": 600,
-        "text_columns": 1,
-        "color_scheme": "newspaper"
-      }
-    },
     {
       "page_number": 4,
       "type": "timeline_stats",
@@ -405,10 +12,10 @@
         "columns": 3,
         "imagePosition": "diagonal",
         "imageSize": "massive",
-        "textLayout": "vertical",
+        "textLayout": "asymmetric",
         "composition": "dramatic",
-        "accentColor": "#ff006e",
-        "specialEffect": "blur"
+        "accentColor": "#FF00FF",
+        "specialEffect": "tilt"
       },
       "content": {
         "total_recent_listens": 50,
@@ -419,7 +26,7 @@
             "artist_id": 49,
             "artist_name": "Tame Impala",
             "image_url": "https://i.scdn.co/image/ab6761610000e5ebe412a782245eb20d9626c601",
-            "count": 24
+            "count": 25
           },
           {
             "artist_id": 71,
@@ -440,10 +47,10 @@
             "count": 2
           },
           {
-            "artist_id": 238,
-            "artist_name": "Orbital",
-            "image_url": "https://i.scdn.co/image/ab6761610000e5ebd5143e239460a4d3c722ffab",
-            "count": 2
+            "artist_id": 20,
+            "artist_name": "The Cramps",
+            "image_url": "https://i.scdn.co/image/ab6772690000c46c74cdbefb22ed5e63ad519673",
+            "count": 1
           }
         ],
         "top_albums": [
@@ -452,7 +59,7 @@
             "album_title": "Currents",
             "artist_name": "Tame Impala",
             "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/dd45b0438a315aed98b5830aa2fc43c5.jpg",
-            "count": 24
+            "count": 25
           },
           {
             "album_id": 1361,
@@ -476,17 +83,430 @@
             "count": 2
           },
           {
-            "album_id": 1436,
-            "album_title": "Orbital 2 (The Brown Album Expanded)",
-            "artist_name": "Orbital",
-            "image_url": "https://i.scdn.co/image/ab6761610000e5ebd5143e239460a4d3c722ffab",
-            "count": 2
+            "album_id": 1342,
+            "album_title": "Flame Job",
+            "artist_name": "The Cramps",
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/00ceeff77afa1e9fb039f0c34f1d27a6.png",
+            "count": 1
           }
         ]
       },
       "dimensions": {
-        "chart_type": "bar",
+        "chart_type": "donut",
         "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "chaos",
+        "accentColor": "#FF00FF",
+        "specialEffect": "tilt"
+      },
+      "content": {
+        "album": {
+          "id": 1040,
+          "title": "Disintegration (Deluxe Edition)",
+          "artist": "The Cure",
+          "year": null,
+          "genre": null,
+          "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/429fd312f3d5cb652a9c9ec262495742.jpg",
+          "description": "```markdown\n- **Contexte** : La *Deluxe Edition* de *Disintegration* (1989) célèbre l'anniversaire de l'album original, souvent considéré comme un chef-d'œuvre post-punk/gothique. Elle inclut des versions réenregistrées, des démos inédites et des remixes, marquant une collaboration entre Robert Smith et des producteurs modernes.\n\n- **Démarche artistique** : The Cure déconstruit et réinterprète les morceaux originaux, ajoutant des textures électroniques et des arrangements orchestraux. L'ambiance reste fidèle à l'original, mais avec des touches modernes (synthés, beats plus marqués).\n\n- **Réactions critiques** : L'accueil est mitigé. Certains saluent la fidélité à l'esprit du disque, tandis que d'autres trouvent les remixes superflus. Les puristes préfèrent l'original, mais la *Deluxe Edition* est appréciée pour son exploration expérimentale.\n\n- **Éléments sonores** : Les voix de Smith conservent leur mélancolie caractéristique, mais les instruments gagnent en profondeur (reverb, couches orchestrales). Les beats sont parfois plus rythmiques, et les textures électroniques ajoutent une dimension contemporaine sans altérer l'atmosphère sombre et introspective.\n\n- **Bonus** : Les démos révèlent des versions brutes des titres, offrant un aperçu du processus créatif. Certaines pistes inédites élargissent l'univers de l'album, avec des ambiances encore plus expérimentales.\n```",
+          "style": null
+        }
+      },
+      "dimensions": {
+        "image_size": "large",
+        "description_length": "full",
+        "font_size": "medium"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#6a0dad",
+        "specialEffect": "tilt"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 1291,
+            "title": "Once Upon A Time In Hollywood (Original Motion Picture Soundtrack)",
+            "artist": "Various",
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/405f97536525c29e82e642016131c1e7.jpg",
+            "genre": null
+          },
+          {
+            "id": 786,
+            "title": "Ants From Up There",
+            "artist": "Black Country, New Road",
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/3332b3cee5de8598dbd080f8e2783f93.jpg",
+            "genre": null
+          },
+          {
+            "id": 946,
+            "title": "Anthology Highlights",
+            "artist": "The Beatles",
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/a38cef4213adf34bad7083a36f3894cb.jpg",
+            "genre": null
+          },
+          {
+            "id": 1372,
+            "title": "Did You Know That There's A Tunnel Under Ocean Blvd",
+            "artist": "Lana Del Rey",
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/d997c7f2b282ddee62c10623a80b752d.png",
+            "genre": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 1291,
+            "album_title": "Once Upon A Time In Hollywood (Original Motion Picture Soundtrack)",
+            "haiku": "*Guitares qui dansent*\n*Sous le soleil d’Hollywood*\n*Un rêve en suspens*",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "diagonal",
+              "imageSize": "massive",
+              "textLayout": "scattered",
+              "composition": "dramatic",
+              "accentColor": "#FF00FF",
+              "specialEffect": "gradient"
+            },
+            "description": "# **Once Upon A Time In Hollywood (Original Motion Picture Soundtrack) – Une Odyssée Sonore À Travers Le Crépuscule De L’Âge D’Or**\n\n## **Une Nostalgie Envoûtante : L’Atmosphère Du Soundtrack**\nDès les premières notes, *Once Upon A Time In Hollywood* plonge l’auditeur dans un **bain de mélancolie dorée**, un hommage cinématographique à une ère révolue. Les **nappes de cordes larmoyantes**, les **basses profondes et vibrantes**, et les **guitare électriques distordues** évoquent immédiatement l’effervescence des années 1960, mais teintée d’une **sombre conscience** de leur fin inévitable. La bande-son oscille entre **l’euphorie des drive-in movies** et **l’angoisse des changements sociaux**, entre **la douceur des mélodies pop** et **la tension des thèmes psychédéliques**.\n\nLes **orchestrations luxuriantes**, signées par des compositeurs comme **Nicholas Britell**, **Danny Elfman**, ou **Pink Floyd** (via une reprise instrumentale de *Interstellar Overdrive*), créent un **univers sonore à la fois rétro et avant-gardiste**. Les **synthétiseurs analogiques** rappellent les films de **David Lynch**, tandis que les **cordes dramatiques** évoquent les partitions de **Bernard Herrmann**. C’est un **ballet musical** où chaque morceau semble raconter une histoire, un instant suspendu entre **le rire et les larmes**.\n\n## **La Démarche Artistique : Entre Hommage Et Révolution**\nCet album est bien plus qu’une simple **compilation de morceaux** : c’est une **expérience immersive**, une **reconstruction sonore d’une époque mythifiée**. Les artistes, sous le pseudonyme collectif *Various*, semblent avoir cherché à **capturer l’âme du cinéma américain** des années 60, tout en y injectant une **modernité subtile**.\n\nCertains morceaux adoptent une **approche minimaliste**, comme des **boucles hypnotiques** rappelant *Boards of Canada*, tandis que d’autres explosent en **catharsis rock**, avec des **riffs de guitare saturés** et des **batteries frénétiques**. Cette dualité reflète parfaitement le **ton du film** : à la fois **célébration et critique** d’une époque.\n\nL’innovation réside dans **l’usage des silences et des espaces sonores**, créant une **suspense constante**. On entend presque **le crépitement des projecteurs**, **le murmure des conversations dans les cafés de Hollywood**, **le rugissement des moteurs des voitures de sport**. C’est une **bande-son qui respire**, qui vit.\n\n## **Thématiques Universelles : La Fin D’Un Rêve, L’Aube D’Une Nouvelle Ère**\nAu-delà de la **nostalgie**, l’album explore des **thématiques profondes** :\n- **La peur du changement** : les mélodies envoûtantes cachent une **angoisse sous-jacente**, celle d’un monde qui bascule (l’assassinat de Sharon Tate, la contre-culture, la fin du cinéma classique).\n- **La quête d’identité** : entre **le glamour hollywoodien** et **la réalité brutale**, la musique oscille entre **l’idéalisation et la désillusion**.\n- **La violence et la rédemption** : certains morceaux, comme une **version sombre et lourdaude de *You Never Can Tell* des Stones**, suggèrent une **tension sous-jacente**, presque apocalyptique.\n\nC’est un **album sur la mémoire**, sur ce qui reste quand les projecteurs s’éteignent.\n\n## **Influences Musicales : Un Patchwork Génial**\nL’album puise dans un **répertoire éclectique** :\n- **Le rock psychédélique** (*The Byrds*, *Love*), avec ses **guitaoues tremblantes** et ses **harmonies célestes**.\n- **La pop baroque** (*The Zombies*, *The Left Banke*), avec ses **orchestrations sophistiquées**.\n- **Le western spaghetti** (*Ennio Morricone*), via des **thèmes mélodramatiques et des sifflements évocateurs**.\n- **Le funk et le soul** (*James Brown*, *Stevie Wonder*), pour rappeler l’émergence d’une nouvelle génération.\n- **Le rock garage et punk** (*The Stooges*, *MC5*), annonçant la fin des illusions.\n\nCette **fusion des genres** en fait un **manifeste sonore** de l’ère 60s-70s, où **tout était possible**.\n\n## **Impact Émotionnel : Une Expérience Cathartique**\nL’auditeur est **transporté dans un voyage temporel** :\n- **La joie des mélodies pop** le fait sourire, mais **les dissonances subites** le plongent dans l’incertitude.\n- **Les moments de calme** (comme une **version orchestrale de *That Could Be Us* de Leonard Cohen**) provoquent une **tristesse profonde**.\n- **Les explosions rock** (*Baby Driver*-style) redonnent **une énergie presque vitale**.\n\nC’est un **album qui fait vibrer les tripes**, qui **remue les souvenirs**, même pour ceux qui n’ont pas vécu cette époque.\n\n## **Place Dans La Discographie : Un Jalon Unique**\nBien que signé *Various*, cet album pourrait être **l’œuvre la plus ambitieuse** de sa discographie, car il **ne se contente pas de compiler** : il **construit un récit**. Il rappelle les **soundtracks légendaires** comme *Easy Rider* ou *The Graduate*, mais avec une **approche plus expérimentale**.\n\n## **Réception Imaginée : Un Triomphe Critique**\nLes **critiques** salueraient probablement **l’audace de la production**, **la richesse des arrangements**, et **la manière dont la musique transcende le film** pour devenir une **œuvre autonome**. Le public, quant à lui, serait **tiré entre l’émotion et la fascination**, certains y voyant une **nostalgie kitsch**, d’autres une **réflexion profonde sur le temps qui passe**.\n\n## **Moments Marquant Imaginés**\n- **L’ouverture orchestrale** (*The Green Girl*), une **valse dramatique** qui pose l’ambiance.\n- **La reprise psychédélique de *The Way You Look Tonight*** (version *The Mamas & The Papas* reimaginée en *trip-hop*).\n- **La conclusion apocalyptique** (*The End*), un **mur de guitares et de percussions** qui laisse l’auditeur haletant.\n\n## **Héritage Et Influence Potentielle**\nCet album pourrait **inspirer une nouvelle vague de soundtracks** qui **mêlent passé et présent**, comme **l’ont fait *Drive* ou *Blade Runner 2049***. Il **redéfinit le concept de bande originale**, montrant qu’elle peut **exister en dehors du film**, comme une **pièce d’art à part entière**.\n\nEn somme, *Once Upon A Time In Hollywood* n’est pas qu’un **soundtrack** : c’est **un voyage sensoriel, une méditation sur le temps, et un hommage vibrant à une époque qui a façonné le monde moderne**."
+          },
+          {
+            "album_id": 786,
+            "album_title": "Ants From Up There",
+            "haiku": "Ruines dans la ville,\nUn rire éclate comme un verre,\nÉclats d'or dans la nuit.",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "diagonal",
+              "imageSize": "massive",
+              "textLayout": "single",
+              "composition": "chaos",
+              "accentColor": "#FF00FF",
+              "specialEffect": "tilt"
+            },
+            "description": "# **Black Country, New Road – *Ants From Up There***\n## **Une odyssée sonore entre chaos et poésie urbaine**\n\n***\nL’album *Ants From Up There* de *Black Country, New Road* est une œuvre monumentale, un voyage musical qui oscille entre **fureur post-rock, expérimentation jazz et mélancolie post-punk**. Son titre, énigmatique et poétique, évoque une **vision microcosmique du monde** : ces fourmis, vues de haut, symbolisent une humanité en mouvement, fragmentée, mais unie dans sa quête de sens. L’album, sans date précise, semble flotter dans un **contexte musical flottant entre la fin des années 2010 et le début des années 2020**, une époque où les frontières entre les genres s’effacent, où l’urgence climatique et sociale imprègne la création artistique.\n\n### **Une atmosphère sombre et lumineuse**\nL’ambiance de *Ants From Up There* est **contrastée** : des **nappes de sintetiseurs nostalgiques** se mêlent à des **rythmiques tribales**, tandis que les **guitares dissonantes** et les **saxophones enragés** tissent une toile sonore à la fois **chaotique et hypnotique**. Les voix, tantôt murmurantes, tantôt déchirées, évoquent une **prophétie urbaine**, un cri du cœur perdu entre **l’absurdité de la vie moderne et la beauté des petites choses**.\n\nLes textures sont **riches en détails** :\n- Des **basses profondes** qui résonnent comme des tremblements de terre.\n- Des **percussions fractales**, entre jazz progressif et noise.\n- Des **mélodies envoûtantes** qui surgissent puis s’évanouissent, comme des rêves éveillés.\n\n### **La démarche artistique : entre expérimentation et émotion brute**\nBlack Country, New Road a toujours été un groupe **réfractaire aux catégories**, mêlant **l’énergie brute du punk** à la **complexité du jazz moderne**. *Ants From Up There* pousse cette démarche plus loin, avec une **approche conceptuelle** où chaque morceau est une pièce d’un puzzle narratif.\n\n**Les intentions possibles :**\n- **Une réflexion sur l’individualité et la masse** (d’où le titre *Ants From Up There*).\n- **Une critique sociale voilée**, à travers des métaphores animales et urbaines.\n- **Une quête d’authenticité musicale**, entre improvisation et composition rigoureuse.\n\n### **Thématiques : entre désespoir et espoir**\nL’album explore des **thèmes universels** :\n- **L’aliénation moderne** – le sentiment d’être une fourmi dans une fourmilière urbaine.\n- **La fragilité humaine** – des mélodies brisées qui évoquent des vies en miettes.\n- **La beauté dans le chaos** – des moments de grâce qui émergent malgré tout.\n\n**Influences musicales :**\n- **Post-rock (Godspeed You! Black Emperor, Mogwai)** pour les nappes atmosphériques.\n- **Jazz (Albert Ayler, John Zorn)** pour les improvisations sauvages.\n- **Post-punk (Swans, Talking Heads)** pour la tension rythmique.\n- **Musique électronique (Björk, Aphex Twin)** pour les textures électroniques.\n\n### **Impact émotionnel : un album qui trouble et transporte**\n*Ants From Up There* est **une expérience immersive** qui **secoue l’auditeur** :\n- **Colère et désespoir** dans les morceaux les plus violents.\n- **Mélancolie et douceur** dans les passages plus intimes.\n- **Une sensation de vertige**, comme si l’on était **tiré entre deux réalités**.\n\n### **Place dans la discographie**\nSi l’on imagine que *Black Country, New Road* a déjà exploré des territoires expérimentaux, *Ants From Up There* pourrait être :\n- **Un sommet créatif**, une synthèse de leurs influences.\n- **Un tournant**, où le groupe ose encore plus de risques.\n- **Un album culte**, comme *Loveless* pour My Bloody Valentine ou *In the Court of the Crimson King* pour King Crimson.\n\n### **Réception imaginée : entre adoration et perplexité**\n- **La critique** saluerait son **audace** et sa **profondeur**, mais certains pourraient le trouver **trop dense**.\n- **Le public** serait divisé : certains l’adoreraient pour son **intensité émotionnelle**, d’autres le trouveraient **trop exigeant**.\n- **Les puristes** du jazz ou du punk pourraient le rejeter, tandis que les amateurs de **musique avant-gardiste** en feraient un **chef-d’œuvre instantané**.\n\n### **Moments marquants possibles**\n- **Un solo de saxophone déchirant** qui évoque une crise existentielle.\n- **Un final apocalyptique**, avec des guitares qui s’effondrent dans le chaos.\n- **Un interlude acoustique**, d’une beauté fragile, comme un souffle de vie dans l’obscurité.\n\n### **Héritage et influence potentielle**\n*Ants From Up There* pourrait devenir **un album de référence pour les années 2020**, inspirant :\n- **De jeunes groupes** à repousser les limites des genres.\n- **Des artistes électroniques** à intégrer plus de **musique live et improvisation**.\n- **Une nouvelle vague** de **post-rock expérimental**.\n\n***\nEn somme, *Ants From Up There* n’est pas juste un album – c’est **une expérience sensorielle, une plongée dans l’âme humaine**, un **miroir de notre époque fracturée**. Black Country, New Road y signe **une œuvre intemporelle**, à la fois **brutale et poétique, désespérée et pleine d’espoir**.\n\n**Une fourmilière sonore où chaque note est une vie. Et nous, spectateurs privilégiés, nous regardons ces fourmis de haut, émerveillés et terrifiés.**"
+          },
+          {
+            "album_id": 946,
+            "album_title": "Anthology Highlights",
+            "haiku": "Mélodies d'or,\nRêves d'une époque lointaine,\nL'écho du temps danse.",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "diagonal",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#FF00D1",
+              "specialEffect": "tilt"
+            },
+            "description": "La **poésie musicale** de *Anthology Highlights* de The Beatles transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 1372,
+            "album_title": "Did You Know That There's A Tunnel Under Ocean Blvd",
+            "haiku": "*Lune bleue sur l'océan,*\n*Les mots se noient en écho,*\n*Un tunnel de secrets.*",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "diagonal",
+              "imageSize": "huge",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#ff00ff",
+              "specialEffect": "blur"
+            },
+            "description": "# **Did You Know That There's A Tunnel Under Ocean Blvd** – Une Plongée Hypnotique dans l'Univers de Lana Del Rey\n\n## **Un Titre Évocateur, un Voyage Onirique**\nDès son titre énigmatique, *Did You Know That There's A Tunnel Under Ocean Blvd* s’impose comme une invitation à explorer un monde parallèle, un royaume secret dissimulé sous les vagues. **Lana Del Rey**, reine du mélancolie cinématographique, y déploie une nouvelle couche de son univers, à la fois **nostalgique et futuriste**, **intime et cosmique**. Le nom de l’album évoque immédiatement des **images de routes désertes**, de **voitures décapotables roulant le long de l’océan**, mais aussi de **réfuges souterrains**, de **portails menant à d’autres dimensions**. C’est une métaphore de la **quête d’identité**, de l’**errance existentielle**, mais aussi de la **fuite vers un ailleurs mythique**.\n\nEn 2023, alors que le monde oscille entre **crises politiques**, **révolutions technologiques** et **recherche de sens**, Lana Del Rey capte cette **ambivalence**. Son album pourrait être une **réflexion sur les illusions modernes**, un **mélange de glamour désuète et de dystopie douce**, où les **chants sirènes** se mêlent aux **échos d’une Amérique en mutation**.\n\n---\n\n## **Atmosphère : Un Rêve Éveillé entre Nostalgie et Futurisme**\nMusicalement, *Did You Know That There's A Tunnel Under Ocean Blvd* est un **paradis de textures veloutées**, où **pianos jazz** et **synthés rétro-futuristes** dialoguent avec des **rythmes hypnotiques**. Les **cordes dramatiques** et les **batteries minimalistes** créent une **ambiance de film noir moderne**, tandis que les **voix éthérées** de Lana glissent entre **souvenirs enfouis** et **visions prophétiques**.\n\n- **Couleurs sonores** : Des **bleus profonds**, des **oranges flamboyants**, des **noirs élégants**.\n- **Textures** : Des **nappes de réverbération**, des **échos lointains**, des **mélodies qui s’effilochent comme du velours**.\n- **Rythmes** : Entre **slow-dances mélancoliques** et **pulsations électroniques discrètes**, l’album balance entre **lenteur hypnotique** et **urgences intérieures**.\n\nL’ambiance générale est celle d’un **rêve éveillé**, où **réalité et fiction** s’entremêlent. On y entend **les murmures de l’océan**, **le crissement des pneus sur l’asphalte**, **le bourdonnement des néons la nuit**.\n\n---\n\n## **Démarche Artistique : Entre Héritage et Innovation**\nLana Del Rey a toujours su **réinventer sa mélancolie** sans jamais trahir son essence. Avec cet album, elle **pousse ses limites** en intégrant des **éléments plus expérimentaux**, tout en restant fidèle à son **lyrisme poétique** et à son **esthétique cinématographique**.\n\n- **Intentions possibles** :\n  - **Explorer les thèmes de la solitude et de la connexion** dans un monde hyperconnecté.\n  - **Mêler le passé et le futur**, comme un **bridge entre l’âge d’or hollywoodien et l’ère numérique**.\n  - **Créer une œuvre immersive**, presque **conceptuelle**, où chaque chanson est un **chapitre d’une histoire plus vaste**.\n\n- **Innovations** :\n  - **Utilisation de field recordings** (vagues, voix distantes, bruits de ville).\n  - **Collaborations avec des producteurs avant-gardistes** (peut-être **Jack Antonoff** ou **Bleachers** pour un côté pop sophistiqué).\n  - **Structures musicales déconstruites**, où les **ponts et refrains** jouent avec les attentes.\n\n---\n\n## **Thématiques : Un Album Universel et Profondément Personnel**\nLana Del Rey excelle dans l’art de **mêler l’intime et l’universel**. *Did You Know That There's A Tunnel Under Ocean Blvd* pourrait aborder :\n\n- **La quête d’identité** : *\"Qui suis-je quand je disparais sous la surface ?\"*\n- **L’amour et la perte** : Des relations **passionnelles mais destructrices**, des **amours fantômes**.\n- **La fuite et le refuge** : Le **tunnel sous l’océan** comme symbole de **libération ou de prison**.\n- **La mythologie personnelle** : Des **références à Hollywood**, à la **beauté tragique**, à la **glamourisation de la mélancolie**.\n- **Le rapport à la technologie** : *\"Et si le tunnel était une métaphore de l’Internet, de ces espaces virtuels où l’on se perd ?\"*\n\n---\n\n## **Influences Musicales : Un Mélange de Rétro et de Contemporain**\nL’album puise dans un **large éventail d’influences** :\n\n- **Jazz des années 50-60** (Nina Simone, Billie Holiday) pour les **mélodies languissantes**.\n- **Pop baroque des années 60** (The Beach Boys, The Zombies) pour les **harmonies riches**.\n- **Electro-pop des années 80** (Depeche Mode, Pet Shop Boys) pour les **nappes synthétiques**.\n- **Trap atmosphérique** (Lil Peep, XXXTentacion) pour les **rythmes sombres et introspectifs**.\n- **Minimalisme classique** (Arvo Pärt, Nils Frahm) pour les **passages instrumentaux contemplatifs**.\n\nLe résultat est une **œuvre éclectique**, où **chaque chanson** est un **petit film en soi**.\n\n---\n\n## **Impact Émotionnel : Un Voyage Introspectif et Cathartique**\nL’auditeur plonge dans un **état de transe mélancolique**, où **chagrin et beauté** se confondent. Certains morceaux pourraient **susciter des larmes**, d’autres **une fascination hypnotique**. Lana Del Rey, avec sa **voix à la fois fragile et puissante**, guide l’écoute comme une **sirène moderne**, entre **douleur et rédemption**.\n\n- **Émotions dominantes** : **Nostalgie**, **solitude**, **espérance fragile**, **fascination pour l’inconnu**.\n- **Expérience d’écoute** : Un **album à écouter de nuit**, fenêtres ouvertes, en regardant **les lumières de la ville se refléter dans l’océan**.\n\n---\n\n## **Place dans la Discographie : Un Nouvel Échelon de Maturité**\nAprès *Norman Fucking Rockwell!* (2019), considéré comme un **chef-d’œuvre intemporel**, et *Chemtrails Over the Country Club* (2021), plus **introverti et organique**, *Did You Know That There's A Tunnel Under Ocean Blvd* pourrait marquer un **nouveau chapitre**.\n\n- **Évolution possible** : Plus **expérimental**, plus **ambitieux**, avec des **arrangements plus riches**.\n- **Retour aux racines** : Un **album conceptuel**, comme *Born to Die* ou *Ultraviolence*, mais avec une **maturité accrue**.\n- **Un pont vers le futur** : Peut-être une **transition vers des sonorités plus électroniques**, tout en gardant **l’âme mélancolique** de Lana.\n\n---\n\n## **Réception Imaginée : Entre Adulation et Controverses**\nLa critique **acclamera probablement** cet album pour son **audace artistique** et sa **profondeur lyrique**. Certains pourront trouver **certaines expérimentations trop audacieuses**, mais la plupart salueront **l’évolution** de Lana sans renier **son essence**.\n\n- **Public** : Les **fans inconditionnels** adoreront cette **nouvelle couche de complexité**.\n- **Nouveaux auditeurs** seront **attirés par son côté cinématographique**.\n- **Les détracteurs** pourraient critiquer **un manque de \"pop immédiate\"**, mais l’album sera **considéré comme un classique instantané**.\n\n---\n\n## **Moments Marquants Possibles**\n- **Une ballade orchestrale** avec **cordes déchirantes** et **piano solitaire**.\n- **Un morceau électro-poétique** où Lana murmure des **paroles cryptiques**.\n- **Un duo surprise** avec un artiste inattendu (peut-être **The Weeknd** ou **St. Vincent**).\n- **Un final épique**, comme une **explosion de sons et de sentiments**.\n\n---\n\n## **Héritage et Influence Potentielle**\n*Did You Know That There's A Tunnel Under Ocean Blvd* pourrait **inspirer une nouvelle vague d’artistes mélancoliques**, mélangeant **nostalgie et modernité**. Il sera **étudié comme une œuvre majeure** du **XXIe siècle**, au même titre que *Lemonade* de Beyoncé ou *To Pimp a Butterfly* de Kendrick Lamar.\n\nLana Del Rey y **affirme son statut de poétesse moderne**, capable de **transformer la douleur en beauté**, de **trouver de la magie dans l’obscurité**.\n\n---\n\n### **Conclusion : Un Album qui Résonne comme une Prophétie**\n*Did You Know That There's A Tunnel Under Ocean Blvd* est bien plus qu’un simple album : c’est **une immersion dans l’âme tourmentée mais sublime de Lana Del Rey**, un **mélange envoûtant de passé et de futur**, une **exploration des profondeurs psychiques et émotionnelles**.\n\nEn 2023, alors que le monde cherche désespérément **du sens et de la poésie**, Lana offre **un refuge**, un **tunnel vers un ailleurs rêvé**, où **la beauté réside précisément dans la mélancolie**.\n\n*\"Did you know that there's a tunnel under Ocean Blvd?\"* La réponse, on la trouve dans chaque note, chaque murmure, chaque silence."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "large",
+        "columns": 3,
+        "spacing": "normal"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Ella Fitzgerald",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "single",
+        "composition": "playful",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "blur"
+      },
+      "content": {
+        "artist": {
+          "name": "Ella Fitzgerald",
+          "albums_count": 8,
+          "haiku": "Voix d'or qui danse,\nNotes cristallines, miel chantant,\nL'âme vibre au ciel.",
+          "bio": "**Ella Fitzgerald**, la *Dame de chant* aux notes d'or, a enchanté le monde par sa voix **pure et cristalline**, capable d'effleurer les cœurs comme une brise estivale. Reine du *scat* et des mélodies *jazz*, elle transformait chaque chanson en une **danse harmonieuse**, mêlant grâce et virtuosité. Son style, à la fois **doux et puissant**, célébrait l'émotion pure, prouvant que la musique peut être à la fois *verbe* et *poésie*. Une légende intemporelle, dont la magie résonne encore comme un *écho d'étoiles*. ✨",
+          "image_url": "https://i.scdn.co/image/3c1d23141059785c8a863137d176319329dc17ef"
+        },
+        "albums": [
+          {
+            "id": 1345,
+            "title": "Ride Into The Sun",
+            "year": 2025,
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/a5488c6372f104314f38fa1e8b558fe6.jpg",
+            "genre": null,
+            "artist": "Brad Mehldau",
+            "description": "*Ride Into The Sun* marque un moment dans la carrière de Brad Mehldau. Ce disque de 2025 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "story"
+          },
+          {
+            "id": 973,
+            "title": "Sgt. Pepper's Lonely Hearts Club Band (Super Deluxe Edition)",
+            "year": null,
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/cfa99610a82d1b8a9c7ff2a3b878981d.jpg",
+            "genre": null,
+            "artist": "The Beatles",
+            "description": "La **poésie musicale** de *Sgt. Pepper's Lonely Hearts Club Band (Super Deluxe Edition)* de The Beatles transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 335,
+            "title": "The Greatest Hits",
+            "year": 2003,
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/87a6f69379d0ac967b2faadb10dbaef7.jpg",
+            "genre": null,
+            "artist": "Nina Simone",
+            "description": "La **poésie musicale** de *The Greatest Hits* de Nina Simone transcende les années depuis 2003. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "story"
+          },
+          {
+            "id": 828,
+            "title": "Scary Monsters (And Super Creeps) [2017 Remaster]",
+            "year": null,
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/5c9a4effacd027def28e712bcc20d474.jpg",
+            "genre": null,
+            "artist": "David Bowie",
+            "description": "*Scary Monsters (And Super Creeps) [2017 Remaster]* marque un moment dans la carrière de David Bowie. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 480,
+            "title": "For Sentimental Reasons",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732b5fb08f08fab7f09f0755c2",
+            "genre": "Indie Folk",
+            "artist": "Ella Fitzgerald",
+            "description": "Indie folk acoustique et intime avec des paroles poétiques. Arrangements simples mettant en valeur la voix et la guitare.",
+            "content_type": "existing"
+          },
+          {
+            "id": 1062,
+            "title": "The Beatles (White Album) (Super Deluxe Edition)",
+            "year": null,
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/1aae2eea7572b35e13f751649c4be782.jpg",
+            "genre": null,
+            "artist": "The Beatles",
+            "description": "Dans *The Beatles (White Album) (Super Deluxe Edition)*, The Beatles nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 1299,
+            "title": "Happier Than Ever",
+            "year": 2021,
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/7ebd8b6f8ac6766fb26303245a265a2e.jpg",
+            "genre": null,
+            "artist": "Billie Eilish",
+            "description": "Billie Eilish livre avec *Happier Than Ever* (2021) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "mood"
+          },
+          {
+            "id": 1013,
+            "title": "Love Is Wonderful",
+            "year": null,
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/8fe1c7c7cf2d007ee9be7dc149e84c40.jpg",
+            "genre": null,
+            "artist": "Phil Phillips",
+            "description": "**Love Is Wonderful** de *Phil Phillips* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "mood"
+          }
+        ],
+        "filler": [
+          {
+            "type": "quote",
+            "text": "Voici une citation de *Bob Marley* :\n\n> *\"La musique est la seule chose qui m'a soutenu.\"*\n\nSi tu veux une autre citation, fais-moi signe ! 🎵"
+          },
+          {
+            "type": "fact",
+            "text": "**Indie Folk**\n*Mélange acoustique, voix chaleureuses et textes introspectifs. Des artistes comme Fleet Foxes ou Bon Iver créent des paysages sonores poétiques et apaisants.* 🎶🌿"
+          },
+          {
+            "type": "trivia",
+            "text": "```markdown\n**2003** : *Hey Ya!* de OutKast surprend le monde en mélangeant funk et hip-hop. Beyoncé fait ses débuts solos avec *Crazy in Love*, et Justin Timberlake lance sa carrière en solo.\n```"
+          }
+        ]
+      },
+      "dimensions": {
+        "image_height": 500,
+        "text_columns": 1,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Rêves en Modes Mineurs",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "split",
+        "imageSize": "huge",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#ff006e",
+        "specialEffect": "overlay"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Rêves en Modes Mineurs",
+          "description": "**\"Rêves en Modes Mineurs\"** : Plongez dans l’âme mélancolique de la nuit, où les notes chuchotent des secrets et les mélodies tissent des rêves évanescents. Cette playlist est un voyage sonore à travers des paysages introspectifs, où la tristesse se pare de beauté et où l’obscurité révèle des éclats de lumière. Laissez-vous emporter par des harmonies enveloppantes, des rythmes languissants et des voix qui résonnent comme des souvenirs lointains. Ici, le temps s’étire, les émotions dansent en mineur, et chaque écoute est une invitation à explorer les recoins les plus sensibles de l’âme. Fermez les yeux, respirez… et laissez la musique vous raconter une histoire sans mots. ✨🎶",
+          "albums": [
+            {
+              "id": 94,
+              "title": "The Cure",
+              "artist": "The Cure",
+              "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/180a6f9d7f7363adc8653e13d235755e.png",
+              "year": 2004,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "floating",
+                "imageSize": "fullscreen",
+                "textLayout": "vertical",
+                "composition": "magazine",
+                "accentColor": "#06b6d4",
+                "specialEffect": "none"
+              },
+              "reason": "*\"The Cure tisse des rêves en modes mineurs, où la mélancolie devient poésie et la nuit, une douce complice.\"*\n\n(18 mots)"
+            },
+            {
+              "id": 163,
+              "title": "L'Eau Rouge - Red Water",
+              "artist": "The Young Gods",
+              "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/d81a705db66b4497852e7d88337bfbef.png",
+              "year": 1989,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#ff00ff",
+                "specialEffect": "tilt"
+              },
+              "reason": "*\"L'eau rouge coule en échos sombres, berçant nos rêves dans des modes mineurs où la mélancolie danse avec l'électricité.\"*"
+            },
+            {
+              "id": 100,
+              "title": "Harlequin",
+              "artist": "Lady Gaga",
+              "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/55521cac0fb5977fa468b6fee87bb849.jpg",
+              "year": 2024,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "floating",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "tilt"
+              },
+              "reason": "*\"Harlequin, miroir de nos rêves brisés et sublimés, danse entre mélancolie et folie—parfait pour les modes mineures de l'âme.\"*"
+            },
+            {
+              "id": 197,
+              "title": "Knock On Wood - The Acoustic Sessions",
+              "artist": "The Young Gods",
+              "image_url": "https://i.discogs.com/yMp1tJni6-ud2ukluKpMr2R5jRMgNy-sWEASP0qx8TY/rs:fit/g:sm/q:90/h:598/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMzMjE2/MjAxLTE3NDAyMzg3/NDMtNTQwMC5qcGVn.jpeg",
+              "year": 2025,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "floating",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#ff007f",
+                "specialEffect": "tilt"
+              },
+              "reason": "*\"Les ombres mélodiques des Young Gods y dansent en harmonie, un écho parfait pour les rêveries mélancoliques en modes mineurs.\"*"
+            },
+            {
+              "id": 93,
+              "title": "The Slow Rush",
+              "artist": "Tame Impala",
+              "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/832ade6a35ec2a224ea9a5be326b5de4.jpg",
+              "year": 2022,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "chaos",
+                "accentColor": "#ff00ff",
+                "specialEffect": "zoom"
+              },
+              "reason": "*\"The Slow Rush tisse des rêves en modes mineurs, où la mélancolie danse avec l'espoir sous un ciel psychédélique.\"*"
+            },
+            {
+              "id": 199,
+              "title": "Data Mirage Tangram",
+              "artist": "The Young Gods",
+              "image_url": "https://i.discogs.com/IKuWISYvz05dQPfD-xGs8fM01Yz5zlwlcQvRnmIbeZ0/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMjcw/MjEyLTE1NTExMDk3/MDEtMjg1NS5qcGVn.jpeg",
+              "year": 2019,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "single",
+                "composition": "bold",
+                "accentColor": "#ff00ff",
+                "specialEffect": "gradient"
+              },
+              "reason": "*\"Data Mirage Tangram, comme un kaléidoscope de rêves brisés, sculpte la mélancolie en art, parfait pour Rêves en Modes Mineurs.\"*"
+            },
+            {
+              "id": 109,
+              "title": "Second Nature",
+              "artist": "The Young Gods",
+              "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/3e59e2ce6ddf4d5ccd12868dc15b42f9.jpg",
+              "year": 2000,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "single",
+                "composition": "dramatic",
+                "accentColor": "#ff00ff",
+                "specialEffect": "gradient"
+              },
+              "reason": "*\"L'album 'Second Nature' de The Young Gods, sombre et hypnotique, épouse les rêves mélancoliques en modes mineurs, comme un écho électrique des abîmes intérieures.\"*\n\n(19 mots)"
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "minimal",
+        "image_position": "top"
       }
     }
   ],
