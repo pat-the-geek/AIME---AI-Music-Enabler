@@ -38,6 +38,7 @@ import {
 } from '@mui/icons-material'
 import apiClient from '../api/client'
 import { useRoon } from '../contexts/RoonContext'
+import { getHiddenContentSx, isEmptyContent } from '../utils/hideEmptyContent'
 
 interface Collection {
   id: number
@@ -401,7 +402,11 @@ export default function Collections() {
                       {type.icon}
                       <Box>
                         <Typography variant="body1">{type.label}</Typography>
-                        <Typography variant="caption" color="text.secondary">
+                        <Typography 
+                          variant="caption" 
+                          color="text.secondary"
+                          sx={isEmptyContent(type.description) ? getHiddenContentSx(type.description) : {}}
+                        >
                           {type.description}
                         </Typography>
                       </Box>

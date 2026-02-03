@@ -22,6 +22,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Paper,
 } from '@mui/material'
 import {
   PlayArrow,
@@ -661,6 +662,129 @@ export default function Settings() {
                 🎵 Dernier morceau détecté : {allServicesStatus.roon_tracker.last_track}
               </Typography>
             )}
+          </Stack>
+        </CardContent>
+      </Card>
+
+      {/* Scheduler - Tâches automatiques */}
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            📅 Scheduler - Tâches Automatiques
+          </Typography>
+          
+          <Divider sx={{ mb: 2 }} />
+          
+          {isLoading ? (
+            <CircularProgress />
+          ) : schedulerStatus?.running ? (
+            <Alert severity="success" sx={{ mb: 2 }}>
+              ✅ Le scheduler est actif et exécute les tâches planifiées
+            </Alert>
+          ) : (
+            <Alert severity="warning" sx={{ mb: 2 }}>
+              ⏸️ Le scheduler est arrêté - Aucune tâche automatique n'est exécutée
+            </Alert>
+          )}
+
+          {schedulerStatus?.jobs && schedulerStatus.jobs.length > 0 && (
+            <Box sx={{ mt: 2 }}>
+              <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: 'bold' }}>
+                📋 Tâches planifiées ({schedulerStatus.job_count}) :
+              </Typography>
+              <Stack spacing={2}>
+                {schedulerStatus.jobs.map((job: any) => (
+                  <Paper 
+                    key={job.id} 
+                    elevation={1} 
+                    sx={{ 
+                      p: 2, 
+                      backgroundColor: '#f8f8f8',
+                      border: '1px solid #d0d0d0',
+                      borderRadius: '8px'
+                    }}
+                  >
+                    <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
+                      <Typography variant="body2" sx={{ fontWeight: 600, color: '#2c3e50' }}>
+                        {job.id === 'daily_enrichment' && '🔄 Enrichissement quotidien'}
+                        {job.id === 'generate_haiku_scheduled' && '🎋 Génération de haïkus'}
+                        {job.id === 'export_collection_markdown' && '📝 Export Markdown'}
+                        {job.id === 'export_collection_json' && '💾 Export JSON'}
+                        {job.id === 'weekly_haiku' && '🎋 Haïku hebdomadaire'}
+                        {job.id === 'monthly_analysis' && '📊 Analyse mensuelle'}
+                        {job.id === 'optimize_ai_descriptions' && '🤖 Optimisation IA'}
+                        {job.id === 'generate_magazine_editions' && '📰 Génération de magazines'}
+                        {!['daily_enrichment', 'generate_haiku_scheduled', 'export_collection_markdown', 
+                            'export_collection_json', 'weekly_haiku', 'monthly_analysis', 
+                            'optimize_ai_descriptions', 'generate_magazine_editions'].includes(job.id) && `📌 ${job.id}`}
+                      </Typography>
+                      <Chip 
+                        label="Planifiée" 
+                        size="small" 
+                        color="primary"
+                        sx={{ fontSize: '0.7rem' }}
+                      />
+                    </Stack>
+
+                    {job.next_run && (
+                      <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
+                        🕐 Prochaine exécution : {formatLastActivity(job.next_run)}
+                      </Typography>
+                    )}
+
+                    {job.last_execution && (
+                      <Typography variant="caption" color="success.main" sx={{ display: 'block' }}>
+                        ✓ Dernière exécution : {formatLastActivity(job.last_execution)}
+                      </Typography>
+                    )}
+
+                    {!job.last_execution && (
+                      <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+                        Jamais exécutée
+                      </Typography>
+                    )}
+                  </Paper>
+                ))}
+              </Stack>
+            </Box>
+          )}
+
+          <Stack spacing={1} sx={{ mt: 3 }}>
+            <Typography variant="caption" color="text.secondary">
+              💡 Le scheduler exécute automatiquement des tâches comme l'enrichissement des albums, 
+              la génération de haïkus, l'export de la collection et la création de magazines pré-générés.
+            </Typography>
+            
+            {schedulerConfig && (
+              <Typography variant="caption" color="text.secondary">
+                📝 Configuration : {schedulerConfig.max_files_per_type || 5} fichiers maximum par type d'export
+              </Typography>
+            )}
+          </Stack>
+
+          <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={() => refetchScheduler()}
+            >
+              Actualiser
+            </Button>
+            <Button
+              variant="text"
+              size="small"
+              onClick={() => {
+                apiClient.get('/services/scheduler/status').then((res) => {
+                  setSnackbar({
+                    open: true,
+                    message: `Scheduler: ${res.data.running ? 'Actif' : 'Inactif'} - ${res.data.job_count || 0} tâches`,
+                    severity: 'info'
+                  })
+                })
+              }}
+            >
+              Vérifier le statut
+            </Button>
           </Stack>
         </CardContent>
       </Card>

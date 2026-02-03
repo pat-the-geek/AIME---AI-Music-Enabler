@@ -13,6 +13,7 @@ from app.database import SessionLocal
 from app.services.ai_service import AIService
 from app.services.spotify_service import SpotifyService
 from app.services.markdown_export_service import MarkdownExportService
+from app.services.magazine_edition_service import MagazineEditionService
 from app.models import Album, Track, ListeningHistory, Metadata
 
 logger = logging.getLogger(__name__)
@@ -100,6 +101,14 @@ class SchedulerService:
             self._optimize_ai_descriptions,
             trigger=CronTrigger(hour='*/6'),  # Toutes les 6h
             id='optimize_ai_descriptions',
+            replace_existing=True
+        )
+        
+        # Tâche quotidienne : générer lot de magazines pré-générés
+        self.scheduler.add_job(
+            self._generate_magazine_editions,
+            trigger=CronTrigger(hour=3, minute=0),  # 3h du matin
+            id='generate_magazine_editions',
             replace_existing=True
         )
         
@@ -761,7 +770,8 @@ Réponds uniquement en français."""
             'export_collection_json': self._export_collection_json,
             'weekly_haiku': self._weekly_haiku,
             'monthly_analysis': self._monthly_analysis,
-            'optimize_ai_descriptions': self._optimize_ai_descriptions
+            'optimize_ai_descriptions': self._optimize_ai_descriptions,
+            'generate_magazine_editions': self._generate_magazine_editions
         }
         
         if task_name not in tasks:
@@ -775,3 +785,28 @@ Réponds uniquement en français."""
             'status': 'completed',
             'timestamp': datetime.now().isoformat()
         }
+    
+    async def _generate_magazine_editions(self):
+        """Génération quotidienne de magazines pré-générés."""
+        self.last_executions['generate_magazine_editions'] = datetime.now(timezone.utc).isoformat()
+        logger.info("📰 Début génération lot de magazines")
+        db = SessionLocal()
+        
+        try:
+            edition_service = MagazineEditionService(db)
+            
+            # Générer 10 éditions avec 30 minutes d'intervalle
+            generated_ids = await edition_service.generate_daily_batch(count=10, delay_minutes=30)
+            
+            # Nettoyer les éditions de plus de 30 jours
+            deleted_count = edition_service.cleanup_old_editions(keep_days=30)
+            
+            # Nettoyer l'excédent si > 100 éditions
+            excess_deleted = edition_service.cleanup_excess_editions(max_editions=100)
+            
+            logger.info(f"✅ Génération magazines terminée: {len(generated_ids)} créées, {deleted_count} anciennes supprimées, {excess_deleted} excédent supprimé")
+            
+        except Exception as e:
+            logger.error(f"❌ Erreur génération magazines: {e}")
+        finally:
+            db.close()

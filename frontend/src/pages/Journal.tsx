@@ -38,6 +38,7 @@ import {
   Refresh,
 } from '@mui/icons-material'
 import ReactMarkdown from 'react-markdown'
+import { getHiddenContentSx, isEmptyContent } from '@/utils/hideEmptyContent'
 import apiClient from '@/api/client'
 import type { ListeningHistory, PaginatedResponse } from '@/types/models'
 import AlbumDetailDialog from '@/components/AlbumDetailDialog'
@@ -437,7 +438,7 @@ export default function Journal() {
                   </Grid>
                 </Grid>
 
-                {viewMode === 'detailed' && entry.ai_info && (
+                {viewMode === 'detailed' && entry.ai_info && !isEmptyContent(entry.ai_info) && (
                   <Accordion sx={{ mt: 2 }}>
                     <AccordionSummary expandIcon={<ExpandMore />}>
                       <Typography>🤖 Description IA</Typography>

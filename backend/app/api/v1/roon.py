@@ -842,3 +842,43 @@ async def play_album_by_name(request: RoonPlayByNameRequest):
         except:
             pass
 
+
+@router.get("/diagnose")
+async def diagnose_roon():
+    """Diagnostic de la connectivité Roon."""
+    logger.info("🔍 Diagnostic Roon en cours...")
+    
+    settings = get_settings()
+    roon_server = settings.app_config.get('roon_server')
+    
+    result = {
+        "roon_server_configured": bool(roon_server),
+        "roon_server_address": roon_server,
+        "roon_token_present": bool(settings.app_config.get('roon_token')),
+        "roon_control_enabled": settings.app_config.get('roon_control', {}).get('enabled', False),
+    }
+    
+    if not roon_server:
+        result["error"] = "Roon serveur non configuré"
+        return result
+    
+    try:
+        roon_service = get_roon_service_singleton()
+        if roon_service is None:
+            result["error"] = "Service Roon est None"
+            return result
+        
+        # Tenter de récupérer les zones
+        logger.info(f"🔌 Tentative de connexion à {roon_server}...")
+        zones = roon_service.get_zones()
+        result["zones_available"] = list(zones.keys()) if zones else []
+        result["connected"] = True
+        result["success"] = True
+        
+    except Exception as e:
+        logger.error(f"❌ Erreur diagnostic: {e}", exc_info=True)
+        result["error"] = str(e)
+        result["connected"] = False
+        result["success"] = False
+    
+    return result

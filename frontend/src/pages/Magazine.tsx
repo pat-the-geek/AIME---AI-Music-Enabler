@@ -10,8 +10,15 @@ import {
   Paper,
   Snackbar,
   Alert,
+  IconButton,
+  Tooltip,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  Divider
 } from '@mui/material'
-import { Refresh, History } from '@mui/icons-material'
+import { Refresh, History, Casino, List as ListIcon } from '@mui/icons-material'
 import apiClient from '@/api/client'
 import MagazinePage from '@/components/MagazinePage'
 
@@ -26,24 +33,70 @@ interface MagazinePage {
 
 interface Magazine {
   id: string
+  edition_number?: number
   generated_at: string
   pages: MagazinePage[]
   total_pages: number
+}
+
+interface EditionMeta {
+  id: string
+  edition_number: number
+  generated_at: string
+  album_count: number
+  page_count: number
+  enrichment_completed: boolean
 }
 
 export default function Magazine() {
   const [currentPage, setCurrentPage] = useState(0)
   const [nextRefreshIn, setNextRefreshIn] = useState(900) // 15 minutes en secondes
   const [snackbar, setSnackbar] = useState({ open: false, message: '', type: 'info' as 'success' | 'error' | 'info' })
+  const [usePregenerated, setUsePregenerated] = useState(true) // Par défaut, utiliser les éditions pré-générées
+  const [selectedEditionId, setSelectedEditionId] = useState<string | null>(null)
+  const [editionsMenuAnchor, setEditionsMenuAnchor] = useState<null | HTMLElement>(null)
+
+  // Charger la liste des éditions disponibles
+  const { data: editionsList } = useQuery({
+    queryKey: ['magazine-editions'],
+    queryFn: async () => {
+      const response = await apiClient.get<{ count: number; editions: EditionMeta[] }>('/magazines/editions?limit=20')
+      return response.data
+    },
+    enabled: usePregenerated,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  })
 
   // Charger le magazine
   const { data: magazine, isLoading, error, refetch } = useQuery({
-    queryKey: ['magazine'],
+    queryKey: ['magazine', usePregenerated, selectedEditionId],
     queryFn: async () => {
-      const response = await apiClient.get<Magazine>('/magazines/generate')
-      return response.data
+      if (usePregenerated) {
+        // Charger une édition pré-générée (aléatoire ou spécifique)
+        const endpoint = selectedEditionId 
+          ? `/magazines/editions/${selectedEditionId}`
+          : '/magazines/editions/random'
+        
+        try {
+          const response = await apiClient.get<Magazine>(endpoint)
+          return response.data
+        } catch (error: any) {
+          // Si aucune édition n'est disponible, générer un nouveau magazine
+          if (error.response?.status === 404) {
+            console.log('Aucune édition disponible, génération d\'un nouveau magazine...')
+            const response = await apiClient.get<Magazine>('/magazines/generate')
+            return response.data
+          }
+          throw error
+        }
+      } else {
+        // Générer un nouveau magazine
+        const response = await apiClient.get<Magazine>('/magazines/generate')
+        return response.data
+      }
     },
     staleTime: Infinity,
+    retry: false, // Ne pas réessayer automatiquement
   })
 
   // Minuteur pour le rafraîchissement automatique
@@ -71,10 +124,30 @@ export default function Magazine() {
   }
 
   const handleNewEdition = () => {
+    setSelectedEditionId(null)
+    setUsePregenerated(true)
+    refetch()
+    setCurrentPage(0)
+    setNextRefreshIn(900)
+    showSnackbar('🎲 Nouvelle édition aléatoire chargée !', 'success')
+  }
+
+  const handleGenerateNew = () => {
+    setSelectedEditionId(null)
+    setUsePregenerated(false)
     refetch()
     setCurrentPage(0)
     setNextRefreshIn(900)
     showSnackbar('🔄 Nouvelle édition en cours de génération...', 'info')
+  }
+
+  const handleSelectEdition = (editionId: string) => {
+    setSelectedEditionId(editionId)
+    setUsePregenerated(true)
+    setEditionsMenuAnchor(null)
+    refetch()
+    setCurrentPage(0)
+    showSnackbar(`📖 Édition ${editionId} chargée !`, 'success')
   }
 
   const showSnackbar = (message: string, type: 'success' | 'error' | 'info') => {
@@ -197,11 +270,61 @@ export default function Magazine() {
               📰 Magazine AIME
             </Typography>
             <Typography variant="caption" sx={{ color: '#2c3e50', fontWeight: 600 }}>
-              Édition #{magazine.id.split('-')[1]?.substring(0, 8) || '001'}
+              {usePregenerated ? (
+                <>Édition #{magazine.edition_number || '001'} • {new Date(magazine.generated_at).toLocaleDateString('fr-FR')}</>
+              ) : (
+                <>Édition Live • {new Date(magazine.generated_at).toLocaleDateString('fr-FR')}</>
+              )}
             </Typography>
           </Box>
 
           <Stack direction="row" spacing={2} alignItems="center">
+            {/* Bouton pour ouvrir le menu des éditions */}
+            {usePregenerated && editionsList && (
+              <>
+                <Tooltip title="Choisir une édition">
+                  <IconButton
+                    onClick={(e) => setEditionsMenuAnchor(e.currentTarget)}
+                    sx={{
+                      backgroundColor: '#f8f8f8',
+                      border: '1px solid #d0d0d0',
+                      '&:hover': { backgroundColor: '#e8e8e8' }
+                    }}
+                  >
+                    <ListIcon />
+                  </IconButton>
+                </Tooltip>
+
+                <Menu
+                  anchorEl={editionsMenuAnchor}
+                  open={Boolean(editionsMenuAnchor)}
+                  onClose={() => setEditionsMenuAnchor(null)}
+                  PaperProps={{
+                    sx: { maxHeight: 400, width: 300 }
+                  }}
+                >
+                  <MenuItem disabled>
+                    <Typography variant="caption" sx={{ fontWeight: 700 }}>
+                      {editionsList.count} éditions disponibles
+                    </Typography>
+                  </MenuItem>
+                  <Divider />
+                  {editionsList.editions.map((edition) => (
+                    <MenuItem
+                      key={edition.id}
+                      onClick={() => handleSelectEdition(edition.id)}
+                      selected={selectedEditionId === edition.id}
+                    >
+                      <ListItemText
+                        primary={`Édition #${edition.edition_number}`}
+                        secondary={`${new Date(edition.generated_at).toLocaleDateString('fr-FR')} • ${edition.album_count} albums`}
+                      />
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+            )}
+
             <Box sx={{
               textAlign: 'right',
               padding: '8px 16px',
@@ -217,10 +340,30 @@ export default function Magazine() {
               </Typography>
             </Box>
 
+            <Tooltip title="Édition aléatoire">
+              <Button
+                variant="outlined"
+                startIcon={<Casino />}
+                onClick={handleNewEdition}
+                sx={{
+                  textTransform: 'none',
+                  fontWeight: 600,
+                  borderColor: '#c41e3a',
+                  color: '#c41e3a',
+                  '&:hover': {
+                    borderColor: '#a01527',
+                    backgroundColor: 'rgba(196, 30, 58, 0.04)'
+                  }
+                }}
+              >
+                Aléatoire
+              </Button>
+            </Tooltip>
+
             <Button
               variant="contained"
               startIcon={<Refresh />}
-              onClick={handleNewEdition}
+              onClick={handleGenerateNew}
               sx={{
                 background: 'linear-gradient(135deg, #c41e3a 0%, #8b0000 100%)',
                 textTransform: 'none',
@@ -230,7 +373,7 @@ export default function Magazine() {
                 }
               }}
             >
-              Nouvelle édition
+              Générer Live
             </Button>
           </Stack>
         </Stack>

@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Box, Typography, Grid, Card, CardContent, CardMedia, Stack, Paper, Avatar, Chip, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material'
+import { Box, Typography, Grid, Card, CardContent, CardMedia, Stack, Paper, Avatar, Chip, Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material'
+import { PlayArrow } from '@mui/icons-material'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import apiClient from '@/api/client'
+import { getHiddenContentSx, isEmptyContent } from '@/utils/hideEmptyContent'
 
 interface AILayout {
   imagePosition?: string
@@ -54,8 +56,10 @@ export default function MagazinePage({ page, index }: PageProps) {
 
   // Fonction pour jouer dans Roon
   const handlePlayInRoon = (album: any) => {
+    console.log('🎵 handlePlayInRoon appelé avec:', album)
     setAlbumToPlay(album)
     setZoneDialogOpen(true)
+    console.log('🎵 Dialog ouvert, zoneDialogOpen devrait être true')
   }
 
   // Fonction pour confirmer et lancer la lecture
@@ -63,14 +67,18 @@ export default function MagazinePage({ page, index }: PageProps) {
     if (!selectedZone || !albumToPlay) return
 
     try {
-      console.log('📤 Envoi à Roon:', { artist_name: albumToPlay.artist_name, album_title: albumToPlay.title, zone: selectedZone })
+      // Normaliser les données (support pour différentes structures d'objet)
+      const artistName = albumToPlay.artist_name || albumToPlay.artist
+      const albumTitle = albumToPlay.album_title || albumToPlay.title
+      
+      console.log('📤 Envoi à Roon:', { artist_name: artistName, album_title: albumTitle, zone: selectedZone })
       
       const response = await fetch('/api/v1/roon/play-album-by-name', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          artist_name: albumToPlay.artist_name || albumToPlay.artist,
-          album_title: albumToPlay.title,
+          artist_name: artistName,
+          album_title: albumTitle,
           zone_name: selectedZone
         })
       })
@@ -78,8 +86,9 @@ export default function MagazinePage({ page, index }: PageProps) {
       const data = await response.json().catch(() => null)
       
       if (response.ok) {
+        const albumTitle = albumToPlay.album_title || albumToPlay.title
         console.log('✅ Lecture lancée dans Roon:', data)
-        alert(`Album lancé : ${albumToPlay.title}`)
+        alert(`Album lancé : ${albumTitle}`)
       } else {
         console.error('❌ Erreur Roon (Status ' + response.status + '):', data)
         const errorMsg = data?.detail || 'Impossible de lancer la lecture dans Roon'
@@ -118,6 +127,53 @@ export default function MagazinePage({ page, index }: PageProps) {
   }
   const imageHeight = imageSizes[imageSize as keyof typeof imageSizes] || 300
 
+  // Helper pour wrapper le contenu avec le Dialog
+  const renderPageWithDialog = (content: React.ReactNode) => (
+    <>
+      {content}
+      
+      {/* Dialog de sélection de zone Roon */}
+      <Dialog open={zoneDialogOpen} onClose={() => setZoneDialogOpen(false)}>
+        <DialogTitle>Sélectionner une zone Roon</DialogTitle>
+        <DialogContent sx={{ minWidth: 300 }}>
+          <Stack spacing={2} sx={{ pt: 2 }}>
+            {roonZones && roonZones.length > 0 ? (
+              roonZones.map((zone: any) => (
+                <Button
+                  key={zone.zone_id}
+                  variant={selectedZone === zone.name ? 'contained' : 'outlined'}
+                  fullWidth
+                  onClick={() => setSelectedZone(zone.name)}
+                  sx={{ justifyContent: 'flex-start' }}
+                >
+                  <Box sx={{ textAlign: 'left', width: '100%' }}>
+                    <Typography variant="body2">{zone.name}</Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      État: {zone.state}
+                    </Typography>
+                  </Box>
+                </Button>
+              ))
+            ) : (
+              <Typography color="text.secondary">Aucune zone Roon disponible</Typography>
+            )}
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setZoneDialogOpen(false)}>Annuler</Button>
+          <Button
+            variant="contained"
+            color="success"
+            disabled={!selectedZone}
+            onClick={confirmPlayInRoon}
+          >
+            Lancer la lecture
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  )
+
   // Déterminer le nombre de colonnes pour le texte
   const getTextColumns = () => {
     if (textLayout === 'triple-column') return 3
@@ -126,12 +182,14 @@ export default function MagazinePage({ page, index }: PageProps) {
     return 1
   }
 
-  // Page 1: Artist Showcase
-  if (page.type === 'artist_showcase') {
-    const { artist, albums } = page.content
-    
-    // Déterminer l'ordre des éléments selon composition
-    const isFloating = imagePosition === 'floating'
+  // Fonction interne pour rendre le contenu de la page
+  const renderPage = (): React.ReactNode => {
+    // Page 1: Artist Showcase
+    if (page.type === 'artist_showcase') {
+      const { artist, albums } = page.content
+      
+      // Déterminer l'ordre des éléments selon composition
+      const isFloating = imagePosition === 'floating'
     const isSplit = imagePosition === 'split'
     const isCenter = imagePosition === 'center'
     const isBottom = imagePosition === 'bottom'
@@ -232,38 +290,29 @@ export default function MagazinePage({ page, index }: PageProps) {
                 maxWidth: '350px'
               } : {}}
             >
-              <Paper elevation={0} sx={{
-                background: '#f8f8f8',
-                border: '1px solid #d0d0d0',
-                borderLeft: '4px solid #2c3e50',
+              <Box sx={{
                 padding: isFloating || isCorner ? '24px' : '32px',
                 textAlign: 'center',
-                borderRadius: '2px',
                 height: isFloating || isCorner ? 'auto' : '100%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                transform: composition === 'playful' ? 'rotate(-1deg)' : 
-                           composition === 'chaos' ? `rotate(${Math.random() * 3 - 1.5}deg)` : 'none',
-                backdropFilter: isFloating || isCorner ? 'blur(10px)' : 'none',
-                transition: 'all 0.3s ease'
+                fontFamily: '"Crimson Text", "Georgia", serif',
+                fontStyle: 'italic',
+                lineHeight: 2.2,
+                color: '#2c3e50',
+                fontWeight: 400,
+                letterSpacing: '0.03em',
+                fontSize: isFloating || isCorner ? '1.1rem' : '1.3rem',
+                '& p': { margin: '8px 0', whiteSpace: 'pre-wrap' },
+                '& strong': { fontWeight: 700, color: '#1a1a1a' },
+                '& em': { fontStyle: 'italic' },
+                '&::before': { content: '"\\201C"', fontSize: '2em', color: '#1a1a1a', lineHeight: 0, marginRight: '4px', float: 'left' },
+                '&::after': { content: '"\\201D"', fontSize: '2em', color: '#1a1a1a', lineHeight: 0, marginLeft: '4px' },
+                ...(isEmptyContent(artist.haiku) ? getHiddenContentSx(artist.haiku) : {})
               }}>
-                <Typography variant={isFloating ? "body1" : "h5"} sx={{
-                  fontFamily: '"Crimson Text", "Georgia", serif',
-                  fontStyle: 'italic',
-                  lineHeight: 2.2,
-                  whiteSpace: 'pre-line',
-                  color: '#2c3e50',
-                  fontWeight: 400,
-                  letterSpacing: '0.03em',
-                  fontSize: isFloating || isCorner ? '1.1rem' : '1.3rem',
-                  '&::before': { content: '"\\201C"', fontSize: '2em', color: '#1a1a1a', lineHeight: 0, marginRight: '4px' },
-                  '&::after': { content: '"\\201D"', fontSize: '2em', color: '#1a1a1a', lineHeight: 0, marginLeft: '4px' }
-                }}>
-                  {artist.haiku}
-                </Typography>
-              </Paper>
+                <ReactMarkdown>{artist.haiku}</ReactMarkdown>
+              </Box>
             </Grid>
 
             {/* Albums Grid - Position et colonnes dynamiques - Photo d'artiste dessus */}
@@ -378,7 +427,7 @@ export default function MagazinePage({ page, index }: PageProps) {
                         }}>
                           {album.title}
                         </Typography>
-                        {album.description && (
+                        {album.description && !isEmptyContent(album.description) && (
                           <Box sx={{
                             fontFamily: '"Merriweather", "Georgia", serif',
                             color: '#d0d0d0',
@@ -456,7 +505,8 @@ export default function MagazinePage({ page, index }: PageProps) {
                           borderLeft: filler.type === 'quote' ? '4px solid #2c3e50' : '1px solid #d0d0d0',
                           minHeight: '80px',
                           display: 'flex',
-                          alignItems: 'center'
+                          alignItems: 'center',
+                          ...(isEmptyContent(filler.text) ? getHiddenContentSx(filler.text) : {})
                         }}>
                           <Box sx={{
                             '& p': { margin: 0, fontSize: '13px', lineHeight: 1.5, color: '#2c3e50' },
@@ -574,10 +624,10 @@ export default function MagazinePage({ page, index }: PageProps) {
                 )}
 
                 {/* Description en colonnes selon layout IA - Style journal avec markdown */}
+                {album.description && !isEmptyContent(album.description) && (
                 <Box sx={{
                   columnCount: { xs: 1, md: textLayout === 'double-column' ? Math.min(textColumns, 3) : 1 },
                   columnGap: '40px',
-                  columnRule: '1px solid #d0d0d0',
                   lineHeight: 1.8,
                   color: '#2c3e50',
                   textAlign: 'justify',
@@ -587,7 +637,7 @@ export default function MagazinePage({ page, index }: PageProps) {
                   '& p': {
                     marginBottom: '16px',
                     breakInside: 'avoid',
-                    textIndent: '2em',
+                    whiteSpace: 'pre-wrap',
                     '&:first-of-type::first-letter': {
                       fontSize: '3.5em',
                       fontWeight: 700,
@@ -596,27 +646,19 @@ export default function MagazinePage({ page, index }: PageProps) {
                       marginRight: '8px',
                       color: '#1a1a1a'
                     }
-                  }
+                  },
+                  '& strong': { fontWeight: 700, color: '#1a1a1a' },
+                  '& em': { fontStyle: 'italic' },
+                  '& ul, & ol': { paddingLeft: '2em' },
+                  '& li': { marginBottom: '8px' }
                 }}>
-                  <Typography variant="body1" sx={{ 
-                    color: 'inherit',
-                    fontSize: 'inherit',
-                    lineHeight: 'inherit',
-                    fontFamily: 'inherit'
-                  }}>
-                    {album.description}
-                  </Typography>
+                  <ReactMarkdown>{album.description}</ReactMarkdown>
                 </Box>
+                )}
 
-                {album.style && (
+                {album.style && !isEmptyContent(album.style) && (
                   <Box sx={{
                     marginTop: '32px',
-                    padding: '20px',
-                    background: '#f8f8f8',
-                    borderRadius: '2px',
-                    border: '1px solid #d0d0d0',
-                    borderLeft: '4px solid #2c3e50',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
                   }}>
                     <Typography variant="subtitle2" sx={{ 
                       marginBottom: '12px',
@@ -629,12 +671,16 @@ export default function MagazinePage({ page, index }: PageProps) {
                     }}>
                       Style Musical
                     </Typography>
-                    <Typography variant="body1" sx={{ 
+                    <Box sx={{ 
                       color: '#2c3e50',
-                      fontFamily: '"Merriweather", "Georgia", serif'
+                      fontFamily: '"Merriweather", "Georgia", serif',
+                      lineHeight: 1.8,
+                      '& p': { margin: '8px 0', whiteSpace: 'pre-wrap' },
+                      '& strong': { fontWeight: 700 },
+                      '& em': { fontStyle: 'italic' }
                     }}>
-                      {album.style}
-                    </Typography>
+                      <ReactMarkdown>{album.style}</ReactMarkdown>
+                    </Box>
                   </Box>
                 )}
               </Box>
@@ -720,20 +766,20 @@ export default function MagazinePage({ page, index }: PageProps) {
                     </Typography>
 
                     {haiku && (
-                      <Paper elevation={0} sx={{
-                        background: `linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 100%)`,
-                        padding: '16px',
-                        borderRadius: '12px',
+                      <Box sx={{
+                        padding: '16px 0',
                         fontStyle: 'italic',
                         lineHeight: 1.8,
-                        whiteSpace: 'pre-wrap',
                         fontSize: '0.95rem',
                         color: colors.text,
-                        border: '1px solid #d0d0d0',
-                        marginBottom: '16px'
+                        marginBottom: '16px',
+                        '& p': { margin: '8px 0', whiteSpace: 'pre-wrap' },
+                        '& strong': { fontWeight: 700 },
+                        '& em': { fontStyle: 'italic' },
+                        ...(isEmptyContent(haiku.haiku) ? getHiddenContentSx(haiku.haiku) : {})
                       }}>
-                        {haiku.haiku}
-                      </Paper>
+                        <ReactMarkdown>{haiku.haiku}</ReactMarkdown>
+                      </Box>
                     )}
                     <Button
                       size="small"
@@ -1022,6 +1068,21 @@ export default function MagazinePage({ page, index }: PageProps) {
                       border: '1px solid #555'
                     }}
                   />
+                  <IconButton
+                    size="small"
+                    onClick={() => handlePlayInRoon(item)}
+                    sx={{
+                      color: '#23a7dd',
+                      marginLeft: '12px',
+                      '&:hover': {
+                        backgroundColor: 'rgba(35, 167, 221, 0.1)',
+                        color: '#2eb8f5'
+                      }
+                    }}
+                    title="Jouer sur Roon"
+                  >
+                    <PlayArrow fontSize="small" />
+                  </IconButton>
                 </Box>
               ))}
             </Paper>
@@ -1074,7 +1135,8 @@ export default function MagazinePage({ page, index }: PageProps) {
             lineHeight: 2,
             marginBottom: '48px',
             fontSize: '1.15em',
-            textAlign: 'left'
+            textAlign: 'left',
+            ...(isEmptyContent(playlist.description) ? getHiddenContentSx(playlist.description) : {})
           }}>
             <ReactMarkdown>{playlist.description}</ReactMarkdown>
           </Box>
@@ -1095,7 +1157,7 @@ export default function MagazinePage({ page, index }: PageProps) {
                   boxShadow: `0 16px 40px ${accentColor}60`
                 }
               }}>
-                {album.image_url && (
+                {album.image_url ? (
                   <CardMedia
                     component="img"
                     height={220}
@@ -1106,6 +1168,20 @@ export default function MagazinePage({ page, index }: PageProps) {
                       borderBottom: '2px solid #d0d0d0'
                     }}
                   />
+                ) : (
+                  <Box sx={{
+                    height: 220,
+                    backgroundColor: colors.secondary,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderBottom: '2px solid #d0d0d0',
+                    color: colors.bg,
+                    fontSize: '3rem',
+                    fontWeight: 900
+                  }}>
+                    💿
+                  </Box>
                 )}
                 <CardContent sx={{ padding: '20px' }}>
                   <Typography variant="h6" sx={{ 
@@ -1174,59 +1250,21 @@ export default function MagazinePage({ page, index }: PageProps) {
   }
 
   // Default empty page
-  return (
-    <>
-      <Box sx={{
-        width: '100%',
-        backgroundColor: colors.bg,
-        color: colors.text,
-        padding: '60px 20px',
-        textAlign: 'center'
-      }}>
-        <Typography variant="h4" sx={{ color: accentColor, fontWeight: 700 }}>
-          Page vide
-        </Typography>
-      </Box>
-
-      {/* Dialog de sélection de zone Roon */}
-      <Dialog open={zoneDialogOpen} onClose={() => setZoneDialogOpen(false)}>
-        <DialogTitle>Sélectionner une zone Roon</DialogTitle>
-        <DialogContent sx={{ minWidth: 300 }}>
-          <Stack spacing={2} sx={{ pt: 2 }}>
-            {roonZones && roonZones.length > 0 ? (
-              roonZones.map((zone: any) => (
-                <Button
-                  key={zone.zone_id}
-                  variant={selectedZone === zone.name ? 'contained' : 'outlined'}
-                  fullWidth
-                  onClick={() => setSelectedZone(zone.name)}
-                  sx={{ justifyContent: 'flex-start' }}
-                >
-                  <Box sx={{ textAlign: 'left', width: '100%' }}>
-                    <Typography variant="body2">{zone.name}</Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      État: {zone.state}
-                    </Typography>
-                  </Box>
-                </Button>
-              ))
-            ) : (
-              <Typography color="text.secondary">Aucune zone Roon disponible</Typography>
-            )}
-          </Stack>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setZoneDialogOpen(false)}>Annuler</Button>
-          <Button
-            variant="contained"
-            color="success"
-            disabled={!selectedZone}
-            onClick={confirmPlayInRoon}
-          >
-            Lancer la lecture
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
+  return renderPageWithDialog(
+    <Box sx={{
+      width: '100%',
+      backgroundColor: colors.bg,
+      color: colors.text,
+      padding: '60px 20px',
+      textAlign: 'center'
+    }}>
+      <Typography variant="h4" sx={{ color: accentColor, fontWeight: 700 }}>
+        Page vide
+      </Typography>
+    </Box>
   )
+  }
+
+  // Retourner le contenu de la page avec le Dialog
+  return renderPageWithDialog(renderPage())
 }

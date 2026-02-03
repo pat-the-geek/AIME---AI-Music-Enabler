@@ -32,6 +32,7 @@ import {
 import ReactMarkdown from 'react-markdown'
 import apiClient from '@/api/client'
 import { useRoon } from '@/contexts/RoonContext'
+import { getHiddenContentSx, isEmptyContent } from '@/utils/hideEmptyContent'
 import type { AlbumDetail } from '@/types/models'
 
 interface AlbumDetailDialogProps {
@@ -379,7 +380,7 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
 
               {/* Section Enrichissement */}
               <Divider sx={{ my: 3 }} />
-              <Box>
+              <Box sx={isEmptyContent(albumDetail.ai_info) ? getHiddenContentSx(albumDetail.ai_info) : {}}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
                   <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     {albumDetail.ai_info ? '🤖 Description IA' : '✨ Enrichissement'}
@@ -395,7 +396,7 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
                     Rafraîchir
                   </Button>
                 </Box>
-                {albumDetail.ai_info ? (
+                {albumDetail.ai_info && !isEmptyContent(albumDetail.ai_info) ? (
                   <Box 
                     sx={{ 
                       backgroundColor: 'action.hover',
@@ -427,7 +428,7 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
               </Box>
 
               {/* Résumé */}
-              {albumDetail.resume && (
+              {albumDetail.resume && !isEmptyContent(albumDetail.resume) && (
                 <>
                   <Divider sx={{ my: 3 }} />
                   <Box>

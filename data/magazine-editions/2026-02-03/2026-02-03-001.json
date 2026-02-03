@@ -1,0 +1,496 @@
+{
+  "id": "2026-02-03-001",
+  "edition_number": 1,
+  "generated_at": "2026-02-03T19:45:52.441666+00:00",
+  "albums": [],
+  "pages": [
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Horizons Oubliés",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "left",
+        "imageSize": "medium",
+        "textLayout": "vertical",
+        "composition": "minimalist",
+        "accentColor": "#06b6d4",
+        "specialEffect": "zoom"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Horizons Oubliés",
+          "description": "*Horizons Oubliés* est une playlist curated avec soin, mêlant **mélodies intemporelles** et *productions modernes*. Chaque album a été sélectionné pour son **pouvoir émotionnel** et son *authenticité artistique*. Plongez-vous dans cette **expérience sonore** unique et laissez la musique vous **transporter** vers des univers *nouveaux* et *captivants*.",
+          "albums": [
+            {
+              "id": 31,
+              "title": "Ode",
+              "artist": "Stephan Eicher",
+              "image_url": "https://i.discogs.com/sEkZ3w3dmQR8U_GBQ3A1U2cpcXaIQXqT-9Ng3AG_JF4/rs:fit/g:sm/q:90/h:544/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1MDQx/MDEwLTE2Njc0OTg1/MjItNzk3Mi5qcGVn.jpeg",
+              "year": 2022,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "center",
+                "imageSize": "massive",
+                "textLayout": "double-column",
+                "composition": "minimalist",
+                "accentColor": "#06b6d4",
+                "specialEffect": "overlay"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Horizons Oubliés*."
+            },
+            {
+              "id": 13,
+              "title": "Imagine",
+              "artist": "John Lennon",
+              "image_url": "https://i.discogs.com/ZQ06ek9-_qYX8JoXJZBRGPPHh7sKELcoB4Ajkr2FWvg/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyNjEx/NDk0LTE2OTkyMzUw/MjUtMjIzMi5qcGVn.jpeg",
+              "year": 2018,
+              "layout": {
+                "columns": 4,
+                "imagePosition": "left",
+                "imageSize": "medium",
+                "textLayout": "double-column",
+                "composition": "classic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "blur"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 15,
+              "title": "Yellow Submarine",
+              "artist": "The Beatles",
+              "image_url": "https://i.discogs.com/4_xYsk5OBS8C8V03EVrz1BtS9RT-kNI_M7RWSNlbHtw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQwMzY5/MzctMTM3MDU0MzY4/Ny03MzI5LmpwZWc.jpeg",
+              "year": 2012,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "vertical",
+                "composition": "magazine",
+                "accentColor": "#f59e0b",
+                "specialEffect": "none"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 88,
+              "title": "Wish",
+              "artist": "The Cure",
+              "image_url": "https://i.discogs.com/PxIn2hhqJPMcLkVvq_A_HLW3nRt9NW239vYUG2ZYVwM/rs:fit/g:sm/q:90/h:583/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1Mjc5/NzgzLTE2Njk0MDU1/OTctODQzNS5qcGVn.jpeg",
+              "year": 2022,
+              "layout": {
+                "columns": 2,
+                "imagePosition": "fullwidth",
+                "imageSize": "small",
+                "textLayout": "vertical",
+                "composition": "zen",
+                "accentColor": "#00b4d8",
+                "specialEffect": "none"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 89,
+              "title": "Disintegration",
+              "artist": "The Cure",
+              "image_url": "https://i.discogs.com/jJ5NVJVDmzMVcA-YUFcwGa2-OfdnJ3IQ7Oip27N_Sys/rs:fit/g:sm/q:90/h:588/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk2MTA5/NzAtMTUyNzM1Nzgz/Mi01NjA1LmpwZWc.jpeg",
+              "year": 1989,
+              "layout": {
+                "columns": 5,
+                "imagePosition": "center",
+                "imageSize": "huge",
+                "textLayout": "single",
+                "composition": "zen",
+                "accentColor": "#00b4d8",
+                "specialEffect": "none"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 178,
+              "title": "Aladdin Sane",
+              "artist": "David Bowie",
+              "image_url": "https://i.discogs.com/GRCkybUp0qFCQaBOAl_rRomCEzweg2xSJKnJv-CW4Cg/rs:fit/g:sm/q:90/h:550/w:550/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NDkw/Ni0xNDEyNzc1NzU1/LTQwMTIuanBlZw.jpeg",
+              "year": 1973,
+              "layout": {
+                "columns": 4,
+                "imagePosition": "split",
+                "imageSize": "tiny",
+                "textLayout": "vertical",
+                "composition": "bold",
+                "accentColor": "#f59e0b",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 152,
+              "title": "Gorillaz",
+              "artist": "Gorillaz",
+              "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/487131c63dafa5ca8c8d4cdf7e490c7a.gif",
+              "year": 2001,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "fullwidth",
+                "imageSize": "tiny",
+                "textLayout": "vertical",
+                "composition": "zen",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "*Gorillaz* apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "detailed",
+        "image_position": "top"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "chaos",
+        "accentColor": "#ec4899",
+        "specialEffect": "blur"
+      },
+      "content": {
+        "album": {
+          "id": 340,
+          "title": "Aguaplano",
+          "artist": "Paolo Conte",
+          "year": 1987,
+          "genre": null,
+          "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/5b46141baec4dd46c6c71249eaff8f08.jpg",
+          "description": "Aguaplano par Paolo Conte (1987)",
+          "style": null
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "large"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "center",
+        "imageSize": "large",
+        "textLayout": "masonry",
+        "composition": "bold",
+        "accentColor": "#667eea",
+        "specialEffect": "gradient"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 1185,
+            "title": "Hinterland",
+            "artist": "Strange Cargo",
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/ad051eb3d2f015da9c15ae0c40ae09d9.jpg",
+            "genre": null
+          },
+          {
+            "id": 1014,
+            "title": "Love in the Wind",
+            "artist": "The Sha La Das",
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/b3b7d10c1c27a28d62c1f4a71934998a.jpg",
+            "genre": null
+          },
+          {
+            "id": 738,
+            "title": "Small Changes",
+            "artist": "Michael Kiwanuka",
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/52e7ac80552fb6377c37741fce858968.png",
+            "genre": null
+          },
+          {
+            "id": 774,
+            "title": "Le Mépris (Original Motion Picture Soundtrack)",
+            "artist": "Georges Delerue",
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/b7f1b3eeb5a02684157e60f251207942.jpg",
+            "genre": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 1185,
+            "album_title": "Hinterland",
+            "haiku": "Vibrations sonores\n**Magie** entre les instants\nL'infini enfin",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "floating",
+              "imageSize": "large",
+              "textLayout": "masonry",
+              "composition": "modern",
+              "accentColor": "#00b4d8",
+              "specialEffect": "shadow"
+            },
+            "description": "**Hinterland** de *Strange Cargo* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          },
+          {
+            "album_id": 1014,
+            "album_title": "Love in the Wind",
+            "haiku": "Vibrations sonores\n**Magie** entre les instants\nL'infini enfin",
+            "layout": {
+              "columns": 4,
+              "imagePosition": "split",
+              "imageSize": "massive",
+              "textLayout": "double-column",
+              "composition": "chaos",
+              "accentColor": "#ec4899",
+              "specialEffect": "none"
+            },
+            "description": "La **poésie musicale** de *Love in the Wind* de The Sha La Das transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 738,
+            "album_title": "Small Changes",
+            "haiku": "Vibrations sonores\n**Magie** entre les instants\nL'infini enfin",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "top",
+              "imageSize": "tiny",
+              "textLayout": "single",
+              "composition": "dramatic",
+              "accentColor": "#ec4899",
+              "specialEffect": "zoom"
+            },
+            "description": "La **poésie musicale** de *Small Changes* de Michael Kiwanuka transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 774,
+            "album_title": "Le Mépris (Original Motion Picture Soundtrack)",
+            "haiku": "Notes qui dansent\n**Harmonie** dans l'espace\nL'âme prend son vol",
+            "layout": {
+              "columns": 4,
+              "imagePosition": "corner",
+              "imageSize": "large",
+              "textLayout": "single",
+              "composition": "minimalist",
+              "accentColor": "#00b4d8",
+              "specialEffect": "tilt"
+            },
+            "description": "Le Mépris (Original Motion Picture Soundtrack) par Georges Delerue"
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "columns": 2,
+        "spacing": "normal"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Hemanth965",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "floating",
+        "imageSize": "fullscreen",
+        "textLayout": "double-column",
+        "composition": "minimalist",
+        "accentColor": "#764ba2",
+        "specialEffect": "tilt"
+      },
+      "content": {
+        "artist": {
+          "name": "Hemanth965",
+          "albums_count": 6,
+          "haiku": "Notes qui résonnent\n**Esprit** libéré enfin\nMusique de l'âme",
+          "bio": "**Hemanth965** est un artiste visionnaire dont la musique transcende les genres. Sa **palette sonore** unique mêle *sensibilité* et *innovation*. Chaque composition raconte une histoire *profonde*, offrant aux auditeurs une **expérience intime** et *transformatrice*. Un créateur dont l'art inspire et **touche l'âme**.",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5ebca5b8b3962de6c4e819ebb29"
+        },
+        "albums": [
+          {
+            "id": 997,
+            "title": "A Space in Time (Deluxe Version)",
+            "year": null,
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/57dbc7c4254a098b966bae6d90cffda9.jpg",
+            "genre": null,
+            "artist": "Ten Years After",
+            "description": "**A Space in Time (Deluxe Version)** de Ten Years After (date inconnue)\n\nCette édition spéciale offre une expérience d'écoute enrichie de l'œuvre originale. Les remasters audio apportent une clarté et une profondeur sonore modernisées, révélant des détails inédits dans les arrangements.\n\nLa démarche artistique respecte l'esprit de l'album original tout en bénéficiant des technologies contemporaines. Les textures sonores gagnent en présence, les dynamiques sont mieux préservées, et l'équilibre général offre une immersion renouvelée.\n\nCette réédition témoigne de l'intemporalité de l'œuvre de Ten Years After, permettant aux nouvelles générations de découvrir cet album emblématique dans des conditions d'écoute optimales.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 1298,
+            "title": "Hit Me Hard And Soft",
+            "year": 2024,
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/6db576307ee7bdd81056432542b6bab7.jpg",
+            "genre": null,
+            "artist": "Billie Eilish",
+            "description": "Dans *Hit Me Hard And Soft*, Billie Eilish nous offre un **voyage sonore** particulier. Sorti en 2024, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "story"
+          },
+          {
+            "id": 398,
+            "title": "Petite Amie (Live & Bonus)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273e19544f4326fe1176d69b399",
+            "genre": "Rock Alternatif",
+            "artist": "Juliette Armanet",
+            "description": "**Petite Amie (Live & Bonus)** de Juliette Armanet (date inconnue)\n\nCette édition spéciale offre une expérience d'écoute enrichie de l'œuvre originale. Les remasters audio apportent une clarté et une profondeur sonore modernisées, révélant des détails inédits dans les arrangements.\n\nLa démarche artistique respecte l'esprit de l'album original tout en bénéficiant des technologies contemporaines. Les textures sonores gagnent en présence, les dynamiques sont mieux préservées, et l'équilibre général offre une immersion renouvelée.\n\nCette réédition témoigne de l'intemporalité de l'œuvre de Juliette Armanet, permettant aux nouvelles générations de découvrir cet album emblématique dans des conditions d'écoute optimales.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 153,
+            "title": "Scary Monsters",
+            "year": 2018,
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/6ea07d6117805246df1c2e1f85a4df81.jpg",
+            "genre": null,
+            "artist": "David Bowie",
+            "description": "*Scary Monsters* marque un moment dans la carrière de David Bowie. Ce disque de 2018 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "poetic"
+          },
+          {
+            "id": 1358,
+            "title": "Tomorrow Comes Today",
+            "year": 2025,
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/a1529f3edb3536f8b1628161a2762bc5.jpg",
+            "genre": null,
+            "artist": "Gorillaz",
+            "description": "Dans *Tomorrow Comes Today*, Gorillaz nous offre un **voyage sonore** particulier. Sorti en 2025, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "mood"
+          },
+          {
+            "id": 1057,
+            "title": "23",
+            "year": null,
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/2357ab46c0cd490fc94ab3d0f12cc277.png",
+            "genre": null,
+            "artist": "Blonde Redhead",
+            "description": "**23** de *Blonde Redhead* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "technical"
+          }
+        ],
+        "filler": [
+          {
+            "type": "fact",
+            "text": "Aucune information disponible"
+          },
+          {
+            "type": "quote",
+            "text": "Aucune information disponible"
+          },
+          {
+            "type": "quote",
+            "text": "Aucune information disponible"
+          }
+        ]
+      },
+      "dimensions": {
+        "image_height": 600,
+        "text_columns": 1,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "vertical",
+        "composition": "dramatic",
+        "accentColor": "#ff006e",
+        "specialEffect": "blur"
+      },
+      "content": {
+        "total_recent_listens": 50,
+        "unique_artists": 16,
+        "unique_albums": 15,
+        "top_artists": [
+          {
+            "artist_id": 49,
+            "artist_name": "Tame Impala",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebe412a782245eb20d9626c601",
+            "count": 24
+          },
+          {
+            "artist_id": 71,
+            "artist_name": "Gorillaz",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd5b57b40cf2aaeccd07835e",
+            "count": 9
+          },
+          {
+            "artist_id": 695,
+            "artist_name": "Florence + the Machine",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb836eb0a7a82eb8f4133ee04d",
+            "count": 3
+          },
+          {
+            "artist_id": 696,
+            "artist_name": "Gorillaz / Snoop Dogg / Hypnotic Brass Ensemble",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebaf1183166506be544afb4cd4",
+            "count": 2
+          },
+          {
+            "artist_id": 238,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebd5143e239460a4d3c722ffab",
+            "count": 2
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 98,
+            "album_title": "Currents",
+            "artist_name": "Tame Impala",
+            "image_url": "https://lastfm.freetls.fastly.net/i/u/300x300/dd45b0438a315aed98b5830aa2fc43c5.jpg",
+            "count": 24
+          },
+          {
+            "album_id": 1361,
+            "album_title": "Plastic Beach",
+            "artist_name": "Gorillaz",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd5b57b40cf2aaeccd07835e",
+            "count": 9
+          },
+          {
+            "album_id": 1439,
+            "album_title": "Lungs",
+            "artist_name": "Florence + the Machine",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb836eb0a7a82eb8f4133ee04d",
+            "count": 3
+          },
+          {
+            "album_id": 1440,
+            "album_title": "Plastic Beach",
+            "artist_name": "Gorillaz / Snoop Dogg / Hypnotic Brass Ensemble",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebaf1183166506be544afb4cd4",
+            "count": 2
+          },
+          {
+            "album_id": 1436,
+            "album_title": "Orbital 2 (The Brown Album Expanded)",
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebd5143e239460a4d3c722ffab",
+            "count": 2
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "bar",
+        "color_scheme": "newspaper"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

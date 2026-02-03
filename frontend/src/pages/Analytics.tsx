@@ -31,6 +31,7 @@ import {
   Cell
 } from 'recharts'
 import apiClient from '../api/client'
+import { getHiddenContentSx, isEmptyContent } from '@/utils/hideEmptyContent'
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d', '#ffc658']
 
@@ -314,7 +315,8 @@ export default function Analytics() {
                     sx={{
                       whiteSpace: 'pre-line',
                       textAlign: 'center',
-                      lineHeight: 2
+                      lineHeight: 2,
+                      ...(isEmptyContent(haiku.haiku) ? getHiddenContentSx(haiku.haiku) : {})
                     }}
                   >
                     {haiku.haiku}

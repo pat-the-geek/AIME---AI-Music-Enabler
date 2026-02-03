@@ -1,4 +1,4 @@
-# 🏗️ Architecture AIME - AI Music Enabler v4.3.1
+# 🏗️ Architecture AIME - AI Music Enabler v4.4.0
 
 ## Vue d'Ensemble
 
@@ -23,6 +23,21 @@
 │  │  + Roon    │  │ (Trackers) │  │   (Stats)  │  │ (Play/Pause/Next)  │   │
 │  └────────────┘  └────────────┘  └────────────┘  └────────────────────┘   │
 │                                                                              │
+│  ┌────────────────────┐  ◄──────────────────────────────────────────── NEW v4.4
+│  │   📖 Magazine      │                                                      │
+│  │  (5 Pages Édit.)   │  5 pages scrollables:                              │
+│  │ - Artiste Aléat.   │  ├─ Page 1: Artiste + albums + haïku               │
+│  │ - Album Spotlight  │  ├─ Page 2: Album + desc. IA longue (2000+)       │
+│  │ - Haïkus EurIA     │  ├─ Page 3: 3 haïkus aléatoires                    │
+│  │ - Timeline         │  ├─ Page 4: Timeline + stats récentes               │
+│  │ - Playlist Thème   │  └─ Page 5: Playlist thème + desc. créative        │
+│  │                    │                                                     │
+│  │ • Glassmorphism    │  Design moderne + navigation fluide                │
+│  │ • Auto-refresh 15m │  Nouvelle édition + minuteur visible               │
+│  │ • Layouts aléat.   │  Responsive (Desktop/Tablet/Mobile)                │
+│  └────────────────────┘                                                     │
+│                                                                              │
+│                                                                              │
 │  API Client (Axios) - Communication REST avec Backend                       │
 └──────────────────────────────┬───────────────────────────────────────────────┘
                                │
@@ -36,7 +51,7 @@
 │  ┌─────────────────────── API v1 Routes ────────────────────────┐           │
 │  │                                                                │           │
 │  │  /collection  /history  /playlists  /services  /roon ◄───────┼──── NEW  │
-│  │  /analytics   /search                                         │           │
+│  │  /analytics   /search   /magazines ◄────────────────────────────┼─ v4.4  │
 │  │                                                                │           │
 │  └────────────────────────────────────────────────────────────────           │
 │                                                                              │
@@ -51,6 +66,7 @@
 │  │  DiscogsService       : Import collection vinyles             │           │
 │  │  LastFMService        : API Last.fm                           │           │
 │  │  AIService (EurIA)    : Génération descriptions IA            │           │
+│  │  MagazineGeneratorService : Génération magazine éditorial ◄────┼─ v4.4   │
 │  │  MarkdownExportService: Export formaté                        │           │
 │  │                                                                │           │
 │  └────────────────────────────────────────────────────────────────           │
@@ -79,6 +95,7 @@
 │  ├─ metadata             : Métadonnées enrichies (descriptions IA)          │
 │  ├─ playlists            : Playlists générées (7 algorithmes)               │
 │  ├─ playlist_tracks      : Tracks associés aux playlists                    │
+│  ├─ magazines ◄───────────: Magazines générés (archives) ─────────── v4.4   │
 │  └─ service_states ◄─────: États trackers/scheduler (auto-restart) ─ NEW   │
 │                                                                              │
 │  Indexes:                                                                    │
@@ -149,8 +166,27 @@
 │  │  ├─ Cleanup automatique (max 5 fichiers/type)              │           │
 │  │  └─ Auto-restart après reboot serveur ◄───────────────────────── NEW    │
 │  └──────────────────────────────────────────────────────────────┘           │
-│                                                                              │
-│  Persistance états dans table service_states ◄───────────────────── NEW     │
+│                                                                              ││  ┌──────────────────────────────────────────────────────────────┐           │
+│  │ MagazineGeneratorService (Nouveau v4.4)                     │           │
+│  │  ├─ Génération contenus aléatoires                          │           │
+│  │  ├─ 5 pages éditorialisées:                                │           │
+│  │  │  ├─ Page 1: Artiste aléatoire + albums + haïku          │           │
+│  │  │  ├─ Page 2: Album spotlight + desc. IA longue (2000+)   │           │
+│  │  │  ├─ Page 3: 3 haïkus EurIA aléatoires                   │           │
+│  │  │  ├─ Page 4: Timeline écoutes récentes + stats           │           │
+│  │  │  └─ Page 5: Playlist thème + desc. créative             │           │
+│  │  ├─ Intégration EurIA (IA native)                          │           │
+│  │  │  ├─ Génération haïkus (5-7-5 syllabes)                  │           │
+│  │  │  ├─ Descriptions créatives (2000+ caractères)           │           │
+│  │  │  └─ Titres thématiques engageants                       │           │
+│  │  ├─ Layouts variables (images/textes positionnés aléat.)   │           │
+│  │  ├─ Palettes couleurs aléatoires (3 schémas)              │           │
+│  │  ├─ Auto-refresh: nouvelle édition toutes les 15 minutes  │           │
+│  │  ├─ Stockage: archives magazines dans table magazines     │           │
+│  │  ├─ Frontend: route /magazine avec 5 pages scrollables    │           │
+│  │  └─ Endpoints: /api/v1/magazines/generate/regenerate      │           │
+│  └──────────────────────────────────────────────────────────────┘           │
+│                                                                              ││  Persistance états dans table service_states ◄───────────────────── NEW     │
 │  Restauration automatique au démarrage via lifespan() ◄────────────── NEW   │
 │                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -207,6 +243,29 @@
 │                    ↓                                                         │
 │     Cleanup automatique (garde 5 derniers)                                  │
 │                                                                              │
+│  6. GÉNÉRATION MAGAZINE ◄────────────────────────────────────── NOUVEAU v4.4│
+│     Utilisateur accède à la page /magazine                                  │
+│                    ↓                                                         │
+│     Frontend appelle GET /api/v1/magazines/generate                         │
+│                    ↓                                                         │
+│     MagazineGeneratorService génère contenu:                               │
+│       1. Sélection artiste/album aléatoires                                │
+│       2. Récupération métadonnées enrichies (Spotify, IA)                  │
+│       3. Génération haïkus/descriptions EurIA                              │
+│       4. Récupération timeline écoutes récentes                            │
+│       5. Construction 5 pages éditorialisées                               │
+│       6. Layouts/couleurs variables aléatoires                             │
+│                    ↓                                                         │
+│     Response: Données JSON + images URLs + HTML rendu                       │
+│                    ↓                                                         │
+│     Frontend affiche 5 pages scrollables                                    │
+│                    ↓                                                         │
+│     Auto-refresh: toutes les 15 minutes                                     │
+│     Utilisateur peut cliquer "Nouvelle édition" → réappel API              │
+│                    ↓                                                         │
+│     Archives magazine optionnelles dans table magazines (DB)                │
+│                                                                              │
+│                                                                              │
 │  6. AUTO-RESTART ◄──────────────────────────────────────────────── NEW      │
 │     Serveur démarre                                                          │
 │                    ↓                                                         │
@@ -260,6 +319,69 @@
 
 
 ┌─────────────────────────────────────────────────────────────────────────────┐
+│                      MAGAZINE ÉDITORIAL (Nouveau v4.4)                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  MagazineGeneratorService (Backend):                                        │
+│  ├─ Orchestration complète génération magazine                             │
+│  ├─ Sélection contenus aléatoires:                                         │
+│  │  ├─ Artiste aléatoire pour Page 1                                       │
+│  │  ├─ Album spotlight (top écouté récemment) pour Page 2                 │
+│  │  ├─ 3 albums aléatoires pour haïkus Page 3                             │
+│  │  ├─ Timeline réelle dernières 24h pour Page 4                          │
+│  │  └─ Thème aléatoire pour playlist thème Page 5                         │
+│  │                                                                         │
+│  ├─ Intégration EurIA:                                                     │
+│  │  ├─ generate_haiku() : haïkus 5-7-5 syllabes                           │
+│  │  ├─ generate_album_description() : 2000+ caractères poétiques          │
+│  │  ├─ generate_playlist_theme() : thèmes créatifs                        │
+│  │  └─ generate_artistic_title() : titres engageants                      │
+│  │                                                                         │
+│  ├─ Design variabilité:                                                    │
+│  │  ├─ 3 palettes couleurs aléatoires (pastel/vibrant/dark)              │
+│  │  ├─ 2 layouts variables (image left/right, texte adapt)               │
+│  │  ├─ 3 typographies thématiques                                         │
+│  │  └─ Animation transitions fluides entre pages                          │
+│  │                                                                         │
+│  ├─ Endpoints:                                                             │
+│  │  ├─ GET  /api/v1/magazines/generate      : Générer magazine           │
+│  │  └─ POST /api/v1/magazines/regenerate    : Alias trigger              │
+│  │                                                                         │
+│  └─ Response JSON: { pages: [...], palette, layout, timestamp }           │
+│                                                                              │
+│  Frontend Component (Magazine.tsx):                                         │
+│  ├─ Route: /magazine                                                       │
+│  ├─ 5 pages scrollables:                                                   │
+│  │  ├─ Page 1: Artist card + albums gallery + haïku                       │
+│  │  ├─ Page 2: Album hero + description + metadata                        │
+│  │  ├─ Page 3: 3 haïkus cards + artists images                            │
+│  │  ├─ Page 4: Timeline events + listening stats + charts                 │
+│  │  └─ Page 5: Playlist grid + theme title + desc.                        │
+│  │                                                                         │
+│  ├─ Contrôles:                                                             │
+│  │  ├─ Navigation: scroll souris, flèches clavier, swipe mobile           │
+│  │  ├─ Bouton: "Nouvelle Édition" → regénère via API                      │
+│  │  ├─ Pagination: 5 dots + numéro page actuelle                          │
+│  │  ├─ Minuteur: compte à rebours 15 min avant auto-refresh               │
+│  │  └─ Visibilité: icône horloge, % progression                           │
+│  │                                                                         │
+│  ├─ Styles (Glassmorphism v4.4):                                           │
+│  │  ├─ Arrière-plan dégradé semi-transparent                              │
+│  │  ├─ Blur effet (backdrop-filter: blur 10px)                            │
+│  │  ├─ Bordures frosted glass translucent                                 │
+│  │  ├─ Animations smooth page transitions                                 │
+│  │  └─ Couleurs dynamiques selon palette générée                          │
+│  │                                                                         │
+│  └─ Auto-refresh:                                                          │
+│     ├─ Timer 15 minutes (localStorage persistence)                        │
+│     ├─ Auto call GET /magazines/generate                                  │
+│     ├─ Transition fluide nouvelle édition                                 │
+│     └─ Minuteur reset après génération                                    │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
 │                     CONFIGURATION ET DÉPLOIEMENT                             │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
@@ -287,7 +409,20 @@
 │  └─ backend/alembic/versions/         : Migrations historiques              │
 │     ├─ 001_add_source_column.py                                             │
 │     ├─ 002_fix_invalid_supports.py                                          │
-│     └─ 003_add_service_states.py ◄───────────────────────────────── NEW     │
+│     ├─ 003_add_service_states.py ◄───────────────────────────────── NEW     │
+│     └─ 004_add_magazines_table.py ◄────────────────────────────── v4.4      │
+│                                                                              │
+│  Fichiers Backend (v4.4):                                                    │
+│  ├─ backend/app/services/magazine_generator_service.py : Orchestration      │
+│  ├─ backend/app/api/v1/magazines.py : Endpoints /magazines                  │
+│  ├─ backend/app/models/magazine.py : Model Magazine SQLAlchemy             │
+│  └─ backend/app/schemas/magazine.py : Schemas Pydantic                      │
+│                                                                              │
+│  Fichiers Frontend (v4.4):                                                   │
+│  ├─ frontend/src/pages/Magazine.tsx : Page principale                       │
+│  ├─ frontend/src/components/MagazinePage.tsx : Composant 5 pages           │
+│  ├─ frontend/src/components/MagazineCard.tsx : Card réutilisable           │
+│  └─ frontend/src/api/magazines.ts : Client API magazines                    │
 │                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
 

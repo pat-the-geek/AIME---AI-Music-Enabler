@@ -27,6 +27,7 @@ import {
 import { Add, PlayArrow, Delete, Pause, SkipNext, Refresh } from '@mui/icons-material'
 import apiClient from '../api/client'
 import { useRoon } from '../contexts/RoonContext'
+import { getHiddenContentSx, isEmptyContent } from '../utils/hideEmptyContent'
 
 const ALGORITHMS = [
   { value: 'top_sessions', label: 'Top Sessions', description: 'Pistes des sessions les plus longues' },
@@ -601,7 +602,11 @@ export default function Playlists() {
                       <MenuItem key={algo.value} value={algo.value}>
                         <Box>
                           <Typography variant="body2">{algo.label}</Typography>
-                          <Typography variant="caption" color="text.secondary">
+                          <Typography 
+                            variant="caption" 
+                            color="text.secondary"
+                            sx={isEmptyContent(algo.description) ? getHiddenContentSx(algo.description) : {}}
+                          >
                             {algo.description}
                           </Typography>
                         </Box>

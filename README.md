@@ -81,8 +81,20 @@ Cette application a été entièrement développée en exploitant les capacités
    - **Interface Moderne** : Glassmorphism design avec animations fluides
    - ⚠️ **Bugs connus** : Démarrage lectures et cohérence état en cours d'investigation
 
-8. **API REST Complète**
-   - Endpoints pour collection, historique, playlists, services, Roon
+8. **📖 Magazine Éditorial** ✨ **NOUVEAU v4.4**
+   - **Format Éditorial** : 5 pages scrollables avec contenu aléatoire
+   - **Page 1 - Artiste Aléatoire** : Présentation complète + albums + haïku IA
+   - **Page 2 - Album du Jour** : Album spotlight + description IA longue (2000+ caractères)
+   - **Page 3 - Haïkus** : 3 albums aléatoires + haïkus générés EurIA
+   - **Page 4 - Timeline** : Récapitulatif écoutes récentes + statistiques
+   - **Page 5 - Playlist Thème** : Thème aléatoire + albums + description créative
+   - **Auto-Refresh** : Nouvelle édition automatique toutes les 15 minutes
+   - **Navigation Fluide** : Scroll souris, boutons, pagination
+   - **Design Moderne** : Glassmorphism avec couleurs variables et layouts aléatoires
+   - **Responsive** : Desktop, Tablet, Mobile optimisés
+
+9. **API REST Complète**
+   - Endpoints pour collection, historique, playlists, services, Roon, magazines
    - Documentation Swagger auto-générée
    - Validation Pydantic
 
@@ -272,6 +284,10 @@ Endpoints principaux:
 - `POST /api/v1/roon/previous` - Morceau précédent
 - `POST /api/v1/roon/stop` - Arrêter lecture
 
+### Magazine ✨ **NOUVEAU**
+- `GET /api/v1/magazines/generate` - Générer nouveau magazine éditorial
+- `POST /api/v1/magazines/regenerate` - Alias pour générer nouveau magazine
+
 ### Scheduler (Tâches Automatiques)
 - `GET /api/v1/services/scheduler/config` - Configuration scheduler + max_files_per_type
 - `PATCH /api/v1/services/scheduler/config` - Mettre à jour max_files_per_type
@@ -359,6 +375,13 @@ npm run test
 - **[Bugs Roon](docs/features/roon/ROON-BUGS-TRACKING.md)** - Suivi bugs et workarounds
 - **[Journal/Timeline](docs/features/JOURNAL-TIMELINE-DOC.md)** - Vue chronologique
 - **[Scheduler et Exports](docs/SCHEDULER.md)** - Tâches automatiques et configuration
+- **[Magazine Éditorial](docs/MAGAZINE-README.md)** - Guide complet du Magazine (10 pages)
+- **[Magazine - Guide d'Utilisation](docs/MAGAZINE-GUIDE.md)** - Guide de démarrage (15 pages)
+- **[Magazine - Implémentation](docs/MAGAZINE-IMPLEMENTATION.md)** - Architecture technique (12 pages)
+- **[Magazine - Améliorations](docs/MAGAZINE-IMPROVEMENTS.md)** - Roadmap et idées futures (20 pages)
+- **[Magazine - Prompts EurIA](docs/MAGAZINE-EURIA-PROMPTS.md)** - Catalogue des prompts IA (18 pages)
+- **[Magazine - Testing](docs/MAGAZINE-TESTING.md)** - Guide de test complet (16 pages)
+- **[Magazine - Vue Visuelle](docs/MAGAZINE-VISUAL.md)** - Mockups et designs (14 pages)
 
 ## 🔧 Dépannage
 
@@ -399,9 +422,26 @@ MIT License
 
 ---
 
-**Version**: 4.3.1  
-**Date**: 1er février 2026  
+**Version**: 4.4.0  
+**Date**: 3 février 2026  
 **Auteur**: Patrick Ostertag
+
+### Changelog 4.4.0
+
+**Magazine Éditorial (03/02/2026)**
+- 📖 **Nouvelle Page Magazine** : Interface éditorial moderne avec 5 pages scrollables
+- 🎨 **Format Rich Media** : Images, textes, haïkus générés par EurIA
+- 🎯 **5 Sections** :
+  1. Artiste Aléatoire avec ses albums et haïku IA
+  2. Album Spotlight avec description longue (2000+ caractères)
+  3. Haïkus : 3 albums aléatoires avec haïkus EurIA
+  4. Timeline : Récapitulatif des écoutes récentes
+  5. Playlist Thème : Thème créatif avec albums et description
+- ⏱️ **Auto-Refresh** : Nouvelle édition toutes les 15 minutes + minuteur visible
+- 🎨 **Design Moderne** : Glassmorphism avec couleurs et layouts variables
+- 📱 **Responsive** : Desktop, Tablet, Mobile optimisés
+- 📚 **Documentation Complète** : 7 fichiers de documentation (125+ pages)
+- 🔌 **Endpoints API** : `/api/v1/magazines/generate` et `/api/v1/magazines/regenerate`
 
 ### Changelog 4.3.1
 

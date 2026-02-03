@@ -1,9 +1,10 @@
 """Service pour la génération de magazines musicaux."""
 import random
 import logging
+import asyncio
 from typing import List, Dict, Optional, Any
 from datetime import datetime
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import func
 
 from app.models import Album, Artist, Track, ListeningHistory
@@ -24,6 +25,133 @@ class MagazineGeneratorService:
         if album.artists:
             return ", ".join([a.name for a in album.artists])
         return "Unknown"
+    
+    def _is_remaster_or_deluxe(self, album_title: str) -> bool:
+        """Détecter si un album est un remaster ou une édition deluxe."""
+        title_lower = album_title.lower()
+        keywords = [
+            'remaster', 'remastered', 'deluxe', 'remix', 'remixes',
+            'anniversary', 'edition', 'expanded', 'special edition',
+            'collector', 'bonus', 'réédition', 'remasterisé'
+        ]
+        return any(keyword in title_lower for keyword in keywords)
+    
+    def _should_enrich_album(self, album_id: int, album_title: str) -> bool:
+        """Déterminer si un album doit être enrichi en arrière-plan."""
+        # Enrichir UNIQUEMENT les albums remaster/deluxe sans description riche
+        if not self._is_remaster_or_deluxe(album_title):
+            return False
+        
+        # Vérifier si l'album a déjà une description riche
+        album = self.db.query(Album).filter(Album.id == album_id).first()
+        if not album:
+            return False
+        
+        # Si la description existe et fait > 500 caractères, pas besoin d'enrichir
+        if album.ai_description and len(album.ai_description) > 500:
+            return False
+        
+        return True
+    
+    async def _generate_enriched_description(self, album: Album, content_type: str = "review") -> str:
+        """Générer une description enrichie et créative même sans information factuelle."""
+        artist = self._get_artist_name(album)
+        year = album.year or "date inconnue"
+        genre = album.genre or "musique"
+        
+        # Prompt qui force l'IA à être créative même sans information - jusqu'à 2000 mots
+        prompt = f"""Génère une description RICHE, DÉTAILLÉE et CRÉATIVE (jusqu'à 2000 mots) de l'album '{album.title}' de {artist} ({year}, genre: {genre}).
+
+MÊME SI TU NE CONNAIS PAS CET ALBUM, tu DOIS créer un texte inspirant et évocateur basé sur :
+- Le nom de l'album (imagine son atmosphère, son concept, sa thématique)
+- Le style typique de l'artiste {artist} et son univers musical
+- Le genre {genre} et ses codes esthétiques
+- L'année {year} et son contexte musical, social et culturel
+- Les émotions que le titre de l'album évoque
+
+DÉVELOPPE longuement sur :
+- L'atmosphère générale de l'album (ambiance, couleurs sonores, textures)
+- La démarche artistique possible (intentions, recherches, innovations)
+- Les thématiques potentielles (universelles, personnelles, sociales)
+- Les influences musicales probables
+- L'impact émotionnel sur l'auditeur
+- La place dans la discographie de l'artiste
+- La réception imaginée (critique, public)
+- Les moments marquants possibles
+- L'héritage ou l'influence potentielle
+
+Utilise du **markdown** (gras, italique) pour dynamiser le texte.
+Sois **créatif**, **poétique**, **évocateur** et **analytique**.
+Structure ton texte en plusieurs paragraphes riches.
+Donne une vision personnelle et détaillée de ce que pourrait être cet album.
+
+Ne dis JAMAIS "Je ne connais pas" ou "Aucune information".
+Réponds UNIQUEMENT avec la description longue et riche, sans préambule."""
+        
+        try:
+            description = await self.ai_service.ask_for_ia(prompt, max_tokens=3000)
+            if description and description != "Aucune information disponible" and len(description.strip()) > 100:
+                return description
+        except Exception as e:
+            logger.warning(f"⚠️ Erreur génération description enrichie pour {album.title}: {e}")
+        
+        # Fallback créatif si l'IA échoue
+        return self._get_creative_fallback(album, content_type)
+    
+    async def _generate_remaster_description(self, album: Album) -> str:
+        """Générer une description spécifique pour les remasters/deluxe selon le prompt personnalisé."""
+        artist = self._get_artist_name(album)
+        year = album.year or "date inconnue"
+        
+        prompt = f"""Résume en 30 lignes maximum l'album {album.title} de {artist} ({year}), en mettant l'accent sur :
+
+- Le contexte de création (collaboration, événement spécial, anniversaire de l'album original).
+- La démarche artistique de {artist} (déconstruction, réinterprétation, atmosphère, touches modernes).
+- Les réactions critiques (accueil, comparaison avec l'original, points forts).
+- Les éléments sonores marquants (beats, textures, voix, ambiance).
+
+Utilise un ton objectif et synthétique, sans commentaire personnel.
+Si l'album est un remix ou une réinterprétation, précise-le clairement.
+Ne réponds que par le résumé, sans ajout ni commentaire.
+Si tu ne trouves pas d'informations, Résume l'album {album.title} ({year}) en 30 lignes maximum.
+Présente le résultat en markdown."""
+        
+        try:
+            description = await self.ai_service.ask_for_ia(prompt, max_tokens=600)
+            if description and description != "Aucune information disponible":
+                return description
+        except Exception as e:
+            logger.warning(f"⚠️ Erreur génération description remaster/deluxe pour {album.title}: {e}")
+        
+        # Fallback si l'IA échoue
+        return f"""**{album.title}** de {artist} ({year})
+
+Cette édition spéciale offre une expérience d'écoute enrichie de l'œuvre originale. Les remasters audio apportent une clarté et une profondeur sonore modernisées, révélant des détails inédits dans les arrangements.
+
+La démarche artistique respecte l'esprit de l'album original tout en bénéficiant des technologies contemporaines. Les textures sonores gagnent en présence, les dynamiques sont mieux préservées, et l'équilibre général offre une immersion renouvelée.
+
+Cette réédition témoigne de l'intemporalité de l'œuvre de {artist}, permettant aux nouvelles générations de découvrir cet album emblématique dans des conditions d'écoute optimales."""
+    
+    def _get_creative_fallback(self, album: Album, content_type: str) -> str:
+        """Générer du contenu créatif et varié quand l'IA échoue."""
+        artist = self._get_artist_name(album)
+        year = album.year or "?"
+        genre = album.genre or "musique"
+        
+        # Templates plus riches et créatifs
+        creative_templates = [
+            f"**{album.title}** de *{artist}* ({year}) est une œuvre qui mérite l'attention. Cet album de {genre} *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            
+            f"Dans *{album.title}*, {artist} nous offre un **voyage sonore** particulier. Sorti en {year}, cet album de {genre} déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            
+            f"*{album.title}* marque un moment dans la carrière de {artist}. Ce disque de {year} explore le {genre} avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            
+            f"{artist} livre avec *{album.title}* ({year}) une œuvre de {genre} **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            
+            f"La **poésie musicale** de *{album.title}* de {artist} transcende les années depuis {year}. Cet album de {genre} déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+        ]
+        
+        return random.choice(creative_templates)
     
     def _get_fallback_content(self, album: Album, content_type: str) -> str:
         """Générer du contenu de remplissage quand l'IA échoue."""
@@ -75,6 +203,65 @@ class MagazineGeneratorService:
         templates = fallback_templates.get(content_type, fallback_templates["review"])
         return random.choice(templates)
     
+    
+    async def _enrich_albums_in_background(self, album_ids: List[int]):
+        """Enrichir les descriptions d'albums en tâche de fond après génération du magazine."""
+        try:
+            logger.info(f"🔄 Enrichissement en arrière-plan de {len(album_ids)} albums...")
+            
+            # Délai initial pour laisser le circuit breaker se fermer
+            logger.info("⏳ Attente 5 secondes avant démarrage enrichissement (circuit breaker)")
+            await asyncio.sleep(5)
+            
+            enriched_count = 0
+            skipped_count = 0
+            error_count = 0
+            
+            for album_id in album_ids:
+                try:
+                    # Recharger l'album depuis la DB
+                    album = self.db.query(Album).filter(Album.id == album_id).first()
+                    if not album:
+                        continue
+                    
+                    # Vérifier si l'album a déjà une description riche (> 500 caractères)
+                    if album.ai_description and len(album.ai_description) > 500:
+                        logger.info(f"⏭️ Album {album.title} a déjà une description riche, skip")
+                        skipped_count += 1
+                        continue
+                    
+                    # Générer la description enrichie
+                    logger.info(f"📝 Génération description enrichie pour: {album.title}")
+                    
+                    if self._is_remaster_or_deluxe(album.title):
+                        rich_description = await self._generate_remaster_description(album)
+                    else:
+                        rich_description = await self._generate_enriched_description(album, "review")
+                    
+                    # Sauvegarder dans la DB seulement si la description est significativement enrichie
+                    if rich_description and len(rich_description) > 500:
+                        album.ai_description = rich_description
+                        self.db.commit()
+                        enriched_count += 1
+                        logger.info(f"✅ Description enrichie sauvegardée pour: {album.title} ({len(rich_description)} chars)")
+                    elif rich_description:
+                        logger.warning(f"⚠️ Description trop courte pour {album.title} ({len(rich_description)} chars) - circuit breaker actif?")
+                        error_count += 1
+                    
+                    # Délai plus long pour éviter circuit breaker (5 secondes au lieu de 2)
+                    await asyncio.sleep(5)
+                    
+                except Exception as e:
+                    logger.error(f"❌ Erreur enrichissement album {album_id}: {e}")
+                    error_count += 1
+                    self.db.rollback()
+                    continue
+            
+            logger.info(f"✅ Enrichissement terminé: {enriched_count} enrichis, {skipped_count} skippés, {error_count} erreurs")
+            
+        except Exception as e:
+            logger.error(f"❌ Erreur globale enrichissement arrière-plan: {e}")
+            self.db.rollback()
     
     async def _generate_layout_suggestion(self, page_type: str, content_description: str) -> Dict[str, Any]:
         """Demander à l'IA de suggérer un layout créatif et surprenant."""
@@ -139,11 +326,17 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
         """Générer un magazine complet avec 5 pages."""
         try:
             pages = []
+            albums_to_enrich = []  # Collecter UNIQUEMENT les albums remaster/deluxe à enrichir
             
             # Page 1: Artiste aléatoire + Albums récents
             try:
                 page1 = await self._generate_page_1_artist()
                 pages.append(page1)
+                # Collecter UNIQUEMENT les albums remaster/deluxe sans description riche
+                if "content" in page1 and "albums" in page1["content"]:
+                    for album_data in page1["content"]["albums"]:
+                        if self._should_enrich_album(album_data["id"], album_data["title"]):
+                            albums_to_enrich.append(album_data["id"])
             except Exception as e:
                 logger.warning(f"⚠️ Erreur page 1: {e}")
                 pages.append(self._empty_page())
@@ -152,6 +345,11 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
             try:
                 page2 = await self._generate_page_2_album_detail()
                 pages.append(page2)
+                # Collecter si remaster/deluxe sans description riche
+                if "content" in page2 and "album" in page2["content"]:
+                    album_data = page2["content"]["album"]
+                    if self._should_enrich_album(album_data["id"], album_data["title"]):
+                        albums_to_enrich.append(album_data["id"])
             except Exception as e:
                 logger.warning(f"⚠️ Erreur page 2: {e}")
                 pages.append(self._empty_page())
@@ -160,6 +358,11 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
             try:
                 page3 = await self._generate_page_3_albums_haikus()
                 pages.append(page3)
+                # Collecter UNIQUEMENT les albums remaster/deluxe
+                if "content" in page3 and "albums" in page3["content"]:
+                    for album_data in page3["content"]["albums"]:
+                        if self._should_enrich_album(album_data["id"], album_data["title"]):
+                            albums_to_enrich.append(album_data["id"])
             except Exception as e:
                 logger.warning(f"⚠️ Erreur page 3: {e}")
                 pages.append(self._empty_page())
@@ -181,15 +384,24 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
                 pages.append(self._empty_page())
             
             # Randomiser l'ordre des pages pour effet de génération spontanée
-            # Garder les page_numbers pour la navigation interne mais afficher dans ordre aléatoire
             shuffled_pages = pages.copy()
             random.shuffle(shuffled_pages)
+            
+            # Lancer l'enrichissement en arrière-plan UNIQUEMENT pour les remasters/deluxe
+            if albums_to_enrich:
+                unique_album_ids = list(set(albums_to_enrich))  # Dédupliquer
+                logger.info(f"🎯 Enrichissement ciblé: {len(unique_album_ids)} albums remaster/deluxe détectés")
+                asyncio.create_task(self._enrich_albums_in_background(unique_album_ids))
+            else:
+                logger.info("✅ Aucun album remaster/deluxe à enrichir")
             
             return {
                 "id": f"magazine-{datetime.now().timestamp()}",
                 "generated_at": datetime.now().isoformat(),
                 "pages": shuffled_pages,
-                "total_pages": len(shuffled_pages)
+                "total_pages": len(shuffled_pages),
+                "enrichment_started": len(albums_to_enrich) > 0,
+                "albums_to_enrich": len(albums_to_enrich)
             }
         except Exception as e:
             logger.error(f"❌ Erreur génération magazine: {e}")
@@ -258,26 +470,29 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
         content_types = ["review", "mood", "story", "technical", "poetic"]
         
         for album in albums:
-            # Choisir aléatoirement un type de contenu
-            content_type = random.choice(content_types)
-            
-            # Générer du contenu varié selon le type
-            if content_type == "review":
-                prompt = f"Écris une courte critique (60-80 mots) de l'album '{album.title}' de {self._get_artist_name(album)}. Utilise du markdown (gras, italique). Sois critique et profond."
-            elif content_type == "mood":
-                prompt = f"Décris l'ambiance et l'émotion (60-80 mots) de l'album '{album.title}' de {self._get_artist_name(album)}. Utilise du markdown. Sois évocateur."
-            elif content_type == "story":
-                prompt = f"Raconte une histoire courte (60-80 mots) inspirée par l'album '{album.title}' de {self._get_artist_name(album)}. Utilise du markdown. Sois narratif."
-            elif content_type == "technical":
-                prompt = f"Analyse la production et le son (60-80 mots) de l'album '{album.title}' de {self._get_artist_name(album)}. Utilise du markdown. Sois technique."
-            else:  # poetic
-                prompt = f"Écris une description poétique (60-80 mots) de l'album '{album.title}' de {self._get_artist_name(album)}. Utilise du markdown. Sois lyrique."
-            
-            ai_content = await self.ai_service.ask_for_ia(prompt, max_tokens=150)
-            
-            # Utiliser le fallback si l'IA retourne "Aucune information disponible"
-            if ai_content == "Aucune information disponible" or not ai_content:
-                ai_content = self._get_fallback_content(album, content_type)
+            # Vérifier si c'est un remaster/deluxe pour utiliser le prompt spécifique
+            if self._is_remaster_or_deluxe(album.title):
+                # Si l'album a déjà une description riche, l'utiliser
+                if album.ai_description and len(album.ai_description) > 500:
+                    ai_content = album.ai_description
+                    logger.info(f"♻️ Réutilisation description existante pour: {album.title}")
+                else:
+                    # Générer maintenant avec fallback rapide (sera enrichi en arrière-plan)
+                    ai_content = self._get_creative_fallback(album, "remaster")
+                    logger.info(f"📦 Fallback pour {album.title} (enrichissement en arrière-plan prévu)")
+                content_type = "remaster_detail"
+            else:
+                # Pour les albums normaux, utiliser la description existante ou générer une courte
+                if album.ai_description and len(album.ai_description) > 100:
+                    ai_content = album.ai_description
+                    logger.info(f"♻️ Réutilisation description pour: {album.title}")
+                    content_type = "existing"
+                else:
+                    # Choisir aléatoirement un type de contenu
+                    content_type = random.choice(content_types)
+                    # Utiliser fallback rapide (pas d'appel IA pour éviter circuit breaker)
+                    ai_content = self._get_creative_fallback(album, content_type)
+                    logger.info(f"🎨 Fallback créatif pour: {album.title}")
             
             albums_with_content.append({
                 "id": album.id,
@@ -356,6 +571,12 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
         album = random.choice(albums)
         artist_names = ", ".join([a.name for a in album.artists]) if album.artists else "Artiste inconnu"
         
+        # Vérifier si c'est un remaster/deluxe et régénérer la description si nécessaire
+        description = album.ai_description
+        if self._is_remaster_or_deluxe(album.title):
+            logger.info(f"📀 Album remaster/deluxe détecté: {album.title}, génération description spécifique")
+            description = await self._generate_remaster_description(album)
+        
         # Layout IA
         layout_suggestion = await self._generate_layout_suggestion(
             "album_detail",
@@ -375,7 +596,7 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
                     "year": album.year,
                     "genre": album.genre,
                     "image_url": album.image_url,
-                    "description": album.ai_description,
+                    "description": description,
                     "style": album.ai_style
                 }
             },
@@ -412,13 +633,18 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
             
             # Générer une description courte inspirée si pas existante
             description = album.ai_description
-            if not description or description == "Aucune information disponible":
-                desc_prompt = f"Génère une courte description (30 mots max) inspirante sur l'album '{album.title}' de {self._get_artist_name(album)}. Sois créatif et lyrique."
-                description = await self.ai_service.ask_for_ia(desc_prompt, max_tokens=80)
             
-            # Utiliser fallback si l'IA échoue
-            if description == "Aucune information disponible" or not description:
-                description = self._get_fallback_content(album, "description")
+            # Utiliser le prompt spécifique pour les remasters/deluxe
+            if self._is_remaster_or_deluxe(album.title):
+                description = await self._generate_remaster_description(album)
+            elif not description or description == "Aucune information disponible" or len(description.strip()) < 50:
+                # Utiliser la méthode enrichie pour garantir un contenu de qualité
+                description = await self._generate_enriched_description(album, "poetic")
+            
+            # Utiliser fallback créatif si l'IA échoue
+            if description == "Aucune information disponible" or not description or len(description.strip()) < 50:
+                description = self._get_creative_fallback(album, "description")
+                logger.info(f"📝 Fallback créatif utilisé pour {album.title} (page 3)")
             
             # Générer un layout unique et varié pour chaque haiku
             individual_layout = await self._generate_layout_suggestion(
@@ -505,13 +731,26 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
         
         top_albums_full = []
         for album_id, count in top_albums_ids:
-            album = self.db.query(Album).filter(Album.id == album_id).first()
+            # Charger l'album avec ses artistes et leurs images
+            album = self.db.query(Album).options(
+                joinedload(Album.artists).joinedload(Artist.images)
+            ).filter(Album.id == album_id).first()
+            
             if album:
+                # Chercher une image de fallback si l'album n'en a pas
+                image_url = album.image_url
+                if not image_url:
+                    # Utiliser l'image du premier artiste comme fallback
+                    if album.artists:
+                        first_artist = album.artists[0]
+                        if first_artist.images:
+                            image_url = first_artist.images[0].url
+                
                 top_albums_full.append({
                     "album_id": album.id,
                     "album_title": album.title,
                     "artist_name": self._get_artist_name(album),
-                    "image_url": album.image_url,
+                    "image_url": image_url,
                     "count": count
                 })
         

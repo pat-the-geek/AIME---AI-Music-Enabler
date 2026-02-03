@@ -32,6 +32,7 @@ import {
   Area
 } from 'recharts'
 import apiClient from '../api/client'
+import { getHiddenContentSx, isEmptyContent } from '@/utils/hideEmptyContent'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -719,7 +720,8 @@ export default function AnalyticsAdvanced() {
                       variant="h5"
                       sx={{
                         whiteSpace: 'pre-line',
-                        lineHeight: 2
+                        lineHeight: 2,
+                        ...(isEmptyContent(haiku.haiku) ? getHiddenContentSx(haiku.haiku) : {})
                       }}
                     >
                       {haiku.haiku}
