@@ -1027,8 +1027,8 @@ async def enrich_single_album(
                     image = Image(
                         album_id=album.id,
                         url=image_url,
-                        height=None,
-                        width=None
+                        image_type='album',
+                        source='spotify'
                     )
                     db.add(image)
                     enrichment_details["images"] = True
