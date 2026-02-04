@@ -55,6 +55,8 @@ export default function Magazine() {
   const [usePregenerated, setUsePregenerated] = useState(true) // Par défaut, utiliser les éditions pré-générées
   const [selectedEditionId, setSelectedEditionId] = useState<string | null>(null)
   const [editionsMenuAnchor, setEditionsMenuAnchor] = useState<null | HTMLElement>(null)
+  const [showScrollIndicator, setShowScrollIndicator] = useState(false)
+  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null)
 
   // Charger la liste des éditions disponibles
   const { data: editionsList } = useQuery({
@@ -380,11 +382,24 @@ export default function Magazine() {
       </Paper>
 
       {/* Magazine Content */}
-      <Box sx={{
-        flex: 1,
-        overflow: 'auto',
-        scrollBehavior: 'smooth'
-      }}>
+      <Box 
+        sx={{
+          flex: 1,
+          overflow: 'auto',
+          scrollBehavior: 'smooth'
+        }}
+        onScroll={(e) => {
+          // Afficher l'indicateur lors du scroll
+          setShowScrollIndicator(true)
+          
+          // Cacher l'indicateur après 1.5 secondes d'inactivité
+          if (scrollTimeout) clearTimeout(scrollTimeout)
+          const timeout = setTimeout(() => {
+            setShowScrollIndicator(false)
+          }, 1500)
+          setScrollTimeout(timeout)
+        }}
+      >
         {magazine.pages.map((page, index) => (
           <Box 
             key={index} 
@@ -394,9 +409,38 @@ export default function Magazine() {
               scrollSnapAlign: 'start'
             }}
           >
-            <MagazinePage page={page} index={index} />
+            <MagazinePage page={page} index={index} totalPages={magazine.total_pages} />
           </Box>
         ))}
+      </Box>
+
+      {/* Indicateur de page flottant pendant le scroll */}
+      <Box
+        sx={{
+          position: 'fixed',
+          top: '50%',
+          right: '20px',
+          transform: 'translateY(-50%)',
+          backgroundColor: 'rgba(196, 30, 58, 0.95)',
+          color: '#ffffff',
+          padding: '12px 20px',
+          borderRadius: '30px',
+          fontFamily: '"Roboto Condensed", sans-serif',
+          fontWeight: 700,
+          fontSize: '16px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+          transition: 'opacity 0.3s ease, transform 0.3s ease',
+          opacity: showScrollIndicator ? 1 : 0,
+          pointerEvents: 'none',
+          zIndex: 1000,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}
+      >
+        <Typography variant="body1" sx={{ fontWeight: 700, fontSize: '16px' }}>
+          Page {currentPage + 1} sur {magazine?.total_pages || magazine?.pages?.length || 0}
+        </Typography>
       </Box>
 
       {/* Footer Navigation */}
@@ -423,7 +467,7 @@ export default function Magazine() {
 
           <Box sx={{ textAlign: 'center' }}>
             <Typography variant="body2" sx={{ color: '#2c3e50', fontWeight: 600 }}>
-              Page {currentPage + 1} / {magazine.total_pages}
+              Page {currentPage + 1} sur {magazine?.total_pages || magazine?.pages?.length || 0}
             </Typography>
             <Box sx={{
               display: 'flex',

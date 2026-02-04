@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Box, Typography, Grid, Card, CardContent, CardMedia, Stack, Paper, Avatar, Chip, Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material'
-import { PlayArrow } from '@mui/icons-material'
+import { PlayArrow, Article as ArticleIcon } from '@mui/icons-material'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import apiClient from '@/api/client'
+import ArtistPortraitModal from '@/components/ArtistPortraitModal'
 import { getHiddenContentSx, isEmptyContent } from '@/utils/hideEmptyContent'
 
 interface AILayout {
@@ -27,13 +28,19 @@ interface PageProps {
     dimensions?: any
   }
   index: number
+  totalPages: number
 }
 
-export default function MagazinePage({ page, index }: PageProps) {
+export default function MagazinePage({ page, index, totalPages }: PageProps) {
   // States pour le dialog de sélection de zone
   const [zoneDialogOpen, setZoneDialogOpen] = useState(false)
   const [selectedZone, setSelectedZone] = useState<string>('')
   const [albumToPlay, setAlbumToPlay] = useState<any>(null)
+  
+  // States pour le portrait d'artiste
+  const [portraitOpen, setPortraitOpen] = useState(false)
+  const [portraitArtistId, setPortraitArtistId] = useState<number | null>(null)
+  const [portraitArtistName, setPortraitArtistName] = useState<string>('')
 
   // Récupérer les zones Roon
   const { data: roonZones } = useQuery({
@@ -54,6 +61,31 @@ export default function MagazinePage({ page, index }: PageProps) {
   const colorScheme = 'newspaper'
   const colors = colorSchemes.newspaper
 
+  // Fonction pour ouvrir le portrait d'artiste
+  const handleOpenArtistPortrait = async (artistName: string, artistId?: number) => {
+    try {
+      // Si on n'a pas l'ID, chercher l'artiste
+      if (!artistId) {
+        const response = await apiClient.get('/artists/list', {
+          params: { search: artistName, limit: 1 }
+        })
+        if (response.data?.artists?.[0]) {
+          setPortraitArtistId(response.data.artists[0].id)
+          setPortraitArtistName(response.data.artists[0].name)
+        } else {
+          console.warn('Artiste non trouvé:', artistName)
+          return
+        }
+      } else {
+        setPortraitArtistId(artistId)
+        setPortraitArtistName(artistName)
+      }
+      setPortraitOpen(true)
+    } catch (error) {
+      console.error('Erreur recherche artiste:', error)
+    }
+  }
+
   // Fonction pour jouer dans Roon
   const handlePlayInRoon = (album: any) => {
     console.log('🎵 handlePlayInRoon appelé avec:', album)
@@ -64,7 +96,11 @@ export default function MagazinePage({ page, index }: PageProps) {
 
   // Fonction pour confirmer et lancer la lecture
   const confirmPlayInRoon = async () => {
-    if (!selectedZone || !albumToPlay) return
+    console.log('🔄 confirmPlayInRoon appelé - selectedZone:', selectedZone, 'albumToPlay:', albumToPlay)
+    if (!selectedZone || !albumToPlay) {
+      console.warn('⚠️ Conditions non remplies:', { selectedZone, albumToPlay })
+      return
+    }
 
     try {
       // Normaliser les données (support pour différentes structures d'objet)
@@ -86,9 +122,8 @@ export default function MagazinePage({ page, index }: PageProps) {
       const data = await response.json().catch(() => null)
       
       if (response.ok) {
-        const albumTitle = albumToPlay.album_title || albumToPlay.title
         console.log('✅ Lecture lancée dans Roon:', data)
-        alert(`Album lancé : ${albumTitle}`)
+        // Message supprimé - lecture silencieuse
       } else {
         console.error('❌ Erreur Roon (Status ' + response.status + '):', data)
         const errorMsg = data?.detail || 'Impossible de lancer la lecture dans Roon'
@@ -137,13 +172,20 @@ export default function MagazinePage({ page, index }: PageProps) {
         <DialogTitle>Sélectionner une zone Roon</DialogTitle>
         <DialogContent sx={{ minWidth: 300 }}>
           <Stack spacing={2} sx={{ pt: 2 }}>
+            {(() => {
+              console.log('🔍 roonZones:', roonZones, 'length:', roonZones?.length)
+              return null
+            })()}
             {roonZones && roonZones.length > 0 ? (
               roonZones.map((zone: any) => (
                 <Button
                   key={zone.zone_id}
                   variant={selectedZone === zone.name ? 'contained' : 'outlined'}
                   fullWidth
-                  onClick={() => setSelectedZone(zone.name)}
+                  onClick={() => {
+                    console.log('🎯 Zone sélectionnée:', zone.name)
+                    setSelectedZone(zone.name)
+                  }}
                   sx={{ justifyContent: 'flex-start' }}
                 >
                   <Box sx={{ textAlign: 'left', width: '100%' }}>
@@ -466,6 +508,28 @@ export default function MagazinePage({ page, index }: PageProps) {
                         <Box sx={{ display: 'flex', gap: '8px', marginTop: '12px', alignItems: 'center', justifyContent: 'flex-end' }}>
                           <Button
                             size="small"
+                            variant="outlined"
+                            onClick={() => handleOpenArtistPortrait(album.artist_name || album.artist)}
+                            startIcon={<ArticleIcon />}
+                            sx={{
+                              borderColor: '#23a7dd',
+                              color: '#23a7dd',
+                              fontFamily: '"Roboto Condensed", sans-serif',
+                              fontWeight: 700,
+                              fontSize: '9px',
+                              padding: '2px 6px',
+                              height: '18px',
+                              textTransform: 'uppercase',
+                              '&:hover': {
+                                borderColor: '#1a8bc4',
+                                backgroundColor: 'rgba(35, 167, 221, 0.1)'
+                              }
+                            }}
+                          >
+                            Portrait
+                          </Button>
+                          <Button
+                            size="small"
                             variant="contained"
                             onClick={() => handlePlayInRoon(album)}
                             sx={{
@@ -781,29 +845,52 @@ export default function MagazinePage({ page, index }: PageProps) {
                         <ReactMarkdown>{haiku.haiku}</ReactMarkdown>
                       </Box>
                     )}
-                    <Button
-                      size="small"
-                      variant="contained"
-                      onClick={() => handlePlayInRoon(album)}
-                      sx={{
-                        backgroundColor: '#23a7dd',
-                        color: '#ffffff',
-                        fontFamily: '"Roboto Condensed", sans-serif',
-                        fontWeight: 700,
-                        fontSize: '9px',
-                        padding: '2px 6px',
-                        height: '18px',
-                        minWidth: '40px',
-                        textTransform: 'uppercase',
-                        marginLeft: 'auto',
-                        display: 'block',
-                        '&:hover': {
-                          backgroundColor: '#1a8bc4'
-                        }
-                      }}
-                    >
-                      ▶ Roon
-                    </Button>
+                    <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => handleOpenArtistPortrait(album.artist)}
+                        startIcon={<ArticleIcon />}
+                        sx={{
+                          borderColor: '#23a7dd',
+                          color: '#23a7dd',
+                          fontFamily: '"Roboto Condensed", sans-serif',
+                          fontWeight: 700,
+                          fontSize: '9px',
+                          padding: '2px 6px',
+                          height: '18px',
+                          textTransform: 'uppercase',
+                          marginLeft: 'auto',
+                          '&:hover': {
+                            borderColor: '#1a8bc4',
+                            backgroundColor: 'rgba(35, 167, 221, 0.1)'
+                          }
+                        }}
+                      >
+                        Portrait
+                      </Button>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        onClick={() => handlePlayInRoon(album)}
+                        sx={{
+                          backgroundColor: '#23a7dd',
+                          color: '#ffffff',
+                          fontFamily: '"Roboto Condensed", sans-serif',
+                          fontWeight: 700,
+                          fontSize: '9px',
+                          padding: '2px 6px',
+                          height: '18px',
+                          minWidth: '40px',
+                          textTransform: 'uppercase',
+                          '&:hover': {
+                            backgroundColor: '#1a8bc4'
+                          }
+                        }}
+                      >
+                        ▶ Roon
+                      </Button>
+                    </Box>
                   </CardContent>
                 </Card>
               </Grid>
@@ -1216,22 +1303,49 @@ export default function MagazinePage({ page, index }: PageProps) {
                       }}
                     />
                   )}
-                  <Button
-                    size="small"
-                    variant="contained"
-                    onClick={() => handlePlayInRoon(album)}
-                    sx={{
-                      backgroundColor: '#23a7dd',
-                      color: '#ffffff',
-                      fontFamily: '"Roboto Condensed", sans-serif',
-                      fontWeight: 700,
-                      fontSize: '9px',
-                      padding: '2px 6px',
-                      height: '18px',
-                      minWidth: '40px',
-                      textTransform: 'uppercase',
-                      marginLeft: 'auto',
-                      display: 'block',
+                  <Box sx={{ display: 'flex', gap: '8px', marginTop: '12px', alignItems: 'center', justifyContent: 'flex-end' }}>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      onClick={() => handleOpenArtistPortrait(album.artist)}
+                      startIcon={<ArticleIcon />}
+                      sx={{
+                        borderColor: '#23a7dd',
+                        color: '#23a7dd',
+                        fontFamily: '"Roboto Condensed", sans-serif',
+                        fontWeight: 700,
+                        fontSize: '9px',
+                        padding: '2px 6px',
+                        height: '18px',
+                        minWidth: '40px',
+                        textTransform: 'uppercase',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        '&:hover': {
+                          backgroundColor: 'rgba(35, 167, 221, 0.08)',
+                          borderColor: '#1e88c4'
+                        }
+                      }}
+                    >
+                      Portrait
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      onClick={() => handlePlayInRoon(album)}
+                      sx={{
+                        backgroundColor: '#23a7dd',
+                        color: '#ffffff',
+                        fontFamily: '"Roboto Condensed", sans-serif',
+                        fontWeight: 700,
+                        fontSize: '9px',
+                        padding: '2px 6px',
+                        height: '18px',
+                        minWidth: '40px',
+                        textTransform: 'uppercase',
+                        display: 'flex',
+                        alignItems: 'center',
                       '&:hover': {
                         backgroundColor: '#1a8bc4'
                       }
@@ -1239,6 +1353,7 @@ export default function MagazinePage({ page, index }: PageProps) {
                   >
                     ▶ Roon
                   </Button>
+                  </Box>
                 </CardContent>
               </Card>
             </Grid>
@@ -1266,5 +1381,15 @@ export default function MagazinePage({ page, index }: PageProps) {
   }
 
   // Retourner le contenu de la page avec le Dialog
-  return renderPageWithDialog(renderPage())
+  return (
+    <>
+      {renderPageWithDialog(renderPage())}
+      <ArtistPortraitModal
+        open={portraitOpen}
+        artistId={portraitArtistId}
+        artistName={portraitArtistName}
+        onClose={() => setPortraitOpen(false)}
+      />
+    </>
+  )
 }

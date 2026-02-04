@@ -2,6 +2,7 @@
 import random
 import logging
 import asyncio
+import time
 from typing import List, Dict, Optional, Any
 from datetime import datetime
 from sqlalchemy.orm import Session, joinedload
@@ -20,6 +21,49 @@ class MagazineGeneratorService:
         self.db = db
         self.ai_service = ai_service
     
+    async def _generate_ai_haiku(self, album: Album, context: str = "") -> str:
+        """Générer un haiku avec l'IA pour un album."""
+        try:
+            artist_name = self._get_artist_name(album)
+            genre = album.genre or "musique"
+            
+            prompt = f"""Crée un haïku poétique de 3 lignes pour l'album "{album.title}" de {artist_name} ({genre}).
+            
+Format strict :
+            - Ligne 1 : Titre de l'album en gras (**)
+            - Ligne 2 : Description poétique courte (5-7 mots)
+            - Ligne 3 : Continuation poétique (5-7 mots)
+            
+            Style : poétique, évocateur, utilise des métaphores musicales.
+            {context}
+            
+            Exemple :
+            **Dark Side of the Moon**
+            Lumière dansant dans l'ombre
+            Sons cosmiques infinis"""
+            
+            # Timeout de 10 secondes pour éviter de bloquer
+            response = await asyncio.wait_for(
+                self.ai_service.ask_for_ia(prompt, max_tokens=100),
+                timeout=10.0
+            )
+            
+            haiku = response.strip()
+            logger.info(f"✨ Haiku IA généré pour {album.title}")
+            return haiku
+            
+        except asyncio.TimeoutError:
+            logger.warning(f"⏱️ Timeout génération haiku IA pour {album.title}")
+            artist_name = self._get_artist_name(album)
+            genre = album.genre or "musique"
+            return f"**{album.title}**\n*{genre}* sublime\nPar {artist_name}"
+        except Exception as e:
+            logger.warning(f"⚠️ Erreur génération haiku IA pour {album.title}: {e}")
+            # Fallback : haiku basé sur les données
+            artist_name = self._get_artist_name(album)
+            genre = album.genre or "musique"
+            return f"**{album.title}**\n*{genre}* sublime\nPar {artist_name}"
+    
     def _clean_markdown_text(self, text: str) -> str:
         """Nettoyer le texte en supprimant les délimiteurs markdown inutiles."""
         if not text:
@@ -34,7 +78,21 @@ class MagazineGeneratorService:
         if text.endswith('```'):
             text = text[:-3].rstrip('\n')  # Remove closing ```
         
-        return text.strip()
+        # Supprimer les titres markdown (# ## ###) au début des lignes
+        lines = text.split('\n')
+        cleaned_lines = []
+        for line in lines:
+            # Si la ligne commence par # (titre), la convertir en texte normal en gras
+            if line.strip().startswith('#'):
+                # Compter les # et les retirer
+                stripped = line.lstrip('#').strip()
+                if stripped:
+                    # Si c'était un titre, le mettre en gras
+                    cleaned_lines.append(f"**{stripped}**")
+            else:
+                cleaned_lines.append(line)
+        
+        return '\n'.join(cleaned_lines).strip()
     
     def _ensure_markdown_format(self, text: str) -> str:
         """Assurer que le texte est correctement formaté en markdown."""
@@ -89,84 +147,15 @@ class MagazineGeneratorService:
         
         return True
     
-    async def _generate_enriched_description(self, album: Album, content_type: str = "review") -> str:
-        """Générer une description enrichie et créative même sans information factuelle."""
-        artist = self._get_artist_name(album)
-        year = album.year or "date inconnue"
-        genre = album.genre or "musique"
-        
-        # Prompt qui force l'IA à être créative même sans information - jusqu'à 2000 mots
-        prompt = f"""Génère une description RICHE, DÉTAILLÉE et CRÉATIVE (jusqu'à 2000 mots) de l'album '{album.title}' de {artist} ({year}, genre: {genre}).
-
-MÊME SI TU NE CONNAIS PAS CET ALBUM, tu DOIS créer un texte inspirant et évocateur basé sur :
-- Le nom de l'album (imagine son atmosphère, son concept, sa thématique)
-- Le style typique de l'artiste {artist} et son univers musical
-- Le genre {genre} et ses codes esthétiques
-- L'année {year} et son contexte musical, social et culturel
-- Les émotions que le titre de l'album évoque
-
-DÉVELOPPE longuement sur :
-- L'atmosphère générale de l'album (ambiance, couleurs sonores, textures)
-- La démarche artistique possible (intentions, recherches, innovations)
-- Les thématiques potentielles (universelles, personnelles, sociales)
-- Les influences musicales probables
-- L'impact émotionnel sur l'auditeur
-- La place dans la discographie de l'artiste
-- La réception imaginée (critique, public)
-- Les moments marquants possibles
-- L'héritage ou l'influence potentielle
-
-Utilise du **markdown** (gras, italique) pour dynamiser le texte.
-Sois **créatif**, **poétique**, **évocateur** et **analytique**.
-Structure ton texte en plusieurs paragraphes riches.
-Donne une vision personnelle et détaillée de ce que pourrait être cet album.
-
-Ne dis JAMAIS "Je ne connais pas" ou "Aucune information".
-Réponds UNIQUEMENT avec la description longue et riche, sans préambule."""
-        
-        try:
-            description = await self.ai_service.ask_for_ia(prompt, max_tokens=3000)
-            if description and description != "Aucune information disponible" and len(description.strip()) > 100:
-                return description
-        except Exception as e:
-            logger.warning(f"⚠️ Erreur génération description enrichie pour {album.title}: {e}")
-        
-        # Fallback créatif si l'IA échoue
+    def _generate_enriched_description(self, album: Album, content_type: str = "review") -> str:
+        """Générer une description enrichie - utiliser fallback créatif directement SANS appel IA."""
+        # Fallback créatif direct - AUCUN appel IA
         return self._get_creative_fallback(album, content_type)
     
-    async def _generate_remaster_description(self, album: Album) -> str:
-        """Générer une description spécifique pour les remasters/deluxe selon le prompt personnalisé."""
-        artist = self._get_artist_name(album)
-        year = album.year or "date inconnue"
-        
-        prompt = f"""Résume en 30 lignes maximum l'album {album.title} de {artist} ({year}), en mettant l'accent sur :
-
-- Le contexte de création (collaboration, événement spécial, anniversaire de l'album original).
-- La démarche artistique de {artist} (déconstruction, réinterprétation, atmosphère, touches modernes).
-- Les réactions critiques (accueil, comparaison avec l'original, points forts).
-- Les éléments sonores marquants (beats, textures, voix, ambiance).
-
-Utilise un ton objectif et synthétique, sans commentaire personnel.
-Si l'album est un remix ou une réinterprétation, précise-le clairement.
-Ne réponds que par le résumé, sans ajout ni commentaire.
-Si tu ne trouves pas d'informations, Résume l'album {album.title} ({year}) en 30 lignes maximum.
-Présente le résultat en markdown."""
-        
-        try:
-            description = await self.ai_service.ask_for_ia(prompt, max_tokens=600)
-            if description and description != "Aucune information disponible":
-                return self._ensure_markdown_format(description)
-        except Exception as e:
-            logger.warning(f"⚠️ Erreur génération description remaster/deluxe pour {album.title}: {e}")
-        
-        # Fallback si l'IA échoue
-        return f"""**{album.title}** de {artist} ({year})
-
-Cette édition spéciale offre une expérience d'écoute enrichie de l'œuvre originale. Les remasters audio apportent une clarté et une profondeur sonore modernisées, révélant des détails inédits dans les arrangements.
-
-La démarche artistique respecte l'esprit de l'album original tout en bénéficiant des technologies contemporaines. Les textures sonores gagnent en présence, les dynamiques sont mieux préservées, et l'équilibre général offre une immersion renouvelée.
-
-Cette réédition témoigne de l'intemporalité de l'œuvre de {artist}, permettant aux nouvelles générations de découvrir cet album emblématique dans des conditions d'écoute optimales."""
+    def _generate_remaster_description(self, album: Album) -> str:
+        """Générer une description spécifique pour les remasters/deluxe - utiliser fallback direct."""
+        # Utiliser fallback créatif directement - AUCUN appel IA
+        return self._get_creative_fallback(album, "remaster")
     
     def _get_creative_fallback(self, album: Album, content_type: str) -> str:
         """Générer du contenu créatif et varié quand l'IA échoue."""
@@ -245,10 +234,6 @@ Cette réédition témoigne de l'intemporalité de l'œuvre de {artist}, permett
         try:
             logger.info(f"🔄 Enrichissement en arrière-plan de {len(album_ids)} albums...")
             
-            # Délai initial pour laisser le circuit breaker se fermer
-            logger.info("⏳ Attente 5 secondes avant démarrage enrichissement (circuit breaker)")
-            await asyncio.sleep(5)
-            
             enriched_count = 0
             skipped_count = 0
             error_count = 0
@@ -270,9 +255,9 @@ Cette réédition témoigne de l'intemporalité de l'œuvre de {artist}, permett
                     logger.info(f"📝 Génération description enrichie pour: {album.title}")
                     
                     if self._is_remaster_or_deluxe(album.title):
-                        rich_description = await self._generate_remaster_description(album)
+                        rich_description = self._generate_remaster_description(album)
                     else:
-                        rich_description = await self._generate_enriched_description(album, "review")
+                        rich_description = self._generate_enriched_description(album, "review")
                     
                     # Sauvegarder dans la DB seulement si la description est significativement enrichie
                     if rich_description and len(rich_description) > 500:
@@ -283,9 +268,6 @@ Cette réédition témoigne de l'intemporalité de l'œuvre de {artist}, permett
                     elif rich_description:
                         logger.warning(f"⚠️ Description trop courte pour {album.title} ({len(rich_description)} chars) - circuit breaker actif?")
                         error_count += 1
-                    
-                    # Délai plus long pour éviter circuit breaker (5 secondes au lieu de 2)
-                    await asyncio.sleep(5)
                     
                 except Exception as e:
                     logger.error(f"❌ Erreur enrichissement album {album_id}: {e}")
@@ -299,125 +281,114 @@ Cette réédition témoigne de l'intemporalité de l'œuvre de {artist}, permett
             logger.error(f"❌ Erreur globale enrichissement arrière-plan: {e}")
             self.db.rollback()
     
-    async def _generate_layout_suggestion(self, page_type: str, content_description: str) -> Dict[str, Any]:
-        """Demander à l'IA de suggérer un layout créatif et surprenant."""
-        prompt = f"""Tu es un designer créatif de magazines musicaux d'avant-garde. Crée une mise en page AUDACIEUSE, ASYMÉTRIQUE et TOTALEMENT UNIQUE.
-
-Type: {page_type}
-Contenu: {content_description}
-
-IMPORTANT:
-- VARIE RADICALEMENT la position et taille des éléments à CHAQUE fois
-- Les grandes images doivent être IMMENSES (jusqu'à 75% de l'écran)
-- Alterne entre images minuscules et images géantes
-- Crée des compositions DÉSÉQUILIBRÉES et SURPRENANTES
-- CHANGE systématiquement l'agencement pour éviter toute répétition
-
-Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
-{{
-  "columns": 1 ou 2 ou 3 ou 4 ou 5,
-  "imagePosition": "left" ou "right" ou "top" ou "bottom" ou "center" ou "floating" ou "split" ou "diagonal" ou "corner" ou "fullwidth",
-  "imageSize": "micro" ou "tiny" ou "small" ou "medium" ou "large" ou "huge" ou "massive" ou "fullscreen",
-  "textLayout": "single" ou "double-column" ou "triple-column" ou "masonry" ou "asymmetric" ou "scattered" ou "vertical",
-  "composition": "classic" ou "modern" ou "bold" ou "minimalist" ou "dramatic" ou "playful" ou "chaos" ou "zen" ou "magazine",
-  "accentColor": "#couleur-hex-creative-vibrante",
-  "specialEffect": "none" ou "gradient" ou "overlay" ou "frame" ou "shadow" ou "blur" ou "tilt" ou "zoom"
-}}"""
+    def _generate_layout_suggestion(self, page_type: str, content_description: str) -> Dict[str, Any]:
+        """Générer un layout créatif avec pure randomisation (SANS appel IA pour performance)."""
+        # Fallback ultra-varié avec forte randomisation - PAS d'appel IA!
+        positions = ["left", "right", "top", "bottom", "center", "floating", "split", "diagonal", "corner", "fullwidth"]
+        sizes = ["micro", "tiny", "small", "medium", "large", "huge", "massive", "fullscreen"]
+        layouts = ["single", "double-column", "triple-column", "masonry", "asymmetric", "scattered", "vertical"]
+        compositions = ["classic", "modern", "bold", "minimalist", "dramatic", "playful", "chaos", "zen", "magazine"]
+        colors = ["#667eea", "#764ba2", "#ff006e", "#00b4d8", "#ff6b35", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899", "#06b6d4"]
+        effects = ["none", "gradient", "overlay", "frame", "shadow", "blur", "tilt", "zoom"]
         
-        try:
-            response = await self.ai_service.ask_for_ia(prompt, max_tokens=200)
-            import json
-            # Nettoyer la réponse
-            response_clean = response.strip()
-            if response_clean.startswith('```'):
-                lines = response_clean.split('\n')
-                response_clean = '\n'.join([l for l in lines if not l.startswith('```')])
-            
-            layout = json.loads(response_clean)
-            return layout
-        except Exception as e:
-            logger.warning(f"⚠️ Erreur parsing layout IA: {e}")
-            # Fallback ultra-varié avec forte randomisation
-            positions = ["left", "right", "top", "bottom", "center", "floating", "split", "diagonal", "corner", "fullwidth"]
-            sizes = ["micro", "tiny", "small", "medium", "large", "huge", "massive", "fullscreen"]
-            layouts = ["single", "double-column", "triple-column", "masonry", "asymmetric", "scattered", "vertical"]
-            compositions = ["classic", "modern", "bold", "minimalist", "dramatic", "playful", "chaos", "zen", "magazine"]
-            colors = ["#667eea", "#764ba2", "#ff006e", "#00b4d8", "#ff6b35", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899", "#06b6d4"]
-            effects = ["none", "gradient", "overlay", "frame", "shadow", "blur", "tilt", "zoom"]
-            
-            # Favoriser les tailles extrêmes pour plus de variété
-            size_weights = [0.05, 0.1, 0.15, 0.15, 0.15, 0.15, 0.15, 0.1]  # Plus de chances pour huge/massive
-            
-            return {
-                "columns": random.choice([1, 2, 2, 3, 3, 4, 5]),  # Favorise 2-3 colonnes
-                "imagePosition": random.choice(positions),
-                "imageSize": random.choices(sizes, weights=size_weights)[0],
-                "textLayout": random.choice(layouts),
-                "composition": random.choice(compositions),
-                "accentColor": random.choice(colors),
-                "specialEffect": random.choice(effects)
-            }
+        # Favoriser les tailles extrêmes pour plus de variété
+        size_weights = [0.05, 0.1, 0.15, 0.15, 0.15, 0.15, 0.15, 0.1]  # Plus de chances pour huge/massive
+        
+        return {
+            "columns": random.choice([1, 2, 2, 3, 3, 4, 5]),  # Favorise 2-3 colonnes
+            "imagePosition": random.choice(positions),
+            "imageSize": random.choices(sizes, weights=size_weights)[0],
+            "textLayout": random.choice(layouts),
+            "composition": random.choice(compositions),
+            "accentColor": random.choice(colors),
+            "specialEffect": random.choice(effects)
+        }
     
     async def generate_magazine(self) -> Dict[str, Any]:
-        """Générer un magazine complet avec 5 pages."""
+        """Générer un magazine complet avec 5 pages valides."""
+        start_time = time.time()
         try:
             pages = []
             albums_to_enrich = []  # Collecter UNIQUEMENT les albums remaster/deluxe à enrichir
             
             # Page 1: Artiste aléatoire + Albums récents
             try:
+                t1 = time.time()
                 page1 = await self._generate_page_1_artist()
-                pages.append(page1)
-                # Collecter UNIQUEMENT les albums remaster/deluxe sans description riche
-                if "content" in page1 and "albums" in page1["content"]:
-                    for album_data in page1["content"]["albums"]:
-                        if self._should_enrich_album(album_data["id"], album_data["title"]):
-                            albums_to_enrich.append(album_data["id"])
+                logger.info(f"⏱️ Page 1 générée en {time.time() - t1:.2f}s")
+                if page1.get("type") != "empty":  # Ne pas ajouter les pages vides
+                    pages.append(page1)
+                    # Collecter UNIQUEMENT les albums remaster/deluxe sans description riche
+                    if "content" in page1 and "albums" in page1["content"]:
+                        for album_data in page1["content"]["albums"]:
+                            if self._should_enrich_album(album_data["id"], album_data["title"]):
+                                albums_to_enrich.append(album_data["id"])
+                else:
+                    logger.warning(f"⚠️ Page 1 vide générée, en passant")
             except Exception as e:
                 logger.warning(f"⚠️ Erreur page 1: {e}")
-                pages.append(self._empty_page())
             
             # Page 2: Album du jour + Description longue
             try:
+                t2 = time.time()
                 page2 = await self._generate_page_2_album_detail()
-                pages.append(page2)
-                # Collecter si remaster/deluxe sans description riche
-                if "content" in page2 and "album" in page2["content"]:
-                    album_data = page2["content"]["album"]
-                    if self._should_enrich_album(album_data["id"], album_data["title"]):
-                        albums_to_enrich.append(album_data["id"])
+                logger.info(f"⏱️ Page 2 générée en {time.time() - t2:.2f}s")
+                if page2.get("type") != "empty":  # Ne pas ajouter les pages vides
+                    pages.append(page2)
+                    # Collecter si remaster/deluxe sans description riche
+                    if "content" in page2 and "album" in page2["content"]:
+                        album_data = page2["content"]["album"]
+                        if self._should_enrich_album(album_data["id"], album_data["title"]):
+                            albums_to_enrich.append(album_data["id"])
+                else:
+                    logger.warning(f"⚠️ Page 2 vide générée, en passant")
             except Exception as e:
                 logger.warning(f"⚠️ Erreur page 2: {e}")
-                pages.append(self._empty_page())
             
             # Page 3: Albums aléatoires + Haikus
             try:
+                t3 = time.time()
                 page3 = await self._generate_page_3_albums_haikus()
-                pages.append(page3)
-                # Collecter UNIQUEMENT les albums remaster/deluxe
-                if "content" in page3 and "albums" in page3["content"]:
-                    for album_data in page3["content"]["albums"]:
-                        if self._should_enrich_album(album_data["id"], album_data["title"]):
-                            albums_to_enrich.append(album_data["id"])
+                logger.info(f"⏱️ Page 3 générée en {time.time() - t3:.2f}s")
+                if page3.get("type") != "empty":  # Ne pas ajouter les pages vides
+                    pages.append(page3)
+                    # Collecter UNIQUEMENT les albums remaster/deluxe
+                    if "content" in page3 and "albums" in page3["content"]:
+                        for album_data in page3["content"]["albums"]:
+                            if self._should_enrich_album(album_data["id"], album_data["title"]):
+                                albums_to_enrich.append(album_data["id"])
+                else:
+                    logger.warning(f"⚠️ Page 3 vide générée, en passant")
             except Exception as e:
                 logger.warning(f"⚠️ Erreur page 3: {e}")
-                pages.append(self._empty_page())
             
             # Page 4: Timeline visuelle + Stats
             try:
+                t4 = time.time()
                 page4 = await self._generate_page_4_timeline()
-                pages.append(page4)
+                logger.info(f"⏱️ Page 4 générée en {time.time() - t4:.2f}s")
+                if page4.get("type") != "empty":  # Ne pas ajouter les pages vides
+                    pages.append(page4)
+                else:
+                    logger.warning(f"⚠️ Page 4 vide générée, en passant")
             except Exception as e:
                 logger.warning(f"⚠️ Erreur page 4: {e}")
-                pages.append(self._empty_page())
             
             # Page 5: Playlist thématique
             try:
+                t5 = time.time()
                 page5 = await self._generate_page_5_playlist()
-                pages.append(page5)
+                logger.info(f"⏱️ Page 5 générée en {time.time() - t5:.2f}s")
+                if page5.get("type") != "empty":  # Ne pas ajouter les pages vides
+                    pages.append(page5)
+                else:
+                    logger.warning(f"⚠️ Page 5 vide générée, en passant")
             except Exception as e:
                 logger.warning(f"⚠️ Erreur page 5: {e}")
-                pages.append(self._empty_page())
+            
+            # Si on a moins de 5 pages, essayer au moins d'en avoir le maximum possible
+            if len(pages) < 5:
+                logger.error(f"⚠️ Seulement {len(pages)} pages valides générées (attendu: 5)")
             
             # Randomiser l'ordre des pages pour effet de génération spontanée
             shuffled_pages = pages.copy()
@@ -431,6 +402,7 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
             else:
                 logger.info("✅ Aucun album remaster/deluxe à enrichir")
             
+            logger.info(f"✅ Magazine généré en {time.time() - start_time:.2f}s avec {len(pages)} pages")
             return {
                 "id": f"magazine-{datetime.now().timestamp()}",
                 "generated_at": datetime.now().isoformat(),
@@ -445,32 +417,37 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
     
     async def _generate_page_1_artist(self) -> Dict[str, Any]:
         """Page 1: Artiste aléatoire + albums variés avec contenus IA diversifiés."""
-        # Récupérer des artistes avec images
-        artists = self.db.query(Artist).filter(
+        # Récupérer UN artiste aléatoire de façon rapide (sans .all())
+        # Récupérer les IDs des artistes avec images et en choisir un aléatoire
+        artist_ids = self.db.query(Artist.id).filter(
             Artist.images.any()
-        ).all()
+        ).limit(1000).all()  # Limiter la query
         
-        if not artists:
-            # Fallback : prendre n'importe quel artiste
-            artists_count = self.db.query(func.count(Artist.id)).scalar()
-            if artists_count == 0:
+        if not artist_ids:
+            # Fallback : prendre juste UN artiste aléatoire
+            artist_id = self.db.query(Artist.id).limit(1).offset(random.randint(0, max(0, self.db.query(func.count(Artist.id)).scalar() - 1))).scalar()
+            if not artist_id:
                 return self._empty_page()
-            offset = random.randint(0, max(0, artists_count - 1))
-            artist = self.db.query(Artist).offset(offset).first()
+            artist = self.db.query(Artist).filter(Artist.id == artist_id).first()
         else:
-            artist = random.choice(artists)
+            artist_id = random.choice([aid[0] for aid in artist_ids])
+            artist = self.db.query(Artist).filter(Artist.id == artist_id).first()
         
         if not artist or not artist.albums:
             return self._empty_page()
         
-        # Récupérer albums avec images VALIDES en mode RANDOM au niveau SQL
-        # Important: utiliser order_by(func.random()) pour vraie randomisation
-        # Filtrer strictement: URL doit commencer par 'http'
-        all_albums_with_images = self.db.query(Album).filter(
+        # Récupérer albums avec images VALIDES (avec joinedload pour éviter N+1)
+        # Récupérer juste les premiers 50 et les mélanger en Python
+        all_albums_with_images = self.db.query(Album).options(
+            joinedload(Album.artists)
+        ).filter(
             Album.image_url.isnot(None),
             Album.image_url != '',
             Album.image_url.like('http%')  # Vérifier que c'est une vraie URL
-        ).order_by(func.random()).limit(30).all()  # Random SQL + limite plus grande
+        ).limit(100).all()  # Récupérer 100, puis mélanger en Python
+        
+        random.shuffle(all_albums_with_images)  # Mélange rapide en Python
+        all_albums_with_images = all_albums_with_images[:30]  # Prendre les 30 premiers après mélange
         
         logger.info(f"Albums avec images valides trouvés: {len(all_albums_with_images)}")
         
@@ -481,27 +458,19 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
         if not albums:
             return self._empty_page()
         
-        # Générer un haiku créatif sur cet artiste
-        haiku_prompt = f"Crée un haïku poétique (5-7-5 syllabes) sur l'essence musicale de {artist.name}. Sois émotionnel et évocateur. Réponds UNIQUEMENT avec le haïku en 3 lignes, sans numérotation."
-        haiku = await self.ai_service.ask_for_ia(haiku_prompt, max_tokens=100)
+        # Générer un haiku avec l'IA pour l'artiste
+        # Utiliser le premier album comme contexte
+        context = f"Artiste : {artist.name} avec {len(albums)} albums"
+        haiku = await self._generate_ai_haiku(albums[0], context=context)
         
-        # Fallback pour le haiku
-        if not haiku or haiku == "Aucune information disponible":
-            haiku = random.choice([
-                "Voix qui scintille\n**Âme** à travers les notes\nMagie immortelle",
-                "Rythme du cœur vrai\n**Beauté** dans chaque instant\nLumière éternelle",
-                "Notes qui résonnent\n**Esprit** libéré enfin\nMusique de l'âme"
-            ])
+        # Bio basée sur les données DB (albums, genre, style)
+        album_count = len(albums)
+        genres = [a.genre for a in albums if a.genre]
+        genre_text = genres[0] if genres else "musique"
+        styles = [a.ai_style for a in albums if a.ai_style]
+        style_text = styles[0] if styles else "une palette sonore unique"
         
-        # Générer une description courte de l'artiste
-        artist_bio_prompt = f"Génère une bio courte et inspirante (50-80 mots) de {artist.name}. IMPORTANT: Utilise du markdown structuré avec **gras** pour les mots-clés, *italique* pour les adjectifs, et des symboles ✨ 🎵. Sois poétique."
-        artist_bio = await self.ai_service.ask_for_ia(artist_bio_prompt, max_tokens=180)
-        
-        # Fallback pour la bio
-        if not artist_bio or artist_bio == "Aucune information disponible":
-            artist_bio = f"**{artist.name}** est un artiste visionnaire dont la musique transcende les genres. Sa **palette sonore** unique mêle *sensibilité* et *innovation*. Chaque composition raconte une histoire *profonde*, offrant aux auditeurs une **expérience intime** et *transformatrice*. Un créateur dont l'art inspire et **touche l'âme**. ✨"
-        else:
-            artist_bio = self._ensure_markdown_format(artist_bio)
+        artist_bio = f"**{artist.name}** nous offre {album_count} album{'s' if album_count > 1 else ''} de *{genre_text}* avec {style_text}. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨"
         
         # Générer des contenus variés pour chaque album via l'IA
         albums_with_content = []
@@ -544,36 +513,19 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
             })
             logger.info(f"Album ajouté: {album.title} - Image: {album.image_url[:50] if album.image_url else 'None'}")
         
-        # Générer du contenu de remplissage pour espaces vides (citations, faits)
+        # OPTIMISATION: Supprimer les fillers IA (trop lents, pas essentiels)
         filler_content = []
-        for i in range(random.randint(2, 4)):
-            filler_type = random.choice(["quote", "fact", "trivia"])
-            try:
-                if filler_type == "quote":
-                    prompt = "Donne une citation courte (15-25 mots) d'un musicien célèbre. Formate en markdown avec le guillemet en **gras** et l'auteur en *italique*. Ajoute un emoji musical."
-                elif filler_type == "fact":
-                    genre = random.choice([a.genre for a in albums if a.genre]) or "musique"
-                    prompt = f"Écris un fait musical court (15-25 mots) sur {genre}. Utilise du markdown: mot-clé en **gras**, descriptions en *italique*. Ajoute un emoji pertinent."
-                else:  # trivia
-                    years = [a.year for a in albums if a.year]
-                    year = random.choice(years) if years else 2000
-                    prompt = f"Anecdote musicale (20-30 mots) sur l'année {year}. Formate en markdown avec années/artistes en **gras** et détails en *italique*. Ajoute un emoji."
-                
-                filler_text = await self.ai_service.ask_for_ia(prompt, max_tokens=80)
-                if filler_text:
-                    filler_text = self._ensure_markdown_format(filler_text)
-                    filler_content.append({
-                        "type": filler_type,
-                        "text": filler_text
-                    })
-            except Exception as e:
-                logger.error(f"Erreur génération filler: {e}")
         
-        # Demander à l'IA de suggérer un layout
-        layout_suggestion = await self._generate_layout_suggestion(
-            "artist_showcase",
-            f"Artiste {artist.name} avec {len(albums)} albums variés et contenus créatifs diversifiés"
-        )
+        # OPTIMISATION: Utiliser un layout statique aléatoire au lieu d'appeler l'IA
+        layout_suggestion = {
+            "columns": random.choice([1, 2, 3]),
+            "imagePosition": random.choice(["top", "left", "right", "bottom", "center", "fullwidth", "corner", "diagonal"]),
+            "imageSize": random.choice(["small", "medium", "large", "massive", "micro"]),
+            "textLayout": random.choice(["single-column", "double-column", "asymmetric", "scattered"]),
+            "composition": random.choice(["classic", "dramatic", "playful", "chaos"]),
+            "accentColor": random.choice(["#ff6b35", "#f7931e", "#10b981", "#06b6d4", "#8b5cf6", "#ec4899", "#764ba2"]),
+            "specialEffect": random.choice(["none", "blur", "gradient", "zoom", "tilt"])
+        }
         
         return {
             "page_number": 1,
@@ -600,18 +552,18 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
     
     async def _generate_page_2_album_detail(self) -> Dict[str, Any]:
         """Page 2: Album du jour avec description longue."""
-        # Récupérer un album aléatoire avec description IA RICHE (> 500 chars)
+        # Récupérer un album aléatoire avec description IA RICHE (> 500 chars) - LIMITER!
         albums = self.db.query(Album).filter(
             Album.ai_description.isnot(None),
             func.length(Album.ai_description) > 500  # Description riche uniquement
-        ).all()
+        ).limit(100).all()  # LIMITE pour éviter de charger 10,000+ albums!
         
         # Fallback : accepter des descriptions plus courtes si aucune description riche
         if not albums:
             logger.warning("⚠️ Aucun album avec description riche, fallback vers descriptions courtes")
             albums = self.db.query(Album).filter(
                 Album.ai_description.isnot(None)
-            ).all()
+            ).limit(100).all()  # LIMITE ici aussi!
         
         if not albums:
             return self._empty_page()
@@ -632,11 +584,16 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
         elif description:
             logger.info(f"♻️ Utilisation description existante pour {album.title}: {len(description)} chars (nettoyée)")
         
-        # Layout IA
-        layout_suggestion = await self._generate_layout_suggestion(
-            "album_detail",
-            f"Album '{album.title}' avec description longue"
-        )
+        # OPTIMISATION: Layout statique aléatoire
+        layout_suggestion = {
+            "columns": 1,
+            "imagePosition": random.choice(["left", "right", "top"]),
+            "imageSize": random.choice(["medium", "large"]),
+            "textLayout": random.choice(["single-column", "double-column"]),
+            "composition": "classic",
+            "accentColor": random.choice(["#ff6b35", "#10b981", "#06b6d4"]),
+            "specialEffect": "none"
+        }
         
         return {
             "page_number": 2,
@@ -664,10 +621,12 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
     
     async def _generate_page_3_albums_haikus(self) -> Dict[str, Any]:
         """Page 3: Albums aléatoires + Haikus avec descriptions générées par l'IA."""
-        # Sélectionner des albums avec images pour garantir des vignettes
-        available_albums = self.db.query(Album).filter(
+        # Sélectionner des albums avec images (avec joinedload, limite 200)
+        available_albums = self.db.query(Album).options(
+            joinedload(Album.artists)
+        ).filter(
             Album.image_url.isnot(None)
-        ).all()
+        ).limit(200).all()  # Limiter à 200 pour pas charger trop d'albums
         
         if len(available_albums) < 3:
             return self._empty_page()
@@ -675,40 +634,32 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
         # Sélectionner 3-4 albums aléatoirement
         selected_albums = random.sample(available_albums, min(random.randint(3, 4), len(available_albums)))
         
-        # Générer des haikus créatifs et descriptions variées pour chaque album
+        # Créer haikus avec l'IA
         haikus = []
         for album in selected_albums:
-            # Générer un haïku unique avec formatage markdown
-            haiku_prompt = f"Crée un haïku poétique (5-7-5 syllabes) sur l'album '{album.title}' de {self._get_artist_name(album)}. Format markdown: mots-clés en **gras**, adjectifs en *italique*. Sois poétique et émotionnel. Réponds UNIQUEMENT avec le haïku en 3 lignes."
-            haiku = await self.ai_service.ask_for_ia(haiku_prompt, max_tokens=100)
+            # Générer haiku avec l'IA
+            haiku = await self._generate_ai_haiku(album)
             
-            # Utiliser fallback si l'IA échoue
-            if haiku == "Aucune information disponible" or not haiku:
-                haiku = self._get_fallback_content(album, "haiku")
-            
-            # Générer une description courte inspirée si pas existante
+            # OPTIMISATION: Utiliser description existante ou fallback (pas d'appel IA)
             description = album.ai_description
-            
-            # Utiliser le prompt spécifique pour les remasters/deluxe
-            if self._is_remaster_or_deluxe(album.title):
-                description = await self._generate_remaster_description(album)
-            elif not description or description == "Aucune information disponible" or len(description.strip()) < 50:
-                # Utiliser la méthode enrichie pour garantir un contenu de qualité
-                description = await self._generate_enriched_description(album, "poetic")
-            
-            # Utiliser fallback créatif si l'IA échoue
-            if description == "Aucune information disponible" or not description or len(description.strip()) < 50:
+            if not description or description == "Aucune information disponible" or len(description.strip()) < 50:
                 description = self._get_creative_fallback(album, "description")
                 logger.info(f"📝 Fallback créatif utilisé pour {album.title} (page 3)")
             else:
-                # Nettoyer et formater le texte généré
+                description = self._clean_markdown_text(description)
                 description = self._ensure_markdown_format(description)
             
-            # Générer un layout unique et varié pour chaque haiku
-            individual_layout = await self._generate_layout_suggestion(
-                "individual_haiku",
-                f"Haïku poétique pour {album.title} de {self._get_artist_name(album)}"
-            )
+            # OPTIMISATION: Layout statique aléatoire au lieu d'appel IA
+            individual_layout = {
+                "columns": random.choice([1, 2, 3]),
+                "imagePosition": random.choice(["top", "left", "right", "diagonal"]),
+                "imageSize": random.choice(["small", "medium", "large", "massive"]),
+                "textLayout": random.choice(["single-column", "asymmetric"]),
+                "composition": random.choice(["classic", "dramatic", "playful"]),
+                "accentColor": random.choice(["#ff6b35", "#10b981", "#06b6d4", "#8b5cf6", "#ab47bc"]),
+                "specialEffect": random.choice(["none", "gradient", "zoom"])
+            }
+            
             haikus.append({
                 "album_id": album.id,
                 "album_title": album.title,
@@ -717,11 +668,16 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
                 "description": description
             })
         
-        # Layout IA pour la page
-        layout_suggestion = await self._generate_layout_suggestion(
-            "albums_haikus",
-            f"{len(selected_albums)} albums avec haïkus et descriptions créatives"
-        )
+        # OPTIMISATION: Layout statique aléatoire
+        layout_suggestion = {
+            "columns": random.choice([2, 3, 4]),
+            "imagePosition": "top",
+            "imageSize": random.choice(["medium", "large"]),
+            "textLayout": "single-column",
+            "composition": "classic",
+            "accentColor": random.choice(["#ff6b35", "#10b981", "#06b6d4", "#8b5cf6"]),
+            "specialEffect": "none"
+        }
         
         return {
             "page_number": 3,
@@ -750,10 +706,17 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
     
     async def _generate_page_4_timeline(self) -> Dict[str, Any]:
         """Page 4: Timeline visuelle + Stats avec images artistes et albums."""
-        # Récupérer les écoutes récentes
-        recent_history = self.db.query(ListeningHistory).order_by(
-            ListeningHistory.timestamp.desc()
-        ).limit(50).all()
+        # Récupérer les DERNIERS IDs en évitant le full table scan avec ORDER BY (au lieu de charger tout et trier!)
+        # Utiliser max(id) - 100 pour éviter la trie
+        max_id = self.db.query(func.max(ListeningHistory.id)).scalar() or 0
+        min_id = max(0, max_id - 500)  # Récupérer les 500 derniers IDs
+        
+        # Charger les écoutes récentes avec joinedload
+        recent_history = self.db.query(ListeningHistory).options(
+            joinedload(ListeningHistory.track).joinedload(Track.album).joinedload(Album.artists)
+        ).filter(
+            ListeningHistory.id > min_id
+        ).limit(100).all()  # Limiter à 100 après le filtre
         
         if not recent_history:
             return self._empty_page()
@@ -775,48 +738,59 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
         top_artists_ids = sorted(artists_counter.items(), key=lambda x: x[1], reverse=True)[:5]
         top_albums_ids = sorted(albums_counter.items(), key=lambda x: x[1], reverse=True)[:5]
         
-        # Récupérer les objets complets avec images
+        # Récupérer les objets complets avec une seule query (au lieu de boucler sur les 100 entries!)
         top_artists_full = []
-        for artist_id, count in top_artists_ids:
-            artist = self.db.query(Artist).filter(Artist.id == artist_id).first()
-            if artist:
-                top_artists_full.append({
-                    "artist_id": artist.id,
-                    "artist_name": artist.name,
-                    "image_url": artist.images[0].url if artist.images else None,
-                    "count": count
-                })
-        
-        top_albums_full = []
-        for album_id, count in top_albums_ids:
-            # Charger l'album avec ses artistes et leurs images
-            album = self.db.query(Album).options(
-                joinedload(Album.artists).joinedload(Artist.images)
-            ).filter(Album.id == album_id).first()
+        if top_artists_ids:
+            artist_ids_list = [aid[0] for aid in top_artists_ids]
+            artists_map = {artist.id: artist for artist in self.db.query(Artist).options(
+                joinedload(Artist.images)
+            ).filter(Artist.id.in_(artist_ids_list)).all()}
             
-            if album:
-                # Chercher une image de fallback si l'album n'en a pas
-                image_url = album.image_url
-                if not image_url:
-                    # Utiliser l'image du premier artiste comme fallback
-                    if album.artists:
-                        first_artist = album.artists[0]
-                        if first_artist.images:
-                            image_url = first_artist.images[0].url
-                
-                top_albums_full.append({
-                    "album_id": album.id,
-                    "album_title": album.title,
-                    "artist_name": self._get_artist_name(album),
-                    "image_url": image_url,
-                    "count": count
-                })
+            for artist_id, count in top_artists_ids:
+                artist = artists_map.get(artist_id)
+                if artist:
+                    top_artists_full.append({
+                        "artist_id": artist.id,
+                        "artist_name": artist.name,
+                        "image_url": artist.images[0].url if artist.images else None,
+                        "count": count
+                    })
+        
+        # Charger TOUS les albums en 1 seule query au lieu de N queries
+        if top_albums_ids:
+            album_ids_list = [aid[0] for aid in top_albums_ids]
+            albums_map = {album.id: album for album in self.db.query(Album).options(
+                joinedload(Album.artists).joinedload(Artist.images)
+            ).filter(Album.id.in_(album_ids_list)).all()}
+            
+            top_albums_full = []
+            for album_id, count in top_albums_ids:
+                album = albums_map.get(album_id)
+                if album:
+                    # Chercher une image de fallback si l'album n'en a pas
+                    image_url = album.image_url
+                    if not image_url:
+                        # Utiliser l'image du premier artiste comme fallback
+                        if album.artists:
+                            first_artist = album.artists[0]
+                            if first_artist.images:
+                                image_url = first_artist.images[0].url
+                    
+                    top_albums_full.append({
+                        "album_id": album.id,
+                        "album_title": album.title,
+                        "artist_name": self._get_artist_name(album),
+                        "image_url": image_url,
+                        "count": count
+                    })
+        else:
+            top_albums_full = []
         
         return {
             "page_number": 4,
             "type": "timeline_stats",
             "title": "Vos Dernières Écoutes",
-            "layout": await self._generate_layout_suggestion("stats", "Top artistes et albums avec images"),
+            "layout": self._generate_layout_suggestion("stats", "Top artistes et albums avec images"),
             "content": {
                 "total_recent_listens": len(recent_history),
                 "unique_artists": len(artists_counter),
@@ -832,63 +806,67 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
     
     async def _generate_page_5_playlist(self) -> Dict[str, Any]:
         """Page 5: Playlist thématique créative générée par l'IA avec albums variés."""
-        # Récupérer les albums avec images (pour afficher les vignettes)
-        albums = self.db.query(Album).filter(
+        # Récupérer les albums avec images (avec joinedload pour éviter N+1)
+        albums = self.db.query(Album).options(
+            joinedload(Album.artists)
+        ).filter(
             Album.image_url.isnot(None)
         ).limit(50).all()
         
         if len(albums) < 5:
             return self._empty_page()
         
-        # Générer un thème créatif unique via l'IA
-        theme_prompt = "Génère un titre de playlist musicale unique et créatif (5-8 mots max). Sois original et inspirati. Réponds UNIQUEMENT avec le titre, sans guillemets ni autre texte."
-        selected_theme = await self.ai_service.ask_for_ia(theme_prompt, max_tokens=50)
-        selected_theme = selected_theme.strip().strip('"')
+        # Thème basé sur les genres dominants dans les albums
+        genres = [a.genre for a in albums if a.genre]
+        dominant_genre = max(set(genres), key=genres.count) if genres else "Musique"
         
-        # Fallback pour le thème
-        if not selected_theme or selected_theme == "Aucune information disponible":
-            selected_theme = random.choice([
-                "Échos Intimes",
-                "Nuits Blanches",
-                "Âmes Rêveuses",
-                "Horizons Oubliés",
-                "Symphonie des Cœurs",
-                "Lumières Éternelles"
-            ])
+        theme_templates = [
+            f"Voyage {dominant_genre}",
+            f"Échos {dominant_genre}",
+            f"Nuits {dominant_genre}",
+            f"Âmes de {dominant_genre}",
+            f"Horizons {dominant_genre}"
+        ]
+        selected_theme = random.choice(theme_templates)
         
-        # Générer une description accrocheuse pour la playlist
-        playlist_prompt = f"Génère une description poétique et accrocheuse (80-120 mots) pour une playlist intitulée '{selected_theme}'. Inspire l'écoute musicale."
-        playlist_description = await self.ai_service.ask_for_ia(playlist_prompt, max_tokens=200)
+        # Description basée sur les albums sélectionnés
+        album_count = len(albums)
+        styles = [a.ai_style for a in albums if a.ai_style]
+        style_summary = ", ".join(styles[:3]) if styles else "diverses ambiances musicales"
         
-        # Fallback pour la description
-        if not playlist_description or playlist_description == "Aucune information disponible":
-            playlist_description = f"*{selected_theme}* est une playlist curated avec soin, mêlant **mélodies intemporelles** et *productions modernes*. Chaque album a été sélectionné pour son **pouvoir émotionnel** et son *authenticité artistique*. Plongez-vous dans cette **expérience sonore** unique et laissez la musique vous **transporter** vers des univers *nouveaux* et *captivants*."
+        playlist_description = f"*{selected_theme}* vous propose **{album_count} albums** soigneusement sélectionnés : {style_summary}. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨"
         
         # Sélectionner 5-7 albums de manière vraiment aléatoire
         num_albums = random.randint(5, min(7, len(albums)))
         selected_albums = random.sample(albums, num_albums)
         
+        # OPTIMISATION: Utiliser des raisons statiques au lieu d'appels IA
         playlist_albums = []
+        reason_templates = [
+            f"**Captivant** et *authentique*, cet album incarne l'essence de *{selected_theme}*.",
+            f"Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist.",
+            f"Apporte une **profondeur émotionnelle** incomparable à cette playlist.",
+            f"**Incontournable** pour ceux qui recherchent l'*authenticité* musicale.",
+            f"Un album qui **transcende** et offre une nouvelle *perspective* sonore.",
+            f"*Parfait* pour capturer l'**atmosphère** de {selected_theme}.",
+            f"Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+        ]
+        
         for album in selected_albums:
-            # Générer une raison IA pour chaque album (pourquoi il est dans cette playlist)
-            reason_prompt = f"Propose une phrase courte (10-20 mots) expliquant pourquoi l'album '{album.title}' de {self._get_artist_name(album)} est parfait pour '{selected_theme}'. Sois poétique et inspirant."
-            album_reason = await self.ai_service.ask_for_ia(reason_prompt, max_tokens=50)
+            # OPTIMISATION: Utiliser des raisons aléatoires prédéfinies
+            album_reason = random.choice(reason_templates)
             
-            # Fallback pour la raison
-            if not album_reason or album_reason == "Aucune information disponible":
-                album_reason = random.choice([
-                    f"**Captivant** et *authentique*, cet album incarne l'essence de *{selected_theme}*.",
-                    f"Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist.",
-                    f"*{album.title}* apporte une **profondeur émotionnelle** incomparable à cette playlist.",
-                    f"**Incontournable** pour ceux qui recherchent l'*authenticité* musicale.",
-                    f"Un album qui **transcende** et offre une nouvelle *perspective* sonore."
-                ])
+            # OPTIMISATION: Layout statique aléatoire
+            album_layout = {
+                "columns": random.choice([1, 2, 3]),
+                "imagePosition": random.choice(["top", "diagonal"]),
+                "imageSize": random.choice(["medium", "large", "massive"]),
+                "textLayout": random.choice(["single-column", "asymmetric", "scattered"]),
+                "composition": random.choice(["classic", "dramatic", "playful", "chaos"]),
+                "accentColor": random.choice(["#ff6b35", "#FF00FF", "#06b6d4", "#ab47bc"]),
+                "specialEffect": random.choice(["none", "gradient", "tilt"])
+            }
             
-            # Générer un layout unique pour chaque album
-            album_layout = await self._generate_layout_suggestion(
-                "playlist_album",
-                f"Album {album.title} de {self._get_artist_name(album)} pour playlist {selected_theme}"
-            )
             playlist_albums.append({
                 "id": album.id,
                 "title": album.title,
@@ -899,11 +877,22 @@ Réponds UNIQUEMENT avec ce JSON (sans texte, sans markdown):
                 "reason": album_reason
             })
         
+        # OPTIMISATION: Layout statique
+        page_layout = {
+            "columns": random.choice([2, 3]),
+            "imagePosition": "top",
+            "imageSize": "medium",
+            "textLayout": "single-column",
+            "composition": "classic",
+            "accentColor": random.choice(["#ff6b35", "#10b981", "#06b6d4"]),
+            "specialEffect": "none"
+        }
+        
         return {
             "page_number": 5,
             "type": "playlist_theme",
             "title": f"Playlist: {selected_theme}",
-            "layout": await self._generate_layout_suggestion("playlist_page", f"Playlist créative: {selected_theme}"),
+            "layout": page_layout,
             "content": {
                 "playlist": {
                     "theme": selected_theme,
