@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRoon } from '@/contexts/RoonContext'
 import {
   Box,
@@ -11,6 +11,8 @@ import {
   Tooltip,
   Collapse,
   Paper,
+  Snackbar,
+  Alert,
 } from '@mui/material'
 import {
   PlayArrow,
@@ -29,6 +31,15 @@ export default function FloatingRoonController() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [loading, setLoading] = useState(false)
   const [hidden, setHidden] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
+  
+  // Synchroniser isPlaying avec l'état réel de Roon
+  useEffect(() => {
+    if (nowPlaying?.state) {
+      setIsPlaying(nowPlaying.state === 'playing')
+    }
+  }, [nowPlaying?.state])
 
   if (!enabled || !available || hidden) {
     return null
@@ -66,11 +77,41 @@ export default function FloatingRoonController() {
   const handleControl = async (control: 'play' | 'pause' | 'next' | 'previous' | 'stop') => {
     try {
       setLoading(true)
+      setError(null)
+      
       await playbackControl(control)
-      if (control === 'play') setIsPlaying(true)
-      if (control === 'pause' || control === 'stop') setIsPlaying(false)
-    } catch (error) {
+      
+      // Mise à jour optimiste de l'état
+      if (control === 'play') {
+        setIsPlaying(true)
+        setSuccess('Lecture démarrée')
+      }
+      if (control === 'pause') {
+        setIsPlaying(false)
+        setSuccess('Lecture en pause')
+      }
+      if (control === 'stop') {
+        setIsPlaying(false)
+        setSuccess('Lecture arrêtée')
+      }
+      if (control === 'next') {
+        setSuccess('Morceau suivant')
+      }
+      if (control === 'previous') {
+        setSuccess('Morceau précédent')
+      }
+      
+      // L'état réel sera synchronisé via useEffect quand nowPlaying sera mis à jour
+      
+    } catch (error: any) {
       console.error('Erreur contrôle Roon:', error)
+      const errorMessage = error?.response?.data?.detail || error?.message || 'Erreur inconnue'
+      setError(`Échec ${control}: ${errorMessage}`)
+      
+      // Réinitialiser l'état en cas d'erreur
+      if (nowPlaying?.state) {
+        setIsPlaying(nowPlaying.state === 'playing')
+      }
     } finally {
       setLoading(false)
     }
@@ -343,6 +384,30 @@ export default function FloatingRoonController() {
           </CardContent>
         </Collapse>
       </Paper>
+      
+      {/* Snackbar pour les succès */}
+      <Snackbar
+        open={!!success}
+        autoHideDuration={2000}
+        onClose={() => setSuccess(null)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      >
+        <Alert onClose={() => setSuccess(null)} severity="success" variant="filled">
+          {success}
+        </Alert>
+      </Snackbar>
+      
+      {/* Snackbar pour les erreurs */}
+      <Snackbar
+        open={!!error}
+        autoHideDuration={4000}
+        onClose={() => setError(null)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      >
+        <Alert onClose={() => setError(null)} severity="error" variant="filled">
+          {error}
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }

@@ -11,6 +11,7 @@ import Analytics from './pages/Analytics'
 import AnalyticsAdvanced from './pages/AnalyticsAdvanced'
 import Magazine from './pages/Magazine'
 import Settings from './pages/Settings'
+import ArtistArticle from './pages/ArtistArticle'
 import { RoonProvider } from './contexts/RoonContext'
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
               <Route path="/collections" element={<Collections />} />
               <Route path="/analytics" element={<AnalyticsAdvanced />} />
               <Route path="/analytics-simple" element={<Analytics />} />
+              <Route path="/artist-article" element={<ArtistArticle />} />
               <Route path="/settings" element={<Settings />} />
             </Routes>
           </Box>

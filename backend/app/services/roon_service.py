@@ -216,7 +216,7 @@ class RoonService:
         """Démarrer la lecture d'un morceau sur une zone.
         
         Note: Roon ne permet pas de jouer un track individuel via play_media().
-        Cette méthode joue l'album contenant le track.
+        Cette méthode joue l'album contenant le track avec une approche robuste.
         
         Args:
             zone_or_output_id: ID de la zone ou output
@@ -232,66 +232,40 @@ class RoonService:
             return False
         
         try:
-            # Si plusieurs artistes séparés par des virgules, prendre le premier
             primary_artist = artist.split(',')[0].strip() if artist else "Unknown"
             
-            logger.debug(f"🎵 Lecture album pour: {track_title} - {primary_artist} ({album or 'N/A'})")
+            logger.debug(f"🎵 Lecture album pour track: {track_title} - {primary_artist} ({album or 'N/A'})")
             
-            # Générer des variantes d'artiste
-            artist_variants = [primary_artist]
-            if primary_artist.lower().startswith("the "):
-                artist_variants.append(primary_artist[4:])
-            if not primary_artist.lower().startswith("the "):
-                artist_variants.append(f"The {primary_artist}")
-            
-            # Générer des variantes d'album (soundtracks)
-            album_variants = []
+            # Si on a un album, utiliser la méthode play_album améliorée
             if album:
-                album_variants = [album]
-                album_variants.extend([
-                    f"{album} [Music from the Motion Picture]",
-                    f"{album} (Music from the Motion Picture)",
-                    f"{album} [Original Motion Picture Soundtrack]",
-                    f"{album} (Original Motion Picture Soundtrack)",
-                    f"{album} [Soundtrack]",
-                    f"{album} (Soundtrack)",
-                ])
-            else:
-                album_variants = [None]
+                return self.play_album(zone_or_output_id, primary_artist, album)
             
-            # Essayer toutes les combinaisons d'artiste/album
+            # Sinon, essayer de jouer l'artiste
+            artist_variants = self._generate_artist_variants(primary_artist)
+            
             for test_artist in artist_variants:
-                for test_album in album_variants:
-                    if test_album:
-                        # Jouer l'album complet
-                        path = ["Library", "Artists", test_artist, test_album]
-                    else:
-                        # Jouer l'artiste
-                        path = ["Library", "Artists", test_artist]
+                path = ["Library", "Artists", test_artist]
+                try:
+                    logger.debug(f"   Essai artiste: {test_artist}")
+                    result = self.roon_api.play_media(
+                        zone_or_output_id=zone_or_output_id,
+                        path=path,
+                        action=None,
+                        report_error=False
+                    )
                     
-                    try:
-                        result = self.roon_api.play_media(
-                            zone_or_output_id=zone_or_output_id,
-                            path=path,
-                            action=None,
-                            report_error=False
-                        )
-                        
-                        if result:
-                            logger.info(f"✅ Album lancé (pour track: {track_title})")
-                            return True
-                    except Exception:
-                        pass
+                    if result:
+                        logger.info(f"✅ Artiste lancé (pour track: {track_title})")
+                        return True
+                except Exception as e:
+                    logger.debug(f"   Échec: {e}")
+                    continue
             
-            logger.warning(f"❌ Album non trouvé pour: {track_title} ({primary_artist} - {album})")
+            logger.warning(f"❌ Impossible de lancer la lecture pour: {track_title} ({primary_artist})")
             return False
             
         except Exception as e:
             logger.error(f"❌ Erreur play_track: {e}")
-            return False
-            
-        except Exception as e:
-            logger.error(f"❌ Erreur lecture: {e}")
             logger.error(f"   Track: {track_title}, Artiste: {artist}, Album: {album}")
             import traceback
             logger.error(f"   Traceback: {traceback.format_exc()}")
@@ -343,12 +317,13 @@ class RoonService:
             logger.error(f"❌ Erreur queue: {e}")
             return False
     
-    def playback_control(self, zone_or_output_id: str, control: str = "play") -> bool:
-        """Contrôler la lecture sur une zone.
+    def playback_control(self, zone_or_output_id: str, control: str = "play", max_retries: int = 2) -> bool:
+        """Contrôler la lecture sur une zone avec retry logic.
         
         Args:
             zone_or_output_id: ID de la zone ou output
             control: Commande (play, pause, stop, next, previous)
+            max_retries: Nombre maximum de tentatives
         
         Returns:
             True si succès, False sinon
@@ -357,19 +332,46 @@ class RoonService:
             logger.error("API Roon non disponible")
             return False
         
-        try:
-            self.roon_api.playback_control(zone_or_output_id, control)
-            logger.info(f"✅ Contrôle lecture: {control} sur zone {zone_or_output_id}")
-            return True
-        except Exception as e:
-            logger.error(f"❌ Erreur contrôle lecture: {e}")
+        # Vérifier que la zone existe
+        zones = self.get_zones()
+        if zone_or_output_id not in zones:
+            logger.error(f"❌ Zone non trouvée: {zone_or_output_id}")
             return False
+        
+        # Essayer avec retry
+        for attempt in range(max_retries):
+            try:
+                logger.debug(f"🎮 Contrôle '{control}' sur zone {zone_or_output_id} (tentative {attempt + 1}/{max_retries})")
+                self.roon_api.playback_control(zone_or_output_id, control)
+                
+                # Petit délai pour laisser Roon traiter
+                time.sleep(0.2)
+                
+                # Vérifier si la commande a fonctionné (optionnel)
+                zones_after = self.get_zones()
+                zone_after = zones_after.get(zone_or_output_id, {})
+                
+                logger.info(f"✅ Contrôle lecture: {control} sur zone {zone_or_output_id}")
+                logger.debug(f"   État zone après: {zone_after.get('state', 'unknown')}")
+                return True
+                
+            except Exception as e:
+                logger.warning(f"⚠️ Tentative {attempt + 1}/{max_retries} échouée: {e}")
+                if attempt < max_retries - 1:
+                    time.sleep(0.3)  # Attendre avant de réessayer
+                else:
+                    logger.error(f"❌ Erreur contrôle lecture après {max_retries} tentatives: {e}")
+                    return False
+        
+        return False
     
     def play_album(self, zone_or_output_id: str, artist: str, album: str) -> bool:
         """Démarrer la lecture d'un album complet sur une zone.
         
-        Utilise une recherche Roon pour trouver l'album, ce qui est plus robuste
-        que de naviguer par le chemin exact.
+        Utilise une approche robuste inspirée de roon-random-app:
+        1. Essaie play_media avec le chemin direct
+        2. Si échec, essaie avec différentes variantes du nom
+        3. En dernier recours, utilise play_from_here
         
         Args:
             zone_or_output_id: ID de la zone ou output
@@ -388,37 +390,80 @@ class RoonService:
             logger.info(f"   Artiste: {artist}")
             logger.info(f"   Zone: {zone_or_output_id}")
             
-            # Étape 1 : Chercher l'album via la recherche
-            album_info = self.search_album(artist, album)
+            # Préparer l'artiste principal
+            primary_artist = artist.split(',')[0].strip() if artist else "Unknown"
             
-            if not album_info:
-                logger.warning(f"❌ Album '{album}' non trouvé dans Roon")
-                logger.warning(f"   Artiste: {artist}")
-                logger.warning(f"   💡 Suggestions:")
-                logger.warning(f"      - Vérifiez que l'album est dans votre librairie Roon")
-                logger.warning(f"      - Parcourez manuellement Library > Artists dans Roon pour vérifier les noms exacts")
-                logger.warning(f"      - Vérifiez l'orthographe de l'artiste et de l'album")
-                return False
+            # Étape 1 : Essai direct avec play_media
+            # Générer des variantes d'artiste
+            artist_variants = self._generate_artist_variants(primary_artist)
             
-            # Étape 2 : Jouer l'album trouvé
-            album_path = album_info['path']
-            logger.debug(f"   Chemin utilisé: {album_path}")
+            # Générer des variantes d'album
+            album_variants = self._generate_album_variants(album)
             
-            result = self.roon_api.play_media(
-                zone_or_output_id=zone_or_output_id,
-                path=album_path,
-                action=None,
-                report_error=True
-            )
+            # Essayer toutes les combinaisons
+            for test_artist in artist_variants:
+                for test_album in album_variants:
+                    path = ["Library", "Artists", test_artist, test_album]
+                    
+                    try:
+                        logger.debug(f"   Essai: {' > '.join(path)}")
+                        result = self.roon_api.play_media(
+                            zone_or_output_id=zone_or_output_id,
+                            path=path,
+                            action=None,  # Play Now par défaut
+                            report_error=False
+                        )
+                        
+                        if result:
+                            logger.info(f"✅ Album lancé: {test_album} - {test_artist}")
+                            return True
+                    except Exception as e:
+                        logger.debug(f"   Échec variante: {e}")
+                        continue
             
-            if result:
-                logger.info(f"✅ Album lancé: {album_info['display_name']} - {album_info['artist']}")
-                return True
-            else:
-                logger.warning(f"❌ play_media retourna False pour l'album trouvé")
-                logger.warning(f"   Album: {album_info['display_name']}")
-                logger.warning(f"   Chemin: {album_path}")
-                return False
+            # Étape 2 : Essai avec action explicite "Play"
+            logger.debug("   Essai avec action='Play'...")
+            for test_artist in artist_variants:
+                for test_album in album_variants:
+                    path = ["Library", "Artists", test_artist, test_album]
+                    try:
+                        result = self.roon_api.play_media(
+                            zone_or_output_id=zone_or_output_id,
+                            path=path,
+                            action="Play",
+                            report_error=False
+                        )
+                        if result:
+                            logger.info(f"✅ Album lancé avec action='Play': {test_album}")
+                            return True
+                    except Exception:
+                        continue
+            
+            # Étape 3 : Dernier recours - essayer de jouer l'artiste puis l'album
+            logger.debug("   Essai play_from_here en dernier recours...")
+            for test_artist in artist_variants:
+                try:
+                    # Naviguer à l'artiste
+                    path = ["Library", "Artists", test_artist]
+                    result = self.roon_api.play_media(
+                        zone_or_output_id=zone_or_output_id,
+                        path=path,
+                        action=None,
+                        report_error=False
+                    )
+                    if result:
+                        logger.info(f"✅ Lecture démarrée via artiste: {test_artist}")
+                        return True
+                except Exception:
+                    continue
+            
+            logger.warning(f"❌ Impossible de lancer l'album après toutes les tentatives")
+            logger.warning(f"   Album: {album}, Artiste: {artist}")
+            logger.warning(f"   💡 Suggestions:")
+            logger.warning(f"      - Vérifiez que l'album est dans votre librairie Roon")
+            logger.warning(f"      - Parcourez manuellement Library > Artists dans Roon")
+            logger.warning(f"      - Vérifiez l'orthographe exacte de l'artiste et de l'album")
+            return False
             
         except Exception as e:
             logger.error(f"❌ Erreur lecture album: {e}")
@@ -427,101 +472,61 @@ class RoonService:
             logger.error(f"   Traceback: {traceback.format_exc()}")
             return False
     
-    def search_album(self, artist: str, album: str) -> Optional[Dict]:
-        """Chercher un album en essayant différentes variantes du nom.
-        
-        Stratégie: Puisque Roon ne fournit pas d'API de navigation browse,
-        on va directement tenter de jouer l'album avec différentes variantes
-        de l'artiste ET de l'album.
+    def _generate_artist_variants(self, artist: str) -> list:
+        """Générer des variantes du nom d'artiste pour améliorer la recherche.
         
         Args:
             artist: Nom de l'artiste
-            album: Titre de l'album (peut être partiel)
         
         Returns:
-            Dictionnaire avec les infos de l'album trouvé:
-            {
-                'path': [...],
-                'display_name': 'Album Title',
-                'artist': 'Artist Name'
-            }
-            ou None si non trouvé
+            Liste de variantes du nom
         """
-        if not self.roon_api:
-            logger.error("API Roon non disponible")
-            return None
+        variants = [artist]
         
-        try:
-            # Prendre le premier artiste s'il y en a plusieurs
-            primary_artist = artist.split(',')[0].strip() if artist else "Unknown"
-            
-            logger.info(f"🔍 Recherche album Roon: '{album}' par '{primary_artist}'")
-            logger.info(f"   (accepte noms partiels et variantes)")
-            
-            # Générer des variantes d'artiste (ex: "The Young Gods" -> "Young Gods")
-            artist_variants = [primary_artist]
-            
-            # Essayer sans "The" au début
-            if primary_artist.lower().startswith("the "):
-                artist_variants.append(primary_artist[4:])
-            
-            # Essayer avec "The" si pas déjà présent
-            if not primary_artist.lower().startswith("the "):
-                artist_variants.append(f"The {primary_artist}")
-            
-            # Essayer avec des variantes communes d'espaces/traits
-            artist_variants.append(primary_artist.replace("-", " "))
-            artist_variants.append(primary_artist.replace(" ", "-"))
-            
-            # Générer des variantes d'album (soundtracks avec suffixes)
-            album_variants = [album]
-            album_variants.extend([
+        # Variante avec/sans "The"
+        if artist.lower().startswith("the "):
+            variants.append(artist[4:])
+        else:
+            variants.append(f"The {artist}")
+        
+        # Variante avec ampersand
+        if " and " in artist.lower():
+            variants.append(artist.replace(" and ", " & "))
+            variants.append(artist.replace(" And ", " & "))
+        elif " & " in artist:
+            variants.append(artist.replace(" & ", " and "))
+        
+        return variants
+    
+    def _generate_album_variants(self, album: str) -> list:
+        """Générer des variantes du nom d'album (soundtracks, etc.).
+        
+        Args:
+            album: Titre de l'album
+        
+        Returns:
+            Liste de variantes du titre
+        """
+        variants = [album]
+        
+        # Variantes pour soundtracks
+        if not any(suffix in album.lower() for suffix in ['soundtrack', 'ost', 'motion picture']):
+            variants.extend([
                 f"{album} [Music from the Motion Picture]",
                 f"{album} (Music from the Motion Picture)",
                 f"{album} [Original Motion Picture Soundtrack]",
                 f"{album} (Original Motion Picture Soundtrack)",
                 f"{album} [Soundtrack]",
                 f"{album} (Soundtrack)",
+                f"{album} - Original Soundtrack",
+                f"{album} OST",
             ])
-            
-            # Essayer toutes les combinaisons
-            for test_artist in artist_variants:
-                logger.debug(f"   Tentative artiste: {test_artist}")
-                
-                for test_album in album_variants:
-                    path = ["Library", "Artists", test_artist, test_album]
-                    
-                    if test_artist == primary_artist and test_album == album:
-                        logger.info(f"   Tentative 1: Chemin exact [{test_artist} / {test_album}]")
-                    else:
-                        logger.debug(f"      → Variante: [{test_artist} / {test_album}]")
-                    
-                    result = self.roon_api.play_media(
-                        zone_or_output_id=None,
-                        path=path,
-                        action=None,
-                        report_error=False
-                    )
-                    
-                    if result:
-                        logger.info(f"   ✅ Album trouvé: '{test_album}' par '{test_artist}'")
-                        return {
-                            'path': path,
-                            'display_name': test_album,
-                            'artist': test_artist
-                        }
-            
-            logger.warning(f"   ❌ Album '{album}' par '{primary_artist}' non trouvé")
-            logger.warning(f"   💡 Variantes d'artiste testées: {artist_variants}")
-            logger.warning(f"   💡 Variantes d'album testées: {album_variants}")
-            
-            return None
-            
-        except Exception as e:
-            logger.error(f"❌ Erreur recherche album: {e}")
-            import traceback
-            logger.error(f"   Traceback: {traceback.format_exc()}")
-            return None
+        
+        # Variantes avec/sans article
+        if album.lower().startswith("the "):
+            variants.append(album[4:])
+        
+        return variants
     
     def pause_all(self) -> bool:
         """Mettre en pause toutes les zones.

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import apiClient from '@/api/client'
 
 interface NowPlayingTrack {
@@ -25,6 +26,7 @@ interface RoonContextType {
 const RoonContext = createContext<RoonContextType | undefined>(undefined)
 
 export function RoonProvider({ children }: { children: ReactNode }) {
+  const queryClient = useQueryClient()
   const [enabled, setEnabled] = useState(false)
   const [available, setAvailable] = useState(false)
   const [zone, setZone] = useState<string>(() => {
@@ -130,19 +132,50 @@ export function RoonProvider({ children }: { children: ReactNode }) {
     })
   }
 
-  // Contrôler la lecture (play, pause, next, previous, stop)
-  const playbackControl = async (control: 'play' | 'pause' | 'next' | 'previous' | 'stop') => {
+  // Contrôler la lecture (play, pause, next, previous, stop) avec retry automatique
+  const playbackControl = async (control: 'play' | 'pause' | 'next' | 'previous' | 'stop', retryCount = 0, maxRetries = 2) => {
     if (!enabled || !available) {
       throw new Error('Roon n\'est pas disponible')
     }
-    if (!zone) {
-      throw new Error('Aucune zone Roon sélectionnée')
+    
+    // Utiliser la zone du track en cours si disponible, sinon la zone sauvegardée
+    const targetZone = nowPlaying?.zone_name || zone
+    
+    if (!targetZone) {
+      throw new Error('Aucune zone Roon disponible. Veuillez d\'abord lancer un album.')
     }
 
-    await apiClient.post('/roon/control', {
-      zone_name: zone,
-      control
-    })
+    try {
+      // Timeout de 5 secondes
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 5000)
+      
+      await apiClient.post('/roon/control', {
+        zone_name: targetZone,
+        control
+      }, {
+        signal: controller.signal
+      })
+      
+      clearTimeout(timeoutId)
+      
+      // Forcer un refresh des zones après 500ms pour avoir le nouvel état
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['roon-zones'] })
+      }, 500)
+    } catch (error) {
+      console.error(`❌ Erreur contrôle Roon (tentative ${retryCount + 1}):`, error)
+      
+      // Retry automatique si possible
+      if (retryCount < maxRetries) {
+        console.log(`🔄 Nouvelle tentative contrôle '${control}' (${retryCount + 2}/${maxRetries + 1})...`)
+        await new Promise(resolve => setTimeout(resolve, 500)) // Attendre 500ms avant retry
+        return playbackControl(control, retryCount + 1, maxRetries)
+      }
+      
+      // Échec final
+      throw error
+    }
   }
 
   return (

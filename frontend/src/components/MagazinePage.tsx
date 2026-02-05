@@ -94,9 +94,9 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
     console.log('🎵 Dialog ouvert, zoneDialogOpen devrait être true')
   }
 
-  // Fonction pour confirmer et lancer la lecture
-  const confirmPlayInRoon = async () => {
-    console.log('🔄 confirmPlayInRoon appelé - selectedZone:', selectedZone, 'albumToPlay:', albumToPlay)
+  // Fonction pour confirmer et lancer la lecture avec retry automatique
+  const confirmPlayInRoon = async (retryCount = 0, maxRetries = 2) => {
+    console.log('🔄 confirmPlayInRoon appelé - selectedZone:', selectedZone, 'albumToPlay:', albumToPlay, `tentative: ${retryCount + 1}/${maxRetries + 1}`)
     if (!selectedZone || !albumToPlay) {
       console.warn('⚠️ Conditions non remplies:', { selectedZone, albumToPlay })
       return
@@ -109,6 +109,10 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
       
       console.log('📤 Envoi à Roon:', { artist_name: artistName, album_title: albumTitle, zone: selectedZone })
       
+      // Timeout de 10 secondes pour éviter les blocages
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000)
+      
       const response = await fetch('/api/v1/roon/play-album-by-name', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -116,23 +120,37 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
           artist_name: artistName,
           album_title: albumTitle,
           zone_name: selectedZone
-        })
+        }),
+        signal: controller.signal
       })
       
+      clearTimeout(timeoutId)
       const data = await response.json().catch(() => null)
       
       if (response.ok) {
         console.log('✅ Lecture lancée dans Roon:', data)
-        // Message supprimé - lecture silencieuse
+        showSnackbar(`🎵 Lecture lancée: ${albumTitle}`, 'success')
+        setZoneDialogOpen(false)
+        setSelectedZone('')
+        setAlbumToPlay(null)
       } else {
-        console.error('❌ Erreur Roon (Status ' + response.status + '):', data)
-        const errorMsg = data?.detail || 'Impossible de lancer la lecture dans Roon'
-        alert(`Erreur: ${errorMsg}\n\nDétails: Vérifiez que Roon est en ligne et accessible.`)
+        throw new Error(data?.detail || 'Impossible de lancer la lecture')
       }
     } catch (error) {
-      console.error('Erreur API Roon:', error)
-      alert(`Erreur de connexion: ${(error as Error).message}`)
-    } finally {
+      console.error(`❌ Erreur Roon (tentative ${retryCount + 1}):`, error)
+      
+      // Retry automatique si possible
+      if (retryCount < maxRetries) {
+        console.log(`🔄 Nouvelle tentative (${retryCount + 2}/${maxRetries + 1})...`)
+        showSnackbar(`⏳ Nouvelle tentative... (${retryCount + 2}/${maxRetries + 1})`, 'info')
+        await new Promise(resolve => setTimeout(resolve, 1000)) // Attendre 1s avant retry
+        return confirmPlayInRoon(retryCount + 1, maxRetries)
+      }
+      
+      // Échec final après toutes les tentatives
+      const errorMsg = error instanceof Error ? error.message : 'Erreur inconnue'
+      console.error('❌ Échec final après toutes les tentatives:', errorMsg)
+      showSnackbar(`❌ Échec: ${errorMsg}`, 'error')
       setZoneDialogOpen(false)
       setSelectedZone('')
       setAlbumToPlay(null)
@@ -658,16 +676,44 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                 }}>
                   {album.title}
                 </Typography>
-                <Typography variant="h4" sx={{ 
-                  fontFamily: '"Merriweather", "Georgia", serif',
-                  marginBottom: '24px',
-                  color: '#2c3e50',
-                  fontWeight: 400,
-                  fontStyle: 'italic'
+                <Box sx={{ 
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  marginBottom: '24px'
                 }}>
-                  {album.artist}
-                  {album.year && ` • ${album.year}`}
-                </Typography>
+                  <Typography variant="h4" sx={{ 
+                    fontFamily: '"Merriweather", "Georgia", serif',
+                    color: '#2c3e50',
+                    fontWeight: 400,
+                    fontStyle: 'italic'
+                  }}>
+                    {album.artist}
+                    {album.year && ` • ${album.year}`}
+                  </Typography>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={() => handleOpenArtistPortrait(album.artist)}
+                    startIcon={<ArticleIcon />}
+                    sx={{
+                      borderColor: '#23a7dd',
+                      color: '#23a7dd',
+                      fontFamily: '"Roboto Condensed", sans-serif',
+                      fontWeight: 700,
+                      fontSize: '11px',
+                      padding: '4px 8px',
+                      height: '24px',
+                      textTransform: 'uppercase',
+                      '&:hover': {
+                        borderColor: '#1a8bc4',
+                        backgroundColor: 'rgba(35, 167, 221, 0.1)'
+                      }
+                    }}
+                  >
+                    Portrait
+                  </Button>
+                </Box>
 
                 {album.genre && (
                   <Chip
@@ -1059,16 +1105,43 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                   <Typography sx={{ flex: 1, fontWeight: 600, color: '#ffffff' }}>
                     {item.artist_name || `Artiste #${item.artist_id}`}
                   </Typography>
-                  <Chip
-                    label={`${item.count} écoutes`}
-                    size="small"
-                    sx={{
-                      backgroundColor: '#3a3a3a',
-                      color: '#d0d0d0',
-                      fontWeight: 700,
-                      border: '1px solid #555'
-                    }}
-                  />
+                  <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    {item.artist_name && (
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => handleOpenArtistPortrait(item.artist_name)}
+                        startIcon={<ArticleIcon />}
+                        sx={{
+                          borderColor: '#23a7dd',
+                          color: '#23a7dd',
+                          fontFamily: '"Roboto Condensed", sans-serif',
+                          fontWeight: 700,
+                          fontSize: '8px',
+                          padding: '2px 4px',
+                          height: '16px',
+                          minWidth: '30px',
+                          textTransform: 'uppercase',
+                          '&:hover': {
+                            borderColor: '#1a8bc4',
+                            backgroundColor: 'rgba(35, 167, 221, 0.1)'
+                          }
+                        }}
+                      >
+                        Portrait
+                      </Button>
+                    )}
+                    <Chip
+                      label={`${item.count} écoutes`}
+                      size="small"
+                      sx={{
+                        backgroundColor: '#3a3a3a',
+                        color: '#d0d0d0',
+                        fontWeight: 700,
+                        border: '1px solid #555'
+                      }}
+                    />
+                  </Box>
                 </Box>
               ))}
             </Paper>
@@ -1141,20 +1214,47 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                     <Typography sx={{ fontWeight: 600, color: '#ffffff' }}>
                       {item.album_title || `Album #${item.album_id}`}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: '#999', fontSize: '0.85rem' }}>
+                    <Typography variant="body2" sx={{ color: '#999', fontSize: '0.85rem', marginTop: '4px' }}>
                       {item.artist_name}
                     </Typography>
                   </Box>
-                  <Chip
-                    label={`${item.count} écoutes`}
-                    size="small"
-                    sx={{
-                      backgroundColor: '#3a3a3a',
-                      color: '#d0d0d0',
-                      fontWeight: 700,
-                      border: '1px solid #555'
-                    }}
-                  />
+                  <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    {item.artist_name && (
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => handleOpenArtistPortrait(item.artist_name)}
+                        startIcon={<ArticleIcon />}
+                        sx={{
+                          borderColor: '#23a7dd',
+                          color: '#23a7dd',
+                          fontFamily: '"Roboto Condensed", sans-serif',
+                          fontWeight: 700,
+                          fontSize: '8px',
+                          padding: '2px 4px',
+                          height: '16px',
+                          minWidth: '30px',
+                          textTransform: 'uppercase',
+                          '&:hover': {
+                            borderColor: '#1a8bc4',
+                            backgroundColor: 'rgba(35, 167, 221, 0.1)'
+                          }
+                        }}
+                      >
+                        Portrait
+                      </Button>
+                    )}
+                    <Chip
+                      label={`${item.count} écoutes`}
+                      size="small"
+                      sx={{
+                        backgroundColor: '#3a3a3a',
+                        color: '#d0d0d0',
+                        fontWeight: 700,
+                        border: '1px solid #555'
+                      }}
+                    />
+                  </Box>
                   <IconButton
                     size="small"
                     onClick={() => handlePlayInRoon(item)}

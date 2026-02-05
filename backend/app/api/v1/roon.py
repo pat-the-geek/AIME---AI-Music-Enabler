@@ -256,7 +256,7 @@ async def play_track(request: RoonPlayRequest):
 
 @router.post("/control")
 async def control_playback(request: RoonControlRequest):
-    """Contrôler la lecture (play, pause, stop, next, previous)."""
+    """Contrôler la lecture (play, pause, stop, next, previous) avec retry automatique."""
     check_roon_enabled()  # Vérifier que Roon est activé
     
     try:
@@ -280,20 +280,41 @@ async def control_playback(request: RoonControlRequest):
                 detail=f"Zone '{request.zone_name}' non trouvée. Zones disponibles: {', '.join(zone_names)}"
             )
         
-        # Exécuter la commande
-        success = roon_service.playback_control(zone_id, request.control)
+        # Récupérer l'état avant
+        zones_before = roon_service.get_zones()
+        zone_before = zones_before.get(zone_id, {})
+        state_before = zone_before.get('state', 'unknown')
+        
+        logger.info(f"🎮 Contrôle Roon: {request.control} sur zone {request.zone_name} (état: {state_before})")
+        
+        # Exécuter la commande avec retry (max 2 tentatives)
+        success = roon_service.playback_control(zone_id, request.control, max_retries=2)
         
         if not success:
-            raise HTTPException(status_code=500, detail=f"Erreur exécution commande '{request.control}'")
+            raise HTTPException(
+                status_code=500, 
+                detail=f"Échec de la commande '{request.control}' après plusieurs tentatives"
+            )
+        
+        # Récupérer l'état après
+        zones_after = roon_service.get_zones()
+        zone_after = zones_after.get(zone_id, {})
+        state_after = zone_after.get('state', 'unknown')
+        
+        logger.info(f"✅ Contrôle réussi: {state_before} → {state_after}")
         
         return {
-            "message": f"Commande '{request.control}' exécutée",
-            "zone": request.zone_name
+            "message": f"Commande '{request.control}' exécutée avec succès",
+            "zone": request.zone_name,
+            "state_before": state_before,
+            "state_after": state_after,
+            "success": True
         }
         
     except HTTPException:
         raise
     except Exception as e:
+        logger.error(f"❌ Erreur contrôle Roon: {e}")
         raise HTTPException(status_code=500, detail=f"Erreur Roon: {str(e)}")
 
 
@@ -684,60 +705,6 @@ async def play_album(request: RoonPlayAlbumRequest):
         db.close()
 
 
-class RoonPlaybackControlRequest(BaseModel):
-    """Requête pour contrôler la lecture."""
-    zone_name: str
-    control: str  # play, pause, stop, next, previous
-
-
-@router.post("/control")
-async def control_playback(request: RoonPlaybackControlRequest):
-    """Contrôler la lecture sur une zone Roon."""
-    check_roon_enabled()
-    
-    try:
-        roon_service = get_roon_service()
-        
-        # Récupérer l'ID de la zone
-        zone_id = roon_service.get_zone_by_name(request.zone_name)
-        if not zone_id:
-            zones = roon_service.get_zones()
-            zone_names = [z.get('display_name', 'Unknown') for z in zones.values()]
-            raise HTTPException(
-                status_code=404,
-                detail=f"Zone '{request.zone_name}' non trouvée. Zones disponibles: {', '.join(zone_names)}"
-            )
-        
-        # Valider la commande
-        valid_controls = ["play", "pause", "stop", "next", "previous"]
-        if request.control.lower() not in valid_controls:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Commande invalide: {request.control}. Valides: {', '.join(valid_controls)}"
-            )
-        
-        # Exécuter la commande
-        success = roon_service.playback_control(zone_id, request.control.lower())
-        
-        if not success:
-            raise HTTPException(status_code=500, detail=f"Erreur lors de l'exécution de {request.control}")
-        
-        return {
-            "message": f"Commande exécutée: {request.control}",
-            "zone": request.zone_name,
-            "control": request.control
-        }
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erreur: {str(e)}")
-
-
-# ============================================================================
-# Route supplémentaire pour magazine
-# ============================================================================
-
 class RoonPlayByNameRequest(BaseModel):
     """Requête pour jouer un album par son nom d'artiste et titre."""
     artist_name: Optional[str] = None
@@ -753,7 +720,7 @@ async def play_album_by_name(request: RoonPlayByNameRequest):
     """
     logger.info(f"📡 Requête play_album_by_name: {request.artist_name} - {request.album_title}")
     
-    check_roon_enabled()
+    check_roon_enabled()  # Vérifier que Roon est activé
     
     from sqlalchemy.orm import Session
     from app.database import SessionLocal
@@ -762,35 +729,21 @@ async def play_album_by_name(request: RoonPlayByNameRequest):
     db: Session = SessionLocal()
     
     try:
-        # Initialiser Roon en premier
-        logger.info("🔌 Initialisation du service Roon...")
-        try:
-            roon_service = get_roon_service_singleton()
-            logger.info("✅ Service Roon initialisé")
-        except Exception as e:
-            logger.error(f"❌ Impossible d'initialiser Roon: {e}")
-            raise HTTPException(status_code=503, detail=f"Roon non disponible: {str(e)}")
-        
-        # Vérifier la connectivité
-        try:
-            zones = roon_service.get_zones()
-            logger.info(f"📍 Zones Roon trouvées: {list(zones.keys())}")
-            if not zones:
-                logger.error("❌ Aucune zone Roon disponible")
-                raise HTTPException(status_code=503, detail="Aucune zone Roon disponible. Vérifiez que Roon Core est en ligne.")
-        except Exception as e:
-            logger.error(f"❌ Erreur lors de la récupération des zones: {e}")
-            raise HTTPException(status_code=503, detail=f"Impossible de communiquer avec Roon: {str(e)}")
+        # Initialiser Roon avec les bonnes vérifications
+        roon_service = get_roon_service()  # Utilise la fonction wrapper avec vérifications
         
         # Déterminer la zone à utiliser
         zone_id = None
+        zones = roon_service.get_zones()
+        
         if request.zone_name:
             zone_id = roon_service.get_zone_by_name(request.zone_name)
             if not zone_id:
                 raise HTTPException(status_code=404, detail=f"Zone '{request.zone_name}' non trouvée")
         else:
-            zone_id = list(zones.keys())[0]
-            logger.info(f"📍 Utilisation de la zone par défaut: {zone_id}")
+            zone_id = list(zones.keys())[0]  # Utiliser la première zone disponible
+            zone_name = zones[zone_id].get('display_name', 'Unknown')
+            logger.info(f"📍 Utilisation de la zone par défaut: {zone_name}")
         
         # Chercher l'album par titre et artiste
         query = db.query(Album).filter(Album.title == request.album_title)
@@ -812,24 +765,30 @@ async def play_album_by_name(request: RoonPlayByNameRequest):
         
         # Jouer l'album
         logger.info(f"▶️ Lancement de la lecture: {artist_name} - {request.album_title}")
-        try:
-            success = roon_service.play_album(
-                zone_or_output_id=zone_id,
-                artist=artist_name,
-                album=request.album_title
-            )
-            logger.info(f"{'✅' if success else '⚠️'} Résultat play_album: {success}")
-        except Exception as e:
-            logger.error(f"❌ Erreur lors de l'appel play_album: {e}")
-            raise HTTPException(status_code=500, detail=f"Erreur Roon play_album: {str(e)}")
+        success = roon_service.play_album(
+            zone_or_output_id=zone_id,
+            artist=artist_name,
+            album=request.album_title
+        )
         
-        return {
-            "status": "playing" if success else "not_found",
-            "message": "Album en lecture" if success else "Album lancé (non trouvé dans la librairie Roon)",
-            "album_id": album.id if album else None,
-            "artist": artist_name,
-            "album": request.album_title
-        }
+        if success:
+            logger.info(f"✅ Album en lecture: {artist_name} - {request.album_title}")
+            return {
+                "status": "playing",
+                "message": f"Album en lecture: {request.album_title}",
+                "album_id": album.id if album else None,
+                "artist": artist_name,
+                "album": request.album_title
+            }
+        else:
+            logger.warning(f"⚠️ Album peut-être pas trouvé dans Roon: {artist_name} - {request.album_title}")
+            return {
+                "status": "launched",
+                "message": f"Commande envoyée à Roon. Si l'album ne démarre pas, vérifiez qu'il est dans votre bibliothèque.",
+                "album_id": album.id if album else None,
+                "artist": artist_name,
+                "album": request.album_title
+            }
         
     except HTTPException:
         raise

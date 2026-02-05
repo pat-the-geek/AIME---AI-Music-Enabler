@@ -14,11 +14,24 @@ const EMPTY_MESSAGES = [
 export const isEmptyContent = (content: string | undefined): boolean => {
   if (!content || typeof content !== 'string') return false
   const trimmed = content.trim()
-  return EMPTY_MESSAGES.includes(trimmed)
+  
+  // Vérifier le texte exact
+  if (EMPTY_MESSAGES.includes(trimmed)) return true
+  
+  // Vérifier aussi avec les balises markdown (**, *, etc.)
+  // Nettoyer le texte de toutes les balises markdown courantes
+  const cleaned = trimmed
+    .replace(/\*\*/g, '')  // Enlever **gras**
+    .replace(/\*/g, '')    // Enlever *italique*
+    .replace(/_/g, '')     // Enlever _italique_
+    .replace(/`/g, '')     // Enlever `code`
+    .trim()
+  
+  return EMPTY_MESSAGES.includes(cleaned)
 }
 
 /**
- * Retourne les styles sx pour masquer le contenu vide
+ * Retourne les styles sx pour masquer le contenu vide (1x1 pixels invisible)
  */
 export const hiddenContentSx = {
   width: '1px',
@@ -26,8 +39,11 @@ export const hiddenContentSx = {
   overflow: 'hidden',
   visibility: 'hidden',
   position: 'absolute',
-  left: '-9999px',
-  top: '-9999px'
+  margin: 0,
+  padding: 0,
+  border: 'none',
+  clipPath: 'inset(100%)',
+  clip: 'rect(0, 0, 0, 0)'
 } as const
 
 /**

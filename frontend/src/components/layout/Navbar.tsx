@@ -24,11 +24,13 @@ import {
   Analytics,
   Settings,
   NewspaperOutlined,
+  ArticleOutlined,
 } from '@mui/icons-material'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 const menuItems = [
   { text: 'Magazine', path: '/magazine', icon: <NewspaperOutlined /> },
+  { text: 'Articles', path: '/artist-article', icon: <ArticleOutlined /> },
   { text: 'Collection', path: '/collection', icon: <LibraryMusic /> },
   { text: 'Journal', path: '/journal', icon: <History /> },
   { text: 'Timeline', path: '/timeline', icon: <Timeline /> },

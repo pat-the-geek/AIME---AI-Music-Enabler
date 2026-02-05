@@ -89,6 +89,7 @@ async def restore_active_services():
     try:
         # Récupérer tous les services actifs
         active_services = db.query(ServiceState).filter_by(is_active=True).all()
+        scheduler_found = False
         
         for service_state in active_services:
             service_name = service_state.service_name
@@ -107,6 +108,7 @@ async def restore_active_services():
                     await roon_tracker.start()
                     logger.info(f"✅ Tracker Roon restauré")
                 elif service_name == 'scheduler':
+                    scheduler_found = True
                     scheduler = get_scheduler()
                     await scheduler.start()
                     logger.info(f"✅ Scheduler restauré")
@@ -115,8 +117,24 @@ async def restore_active_services():
             except Exception as e:
                 logger.error(f"❌ Erreur restauration service '{service_name}': {e}")
         
-        if not active_services:
-            logger.info("ℹ️ Aucun service actif à restaurer")
+        # ⭐ NOUVEAU : Assurer que le scheduler est TOUJOURS actif
+        # Si le scheduler n'a pas été trouvé en base, le démarrer et le marquer comme actif
+        if not scheduler_found:
+            logger.info("📅 Démarrage automatique du scheduler (non trouvé en base)")
+            scheduler = get_scheduler()
+            await scheduler.start()
+            # Marquer comme actif en base pour la prochaine fois
+            scheduler_state = db.query(ServiceState).filter_by(service_name='scheduler').first()
+            if scheduler_state is None:
+                scheduler_state = ServiceState(service_name='scheduler')
+                db.add(scheduler_state)
+            scheduler_state.is_active = True
+            scheduler_state.last_updated = datetime.now(timezone.utc)
+            db.commit()
+            logger.info(f"✅ Scheduler démarré et marqué comme actif en base")
+        
+        if not active_services and scheduler_found:
+            logger.info("ℹ️ Aucun service actif à restaurer (scheduler déjà géré)")
     except Exception as e:
         logger.error(f"❌ Erreur lors de la restauration des services: {e}")
     finally:

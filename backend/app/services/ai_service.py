@@ -103,6 +103,79 @@ class AIService:
             ai_circuit_breaker.record_failure()
             return self.default_error_message
     
+    async def ask_for_ia_stream(self, prompt: str, max_tokens: int = 500):
+        """Poser une question à l'IA en streaming (Server-Sent Events).
+        
+        Yields:
+            str: Chunks de texte au fur et à mesure de la génération
+        """
+        try:
+            # Vérifier le circuit breaker
+            if ai_circuit_breaker.state == "OPEN":
+                logger.warning("⚠️ Circuit breaker EurIA ouvert - service indisponible temporairement")
+                yield f"data: {self.default_error_message}\n\n"
+                return
+            
+            headers = {
+                "Authorization": f"Bearer {self.bearer}",
+                "Content-Type": "application/json"
+            }
+            
+            payload = {
+                "model": "mistral3",
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                "max_tokens": max_tokens,
+                "temperature": 0.7,
+                "stream": True  # Activer le streaming
+            }
+            
+            async with httpx.AsyncClient(timeout=120.0) as client:
+                async with client.stream(
+                    "POST",
+                    self.url,
+                    headers=headers,
+                    json=payload
+                ) as response:
+                    if response.status_code >= 400:
+                        logger.error(f"❌ EurIA API Error {response.status_code}")
+                        ai_circuit_breaker.record_failure()
+                        yield f"data: {self.default_error_message}\n\n"
+                        return
+                    
+                    # Lire le stream ligne par ligne
+                    async for line in response.aiter_lines():
+                        if line.startswith("data: "):
+                            data_str = line[6:]  # Enlever "data: "
+                            
+                            if data_str.strip() == "[DONE]":
+                                ai_circuit_breaker.record_success()
+                                break
+                            
+                            try:
+                                import json
+                                data = json.loads(data_str)
+                                
+                                if "choices" in data and len(data["choices"]) > 0:
+                                    delta = data["choices"][0].get("delta", {})
+                                    content = delta.get("content", "")
+                                    
+                                    if content:
+                                        # Envoyer le chunk au format SSE
+                                        # Échapper les retours à ligne pour préserver le texte
+                                        yield f"data: {json.dumps({'type': 'chunk', 'content': content})}\n\n"
+                            except json.JSONDecodeError:
+                                continue
+                    
+        except Exception as e:
+            logger.error(f"❌ Erreur streaming EurIA: {e}")
+            ai_circuit_breaker.record_failure()
+            yield f"data: [ERROR] {str(e)}\n\n"
+    
     async def generate_album_info(self, artist_name: str, album_title: str) -> Optional[str]:
         """Générer une description d'album par IA (max 2000 caractères)."""
         prompt = f"""Tu es un expert musical. Décris l'album "{album_title}" de {artist_name}.
