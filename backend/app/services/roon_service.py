@@ -1,671 +1,531 @@
-"""Service d'intégration avec Roon via pyroon."""
+"""Service d'intégration avec Roon via le bridge Node.js (node-roon-api officiel).
+
+Ce service communique avec le microservice roon-bridge qui utilise exclusivement
+l'API officielle RoonLabs (https://github.com/RoonLabs/node-roon-api).
+"""
 import logging
-import threading
 import time
 from typing import Optional, Dict, Callable
-from roonapi import RoonApi
+
+import httpx
 
 logger = logging.getLogger(__name__)
 
+# Timeout par défaut pour les requêtes HTTP vers le bridge
+DEFAULT_TIMEOUT = 5.0
+PLAY_TIMEOUT = 10.0  # Plus long pour les opérations de navigation/browse
+
 
 class RoonService:
-    """Service pour communiquer avec Roon."""
-    
-    def __init__(self, server: str, token: Optional[str] = None, app_info: Optional[Dict] = None, 
-                 on_token_received: Optional[Callable[[str], None]] = None):
+    """Service pour communiquer avec Roon via le bridge Node.js."""
+
+    def __init__(
+        self,
+        server: str,
+        token: Optional[str] = None,
+        app_info: Optional[Dict] = None,
+        on_token_received: Optional[Callable[[str], None]] = None,
+        bridge_url: Optional[str] = None,
+    ):
         """Initialiser le service Roon.
-        
+
         Args:
-            server: Adresse IP du serveur Roon (ex: "192.168.1.100")
-            token: Token d'authentification sauvegardé (optionnel)
-            app_info: Informations sur l'application (optionnel)
-            on_token_received: Callback appelé quand un nouveau token est reçu
+            server: Adresse IP du serveur Roon (passée au bridge via env).
+            token: Token d'authentification (géré par le bridge, conservé pour compatibilité).
+            app_info: Informations sur l'application (conservé pour compatibilité).
+            on_token_received: Callback (conservé pour compatibilité, non utilisé).
+            bridge_url: URL du bridge Node.js (ex: "http://localhost:9330").
         """
         self.server = server
         self._token = token
         self.on_token_received = on_token_received
-        
-        # Informations par défaut de l'application
-        self.app_info = app_info or {
-            "extension_id": "aime_music_tracker",
-            "display_name": "AIME - AI Music Enabler",
-            "display_version": "4.0.0",
-            "publisher": "AIME",
-            "email": "contact@aime.music"
-        }
-        
-        self.roon_api = None
-        self.zones = {}
-        
-        # Connecter avec timeout pour éviter blocage
-        self._connect_with_timeout()
-    
-    def _connect_with_timeout(self, timeout: int = 15):
-        """Se connecter avec timeout pour éviter blocage indéfini."""
-        thread = threading.Thread(target=self._connect, daemon=True)
-        thread.start()
-        thread.join(timeout=timeout)
-        
-        if thread.is_alive():
-            logger.warning(f"⚠️ Timeout connexion Roon après {timeout}s - serveur peut être inaccessible")
-            self.roon_api = None
-    
-    def _connect(self):
-        """Se connecter au serveur Roon."""
+        self.app_info = app_info or {}
+
+        # URL du bridge Node.js
+        self.bridge_url = bridge_url or "http://localhost:3330"
+
+        # Vérifier la connexion au bridge
+        self._connected = False
+        self._check_bridge()
+
+    # ========================================================================
+    # Connexion / statut
+    # ========================================================================
+
+    def _check_bridge(self):
+        """Vérifier que le bridge Node.js est accessible et connecté à Roon."""
         try:
-            # RoonApi nécessite (app_info, token, host, port)
-            # Port par défaut Roon : 9330
-            self.roon_api = RoonApi(self.app_info, self._token, self.server, 9330)
-            
-            # Enregistrer le callback pour les changements d'état
-            self.roon_api.register_state_callback(self._state_callback)
-            
-            # Donner un peu de temps à RoonApi pour se connecter et obtenir le token
-            time.sleep(1)
-            
-            # Essayer d'extraire le token après approbation
-            if self.roon_api and hasattr(self.roon_api, 'token') and self.roon_api.token:
-                new_token = self.roon_api.token
-                # Si c'est un nouveau token (pas le même qu'avant), le sauvegarder
-                if new_token != self._token:
-                    logger.info(f"✅ Nouveau token Roon reçu après approbation")
-                    self._token = new_token
-                    # Appeler le callback pour sauvegarder le token
-                    if self.on_token_received:
-                        self.on_token_received(new_token)
-            
-            # Attendre que les zones soient chargées
-            max_wait = 3  # Attendre max 3 secondes
-            for i in range(max_wait):
-                if hasattr(self.roon_api, 'zones') and self.roon_api.zones:
-                    self.zones = self.roon_api.zones
-                    logger.info(f"✅ {len(self.zones)} zone(s) Roon disponible(s)")
-                    break
-                time.sleep(1)
+            resp = httpx.get(f"{self.bridge_url}/status", timeout=DEFAULT_TIMEOUT)
+            if resp.status_code == 200:
+                data = resp.json()
+                self._connected = data.get("connected", False)
+                if self._connected:
+                    logger.info(
+                        "Bridge Roon connecté à %s (core: %s)",
+                        self.server,
+                        data.get("core_name", "?"),
+                    )
+                else:
+                    logger.warning("Bridge Roon accessible mais pas encore connecté au Core")
             else:
-                logger.warning("⚠️ Aucune zone Roon trouvée après connexion")
-            
-            logger.info(f"✅ Connecté au serveur Roon: {self.server}:9330")
+                logger.warning("Bridge Roon a répondu %d", resp.status_code)
+                self._connected = False
         except Exception as e:
-            logger.error(f"❌ Erreur connexion Roon: {e}")
-            self.roon_api = None
-    
-    def _state_callback(self, event: str, changed_ids: list):
-        """Callback appelé quand l'état change dans Roon.
-        
-        Args:
-            event: Type d'événement ('zones_changed', 'zones_added', etc.)
-            changed_ids: Liste des IDs des zones modifiées
+            logger.warning("Bridge Roon inaccessible (%s): %s", self.bridge_url, e)
+            self._connected = False
+
+    def is_connected(self) -> bool:
+        """Vérifier si le bridge est connecté à Roon Core."""
+        try:
+            resp = httpx.get(f"{self.bridge_url}/status", timeout=DEFAULT_TIMEOUT)
+            if resp.status_code == 200:
+                self._connected = resp.json().get("connected", False)
+                return self._connected
+        except Exception:
+            pass
+        self._connected = False
+        return False
+
+    # ========================================================================
+    # Zones
+    # ========================================================================
+
+    def get_zones(self) -> Dict:
+        """Récupérer toutes les zones disponibles.
+
+        Returns:
+            Dict des zones {zone_id: zone_info}
         """
-        logger.debug(f"Roon state callback - event: {event}, changed_ids: {changed_ids}")
-        
-        # Mettre à jour le cache des zones
-        if self.roon_api and hasattr(self.roon_api, 'zones'):
-            self.zones = self.roon_api.zones
-    
+        try:
+            resp = httpx.get(f"{self.bridge_url}/zones", timeout=DEFAULT_TIMEOUT)
+            if resp.status_code == 200:
+                data = resp.json()
+                zones_list = data.get("zones", [])
+                return {z["zone_id"]: z for z in zones_list}
+        except Exception as e:
+            logger.error("Erreur récupération zones: %s", e)
+        return {}
+
+    def get_zone_by_name(self, zone_name: str) -> Optional[str]:
+        """Récupérer l'ID d'une zone par son nom.
+
+        Args:
+            zone_name: Nom de la zone
+
+        Returns:
+            ID de la zone ou None si non trouvée
+        """
+        try:
+            resp = httpx.get(
+                f"{self.bridge_url}/zones/{zone_name}",
+                timeout=DEFAULT_TIMEOUT,
+            )
+            if resp.status_code == 200:
+                return resp.json().get("zone_id")
+        except Exception as e:
+            logger.error("Erreur recherche zone '%s': %s", zone_name, e)
+        return None
+
+    # ========================================================================
+    # Now Playing
+    # ========================================================================
+
     def get_now_playing(self) -> Optional[Dict]:
         """Récupérer le morceau actuellement en lecture sur Roon.
-        
+
         Returns:
-            Dict avec les informations du track ou None si rien ne joue
+            Dict avec les informations du track ou None si rien ne joue.
             Format: {
                 'title': str,
                 'artist': str,
                 'album': str,
                 'zone_id': str,
                 'zone_name': str,
-                'image_url': str (optionnel)
+                'duration_seconds': int | None,
+                'image_url': str | None
             }
         """
-        if not self.roon_api or not hasattr(self.roon_api, 'zones'):
-            logger.warning("API Roon non disponible")
-            return None
-        
         try:
-            # Parcourir toutes les zones pour trouver une lecture en cours
-            zones = getattr(self.roon_api, 'zones', {})
-            
-            for zone_id, zone_info in zones.items():
-                # Vérifier si la zone est en lecture
-                state = zone_info.get('state', '')
-                if state != 'playing':
-                    continue
-                
-                # Extraire les informations du track en cours
-                now_playing = zone_info.get('now_playing', {})
-                if not now_playing:
-                    continue
-                
-                three_line = now_playing.get('three_line', {})
-                
-                # Extraire la durée (en secondes)
-                duration_seconds = now_playing.get('length')
-                
-                # Chercher l'image depuis les métadonnées Roon (artist image)
-                image_url = None
-                try:
-                    # Chercher image_key dans l'objet now_playing
-                    if 'image_key' in now_playing:
-                        image_key = now_playing['image_key']
-                        if hasattr(self.roon_api, 'get_image'):
-                            image_url = self.roon_api.get_image(image_key)
-                except Exception as e:
-                    logger.debug(f"⚠️ Impossible de récupérer l'image Roon: {e}")
-                
-                return {
-                    'title': three_line.get('line1', 'Unknown Title'),
-                    'artist': three_line.get('line2', 'Unknown Artist'),
-                    'album': three_line.get('line3', 'Unknown Album'),
-                    'zone_id': zone_id,
-                    'zone_name': zone_info.get('display_name', 'Unknown Zone'),
-                    'duration_seconds': duration_seconds,
-                    'image_url': image_url
+            resp = httpx.get(f"{self.bridge_url}/now-playing", timeout=DEFAULT_TIMEOUT)
+            if resp.status_code == 200:
+                data = resp.json()
+                if not data.get("playing", False):
+                    return None
+
+                result = {
+                    "title": data.get("title", "Unknown Title"),
+                    "artist": data.get("artist", "Unknown Artist"),
+                    "album": data.get("album", "Unknown Album"),
+                    "zone_id": data.get("zone_id", ""),
+                    "zone_name": data.get("zone_name", "Unknown Zone"),
+                    "duration_seconds": data.get("duration_seconds"),
+                    "image_url": None,
                 }
-            
-            # Aucune zone en lecture
-            return None
-            
-        except Exception as e:
-            logger.error(f"❌ Erreur récupération now playing Roon: {e}")
-            return None
-    
-    def get_token(self) -> Optional[str]:
-        """Récupérer le token d'authentification actuel.
-        
-        Returns:
-            Token ou None
-        """
-        if self.roon_api:
-            return getattr(self.roon_api, 'token', None)
-        return None
-    
-    def save_token(self, filepath: str):
-        """Sauvegarder le token dans un fichier.
-        
-        Args:
-            filepath: Chemin du fichier où sauvegarder le token
-        """
-        token = self.get_token()
-        if token:
-            try:
-                with open(filepath, 'w') as f:
-                    f.write(token)
-                logger.info(f"✅ Token Roon sauvegardé: {filepath}")
-            except Exception as e:
-                logger.error(f"❌ Erreur sauvegarde token Roon: {e}")
-    
-    def get_zones(self) -> Dict:
-        """Récupérer toutes les zones disponibles.
-        
-        Returns:
-            Dict des zones {zone_id: zone_info}
-        """
-        if self.roon_api and hasattr(self.roon_api, 'zones'):
-            return getattr(self.roon_api, 'zones', {})
-        return {}
-    
-    def is_connected(self) -> bool:
-        """Vérifier si le service est connecté à Roon.
-        
-        Returns:
-            True si connecté, False sinon
-        """
-        return self.roon_api is not None
-    
-    def play_track(self, zone_or_output_id: str, track_title: str, artist: str, album: str = None) -> bool:
-        """Démarrer la lecture d'un morceau sur une zone.
-        
-        Note: Roon ne permet pas de jouer un track individuel via play_media().
-        Cette méthode joue l'album contenant le track avec une approche robuste.
-        
-        Args:
-            zone_or_output_id: ID de la zone ou output
-            track_title: Titre du morceau (informatif seulement)
-            artist: Artiste(s) - utilise le premier si plusieurs
-            album: Album (optionnel mais recommandé)
-        
-        Returns:
-            True si succès, False sinon
-        """
-        if not self.roon_api:
-            logger.error("API Roon non disponible")
-            return False
-        
-        try:
-            primary_artist = artist.split(',')[0].strip() if artist else "Unknown"
-            
-            logger.debug(f"🎵 Lecture album pour track: {track_title} - {primary_artist} ({album or 'N/A'})")
-            
-            # Si on a un album, utiliser la méthode play_album améliorée
-            if album:
-                return self.play_album(zone_or_output_id, primary_artist, album)
-            
-            # Sinon, essayer de jouer l'artiste
-            artist_variants = self._generate_artist_variants(primary_artist)
-            
-            for test_artist in artist_variants:
-                path = ["Library", "Artists", test_artist]
-                try:
-                    logger.debug(f"   Essai artiste: {test_artist}")
-                    result = self.roon_api.play_media(
-                        zone_or_output_id=zone_or_output_id,
-                        path=path,
-                        action=None,
-                        report_error=False
+
+                # Construire l'URL d'image via le bridge si image_key est disponible
+                image_key = data.get("image_key")
+                if image_key:
+                    result["image_url"] = (
+                        f"{self.bridge_url}/image/{image_key}?scale=fit&width=300&height=300"
                     )
-                    
-                    if result:
-                        logger.info(f"✅ Artiste lancé (pour track: {track_title})")
-                        return True
-                except Exception as e:
-                    logger.debug(f"   Échec: {e}")
-                    continue
-            
-            logger.warning(f"❌ Impossible de lancer la lecture pour: {track_title} ({primary_artist})")
-            return False
-            
+
+                return result
         except Exception as e:
-            logger.error(f"❌ Erreur play_track: {e}")
-            logger.error(f"   Track: {track_title}, Artiste: {artist}, Album: {album}")
-            import traceback
-            logger.error(f"   Traceback: {traceback.format_exc()}")
-            return False
-    
-    def queue_tracks(self, zone_or_output_id: str, track_title: str, artist: str, album: str = None) -> bool:
-        """Ajouter un morceau à la queue Roon.
-        
-        Args:
-            zone_or_output_id: ID de la zone ou output
-            track_title: Titre du morceau
-            artist: Artiste(s) - Roon cherche par le premier artiste
-            album: Album (optionnel)
-        
-        Returns:
-            True si succès, False sinon
-        """
-        if not self.roon_api:
-            logger.error("API Roon non disponible")
-            return False
-        
-        try:
-            # Prendre le premier artiste
-            primary_artist = artist.split(',')[0].strip() if artist else "Unknown"
-            
-            # Construire le chemin de navigation
-            path = ["Library", "Artists", primary_artist]
-            if album:
-                path.append(album)
-            
-            logger.debug(f"📋 Ajout à queue: {track_title} - {primary_artist}")
-            
-            # Utiliser action="Queue" pour ajouter à la file d'attente
-            result = self.roon_api.play_media(
-                zone_or_output_id=zone_or_output_id,
-                path=path,
-                action="Queue",  # Ajouter à la queue au lieu de Play Now
-                report_error=True
-            )
-            
-            if result:
-                logger.info(f"✅ Ajouté à la queue: {track_title}")
-                return True
-            else:
-                logger.warning(f"❌ Impossible d'ajouter à la queue: {track_title}")
-                return False
-            
-        except Exception as e:
-            logger.error(f"❌ Erreur queue: {e}")
-            return False
-    
-    def playback_control(self, zone_or_output_id: str, control: str = "play", max_retries: int = 2) -> bool:
+            logger.error("Erreur récupération now playing: %s", e)
+        return None
+
+    # ========================================================================
+    # Playback Control
+    # ========================================================================
+
+    def playback_control(
+        self, zone_or_output_id: str, control: str = "play", max_retries: int = 2
+    ) -> bool:
         """Contrôler la lecture sur une zone avec retry logic.
-        
+
         Args:
             zone_or_output_id: ID de la zone ou output
             control: Commande (play, pause, stop, next, previous)
             max_retries: Nombre maximum de tentatives
-        
+
         Returns:
             True si succès, False sinon
         """
-        if not self.roon_api:
-            logger.error("API Roon non disponible")
-            return False
-        
-        # Vérifier que la zone existe
-        zones = self.get_zones()
-        if zone_or_output_id not in zones:
-            logger.error(f"❌ Zone non trouvée: {zone_or_output_id}")
-            return False
-        
-        # Essayer avec retry
         for attempt in range(max_retries):
             try:
-                logger.debug(f"🎮 Contrôle '{control}' sur zone {zone_or_output_id} (tentative {attempt + 1}/{max_retries})")
-                self.roon_api.playback_control(zone_or_output_id, control)
-                
-                # Petit délai pour laisser Roon traiter
-                time.sleep(0.2)
-                
-                # Vérifier si la commande a fonctionné (optionnel)
-                zones_after = self.get_zones()
-                zone_after = zones_after.get(zone_or_output_id, {})
-                
-                logger.info(f"✅ Contrôle lecture: {control} sur zone {zone_or_output_id}")
-                logger.debug(f"   État zone après: {zone_after.get('state', 'unknown')}")
-                return True
-                
-            except Exception as e:
-                logger.warning(f"⚠️ Tentative {attempt + 1}/{max_retries} échouée: {e}")
-                if attempt < max_retries - 1:
-                    time.sleep(0.3)  # Attendre avant de réessayer
+                logger.debug(
+                    "Contrôle '%s' sur zone %s (tentative %d/%d)",
+                    control, zone_or_output_id, attempt + 1, max_retries,
+                )
+                resp = httpx.post(
+                    f"{self.bridge_url}/control",
+                    json={
+                        "zone_or_output_id": zone_or_output_id,
+                        "control": control,
+                    },
+                    timeout=DEFAULT_TIMEOUT,
+                )
+                if resp.status_code == 200:
+                    data = resp.json()
+                    logger.info("Contrôle lecture: %s (état: %s)", control, data.get("state"))
+                    return True
                 else:
-                    logger.error(f"❌ Erreur contrôle lecture après {max_retries} tentatives: {e}")
-                    return False
-        
+                    logger.warning(
+                        "Contrôle '%s' échoué (HTTP %d): %s",
+                        control, resp.status_code, resp.text,
+                    )
+            except Exception as e:
+                logger.warning("Tentative %d/%d échouée: %s", attempt + 1, max_retries, e)
+
+            if attempt < max_retries - 1:
+                time.sleep(0.3)
+
+        logger.error("Erreur contrôle lecture après %d tentatives", max_retries)
         return False
-    
+
+    # ========================================================================
+    # Play Album
+    # ========================================================================
+
     def play_album(self, zone_or_output_id: str, artist: str, album: str) -> bool:
         """Démarrer la lecture d'un album complet sur une zone.
-        
-        Utilise une approche robuste inspirée de roon-random-app:
-        1. Essaie play_media avec le chemin direct
-        2. Si échec, essaie avec différentes variantes du nom
-        3. En dernier recours, utilise play_from_here
-        
+
+        Utilise le browse API du bridge pour naviguer dans Library > Artists > artist > album.
+
         Args:
             zone_or_output_id: ID de la zone ou output
-            artist: Artiste (s'il y a plusieurs, Roon cherche par le premier)
+            artist: Artiste
             album: Titre de l'album
-        
+
         Returns:
             True si succès, False sinon
         """
-        if not self.roon_api:
-            logger.error("API Roon non disponible")
-            return False
-        
         try:
-            logger.info(f"🎵 Tentative de lecture de l'album: {album}")
-            logger.info(f"   Artiste: {artist}")
-            logger.info(f"   Zone: {zone_or_output_id}")
-            
-            # Préparer l'artiste principal
-            primary_artist = artist.split(',')[0].strip() if artist else "Unknown"
-            
-            # Étape 1 : Essai direct avec play_media
-            # Générer des variantes d'artiste
-            artist_variants = self._generate_artist_variants(primary_artist)
-            
-            # Générer des variantes d'album
-            album_variants = self._generate_album_variants(album)
-            
-            # Essayer toutes les combinaisons
-            for test_artist in artist_variants:
-                for test_album in album_variants:
-                    path = ["Library", "Artists", test_artist, test_album]
-                    
-                    try:
-                        logger.debug(f"   Essai: {' > '.join(path)}")
-                        result = self.roon_api.play_media(
-                            zone_or_output_id=zone_or_output_id,
-                            path=path,
-                            action=None,  # Play Now par défaut
-                            report_error=False
-                        )
-                        
-                        if result:
-                            logger.info(f"✅ Album lancé: {test_album} - {test_artist}")
-                            return True
-                    except Exception as e:
-                        logger.debug(f"   Échec variante: {e}")
-                        continue
-            
-            # Étape 2 : Essai avec action explicite "Play"
-            logger.debug("   Essai avec action='Play'...")
-            for test_artist in artist_variants:
-                for test_album in album_variants:
-                    path = ["Library", "Artists", test_artist, test_album]
-                    try:
-                        result = self.roon_api.play_media(
-                            zone_or_output_id=zone_or_output_id,
-                            path=path,
-                            action="Play",
-                            report_error=False
-                        )
-                        if result:
-                            logger.info(f"✅ Album lancé avec action='Play': {test_album}")
-                            return True
-                    except Exception:
-                        continue
-            
-            # Étape 3 : Dernier recours - essayer de jouer l'artiste puis l'album
-            logger.debug("   Essai play_from_here en dernier recours...")
-            for test_artist in artist_variants:
-                try:
-                    # Naviguer à l'artiste
-                    path = ["Library", "Artists", test_artist]
-                    result = self.roon_api.play_media(
-                        zone_or_output_id=zone_or_output_id,
-                        path=path,
-                        action=None,
-                        report_error=False
-                    )
-                    if result:
-                        logger.info(f"✅ Lecture démarrée via artiste: {test_artist}")
-                        return True
-                except Exception:
-                    continue
-            
-            logger.warning(f"❌ Impossible de lancer l'album après toutes les tentatives")
-            logger.warning(f"   Album: {album}, Artiste: {artist}")
-            logger.warning(f"   💡 Suggestions:")
-            logger.warning(f"      - Vérifiez que l'album est dans votre librairie Roon")
-            logger.warning(f"      - Parcourez manuellement Library > Artists dans Roon")
-            logger.warning(f"      - Vérifiez l'orthographe exacte de l'artiste et de l'album")
+            start_time = time.time()
+            logger.info("Tentative de lecture de l'album: %s - %s", artist, album)
+
+            resp = httpx.post(
+                f"{self.bridge_url}/play-album",
+                json={
+                    "zone_or_output_id": zone_or_output_id,
+                    "artist": artist,
+                    "album": album,
+                },
+                timeout=PLAY_TIMEOUT,
+            )
+
+            total_time = time.time() - start_time
+
+            if resp.status_code == 200:
+                data = resp.json()
+                if data.get("success"):
+                    logger.info("Album lancé en %.2fs: %s - %s", total_time, artist, album)
+                    return True
+
+            logger.warning(
+                "Impossible de lancer l'album après %.2fs: %s - %s (HTTP %d)",
+                total_time, artist, album, resp.status_code,
+            )
             return False
-            
+
         except Exception as e:
-            logger.error(f"❌ Erreur lecture album: {e}")
-            logger.error(f"   Album: {album}, Artiste: {artist}")
-            import traceback
-            logger.error(f"   Traceback: {traceback.format_exc()}")
+            logger.error("Erreur lecture album: %s", e, exc_info=True)
             return False
-    
-    def _generate_artist_variants(self, artist: str) -> list:
-        """Générer des variantes du nom d'artiste pour améliorer la recherche.
-        
-        Args:
-            artist: Nom de l'artiste
-        
+
+    def play_album_with_timeout(
+        self,
+        zone_or_output_id: str,
+        artist: str,
+        album: str,
+        timeout_seconds: float = 15.0,
+    ) -> Optional[bool]:
+        """Essayer de lancer un album avec timeout.
+
         Returns:
-            Liste de variantes du nom
+            True si succès, False si échec explicite, None si timeout.
         """
-        variants = [artist]
-        
-        # Variante avec/sans "The"
-        if artist.lower().startswith("the "):
-            variants.append(artist[4:])
-        else:
-            variants.append(f"The {artist}")
-        
-        # Variante avec ampersand
-        if " and " in artist.lower():
-            variants.append(artist.replace(" and ", " & "))
-            variants.append(artist.replace(" And ", " & "))
-        elif " & " in artist:
-            variants.append(artist.replace(" & ", " and "))
-        
-        return variants
-    
-    def _generate_album_variants(self, album: str) -> list:
-        """Générer des variantes du nom d'album (soundtracks, etc.).
-        
+        try:
+            start_time = time.time()
+            logger.info("play_album_with_timeout: %s - %s (timeout=%.1fs)", artist, album, timeout_seconds)
+            
+            resp = httpx.post(
+                f"{self.bridge_url}/play-album",
+                json={
+                    "zone_or_output_id": zone_or_output_id,
+                    "artist": artist,
+                    "album": album,
+                },
+                timeout=timeout_seconds + 2,  # Marge pour le réseau
+            )
+
+            elapsed = time.time() - start_time
+            
+            if resp.status_code == 200:
+                data = resp.json()
+                success = data.get("success", False)
+                logger.info("play_album_with_timeout result: %s in %.2fs for %s - %s", success, elapsed, artist, album)
+                return success
+            elif resp.status_code == 404:
+                logger.warning("play_album_with_timeout: album not found in %.2fs: %s - %s", elapsed, artist, album)
+                return False
+            else:
+                logger.warning("play_album_with_timeout: HTTP %d in %.2fs for %s - %s", resp.status_code, elapsed, artist, album)
+                return None
+
+        except httpx.TimeoutException:
+            logger.warning(
+                "play_album timeout après %.1fs pour: %s - %s",
+                timeout_seconds, artist, album,
+            )
+            return None
+        except Exception as e:
+            logger.error("Erreur play_album_with_timeout: %s", e)
+            return None
+
+    # ========================================================================
+    # Play Track
+    # ========================================================================
+
+    def play_track(
+        self,
+        zone_or_output_id: str,
+        track_title: str,
+        artist: str,
+        album: str = None,
+    ) -> bool:
+        """Démarrer la lecture d'un morceau sur une zone.
+
+        Note: Roon ne permet pas de jouer un track individuel directement.
+        Cette méthode joue l'album contenant le track.
+
         Args:
-            album: Titre de l'album
-        
+            zone_or_output_id: ID de la zone ou output
+            track_title: Titre du morceau (informatif)
+            artist: Artiste(s) - utilise le premier si plusieurs
+            album: Album (optionnel mais recommandé)
+
         Returns:
-            Liste de variantes du titre
+            True si succès, False sinon
         """
-        variants = [album]
-        
-        # Variantes pour soundtracks
-        if not any(suffix in album.lower() for suffix in ['soundtrack', 'ost', 'motion picture']):
-            variants.extend([
-                f"{album} [Music from the Motion Picture]",
-                f"{album} (Music from the Motion Picture)",
-                f"{album} [Original Motion Picture Soundtrack]",
-                f"{album} (Original Motion Picture Soundtrack)",
-                f"{album} [Soundtrack]",
-                f"{album} (Soundtrack)",
-                f"{album} - Original Soundtrack",
-                f"{album} OST",
-            ])
-        
-        # Variantes avec/sans article
-        if album.lower().startswith("the "):
-            variants.append(album[4:])
-        
-        return variants
-    
+        try:
+            logger.debug("Lecture track: %s - %s (%s)", track_title, artist, album or "N/A")
+
+            # Si on a un album, jouer l'album
+            if album:
+                primary_artist = artist.split(",")[0].strip() if artist else "Unknown"
+                return self.play_album(zone_or_output_id, primary_artist, album)
+
+            # Sinon essayer via le bridge play-track
+            resp = httpx.post(
+                f"{self.bridge_url}/play-track",
+                json={
+                    "zone_or_output_id": zone_or_output_id,
+                    "artist": artist,
+                    "track_title": track_title,
+                    "album": album,
+                },
+                timeout=PLAY_TIMEOUT,
+            )
+
+            if resp.status_code == 200:
+                data = resp.json()
+                if data.get("success"):
+                    logger.info("Track lancé: %s - %s", track_title, artist)
+                    return True
+
+            logger.warning("Impossible de lancer le track: %s - %s", track_title, artist)
+            return False
+
+        except Exception as e:
+            logger.error("Erreur play_track: %s", e)
+            return False
+
+    # ========================================================================
+    # Queue
+    # ========================================================================
+
+    def queue_tracks(
+        self,
+        zone_or_output_id: str,
+        track_title: str,
+        artist: str,
+        album: str = None,
+    ) -> bool:
+        """Ajouter un morceau à la queue Roon.
+
+        Args:
+            zone_or_output_id: ID de la zone ou output
+            track_title: Titre du morceau
+            artist: Artiste(s)
+            album: Album (optionnel)
+
+        Returns:
+            True si succès, False sinon
+        """
+        try:
+            resp = httpx.post(
+                f"{self.bridge_url}/queue",
+                json={
+                    "zone_or_output_id": zone_or_output_id,
+                    "artist": artist,
+                    "album": album or "",
+                },
+                timeout=PLAY_TIMEOUT,
+            )
+
+            if resp.status_code == 200:
+                data = resp.json()
+                if data.get("success"):
+                    logger.info("Ajouté à la queue: %s - %s", track_title, artist)
+                    return True
+
+            logger.warning("Impossible d'ajouter à la queue: %s", track_title)
+            return False
+
+        except Exception as e:
+            logger.error("Erreur queue: %s", e)
+            return False
+
+    # ========================================================================
+    # Pause All
+    # ========================================================================
+
     def pause_all(self) -> bool:
         """Mettre en pause toutes les zones.
-        
+
         Returns:
             True si succès, False sinon
         """
-        if not self.roon_api:
-            logger.error("API Roon non disponible")
-            return False
-        
         try:
-            self.roon_api.pause_all()
-            logger.info("✅ Toutes les zones mises en pause")
-            return True
+            resp = httpx.post(f"{self.bridge_url}/pause-all", timeout=DEFAULT_TIMEOUT)
+            if resp.status_code == 200:
+                logger.info("Toutes les zones mises en pause")
+                return True
         except Exception as e:
-            logger.error(f"❌ Erreur pause globale: {e}")
-            return False
-    
-    def get_zone_by_name(self, zone_name: str) -> Optional[str]:
-        """Récupérer l'ID d'une zone par son nom.
-        
-        Args:
-            zone_name: Nom de la zone
-        
-        Returns:
-            ID de la zone ou None si non trouvée
+            logger.error("Erreur pause globale: %s", e)
+        return False
+
+    # ========================================================================
+    # Token (compatibilité - géré par le bridge)
+    # ========================================================================
+
+    def get_token(self) -> Optional[str]:
+        """Récupérer le token d'authentification.
+
+        Note: Le token est maintenant géré par le bridge Node.js.
         """
-        if not self.roon_api:
-            return None
-        
-        try:
-            zone_info = self.roon_api.zone_by_name(zone_name)
-            if zone_info:
-                return zone_info.get('zone_id')
-        except Exception as e:
-            logger.error(f"❌ Erreur recherche zone: {e}")
-        
-        return None
-    
-    def search_track(self, artist: str, album: str, track_title: str, zone_id: str = None) -> Optional[Dict]:
-        """Chercher et retourner le chemin d'un track dans Roon.
-        
-        Teste différentes variantes de noms d'artiste/album.
-        
+        return self._token
+
+    def save_token(self, filepath: str):
+        """Sauvegarder le token (compatibilité).
+
+        Note: Le token est maintenant géré par le bridge Node.js.
+        """
+        logger.debug("save_token() appelé - le token est géré par le bridge Node.js")
+
+    # ========================================================================
+    # Search (compatibilité)
+    # ========================================================================
+
+    def search_track(
+        self,
+        artist: str,
+        album: str,
+        track_title: str,
+        zone_id: str = None,
+    ) -> Optional[Dict]:
+        """Chercher un track dans Roon (via browse API du bridge).
+
         Args:
             artist: Nom de l'artiste
             album: Titre de l'album
             track_title: Titre du morceau
-            zone_id: ID de la zone (optionnel, pour test de lecture)
-        
+            zone_id: ID de la zone (optionnel)
+
         Returns:
             Dictionnaire avec les infos du track trouvé, ou None
         """
-        if not self.roon_api:
-            logger.error("API Roon non disponible")
-            return None
-        
         try:
-            primary_artist = artist.split(',')[0].strip() if artist else "Unknown"
-            
-            logger.debug(f"🔍 Recherche track: '{track_title}' ({album} - {primary_artist})")
-            
-            # Générer des variantes d'artiste
-            artist_variants = [primary_artist]
-            if primary_artist.lower().startswith("the "):
-                artist_variants.append(primary_artist[4:])
-            if not primary_artist.lower().startswith("the "):
-                artist_variants.append(f"The {primary_artist}")
-            artist_variants.append(primary_artist.replace("-", " "))
-            artist_variants.append(primary_artist.replace(" ", "-"))
-            
-            # Générer des variantes d'album
-            album_variants = []
+            primary_artist = artist.split(",")[0].strip() if artist else "Unknown"
+            path = ["Library", "Artists", primary_artist]
             if album:
-                album_variants = [album]
-                album_variants.extend([
-                    f"{album} [Music from the Motion Picture]",
-                    f"{album} (Music from the Motion Picture)",
-                    f"{album} [Original Motion Picture Soundtrack]",
-                    f"{album} (Original Motion Picture Soundtrack)",
-                    f"{album} [Soundtrack]",
-                    f"{album} (Soundtrack)",
-                ])
-            else:
-                album_variants = [None]
-            
-            # Essayer toutes les combinaisons
-            for test_artist in artist_variants:
-                for test_album in album_variants:
-                    if test_album:
-                        path = ["Library", "Artists", test_artist, test_album, track_title]
-                    else:
-                        path = ["Library", "Artists", test_artist, track_title]
-                    
-                    try:
-                        # Test avec zone_id si fourni
-                        test_zone = zone_id if zone_id else None
-                        result = self.roon_api.play_media(
-                            zone_or_output_id=test_zone,
-                            path=path,
-                            action=None,
-                            report_error=False
-                        )
-                        
-                        if result:
-                            logger.debug(f"   ✅ Track trouvé: {track_title}")
-                            return {
-                                'path': path,
-                                'display_name': track_title,
-                                'artist': test_artist,
-                                'album': test_album,
-                                'duration_seconds': None
-                            }
-                    except:
-                        pass
-            
-            logger.debug(f"   ❌ Track '{track_title}' non trouvé")
-            return None
-            
+                path.append(album)
+            path.append(track_title)
+
+            resp = httpx.post(
+                f"{self.bridge_url}/browse",
+                json={
+                    "zone_or_output_id": zone_id,
+                    "path": path,
+                },
+                timeout=PLAY_TIMEOUT,
+            )
+
+            if resp.status_code == 200:
+                data = resp.json()
+                if data.get("success"):
+                    return {
+                        "path": path,
+                        "display_name": track_title,
+                        "artist": primary_artist,
+                        "album": album,
+                        "duration_seconds": None,
+                    }
+
         except Exception as e:
-            logger.error(f"❌ Erreur recherche track: {e}")
-            return None
-    
+            logger.error("Erreur recherche track: %s", e)
+        return None
+
     def get_track_duration(self, zone_id: str) -> Optional[int]:
-        """Récupérer la durée du track en cours de lecture (en secondes).
-        
+        """Récupérer la durée du track en cours de lecture.
+
         Args:
             zone_id: ID de la zone
-        
+
         Returns:
-            Durée en secondes, ou None si non disponible
+            Durée en secondes, ou None
         """
-        try:
-            now_playing = self.get_now_playing()
-            if now_playing and 'duration' in now_playing:
-                # Roon retourne la durée en secondes
-                return now_playing.get('duration')
-        except Exception as e:
-            logger.debug(f"Impossible de récupérer la durée du track: {e}")
-        
+        np = self.get_now_playing()
+        if np:
+            return np.get("duration_seconds")
         return None

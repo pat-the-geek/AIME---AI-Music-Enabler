@@ -2,7 +2,7 @@
 
 **Date:** 4 février 2026  
 **Version:** 4.4.0  
-**Inspiré par:** [roon-random-app v1.8.0](https://github.com/markmcclusky/roon-random-app)
+**API:** [node-roon-api (RoonLabs Official)](https://github.com/RoonLabs/node-roon-api)
 
 ---
 
@@ -10,9 +10,9 @@
 
 Ce document détaille les améliorations apportées au service Roon pour rendre le démarrage de la lecture plus fiable et robuste.
 
-## 🔍 Analyse du Projet roon-random-app
+## 🔍 Stratégie de Lecture Robuste
 
-Le projet roon-random-app utilise une approche éprouvée pour lancer des albums dans Roon:
+Notre approche utilise une stratégie ordonnée pour lancer des albums dans Roon:
 
 ### Points Clés Identifiés
 
@@ -93,7 +93,7 @@ def play_album(self, zone_or_output_id: str, artist: str, album: str) -> bool:
     return result
 ```
 
-**Après (inspiré de roon-random-app):**
+**Approche Robuste:**
 ```python
 def play_album(self, zone_or_output_id: str, artist: str, album: str) -> bool:
     """Démarrer la lecture avec approche multi-tentatives robuste."""
@@ -372,26 +372,7 @@ assert success == True
 ---
 
 ## 🔧 Configuration
-
 Aucune configuration supplémentaire nécessaire. Les améliorations sont transparentes.
-
----
-
-## 📝 Notes Techniques
-
-### Différences avec roon-random-app
-
-**roon-random-app utilise:**
-- Browse API avec navigation hiérarchique
-- Actions "Play Album" → "Play Now"
-- `play_from_here()` comme fallback final
-
-**Notre implémentation utilise:**
-- `play_media()` direct (pyroon API)
-- Variantes multiples de noms
-- Fallback sur artiste au lieu de `play_from_here()`
-
-**Raison:** L'API pyroon (Python) n'expose pas Browse API de la même manière que node-roon-api (JavaScript). Notre approche s'adapte aux contraintes de pyroon tout en s'inspirant de la robustesse de roon-random-app.
 
 ---
 
@@ -406,8 +387,7 @@ Aucune configuration supplémentaire nécessaire. Les améliorations sont transp
 
 ## 📚 Références
 
-- [roon-random-app sur GitHub](https://github.com/markmcclusky/roon-random-app)
-- [roon-random-app v1.8.0 Release](https://github.com/markmcclusky/roon-random-app/releases/tag/v1.8.0)
+
 - [Roon API Documentation](https://github.com/RoonLabs/node-roon-api)
 - [pyroon Documentation](https://github.com/pavoni/pyroon)
 

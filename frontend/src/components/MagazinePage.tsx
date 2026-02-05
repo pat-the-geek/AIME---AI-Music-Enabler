@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Box, Typography, Grid, Card, CardContent, CardMedia, Stack, Paper, Avatar, Chip, Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material'
+import { Box, Typography, Grid, Card, CardContent, CardMedia, Stack, Paper, Avatar, Chip, Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Snackbar, Alert } from '@mui/material'
 import { PlayArrow, Article as ArticleIcon } from '@mui/icons-material'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -36,6 +36,11 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
   const [zoneDialogOpen, setZoneDialogOpen] = useState(false)
   const [selectedZone, setSelectedZone] = useState<string>('')
   const [albumToPlay, setAlbumToPlay] = useState<any>(null)
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'success' as 'success' | 'error' | 'info'
+  })
   
   // States pour le portrait d'artiste
   const [portraitOpen, setPortraitOpen] = useState(false)
@@ -94,64 +99,48 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
     console.log('🎵 Dialog ouvert, zoneDialogOpen devrait être true')
   }
 
-  // Fonction pour confirmer et lancer la lecture avec retry automatique
-  const confirmPlayInRoon = async (retryCount = 0, maxRetries = 2) => {
-    console.log('🔄 confirmPlayInRoon appelé - selectedZone:', selectedZone, 'albumToPlay:', albumToPlay, `tentative: ${retryCount + 1}/${maxRetries + 1}`)
+  const showSnackbar = (message: string, severity: 'success' | 'error' | 'info') => {
+    setSnackbar({ open: true, message, severity })
+  }
+
+  // Fonction pour confirmer et lancer la lecture
+  const confirmPlayInRoon = async () => {
+    console.log('🔄 confirmPlayInRoon appelé - selectedZone:', selectedZone, 'albumToPlay:', albumToPlay)
     if (!selectedZone || !albumToPlay) {
       console.warn('⚠️ Conditions non remplies:', { selectedZone, albumToPlay })
+      showSnackbar('Veuillez sélectionner une zone Roon.', 'error')
       return
     }
 
+    // Normaliser les données (support pour différentes structures d'objet)
+    const artistName = albumToPlay.artist_name || albumToPlay.artist
+    const albumTitle = albumToPlay.album_title || albumToPlay.title
+
+    if (!albumTitle) {
+      showSnackbar('Album introuvable dans le magazine.', 'error')
+      return
+    }
+
+    setZoneDialogOpen(false)
+
     try {
-      // Normaliser les données (support pour différentes structures d'objet)
-      const artistName = albumToPlay.artist_name || albumToPlay.artist
-      const albumTitle = albumToPlay.album_title || albumToPlay.title
-      
       console.log('📤 Envoi à Roon:', { artist_name: artistName, album_title: albumTitle, zone: selectedZone })
-      
-      // Timeout de 10 secondes pour éviter les blocages
-      const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 10000)
-      
-      const response = await fetch('/api/v1/roon/play-album-by-name', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          artist_name: artistName,
-          album_title: albumTitle,
-          zone_name: selectedZone
-        }),
-        signal: controller.signal
+
+      await apiClient.post('/roon/play-album-by-name', {
+        artist_name: artistName,
+        album_title: albumTitle,
+        zone_name: selectedZone
+      }, {
+        timeout: 120000
       })
-      
-      clearTimeout(timeoutId)
-      const data = await response.json().catch(() => null)
-      
-      if (response.ok) {
-        console.log('✅ Lecture lancée dans Roon:', data)
-        showSnackbar(`🎵 Lecture lancée: ${albumTitle}`, 'success')
-        setZoneDialogOpen(false)
-        setSelectedZone('')
-        setAlbumToPlay(null)
-      } else {
-        throw new Error(data?.detail || 'Impossible de lancer la lecture')
-      }
-    } catch (error) {
-      console.error(`❌ Erreur Roon (tentative ${retryCount + 1}):`, error)
-      
-      // Retry automatique si possible
-      if (retryCount < maxRetries) {
-        console.log(`🔄 Nouvelle tentative (${retryCount + 2}/${maxRetries + 1})...`)
-        showSnackbar(`⏳ Nouvelle tentative... (${retryCount + 2}/${maxRetries + 1})`, 'info')
-        await new Promise(resolve => setTimeout(resolve, 1000)) // Attendre 1s avant retry
-        return confirmPlayInRoon(retryCount + 1, maxRetries)
-      }
-      
-      // Échec final après toutes les tentatives
-      const errorMsg = error instanceof Error ? error.message : 'Erreur inconnue'
-      console.error('❌ Échec final après toutes les tentatives:', errorMsg)
+
+      showSnackbar(`🎵 Lecture lancée: ${albumTitle}`, 'success')
+      setSelectedZone('')
+      setAlbumToPlay(null)
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.detail || error?.message || 'Erreur inconnue'
+      console.error('❌ Erreur Roon:', error)
       showSnackbar(`❌ Échec: ${errorMsg}`, 'error')
-      setZoneDialogOpen(false)
       setSelectedZone('')
       setAlbumToPlay(null)
     }
@@ -1490,6 +1479,16 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
         artistName={portraitArtistName}
         onClose={() => setPortraitOpen(false)}
       />
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={() => setSnackbar({ ...snackbar, open: false })} severity={snackbar.severity}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </>
   )
 }

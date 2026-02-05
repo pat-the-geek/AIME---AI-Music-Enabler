@@ -1,0 +1,19 @@
+{
+  "name": "aime-roon-bridge",
+  "version": "1.0.0",
+  "description": "Node.js bridge using the official RoonLabs API for AIME",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "node-roon-api": "github:roonlabs/node-roon-api",
+    "node-roon-api-browse": "github:roonlabs/node-roon-api-browse",
+    "node-roon-api-image": "github:roonlabs/node-roon-api-image",
+    "node-roon-api-status": "github:roonlabs/node-roon-api-status",
+    "node-roon-api-transport": "github:roonlabs/node-roon-api-transport",
+    "express": "^4.18.2"
+  },
+  "author": "AIME",
+  "license": "MIT"
+}

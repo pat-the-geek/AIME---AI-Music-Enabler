@@ -5,7 +5,7 @@
 ### ✨ Améliorations Majeures
 
 #### 🎵 Démarrage de Lecture Roon Plus Fiable
-- **NOUVEAU:** Approche multi-niveaux inspirée de [roon-random-app v1.8.0](https://github.com/markmcclusky/roon-random-app)
+- **NOUVEAU:** Approche multi-niveaux robuste pour la navigation Roon
 - **AMÉLIORATION:** `play_album()` utilise 3 stratégies de fallback successives
 - **AMÉLIORATION:** `playback_control()` avec retry logic automatique (2 tentatives)
 - **NOUVEAU:** Génération intelligente de variantes d'artistes et d'albums
@@ -100,8 +100,7 @@ for attempt in range(max_retries):
 
 ### 🔗 Références
 
-- [roon-random-app sur GitHub](https://github.com/markmcclusky/roon-random-app)
-- [Release v1.8.0](https://github.com/markmcclusky/roon-random-app/releases/tag/v1.8.0)
+
 - Issue interne: ROON-BUGS-TRACKING.md
 
 ### 👥 Contributeurs

@@ -16,7 +16,7 @@ httpx==0.26.0
 pylast==5.2.0
 python3-discogs-client==2.6
 spotipy==2.23.0
-roonapi==0.1.6
+# roonapi remplacé par le bridge Node.js (node-roon-api officiel)
 
 # Background tasks
 apscheduler==3.10.4

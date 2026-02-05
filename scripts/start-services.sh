@@ -9,6 +9,7 @@ set -e
 PROJECT_DIR="$(cd "$(dirname "$0")/../" && pwd)"
 BACKEND_DIR="$PROJECT_DIR/backend"
 FRONTEND_DIR="$PROJECT_DIR/frontend"
+BRIDGE_DIR="$PROJECT_DIR/roon-bridge"
 DATA_DIR="$PROJECT_DIR/data"
 CONFIG_DIR="$PROJECT_DIR/config"
 VENV="$PROJECT_DIR/.venv"
@@ -22,6 +23,7 @@ fi
 
 BACKEND_LOG="/tmp/aime_backend.log"
 FRONTEND_LOG="/tmp/aime_frontend.log"
+BRIDGE_LOG="/tmp/aime_bridge.log"
 PID_DIR="/tmp/aime_pids"
 
 # Couleurs pour l'output
@@ -41,6 +43,16 @@ mkdir -p "$CONFIG_DIR"
 # Fonction pour arrêter proprement
 cleanup() {
     echo -e "${YELLOW}Arrêt des services...${NC}"
+    
+    if [ -f "$PID_DIR/bridge.pid" ]; then
+        PID=$(cat "$PID_DIR/bridge.pid")
+        if kill -0 $PID 2>/dev/null; then
+            echo -e "${BLUE}Rampage Roon Bridge (PID: $PID)...${NC}"
+            kill $PID 2>/dev/null || true
+            sleep 2
+            kill -9 $PID 2>/dev/null || true
+        fi
+    fi
     
     if [ -f "$PID_DIR/backend.pid" ]; then
         PID=$(cat "$PID_DIR/backend.pid")
@@ -110,6 +122,43 @@ check_prerequisites() {
     echo -e "${GREEN}✅ Permissions OK${NC}"
     
     return 0
+}
+
+# Fonction pour démarrer le Roon Bridge avec retry
+start_bridge() {
+    echo ""
+    echo -e "${BLUE}=== Démarrage du Roon Bridge ===${NC}"
+    
+    # Vérifier si Node.js est installé
+    if ! command -v node &> /dev/null; then
+        echo -e "${RED}❌ Node.js not found. Please install Node.js${NC}"
+        return 1
+    fi
+    
+    cd "$BRIDGE_DIR"
+    
+    # Tuer les processus précédents sur le port 3330
+    lsof -ti :3330 2>/dev/null | xargs kill -9 2>/dev/null || true
+    sleep 1
+    
+    # Démarrer le bridge
+    nohup node app.js \
+        > "$BRIDGE_LOG" 2>&1 &
+    
+    echo $! > "$PID_DIR/bridge.pid"
+    
+    # Attendre que le bridge soit prêt
+    sleep 5
+    
+    # Vérifier que le bridge répond
+    if curl -sf http://localhost:3330/health >/dev/null 2>&1; then
+        echo -e "${GREEN}✅ Roon Bridge started (PID: $(cat $PID_DIR/bridge.pid))${NC}"
+        return 0
+    else
+        echo -e "${RED}❌ Roon Bridge failed to start${NC}"
+        cat "$BRIDGE_LOG" | tail -20
+        return 1
+    fi
 }
 
 # Fonction pour démarrer le backend avec retry
@@ -233,19 +282,42 @@ start_frontend() {
 monitor_services() {
     echo ""
     echo -e "${GREEN}=== Services démarrés ===${NC}"
-    echo -e "${GREEN}Backend:  http://localhost:8000${NC}"
-    echo -e "${GREEN}Docs:     http://localhost:8000/docs${NC}"
-    echo -e "${GREEN}Frontend: http://localhost:5173${NC}"
+    echo -e "${GREEN}Roon Bridge: http://localhost:3330${NC}"
+    echo -e "${GREEN}Backend:     http://localhost:8000${NC}"
+    echo -e "${GREEN}Docs:        http://localhost:8000/docs${NC}"
+    echo -e "${GREEN}Frontend:    http://localhost:5173${NC}"
     echo ""
     echo -e "${YELLOW}Appuyez sur Ctrl+C pour arrêter${NC}"
     echo ""
     
     local max_consecutive_failures=3
+    local bridge_failures=0
     local backend_failures=0
     local frontend_failures=0
     
     while true; do
         sleep 15
+        
+        # Vérifier le bridge
+        if ! curl -sf http://localhost:3330/health >/dev/null 2>&1; then
+            bridge_failures=$((bridge_failures + 1))
+            echo -e "${YELLOW}⚠️  Bridge unhealthy ($bridge_failures/$max_consecutive_failures)${NC}"
+            
+            if [ $bridge_failures -ge $max_consecutive_failures ]; then
+                echo -e "${YELLOW}🔄 Restarting bridge...${NC}"
+                if start_bridge; then
+                    bridge_failures=0
+                    echo -e "${GREEN}Bridge restarted successfully${NC}"
+                else
+                    echo -e "${RED}Failed to restart bridge${NC}"
+                fi
+            fi
+        else
+            if [ $bridge_failures -gt 0 ]; then
+                echo -e "${GREEN}✅ Bridge recovered${NC}"
+            fi
+            bridge_failures=0
+        fi
         
         # Vérifier le backend
         if ! curl -sf http://localhost:8000/health >/dev/null 2>&1; then
@@ -304,6 +376,13 @@ if ! check_prerequisites; then
 fi
 
 # Démarrer les services
+if ! start_bridge; then
+    echo -e "${RED}Failed to start Roon Bridge${NC}"
+    exit 1
+fi
+
+sleep 2
+
 if ! start_backend; then
     echo -e "${RED}Failed to start backend${NC}"
     exit 1

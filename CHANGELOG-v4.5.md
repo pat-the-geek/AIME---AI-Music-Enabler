@@ -67,7 +67,7 @@
 
 ### 🛡️ Roon - Robustesse Améliorée
 
-**Inspiré par [roon-random-app v1.8.0](https://github.com/markmcclusky/roon-random-app)**
+
 
 **Backend (déjà implémenté en v4.4):**
 - ✅ **3 niveaux de fallback** dans `play_album()`:
@@ -203,7 +203,6 @@ Toutes les améliorations sont transparentes et rétro-compatibles.
 ## 📚 Références
 
 - [ROON-IMPROVEMENTS-SUMMARY-ROOT.md](ROON-IMPROVEMENTS-SUMMARY-ROOT.md) - Amélioration Roon v4.4.0
-- [roon-random-app v1.8.0](https://github.com/markmcclusky/roon-random-app) - Inspiration
 - [README.md](README.md) - Documentation principale
 
 ---

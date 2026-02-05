@@ -6,7 +6,7 @@
 
 ## ✅ Fait
 
-Le démarrage de la lecture sur Roon a été **significativement amélioré** en s'inspirant du projet open-source [roon-random-app v1.8.0](https://github.com/markmcclusky/roon-random-app).
+Le démarrage de la lecture sur Roon a été **significativement amélioré** avec une stratégie robuste de navigation.
 
 ---
 
@@ -96,8 +96,7 @@ python3 test_roon_improvements.py
 
 ## 🔗 Références
 
-- [roon-random-app](https://github.com/markmcclusky/roon-random-app) - Projet source d'inspiration
-- [Release v1.8.0](https://github.com/markmcclusky/roon-random-app/releases/tag/v1.8.0)
+- [node-roon-api (RoonLabs Official)](https://github.com/RoonLabs/node-roon-api) - API officielle Roon pour Node.js
 - [Changelog](./docs/features/roon/CHANGELOG-ROON-v4.4.0.md)
 
 ---
@@ -121,6 +120,6 @@ python3 test_roon_improvements.py
 
 **Version:** 4.4.0  
 **Auteur:** GitHub Copilot  
-**Inspiré par:** roon-random-app v1.8.0
+
 
 ➡️ **[Documentation complète](./docs/features/roon/)**

@@ -198,7 +198,13 @@ def get_roon_service():
     
     # Créer une nouvelle instance avec le nouveau serveur et le callback de sauvegarde
     roon_token = settings.app_config.get('roon_token')
-    _roon_service_instance = RoonService(server=roon_server, token=roon_token, on_token_received=save_token)
+    bridge_url = settings.app_config.get('roon_bridge_url', 'http://localhost:3330')
+    _roon_service_instance = RoonService(
+        server=roon_server,
+        token=roon_token,
+        on_token_received=save_token,
+        bridge_url=bridge_url,
+    )
     return _roon_service_instance
 
 
@@ -343,15 +349,16 @@ async def test_roon_connection(request: RoonTestConnectionRequest):
         # Créer une instance temporaire du service Roon
         roon_service = RoonService(server=request.server.strip())
         
-        # Vérifier si la connexion est établie
-        if roon_service.roon_api is None:
+        # Vérifier si la connexion est établie via le bridge
+        if not roon_service.is_connected():
             return {
                 "connected": False,
                 "error": "Impossible de se connecter au serveur Roon. Vérifiez l'adresse et assurez-vous que Roon Core est démarré."
             }
         
         # Récupérer les zones disponibles
-        zones_count = len(roon_service.zones) if hasattr(roon_service, 'zones') else 0
+        zones = roon_service.get_zones()
+        zones_count = len(zones)
         
         return {
             "connected": True,

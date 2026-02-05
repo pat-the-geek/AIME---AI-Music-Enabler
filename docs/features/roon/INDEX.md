@@ -50,7 +50,7 @@ Cette documentation est organisée par audience et niveau de détail.
 **Durée de lecture:** 15-20 minutes
 
 **Contenu:**
-- Analyse complète de roon-random-app
+- Analyse de la stratégie Roon
 - Code avant/après avec explications
 - Architecture des améliorations
 - Comparaison des approches
@@ -134,8 +134,8 @@ python3 test_roon_improvements.py
 
 ### Parcours 4: "Je veux comprendre l'inspiration"
 1. 📄 [Résumé Exécutif](./ROON-IMPROVEMENTS-SUMMARY.md) (3 min)
-2. 🔧 [Section "Analyse roon-random-app"](./ROON-PLAYBACK-IMPROVEMENTS.md#analyse-du-projet-roon-random-app) (10 min)
-3. 🔗 [roon-random-app sur GitHub](https://github.com/markmcclusky/roon-random-app) (externe)
+2. 🔧 [Section "Stratégie Robuste"](./ROON-PLAYBACK-IMPROVEMENTS.md#stratégie-de-lecture-robuste) (10 min)
+
 
 **Temps total: 15 minutes + exploration**
 
@@ -191,8 +191,7 @@ backend/app/services/
 
 ## 🔗 Liens Externes
 
-- [roon-random-app sur GitHub](https://github.com/markmcclusky/roon-random-app)
-- [Release v1.8.0](https://github.com/markmcclusky/roon-random-app/releases/tag/v1.8.0)
+
 - [Roon API Documentation](https://github.com/RoonLabs/node-roon-api)
 - [pyroon sur GitHub](https://github.com/pavoni/pyroon)
 

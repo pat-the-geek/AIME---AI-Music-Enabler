@@ -1,7 +1,8 @@
 # 🎵 Résumé des Améliorations Roon
 
 **Date:** 4 février 2026  
-**Version:** 4.4.0
+**Version:** 4.4.0  
+**API:** [node-roon-api (RoonLabs Official)](https://github.com/RoonLabs/node-roon-api)
 
 ---
 
@@ -9,7 +10,7 @@
 
 ### 1. **Démarrage de Lecture Plus Fiable** 🎯
 
-La méthode `play_album()` utilise maintenant une approche multi-niveaux inspirée de [roon-random-app](https://github.com/markmcclusky/roon-random-app):
+La méthode `play_album()` utilise maintenant une approche multi-niveaux robuste:
 
 - **Niveau 1:** Essai direct avec `action=None` (Play Now)
 - **Niveau 2:** Essai avec `action="Play"` explicite
@@ -132,7 +133,7 @@ roon_service.playback_control(
 ## 📚 Documentation Complète
 
 Voir [ROON-PLAYBACK-IMPROVEMENTS.md](ROON-PLAYBACK-IMPROVEMENTS.md) pour:
-- Analyse détaillée de roon-random-app
+- Analyse de la stratégie Roon
 - Code complet avant/après
 - Tests recommandés
 - Notes techniques
@@ -152,4 +153,4 @@ Voir [ROON-PLAYBACK-IMPROVEMENTS.md](ROON-PLAYBACK-IMPROVEMENTS.md) pour:
 ---
 
 **Auteur:** GitHub Copilot  
-**Inspiré par:** [roon-random-app v1.8.0](https://github.com/markmcclusky/roon-random-app/releases/tag/v1.8.0)
+

@@ -1,6 +1,7 @@
 """Routes API pour le contrôle Roon."""
 import logging
 from fastapi import APIRouter, HTTPException
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import Optional
 
@@ -71,28 +72,28 @@ def check_roon_enabled():
 @router.get("/status")
 async def get_roon_status():
     """Vérifier si le contrôle Roon est activé et disponible."""
-    enabled = is_roon_enabled()
-    
-    if not enabled:
-        return {
-            "enabled": False,
-            "available": False,
-            "message": "Contrôle Roon désactivé"
-        }
-    
-    # Vérifier la configuration Roon
-    settings = get_settings()
-    roon_config = settings.secrets.get('roon', {})
-    
-    if not roon_config.get('server'):
-        return {
-            "enabled": True,
-            "available": False,
-            "message": "Roon non configuré (serveur manquant)"
-        }
-    
-    # Utiliser le singleton pour éviter de créer plusieurs connexions
     try:
+        enabled = is_roon_enabled()
+
+        if not enabled:
+            return {
+                "enabled": False,
+                "available": False,
+                "message": "Contrôle Roon désactivé"
+            }
+
+        # Vérifier la configuration Roon
+        settings = get_settings()
+        roon_config = settings.secrets.get('roon', {})
+
+        if not roon_config.get('server'):
+            return {
+                "enabled": True,
+                "available": False,
+                "message": "Roon non configuré (serveur manquant)"
+            }
+
+        # Utiliser le singleton pour éviter de créer plusieurs connexions
         roon_service = get_roon_service_singleton()
         if roon_service is None:
             return {
@@ -100,19 +101,20 @@ async def get_roon_status():
                 "available": False,
                 "message": "Roon non configuré (serveur manquant)"
             }
-        
+
         connected = roon_service.is_connected()
-        
+
         return {
             "enabled": True,
             "available": connected,
             "message": "Roon disponible" if connected else "Impossible de se connecter à Roon"
         }
     except Exception as e:
+        logger.error("❌ Erreur /roon/status: %s", e, exc_info=True)
         return {
-            "enabled": True,
+            "enabled": False,
             "available": False,
-            "message": f"Erreur: {str(e)}"
+            "message": f"Erreur status Roon: {str(e)}"
         }
 
 
@@ -631,13 +633,14 @@ async def play_album(request: RoonPlayAlbumRequest):
         artist_name = ", ".join([a.name for a in album.artists]) if album.artists else "Unknown"
         
         # Essayer de jouer l'album complet directement
-        success = roon_service.play_album(
+        success = roon_service.play_album_with_timeout(
             zone_or_output_id=zone_id,
             artist=artist_name,
-            album=album.title
+            album=album.title,
+            timeout_seconds=15.0
         )
         
-        if not success:
+        if success is False:
             # Si l'approche album ne marche pas, essayer track par track en dernier recours
             logger.info(f"⚠️ Lecture directe de l'album échouée, tentative track par track...")
             
@@ -665,9 +668,25 @@ async def play_album(request: RoonPlayAlbumRequest):
                     status_code=400,
                     detail=f"Impossible de lancer l'album: aucun track trouvé dans Roon ({skipped_count}/{len(tracks)} tracks non trouvés)"
                 )
-        else:
+        elif success is True:
             # La lecture directe a marché, prendre le premier track pour les infos
             first_track = tracks[0] if tracks else None
+        else:
+            logger.info(f"⏳ Lecture en cours de lancement: {artist_name} - {album.title}")
+            return JSONResponse(
+                status_code=202,
+                content={
+                    "status": "pending",
+                    "message": "Commande envoyee a Roon. La lecture peut demarrer sous quelques secondes.",
+                    "album": {
+                        "id": album.id,
+                        "title": album.title,
+                        "artist": artist_name,
+                        "year": album.year
+                    },
+                    "zone": request.zone_name
+                }
+            )
         
         # Préparer les infos de l'album
         tracks_info = []
@@ -765,13 +784,14 @@ async def play_album_by_name(request: RoonPlayByNameRequest):
         
         # Jouer l'album
         logger.info(f"▶️ Lancement de la lecture: {artist_name} - {request.album_title}")
-        success = roon_service.play_album(
+        success = roon_service.play_album_with_timeout(
             zone_or_output_id=zone_id,
             artist=artist_name,
-            album=request.album_title
+            album=request.album_title,
+            timeout_seconds=15.0
         )
         
-        if success:
+        if success is True:
             logger.info(f"✅ Album en lecture: {artist_name} - {request.album_title}")
             return {
                 "status": "playing",
@@ -780,6 +800,18 @@ async def play_album_by_name(request: RoonPlayByNameRequest):
                 "artist": artist_name,
                 "album": request.album_title
             }
+        if success is None:
+            logger.info(f"⏳ Lecture en cours de lancement: {artist_name} - {request.album_title}")
+            return JSONResponse(
+                status_code=202,
+                content={
+                    "status": "pending",
+                    "message": "Commande envoyee a Roon. La lecture peut demarrer sous quelques secondes.",
+                    "album_id": album.id if album else None,
+                    "artist": artist_name,
+                    "album": request.album_title
+                }
+            )
         else:
             logger.warning(f"⚠️ Album peut-être pas trouvé dans Roon: {artist_name} - {request.album_title}")
             return {

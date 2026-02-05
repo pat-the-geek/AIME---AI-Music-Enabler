@@ -7,7 +7,7 @@
 
 ## 📖 Ce qui a été amélioré
 
-Votre intégration Roon a été **significativement améliorée** pour rendre le démarrage de la lecture plus fiable et robuste, en s'inspirant des meilleures pratiques du projet open-source [roon-random-app](https://github.com/markmcclusky/roon-random-app).
+Votre intégration Roon a été **significativement améliorée** pour rendre le démarrage de la lecture plus fiable et robuste.
 
 ---
 
@@ -241,7 +241,7 @@ Pour rassurer: **Toutes les autres fonctionnalités Roon continuent de fonctionn
 
 - **Documentation technique:** `docs/features/roon/ROON-PLAYBACK-IMPROVEMENTS.md`
 - **Changelog complet:** `docs/features/roon/CHANGELOG-ROON-v4.4.0.md`
-- **Projet inspirant:** [roon-random-app v1.8.0](https://github.com/markmcclusky/roon-random-app)
+
 
 ---
 

@@ -236,6 +236,8 @@ export default function Collections() {
 
   const handleZoneSelected = () => {
     if (pendingCollectionId) {
+      setZoneDialogOpen(false)
+      setPendingCollectionId(null)
       playCollectionMutation.mutate({ 
         collectionId: pendingCollectionId, 
         zoneName: selectedZone || undefined 
@@ -543,8 +545,8 @@ export default function Collections() {
               label="Zone"
             >
               {(roonZones || []).map((zone: any) => (
-                <MenuItem key={zone.zone_id} value={zone.display_name}>
-                  {zone.display_name}
+                <MenuItem key={zone.zone_id} value={zone.name}>
+                  {zone.name}
                 </MenuItem>
               ))}
             </Select>

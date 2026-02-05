@@ -42,7 +42,7 @@ Liste des changements, breaking changes, migration
 
 ### 🔄 Inspiré par
 
-[roon-random-app v1.8.0](https://github.com/markmcclusky/roon-random-app) - Un excellent projet open-source qui implémente une stratégie robuste de lecture Roon.
+
 
 ### ⚠️ Breaking Changes?
 
@@ -78,8 +78,7 @@ python3 test_roon_improvements.py
 ## 🎓 Pour Aller Plus Loin
 
 ### Projet Source d'Inspiration
-- [roon-random-app](https://github.com/markmcclusky/roon-random-app) - Application Electron pour Roon
-- [Release v1.8.0](https://github.com/markmcclusky/roon-random-app/releases/tag/v1.8.0)
+
 
 ### APIs Roon
 - [Roon API (Node.js)](https://github.com/RoonLabs/node-roon-api)

@@ -182,12 +182,8 @@ $ cd backend && python3 test_roon_improvements.py
 
 ```
 ╔════════════════════════════════════════════════════════╗
-║  Inspiré par: roon-random-app v1.8.0                   ║
-║  Auteur: Mark McClusky                                 ║
-║  Projet: github.com/markmcclusky/roon-random-app       ║
-║                                                        ║
-║  ⭐ Excellente implémentation de stratégies robustes   ║
-║     pour la lecture Roon                               ║
+║  ⚙️  Implémentation robuste de stratégies            ║
+║     de lecture Roon                                    ║
 ╚════════════════════════════════════════════════════════╝
 ```
 

@@ -558,6 +558,7 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
             disabled={!selectedZone || playAlbumMutation.isPending}
             onClick={() => {
               if (albumId && selectedZone) {
+                setZoneDialogOpen(false)
                 playAlbumMutation.mutate({ albumId, zoneName: selectedZone })
               }
             }}
