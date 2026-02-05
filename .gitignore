@@ -44,3 +44,19 @@ data/backups/*.json
 !data/backups/.gitkeep
 # Fichiers générés par le scheduler
 Scheduled Output/
+data/musique.db-shm
+data/musique.db-wal
+data/magazine-editions/2026-02-03/2026-02-03-001.json
+data/magazine-editions/2026-02-04/2026-02-04-001.json
+data/magazine-editions/2026-02-04/2026-02-04-002.json
+data/magazine-editions/2026-02-04/2026-02-04-003.json
+data/magazine-editions/2026-02-04/2026-02-04-004.json
+data/magazine-editions/2026-02-04/2026-02-04-005.json
+data/magazine-editions/2026-02-05/2026-02-05-001.json
+data/magazine-editions/2026-02-05/2026-02-05-002.json
+data/magazine-editions/2026-02-05/2026-02-05-003.json
+data/magazine-editions/2026-02-05/2026-02-05-004.json
+data/magazine-editions/2026-02-05/2026-02-05-005.json
+data/scheduled-output/export-json-20260205-100000.json
+data/scheduled-output/export-markdown-20260205-080000.md
+data/scheduled-output/generate-haiku-20260205-060004.md
