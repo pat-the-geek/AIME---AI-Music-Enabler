@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Box, Typography, Grid, Card, CardContent, CardMedia, Stack, Paper, Avatar, Chip, Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Snackbar, Alert } from '@mui/material'
 import { PlayArrow, Article as ArticleIcon } from '@mui/icons-material'
@@ -6,7 +6,7 @@ import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import apiClient from '@/api/client'
 import ArtistPortraitModal from '@/components/ArtistPortraitModal'
-import { getHiddenContentSx, isEmptyContent } from '@/utils/hideEmptyContent'
+import { getHiddenContentSx, isEmptyContent, shouldHideSmallTextSx } from '@/utils/hideEmptyContent'
 
 interface AILayout {
   imagePosition?: string
@@ -46,6 +46,9 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
   const [portraitOpen, setPortraitOpen] = useState(false)
   const [portraitArtistId, setPortraitArtistId] = useState<number | null>(null)
   const [portraitArtistName, setPortraitArtistName] = useState<string>('')
+  
+  // State pour la couleur dynamique du fond
+  const [dominantColor, setDominantColor] = useState<string>('#ffffff')
 
   // Récupérer les zones Roon
   const { data: roonZones } = useQuery({
@@ -58,9 +61,95 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
     refetchOnMount: true,
   })
 
+  // Fonction pour extraire la couleur la plus claire d'une image
+  const extractBrightestColor = async (imageUrl: string): Promise<string> => {
+    return new Promise((resolve) => {
+      const img = new Image()
+      img.crossOrigin = 'Anonymous'
+      
+      img.onload = () => {
+        try {
+          // Créer un canvas temporaire
+          const canvas = document.createElement('canvas')
+          canvas.width = img.width
+          canvas.height = img.height
+          const ctx = canvas.getContext('2d')
+          if (!ctx) {
+            resolve('#ffffff')
+            return
+          }
+          
+          ctx.drawImage(img, 0, 0)
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+          const data = imageData.data
+          
+          // Trouver la couleur la plus claire (avec la plus haute luminosité)
+          let brightestColor = { r: 0, g: 0, b: 0, brightness: 0 }
+          
+          for (let i = 0; i < data.length; i += 4) {
+            const r = data[i]
+            const g = data[i + 1]
+            const b = data[i + 2]
+            
+            // Calculer la luminosité
+            const brightness = (r * 299 + g * 587 + b * 114) / 1000
+            
+            if (brightness > brightestColor.brightness) {
+              brightestColor = { r, g, b, brightness }
+            }
+          }
+          
+          // Convertir en couleur hex
+          const hex = '#' + [brightestColor.r, brightestColor.g, brightestColor.b]
+            .map(x => x.toString(16).padStart(2, '0'))
+            .join('')
+            .toUpperCase()
+          
+          resolve(hex)
+        } catch (error) {
+          console.error('Erreur extraction couleur:', error)
+          resolve('#ffffff')
+        }
+      }
+      
+      img.onerror = () => {
+        resolve('#ffffff')
+      }
+      
+      img.src = imageUrl
+    })
+  }
+
+  // Effet pour extraire la couleur de la première image
+  useEffect(() => {
+    const extractFirstImageColor = async () => {
+      let firstImageUrl: string | null = null
+      
+      // Chercher la première image selon le type de page
+      if (page.type === 'artist_showcase' && page.content?.artist?.image_url) {
+        firstImageUrl = page.content.artist.image_url
+      } else if (page.type === 'album_detail' && page.content?.album?.image_url) {
+        firstImageUrl = page.content.album.image_url
+      } else if (page.type === 'albums_haikus' && page.content?.albums?.[0]?.image_url) {
+        firstImageUrl = page.content.albums[0].image_url
+      } else if (page.type === 'timeline_stats' && page.content?.top_albums?.[0]?.image_url) {
+        firstImageUrl = page.content.top_albums[0].image_url
+      } else if (page.type === 'playlist_theme' && page.content?.playlist?.albums?.[0]?.image_url) {
+        firstImageUrl = page.content.playlist.albums[0].image_url
+      }
+      
+      if (firstImageUrl) {
+        const color = await extractBrightestColor(firstImageUrl)
+        setDominantColor(color)
+      }
+    }
+    
+    extractFirstImageColor()
+  }, [page.type, page.content])
+
   // Thème journal unique avec fond blanc
   const colorSchemes: Record<string, { bg: string; text: string; accent: string; secondary: string }> = {
-    newspaper: { bg: '#ffffff', text: '#1a1a1a', accent: '#c41e3a', secondary: '#2c3e50' }
+    newspaper: { bg: dominantColor, text: '#1a1a1a', accent: '#c41e3a', secondary: '#2c3e50' }
   }
 
   const colorScheme = 'newspaper'
@@ -174,11 +263,11 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
     <>
       {content}
       
-      {/* Dialog de sélection de zone Roon */}
+      {/* Dialog de sélection de zone Roon - Compact */}
       <Dialog open={zoneDialogOpen} onClose={() => setZoneDialogOpen(false)}>
-        <DialogTitle>Sélectionner une zone Roon</DialogTitle>
-        <DialogContent sx={{ minWidth: 300 }}>
-          <Stack spacing={2} sx={{ pt: 2 }}>
+        <DialogTitle sx={{ pb: 1 }}>Sélectionner une zone</DialogTitle>
+        <DialogContent sx={{ minWidth: 250, p: 1 }}>
+          <Stack spacing={0.5} sx={{ py: 0.5 }}>
             {(() => {
               console.log('🔍 roonZones:', roonZones, 'length:', roonZones?.length)
               return null
@@ -187,36 +276,51 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
               roonZones.map((zone: any) => (
                 <Button
                   key={zone.zone_id}
-                  variant={selectedZone === zone.name ? 'contained' : 'outlined'}
+                  variant={selectedZone === zone.name ? 'contained' : 'text'}
                   fullWidth
                   onClick={() => {
                     console.log('🎯 Zone sélectionnée:', zone.name)
                     setSelectedZone(zone.name)
                   }}
-                  sx={{ justifyContent: 'flex-start' }}
+                  sx={{
+                    justifyContent: 'flex-start',
+                    height: '36px',
+                    fontSize: '0.9rem',
+                    px: 1.5,
+                    backgroundColor: selectedZone === zone.name ? '#23a7dd' : 'transparent',
+                    color: selectedZone === zone.name ? 'white' : '#333',
+                    '&:hover': {
+                      backgroundColor: selectedZone === zone.name ? '#1a8bc4' : '#f5f5f5'
+                    }
+                  }}
                 >
-                  <Box sx={{ textAlign: 'left', width: '100%' }}>
-                    <Typography variant="body2">{zone.name}</Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      État: {zone.state}
-                    </Typography>
-                  </Box>
+                  {zone.name}
                 </Button>
               ))
             ) : (
-              <Typography color="text.secondary">Aucune zone Roon disponible</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ p: 1 }}>Aucune zone</Typography>
             )}
           </Stack>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setZoneDialogOpen(false)}>Annuler</Button>
+        <DialogActions sx={{ p: 1.5, gap: 1 }}>
+          <Button 
+            onClick={() => setZoneDialogOpen(false)}
+            sx={{ textTransform: 'none' }}
+          >
+            Annuler
+          </Button>
           <Button
             variant="contained"
-            color="success"
             disabled={!selectedZone}
             onClick={confirmPlayInRoon}
+            sx={{ 
+              backgroundColor: '#23a7dd',
+              textTransform: 'none',
+              '&:hover': { backgroundColor: '#1a8bc4' },
+              '&:disabled': { backgroundColor: '#ccc' }
+            }}
           >
-            Lancer la lecture
+            Lancer
           </Button>
         </DialogActions>
       </Dialog>
@@ -229,6 +333,19 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
     if (textLayout === 'double-column') return 2
     if (textLayout === 'asymmetric') return textColumns
     return 1
+  }
+
+  // Déterminer si un texte court doit être masqué quand à côté d'un texte beaucoup plus long
+  const shouldHideSmallContent = (shortText: string | undefined, largeText: string | undefined): boolean => {
+    if (!shortText || !largeText) return false
+    
+    const cleanShort = (shortText || '').replace(/\*\*|\*|_|`/g, '').trim()
+    const cleanLarge = (largeText || '').replace(/\*\*|\*|_|`/g, '').trim()
+    
+    if (!cleanShort || !cleanLarge) return false
+    
+    // Masquer si le texte court est moins de 50% de la taille du grand texte
+    return cleanShort.length < cleanLarge.length * 0.5
   }
 
   // Fonction interne pour rendre le contenu de la page
@@ -601,7 +718,18 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
 
   // Page 2: Album Detail
   if (page.type === 'album_detail') {
-    const { album } = page.content
+    // Support deux formats: NEW (content.album) et OLD (content.artist + content.albums)
+    let album = page.content.album
+    if (!album && page.content.albums && page.content.albums.length > 0) {
+      // Format OLD: utiliser le premier album de la liste
+      album = page.content.albums[0]
+    }
+    
+    // Si pas d'album, afficher une page vide
+    if (!album) {
+      return <Box sx={{ padding: '60px 20px', textAlign: 'center', color: '#999' }}>Album non disponible</Box>
+    }
+
     const isImageLeft = imagePosition === 'left'
     const isImageTop = imagePosition === 'top'
     const isMassive = ['massive', 'fullscreen', 'huge'].includes(imageSize)
@@ -652,7 +780,30 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
 
             {/* Content */}
             <Grid item xs={12} md={album.image_url && !isImageTop ? (isMassive || isFullWidth ? 12 : (imageSize === 'large' ? 6 : 8)) : 12} order={isImageLeft ? 2 : 1}>
-              <Box>
+              <Box sx={{ position: 'relative' }}>
+                {/* Image de l'artiste - coin supérieur droit */}
+                {page.content.artist_images && 
+                  Object.keys(page.content.artist_images).length > 0 && 
+                  page.content.artist_images[Object.keys(page.content.artist_images)[0]] && (
+                    <Box
+                      component="img"
+                      src={page.content.artist_images[Object.keys(page.content.artist_images)[0]]}
+                      alt={album.artist}
+                      sx={{
+                        position: 'absolute',
+                        top: 0,
+                        right: 0,
+                        width: 100,
+                        height: 100,
+                        borderRadius: 1.5,
+                        objectFit: 'cover',
+                        boxShadow: 2,
+                        border: '2px solid',
+                        borderColor: '#23a7dd',
+                        zIndex: 10
+                      }}
+                    />
+                  )}
                 <Typography variant="h2" sx={{
                   fontFamily: '"Playfair Display", "Georgia", serif',
                   fontWeight: 900,
@@ -669,7 +820,8 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '12px',
-                  marginBottom: '24px'
+                  marginBottom: '24px',
+                  flexWrap: 'wrap'
                 }}>
                   <Typography variant="h4" sx={{ 
                     fontFamily: '"Merriweather", "Georgia", serif',
@@ -680,28 +832,50 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                     {album.artist}
                     {album.year && ` • ${album.year}`}
                   </Typography>
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    onClick={() => handleOpenArtistPortrait(album.artist)}
-                    startIcon={<ArticleIcon />}
-                    sx={{
-                      borderColor: '#23a7dd',
-                      color: '#23a7dd',
-                      fontFamily: '"Roboto Condensed", sans-serif',
-                      fontWeight: 700,
-                      fontSize: '11px',
-                      padding: '4px 8px',
-                      height: '24px',
-                      textTransform: 'uppercase',
-                      '&:hover': {
-                        borderColor: '#1a8bc4',
-                        backgroundColor: 'rgba(35, 167, 221, 0.1)'
-                      }
-                    }}
-                  >
-                    Portrait
-                  </Button>
+                  <Box sx={{ display: 'flex', gap: '8px', marginLeft: 'auto' }}>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      onClick={() => handleOpenArtistPortrait(album.artist)}
+                      startIcon={<ArticleIcon />}
+                      sx={{
+                        borderColor: '#23a7dd',
+                        color: '#23a7dd',
+                        fontFamily: '"Roboto Condensed", sans-serif',
+                        fontWeight: 700,
+                        fontSize: '11px',
+                        padding: '4px 8px',
+                        height: '24px',
+                        textTransform: 'uppercase',
+                        '&:hover': {
+                          borderColor: '#1a8bc4',
+                          backgroundColor: 'rgba(35, 167, 221, 0.1)'
+                        }
+                      }}
+                    >
+                      Portrait
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      onClick={() => handlePlayInRoon(album)}
+                      sx={{
+                        backgroundColor: '#23a7dd',
+                        color: '#ffffff',
+                        fontFamily: '"Roboto Condensed", sans-serif',
+                        fontWeight: 700,
+                        fontSize: '11px',
+                        padding: '4px 8px',
+                        height: '24px',
+                        textTransform: 'uppercase',
+                        '&:hover': {
+                          backgroundColor: '#1a8bc4'
+                        }
+                      }}
+                    >
+                      ▶ Roon
+                    </Button>
+                  </Box>
                 </Box>
 
                 {album.genre && (
@@ -725,7 +899,7 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                 {/* Description en colonnes selon layout IA - Style journal avec markdown */}
                 {album.description && !isEmptyContent(album.description) && (
                 <Box sx={{
-                  columnCount: { xs: 1, md: textLayout === 'double-column' ? Math.min(textColumns, 3) : 1 },
+                  columnCount: 1,
                   columnGap: '40px',
                   lineHeight: 1.8,
                   color: '#2c3e50',
@@ -755,7 +929,7 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                 </Box>
                 )}
 
-                {album.style && !isEmptyContent(album.style) && (
+                {album.style && !isEmptyContent(album.style) && !shouldHideSmallContent(album.style, album.description) && (
                   <Box sx={{
                     marginTop: '32px',
                   }}>
@@ -875,7 +1049,7 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                         '& p': { margin: '8px 0', whiteSpace: 'pre-wrap' },
                         '& strong': { fontWeight: 700 },
                         '& em': { fontStyle: 'italic' },
-                        ...(isEmptyContent(haiku.haiku) ? getHiddenContentSx(haiku.haiku) : {})
+                        ...(isEmptyContent(haiku.haiku) || haiku.haiku?.replace(/\*\*|\*|_|`|\s/g, '').length < 50 ? getHiddenContentSx(haiku.haiku) : {})
                       }}>
                         <ReactMarkdown>{haiku.haiku}</ReactMarkdown>
                       </Box>

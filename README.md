@@ -1,4 +1,4 @@
-# 🎵 AIME - AI Music Enabler - Version 4.6.0
+# 🎵 AIME - AI Music Enabler - Version 4.6.1
 
 Application web moderne pour tracker et analyser l'historique d'écoute musicale depuis Last.fm, avec enrichissement automatique via Spotify, Discogs et IA.
 
@@ -449,9 +449,22 @@ MIT License
 
 ---
 
-**Version**: 4.4.0  
-**Date**: 3 février 2026  
+**Version**: 4.6.1  
+**Date**: 6 février 2026  
 **Auteur**: Patrick Ostertag
+
+### Changelog 4.6.1
+
+**Améliorations Magazine Éditorial (06/02/2026)**
+- ✨ **Format Texte Optimisé** : Textes affichés en colonnes uniques (pas de fragmentation côte à côte)
+- 🎨 **Masquage Intelligent** : Les petits contenus (< 50% de taille) à côté de textes longs sont masqués
+  - Haikus trop courts → masqués
+  - Style Musical court → masqué si description > 2x plus longue
+- 🎯 **Couleur Dynamique** : Fond du magazine adapté à la couleur la plus claire de la première image
+  - Extraction intelligente de couleur par analyse de luminosité
+  - Fallback au blanc automatique en cas d'erreur
+- 📖 **Lisibilité Améliorée** : Affichage plus épuré et cohérent
+- 🧹 **Cleanup Code** : Refactorisation avec functions utilitaires réutilisables
 
 ### Changelog 4.4.0
 
