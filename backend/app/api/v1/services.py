@@ -1,5 +1,5 @@
 """Routes API pour les services externes."""
-from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks, Query
 from sqlalchemy.orm import Session, joinedload
 from datetime import datetime, timezone
 from pydantic import BaseModel
@@ -11,12 +11,21 @@ from app.core.config import get_settings
 from app.services.tracker_service import TrackerService
 from app.services.roon_tracker_service import RoonTrackerService
 from app.services.roon_service import RoonService
+from app.services.roon_normalization_service import (
+    RoonNormalizationService,
+    get_normalization_progress,
+    update_normalization_progress,
+    reset_normalization_progress,
+    get_simulation_results,
+    reset_simulation_results,
+    update_simulation_results
+)
 from app.services.scheduler_service import SchedulerService
 from app.services.discogs_service import DiscogsService
 from app.services.spotify_service import SpotifyService
 from app.services.ai_service import AIService
 from app.services.lastfm_service import LastFMService
-from app.models import Album, Artist, Image, Metadata, Track, ListeningHistory, ServiceState
+from app.models import Album, Artist, Image, Metadata, Track, ListeningHistory, ServiceState, ScheduledTaskExecution
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -1544,4 +1553,170 @@ async def import_lastfm_history(
         logger.error(f"❌ Erreur import historique Last.fm: {e}")
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Erreur import: {str(e)}")
+
+
+# ===== ROON NAME NORMALIZATION =====
+
+@router.get("/roon/normalize/status")
+async def get_normalization_status():
+    """Obtenir le statut de la normalisation Roon."""
+    settings = get_settings()
+    server = settings.app_config.get('roon_server', '')
+    bridge_url = settings.app_config.get('roon_bridge_url', 'http://localhost:3330')
+    
+    # Vérifier si Roon est connecté
+    try:
+        norm_service = RoonNormalizationService(bridge_url=bridge_url)
+        connected = norm_service.is_connected()
+        return {
+            "roon_connected": connected,
+            "roon_server": server,
+            "ready_for_normalization": connected
+        }
+    except Exception as e:
+        logger.error(f"❌ Erreur vérification statut normalisation: {e}")
+        return {
+            "roon_connected": False,
+            "roon_server": server,
+            "ready_for_normalization": False,
+            "error": str(e)
+        }
+
+
+@router.get("/roon/normalize/progress")
+async def get_normalization_progress_status():
+    """Obtenir la progression de la normalisation en cours."""
+    return get_normalization_progress()
+
+
+@router.post("/roon/normalize/simulate")
+async def simulate_roon_normalization(
+    db: Session = Depends(get_db), 
+    background_tasks: BackgroundTasks = BackgroundTasks(),
+    limit: Optional[int] = Query(None, description="Limiter à N artistes/albums pour test rapide")
+):
+    """Simuler la normalisation des noms sans appliquer les changements.
+    
+    Cette opération s'exécute en arrière-plan et retourne immédiatement.
+    Utilisez /roon/normalize/simulate-results pour récupérer les résultats.
+    
+    Paramètres:
+    - limit: Optional[int] - Limiter la simulation à N artistes et N albums (utile pour tester rapidement)
+    """
+    try:
+        settings = get_settings()
+        bridge_url = settings.app_config.get('roon_bridge_url', 'http://localhost:3330')
+        
+        norm_service = RoonNormalizationService(bridge_url=bridge_url)
+        
+        if not norm_service.is_connected():
+            raise HTTPException(
+                status_code=503,
+                detail="Bridge Roon non connecté. Vérifiez la connexion à Roon."
+            )
+        
+        # Réinitialiser les résultats de simulation
+        reset_simulation_results()
+        update_simulation_results(status="simulating")
+        
+        logger.info("🔍 Simulation de normalisation Roon démarrée en arrière-plan...")
+        
+        # Exécuter la simulation en arrière-plan
+        def run_simulation():
+            # Créer une nouvelle session pour le background task
+            from app.database import SessionLocal
+            db_bg = SessionLocal()
+            try:
+                logger.info(f"🔬 run_simulation() STARTED - limit={limit}")
+                if limit:
+                    logger.info(f"🚀 Simulation TEST rapide avec limit={limit}")
+                logger.info(f"📊 Appelant simulate_normalization()...")
+                changes = norm_service.simulate_normalization(db_bg, limit=limit)
+                logger.info("✅ Simulation terminée sans erreur")
+            except Exception as e:
+                logger.error(f"❌ Exception dans run_simulation: {e}", exc_info=True)
+                logger.error(f"   Exception type: {type(e).__name__}")
+                update_simulation_results(status="error", error=str(e))
+            finally:
+                logger.info("🔐 Fermeture session DB...")
+                db_bg.close()
+                logger.info("✓ Session fermée")
+        
+        background_tasks.add_task(run_simulation)
+        
+        return {
+            "status": "success",
+            "message": "Simulation lancée en arrière-plan. Consultez /roon/normalize/simulate-results pour les résultats.",
+            "status_endpoint": "/services/roon/normalize/simulate-results"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Erreur simulation normalisation: {e}")
+        raise HTTPException(status_code=500, detail=f"Erreur simulation: {str(e)}")
+
+
+@router.get("/roon/normalize/simulate-results")
+async def get_simulate_results():
+    """Récupérer les résultats de la simulation en cours ou terminée."""
+    return get_simulation_results()
+
+
+@router.post("/roon/normalize")
+async def normalize_with_roon(db: Session = Depends(get_db), background_tasks: BackgroundTasks = BackgroundTasks()):
+    """Normaliser les noms d'artistes et d'albums avec ceux de Roon.
+    
+    Cette opération:
+    - Récupère la bibliothèque de Roon
+    - Remplace les noms locaux par les noms canoniques de Roon
+    - Améliore la compatibilité de lecture à 100%
+    
+    Cette opération peut être longue, elle s'exécute en arrière-plan.
+    """
+    try:
+        settings = get_settings()
+        bridge_url = settings.app_config.get('roon_bridge_url', 'http://localhost:3330')
+        
+        norm_service = RoonNormalizationService(bridge_url=bridge_url)
+        
+        if not norm_service.is_connected():
+            raise HTTPException(
+                status_code=503,
+                detail="Bridge Roon non connecté. Vérifiez la connexion à Roon."
+            )
+        
+        def run_normalization():
+            """Exécuter la normalisation en arrière-plan."""
+            from app.database import SessionLocal
+            db_task = SessionLocal()
+            try:
+                logger.info("🚀 Normalisation Roon démarrée en arrière-plan...")
+                logger.info(f"   DB session créée: {db_task}")
+                stats = norm_service.normalize_with_roon(db_task)
+                logger.info(f"✅ Normalisation terminée: {stats}")
+                logger.info(f"   Stats: {stats['artists_updated']} artistes, {stats['albums_updated']} albums normalisés")
+            except Exception as e:
+                logger.error(f"❌ Erreur normalisation: {e}", exc_info=True)
+                db_task.rollback()
+            finally:
+                logger.info("🔐 Fermeture session DB...")
+                db_task.close()
+                logger.info("✓ Session fermée")
+        
+        # Lancer la tâche en arrière-plan
+        background_tasks.add_task(run_normalization)
+        
+        return {
+            "status": "In progress",
+            "message": "Normalisation Roon lancée en arrière-plan",
+            "info": "Vérifiez le statut régulièrement pour voir la progression"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Erreur démarrage normalisation: {e}")
+        raise HTTPException(status_code=500, detail=f"Erreur normalization: {str(e)}")
+
 

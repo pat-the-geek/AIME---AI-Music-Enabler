@@ -69,69 +69,98 @@ class ArtistArticleService:
             albums_text = "\n".join(albums_info) if albums_info else "Aucun album disponible"
             
             # Générer l'article avec l'IA
-            prompt = f"""Tu es un journaliste musical expert spécialisé dans les biographies d'artistes. 
+            from datetime import datetime
+            current_date = datetime.now().strftime("%B %Y")  # e.g., "February 2026"
+            
+            prompt = f"""Tu es un journaliste musical expert spécialisé dans les biographies d'artistes.
+
+⚠️ DATE ACTUELLE: {current_date}
+
+🔍 INSTRUCTIONS CRITIQUES - INFORMATIONS ACTUALISÉES:
+=====================================================
+- NON NÉGOCIABLE: Utilise les informations les PLUS RÉCENTES et actualisées (jusqu'à {current_date})
+- Si tu connais les albums, tournées ou projets sortis APRÈS 2024, INCLUS-LES absolument
+- Focalise sur les 2-3 dernières années particulièrement pour la section "Actualité"
+- Mentionner les dernières tournées Si tu les connais après 2023
+- Si de nouvelles collaborations sont sorties récemment, c'est CRITIQUE de les inclure
+- Recherche mentalement dans tes connaissances les PLUS RÉCENTES POSSIBLES sur cet artiste
+- La section sur les Actualités doit être la PLUS À JOUR possible (concert récents, albums 2024-2026, etc.)
+
+📝 INSTRUCTIONS CRITIQUES DE FORMATAGE MARKDOWN:
+============================================
+- UTILISE ABSOLUMENT du markdown riche à chaque paragraphe
+- Les titres DOIVENT utiliser # ## ou ### (Markdown headings)
+- Le **gras** doit entourer les mots ou concepts importants
+- L'*italique* doit être utilisé pour les emphases et citations
+- Les listes à puces (-) et les listes numérotées (1.) doivent être utilisées
+- Les citations blockquote doivent utiliser le symbole (> citation)
+- Les accents musicaux *doivent* utiliser des *expressions en italique*
+- Utilise **gras** pour les titres d'albums, noms d'artistes
+- Utilise _underscores_ ou *astérisques_ pour l'emphase
+- CHAQUE paragraphe doit contenir au minimum UN élément markdown
 
 Écris un article journalistique complet et approfondi de **3000 mots** sur l'artiste **{artist.name}**.
 
-**Informations disponibles:**
+**Informations disponibles PROVENANT DE LA COLLECTION LOCALE:**
 - Nombre d'albums dans la collection: {len(albums)}
 - Nombre d'écoutes enregistrées: {listen_count}
-- Albums récents:
+- Albums disponibles:
 {albums_text}
 
-**Structure obligatoire de l'article (3000 mots):**
+⚠️ IMPORTANT: Ces albums ci-dessus sont LOCAL à la collection. Tu DOIS complémenter avec tes connaissances actualisées jusqu'à {current_date}!
+
+**STRUCTURE OBLIGATOIRE - Chaque section doit avoir du formatage markdown:**
 
 # {artist.name} : Portrait d'artiste
 
 ## Introduction (300 mots)
-Présentation captivante de l'artiste, son importance dans l'histoire de la musique, son influence culturelle.
+Présentation captivante avec **gras** et *italique*, analyse de son importance dans l'histoire de la musique, son influence culturelle.
+Utilise des listes à puces pour les points clés.
 
 ## Biographie et Débuts (500 mots)
-- Origines et formation musicale
-- Premières influences
-- Débuts de carrière
-- Moments clés de son parcours
+- **Origines**: [avec contexte en gras]
+- *Premières influences* musicales en italique
+- Débuts de carrière avec **dates importantes**
+- Moments clés marqués par du formatage markdown
 
 ## Discographie et Évolution Artistique (800 mots)
-- Analyse des albums majeurs (utilise les informations fournies)
-- Évolution du style musical
-- Collaborations marquantes
-- Albums les plus influents
+Structure avec:
+- **Albums majeurs** en gras avec analyse
+- *Évolution artistique* en italique 
+- > Blockquote inspirée si pertinent
+- Collaborations **importantes** marquées
+- 1. Albums les plus **influents** en liste numérotée
 
 ## Actualité et Dernières Sorties (600 mots)
-- Derniers albums ou projets
-- Tournées récentes ou à venir
-- Nouveaux singles ou collaborations
-- Projets futurs annoncés
+- Derniers **albums ou projets** importants
+- *Tournées et performances* récentes
+- Nouveaux **singles** avec collaborations en gras
+- Projets futurs en *italic avec emphase*
 
 ## Impact et Héritage (500 mots)
-- Influence sur d'autres artistes
-- Contribution au genre musical
-- Reconnaissance critique et commerciale
-- Place dans l'histoire de la musique
+- Influence sur **d'autres artistes** majeurs
+- Contribution au **genre musical**
+- Reconnaissance *critique* et **commerciale**
+- Place dans l'**histoire de la musique**
 
 ## Anecdotes et Moments Marquants (300 mots)
-- Histoires intéressantes
-- Moments iconiques en concert
-- Faits marquants de sa carrière
+- **Histoires intéressantes** en gras
+- *Moments iconiques* en concert en italique
+- Faits **marquants** de sa carrière
 
-**Style d'écriture:**
-- Ton journalistique professionnel mais accessible
-- Phrases variées et fluides
-- Citations imaginées si pertinent
-- Références culturelles
-- Analyse musicale approfondie
-- Formatage Markdown riche (gras, italique, titres, listes)
-
-**IMPORTANT:**
-- L'article DOIT faire exactement 3000 mots
-- Utilise un formatage Markdown élégant et lisible
+**ÉNORME IMPORTANCE - FORMATAGE MARKDOWN OBLIGATOIRE:**
+- L'article DOIT avoir un **formatage markdown RICHE et ÉLÉGANT**
+- Sépare les sections avec du padding
+- Utilise les listes pour structurer
+- Les noms d'artistes DOIVENT être en **gras**
+- Les concepts clés DOIVENT être en *italique*
+- Pas de texte plat sans formatage - CHAQUE phrase doit avoir du markdown
 - Sois précis et factuel quand tu as des informations
-- Reste crédible et cohérent dans tes développements
-- N'invente pas de fausses dates ou événements spécifiques
-- Concentre-toi sur l'analyse artistique et l'impact culturel
+- Reste crédible et cohérent
+- N'invente pas de fausses dates spécifiques
+- Concentre-toi sur l'analyse artistique
 
-Commence maintenant l'article:"""
+Commence maintenant l'article - ATTENTION: Le markdown est CRITIQUEMENT OBLIGATOIRE:"""
             
             # Appeler l'IA avec un timeout de 2 minutes
             logger.info(f"📝 Génération article IA pour {artist.name} (3000 mots)...")
@@ -218,69 +247,98 @@ Commence maintenant l'article:"""
             albums_text = "\n".join(albums_info) if albums_info else "Aucun album disponible"
             
             # Générer le prompt (même que generate_article)
-            prompt = f"""Tu es un journaliste musical expert spécialisé dans les biographies d'artistes. 
+            from datetime import datetime
+            current_date = datetime.now().strftime("%B %Y")  # e.g., "February 2026"
+            
+            prompt = f"""Tu es un journaliste musical expert spécialisé dans les biographies d'artistes.
+
+⚠️ DATE ACTUELLE: {current_date}
+
+🔍 INSTRUCTIONS CRITIQUES - INFORMATIONS ACTUALISÉES:
+=====================================================
+- NON NÉGOCIABLE: Utilise les informations les PLUS RÉCENTES et actualisées (jusqu'à {current_date})
+- Si tu connais les albums, tournées ou projets sortis APRÈS 2024, INCLUS-LES absolument
+- Focalise sur les 2-3 dernières années particulièrement pour la section "Actualité"
+- Mentionner les dernières tournées Si tu les connais après 2023
+- Si de nouvelles collaborations sont sorties récemment, c'est CRITIQUE de les inclure
+- Recherche mentalement dans tes connaissances les PLUS RÉCENTES POSSIBLES sur cet artiste
+- La section sur les Actualités doit être la PLUS À JOUR possible (concert récents, albums 2024-2026, etc.)
+
+📝 INSTRUCTIONS CRITIQUES DE FORMATAGE MARKDOWN:
+============================================
+- UTILISE ABSOLUMENT du markdown riche à chaque paragraphe
+- Les titres DOIVENT utiliser # ## ou ### (Markdown headings)
+- Le **gras** doit entourer les mots ou concepts importants
+- L'*italique* doit être utilisé pour les emphases et citations
+- Les listes à puces (-) et les listes numérotées (1.) doivent être utilisées
+- Les citations blockquote doivent utiliser le symbole (> citation)
+- Les accents musicaux *doivent* utiliser des *expressions en italique*
+- Utilise **gras** pour les titres d'albums, noms d'artistes
+- Utilise _underscores_ ou *astérisques_ pour l'emphase
+- CHAQUE paragraphe doit contenir au minimum UN élément markdown
 
 Écris un article journalistique complet et approfondi de **3000 mots** sur l'artiste **{artist.name}**.
 
-**Informations disponibles:**
+**Informations disponibles PROVENANT DE LA COLLECTION LOCALE:**
 - Nombre d'albums dans la collection: {len(albums)}
 - Nombre d'écoutes enregistrées: {listen_count}
-- Albums récents:
+- Albums disponibles:
 {albums_text}
 
-**Structure obligatoire de l'article (3000 mots):**
+⚠️ IMPORTANT: Ces albums ci-dessus sont LOCAL à la collection. Tu DOIS complémenter avec tes connaissances actualisées jusqu'à {current_date}!
+
+**STRUCTURE OBLIGATOIRE - Chaque section doit avoir du formatage markdown:**
 
 # {artist.name} : Portrait d'artiste
 
 ## Introduction (300 mots)
-Présentation captivante de l'artiste, son importance dans l'histoire de la musique, son influence culturelle.
+Présentation captivante avec **gras** et *italique*, analyse de son importance dans l'histoire de la musique, son influence culturelle.
+Utilise des listes à puces pour les points clés.
 
 ## Biographie et Débuts (500 mots)
-- Origines et formation musicale
-- Premières influences
-- Débuts de carrière
-- Moments clés de son parcours
+- **Origines**: [avec contexte en gras]
+- *Premières influences* musicales en italique
+- Débuts de carrière avec **dates importantes**
+- Moments clés marqués par du formatage markdown
 
 ## Discographie et Évolution Artistique (800 mots)
-- Analyse des albums majeurs (utilise les informations fournies)
-- Évolution du style musical
-- Collaborations marquantes
-- Albums les plus influents
+Structure avec:
+- **Albums majeurs** en gras avec analyse
+- *Évolution artistique* en italique 
+- > Blockquote inspirée si pertinent
+- Collaborations **importantes** marquées
+- 1. Albums les plus **influents** en liste numérotée
 
 ## Actualité et Dernières Sorties (600 mots)
-- Derniers albums ou projets
-- Tournées récentes ou à venir
-- Nouveaux singles ou collaborations
-- Projets futurs annoncés
+- Derniers **albums ou projets** importants
+- *Tournées et performances* récentes
+- Nouveaux **singles** avec collaborations en gras
+- Projets futurs en *italic avec emphase*
 
 ## Impact et Héritage (500 mots)
-- Influence sur d'autres artistes
-- Contribution au genre musical
-- Reconnaissance critique et commerciale
-- Place dans l'histoire de la musique
+- Influence sur **d'autres artistes** majeurs
+- Contribution au **genre musical**
+- Reconnaissance *critique* et **commerciale**
+- Place dans l'**histoire de la musique**
 
 ## Anecdotes et Moments Marquants (300 mots)
-- Histoires intéressantes
-- Moments iconiques en concert
-- Faits marquants de sa carrière
+- **Histoires intéressantes** en gras
+- *Moments iconiques* en concert en italique
+- Faits **marquants** de sa carrière
 
-**Style d'écriture:**
-- Ton journalistique professionnel mais accessible
-- Phrases variées et fluides
-- Citations imaginées si pertinent
-- Références culturelles
-- Analyse musicale approfondie
-- Formatage Markdown riche (gras, italique, titres, listes)
-
-**IMPORTANT:**
-- L'article DOIT faire exactement 3000 mots
-- Utilise un formatage Markdown élégant et lisible
+**ÉNORME IMPORTANCE - FORMATAGE MARKDOWN OBLIGATOIRE:**
+- L'article DOIT avoir un **formatage markdown RICHE et ÉLÉGANT**
+- Sépare les sections avec du padding
+- Utilise les listes pour structurer
+- Les noms d'artistes DOIVENT être en **gras**
+- Les concepts clés DOIVENT être en *italique*
+- Pas de texte plat sans formatage - CHAQUE phrase doit avoir du markdown
 - Sois précis et factuel quand tu as des informations
-- Reste crédible et cohérent dans tes développements
-- N'invente pas de fausses dates ou événements spécifiques
-- Concentre-toi sur l'analyse artistique et l'impact culturel
+- Reste crédible et cohérent
+- N'invente pas de fausses dates spécifiques
+- Concentre-toi sur l'analyse artistique
 
-Commence maintenant l'article:"""
+Commence maintenant l'article - ATTENTION: Le markdown est CRITIQUEMENT OBLIGATOIRE:"""
             
             logger.info(f"📝 Streaming article IA pour {artist.name} (3000 mots)...")
             

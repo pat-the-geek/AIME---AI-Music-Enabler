@@ -14,9 +14,21 @@ from app.services.ai_service import AIService
 from app.services.spotify_service import SpotifyService
 from app.services.markdown_export_service import MarkdownExportService
 from app.services.magazine_edition_service import MagazineEditionService
-from app.models import Album, Track, ListeningHistory, Metadata
+from app.models import Album, Track, ListeningHistory, Metadata, ScheduledTaskExecution
 
 logger = logging.getLogger(__name__)
+
+# Map entre task IDs et noms affichés avec emojis
+TASK_NAMES = {
+    'daily_enrichment': '🔄 Enrichissement quotidien',
+    'generate_haiku_scheduled': '🎋 Génération de haïkus',
+    'export_collection_markdown': '📝 Export Markdown',
+    'export_collection_json': '💾 Export JSON',
+    'weekly_haiku': '🎋 Haïku hebdomadaire',
+    'monthly_analysis': '📊 Analyse mensuelle',
+    'optimize_ai_descriptions': '🤖 Optimisation IA',
+    'generate_magazine_editions': '📰 Génération de magazines'
+}
 
 
 class SchedulerService:
@@ -26,7 +38,6 @@ class SchedulerService:
         self.config = config
         self.scheduler = AsyncIOScheduler()
         self.is_running = False
-        self.last_executions = {}  # Tracking des dernières exécutions par tâche
         
         # Initialiser services
         euria_config = config.get('euria', {})
@@ -126,18 +137,68 @@ class SchedulerService:
         self.is_running = False
         logger.info("📅 Scheduler arrêté")
     
+    def _record_execution(self, task_id: str, status: str = 'success', error: str = None):
+        """Enregistrer l'exécution d'une tâche en base de données."""
+        db = SessionLocal()
+        try:
+            execution = db.query(ScheduledTaskExecution).filter_by(task_id=task_id).first()
+            
+            if execution is None:
+                execution = ScheduledTaskExecution(task_id=task_id)
+                db.add(execution)
+            
+            execution.task_name = TASK_NAMES.get(task_id, task_id)
+            execution.last_executed = datetime.now(timezone.utc)
+            execution.last_status = status
+            execution.updated_at = datetime.now(timezone.utc)
+            
+            # Mettre à jour next_run_time si la tâche est en cours d'exécution
+            if self.is_running:
+                try:
+                    job = self.scheduler.get_job(task_id)
+                    if job and job.next_run_time:
+                        execution.next_run_time = job.next_run_time
+                except:
+                    pass
+            
+            db.commit()
+            logger.debug(f"✅ Exécution enregistrée: {task_id} ({status})")
+        except Exception as e:
+            logger.error(f"❌ Erreur enregistrement exécution {task_id}: {e}")
+            db.rollback()
+        finally:
+            db.close()
+    
     def get_status(self) -> dict:
-        """Obtenir le statut du scheduler."""
+        """Obtenir le statut du scheduler avec les exécutions depuis la DB."""
         jobs = []
+        executions_cache = {}  # Cache pour les exécutions
+        
         if self.is_running:
+            db = SessionLocal()
+            try:
+                # Charger toutes les exécutions enregistrées
+                executions = db.query(ScheduledTaskExecution).all()
+                for ex in executions:
+                    executions_cache[ex.task_id] = {
+                        'last_executed': ex.last_executed.isoformat() if ex.last_executed else None,
+                        'last_status': ex.last_status or 'pending'
+                    }
+            except Exception as e:
+                logger.warning(f"⚠️ Erreur chargement exécutions: {e}")
+            finally:
+                db.close()
+            
             try:
                 for job in self.scheduler.get_jobs():
                     try:
+                        execution = executions_cache.get(job.id, {})
                         jobs.append({
                             'id': job.id,
-                            'name': job.name,
+                            'name': TASK_NAMES.get(job.id, job.name or job.id),
                             'next_run': job.next_run_time.isoformat() if job.next_run_time else None,
-                            'last_execution': self.last_executions.get(job.id)
+                            'last_execution': execution.get('last_executed'),
+                            'last_status': execution.get('last_status', 'pending')
                         })
                     except Exception as e:
                         logger.warning(f"⚠️ Erreur traitement job {getattr(job, 'id', 'unknown')}: {e}")
@@ -152,7 +213,6 @@ class SchedulerService:
     
     async def _daily_enrichment(self):
         """Enrichissement quotidien automatique."""
-        self.last_executions['daily_enrichment'] = datetime.now(timezone.utc).isoformat()
         logger.info("🔄 Début enrichissement quotidien")
         db = SessionLocal()
         
@@ -181,15 +241,16 @@ class SchedulerService:
                     continue
             
             logger.info(f"✅ Enrichissement quotidien terminé: {enriched} albums")
+            self._record_execution('daily_enrichment', 'success')
             
         except Exception as e:
             logger.error(f"❌ Erreur enrichissement quotidien: {e}")
+            self._record_execution('daily_enrichment', 'error', str(e))
         finally:
             db.close()
     
     async def _weekly_haiku(self):
         """Génération hebdomadaire de haïku."""
-        self.last_executions['weekly_haiku'] = datetime.now(timezone.utc).isoformat()
         logger.info("🎋 Génération haïku hebdomadaire")
         db = SessionLocal()
         
@@ -224,15 +285,16 @@ class SchedulerService:
             
             haiku = await self.ai.generate_haiku(listening_data)
             logger.info(f"🎋 Haïku généré:\n{haiku}")
+            self._record_execution('weekly_haiku', 'success')
             
         except Exception as e:
             logger.error(f"❌ Erreur génération haïku: {e}")
+            self._record_execution('weekly_haiku', 'error', str(e))
         finally:
             db.close()
     
     async def _monthly_analysis(self):
         """Analyse mensuelle des patterns."""
-        self.last_executions['monthly_analysis'] = datetime.now(timezone.utc).isoformat()
         logger.info("📊 Analyse mensuelle des patterns")
         db = SessionLocal()
         
@@ -270,15 +332,16 @@ class SchedulerService:
             logger.info(f"  - Jours actifs: {unique_days}")
             logger.info(f"  - Moyenne/jour: {avg_per_day:.1f}")
             logger.info(f"  - Top artiste: {top_artists[0] if top_artists else 'N/A'}")
+            self._record_execution('monthly_analysis', 'success')
             
         except Exception as e:
             logger.error(f"❌ Erreur analyse mensuelle: {e}")
+            self._record_execution('monthly_analysis', 'error', str(e))
         finally:
             db.close()
     
     async def _optimize_ai_descriptions(self):
         """Optimiser les descriptions IA des albums populaires."""
-        self.last_executions['optimize_ai_descriptions'] = datetime.now(timezone.utc).isoformat()
         logger.info("🤖 Optimisation descriptions IA")
         db = SessionLocal()
         
@@ -323,9 +386,11 @@ class SchedulerService:
                     continue
             
             logger.info(f"🤖 Optimisation terminée: {generated} descriptions générées")
+            self._record_execution('optimize_ai_descriptions', 'success')
             
         except Exception as e:
             logger.error(f"❌ Erreur optimisation IA: {e}")
+            self._record_execution('optimize_ai_descriptions', 'error', str(e))
         finally:
             db.close()
     
@@ -333,7 +398,6 @@ class SchedulerService:
         """Générer haikus pour 5 albums - Format IDENTIQUE à l'API /collection/markdown/presentation."""
         import random
         
-        self.last_executions['generate_haiku_scheduled'] = datetime.now(timezone.utc).isoformat()
         logger.info("🎋 Génération haikus pour 5 albums random - Format API")
         db = SessionLocal()
         
@@ -455,17 +519,18 @@ Réponds uniquement en français."""
             
             # Nettoyer les anciens fichiers
             self._cleanup_old_files()
+            self._record_execution('generate_haiku_scheduled', 'success')
             
         except Exception as e:
             logger.error(f"❌ Erreur génération haikus: {e}")
             import traceback
             logger.error(traceback.format_exc())
+            self._record_execution('generate_haiku_scheduled', 'error', str(e))
         finally:
             db.close()
     
     async def _export_collection_markdown(self):
         """Exporter la collection complète en markdown avec le même format que l'API."""
-        self.last_executions['export_collection_markdown'] = datetime.now(timezone.utc).isoformat()
         logger.info("📝 Export collection en markdown")
         db = SessionLocal()
         
@@ -499,17 +564,18 @@ Réponds uniquement en français."""
             
             # Nettoyer les anciens fichiers
             self._cleanup_old_files()
+            self._record_execution('export_collection_markdown', 'success')
             
         except Exception as e:
             logger.error(f"❌ Erreur export markdown: {e}")
             import traceback
             logger.error(traceback.format_exc())
+            self._record_execution('export_collection_markdown', 'error', str(e))
         finally:
             db.close()
     
     async def _export_collection_json(self):
         """Exporter la collection complète en JSON avec le même format que l'API."""
-        self.last_executions['export_collection_json'] = datetime.now(timezone.utc).isoformat()
         logger.info("📊 Export collection en JSON")
         db = SessionLocal()
         
@@ -590,11 +656,13 @@ Réponds uniquement en français."""
             
             # Nettoyer les anciens fichiers
             self._cleanup_old_files()
+            self._record_execution('export_collection_json', 'success')
             
         except Exception as e:
             logger.error(f"❌ Erreur export JSON: {e}")
             import traceback
             logger.error(traceback.format_exc())
+            self._record_execution('export_collection_json', 'error', str(e))
         finally:
             db.close()
     
@@ -788,7 +856,6 @@ Réponds uniquement en français."""
     
     async def _generate_magazine_editions(self):
         """Génération quotidienne de magazines pré-générés."""
-        self.last_executions['generate_magazine_editions'] = datetime.now(timezone.utc).isoformat()
         logger.info("📰 Début génération lot de magazines")
         db = SessionLocal()
         
@@ -805,8 +872,10 @@ Réponds uniquement en français."""
             excess_deleted = edition_service.cleanup_excess_editions(max_editions=100)
             
             logger.info(f"✅ Génération magazines terminée: {len(generated_ids)} créées, {deleted_count} anciennes supprimées, {excess_deleted} excédent supprimé")
+            self._record_execution('generate_magazine_editions', 'success')
             
         except Exception as e:
             logger.error(f"❌ Erreur génération magazines: {e}")
+            self._record_execution('generate_magazine_editions', 'error', str(e))
         finally:
             db.close()

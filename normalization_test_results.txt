@@ -1,0 +1,7 @@
+Quick mode (limit=10): 0.059s
+Full mode (all data): 6.035s
+Target: <1s for full mode
+Status: SLOW
+
+Full results:
+{'artists': [], 'albums': [], 'stats': {'artists_total': 705, 'artists_would_update': 0, 'albums_total': 1122, 'albums_would_update': 0, 'no_matches': 1827}}

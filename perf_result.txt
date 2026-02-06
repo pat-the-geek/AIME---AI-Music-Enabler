@@ -1,0 +1,3 @@
+Quick: 0.053s
+Full: 4.907s
+Status: SLOW
