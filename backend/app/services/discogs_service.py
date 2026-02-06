@@ -3,6 +3,7 @@ import discogs_client
 from typing import Optional, List, Dict, Any
 import logging
 import time
+import requests
 from app.core.retry import CircuitBreaker, retry_with_backoff
 from app.core.exceptions import DiscogsServiceException
 
@@ -39,11 +40,12 @@ class DiscogsService:
         self.last_request_time = time.time()
     
     @retry_with_backoff(max_attempts=3, initial_delay=2.0, max_delay=10.0)
-    def get_collection(self, limit: Optional[int] = None) -> List[Dict[str, Any]]:
+    def get_collection(self, limit: Optional[int] = None, skip_ids: Optional[set] = None) -> List[Dict[str, Any]]:
         """Récupérer la collection Discogs de l'utilisateur avec retry logic.
         
         Args:
             limit: Nombre maximum d'albums à récupérer (None = tous)
+            skip_ids: Set d'IDs Discogs à ignorer (pour éviter appels API inutiles)
         """
         try:
             # Vérifier le circuit breaker
@@ -59,47 +61,120 @@ class DiscogsService:
             collection_folder = user.collection_folders[0]
             logger.info(f"📁 Folder: {collection_folder.name}, Count: {collection_folder.count}")
             
-            # Configurer la pagination pour récupérer tous les albums
-            # La bibliothèque discogs_client charge une page à la fois automatiquement
-            collection = collection_folder.releases
-            collection.per_page = 100  # Augmenter la taille de page pour réduire les requêtes
-            
-            logger.info(f"📄 Configuration pagination: {collection.per_page} items par page")
-            
             albums = []
             count = 0
             errors_404 = []
+            total_expected = user.num_collection
             
-            # Itérer sur TOUTES les releases (la bibliothèque gère automatiquement la pagination)
-            for release in collection:
-                if limit and count >= limit:
-                    logger.info(f"⚠️ Limite de {limit} albums atteinte")
-                    break
-                
+            # PAGINATION EXPLICITE PAR API DIRECTE
+            # Récupérer les URLs de la collection pour faire des appels API directs
+            # Cela évite les problèmes de l'itérateur auto-pagé de discogs_client
+            
+            page_num = 1
+            page_size = 100
+            
+            while True:
                 try:
+                    logger.info(f"📑 Chargement page {page_num} ({page_size} items/page)...")
                     self._rate_limit_wait()
-                    release_data = release.release
-                    count += 1
                     
-                    # Log de progression avec indication de pagination
-                    if count % 50 == 0:
-                        logger.info(f"📀 Traitement album {count}/{user.num_collection}...")
+                    # Augmenter le délai entre les requêtes pour éviter les 429
+                    if page_num > 1:
+                        time.sleep(1.5)  # Délai supplémentaire entre les pages pour respecter rate limit
                     
-                    # Valider les données avant de les ajouter
-                    album_info = self._extract_album_info(release_data, count)
-                    if album_info:
-                        albums.append(album_info)
+                    # Construire l'URL d'API pour récupérer les releases avec pagination explicite
+                    # Utiliser l'API Discogs directement pour avoir un meilleur contrôle
+                    headers = {'User-Agent': 'MusicTrackerApp/4.0', 'Authorization': f'Discogs token={self.api_key}'}
+                    url = f"https://api.discogs.com/users/{self.username}/collection/folders/0/releases"
+                    params = {
+                        'page': page_num,
+                        'per_page': page_size
+                    }
                     
-                except Exception as e:
-                    # Log détaillé pour identifier le release problématique
-                    error_str = str(e)
-                    if '404' in error_str or 'not found' in error_str.lower():
-                        error_info = f"Position {count}, Release ID: {getattr(release, 'id', 'unknown')}"
-                        errors_404.append(error_info)
-                        logger.warning(f"⚠️ Erreur traitement release (404): {error_info} - Album supprimé de Discogs")
+                    response = requests.get(url, headers=headers, params=params, timeout=15)
+                    response.raise_for_status()
+                    data = response.json()
+                    
+                    releases = data.get('releases', [])
+                    pagination_info = data.get('pagination', {})
+                    
+                    if not releases:
+                        logger.info(f"✅ Fin de pagination atteinte (page {page_num} vide)")
+                        break
+                    
+                    logger.info(f"📊 Page {page_num}: {len(releases)} releases (Pages totales: {pagination_info.get('pages', '?')})")
+                    
+                    # Traiter chaque release de cette page
+                    for release_item in releases:
+                        if limit and count >= limit:
+                            logger.info(f"⚠️ Limite de {limit} albums atteinte")
+                            logger.info(f"✅ Collection récupérée: {len(albums)} albums")
+                            return albums  # Retourner directement
+                        
+                        try:
+                            release_id = release_item['id']
+                            
+                            # ⚠️ OPTIMISATION: Si l'album existe déjà, ne pas faire l'appel API
+                            if skip_ids and str(release_id) in skip_ids:
+                                logger.debug(f"⏭️ Release {release_id} existe déjà, skipped")
+                                continue
+                            
+                            self._rate_limit_wait()
+                            
+                            # Récupérer l'objet release complet depuis le client discogs_client
+                            release_data = self.client.release(release_id)
+                            count += 1
+                            
+                            # Log de progression
+                            if count % 50 == 0:
+                                logger.info(f"📀 Traitement album {count}/{total_expected}...")
+                            
+                            # Valider les données avant de les ajouter
+                            album_info = self._extract_album_info(release_data, count)
+                            if album_info:
+                                albums.append(album_info)
+                            
+                        except Exception as e:
+                            # Log détaillé pour identifier le release problématique
+                            error_str = str(e)
+                            if '404' in error_str or 'not found' in error_str.lower():
+                                error_info = f"Position {count}, Release ID: {release_id}"
+                                errors_404.append(error_info)
+                                logger.warning(f"⚠️ Erreur traitement release (404): {error_info} - Album supprimé de Discogs")
+                            else:
+                                logger.warning(f"⚠️ Erreur traitement release {release_id} à position {count}: {e}")
+                            continue
+                    
+                    # Passer à la page suivante
+                    if page_num >= pagination_info.get('pages', 1):
+                        logger.info(f"✅ Dernière page atteinte")
+                        break
+                    
+                    page_num += 1
+                    
+                except requests.exceptions.Timeout:
+                    logger.error(f"❌ Timeout lors du chargement page {page_num}")
+                    logger.info(f"⚠️ Arrêt de la pagination à la page {page_num}, {count} albums récupérés")
+                    break
+                except requests.exceptions.HTTPError as e:
+                    # Gestion spéciale du 429 (Too Many Requests)
+                    if e.response.status_code == 429:
+                        logger.warning(f"⚠️ Rate-limit atteint (429) à la page {page_num}")
+                        logger.info(f"✅ {count} albums récupérés avant le rate-limit")
+                        logger.info(f"⚠️ Arrêt de la pagination, {count} albums récupérés")
+                        break
                     else:
-                        logger.warning(f"⚠️ Erreur traitement release à position {count}: {e}")
-                    continue
+                        logger.error(f"❌ Erreur HTTP {e.response.status_code} page {page_num}: {e}")
+                        logger.info(f"⚠️ Arrêt de la pagination à la page {page_num}, {count} albums récupérés")
+                        break
+                except requests.exceptions.RequestException as e:
+                    logger.error(f"❌ Erreur requête page {page_num}: {e}")
+                    logger.info(f"⚠️ Arrêt de la pagination à la page {page_num}, {count} albums récupérés")
+                    break
+                except Exception as e:
+                    logger.error(f"❌ Erreur inattendue page {page_num}: {e}")
+                    logger.info(f"⚠️ Arrêt de la pagination à la page {page_num}, {count} albums récupérés")
+                    break
             
             if errors_404:
                 logger.info(f"📋 {len(errors_404)} releases 404 ignorés (supprimés de Discogs): {', '.join(errors_404[:5])}{' ...' if len(errors_404) > 5 else ''}")

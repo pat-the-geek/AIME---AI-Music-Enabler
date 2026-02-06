@@ -1,4 +1,4 @@
-# 🎵 AIME - AI Music Enabler - Version 4.5.0
+# 🎵 AIME - AI Music Enabler - Version 4.6.0
 
 Application web moderne pour tracker et analyser l'historique d'écoute musicale depuis Last.fm, avec enrichissement automatique via Spotify, Discogs et IA.
 

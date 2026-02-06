@@ -1,7 +1,7 @@
 """Schémas Pydantic pour les albums."""
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator, model_validator
 from datetime import datetime
-from typing import Optional, List
+from typing import Optional, List, Any
 
 
 class AlbumBase(BaseModel):
@@ -35,12 +35,23 @@ class AlbumResponse(AlbumBase):
     id: int
     artists: List[str] = Field(default_factory=list, description="Noms des artistes")
     images: List[str] = Field(default_factory=list, description="URLs des images")
-    ai_info: Optional[str] = None
+    ai_info: Optional[str] = Field(None, description="Description IA")
     created_at: datetime
     updated_at: datetime
     
+    @model_validator(mode='before')
+    @classmethod
+    def map_ai_description(cls, data: Any) -> Any:
+        """Mapper ai_description de la BD vers ai_info dans l'API."""
+        if isinstance(data, dict):
+            # Si ai_description existe mais pas ai_info, copier la valeur
+            if 'ai_description' in data and 'ai_info' not in data:
+                data['ai_info'] = data.get('ai_description')
+        return data
+    
     class Config:
         from_attributes = True
+        populate_by_name = True
 
 
 class AlbumDetail(AlbumResponse):

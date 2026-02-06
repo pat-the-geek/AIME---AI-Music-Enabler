@@ -29,6 +29,7 @@ import {
   Stop,
   CloudDownload,
   Sync,
+  AutoAwesome,
 } from '@mui/icons-material'
 import apiClient from '@/api/client'
 import { useRoon } from '@/contexts/RoonContext'
@@ -846,9 +847,10 @@ export default function Settings() {
                         {job.id === 'monthly_analysis' && '📊 Analyse mensuelle'}
                         {job.id === 'optimize_ai_descriptions' && '🤖 Optimisation IA'}
                         {job.id === 'generate_magazine_editions' && '📰 Génération de magazines'}
+                        {job.id === 'sync_discogs_daily' && '💿 Sync Discogs'}
                         {!['daily_enrichment', 'generate_haiku_scheduled', 'export_collection_markdown', 
                             'export_collection_json', 'weekly_haiku', 'monthly_analysis', 
-                            'optimize_ai_descriptions', 'generate_magazine_editions'].includes(job.id) && `📌 ${job.id}`}
+                            'optimize_ai_descriptions', 'generate_magazine_editions', 'sync_discogs_daily'].includes(job.id) && `📌 ${job.id}`}
                       </Typography>
                       <Chip 
                         label="Planifiée" 
@@ -1078,6 +1080,108 @@ export default function Settings() {
           >
             Synchroniser Discogs
           </Button>
+        </CardContent>
+      </Card>
+
+      {/* Enrichissement Euria + Spotify */}
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            🤖 Enrichissement Euria + Spotify
+          </Typography>
+          
+          <Divider sx={{ mb: 2 }} />
+          
+          <Alert severity="success" sx={{ mb: 2 }}>
+            ✨ Générez automatiquement des descriptions IA (Euria) et récupérez les images haute résolution (Spotify)
+          </Alert>
+
+          {manualOps?.enrichment && (
+            <Typography variant="caption" color="success.main" sx={{ display: 'block', mb: 2 }}>
+              🕐 Dernier enrichissement : {formatLastActivity(manualOps.enrichment)}
+            </Typography>
+          )}
+
+          <Stack spacing={2} sx={{ mb: 2 }}>
+            <Typography variant="body2">
+              Cet enrichissement combine deux sources :
+            </Typography>
+            
+            <Box sx={{ pl: 2 }}>
+              <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                📝 <strong>Euria IA</strong> - Génère des descriptions textuelles détaillées et naturelles
+              </Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ pl: 4, display: 'block', mb: 1 }}>
+                Crée des synopsis personnalisés pour chaque album basés sur le titre, les artistes et l'année.
+              </Typography>
+              
+              <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                🖼️ <strong>Spotify API</strong> - Récupère les images artiste haute résolution
+              </Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ pl: 4, display: 'block' }}>
+                Améliore les couvertures d'album avec les images officielles de haute qualité de Spotify.
+              </Typography>
+            </Box>
+          </Stack>
+
+          <Button
+            variant="contained"
+            onClick={() => {
+              setSnackbar({
+                open: true,
+                message: '🤖 Enrichissement démarré en arrière-plan avec Euria + Spotify...',
+                severity: 'info'
+              })
+              apiClient.post('/services/discogs/enrich', null, {
+                timeout: 1800000 // 30 minutes
+              }).then(() => {
+                // Polling pour suivre la progression
+                const pollInterval = setInterval(async () => {
+                  try {
+                    const progressResponse = await apiClient.get('/services/discogs/enrich/progress')
+                    const progress = progressResponse.data
+                    
+                    if (progress.status === 'completed') {
+                      clearInterval(pollInterval)
+                      setSnackbar({
+                        open: true,
+                        message: `✅ Enrichissement complété! ${progress.descriptions_added} descriptions + ${progress.images_added} images ajoutées`,
+                        severity: 'success'
+                      })
+                      // Invalider les caches
+                      queryClient.invalidateQueries({ queryKey: ['albums'] })
+                      queryClient.invalidateQueries({ queryKey: ['artists'] })
+                    } else if (progress.status === 'error') {
+                      clearInterval(pollInterval)
+                      setSnackbar({
+                        open: true,
+                        message: `❌ Erreur enrichissement: ${progress.errors} erreurs détectées`,
+                        severity: 'error'
+                      })
+                    }
+                  } catch (error) {
+                    // Continue polling en cas d'erreur réseau temporaire
+                  }
+                }, 2000)
+              }).catch((error) => {
+                setSnackbar({
+                  open: true,
+                  message: `❌ Erreur: ${error.response?.data?.detail || error.message}`,
+                  severity: 'error'
+                })
+              })
+            }}
+            disabled={syncProgress && (syncProgress.status === 'running' || syncProgress.status === 'starting')}
+            startIcon={<AutoAwesome />}
+            color="info"
+            variant="contained"
+          >
+            🤖 Enrichir avec Euria + Spotify
+          </Button>
+
+          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2 }}>
+            💡 Nécessite les clés API Euria et Spotify configurées dans les secrets. Cela peut prendre plusieurs minutes selon le nombre d'albums.
+          </Typography>
         </CardContent>
       </Card>
 

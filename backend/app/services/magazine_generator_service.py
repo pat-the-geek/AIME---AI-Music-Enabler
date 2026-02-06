@@ -10,16 +10,31 @@ from sqlalchemy import func
 
 from app.models import Album, Artist, Track, ListeningHistory
 from app.services.ai_service import AIService
+from app.services.spotify_service import SpotifyService
 
 logger = logging.getLogger(__name__)
+
+# Tracking global des rafraîchissements en cours
+refresh_status = {
+    "magazine_id": None,
+    "status": "idle",  # idle, refreshing, enriching, completed
+    "total_albums": 0,
+    "refreshed_count": 0,
+    "enriched_count": 0,
+    "currently_processing": None,
+    "albums_progress": []  # Liste des albums traités avec détails
+}
 
 
 class MagazineGeneratorService:
     """Service pour générer des magazines musicaux dynamiques."""
     
-    def __init__(self, db: Session, ai_service: AIService):
+    def __init__(self, db: Session, ai_service: AIService, spotify_service: SpotifyService = None):
         self.db = db
         self.ai_service = ai_service
+        if spotify_service is None:
+            logger.warning("⚠️  SpotifyService not provided, some features will be limited")
+        self.spotify_service = spotify_service
     
     async def _generate_ai_haiku(self, album: Album, context: str = "") -> str:
         """Générer un haiku avec l'IA pour un album."""
@@ -147,6 +162,14 @@ Format strict :
         
         return True
     
+    def _should_refresh_album(self, album: Album) -> bool:
+        """Déterminer si un album doit être rafraîchi (image ou description manquante)."""
+        # Rafraîchir si pas d'image OU si pas de description
+        missing_image = not album.image_url or album.image_url == '' or not album.image_url.startswith('http')
+        missing_description = not album.ai_description or len(album.ai_description.strip()) < 50
+        
+        return missing_image or missing_description
+    
     def _generate_enriched_description(self, album: Album, content_type: str = "review") -> str:
         """Générer une description enrichie - utiliser fallback créatif directement SANS appel IA."""
         # Fallback créatif direct - AUCUN appel IA
@@ -228,58 +251,194 @@ Format strict :
         templates = fallback_templates.get(content_type, fallback_templates["review"])
         return random.choice(templates)
     
+    async def _manage_background_tasks_workflow(self, albums_to_refresh: List[int], albums_to_enrich: List[int]):
+        """Tâche maître qui gère l'exécution des rafraîchissements et enrichissements en arrière-plan."""
+        try:
+            # Initialiser le statut global
+            refresh_status["magazine_id"] = None
+            refresh_status["albums_progress"] = []
+            refresh_status["refreshed_count"] = 0
+            refresh_status["enriched_count"] = 0
+            refresh_status["currently_processing"] = None
+            
+            # Exécuter les tasks EN SÉQUENCE (évite deadlock SQLAlchemy)
+            if albums_to_refresh:
+                logger.info(f"🔄 Démarrage rafraîchissement de {len(albums_to_refresh)} albums...")
+                # Le status "refreshing" sera défini par _refresh_albums_in_background
+                await self._refresh_albums_in_background(albums_to_refresh)
+            
+            if albums_to_enrich:
+                logger.info(f"✨ Démarrage enrichissement de {len(albums_to_enrich)} albums...")
+                # Le status "enriching" sera défini par _enrich_albums_in_background
+                await self._enrich_albums_in_background(albums_to_enrich)
+            
+            logger.info("✅ Toutes les améliorations sont complètes")
+            # Marquer comme complété
+            refresh_status["status"] = "completed"
+            
+        except Exception as e:
+            logger.error(f"❌ Erreur flux de tâches: {e}", exc_info=True)
+            refresh_status["status"] = "completed"
+        finally:
+            refresh_status["currently_processing"] = None
+            logger.info("✨ Amélioration des albums terminée - statut: completed")
+    
+    async def _refresh_albums_in_background(self, album_ids: List[int]):
+        """Rafraîchir les albums incomplets (sans image ou description) en arrière-plan."""
+        try:
+            logger.info(f"🔄 Rafraîchissement en arrière-plan de {len(album_ids)} albums incomplets...")
+            
+            # Mettre à jour le statut global
+            refresh_status["status"] = "refreshing"
+            refresh_status["total_albums"] = len(album_ids)
+            refresh_status["refreshed_count"] = 0
+            refresh_status["albums_progress"] = []
+            
+            refreshed_count = 0
+            skipped_count = 0
+            error_count = 0
+            
+            for idx, album_id in enumerate(album_ids, 1):
+                try:
+                    album = self.db.query(Album).filter(Album.id == album_id).first()
+                    if not album:
+                        continue
+                    
+                    # Vérifier qu'il y a vraiment quelque chose à rafraîchir
+                    if not self._should_refresh_album(album):
+                        skipped_count += 1
+                        continue
+                    
+                    # Mettre à jour l'albumactuellement traité
+                    refresh_status["currently_processing"] = album.title
+                    
+                    # Générer description enrichie pour albums incomplets
+                    logger.info(f"⚙️  [{idx}/{len(album_ids)}] Rafraîchissement: {album.title}...")
+                    rich_description = self._generate_enriched_description(album, "review")
+                    
+                    # Charger l'image Spotify si manquante
+                    image_url = album.image_url
+                    if self.spotify_service and (not image_url or image_url == '' or not image_url.startswith('http')):
+                        logger.info(f"🖼️  Recherche image Spotify: {album.title}...")
+                        artist_name = self._get_artist_name(album)
+                        image_url = await self.spotify_service.search_album_image(artist_name, album.title)
+                        if image_url:
+                            logger.info(f"✨ Image trouvée: {album.title}")
+                    
+                    if rich_description and len(rich_description.strip()) > 50:
+                        album.ai_description = rich_description
+                        if image_url and image_url.startswith('http'):
+                            album.image_url = image_url
+                        self.db.commit()
+                        refreshed_count += 1
+                        refresh_status["refreshed_count"] = refreshed_count
+                        refresh_status["albums_progress"].append({
+                            "album": album.title,
+                            "status": "refreshed",
+                            "progress": f"{idx}/{len(album_ids)}"
+                        })
+                        logger.info(f"✨ [{idx}/{len(album_ids)}] Rafraîchi: {album.title}")
+                        await asyncio.sleep(0.5)  # Simulate processing delay for visibility
+                    
+                except Exception as e:
+                    logger.error(f"❌ Erreur rafraîchissement {album.title}: {e}")
+                    error_count += 1
+                    self.db.rollback()
+            
+            logger.info(f"✅ Rafraîchissement terminé: {refreshed_count}/{len(album_ids)} albums améliorés")
+            
+        except Exception as e:
+            logger.error(f"❌ Erreur rafraîchissement arrière-plan: {e}")
+            self.db.rollback()
+        finally:
+            refresh_status["currently_processing"] = None
     
     async def _enrich_albums_in_background(self, album_ids: List[int]):
-        """Enrichir les descriptions d'albums en tâche de fond après génération du magazine."""
+        """Enrichir les albums remasters/deluxe en tâche de fond après génération du magazine."""
         try:
-            logger.info(f"🔄 Enrichissement en arrière-plan de {len(album_ids)} albums...")
+            logger.info(f"🎵 Enrichissement de {len(album_ids)} albums remasters/deluxe...")
+            
+            # Mettre à jour le statut global
+            refresh_status["status"] = "enriching"
+            refresh_status["total_albums"] = len(album_ids)
+            refresh_status["enriched_count"] = 0
             
             enriched_count = 0
             skipped_count = 0
             error_count = 0
             
-            for album_id in album_ids:
+            for idx, album_id in enumerate(album_ids, 1):
                 try:
-                    # Recharger l'album depuis la DB
                     album = self.db.query(Album).filter(Album.id == album_id).first()
                     if not album:
                         continue
                     
-                    # Vérifier si l'album a déjà une description riche (> 500 caractères)
-                    if album.ai_description and len(album.ai_description) > 500:
-                        logger.info(f"⏭️ Album {album.title} a déjà une description riche, skip")
+                    # Vérifier c'est bien un remaster ou deluxe
+                    if not self._is_remaster_or_deluxe(album.title):
                         skipped_count += 1
                         continue
                     
-                    # Générer la description enrichie
-                    logger.info(f"📝 Génération description enrichie pour: {album.title}")
+                    # Si a déjà description riche, skip
+                    if album.ai_description and len(album.ai_description) > 500:
+                        logger.info(f"⏭️  [{idx}/{len(album_ids)}] {album.title} - déjà enrichi")
+                        skipped_count += 1
+                        continue
                     
-                    if self._is_remaster_or_deluxe(album.title):
-                        rich_description = self._generate_remaster_description(album)
-                    else:
-                        rich_description = self._generate_enriched_description(album, "review")
+                    # Mettre à jour l'album actuellement traité
+                    refresh_status["currently_processing"] = album.title
                     
-                    # Sauvegarder dans la DB seulement si la description est significativement enrichie
-                    if rich_description and len(rich_description) > 500:
+                    logger.info(f"⚙️  [{idx}/{len(album_ids)}] Enrichissement: {album.title}...")
+                    rich_description = self._generate_enriched_description(album, "review")
+                    
+                    # Charger l'image Spotify si manquante
+                    image_url = album.image_url
+                    if self.spotify_service and (not image_url or image_url == '' or not image_url.startswith('http')):
+                        logger.info(f"🖼️  Recherche image Spotify: {album.title}...")
+                        artist_name = self._get_artist_name(album)
+                        image_url = await self.spotify_service.search_album_image(artist_name, album.title)
+                        if image_url:
+                            logger.info(f"✨ Image trouvée: {album.title}")
+                    
+                    if rich_description and len(rich_description) > 50:
                         album.ai_description = rich_description
+                        if image_url and image_url.startswith('http'):
+                            album.image_url = image_url
                         self.db.commit()
                         enriched_count += 1
-                        logger.info(f"✅ Description enrichie sauvegardée pour: {album.title} ({len(rich_description)} chars)")
-                    elif rich_description:
-                        logger.warning(f"⚠️ Description trop courte pour {album.title} ({len(rich_description)} chars) - circuit breaker actif?")
-                        error_count += 1
+                        refresh_status["enriched_count"] = enriched_count
+                        refresh_status["albums_progress"].append({
+                            "album": album.title,
+                            "status": "enriched",
+                            "progress": f"{idx}/{len(album_ids)}"
+                        })
+                        logger.info(f"✨ [{idx}/{len(album_ids)}] Enrichi: {album.title}")
+                        await asyncio.sleep(0.5)  # Simulate processing delay for visibility
                     
                 except Exception as e:
-                    logger.error(f"❌ Erreur enrichissement album {album_id}: {e}")
+                    logger.error(f"❌ Erreur enrichissement {album.title}: {e}")
                     error_count += 1
                     self.db.rollback()
-                    continue
             
-            logger.info(f"✅ Enrichissement terminé: {enriched_count} enrichis, {skipped_count} skippés, {error_count} erreurs")
+            logger.info(f"✅ Enrichissement terminé: {enriched_count}/{len(album_ids)} remasters/deluxe enrichis")
             
         except Exception as e:
-            logger.error(f"❌ Erreur globale enrichissement arrière-plan: {e}")
+            logger.error(f"❌ Erreur enrichissement arrière-plan: {e}")
             self.db.rollback()
+        finally:
+            refresh_status["currently_processing"] = None
+            # Le status "completed" est géré par la tâche maître _manage_background_tasks_workflow
+    
+    def get_refresh_status(self) -> Dict[str, Any]:
+        """Retourner le statut actuel du rafraîchissement des albums."""
+        return {
+            "status": refresh_status["status"],
+            "magazine_id": refresh_status["magazine_id"],
+            "total_albums": refresh_status["total_albums"],
+            "refreshed_count": refresh_status["refreshed_count"],
+            "enriched_count": refresh_status["enriched_count"],
+            "currently_processing": refresh_status["currently_processing"],
+            "albums_recently_improved": refresh_status["albums_progress"][-10:] if refresh_status["albums_progress"] else []  # Derniers 10 albums
+        }
     
     def _generate_layout_suggestion(self, page_type: str, content_description: str) -> Dict[str, Any]:
         """Générer un layout créatif avec pure randomisation (SANS appel IA pour performance)."""
@@ -307,9 +466,24 @@ Format strict :
     async def generate_magazine(self) -> Dict[str, Any]:
         """Générer un magazine complet avec 5 pages valides."""
         start_time = time.time()
+        
+        # Reset refresh_status for new generation
+        global refresh_status
+        refresh_status = {
+            "magazine_id": None,
+            "status": "idle",
+            "total_albums": 0,
+            "refreshed_count": 0,
+            "enriched_count": 0,
+            "currently_processing": None,
+            "albums_progress": []
+        }
+        logger.info(f"🔄 Status reset for new magazine generation")
+        
         try:
             pages = []
             albums_to_enrich = []  # Collecter UNIQUEMENT les albums remaster/deluxe à enrichir
+            albums_to_refresh = []  # Collecter les albums sans image ou sans description
             
             # Page 1: Artiste aléatoire + Albums récents
             try:
@@ -318,11 +492,16 @@ Format strict :
                 logger.info(f"⏱️ Page 1 générée en {time.time() - t1:.2f}s")
                 if page1.get("type") != "empty":  # Ne pas ajouter les pages vides
                     pages.append(page1)
-                    # Collecter UNIQUEMENT les albums remaster/deluxe sans description riche
+                    # Collecter albums à enrichir ET à rafraîchir
                     if "content" in page1 and "albums" in page1["content"]:
                         for album_data in page1["content"]["albums"]:
                             if self._should_enrich_album(album_data["id"], album_data["title"]):
                                 albums_to_enrich.append(album_data["id"])
+                            # NOUVEAU: Vérifier si l'album manque d'image ou description
+                            album_obj = self.db.query(Album).filter(Album.id == album_data["id"]).first()
+                            if album_obj and self._should_refresh_album(album_obj):
+                                albums_to_refresh.append(album_data["id"])
+                                logger.info(f"📋 Album page 1 incomplet: {album_data['title']}")
                 else:
                     logger.warning(f"⚠️ Page 1 vide générée, en passant")
             except Exception as e:
@@ -335,11 +514,16 @@ Format strict :
                 logger.info(f"⏱️ Page 2 générée en {time.time() - t2:.2f}s")
                 if page2.get("type") != "empty":  # Ne pas ajouter les pages vides
                     pages.append(page2)
-                    # Collecter si remaster/deluxe sans description riche
+                    # Collecter si remaster/deluxe ET albums incomplets
                     if "content" in page2 and "album" in page2["content"]:
                         album_data = page2["content"]["album"]
                         if self._should_enrich_album(album_data["id"], album_data["title"]):
                             albums_to_enrich.append(album_data["id"])
+                        # NOUVEAU: Vérifier si manque d'image ou description
+                        album_obj = self.db.query(Album).filter(Album.id == album_data["id"]).first()
+                        if album_obj and self._should_refresh_album(album_obj):
+                            albums_to_refresh.append(album_data["id"])
+                            logger.info(f"📋 Album page 2 incomplet: {album_data['title']}")
                 else:
                     logger.warning(f"⚠️ Page 2 vide générée, en passant")
             except Exception as e:
@@ -352,11 +536,16 @@ Format strict :
                 logger.info(f"⏱️ Page 3 générée en {time.time() - t3:.2f}s")
                 if page3.get("type") != "empty":  # Ne pas ajouter les pages vides
                     pages.append(page3)
-                    # Collecter UNIQUEMENT les albums remaster/deluxe
+                    # Collecter albums à enrichir ET à rafraîchir
                     if "content" in page3 and "albums" in page3["content"]:
                         for album_data in page3["content"]["albums"]:
                             if self._should_enrich_album(album_data["id"], album_data["title"]):
                                 albums_to_enrich.append(album_data["id"])
+                            # NOUVEAU: Vérifier si manque d'image ou description
+                            album_obj = self.db.query(Album).filter(Album.id == album_data["id"]).first()
+                            if album_obj and self._should_refresh_album(album_obj):
+                                albums_to_refresh.append(album_data["id"])
+                                logger.info(f"📋 Album page 3 incomplet: {album_data['title']}")
                 else:
                     logger.warning(f"⚠️ Page 3 vide générée, en passant")
             except Exception as e:
@@ -381,6 +570,16 @@ Format strict :
                 logger.info(f"⏱️ Page 5 générée en {time.time() - t5:.2f}s")
                 if page5.get("type") != "empty":  # Ne pas ajouter les pages vides
                     pages.append(page5)
+                    # Collecter albums à enrichir ET à rafraîchir
+                    if "content" in page5 and "albums" in page5["content"]:
+                        for album_data in page5["content"]["albums"]:
+                            if self._should_enrich_album(album_data["id"], album_data["title"]):
+                                albums_to_enrich.append(album_data["id"])
+                            # NOUVEAU: Vérifier si manque d'image ou description
+                            album_obj = self.db.query(Album).filter(Album.id == album_data["id"]).first()
+                            if album_obj and self._should_refresh_album(album_obj):
+                                albums_to_refresh.append(album_data["id"])
+                                logger.info(f"📋 Album page 5 incomplet: {album_data['title']}")
                 else:
                     logger.warning(f"⚠️ Page 5 vide générée, en passant")
             except Exception as e:
@@ -394,22 +593,29 @@ Format strict :
             shuffled_pages = pages.copy()
             random.shuffle(shuffled_pages)
             
-            # Lancer l'enrichissement en arrière-plan UNIQUEMENT pour les remasters/deluxe
-            if albums_to_enrich:
-                unique_album_ids = list(set(albums_to_enrich))  # Dédupliquer
-                logger.info(f"🎯 Enrichissement ciblé: {len(unique_album_ids)} albums remaster/deluxe détectés")
-                asyncio.create_task(self._enrich_albums_in_background(unique_album_ids))
+            # Dédupliquer les listes
+            albums_to_enrich = list(set(albums_to_enrich))
+            albums_to_refresh = list(set(albums_to_refresh))
+            
+            # Lancer l'amélioration en arrière-plan (sans bloquer)
+            if albums_to_enrich or albums_to_refresh:
+                logger.info(f"🚀 Début amélioration en arrière-plan: {len(albums_to_enrich)} remaster/deluxe + {len(albums_to_refresh)} albums incomplets")
+                # Créer une task maître qui gère les deux flux en parallèle
+                asyncio.create_task(self._manage_background_tasks_workflow(albums_to_refresh, albums_to_enrich))
             else:
-                logger.info("✅ Aucun album remaster/deluxe à enrichir")
+                logger.info("✅ Aucun album à améliorer")
             
             logger.info(f"✅ Magazine généré en {time.time() - start_time:.2f}s avec {len(pages)} pages")
+            logger.info(f"💡 Pendant que vous regardez le magazine, {len(albums_to_enrich) + len(albums_to_refresh)} albums s'améliorent en arrière-plan...")
             return {
                 "id": f"magazine-{datetime.now().timestamp()}",
                 "generated_at": datetime.now().isoformat(),
                 "pages": shuffled_pages,
                 "total_pages": len(shuffled_pages),
                 "enrichment_started": len(albums_to_enrich) > 0,
-                "albums_to_enrich": len(albums_to_enrich)
+                "albums_to_enrich": len(albums_to_enrich),
+                "refresh_started": len(albums_to_refresh) > 0,
+                "albums_to_refresh": len(albums_to_refresh)
             }
         except Exception as e:
             logger.error(f"❌ Erreur génération magazine: {e}")
@@ -423,18 +629,21 @@ Format strict :
             Artist.images.any()
         ).limit(1000).all()  # Limiter la query
         
-        if not artist_ids:
-            # Fallback : prendre juste UN artiste aléatoire
-            artist_id = self.db.query(Artist.id).limit(1).offset(random.randint(0, max(0, self.db.query(func.count(Artist.id)).scalar() - 1))).scalar()
-            if not artist_id:
-                return self._empty_page()
-            artist = self.db.query(Artist).filter(Artist.id == artist_id).first()
-        else:
+        artist = None
+        if artist_ids:
             artist_id = random.choice([aid[0] for aid in artist_ids])
             artist = self.db.query(Artist).filter(Artist.id == artist_id).first()
         
-        if not artist or not artist.albums:
-            return self._empty_page()
+        # Fallback : si pas d'artiste avec images, prendre n'importe quel artiste
+        if not artist:
+            artist_id = self.db.query(Artist.id).limit(1).offset(random.randint(0, max(0, self.db.query(func.count(Artist.id)).scalar() - 1))).scalar()
+            if artist_id:
+                artist = self.db.query(Artist).filter(Artist.id == artist_id).first()
+        
+        # Fallback : créer un artiste mockup si vraiment aucun artiste
+        if not artist:
+            logger.warning("⚠️ Aucun artiste trouvé, création fallback")
+            return self._generate_fallback_page_1()
         
         # Récupérer albums avec images VALIDES (avec joinedload pour éviter N+1)
         # Récupérer juste les premiers 50 et les mélanger en Python
@@ -455,8 +664,17 @@ Format strict :
         num_albums = min(random.randint(6, 8), len(all_albums_with_images))
         albums = all_albums_with_images[:num_albums]
         
-        if not albums:
-            return self._empty_page()
+        # Fallback : si très peu d'albums, accepter ceux sans images et créer des albums mockup
+        if len(albums) < 3:
+            logger.warning(f"⚠️ Seulement {len(albums)} albums avec images, recherche fallback")
+            # Chercher TOUS les albums et en prendre quelques-uns
+            fallback_albums = self.db.query(Album).options(
+                joinedload(Album.artists)
+            ).limit(50).all()
+            albums = fallback_albums[:8] if len(fallback_albums) >= 3 else albums + fallback_albums
+        
+        # Tracker les albums incomplètes pour rafraîchissement (pas de variables globales)
+        # - cela sera fait dans generate_magazine()
         
         # Générer un haiku avec l'IA pour l'artiste
         # Utiliser le premier album comme contexte
@@ -511,6 +729,8 @@ Format strict :
                 "description": ai_content,
                 "content_type": content_type
             })
+            
+            # Note: rafraîchissement des albums incomplets traité en post-processing
             logger.info(f"Album ajouté: {album.title} - Image: {album.image_url[:50] if album.image_url else 'None'}")
         
         # OPTIMISATION: Supprimer les fillers IA (trop lents, pas essentiels)
@@ -628,11 +848,21 @@ Format strict :
             Album.image_url.isnot(None)
         ).limit(200).all()  # Limiter à 200 pour pas charger trop d'albums
         
+        # Fallback : si pas assez d'albums avec images, prendre TOUS les albums
         if len(available_albums) < 3:
-            return self._empty_page()
+            logger.warning(f"⚠️ Seulement {len(available_albums)} albums avec images pour page 3, fallback complet")
+            available_albums = self.db.query(Album).options(
+                joinedload(Album.artists)
+            ).limit(50).all()  # Limiter à 50 albums totaux
+        
+        if len(available_albums) < 1:
+            logger.warning("⚠️ Aucun album disponible pour page 3, création fallback")
+            return self._generate_fallback_page_3()
         
         # Sélectionner 3-4 albums aléatoirement
         selected_albums = random.sample(available_albums, min(random.randint(3, 4), len(available_albums)))
+        
+        # Note: rafraîchissement des albums incomplets traité dans generate_magazine()
         
         # Créer haikus avec l'IA
         haikus = []
@@ -813,8 +1043,16 @@ Format strict :
             Album.image_url.isnot(None)
         ).limit(50).all()
         
+        # Fallback : si pas assez d'albums avec images, prendre TOUS les albums
         if len(albums) < 5:
-            return self._empty_page()
+            logger.warning(f"⚠️ Seulement {len(albums)} albums avec images pour page 5, fallback complet")
+            albums = self.db.query(Album).options(
+                joinedload(Album.artists)
+            ).limit(50).all()  # Limiter à 50 albums totaux
+        
+        if len(albums) < 1:
+            logger.warning("⚠️ Aucun album disponible pour page 5, création fallback")
+            return self._generate_fallback_page_5()
         
         # Thème basé sur les genres dominants dans les albums
         genres = [a.genre for a in albums if a.genre]
@@ -839,6 +1077,8 @@ Format strict :
         # Sélectionner 5-7 albums de manière vraiment aléatoire
         num_albums = random.randint(5, min(7, len(albums)))
         selected_albums = random.sample(albums, num_albums)
+        
+        # Note: rafraîchissement des albums incomplets traité dans generate_magazine()
         
         # OPTIMISATION: Utiliser des raisons statiques au lieu d'appels IA
         playlist_albums = []
@@ -903,6 +1143,177 @@ Format strict :
             "dimensions": {
                 "card_style": random.choice(["minimal", "detailed", "artistic"]),
                 "image_position": random.choice(["left", "top", "background"])
+            }
+        }
+    
+    def _generate_fallback_page_1(self) -> Dict[str, Any]:
+        """Générer une page 1 de fallback quand pas d'artiste disponible."""
+        logger.info("📝 Génération fallback page 1 avec données mockup")
+        
+        # Créer des données mockup
+        fallback_albums = [
+            {
+                "id": 999 + i,
+                "title": f"Album Musical {i+1}",
+                "year": 2024 - i,
+                "image_url": f"https://via.placeholder.com/300?text=Album+{i+1}",
+                "genre": "Musique",
+                "artist": f"Artiste {i+1}",
+                "description": "**Une création musicale** qui mérite l'attention. Cet album *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée.",
+                "content_type": "fallback"
+            }
+            for i in range(5)
+        ]
+        
+        return {
+            "page_number": 1,
+            "type": "artist_showcase",
+            "title": "Découverte Musicale",
+            "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "classic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+            },
+            "content": {
+                "artist": {
+                    "name": "Découvrez la Musique",
+                    "albums_count": 5,
+                    "haiku": "**La Musique**\nRésonne dans les cœurs\nÉternellement",
+                    "bio": "**Explorez** notre collection musicale sélectionnée avec soin. Une **expérience** unique qui **célèbre** la diversité et **l'authenticité** artistique. ✨",
+                    "image_url": None
+                },
+                "albums": fallback_albums,
+                "filler": []
+            },
+            "dimensions": {
+                "image_height": 400,
+                "text_columns": 2,
+                "color_scheme": "newspaper"
+            }
+        }
+    
+    def _generate_fallback_page_3(self) -> Dict[str, Any]:
+        """Générer une page 3 de fallback avec haikus mockup."""
+        logger.info("📝 Génération fallback page 3 avec haikus mockup")
+        
+        fallback_haikus = [
+            {
+                "album_id": 1001,
+                "album_title": "Haïku Musical #1",
+                "haiku": "**Silence Mélodique**\nNotes qui dansent\nChant de l'âme",
+                "layout": {
+                    "columns": 2,
+                    "imagePosition": "top",
+                    "imageSize": "medium",
+                    "textLayout": "single-column",
+                    "composition": "classic",
+                    "accentColor": "#10b981",
+                    "specialEffect": "none"
+                },
+                "description": "**Vrai** haïku musical inspiré de la poésie classique. Cette création **évoque** la beauté du silence et l'**harmonie** parfaite entre les notes."
+            },
+            {
+                "album_id": 1002,
+                "album_title": "Haïku Musical #2",
+                "haiku": "**Rythme Infini**\nLumière dans le son\nJoie pure éclatante",
+                "layout": {
+                    "columns": 2,
+                    "imagePosition": "top",
+                    "imageSize": "medium",
+                    "textLayout": "single-column",
+                    "composition": "classic",
+                    "accentColor": "#06b6d4",
+                    "specialEffect": "none"
+                },
+                "description": "Une **symphonie** de couleurs et de sons qui **illumine** le cœur. L'album capture l'**essence** de la **joie** dans chaque mesure."
+            }
+        ]
+        
+        return {
+            "page_number": 3,
+            "type": "albums_haikus",
+            "title": "Haïkus Musicaux",
+            "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "classic",
+                "accentColor": "#10b981",
+                "specialEffect": "none"
+            },
+            "content": {
+                "albums": [
+                    {
+                        "id": h["album_id"],
+                        "title": h["album_title"],
+                        "artist": "Artiste Haïku",
+                        "image_url": "https://via.placeholder.com/300?text=Haiku",
+                        "genre": "Musique"
+                    }
+                    for h in fallback_haikus
+                ],
+                "haikus": fallback_haikus
+            },
+            "dimensions": {
+                "image_size": "medium",
+                "columns": 2,
+                "spacing": "normal"
+            }
+        }
+    
+    def _generate_fallback_page_5(self) -> Dict[str, Any]:
+        """Générer une page 5 de fallback avec playlist mockup."""
+        logger.info("📝 Génération fallback page 5 avec playlist mockup")
+        
+        fallback_playlist_albums = [
+            {
+                "id": 2001 + i,
+                "title": f"Titre Playlist {i+1}",
+                "artist": f"Artiste {i+1}",
+                "image_url": f"https://via.placeholder.com/300?text=Playlist+{i+1}",
+                "year": 2024 - (i % 3),
+                "layout": {
+                    "columns": 2,
+                    "imagePosition": "top",
+                    "imageSize": "medium",
+                    "textLayout": "single-column",
+                    "composition": "classic",
+                    "accentColor": ["#ff6b35", "#10b981", "#06b6d4"][i % 3],
+                    "specialEffect": "none"
+                },
+                "reason": "Une **pièce maîtresse** qui **définit** l'esprit de cette playlist."
+            }
+            for i in range(5)
+        ]
+        
+        return {
+            "page_number": 5,
+            "type": "playlist_theme",
+            "title": "Playlist: Voyage Musical",
+            "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "classic",
+                "accentColor": "#8b5cf6",
+                "specialEffect": "none"
+            },
+            "content": {
+                "playlist": {
+                    "theme": "Voyage Musical",
+                    "description": "*Voyage Musical* vous propose une **sélection d'albums** soigneusement choisie pour une **expérience sonore** authentique qui **transcende** et inspire. ✨",
+                    "albums": fallback_playlist_albums
+                }
+            },
+            "dimensions": {
+                "card_style": "detailed",
+                "image_position": "top"
             }
         }
     

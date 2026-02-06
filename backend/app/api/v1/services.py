@@ -470,6 +470,7 @@ async def trigger_scheduler_task(task_name: str):
     - weekly_haiku: Génération de haïku hebdomadaire
     - monthly_analysis: Analyse mensuelle des patterns
     - optimize_ai_descriptions: Optimiser descriptions IA des albums populaires
+    - sync_discogs_daily: Synchronisation de la collection Discogs
     """
     scheduler = get_scheduler()
     try:
@@ -649,7 +650,22 @@ async def sync_discogs_collection(
     }
 
 async def _sync_discogs_task(limit: int = None):
-    """Tâche de synchronisation Discogs en arrière-plan."""
+    """Tâche de synchronisation Discogs en arrière-plan (OPTIMISÉE).
+    
+    Cette fonction récupère les NOUVEAUX albums (seulement) de la collection Discogs
+    et les ajoute à la base de données avec enrichissement minimal :
+    - URL Spotify album (optionnel, peut échouer sans bloquer)
+    - Image couverture Discogs
+    - Métadonnées (labels)
+    
+    ⚠️ SIMPLIFIÉ: 
+    - Les images artistes sont enrichies APRÈS la sync, à part
+    - Description IA enrichie APRÈS la sync avec /ai/enrich-all
+    - Pas d'appels API agressifs qui bloquent le sync
+    
+    Les albums existants (selon discogs_id) : IGNORÉS COMPLÈTEMENT.
+    Seuls les NOUVEAUX albums sont importés.
+    """
     global _last_executions, _sync_progress
     import logging
     logger = logging.getLogger(__name__)
@@ -661,86 +677,90 @@ async def _sync_discogs_task(limit: int = None):
         _last_executions['discogs_sync'] = datetime.now(timezone.utc).isoformat()
         _sync_progress["status"] = "running"
         
-        logger.info("🔄 Début synchronisation Discogs")
+        logger.info("🔄 Début synchronisation Discogs - Mode OPTIMISÉ (nouveaux albums seulement)")
         settings = get_settings()
         secrets = settings.secrets
         discogs_config = secrets.get('discogs', {})
         spotify_config = secrets.get('spotify', {})
-        ai_config = secrets.get('euria', {})
         
         discogs_service = DiscogsService(
             api_key=discogs_config.get('api_key'),
             username=discogs_config.get('username')
         )
         
-        # Initialiser les services Spotify et IA
-        spotify_service = SpotifyService(
-            client_id=spotify_config.get('client_id'),
-            client_secret=spotify_config.get('client_secret')
-        )
-        
-        ai_service = AIService(
-            url=ai_config.get('url'),
-            bearer=ai_config.get('bearer')
-        )
+        # Spotify seulement pour URL albums (minimal)
+        try:
+            spotify_service = SpotifyService(
+                client_id=spotify_config.get('client_id'),
+                client_secret=spotify_config.get('client_secret')
+            )
+        except Exception as e:
+            logger.warning(f"⚠️ Spotify unavailable: {e}")
+            spotify_service = None
         
         _sync_progress["current_album"] = "Récupération de la collection..."
         logger.info("📡 Récupération collection Discogs...")
-        albums_data = discogs_service.get_collection(limit=limit)
-        logger.info(f"✅ {len(albums_data)} albums récupérés de Discogs")
+        
+        # ================================================================
+        # PRÉ-ÉTAPE: Builder les IDs existants AVANT l'appel get_collection
+        # ================================================================
+        existing_discogs_ids = set(
+            db.query(Album.discogs_id).filter(
+                Album.source == 'discogs',
+                Album.discogs_id.isnot(None)
+            ).all()
+        )
+        existing_discogs_ids = {str(id[0]) for id in existing_discogs_ids}
+        logger.info(f"💾 {len(existing_discogs_ids)} albums Discogs existants")
+        
+        # 🚀 Passer les IDs existants à get_collection() pour éviter 236 appels API!
+        albums_data = discogs_service.get_collection(limit=limit, skip_ids=existing_discogs_ids)
+        logger.info(f"✅ {len(albums_data)} albums NOUVEAUX trouvés dans Discogs")
         
         _sync_progress["total"] = len(albums_data)
-        _sync_progress["current_album"] = "Début de l'import..."
+        _sync_progress["current_album"] = "Sync contenus..."
         
         synced_count = 0
-        skipped_count = 0
+        skipped_count = len(existing_discogs_ids)  # Les albums qui étaient déjà là
         error_count = 0
         
         for idx, album_data in enumerate(albums_data, 1):
             try:
                 # Mettre à jour la progression
                 _sync_progress["current"] = idx
-                _sync_progress["current_album"] = f"{album_data.get('title', 'Unknown')} - {album_data.get('artists', ['Unknown'])[0]}"
-                _sync_progress["synced"] = synced_count
-                _sync_progress["skipped"] = skipped_count
-                _sync_progress["errors"] = error_count
+                _sync_progress["current_album"] = f"{album_data.get('title', 'Unknown')}"
                 
-                # Vérifier si l'album existe déjà
-                existing = db.query(Album).filter_by(
-                    discogs_id=str(album_data['release_id'])
-                ).first()
-                
-                if existing:
-                    skipped_count += 1
-                    _sync_progress["skipped"] = skipped_count
-                    continue
-                
-                # Créer/récupérer artistes (dédoublonner pour éviter UNIQUE constraint)
+                # ================================================================
+                # ÉTAPE 2: Créer/récupérer artistes (RAPIDE, pas d'API)
+                # ================================================================
                 artists = []
                 seen_artist_ids = set()
                 
-                for artist_name in album_data['artists']:
+                for artist_name in album_data.get('artists', []):
                     if not artist_name or not artist_name.strip():
                         continue
                     
+                    # Rechercher artiste en BD
                     artist = db.query(Artist).filter_by(name=artist_name).first()
                     if not artist:
+                        # Créer artiste
                         artist = Artist(name=artist_name)
                         db.add(artist)
                         db.flush()
                     
-                    # Éviter les doublons d'artistes (certains albums Discogs ont des duplicatas)
                     if artist.id not in seen_artist_ids:
                         artists.append(artist)
                         seen_artist_ids.add(artist.id)
                 
-                # Si pas d'artiste, ignorer cet album
+                # Si pas d'artiste, ignorer
                 if not artists:
-                    logger.warning(f"⚠️ Album sans artiste ignoré: {album_data.get('title', 'Unknown')}")
+                    logger.warning(f"⚠️ Album sans artiste: {album_data.get('title', 'Unknown')}")
                     error_count += 1
                     continue
                 
-                # Déterminer le support
+                # ================================================================
+                # ÉTAPE 3: Déterminer le support
+                # ================================================================
                 support = "Unknown"
                 if album_data.get('formats'):
                     format_name = album_data['formats'][0]
@@ -751,28 +771,33 @@ async def _sync_discogs_task(limit: int = None):
                     elif 'Digital' in format_name:
                         support = "Digital"
                 
-                # Normaliser l'année (Discogs peut retourner 0 ou None)
+                # Normaliser année
                 year = album_data.get('year')
                 if year == 0:
                     year = None
                 
-                # Rechercher URL Spotify
+                # ================================================================
+                # ÉTAPE 4: Chercher URL Spotify (RAPIDE, avec timeout)
+                # ================================================================
                 spotify_url = None
-                try:
-                    artist_name = album_data['artists'][0] if album_data['artists'] else ""
-                    spotify_url = await spotify_service.search_album_url(artist_name, album_data['title'])
-                    if spotify_url:
-                        logger.info(f"🎵 Spotify trouvé pour: {album_data['title']}")
-                except Exception as e:
-                    logger.warning(f"⚠️ Erreur recherche Spotify pour {album_data['title']}: {e}")
+                if spotify_service:
+                    try:
+                        artist_name = album_data['artists'][0] if album_data.get('artists') else ""
+                        spotify_url = await spotify_service.search_album_url(artist_name, album_data['title'])
+                    except Exception as e:
+                        logger.debug(f"⚠️ Spotify failed for {album_data['title']}: {e}")
+                        # Continue même si Spotify fail
                 
-                # Créer album
+                # ================================================================
+                # ÉTAPE 5: Créer l'album en BD
+                # ================================================================
+                release_id = str(album_data.get('release_id', album_data.get('id', '')))
                 album = Album(
                     title=album_data['title'],
                     year=year,
                     support=support,
-                    source='discogs',  # Marquer comme album de collection Discogs
-                    discogs_id=str(album_data['release_id']),
+                    source='discogs',
+                    discogs_id=release_id,
                     discogs_url=album_data.get('discogs_url'),
                     spotify_url=spotify_url
                 )
@@ -780,7 +805,9 @@ async def _sync_discogs_task(limit: int = None):
                 db.add(album)
                 db.flush()
                 
-                # Ajouter image
+                # ================================================================
+                # ÉTAPE 6: Ajouter image Discogs
+                # ================================================================
                 if album_data.get('cover_image'):
                     image = Image(
                         url=album_data['cover_image'],
@@ -790,53 +817,62 @@ async def _sync_discogs_task(limit: int = None):
                     )
                     db.add(image)
                 
-                # Générer description IA avec délai pour éviter rate limiting
-                ai_info = None
-                try:
-                    import asyncio
-                    # Petit délai pour éviter de saturer l'API EurIA
-                    await asyncio.sleep(0.3)
-                    
-                    artist_name = album_data['artists'][0] if album_data['artists'] else ""
-                    ai_info = await ai_service.generate_album_info(artist_name, album_data['title'])
-                    if ai_info:
-                        logger.info(f"🤖 Description IA générée pour: {album_data['title']}")
-                except Exception as e:
-                    logger.warning(f"⚠️ Erreur génération IA pour {album_data['title']}: {e}")
-                
-                # Ajouter métadonnées
+                # ================================================================
+                # ÉTAPE 7: Ajouter métadonnées (SIMPLE)
+                # ================================================================
                 metadata = Metadata(
                     album_id=album.id,
-                    labels=','.join(album_data['labels']) if album_data.get('labels') else None,
-                    ai_info=ai_info
+                    labels=','.join(album_data.get('labels', [])) if album_data.get('labels') else None,
+                    ai_info=None  # ⚠️ Enrichi APRÈS avec /ai/enrich-all
                 )
                 db.add(metadata)
                 
                 synced_count += 1
                 _sync_progress["synced"] = synced_count
+                logger.debug(f"✅ Album créé: {album_data['title']}")
                 
-                # Commit tous les 10 albums pour éviter les transactions trop longues
-                if synced_count % 10 == 0:
+                # Commit plus fréquent pour éviter accumulation mémoire
+                if synced_count % 5 == 0:
                     db.commit()
                     logger.info(f"💾 {synced_count} albums sauvegardés...")
                 
             except Exception as e:
-                logger.error(f"❌ Erreur import album {album_data.get('title', 'Unknown')}: {e}")
+                logger.error(f"❌ Erreur album {album_data.get('title', 'Unknown')}: {e}")
                 error_count += 1
                 _sync_progress["errors"] = error_count
-                db.rollback()  # Rollback pour cet album uniquement
+                db.rollback()
+                # Continue pour les autres albums
                 continue
         
         # Commit final
         db.commit()
-        logger.info(f"✅ Synchronisation terminée: {synced_count} albums ajoutés, {skipped_count} ignorés, {error_count} erreurs")
+        
+        msg = f"""
+╔════════════════════════════════════════════════════════╗
+║     ✅ SYNCHRONISATION DISCOGS TERMINÉE (OPTIMISÉE)   ║
+╠════════════════════════════════════════════════════════╣
+║  📊 RÉSULTATS:                                          ║
+║    ✨ {synced_count:3d} albums AJOUTÉS & sauvegardés    ║
+║    ⏭️  {skipped_count:3d} albums ignorés (existence)    ║
+║    ❌ {error_count:3d} erreurs                         ║
+╠════════════════════════════════════════════════════════╣
+║ 📝 PROCHAINES ÉTAPES (optionnel):                       ║
+║  1. Enrichir images artistes:                          ║
+║     /services/ai/enrich-all?limit=50                   ║
+║  2. Générer descriptions IA:                           ║
+║     POST /services/ai/enrich-all                       ║
+╚════════════════════════════════════════════════════════╝
+        """
+        logger.info(msg)
         
         # Marquer comme terminé
         _sync_progress["status"] = "completed"
-        _sync_progress["current_album"] = "Terminé !"
+        _sync_progress["current_album"] = "✅ Sync terminée (enrichissement manuel après)"
         
     except Exception as e:
-        logger.error(f"❌ Erreur synchronisation Discogs: {e}")
+        logger.error(f"❌ Erreur crítica sync Discogs: {e}")
+        import traceback
+        logger.error(traceback.format_exc())
         _sync_progress["status"] = "error"
         _sync_progress["current_album"] = f"Erreur: {str(e)}"
         db.rollback()
@@ -1718,5 +1754,161 @@ async def normalize_with_roon(db: Session = Depends(get_db), background_tasks: B
     except Exception as e:
         logger.error(f"❌ Erreur démarrage normalisation: {e}")
         raise HTTPException(status_code=500, detail=f"Erreur normalization: {str(e)}")
+
+
+# ===== ENRICHISSEMENT EURIA + SPOTIFY =====
+
+# État de l'enrichissement
+_enrich_progress = {
+    "status": "idle",
+    "phase": "",
+    "current": 0,
+    "total": 0,
+    "descriptions_added": 0,
+    "images_added": 0,
+    "errors": 0
+}
+
+
+@router.get("/discogs/enrich/progress")
+async def get_enrich_progress():
+    """Obtenir la progression de l'enrichissement."""
+    return _enrich_progress
+
+
+@router.post("/discogs/enrich")
+async def enrich_with_euria_spotify(
+    background_tasks: BackgroundTasks,
+    limit: int = None,
+    db: Session = Depends(get_db)
+):
+    """Enrichir avec Euria/Mistral (descriptions IA) + Spotify (images).
+    
+    Args:
+        limit: Nombre maximum d'albums à enrichir (optionnel, pour tests)
+    """
+    global _enrich_progress
+    
+    # Vérifier si enrichissement en cours
+    if _enrich_progress["status"] == "running":
+        raise HTTPException(status_code=409, detail="Un enrichissement est déjà en cours")
+    
+    # Initialiser progression
+    _enrich_progress = {
+        "status": "starting",
+        "phase": "initialization",
+        "current": 0,
+        "total": 0,
+        "descriptions_added": 0,
+        "images_added": 0,
+        "errors": 0
+    }
+    
+    # Lancer en arrière-plan
+    background_tasks.add_task(_enrich_euria_spotify_task, limit)
+    
+    return {
+        "status": "started",
+        "message": "Enrichissement Euria/Mistral + Spotify démarré en arrière-plan"
+    }
+
+
+async def _enrich_euria_spotify_task(limit: int = None):
+    """Tâche d'enrichissement Euria/Mistral + Spotify en arrière-plan."""
+    global _last_executions, _enrich_progress
+    import logging
+    import os
+    
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+    except ImportError:
+        pass
+    
+    logger = logging.getLogger(__name__)
+    
+    db = SessionLocal()
+    
+    try:
+        _last_executions['enrichment'] = datetime.now(timezone.utc).isoformat()
+        _enrich_progress["status"] = "running"
+        _enrich_progress["phase"] = "loading_config"
+        
+        logger.info("🤖 Début enrichissement Euria/Mistral + Spotify")
+        
+        # Lire les credentials depuis variables d'environnement
+        euria_bearer = os.getenv('bearer', '')
+        euria_url = os.getenv('URL', 'https://api.infomaniak.com/2/ai/106561/openai/v1/chat/completions')
+        spotify_id = os.getenv('SPOTIFY_CLIENT_ID', '')
+        spotify_secret = os.getenv('SPOTIFY_CLIENT_SECRET', '')
+        
+        # Importer le script d'enrichissement
+        from pathlib import Path
+        import sys
+        import importlib.util
+        
+        # Ajouter le répertoire racine au sys.path pour les imports dynamiques
+        root_dir = Path(__file__).parent.parent.parent.parent.parent
+        if str(root_dir) not in sys.path:
+            sys.path.insert(0, str(root_dir))
+        
+        script_path = root_dir / 'enrich_euria_spotify.py'
+        spec = importlib.util.spec_from_file_location("enrich_euria_spotify", script_path)
+        enrich_module = importlib.util.module_from_spec(spec)
+        
+        # Configurer les variables globales du module avec les credentials .env
+        enrich_module.EURIA_BEARER_TOKEN = euria_bearer
+        enrich_module.EURIA_API_URL = euria_url
+        enrich_module.SPOTIFY_CLIENT_ID = spotify_id
+        enrich_module.SPOTIFY_CLIENT_SECRET = spotify_secret
+        
+        # Charger le module
+        spec.loader.exec_module(enrich_module)
+        
+        # Callback de progression
+        def progress_callback(data):
+            global _enrich_progress
+            _enrich_progress.update(data)
+            logger.info(f"📊 {data['phase']}: {data['current']}/{data['total']}")
+        
+        # Vérifier que les APIs sont configurées
+        if not euria_bearer:
+            logger.warning("⚠️  Euria API (bearer token) non configurée dans .env")
+        
+        if not spotify_id or not spotify_secret:
+            logger.warning("⚠️  Spotify API non configurée dans .env - Aucune image ne sera récupérée")
+        
+        # Lancer l'enrichissement
+        _enrich_progress["phase"] = "descriptions"
+        stats = enrich_module.enrich_albums_euria_spotify(
+            limit=limit,
+            progress_callback=progress_callback
+        )
+        
+        # Mettre à jour le statut final
+        _enrich_progress.update({
+            "status": "completed",
+            "total": stats["total"],
+            "descriptions_added": stats["descriptions_added"],
+            "images_added": stats["artist_images_added"],
+            "errors": stats["errors"]
+        })
+        
+        logger.info(f"✅ Enrichissement complété")
+        logger.info(f"  📝 Descriptions: +{stats['descriptions_added']}")
+        logger.info(f"  🖼️  Images: +{stats['artist_images_added']}")
+        logger.info(f"  ❌ Erreurs: {stats['errors']}")
+        logger.info(f"  ⏱️  Temps: {stats['processing_time']:.1f}s")
+        
+    except FileNotFoundError as e:
+        logger.error(f"❌ Script d'enrichissement non trouvé: {e}")
+        _enrich_progress["status"] = "error"
+        _enrich_progress["errors"] += 1
+    except Exception as e:
+        logger.error(f"❌ Erreur enrichissement: {e}", exc_info=True)
+        _enrich_progress["status"] = "error"
+        _enrich_progress["errors"] += 1
+    finally:
+        db.close()
 
 

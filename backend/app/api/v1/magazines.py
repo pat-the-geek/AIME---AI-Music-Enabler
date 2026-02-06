@@ -8,6 +8,7 @@ from app.database import get_db
 from app.services.magazine_generator_service import MagazineGeneratorService
 from app.services.magazine_edition_service import MagazineEditionService
 from app.services.ai_service import AIService
+from app.services.spotify_service import SpotifyService
 from app.core.config import get_settings
 
 logger = logging.getLogger(__name__)
@@ -22,6 +23,7 @@ async def generate_magazine(db: Session = Depends(get_db)):
         settings = get_settings()
         secrets = settings.secrets
         euria_config = secrets.get('euria', {})
+        spotify_config = secrets.get('spotify', {})
         
         logger.info(f"📖 Initialisation Magazine - Euria config: {bool(euria_config)}")
         
@@ -30,8 +32,13 @@ async def generate_magazine(db: Session = Depends(get_db)):
             bearer=euria_config.get('bearer')
         )
         
+        spotify_service = SpotifyService(
+            client_id=spotify_config.get('client_id'),
+            client_secret=spotify_config.get('client_secret')
+        )
+        
         # Générer le magazine
-        magazine_service = MagazineGeneratorService(db, ai_service)
+        magazine_service = MagazineGeneratorService(db, ai_service, spotify_service)
         magazine = await magazine_service.generate_magazine()
         
         logger.info(f"✅ Magazine généré: {magazine['id']}")
@@ -40,6 +47,40 @@ async def generate_magazine(db: Session = Depends(get_db)):
     except Exception as e:
         logger.error(f"❌ Erreur génération magazine: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Erreur génération magazine: {str(e)}")
+
+
+@router.get("/refresh-status")
+async def get_magazine_refresh_status(db: Session = Depends(get_db)):
+    """Récupérer le statut actuel du rafraîchissement des albums en arrière-plan."""
+    try:
+        # Initialiser le service IA (simple instanciation pour accéder à la méthode)
+        settings = get_settings()
+        secrets = settings.secrets
+        euria_config = secrets.get('euria', {})
+        spotify_config = secrets.get('spotify', {})
+        
+        ai_service = AIService(
+            url=euria_config.get('url'),
+            bearer=euria_config.get('bearer')
+        )
+        
+        spotify_service = SpotifyService(
+            client_id=spotify_config.get('client_id'),
+            client_secret=spotify_config.get('client_secret')
+        )
+        
+        magazine_service = MagazineGeneratorService(db, ai_service, spotify_service)
+        status = magazine_service.get_refresh_status()
+        
+        return {
+            "success": True,
+            "refresh_status": status,
+            "message": f"Albums en cours d'amélioration: {status['currently_processing'] or 'Aucun'}"
+        }
+        
+    except Exception as e:
+        logger.error(f"❌ Erreur statut rafraîchissement: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Erreur statut: {str(e)}")
 
 
 @router.post("/regenerate")

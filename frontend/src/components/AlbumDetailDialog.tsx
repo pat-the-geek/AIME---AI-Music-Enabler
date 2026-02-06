@@ -73,7 +73,11 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
         title: albumDetail.title,
         artists: albumDetail.artists,
         artist_images: albumDetail.artist_images,
-        has_artist_images: albumDetail.artist_images && Object.keys(albumDetail.artist_images).length > 0
+        has_artist_images: albumDetail.artist_images && Object.keys(albumDetail.artist_images).length > 0,
+        ai_info: albumDetail.ai_info ? `"${albumDetail.ai_info.substring(0, 100)}..."` : null,
+        ai_info_exists: 'ai_info' in albumDetail,
+        ai_info_type: typeof albumDetail.ai_info,
+        ai_info_is_empty: albumDetail.ai_info ? isEmptyContent(albumDetail.ai_info) : 'no-ai_info'
       })
     }
   }, [albumDetail])

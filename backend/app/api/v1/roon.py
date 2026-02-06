@@ -593,14 +593,14 @@ class RoonPlayAlbumRequest(BaseModel):
 async def play_album(request: RoonPlayAlbumRequest):
     """Jouer un album entier sur Roon.
     
-    Cette fonction permet de démarrer la lecture d'un album
-    en jouant le premier track disponible, puis les suivants automatiquement.
+    Cette fonction demande à Roon de jouer l'album directement.
+    Roon gère ses propres tracks et la lecture.
     """
     check_roon_enabled()  # Vérifier que Roon est activé
     
     from sqlalchemy.orm import Session
     from app.database import SessionLocal
-    from app.models import Album, Track
+    from app.models import Album
     
     db: Session = SessionLocal()
     
@@ -609,12 +609,6 @@ async def play_album(request: RoonPlayAlbumRequest):
         album = db.query(Album).filter(Album.id == request.album_id).first()
         if not album:
             raise HTTPException(status_code=404, detail=f"Album {request.album_id} non trouvé")
-        
-        # Récupérer les tracks de l'album
-        tracks = db.query(Track).filter(Track.album_id == request.album_id).all()
-        
-        if not tracks:
-            raise HTTPException(status_code=400, detail="L'album n'a pas de tracks")
         
         # Initialiser Roon
         roon_service = get_roon_service()
@@ -632,7 +626,8 @@ async def play_album(request: RoonPlayAlbumRequest):
         # Récupérer les infos de l'artiste principal
         artist_name = ", ".join([a.name for a in album.artists]) if album.artists else "Unknown"
         
-        # Essayer de jouer l'album complet directement
+        # Demander à Roon de jouer l'album directement
+        logger.info(f"🎵 Demande à Roon de jouer: {artist_name} - {album.title}")
         success = roon_service.play_album_with_timeout(
             zone_or_output_id=zone_id,
             artist=artist_name,
@@ -641,79 +636,23 @@ async def play_album(request: RoonPlayAlbumRequest):
         )
         
         if success is False:
-            # Si l'approche album ne marche pas, essayer track par track en dernier recours
-            logger.info(f"⚠️ Lecture directe de l'album échouée, tentative track par track...")
-            
-            first_track = None
-            skipped_count = 0
-            
-            for track in tracks:
-                # Tenter de lancer ce track
-                track_success = roon_service.play_track(
-                    zone_or_output_id=zone_id,
-                    track_title=track.title,
-                    artist=artist_name,
-                    album=album.title
-                )
-                
-                if track_success:
-                    # Track trouvé et lancé !
-                    first_track = track
-                    break
-                else:
-                    skipped_count += 1
-            
-            if not first_track:
-                raise HTTPException(
-                    status_code=400,
-                    detail=f"Impossible de lancer l'album: aucun track trouvé dans Roon ({skipped_count}/{len(tracks)} tracks non trouvés)"
-                )
-        elif success is True:
-            # La lecture directe a marché, prendre le premier track pour les infos
-            first_track = tracks[0] if tracks else None
-        else:
-            logger.info(f"⏳ Lecture en cours de lancement: {artist_name} - {album.title}")
-            return JSONResponse(
-                status_code=202,
-                content={
-                    "status": "pending",
-                    "message": "Commande envoyee a Roon. La lecture peut demarrer sous quelques secondes.",
-                    "album": {
-                        "id": album.id,
-                        "title": album.title,
-                        "artist": artist_name,
-                        "year": album.year
-                    },
-                    "zone": request.zone_name
-                }
+            raise HTTPException(
+                status_code=400,
+                detail=f"Impossible de trouver l'album dans Roon: {artist_name} - {album.title}"
             )
         
-        # Préparer les infos de l'album
-        tracks_info = []
-        for track in tracks[:10]:  # Limiter à 10 tracks pour l'affichage
-            artists = [a.name for a in album.artists] if album.artists else ["Unknown"]
-            
-            tracks_info.append({
-                "track_id": track.id,
-                "title": track.title,
-                "artist": ", ".join(artists),
-                "album": album.title
-            })
-        
+        # Réponse succès
+        logger.info(f"✅ Album lancé sur Roon: {artist_name} - {album.title}")
         return {
+            "status": "success",
+            "message": f"Album lancé sur Roon",
             "album": {
                 "id": album.id,
                 "title": album.title,
-                "artist": ", ".join([a.name for a in album.artists]) if album.artists else "Unknown",
+                "artist": artist_name,
                 "year": album.year
             },
-            "zone": request.zone_name,
-            "first_track": {
-                "id": first_track.id,
-                "title": first_track.title
-            },
-            "track_count": len(tracks),
-            "tracks": tracks_info  # Montrer les 10 premiers tracks
+            "zone": request.zone_name
         }
         
     except HTTPException:

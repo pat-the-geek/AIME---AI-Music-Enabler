@@ -1,7 +1,7 @@
-# 📚 Index de la Documentation - AIME v4.3.1
+# 📚 Index de la Documentation - AIME v4.6.0
 
-**Date:** 3 février 2026  
-**Dernière réorganisation:** 3 février 2026
+**Date:** 6 février 2026  
+**Dernière réorganisation:** 6 février 2026
 
 ---
 
@@ -393,6 +393,6 @@ Spécifications techniques et designs.
 
 ---
 
-**Version:** 4.3.1  
-**Date de réorganisation:** 3 février 2026  
+**Version:** 4.6.0  
+**Date de réorganisation:** 6 février 2026  
 **Auteur:** Patrick Ostertag

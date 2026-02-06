@@ -27,7 +27,8 @@ TASK_NAMES = {
     'weekly_haiku': '🎋 Haïku hebdomadaire',
     'monthly_analysis': '📊 Analyse mensuelle',
     'optimize_ai_descriptions': '🤖 Optimisation IA',
-    'generate_magazine_editions': '📰 Génération de magazines'
+    'generate_magazine_editions': '📰 Génération de magazines',
+    'sync_discogs_daily': '💿 Sync Discogs'
 }
 
 
@@ -120,6 +121,14 @@ class SchedulerService:
             self._generate_magazine_editions,
             trigger=CronTrigger(hour=3, minute=0),  # 3h du matin
             id='generate_magazine_editions',
+            replace_existing=True
+        )
+        
+        # Tâche quotidienne : synchroniser collection Discogs
+        self.scheduler.add_job(
+            self._sync_discogs_daily,
+            trigger=CronTrigger(hour=4, minute=0),  # 4h du matin
+            id='sync_discogs_daily',
             replace_existing=True
         )
         
@@ -829,6 +838,24 @@ Réponds uniquement en français."""
         finally:
             db.close()
     
+    async def _sync_discogs_daily(self):
+        """Synchronisation quotidienne de la collection Discogs."""
+        logger.info("💿 Début synchronisation quotidienne Discogs")
+        
+        try:
+            # Importer la fonction de sync depuis le API
+            from app.api.v1.services import _sync_discogs_task
+            
+            # Exécuter la sync
+            await _sync_discogs_task(limit=None)
+            
+            logger.info("✅ Synchronisation Discogs quotidienne terminée")
+            self._record_execution('sync_discogs_daily', 'success')
+            
+        except Exception as e:
+            logger.error(f"❌ Erreur lors de la sync Discogs quotidienne: {e}")
+            self._record_execution('sync_discogs_daily', 'error', str(e))
+    
     async def trigger_task(self, task_name: str) -> dict:
         """Déclencher manuellement une tâche."""
         tasks = {
@@ -839,7 +866,8 @@ Réponds uniquement en français."""
             'weekly_haiku': self._weekly_haiku,
             'monthly_analysis': self._monthly_analysis,
             'optimize_ai_descriptions': self._optimize_ai_descriptions,
-            'generate_magazine_editions': self._generate_magazine_editions
+            'generate_magazine_editions': self._generate_magazine_editions,
+            'sync_discogs_daily': self._sync_discogs_daily
         }
         
         if task_name not in tasks:

@@ -117,4 +117,4 @@ Les credentials sont dans `.env` à la racine du projet.
 
 **Date**: 30 janvier 2026
 **Status global**: ✅ Fully Operational
-**Application**: AIME - AI Music Enabler v4.0.0
+**Application**: AIME - AI Music Enabler v4.6.0

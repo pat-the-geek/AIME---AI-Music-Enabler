@@ -15,6 +15,7 @@ from sqlalchemy.orm import Session
 
 from app.services.magazine_generator_service import MagazineGeneratorService
 from app.services.ai_service import AIService
+from app.services.spotify_service import SpotifyService
 from app.core.config import get_settings
 
 logger = logging.getLogger(__name__)
@@ -30,13 +31,20 @@ class MagazineEditionService:
         settings = get_settings()
         secrets = settings.secrets
         euria_config = secrets.get('euria', {})
+        spotify_config = secrets.get('spotify', {})
         
         self.ai_service = AIService(
             url=euria_config.get('url'),
             bearer=euria_config.get('bearer')
         )
         
-        self.magazine_service = MagazineGeneratorService(db, self.ai_service)
+        # Initialiser Spotify Service pour charger les images
+        self.spotify_service = SpotifyService(
+            client_id=spotify_config.get('client_id'),
+            client_secret=spotify_config.get('client_secret')
+        )
+        
+        self.magazine_service = MagazineGeneratorService(db, self.ai_service, self.spotify_service)
         self.base_path = Path(__file__).parent.parent.parent.parent / "data" / "magazine-editions"
         self.base_path.mkdir(parents=True, exist_ok=True)
         

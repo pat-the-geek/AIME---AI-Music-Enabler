@@ -16,7 +16,10 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
-  Divider
+  Divider,
+  Dialog,
+  DialogTitle,
+  DialogContent
 } from '@mui/material'
 import { Refresh, History, Casino, List as ListIcon } from '@mui/icons-material'
 import apiClient from '@/api/client'
@@ -48,6 +51,20 @@ interface EditionMeta {
   enrichment_completed: boolean
 }
 
+interface RefreshStatus {
+  status: 'idle' | 'refreshing' | 'enriching' | 'completed'
+  magazine_id: string | null
+  total_albums: number
+  refreshed_count: number
+  enriched_count: number
+  currently_processing: string | null
+  albums_recently_improved: Array<{
+    album: string
+    status: 'refreshed' | 'enriched'
+    progress: string
+  }>
+}
+
 export default function Magazine() {
   const [currentPage, setCurrentPage] = useState(0)
   const [nextRefreshIn, setNextRefreshIn] = useState(900) // 15 minutes en secondes
@@ -56,7 +73,9 @@ export default function Magazine() {
   const [selectedEditionId, setSelectedEditionId] = useState<string | null>(null)
   const [editionsMenuAnchor, setEditionsMenuAnchor] = useState<null | HTMLElement>(null)
   const [showScrollIndicator, setShowScrollIndicator] = useState(false)
-  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null)
+  const [scrollTimeout, setScrollTimeout] = useState<ReturnType<typeof setTimeout> | null>(null)
+  const [refreshStatus, setRefreshStatus] = useState<RefreshStatus | null>(null)
+  const [isPolling, setIsPolling] = useState(false)
 
   // Charger la liste des éditions disponibles
   const { data: editionsList } = useQuery({
@@ -119,6 +138,34 @@ export default function Magazine() {
     return () => clearInterval(timer)
   }, [refetch])
 
+  // Polling du statut de rafraîchissement en arrière-plan
+  useEffect(() => {
+    if (!isPolling || usePregenerated) return
+
+    const pollStatus = async () => {
+      try {
+        const response = await apiClient.get<{ refresh_status: RefreshStatus }>('/magazines/refresh-status')
+        if (response.data.refresh_status) {
+          setRefreshStatus(response.data.refresh_status)
+          
+          // Arrêter le polling si c'est terminé
+          if (response.data.refresh_status.status === 'completed') {
+            setIsPolling(false)
+            showSnackbar('✅ Amélioration des albums terminée !', 'success')
+          }
+        }
+      } catch (error) {
+        console.error('Erreur lors du polling du statut:', error)
+      }
+    }
+
+    // Poll immédiatement et puis toutes les 1.5 secondes
+    pollStatus()
+    const interval = setInterval(pollStatus, 1500)
+
+    return () => clearInterval(interval)
+  }, [isPolling, usePregenerated])
+
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
     const secs = seconds % 60
@@ -128,6 +175,8 @@ export default function Magazine() {
   const handleNewEdition = () => {
     setSelectedEditionId(null)
     setUsePregenerated(true)
+    setRefreshStatus(null)
+    setIsPolling(false) // Arrêter le polling
     refetch()
     setCurrentPage(0)
     setNextRefreshIn(900)
@@ -137,6 +186,8 @@ export default function Magazine() {
   const handleGenerateNew = () => {
     setSelectedEditionId(null)
     setUsePregenerated(false)
+    setRefreshStatus(null)
+    setIsPolling(true) // Démarrer le polling
     refetch()
     setCurrentPage(0)
     setNextRefreshIn(900)
@@ -146,6 +197,8 @@ export default function Magazine() {
   const handleSelectEdition = (editionId: string) => {
     setSelectedEditionId(editionId)
     setUsePregenerated(true)
+    setRefreshStatus(null)
+    setIsPolling(false) // Arrêter le polling
     setEditionsMenuAnchor(null)
     refetch()
     setCurrentPage(0)
@@ -380,6 +433,98 @@ export default function Magazine() {
           </Stack>
         </Stack>
       </Paper>
+
+      {/* Refresh Status Modal */}
+      <Dialog
+        open={refreshStatus !== null && (refreshStatus.status === 'refreshing' || refreshStatus.status === 'enriching')}
+        disableEscapeKeyDown
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: '16px',
+            backgroundColor: '#ffffff',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+          }
+        }}
+      >
+        <DialogTitle sx={{
+          textAlign: 'center',
+          paddingTop: '40px',
+          paddingBottom: '20px',
+          backgroundColor: refreshStatus?.status === 'enriching' ? '#e8f5e9' : '#e3f2fd',
+          borderBottom: `3px solid ${refreshStatus?.status === 'enriching' ? '#4caf50' : '#23a7dd'}`
+        }}>
+          <Typography variant="h5" sx={{
+            fontWeight: 700,
+            color: refreshStatus?.status === 'enriching' ? '#1b5e20' : '#0d47a1',
+            marginBottom: '8px'
+          }}>
+            {refreshStatus?.status === 'refreshing' ? '⚙️ Rafraîchissement' : '✨ Enrichissement'}
+          </Typography>
+        </DialogTitle>
+
+        <DialogContent sx={{ paddingTop: '40px', paddingBottom: '40px', textAlign: 'center' }}>
+          <Stack spacing={3} alignItems="center">
+            {/* Main Progress Text */}
+            <Box>
+              <Typography variant="h4" sx={{
+                fontWeight: 900,
+                color: refreshStatus?.status === 'enriching' ? '#2e7d32' : '#1565c0',
+                marginBottom: '8px'
+              }}>
+                {refreshStatus?.status === 'refreshing'
+                  ? `Album ${refreshStatus?.refreshed_count} sur ${refreshStatus?.total_albums}`
+                  : `Description ${refreshStatus?.enriched_count} sur ${refreshStatus?.total_albums}`}
+              </Typography>
+              <Typography variant="body2" sx={{
+                color: '#666',
+                fontStyle: 'italic'
+              }}>
+                {refreshStatus?.currently_processing || 'Initialisation...'}
+              </Typography>
+            </Box>
+
+            {/* Circular Progress */}
+            <CircularProgress
+              variant="determinate"
+              value={
+                refreshStatus?.status === 'refreshing'
+                  ? (refreshStatus?.total_albums > 0 ? (refreshStatus?.refreshed_count / refreshStatus?.total_albums * 100) : 0)
+                  : (refreshStatus?.total_albums > 0 ? (refreshStatus?.enriched_count / refreshStatus?.total_albums * 100) : 0)
+              }
+              size={120}
+              thickness={4}
+              sx={{
+                color: refreshStatus?.status === 'enriching' ? '#4caf50' : '#23a7dd',
+                '& .MuiCircularProgress-circle': {
+                  strokeLinecap: 'round'
+                }
+              }}
+            />
+
+            {/* Percentage Text */}
+            <Typography variant="h6" sx={{
+              fontWeight: 700,
+              color: refreshStatus?.status === 'enriching' ? '#2e7d32' : '#1565c0'
+            }}>
+              {Math.round(
+                refreshStatus?.status === 'refreshing'
+                  ? (refreshStatus?.total_albums > 0 ? (refreshStatus?.refreshed_count / refreshStatus?.total_albums * 100) : 0)
+                  : (refreshStatus?.total_albums > 0 ? (refreshStatus?.enriched_count / refreshStatus?.total_albums * 100) : 0)
+              )}%
+            </Typography>
+
+            {/* Status Text */}
+            <Typography variant="body2" sx={{
+              color: '#999',
+              fontSize: '0.9rem'
+            }}>
+              Les albums s'amélioreront progressivement pendant votre lecture
+            </Typography>
+          </Stack>
+        </DialogContent>
+      </Dialog>
 
       {/* Magazine Content */}
       <Box 

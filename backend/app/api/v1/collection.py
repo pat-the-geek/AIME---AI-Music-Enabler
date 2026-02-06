@@ -161,8 +161,15 @@ async def get_album(
     film_year = None
     film_director = None
     
+    # Chercher ai_info: d'abord dans album.ai_description, puis dans metadata
+    ai_info = album.ai_description  # ✨ Colonne principale (Euria/Mistral3 enrichment)
+    resume = None
+    labels = None
+    
     if album.album_metadata:
-        ai_info = album.album_metadata.ai_info
+        # Fallback vers metadata si pas dans la colonne principale
+        if not ai_info:
+            ai_info = album.album_metadata.ai_info
         resume = album.album_metadata.resume
         labels = album.album_metadata.labels.split(',') if album.album_metadata.labels else None
         film_title = album.album_metadata.film_title

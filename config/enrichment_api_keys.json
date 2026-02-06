@@ -1,0 +1,25 @@
+{
+  "lastfm": {
+    "api_key": "",
+    "enabled": false,
+    "description": "Récupération images d'artiste"
+  },
+  "openai": {
+    "api_key": "n",
+    "model": "gpt-3.5-turbo",
+    "enabled": true,
+    "description": "Génération descriptions via ChatGPT"
+  },
+  "huggingface": {
+    "api_key": "n",
+    "model": "gpt2",
+    "enabled": true,
+    "description": "Génération descriptions via Hugging Face"
+  },
+  "euria": {
+    "api_url": "n",
+    "api_key": "n",
+    "enabled": true,
+    "description": "API Euria personnalisée (si disponible)"
+  }
+}

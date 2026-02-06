@@ -1,0 +1,4538 @@
+{
+  "metadata": {
+    "created_at": "2026-02-06T11:37:52.027838",
+    "total_albums": 236,
+    "source": "discogs",
+    "steps_completed": [
+      "fetch",
+      "enrich"
+    ],
+    "enriched_at": "2026-02-06T11:37:52.151800",
+    "enrichment_time": 0.0001480579376220703
+  },
+  "albums": [
+    {
+      "release_id": "25118110",
+      "title": "T.V. Sky",
+      "year": 2022,
+      "artists": [
+        "The Young Gods"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "[PIAS] Le Label"
+      ],
+      "cover_image": "https://i.discogs.com/cMh5LBPknjrGDvPC6Elvd_UXUiLA5MxcdDY5Ukg4ey0/rs:fit/g:sm/q:90/h:595/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1MTE4/MTEwLTE2Njg5NTcz/MDAtNjI1NS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/25118110-The-Young-Gods-TV-Sky",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "35436085",
+      "title": "Only Heaven",
+      "year": 2025,
+      "artists": [
+        "The Young Gods"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "[PIAS] Recordings",
+        "[PIAS] Recordings"
+      ],
+      "cover_image": "https://i.discogs.com/hr73OglrMe1lFjdXERZDZjf6pXz-PXfd5ypZdqtzPIw/rs:fit/g:sm/q:90/h:588/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NDM2/MDg1LTE3NjEwNTA0/MTYtMzg5Ni5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/35436085-The-Young-Gods-Only-Heaven",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "26504603",
+      "title": "Elvis Presley",
+      "year": 2023,
+      "artists": [
+        "Elvis Presley"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "20th Century Masterworks"
+      ],
+      "cover_image": "https://i.discogs.com/qriyGWXhvzy3ofBs4-gULyia2wlhvMe2lPuVenrYCYI/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI2NTA0/NjAzLTE2ODU1NDA3/MTEtOTM1MS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/26504603-Elvis-Presley-Elvis-Presley",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "16005957",
+      "title": "In The Flat Field",
+      "year": null,
+      "artists": [
+        "Bauhaus"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "4AD"
+      ],
+      "cover_image": "https://i.discogs.com/bC_BlBn6rveJyEosmvTrbHqsvSoT-62gt5MXalfplYE/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE2MDA1/OTU3LTE2MDE4Mjc4/MDMtMTA2OS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/16005957-Bauhaus-In-The-Flat-Field",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "15610295",
+      "title": "Jackie Brown (Music From The Miramax Motion Picture)",
+      "year": 2019,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "A Band Apart",
+        "A Band Apart",
+        "Warner Records",
+        "Warner Records",
+        "Maverick",
+        "Maverick"
+      ],
+      "cover_image": "https://i.discogs.com/PBg_f0sj0fq8C-ktsifv98voFDPwuTb7bH89H8dmwAw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE1NjEw/Mjk1LTE2NzIzMzM4/NDUtMjQzNy5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/15610295-Various-Jackie-Brown-Music-From-The-Miramax-Motion-Picture",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "11215966",
+      "title": "Beggars Banquet",
+      "year": 2017,
+      "artists": [
+        "The Rolling Stones"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "ABKCO"
+      ],
+      "cover_image": "https://i.discogs.com/euYKKcWW6BUnP40pJRFoa_12wPZO62leIBwFpZkkRVY/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExMjE1/OTY2LTE1OTAyMjc5/MDAtODY5OS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/11215966-The-Rolling-Stones-Beggars-Banquet",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "14437432",
+      "title": "Let It Bleed",
+      "year": 2019,
+      "artists": [
+        "The Rolling Stones"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "ABKCO"
+      ],
+      "cover_image": "https://i.discogs.com/TyEB9gxS1rG-zUIT1bCrcCi1H5XK9dNt7QKMAqMIXfk/rs:fit/g:sm/q:90/h:598/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE0NDM3/NDMyLTE1NzQ1MjA5/NjUtODM0Ny5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/14437432-Rolling-Stones-Let-It-Bleed",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "30092240",
+      "title": "Priscilla (Original Motion Picture Soundtrack)",
+      "year": 2024,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "ABKCO Music And Records, Inc."
+      ],
+      "cover_image": "https://i.discogs.com/XyCwZQqkbdqY089vUrYVEOF6vNrXGmODewEx5cD2FzQ/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwMDky/MjQwLTE3MTA0MDQ3/OTAtOTU4NS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/30092240-Various-Priscilla-Original-Motion-Picture-Soundtrack",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "35187295",
+      "title": "The Virgin Suicides Redux",
+      "year": 2025,
+      "artists": [
+        "AIR"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Aircheology"
+      ],
+      "cover_image": "https://i.discogs.com/oBa-dNT69mOnoFi4jvwPWwaeX5WgJ2Dj6ixlyMhtKx0/rs:fit/g:sm/q:90/h:587/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1MTg3/Mjk1LTE3NTg3MDg2/MjAtMjk5My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/35187295-AIR-The-Virgin-Suicides-Redux",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "35096396",
+      "title": "The Virgin Suicides Redux",
+      "year": 2025,
+      "artists": [
+        "AIR"
+      ],
+      "formats": [
+        "CD",
+        "CD",
+        "Blu-ray",
+        "All Media"
+      ],
+      "labels": [
+        "Aircheology"
+      ],
+      "cover_image": "https://i.discogs.com/oDqZFqekOqqN_nGUl14UakVdxUSc5B9JowDs78nlsTI/rs:fit/g:sm/q:90/h:533/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1MDk2/Mzk2LTE3NjAzMTk5/MTUtNDI5OS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/35096396-AIR-The-Virgin-Suicides-Redux",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "949474",
+      "title": "Bullitt",
+      "year": 2000,
+      "artists": [
+        "Lalo Schifrin"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Aleph Records"
+      ],
+      "cover_image": "https://i.discogs.com/RMq19MLgunFGrPS4G5XL-Y6J4cJPqJzKMSg15kv1_4Y/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk0OTQ3/NC0xNjkzNTE3ODg4/LTQ0MjUuanBlZw.jpeg",
+      "discogs_url": "https://www.discogs.com/release/949474-Lalo-Schifrin-Bullitt",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "12642678",
+      "title": "Toxicity",
+      "year": 2018,
+      "artists": [
+        "System Of A Down"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "American Recordings"
+      ],
+      "cover_image": "https://i.discogs.com/m6SoQlmfroOIPh-b5x_NGIOBeS9UmTSYVGZ7SJTxRI4/rs:fit/g:sm/q:90/h:599/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyNjQy/Njc4LTE1Mzk5OTk3/ODEtMzE1My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/12642678-System-Of-A-Down-Toxicity",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "12611494",
+      "title": "Imagine",
+      "year": 2018,
+      "artists": [
+        "John Lennon"
+      ],
+      "formats": [
+        "Vinyl",
+        "Vinyl",
+        "All Media"
+      ],
+      "labels": [
+        "Apple Records"
+      ],
+      "cover_image": "https://i.discogs.com/ZQ06ek9-_qYX8JoXJZBRGPPHh7sKELcoB4Ajkr2FWvg/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyNjEx/NDk0LTE2OTkyMzUw/MjUtMjIzMi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/12611494-John-Lennon-Imagine",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "17476018",
+      "title": "The Beatles  - Anniversary Edition",
+      "year": 2019,
+      "artists": [
+        "The Beatles"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Apple Records",
+        "Apple Records"
+      ],
+      "cover_image": "https://i.discogs.com/uKVV4WBYlfHlDJFgtq3Zk_Vk9Uhm-FyzkT5y1m4siaE/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE3NDc2/MDE4LTE2MTU2MjMx/NDMtNDg3Mi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/17476018-The-Beatles-The-Beatles-Anniversary-Edition",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "4036937",
+      "title": "Yellow Submarine",
+      "year": 2012,
+      "artists": [
+        "The Beatles"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Apple Records",
+        "Apple Records"
+      ],
+      "cover_image": "https://i.discogs.com/4_xYsk5OBS8C8V03EVrz1BtS9RT-kNI_M7RWSNlbHtw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQwMzY5/MzctMTM3MDU0MzY4/Ny03MzI5LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/4036937-The-Beatles-Yellow-Submarine",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "28789084",
+      "title": "Now And Then / Love Me Do",
+      "year": 2023,
+      "artists": [
+        "The Beatles"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Apple Records",
+        "Parlophone",
+        "Universal Music Group International",
+        "Apple Records"
+      ],
+      "cover_image": "https://i.discogs.com/0rzyEUAPP_F9VtQdyvpPZAonu8-Jdhn0lw7rEkpDSbg/rs:fit/g:sm/q:90/h:595/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI4Nzg5/MDg0LTE2OTk4MDk0/NzAtMzI2OS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/28789084-The-Beatles-Now-And-Then-Love-Me-Do",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "24967525",
+      "title": "Revolver",
+      "year": 2022,
+      "artists": [
+        "The Beatles"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Apple Records",
+        "Universal Music Group International"
+      ],
+      "cover_image": "https://i.discogs.com/hO2dgz4Kf80Z85EpU79cj_kyeplxUt0iyv2TQxtlMsM/rs:fit/g:sm/q:90/h:600/w:596/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI0OTY3/NTI1LTE2NjY5MDUx/NTctNDk0NC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/24967525-The-Beatles-Revolver",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "20599078",
+      "title": "Let It Be",
+      "year": 2021,
+      "artists": [
+        "The Beatles"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Apple Records",
+        "Universal Music Group International"
+      ],
+      "cover_image": "https://i.discogs.com/C6YB2HyiTySB_mudtafSU-1PO6nfv4d7lrW4gO5D-TE/rs:fit/g:sm/q:90/h:600/w:575/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIwNTk5/MDc4LTE2NjI3MzY0/NDMtOTQwMS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/20599078-The-Beatles-Let-It-Be",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "14186441",
+      "title": "Abbey Road",
+      "year": 2019,
+      "artists": [
+        "The Beatles"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Apple Records",
+        "Universal Music Group International",
+        "Apple Records"
+      ],
+      "cover_image": "https://i.discogs.com/goWfjpqUBW8Y0xrqJG_GFz3fCTHPSWeKLZAX1alAAzk/rs:fit/g:sm/q:90/h:600/w:592/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE0MTg2/NDQxLTE1Njk0ODcx/NjEtNzMxNC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/14186441-The-Beatles-Abbey-Road",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "11281442",
+      "title": "Sgt. Pepper's Lonely Hearts Club Band",
+      "year": 2017,
+      "artists": [
+        "The Beatles"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Apple Records",
+        "Universal Music Group International",
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/ON7s-80IBDGuEQdZDce6RxB7gSzmA9WU4wVOXPAZZD8/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExMjgx/NDQyLTE1MjUyNjAw/NzQtMjcxNi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/11281442-The-Beatles-Sgt-Peppers-Lonely-Hearts-Club-Band",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "18861868",
+      "title": "Untitled",
+      "year": 2020,
+      "artists": [
+        "Led Zeppelin"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Atlantic"
+      ],
+      "cover_image": "https://i.discogs.com/ws5mrHtlAvVPt_DMeC8FVUHCXdZZsfdY9Io7mFhof04/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE4ODYx/ODY4LTE2MjE4NjQz/NjctNzE1NS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/18861868-Led-Zeppelin-Untitled",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "24805355",
+      "title": "Led Zeppelin III",
+      "year": null,
+      "artists": [
+        "Led Zeppelin"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Atlantic"
+      ],
+      "cover_image": "https://i.discogs.com/InDb77Ug6ENu0xNCUst7UU5ZgXqfU1G4hhKUV8OpZHU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI0ODA1/MzU1LTE2NjU2MTgy/NzMtMTU4Ny5wbmc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/24805355-Led-Zeppelin-Led-Zeppelin-III",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "29724205",
+      "title": "An Evening With Silk Sonic",
+      "year": 2024,
+      "artists": [
+        "Silk Sonic"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Atlantic",
+        "Aftermath Entertainment"
+      ],
+      "cover_image": "https://i.discogs.com/f6yJ5qHvq1emh0P5SThhprEseovyvTQbLHo5k5H_MLU/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI5NzI0/MjA1LTE3MDkzOTQ5/MjEtNzc0NS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/29724205-Silk-Sonic-An-Evening-With-Silk-Sonic",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "6224441",
+      "title": "Houses Of The Holy",
+      "year": 2014,
+      "artists": [
+        "Led Zeppelin"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Atlantic",
+        "Atlantic"
+      ],
+      "cover_image": "https://i.discogs.com/BoRNUDXI1YwA96M0FGilwQtPP7WsoonnzWqINs-qV8s/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTYyMjQ0/NDEtMTQyNDM4MDcx/Mi02MDI3LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/6224441-Led-Zeppelin-Houses-Of-The-Holy",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "19502752",
+      "title": "Led Zeppelin II",
+      "year": 2020,
+      "artists": [
+        "Led Zeppelin"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Atlantic",
+        "Atlantic"
+      ],
+      "cover_image": "https://i.discogs.com/jkKBZm4Ag9YWIkloipLdRe6OcnyU_9Y8UkWOgWk4w84/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE5NTAy/NzUyLTE2NzgxODgy/NjQtNDUzMC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/19502752-Led-Zeppelin-Led-Zeppelin-II",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "19887778",
+      "title": "Led Zeppelin",
+      "year": 2020,
+      "artists": [
+        "Led Zeppelin"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Atlantic",
+        "Atlantic"
+      ],
+      "cover_image": "https://i.discogs.com/GlWm3wwaPFeBa78mFMN0-H-kNubJo5jYTs62FdSU_1w/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE5ODg3/Nzc4LTE2MjkxNzM0/NjktNTU1My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/19887778-Led-Zeppelin-Led-Zeppelin",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "9293980",
+      "title": "Vol. 3",
+      "year": 2001,
+      "artists": [
+        "Barbara (5)"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Back ULM",
+        "Universal"
+      ],
+      "cover_image": "https://i.discogs.com/0igVnN8FYoafcNXxPaJ1_oEtqj-JtVnUQirlKtniSqo/rs:fit/g:sm/q:90/h:537/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTkyOTM5/ODAtMTQ3ODEwNTA5/NS0xNDMyLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/9293980-Barbara-5-Vol-3",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "11705328",
+      "title": "Quelqu'un M'a Dit",
+      "year": 2002,
+      "artists": [
+        "Carla Bruni"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Barclay"
+      ],
+      "cover_image": "https://i.discogs.com/IsFH2TL9yhuBdJ3BP_rrhHvqltEJGAErAosvSxkw5s0/rs:fit/g:sm/q:90/h:500/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExNzA1/MzI4LTE1MjA5NjY5/MzMtNzU2MC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/11705328-Carla-Bruni-Quelquun-Ma-Dit",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "11688972",
+      "title": "L'Oiseleur",
+      "year": 2018,
+      "artists": [
+        "Feu ! Chatterton"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Barclay"
+      ],
+      "cover_image": "https://i.discogs.com/DEeHouj1c19jwhEuwXpwjC-VX2CwQXcSzooRm-GSYjQ/rs:fit/g:sm/q:90/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExNjg4/OTcyLTE1MjA2OTcw/NTMtOTU1Mi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/11688972-Feu-Chatterton-LOiseleur",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "928842",
+      "title": "Lunático",
+      "year": 2006,
+      "artists": [
+        "Gotan Project"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Barclay"
+      ],
+      "cover_image": "https://i.discogs.com/a_DUAuJvPDL3t35_3Ao4jB3rqVUgOoTEBfLm0R_qe3k/rs:fit/g:sm/q:90/h:447/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTkyODg0/Mi0xMTczOTAwNjc1/LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/928842-Gotan-Project-Lunático",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "25041010",
+      "title": "Ode",
+      "year": 2022,
+      "artists": [
+        "Stephan Eicher"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Barclay",
+        "Barclay",
+        "Electric Unicorn Music Production",
+        "Electric Unicorn Music Production",
+        "Universal Music France",
+        "Universal Music France"
+      ],
+      "cover_image": "https://i.discogs.com/sEkZ3w3dmQR8U_GBQ3A1U2cpcXaIQXqT-9Ng3AG_JF4/rs:fit/g:sm/q:90/h:544/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1MDQx/MDEwLTE2Njc0OTg1/MjItNzk3Mi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/25041010-Stephan-Eicher-Ode",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "29073616",
+      "title": "5:55",
+      "year": 2023,
+      "artists": [
+        "Charlotte Gainsbourg"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Because Music",
+        "Because Music"
+      ],
+      "cover_image": "https://i.discogs.com/QVLjKfJzMVqbZBIpwTgTvj-GUpvSvpt29-oKo2Pkjuk/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI5MDcz/NjE2LTE3MDEzOTI4/MTktNTIzMy5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/29073616-Charlotte-Gainsbourg-555",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "23270783",
+      "title": "Once Twice Melody",
+      "year": 2022,
+      "artists": [
+        "Beach House"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Bella Union"
+      ],
+      "cover_image": "https://i.discogs.com/gPzZ_RmvYafB9T7xkQKymO23jXCqYwCFkoq4idbIiJQ/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIzMjcw/NzgzLTE2NTMwNDIy/NjEtNjE5My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/23270783-Beach-House-Once-Twice-Melody",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "4606818",
+      "title": "Big Beat From Badsville",
+      "year": 2013,
+      "artists": [
+        "The Cramps"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Big Beat Records"
+      ],
+      "cover_image": "https://i.discogs.com/S4nv6eW_JylLVXN2L7ul7eY7lbY5I4s6PfPNjGXfjrY/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ2MDY4/MTgtMTYxNjE5OTg0/MS0yOTA4LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/4606818-The-Cramps-Big-Beat-From-Badsville",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "31592299",
+      "title": "Definitely Maybe",
+      "year": 2024,
+      "artists": [
+        "Oasis (2)"
+      ],
+      "formats": [
+        "Vinyl",
+        "Vinyl",
+        "All Media"
+      ],
+      "labels": [
+        "Big Brother"
+      ],
+      "cover_image": "https://i.discogs.com/p54QwLI82odghYpgW0Njk1t6AFkNStdxLu4odjZP4-w/rs:fit/g:sm/q:90/h:585/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMxNTky/Mjk5LTE3MjQ5Mzg2/OTItNDU5Ni5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/31592299-Oasis-2-Definitely-Maybe",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "35255308",
+      "title": "(What's The Story) Morning Glory?",
+      "year": 2025,
+      "artists": [
+        "Oasis (2)"
+      ],
+      "formats": [
+        "Vinyl",
+        "Vinyl",
+        "All Media"
+      ],
+      "labels": [
+        "Big Brother"
+      ],
+      "cover_image": "https://i.discogs.com/op3GewVqsnkPkFxRYZr2VkdRhppZ0FIyiSO_HS-baSE/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1MjU1/MzA4LTE3NTkzMzUz/NTMtMjMzMS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/35255308-Oasis-2-Whats-The-Story-Morning-Glory",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "3672495",
+      "title": "Time Flies... 1994-2009",
+      "year": 2010,
+      "artists": [
+        "Oasis (2)"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Big Brother",
+        "Sony Music"
+      ],
+      "cover_image": "https://i.discogs.com/MROkhpE3AYyNlqeRzyU1dT0VQpSWNExvoDqyFKS65OQ/rs:fit/g:sm/q:90/h:591/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM2NzI0/OTUtMTQ4ODQ3NDE4/Mi04NTc2LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/3672495-Oasis-2-Time-Flies-1994-2009",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "25166209",
+      "title": "Teatro Lúcido",
+      "year": 2022,
+      "artists": [
+        "La Femme (4)"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Born Bad Records",
+        "Disque Pointu"
+      ],
+      "cover_image": "https://i.discogs.com/n8Pu5N1BR7Q4-qB9RCI7UYKPWg-GvOMc9ceVAyxwxas/rs:fit/g:sm/q:90/h:588/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1MTY2/MjA5LTE3NTgxOTk2/MzctMTM0Mi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/25166209-La-Femme-4-Teatro-Lúcido",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "32175270",
+      "title": "Rock Machine",
+      "year": 2024,
+      "artists": [
+        "La Femme (4)"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Born Bad Records",
+        "IDOL (2)",
+        "Disque Pointu"
+      ],
+      "cover_image": "https://i.discogs.com/-WlZqYhY5r-PayN_vPij4klwoCZbEEuwCPlKcJ7C1MM/rs:fit/g:sm/q:90/h:596/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyMTc1/MjcwLTE3MzE1MTkx/NDAtMzA1Ni5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/32175270-La-Femme-4-Rock-Machine",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "10316646",
+      "title": "Saturday Night Fever (The Original Movie Sound Track)",
+      "year": 2017,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Capitol Records"
+      ],
+      "cover_image": "https://i.discogs.com/KLewSX3gzIjC0HZuv4JyWZeEqQe5Yw92mnaV9GP7MbM/rs:fit/g:sm/q:90/h:600/w:582/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEwMzE2/NjQ2LTE0OTUyMTE1/ODgtMzA2OS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/10316646-Various-Saturday-Night-Fever-The-Original-Movie-Sound-Track",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "22739777",
+      "title": "So Tonight That I Might See",
+      "year": 2022,
+      "artists": [
+        "Mazzy Star"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Capitol Records"
+      ],
+      "cover_image": "https://i.discogs.com/I2Cofn-PfkYjioJlO27MFq-FK_9_6DepEybvlmvbYig/rs:fit/g:sm/q:90/h:591/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyNzM5/Nzc3LTE2NTE5NTUz/NDUtNjU2My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/22739777-Mazzy-Star-So-Tonight-That-I-Might-See",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "4058439",
+      "title": "Magical Mystery Tour",
+      "year": 2012,
+      "artists": [
+        "The Beatles"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Capitol Records",
+        "Apple Records",
+        "Capitol Records",
+        "Apple Records"
+      ],
+      "cover_image": "https://i.discogs.com/BS824bfDj-Rec_a2mDYPtBf_ZTEb_sYsEaytuPiXtxk/rs:fit/g:sm/q:90/h:500/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQwNTg0/MzktMTM2MDUxMzQy/OC0zMjY2LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/4058439-The-Beatles-Magical-Mystery-Tour",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "14437275",
+      "title": "Hyperspace",
+      "year": 2019,
+      "artists": [
+        "Beck"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Capitol Records",
+        "Fonograf (3)"
+      ],
+      "cover_image": "https://i.discogs.com/RQhdGvn9sccb1_9XO2sLNJD_zzMJbISDUWjUtNN5_oE/rs:fit/g:sm/q:90/h:537/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE0NDM3/Mjc1LTE2MTc2MzA2/MDMtNzc3OC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/14437275-Beck-Hyperspace",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "14433033",
+      "title": "Hyperspace",
+      "year": 2019,
+      "artists": [
+        "Beck"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Capitol Records",
+        "Fonograf (3)"
+      ],
+      "cover_image": "https://i.discogs.com/qjqB98jVMN1zHs1sm3Kxk8vIrQfVBL55jzzhzDRQx0E/rs:fit/g:sm/q:90/h:570/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE0NDMz/MDMzLTE1NzQ0Mzg2/NTQtMjAxNC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/14433033-Beck-Hyperspace",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "5743865",
+      "title": "Rhapsody In Blue • Concerto In F",
+      "year": 1971,
+      "artists": [
+        "George Gershwin",
+        "Philippe Entremont",
+        "Eugene Ormandy",
+        "The Philadelphia Orchestra"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "CBS Classics",
+        "CBS Classics",
+        "CBS Classics"
+      ],
+      "cover_image": "https://i.discogs.com/tvMzfnWBEV3lR2aKgR2Y6clWcTLkRIkEB287pi5I7RA/rs:fit/g:sm/q:90/h:599/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTU3NDM4/NjUtMTQxNTg2MTc5/Mi01NTQwLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/5743865-Gershwin-Entremont-Ormandy-Philadelphia-Orchestra-Rhapsody-In-Blue-Concerto-In-F",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "3207051",
+      "title": "Mort A Venise (Bande Originale Du Film)",
+      "year": null,
+      "artists": [
+        "Orchestra Dell'Accademia Nazionale Di Santa Cecilia",
+        "Franco Mannino"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "CBS",
+        "CBS"
+      ],
+      "cover_image": "https://i.discogs.com/S0oykLfnJi_nncRKGuk3hjRObW6s8SXjRLtDNFmvX4g/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyMDcw/NTEtMTMyOTk1Mzg0/Ni5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/3207051-Orchestre-de-lAcadémie-de-Santa-Cécilia-direction-Franco-Mannino-Mort-A-Venise-Bande-Originale-Du-",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "15469496",
+      "title": "Pearl",
+      "year": 2020,
+      "artists": [
+        "Janis Joplin"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Columbia"
+      ],
+      "cover_image": "https://i.discogs.com/tGl41Vg2L_g_x4v4DRHEajoGVluxsMUrHHbWzhZia0A/rs:fit/g:sm/q:90/h:589/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE1NDY5/NDk2LTE2MjI4MjAx/ODQtMjU5OC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/15469496-Janis-Joplin-Pearl",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "35382589",
+      "title": "Deadbeat",
+      "year": 2025,
+      "artists": [
+        "Tame Impala"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Columbia"
+      ],
+      "cover_image": "https://i.discogs.com/T1PgRFyv-U1c8xOhrcSuupmZSJN0TSFRGz3X0YFJItg/rs:fit/g:sm/q:90/h:593/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1Mzgy/NTg5LTE3NjA3OTk1/MjUtMzM0OC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/35382589-Tame-Impala-Deadbeat",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "14299390",
+      "title": "Once Upon A Time In Hollywood (Original Motion Picture Soundtrack)",
+      "year": 2019,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Columbia",
+        "Columbia"
+      ],
+      "cover_image": "https://i.discogs.com/qnXyM7OcdICRI_nw7YAyqwts9bJOUcxtLQ8p4OwuTRw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE0Mjk5/MzkwLTE1NzE4NDIw/NTYtMjY2OS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/14299390-Various-Once-Upon-A-Time-In-Hollywood-Original-Motion-Picture-Soundtrack",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "27031743",
+      "title": "Random Access Memories (10th Anniversary Edition)",
+      "year": 2023,
+      "artists": [
+        "Daft Punk"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Columbia",
+        "Legacy",
+        "Sony Music"
+      ],
+      "cover_image": "https://i.discogs.com/f8_B05PM2c1GRREU9cQNr1pYBr2C_7qmvVhLM48NYXo/rs:fit/g:sm/q:90/h:600/w:599/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3MDMx/NzQzLTE2ODM5Nzk2/MjEtMzE1My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/27031743-Daft-Punk-Random-Access-Memories-10th-Anniversary-Edition",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "28924120",
+      "title": "Random Access Memories (Drumless Edition)",
+      "year": 2023,
+      "artists": [
+        "Daft Punk"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Columbia",
+        "Legacy",
+        "Sony Music"
+      ],
+      "cover_image": "https://i.discogs.com/Mg4ZMl75Fak1-BMzhDv-lp7orqsrkCH8ujm6w9iFaJY/rs:fit/g:sm/q:90/h:600/w:589/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI4OTI0/MTIwLTE3MDg0MzQ5/NzktMzU1OC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/28924120-Daft-Punk-Random-Access-Memories-Drumless-Edition",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "7606066",
+      "title": "Kind Of Blue",
+      "year": 2015,
+      "artists": [
+        "Miles Davis"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Columbia",
+        "Legacy",
+        "Sony Music"
+      ],
+      "cover_image": "https://i.discogs.com/snjTBhy7S6FkxJ2v_dEiIK1aBPbDMFLSYNYhyIJ9jaQ/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTc2MDYw/NjYtMTQ0NTAxMDM0/MC00NjgzLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/7606066-Miles-Davis-Kind-Of-Blue",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "33849456",
+      "title": "Pink Floyd At Pompeii MCMLXXII",
+      "year": 2025,
+      "artists": [
+        "Pink Floyd"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Columbia",
+        "Sony Music"
+      ],
+      "cover_image": "https://i.discogs.com/E2Hoa5Plxs9vyviEz1j6yY-ARxun6Zv7ky_u0P-oFUw/rs:fit/g:sm/q:90/h:593/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMzODQ5/NDU2LTE3NDY5MTAx/NjItMTU1MS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/33849456-Pink-Floyd-Pink-Floyd-At-Pompeii-MCMLXXII",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "33342602",
+      "title": "Pink Floyd At Pompeii MCMLXXII",
+      "year": 2025,
+      "artists": [
+        "Pink Floyd"
+      ],
+      "formats": [
+        "Blu-ray"
+      ],
+      "labels": [
+        "Columbia",
+        "Sony Music"
+      ],
+      "cover_image": "https://i.discogs.com/mV2wxrlwCoMPYu3-FRuEG7noNRRagkBkGM6hAZaZZvs/rs:fit/g:sm/q:90/h:600/w:537/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMzMzQy/NjAyLTE3NTQ1NDQ0/MDctMTQwNC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/33342602-Pink-Floyd-Pink-Floyd-At-Pompeii-MCMLXXII",
+      "support": "Unknown",
+      "enriched": true
+    },
+    {
+      "release_id": "35897536",
+      "title": "Wish You Were Here",
+      "year": 2025,
+      "artists": [
+        "Pink Floyd"
+      ],
+      "formats": [
+        "Vinyl",
+        "Vinyl",
+        "Box Set"
+      ],
+      "labels": [
+        "Columbia",
+        "Sony Music"
+      ],
+      "cover_image": "https://i.discogs.com/9PHwBie9V-PAn0UACYWhRrfQ4R_K0KDTTW9BFjhn_no/rs:fit/g:sm/q:90/h:600/w:594/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1ODk3/NTM2LTE3NjU2Mzcw/NTYtMTI1MC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/35897536-Pink-Floyd-Wish-You-Were-Here",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "29322373",
+      "title": "When We All Fall Asleep, Where Do We Go?",
+      "year": null,
+      "artists": [
+        "Billie Eilish"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Darkroom (4)",
+        "Interscope Records"
+      ],
+      "cover_image": "https://i.discogs.com/nGyE4RTROXXEPv1Yrl1FkOXgJEJx9XT2ZRvcHSO8CYQ/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI5MzIy/MzczLTE3MDM3OTQz/NzQtMzk3OC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/29322373-Billie-Eilish-When-We-All-Fall-Asleep-Where-Do-We-Go",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "30691885",
+      "title": "Hit Me Hard And Soft",
+      "year": 2024,
+      "artists": [
+        "Billie Eilish"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Darkroom (4)",
+        "Interscope Records"
+      ],
+      "cover_image": "https://i.discogs.com/UWEOIBvRf3bijAiOG7A8flXv6dJjfntM7Zm9nvxsf2I/rs:fit/g:sm/q:90/h:568/w:571/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwNjkx/ODg1LTE3MTYwNTI3/NzYtNzIwNS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/30691885-Billie-Eilish-Hit-Me-Hard-And-Soft",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "19676632",
+      "title": "Happier Than Ever",
+      "year": 2021,
+      "artists": [
+        "Billie Eilish"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Darkroom (4)",
+        "Interscope Records",
+        "Darkroom (4)",
+        "Interscope Records"
+      ],
+      "cover_image": "https://i.discogs.com/klV31dzoGMSZ_aChZ_B08RYEQn-2softe0XACmrg9Xw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE5Njc2/NjMyLTE3MDcwMzA1/NTAtMjAwNS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/19676632-Billie-Eilish-Happier-Than-Ever",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "32591889",
+      "title": "Preacher's Daughter",
+      "year": 2025,
+      "artists": [
+        "Ethel Cain"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Daughters Of Cain Records"
+      ],
+      "cover_image": "https://i.discogs.com/vgOgvCfMM5a8UMutESUsDIo-c7WJwTGYAvC80hOCyl8/rs:fit/g:sm/q:90/h:596/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyNTkx/ODg5LTE3NDM3NDA2/MDEtNTMzNS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/32591889-Ethel-Cain-Preachers-Daughter-",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "34767578",
+      "title": "Willoughby Tucker, I'll Always Love You",
+      "year": 2025,
+      "artists": [
+        "Ethel Cain"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Daughters Of Cain Records"
+      ],
+      "cover_image": "https://i.discogs.com/HWgU_xg-dl9Ts1NS6MEOPMXFysJdMmA2FoiCiwE1PCY/rs:fit/g:sm/q:90/h:590/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM0NzY3/NTc4LTE3NTQ2NjQz/ODQtNzk5OS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/34767578-Ethel-Cain-Willoughby-Tucker-Ill-Always-Love-You",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "22641653",
+      "title": "House Of Gucci (Music From The Motion Picture)",
+      "year": 2022,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Decca",
+        "Decca",
+        "MGM Records",
+        "Bron (2)"
+      ],
+      "cover_image": "https://i.discogs.com/V8tfoVc9cArA501usMgsneBB3C6k2_jgb_F9FwKqffk/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyNjQx/NjUzLTE2NDgyMjgw/MTMtMzgyOS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/22641653-Various-House-Of-Gucci-Music-From-The-Motion-Picture",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "13265412",
+      "title": "The Thomas Crown Affair (Original Motion Picture Soundtrack)",
+      "year": 2018,
+      "artists": [
+        "Michel Legrand"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Decca",
+        "Universal"
+      ],
+      "cover_image": "https://i.discogs.com/hq01UKUJWXi7nZlvobKwjrWFeKNdwW9Hgm636jvvJhA/rs:fit/g:sm/q:90/h:450/w:450/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMjY1/NDEyLTE1NTEwMTMw/MjUtMjQyNC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/13265412-Michel-Legrand-The-Thomas-Crown-Affair-Original-Motion-Picture-Soundtrack",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "5075031",
+      "title": "The Bling Ring (Original Motion Picture Soundtrack)",
+      "year": 2013,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Def Jam Recordings"
+      ],
+      "cover_image": "https://i.discogs.com/SDvcZktWRFiVUlq3djjDR6uEKpRv9ifodNQoenkkAQ0/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTUwNzUw/MzEtMTM4MzgyMjAz/Mi00MDcxLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/5075031-Various-The-Bling-Ring-Original-Motion-Picture-Soundtrack",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "32387157",
+      "title": "Musiques Inspirées Du Film \"La Haine\"",
+      "year": 2024,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Delabel"
+      ],
+      "cover_image": "https://i.discogs.com/7UDvX8vSX2bWnsiNR8Z7lhxDLVBk8Ywk753zov6sEjI/rs:fit/g:sm/q:90/h:592/w:599/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyMzg3/MTU3LTE3MzI1MDg0/MzItNzU1My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/32387157-Various-Musiques-Inspirées-Du-Film-La-Haine",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "30950020",
+      "title": "Sketches Of Spain",
+      "year": 2024,
+      "artists": [
+        "Miles Davis"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Destination Moon (3)"
+      ],
+      "cover_image": "https://i.discogs.com/O9bxE-weLFPyoA_HaHqdQS6Z4NlPkhn4A6A0nKHZAAQ/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwOTUw/MDIwLTE3MTgyODU4/NTctODMzNy5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/30950020-Miles-Davis-Sketches-Of-Spain",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "27047832",
+      "title": "Resound NYC",
+      "year": 2023,
+      "artists": [
+        "Moby"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Deutsche Grammophon"
+      ],
+      "cover_image": "https://i.discogs.com/JN0RwD29CeSdTMIqDINEa6lPmeLHfeeyonLHWlm0W58/rs:fit/g:sm/q:90/h:600/w:597/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3MDQ3/ODMyLTE2ODM4Mjk3/MTktNTI4MC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/27047832-Moby-Resound-NYC",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "372905",
+      "title": "With The Lights Out",
+      "year": 2004,
+      "artists": [
+        "Nirvana"
+      ],
+      "formats": [
+        "CD",
+        "DVD",
+        "Box Set"
+      ],
+      "labels": [
+        "DGC",
+        "DGC"
+      ],
+      "cover_image": "https://i.discogs.com/so_--wibj3FuleL9dXUc4mKJ7lETJsAklgcFdYTpa44/rs:fit/g:sm/q:90/h:229/w:400/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM3Mjkw/NS0xMTUxMTQwMjQ2/LmdpZg.jpeg",
+      "discogs_url": "https://www.discogs.com/release/372905-Nirvana-With-The-Lights-Out",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "28363288",
+      "title": "La Symphonie Des Éclairs",
+      "year": 2023,
+      "artists": [
+        "Zaho De Sagazan"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Disparate"
+      ],
+      "cover_image": "https://i.discogs.com/Lw6NAyVZtBHunXFoqoRLyu_Zeub2WD8u_70vZiG3ID0/rs:fit/g:sm/q:90/h:447/w:447/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI4MzYz/Mjg4LTE3NTgwMjU1/NzYtODA1My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/28363288-Zaho-De-Sagazan-La-Symphonie-Des-Éclairs",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "5305310",
+      "title": "Psycho Tropical Berlin",
+      "year": 2013,
+      "artists": [
+        "La Femme (4)"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Disque Pointu"
+      ],
+      "cover_image": "https://i.discogs.com/G_mWKzdHqt1kHQWA7XmrwdtEbftUIjpfEh1QkuXuBgE/rs:fit/g:sm/q:90/h:500/w:492/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTUzMDUz/MTAtMTM5MDEwMjgy/Mi00NTk0LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/5305310-La-Femme-4-Psycho-Tropical-Berlin",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "29182093",
+      "title": "Paris - Hawai",
+      "year": 2023,
+      "artists": [
+        "La Femme (4)"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Disque Pointu"
+      ],
+      "cover_image": "https://i.discogs.com/scPF5nv5QP10MWzqUb8C_IH6EBPf8UTTDeityG9bpX8/rs:fit/g:sm/q:90/h:585/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI5MTgy/MDkzLTE3NTgxOTk3/OTktMTEwOS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/29182093-La-Femme-4-Paris-Hawai",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "9238738",
+      "title": "Mystère",
+      "year": 2016,
+      "artists": [
+        "La Femme (4)"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Disque Pointu"
+      ],
+      "cover_image": "https://i.discogs.com/B2zs5dV7siTlcAv_8SBllA0ms7XOdJSUwMuELEiaExM/rs:fit/g:sm/q:90/h:500/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTkyMzg3/MzgtMTQ3NzE2MDQ0/MC03NDQ1LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/9238738-La-Femme-4-Mystère",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "18105775",
+      "title": "Paradigmes",
+      "year": 2021,
+      "artists": [
+        "La Femme (4)"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Disque Pointu"
+      ],
+      "cover_image": "https://i.discogs.com/PND5kimO0wL0JeZUYDZVtPDgDS001oB2Epn8ZOIwBS4/rs:fit/g:sm/q:90/h:576/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE4MTA1/Nzc1LTE2MTczODM2/ODQtNDk5My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/18105775-La-Femme-4-Paradigmes",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "28710424",
+      "title": "God Games",
+      "year": 2023,
+      "artists": [
+        "The Kills"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Domino",
+        "Domino"
+      ],
+      "cover_image": "https://i.discogs.com/joooQS_v3Ce610qSpcP0TNcgiM3WOurWo10MEUeK6ww/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI4NzEw/NDI0LTE2OTgzMzkx/MDAtNzE0My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/28710424-The-Kills-God-Games",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "34628419",
+      "title": "The Revenge Of Alice Cooper",
+      "year": 2025,
+      "artists": [
+        "Alice Cooper"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Ear Music",
+        "Alive",
+        "Edel"
+      ],
+      "cover_image": "https://i.discogs.com/f2lOcT3pI_rFaTN1JTkhDfmFR6lg-3klWJWNN_e7ZWs/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM0NjI4/NDE5LTE3NTUwMDAw/MTgtMTY2OC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/34628419-Alice-Cooper-The-Revenge-Of-Alice-Cooper",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "24675347",
+      "title": "Live From The Astroturf",
+      "year": 2022,
+      "artists": [
+        "Alice Cooper"
+      ],
+      "formats": [
+        "Vinyl",
+        "DVD",
+        "All Media"
+      ],
+      "labels": [
+        "Ear Music",
+        "Edel",
+        "Alive"
+      ],
+      "cover_image": "https://i.discogs.com/91vJksh8d035CwbSe5uYqg-HsOxM3z4R-V1XLKK7I7c/rs:fit/g:sm/q:90/h:587/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI0Njc1/MzQ3LTE2NjQ1MzU4/MzYtMTQzNS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/24675347-Alice-Cooper-Live-From-The-Astroturf",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "30970684",
+      "title": "Sonido Cosmico",
+      "year": 2024,
+      "artists": [
+        "Hermanos Gutiérrez (2)"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Easy Eye Sound"
+      ],
+      "cover_image": "https://i.discogs.com/54vmIWhzllu9ZaK2mi379wy-i9gFR7XPgSEU43gPiMg/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwOTcw/Njg0LTE3MTkxMDg3/MDQtODUwNy5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/30970684-Hermanos-Gutiérrez-2-Sonido-Cosmico",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "6494878",
+      "title": "Apocalypse Now (Original Motion Picture Soundtrack)",
+      "year": null,
+      "artists": [
+        "Carmine Coppola",
+        "Francis Ford Coppola"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Elektra"
+      ],
+      "cover_image": "https://i.discogs.com/iVfVlvrhJDgNXDdpRnvNajgBn3LdA-O1F3GEWcXL48A/rs:fit/g:sm/q:90/h:596/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTY0OTQ4/NzgtMTQyMDU2MjQ3/OS04Njk3LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/6494878-Carmine-Coppola-And-Francis-Coppola-Apocalypse-Now-Original-Motion-Picture-Soundtrack",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "15345235",
+      "title": "The Doors",
+      "year": 1967,
+      "artists": [
+        "The Doors"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Elektra",
+        "Elektra"
+      ],
+      "cover_image": "https://i.discogs.com/RKAk1TpfVyBPXVA0l2mQFGTTmXuYVr1iQYVPywYySDY/rs:fit/g:sm/q:90/h:595/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE1MzQ1/MjM1LTE1OTAwNzM3/MTktMjkxMS5tcG8.jpeg",
+      "discogs_url": "https://www.discogs.com/release/15345235-The-Doors-The-Doors",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "2995536",
+      "title": "La Môme (Original Soundtrack)",
+      "year": 2007,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "EMI"
+      ],
+      "cover_image": "https://i.discogs.com/nKa9hS0N-XiBwb6drBErqHAEz1q6N8KGOiXjquaLBPM/rs:fit/g:sm/q:90/h:448/w:455/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI5OTU1/MzYtMTMxMTAwOTAy/NS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/2995536-Various-La-Môme-Original-Soundtrack",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "9114735",
+      "title": "Un Ramo De Rosas",
+      "year": 2014,
+      "artists": [
+        "Luz Casal"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "EMI",
+        "Blue Note"
+      ],
+      "cover_image": "https://i.discogs.com/O088BP3HEgqrBaM0Ioe_rzVcStYUrGsWXA4Hf_m6yf0/rs:fit/g:sm/q:90/h:593/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTkxMTQ3/MzUtMTQ3NTAxODY1/NS05MzY4LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/9114735-Luz-Casal-Un-Ramo-De-Rosas",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "21706189",
+      "title": "Lost In Translation (Music From The Motion Picture Soundtrack)",
+      "year": 2022,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Emperor Norton",
+        "Emperor Norton"
+      ],
+      "cover_image": "https://i.discogs.com/hOTcifIjMBljl3BEOATV32uD420GJhkaRoNlSar1lZI/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIxNzA2/MTg5LTE2NDE5OTE1/MDgtNDE5My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/21706189-Various-Lost-In-Translation-Music-From-The-Motion-Picture-Soundtrack",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "7577132",
+      "title": "Are You Experienced",
+      "year": 2015,
+      "artists": [
+        "The Jimi Hendrix Experience"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Experience Hendrix",
+        "Legacy",
+        "Sony Music"
+      ],
+      "cover_image": "https://i.discogs.com/r5qvyXw7HFiqSwImWaxWEtx28NtHZehvjmMov1RrHGs/rs:fit/g:sm/q:90/h:480/w:480/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTc1Nzcx/MzItMTQ0NDQwNTcx/MS04MTgxLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/7577132-The-Jimi-Hendrix-Experience-Are-You-Experienced",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "6403240",
+      "title": "Innerspeaker",
+      "year": 2014,
+      "artists": [
+        "Tame Impala"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Fiction Records",
+        "Caroline Records",
+        "Universal Music Group",
+        "Modular Recordings"
+      ],
+      "cover_image": "https://i.discogs.com/cih8Wj3RiCltSFM0KYxaI7deB7bLUC4-5b0py17DXGs/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTY0MDMy/NDAtMTQzOTg5NDg2/NS0yMTU4LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/6403240-Tame-Impala-Innerspeaker",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "19916476",
+      "title": "Wild Mood Swings",
+      "year": null,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Fiction Records",
+        "Fiction Records"
+      ],
+      "cover_image": "https://i.discogs.com/p3Wq2YAwclxMgrgecXtEYY0D4snj7glRoRpCcnRW3PY/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE5OTE2/NDc2LTE2NDY1ODUw/NDItNTE2NC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/19916476-The-Cure-Wild-Mood-Swings",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "3097771",
+      "title": "Bloodflowers",
+      "year": null,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Fiction Records",
+        "Polydor",
+        "Universal"
+      ],
+      "cover_image": "https://i.discogs.com/zQY8X7PtomDu58JQvNaoRShUAurOOd_bIOAysstuc1M/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwOTc3/NzEtMTMyNjA1MDMx/Ni5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/3097771-The-Cure-Bloodflowers",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "11103081",
+      "title": "Seventeen Seconds",
+      "year": 2005,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Fiction Records",
+        "Polydor",
+        "Universal"
+      ],
+      "cover_image": "https://i.discogs.com/jK-on3srGbZ1nDPvuA3ry3utpF552GFM_wXhQX1xGqM/rs:fit/g:sm/q:90/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExMTAz/MDgxLTE1MDk5MDA1/MDAtNzUxMS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/11103081-The-Cure-Seventeen-Seconds",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "15018411",
+      "title": "Pornography",
+      "year": 2005,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Fiction Records",
+        "Polydor",
+        "Universal"
+      ],
+      "cover_image": "https://i.discogs.com/D3Ft6NW_nhQSBlKUZLeldK2sx1pHHqez3rI9FwT4kLI/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE1MDE4/NDExLTE1ODU1NzQx/NjgtMzc4NC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/15018411-The-Cure-Pornography",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "20296213",
+      "title": "Faith",
+      "year": null,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Fiction Records",
+        "Polydor",
+        "Universal"
+      ],
+      "cover_image": "https://i.discogs.com/rxnhcALtbE_oDfnUg3He141Iz4-yIE9pfdWVqO7aSME/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIwMjk2/MjEzLTE2MzIwODg3/ODUtOTI2NS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/20296213-The-Cure-Faith",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "25279783",
+      "title": "Wish",
+      "year": 2022,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Fiction Records",
+        "UMC",
+        "Polydor"
+      ],
+      "cover_image": "https://i.discogs.com/PxIn2hhqJPMcLkVvq_A_HLW3nRt9NW239vYUG2ZYVwM/rs:fit/g:sm/q:90/h:583/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1Mjc5/NzgzLTE2Njk0MDU1/OTctODQzNS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/25279783-Cure-Wish",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "9610970",
+      "title": "Disintegration",
+      "year": null,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Fiction Records",
+        "Universal Music Catalogue",
+        "Polydor"
+      ],
+      "cover_image": "https://i.discogs.com/jJ5NVJVDmzMVcA-YUFcwGa2-OfdnJ3IQ7Oip27N_Sys/rs:fit/g:sm/q:90/h:588/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk2MTA5/NzAtMTUyNzM1Nzgz/Mi01NjA1LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/9610970-The-Cure-Disintegration",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "22985477",
+      "title": "The Top",
+      "year": null,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Fiction Records",
+        "Universal Music Catalogue",
+        "Polydor"
+      ],
+      "cover_image": "https://i.discogs.com/Q1pztzYmVEreQbUYWWbgRYng74odrgk3hh7Wq4huFl0/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyOTg1/NDc3LTE2NTA3MzYz/MzctNTIwOC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/22985477-The-Cure-The-Top",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "945328",
+      "title": "The Head On The Door",
+      "year": 2006,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Fiction Records",
+        "Universal Music Catalogue",
+        "Polydor"
+      ],
+      "cover_image": "https://i.discogs.com/W592V-ikhm8C0HKQc-i37DidVLBXq4bOY9z1aCY2wHw/rs:fit/g:sm/q:90/h:600/w:593/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk0NTMy/OC0xMTc5NTE5MTQw/LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/945328-The-Cure-The-Head-On-The-Door",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "13572067",
+      "title": "Kiss Me Kiss Me Kiss Me",
+      "year": 2012,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Fiction Records",
+        "Universal",
+        "Polydor"
+      ],
+      "cover_image": "https://i.discogs.com/QdsXwGcXf9XbeU7krN00tEQWZHeOS3MKUsOHLblLCtY/rs:fit/g:sm/q:90/h:591/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzNTcy/MDY3LTE2MDA0MTk4/MTgtMjI2Mi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/13572067-The-Cure-Kiss-Me-Kiss-Me-Kiss-Me",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "22806698",
+      "title": "The Slow Rush",
+      "year": 2022,
+      "artists": [
+        "Tame Impala"
+      ],
+      "formats": [
+        "Vinyl",
+        "Vinyl",
+        "Vinyl",
+        "Vinyl",
+        "Box Set"
+      ],
+      "labels": [
+        "Fiction Records",
+        "Virgin"
+      ],
+      "cover_image": "https://i.discogs.com/hJaESn9i6NXtxr6rPrKFJKvoT-JEE5gTAqPSWf3TmSM/rs:fit/g:sm/q:90/h:600/w:597/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyODA2/Njk4LTE2Njg3ODcw/NjYtMjAyMy5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/22806698-Tame-Impala-The-Slow-Rush",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "23953730",
+      "title": "The Cure",
+      "year": 2004,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Geffen Records",
+        "This Is An I Am Recording!"
+      ],
+      "cover_image": "https://i.discogs.com/B8XwBUtV8fDpQBmYC6FiyTJ6P7SFD4L31YqORxejqwg/rs:fit/g:sm/q:90/h:600/w:588/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIzOTUz/NzMwLTE2NTg0MDg5/MDUtNzk3NC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/23953730-The-Cure-The-Cure",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "6326631",
+      "title": "Dummy",
+      "year": 2014,
+      "artists": [
+        "Portishead"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Go! Beat"
+      ],
+      "cover_image": "https://i.discogs.com/0OSOrIbtXaeGgwx_OQwyTDaki8KwNGaJ3rXdy41GhyI/rs:fit/g:sm/q:90/h:600/w:592/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTYzMjY2/MzEtMTQxODI1NjA2/NS01NDA4LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/6326631-Portishead-Dummy",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "28386718",
+      "title": "Gentle Confrontation",
+      "year": 2023,
+      "artists": [
+        "Loraine James"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Hyperdub"
+      ],
+      "cover_image": "https://i.discogs.com/OLFsdVbtc8vSdeAgxwfe5qyLhBm5kx9eK4pWMR-R--A/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI4Mzg2/NzE4LTE2OTU2MjM5/MTMtODgzNi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/28386718-Loraine-James-Gentle-Confrontation",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "32574237",
+      "title": "Songs The Lord Taught Us",
+      "year": 2024,
+      "artists": [
+        "The Cramps"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Illegal Records (2)",
+        "Capitol Records"
+      ],
+      "cover_image": "https://i.discogs.com/r_gir5ScDxIAys6N52Hx82Ul2VswgSFckiq-3oxXnO8/rs:fit/g:sm/q:90/h:576/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyNTc0/MjM3LTE3MzQyODQ4/NDAtOTc4Ni5wbmc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/32574237-The-Cramps-Songs-The-Lord-Taught-Us",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "22474430",
+      "title": "Currents",
+      "year": 2022,
+      "artists": [
+        "Tame Impala"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Interscope Records"
+      ],
+      "cover_image": "https://i.discogs.com/Vbe7o6F2U_fD-gVxvsHncR57-1uQ6ggh-uXbEVAnZgg/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyNDc0/NDMwLTE2NDcyOTY0/MzAtMTcwNi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/22474430-Tame-Impala-Currents",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "507476",
+      "title": "Baz Luhrmann's Moulin Rouge (Collector's Edition)",
+      "year": 2002,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Interscope Records"
+      ],
+      "cover_image": "https://i.discogs.com/8_Pebs7BaGoxStdzulwPSto526YYREA0nH_aTjOLw-4/rs:fit/g:sm/q:90/h:527/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTUwNzQ3/Ni0xNDc3MjE0ODY0/LTQ1MzYuanBlZw.jpeg",
+      "discogs_url": "https://www.discogs.com/release/507476-Various-Baz-Luhrmanns-Moulin-Rouge-Collectors-Edition",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "31875026",
+      "title": "Harlequin",
+      "year": 2024,
+      "artists": [
+        "Lady Gaga"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Interscope Records"
+      ],
+      "cover_image": "https://i.discogs.com/slSzV7BikUPt-xjTp8fkfiBOnnqhSaOCjUt7JrOy2ec/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMxODc1/MDI2LTE3Mjg5ODYw/MjEtNjQzMi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/31875026-Lady-Gaga-Harlequin",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "448222",
+      "title": "With Teeth",
+      "year": 2005,
+      "artists": [
+        "Nine Inch Nails"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Interscope Records",
+        "Nothing Records"
+      ],
+      "cover_image": "https://i.discogs.com/tlUkiASN1lgSxqwpK8j5KRrP8529f7Pwr3nl5Xic67I/rs:fit/g:sm/q:90/h:538/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ0ODIy/Mi0xMjQyNDgxMTU4/LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/448222-Nine-Inch-Nails-With-Teeth",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "12379459",
+      "title": "Born To Die (The Paradise Edition)",
+      "year": 2012,
+      "artists": [
+        "Lana Del Rey"
+      ],
+      "formats": [
+        "Vinyl",
+        "Vinyl",
+        "Box Set"
+      ],
+      "labels": [
+        "Interscope Records",
+        "Polydor"
+      ],
+      "cover_image": "https://i.discogs.com/9RXxRNRFeMZGxae048KIVuJKV4rNQvzyAbDTU9xwy9o/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMzc5/NDU5LTE1MzQwOTIw/NTUtNTA1NC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/12379459-Lana-Del-Rey-Born-To-Die-The-Paradise-Edition",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "27194601",
+      "title": "Lonerism",
+      "year": 2023,
+      "artists": [
+        "Tame Impala"
+      ],
+      "formats": [
+        "Vinyl",
+        "Vinyl",
+        "Box Set"
+      ],
+      "labels": [
+        "Island Records",
+        "Interscope Records",
+        "Fiction Records",
+        "Virgin Music Group"
+      ],
+      "cover_image": "https://i.discogs.com/TXF30Zdx0R-bvlozQNEk_3S7JgPZrclzpwuzPKKS7hw/rs:fit/g:sm/q:90/h:220/w:220/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3MTk0/NjAxLTE2ODUwOTY5/NzItMzE0OC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/27194601-Tame-Impala-Lonerism",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "25211806",
+      "title": "Moonage Daydream (A Film By Brett Morgen)",
+      "year": 2022,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "ISO Records",
+        "ISO Records",
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/xozb2oWQdteB4J0LGHjt5IcEQFP1j8bm-jMG2tYgWyo/rs:fit/g:sm/q:90/h:532/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1MjEx/ODA2LTE2Njg4NTQy/NDgtNzk5NC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/25211806-David-Bowie-Moonage-Daydream-A-Film-By-Brett-Morgen",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "32529465",
+      "title": "L'Amour Ouf (Soundtrack & Score)",
+      "year": 2024,
+      "artists": [
+        "Jon Brion",
+        "Various"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Label Panthéon",
+        "Universal Music France"
+      ],
+      "cover_image": "https://i.discogs.com/WXICGFeqb9lU-KngiaQqVqRtEYrmTNuH7vQ95_3q5NU/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyNTI5/NDY1LTE3MzU5MzI5/MDEtMTYyMC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/32529465-Jon-Brion-Various-LAmour-Ouf-Soundtrack-Score",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "35363107",
+      "title": "Power To The People (Live At The One To One Concert, New York City, 1972)",
+      "year": 2025,
+      "artists": [
+        "John Lennon & Yoko Ono",
+        "The Plastic Ono Band",
+        "Elephants Memory",
+        "Guests"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Lenono Music",
+        "Mercury Studios (5)",
+        "Universal Music Recordings",
+        "Lenono Music",
+        "Mercury Studios (5)",
+        "Universal Music Recordings"
+      ],
+      "cover_image": "https://i.discogs.com/KKfvPBvPg0Q5fNnC_R5K3B5FS9FrnuP8HPhNSl8Mtxo/rs:fit/g:sm/q:90/h:600/w:590/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1MzYz/MTA3LTE3NjA2NDg2/MTQtNDUzMS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/35363107-John-Yoko-Plastic-Ono-Band-With-Elephants-Memory-And-Special-Guests-Power-To-The-People-Live-At-The-",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "31202122",
+      "title": "Mind Games",
+      "year": 2024,
+      "artists": [
+        "John Lennon"
+      ],
+      "formats": [
+        "Vinyl",
+        "Vinyl"
+      ],
+      "labels": [
+        "Lenono Music",
+        "Universal Music Group International",
+        "Apple Records"
+      ],
+      "cover_image": "https://i.discogs.com/MI7JA8_81oie1GLMd0f7VSovLxDhw-C4TxyTxwW8Blg/rs:fit/g:sm/q:90/h:600/w:596/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMxMjAy/MTIyLTE3MjA3OTc0/NTQtMzQ2Ny5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/31202122-John-Lennon-Mind-Games",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "8289775",
+      "title": "Sheherazade",
+      "year": 1998,
+      "artists": [
+        "Nikolai Rimsky-Korsakov"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Madacy Entertainment"
+      ],
+      "cover_image": "https://i.discogs.com/pKdJum4naaH9pOhGa21u_C4VYYkqz-aDvD_1b_hhrLE/rs:fit/g:sm/q:90/h:247/w:250/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgyODk3/NzUtMTQ1ODcyOTMz/My04OTE2LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/8289775-Rimsky-Korsakoff-Sheherazade",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "2202062",
+      "title": "Second Nature",
+      "year": 2000,
+      "artists": [
+        "The Young Gods"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Make Up",
+        "Intoxygene"
+      ],
+      "cover_image": "https://i.discogs.com/nJBDprTYwx5g-dC2gvElwh2TZUuXSX7pikdbDtTFoqA/rs:fit/g:sm/q:90/h:593/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyMDIw/NjItMTQ4MzExMzU1/OC04NTE4LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/2202062-The-Young-Gods-Second-Nature",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "692682",
+      "title": "Kill Bill Vol. 2 - Original Soundtrack",
+      "year": 2004,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Maverick"
+      ],
+      "cover_image": "https://i.discogs.com/T_L9gazNcajFJwfSRJMIN793nep2voOlwef8JhJunFM/rs:fit/g:sm/q:90/h:595/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTY5MjY4/Mi0xNjkzMzQ1OTA2/LTczMzMuanBlZw.jpeg",
+      "discogs_url": "https://www.discogs.com/release/692682-Various-Kill-Bill-Vol-2-Original-Soundtrack",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "16655562",
+      "title": "Kill Bill Vol. 1 (Original Soundtrack)",
+      "year": 2003,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Maverick"
+      ],
+      "cover_image": "https://i.discogs.com/HwVGOSxt6LVoHWCMZhD81etRB3s5qryTgZ7p8a6_rcE/rs:fit/g:sm/q:90/h:596/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE2NjU1/NTYyLTE2MDkwOTI1/OTctMjQ3Ni5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/16655562-Various-Kill-Bill-Vol-1-Original-Soundtrack",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "654018",
+      "title": "Pulp Fiction (Music From The Motion Picture)",
+      "year": 1994,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "MCA Records"
+      ],
+      "cover_image": "https://i.discogs.com/9sUL1Tq8CfJGILvakiwnqHQa8CGe3g6ONPJkDMwKAsQ/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTY1NDAx/OC0xNjUyOTc4Mzkx/LTYyMjcuanBlZw.jpeg",
+      "discogs_url": "https://www.discogs.com/release/654018-Various-Pulp-Fiction-Music-From-The-Motion-Picture",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "21125833",
+      "title": "Histoire De Melody Nelson",
+      "year": 2016,
+      "artists": [
+        "Serge Gainsbourg"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Mercury",
+        "Mercury Music Group"
+      ],
+      "cover_image": "https://i.discogs.com/xn_3dqp1Gghqt4g8Bn_cZxt66FKEA7rIA0lgt9I_1Bs/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIxMTI1/ODMzLTE2Mzc5MTk2/OTMtNjQ1OC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/21125833-Serge-Gainsbourg-Histoire-De-Melody-Nelson",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "19620157",
+      "title": "(Best Of) Gainsbourg (Comme Un Boomerang)",
+      "year": null,
+      "artists": [
+        "Serge Gainsbourg"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Mercury",
+        "Universal Music France"
+      ],
+      "cover_image": "https://i.discogs.com/lxtZbmLZHzCzhHB7A_uEulYoS6C8GcucI3i5IuOeUXQ/rs:fit/g:sm/q:90/h:589/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE5NjIw/MTU3LTE2MjcyMzEy/NDItOTAzNy5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/19620157-Gainsbourg-Best-Of-Gainsbourg-Comme-Un-Boomerang",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "10883844",
+      "title": "Tubular Bells",
+      "year": 2009,
+      "artists": [
+        "Mike Oldfield"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Mercury",
+        "Universal UMC"
+      ],
+      "cover_image": "https://i.discogs.com/Dx0B9Cjyo08X2WAFZDJSD3jce_EirvgHWPQa3g1yCAY/rs:fit/g:sm/q:90/h:600/w:591/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEwODgz/ODQ0LTE1MDU5MTc4/NDktOTI2Ni5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/10883844-Mike-Oldfield-Tubular-Bells",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "34703850",
+      "title": "The Brutalist (Original Motion Picture Soundtrack)",
+      "year": 2025,
+      "artists": [
+        "Daniel Blumberg"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Milan"
+      ],
+      "cover_image": "https://i.discogs.com/qoykJ4ExU9t8Wq8n8I_TYx0MzUGRPLzmGz1hb5Cee04/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM0NzAz/ODUwLTE3NTQwNjUy/NTAtNzQyMi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/34703850-Daniel-Blumberg-The-Brutalist-Original-Motion-Picture-Soundtrack",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "11420502",
+      "title": "Hable Con Ella (Banda Sonora Original)",
+      "year": 2002,
+      "artists": [
+        "Alberto Iglesias"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Milan",
+        "Milan"
+      ],
+      "cover_image": "https://i.discogs.com/9zHkatZ9cIH8QYIw8mPr4ax6wzhHMtIwCwOXMrUoW60/rs:fit/g:sm/q:90/h:400/w:400/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExNDIw/NTAyLTE1MTYwMjU1/NTYtMjgwNy5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/11420502-Alberto-Iglesias-Hable-Con-Ella-Banda-Sonora-Original",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "26994921",
+      "title": "Flame Job",
+      "year": 2023,
+      "artists": [
+        "The Cramps"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Music On Vinyl"
+      ],
+      "cover_image": "https://i.discogs.com/VpNK7VezZTOb1TcSly5mFURsrt92pVb_LS6UUni52vU/rs:fit/g:sm/q:90/h:589/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI2OTk0/OTIxLTE2ODMzOTAx/MDYtMjE2Ny5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/26994921-The-Cramps-Flame-Job",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "14620581",
+      "title": "Play",
+      "year": 1999,
+      "artists": [
+        "Moby"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Mute"
+      ],
+      "cover_image": "https://i.discogs.com/A-EoAh2ZZrts-RgSbVgb4Hs-OfYnUAxjL31s1duhUkw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE0NjIw/NTgxLTE2MzgxMjYx/NzEtMjE0NC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/14620581-Moby-Play",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "5173804",
+      "title": "Everything Is Wrong",
+      "year": 1995,
+      "artists": [
+        "Moby"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Mute",
+        "Mute"
+      ],
+      "cover_image": "https://i.discogs.com/eAoZlaxdiYKjOOc_JPUQmr8rhR-xOAPvj7Izl354oEo/rs:fit/g:sm/q:90/h:600/w:597/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTUxNzM4/MDQtMTc2ODIzNjk5/MC0xNDg5LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/5173804-Moby-Everything-Is-Wrong",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "964168",
+      "title": "Super Ready / Fragmenté",
+      "year": 2007,
+      "artists": [
+        "The Young Gods"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Muve Recordings"
+      ],
+      "cover_image": "https://i.discogs.com/zcjXScEmBGhycveA3HOWnK8ULRTiHlt6OFYH78vHXl0/rs:fit/g:sm/q:90/h:587/w:599/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk2NDE2/OC0xNDM3OTMwMjgz/LTYzMTcuanBlZw.jpeg",
+      "discogs_url": "https://www.discogs.com/release/964168-The-Young-Gods-Super-Ready-Fragmenté",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "4258682",
+      "title": "No Promises",
+      "year": 2007,
+      "artists": [
+        "Carla Bruni"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Naïve",
+        "Naïve"
+      ],
+      "cover_image": "https://i.discogs.com/jE4kfhBq3ArahDHdJ-HifWTpUY-frrJub4lhbB5WCuE/rs:fit/g:sm/q:90/h:493/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQyNTg2/ODItMTQwMjQ4NTkw/Ni00NDMyLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/4258682-Carla-Bruni-No-Promises",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "30752877",
+      "title": "Live In Los Angeles",
+      "year": 2024,
+      "artists": [
+        "Jinjer (2)"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Napalm Records"
+      ],
+      "cover_image": "https://i.discogs.com/Y-MAC3Dq0f6ShK35DNKnVLyfRZR1mV53S8Mb6sNTk8I/rs:fit/g:sm/q:90/h:596/w:599/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwNzUy/ODc3LTE3MTY0MDE3/NDgtNTU0MS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/30752877-Jinjer-2-Live-In-Los-Angeles",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "34983104",
+      "title": "Ride Into The Sun",
+      "year": 2025,
+      "artists": [
+        "Brad Mehldau"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Nonesuch"
+      ],
+      "cover_image": "https://i.discogs.com/dSaU-EDArbWi8pXSI-jblthXpcDh7Wj_SmW0VurXZd0/rs:fit/g:sm/q:90/h:600/w:597/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM0OTgz/MTA0LTE3NTY3NTQ1/NjUtODUzNC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/34983104-Brad-Mehldau-Ride-Into-The-Sun",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "23421329",
+      "title": "Fréquence Violence",
+      "year": 2022,
+      "artists": [
+        "Pogo Car Crash Control"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Panenka Music"
+      ],
+      "cover_image": "https://i.discogs.com/SsAlWuR4P3Au2JDHcF--5sU4AyGtNAaqAFr2kFdGYTQ/rs:fit/g:sm/q:90/h:598/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIzNDIx/MzI5LTE2NTQwMTYz/NjYtMTM1MC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/23421329-Pogo-Car-Crash-Control-Fréquence-Violence",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "33541605",
+      "title": "Negative Skills",
+      "year": 2025,
+      "artists": [
+        "Pogo Car Crash Control"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Panenka Music"
+      ],
+      "cover_image": "https://i.discogs.com/KVoMmI-64xfRUfBBvngzthSNbfVTtx7MEmMeuY_fF6c/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMzNTQx/NjA1LTE3NDMxOTE0/ODQtOTI4My5wbmc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/33541605-Pogo-Car-Crash-Control-Negative-Skills",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "24600890",
+      "title": "Renaissance",
+      "year": 2022,
+      "artists": [
+        "Beyoncé"
+      ],
+      "formats": [
+        "Vinyl",
+        "Box Set"
+      ],
+      "labels": [
+        "Parkwood Entertainment",
+        "Columbia"
+      ],
+      "cover_image": "https://i.discogs.com/IChfdfyax5z8kMZgi3ThGEdfOme5zmETFNhyiOsUAGA/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI0NjAw/ODkwLTE3MjY2OTk5/NzUtMTQyNi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/24600890-Beyoncé-Renaissance",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "30367832",
+      "title": "Cowboy Carter",
+      "year": 2024,
+      "artists": [
+        "Beyoncé"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parkwood Entertainment",
+        "Columbia",
+        "Sony Music"
+      ],
+      "cover_image": "https://i.discogs.com/6Ks0PqUqE8ABtVAgEsHn6uoAakxP9w8YvjSXcVVH7UY/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwMzY3/ODMyLTE3MzcyODUy/MTMtNzQ3NC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/30367832-Beyoncé-Cowboy-Carter",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "29324869",
+      "title": "Lemonade",
+      "year": 2023,
+      "artists": [
+        "Beyoncé"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parkwood Entertainment",
+        "Columbia",
+        "Sony Music"
+      ],
+      "cover_image": "https://i.discogs.com/EjrOJrx0uCBI1TzM10qzBq4KZ3hkfiOjZE30jz9fhvk/rs:fit/g:sm/q:90/h:599/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI5MzI0/ODY5LTE3NTQyNjk3/NzAtODI2My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/29324869-Beyoncé-Lemonade",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "9505008",
+      "title": "Demon Days",
+      "year": 2014,
+      "artists": [
+        "Gorillaz"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/1PZFSXdgRQ9AC88FMlcICGycbMf5aOHDX_tQRRuc4Q4/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk1MDUw/MDgtMTcxMjc4MTk0/NS00NTA5LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/9505008-Gorillaz-Demon-Days",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "16093356",
+      "title": "Song Machine Season One",
+      "year": 2020,
+      "artists": [
+        "Gorillaz"
+      ],
+      "formats": [
+        "Vinyl",
+        "Vinyl",
+        "CD",
+        "All Media"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/TxGt0Nrpnayzcubtvw_sHjmVz-7x38agHGYmhx2hAHk/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE2MDkz/MzU2LTE2MDMzNjUw/OTItOTQyOC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/16093356-Gorillaz-Song-Machine-Season-One",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "12186161",
+      "title": "The Now Now",
+      "year": 2018,
+      "artists": [
+        "Gorillaz"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/E4Cpgxqj4DSdpqhJaqoZJ92GuhjKhaeVbqn7ci1jSIg/rs:fit/g:sm/q:90/h:600/w:594/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMTg2/MTYxLTE1MzAyNTAz/MjAtNTM1MC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/12186161-Gorillaz-The-Now-Now",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "10175557",
+      "title": "Humanz",
+      "year": 2017,
+      "artists": [
+        "Gorillaz"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/XHWfO4MH3FYZvQfXdgp25faFFkuGBjNQ-bVf8GVnxdU/rs:fit/g:sm/q:90/h:579/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEwMTc1/NTU3LTE0OTYwNzY4/MjAtNzAzNS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/10175557-Gorillaz-Humanz",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "24401120",
+      "title": "Premiers Symptômes",
+      "year": 2022,
+      "artists": [
+        "AIR"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/cyIytATKpEpunuIX8nxDCP7GUt9bte0RyPkben_at64/rs:fit/g:sm/q:90/h:598/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI0NDAx/MTIwLTE2NjIyMDcy/NzgtMjI0Ni5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/24401120-AIR-Premiers-Symptômes",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "20849782",
+      "title": "10 000 Hz Legend",
+      "year": 2021,
+      "artists": [
+        "AIR"
+      ],
+      "formats": [
+        "All Media",
+        "CD",
+        "CD",
+        "Blu-ray"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/BkFE831WwIiueprusRtx-P2qbebHTajAFwPY89r7sT8/rs:fit/g:sm/q:90/h:542/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIwODQ5/NzgyLTE2MzYwNDA0/MTQtNjkwMy5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/20849782-AIR-10-000-Hz-Legend",
+      "support": "Unknown",
+      "enriched": true
+    },
+    {
+      "release_id": "27356865",
+      "title": "Moon Safari",
+      "year": 2023,
+      "artists": [
+        "AIR"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/o07H_Bm5wRqVlDsb01IM1xTqJZh_Sw5woSXjiA2K6xg/rs:fit/g:sm/q:90/h:420/w:417/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3MzU2/ODY1LTE2ODY5NTEx/NDYtMjU4NS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/27356865-AIR-French-Band-Moon-Safari",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "33674205",
+      "title": "Blue Moon Safari",
+      "year": 2025,
+      "artists": [
+        "Vegyn"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/ujgVKF5gXFkcHMGhFlc2-4tingNIkG-YJehKkSJykyg/rs:fit/g:sm/q:90/h:595/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMzNjc0/MjA1LTE3NDQ0NjE3/MzEtMTA3Ny5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/33674205-Vegyn-Blue-Moon-Safari",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "34305388",
+      "title": "Tomorrow Comes Today",
+      "year": 2025,
+      "artists": [
+        "Gorillaz"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/tYdr3rZC9dZPMWoqPcVU_UyLpJBKo61XUSmu7kHkeVc/rs:fit/g:sm/q:90/h:596/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM0MzA1/Mzg4LTE3NTA1MjEw/NDktNzAzMC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/34305388-Gorillaz-Tomorrow-Comes-Today",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "26182157",
+      "title": "Cracker Island",
+      "year": 2023,
+      "artists": [
+        "Gorillaz"
+      ],
+      "formats": [
+        "Box Set",
+        "Vinyl",
+        "Vinyl",
+        "CD"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/ZSdyefYRkDNrxdwlwQODEhLoqwfAjWZILmVwtLvGQXk/rs:fit/g:sm/q:90/h:600/w:587/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI2MTgy/MTU3LTE2Nzc3ODU4/NDctNjQ4Ny5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/26182157-Gorillaz-Cracker-Island",
+      "support": "Unknown",
+      "enriched": true
+    },
+    {
+      "release_id": "30067852",
+      "title": "Moon Safari",
+      "year": 2024,
+      "artists": [
+        "AIR"
+      ],
+      "formats": [
+        "CD",
+        "CD",
+        "Blu-ray",
+        "All Media"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/oxvTmGEjROVdAN415ibh_ncfkff2zx02PuS6SEEQD-s/rs:fit/g:sm/q:90/h:534/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwMDY3/ODUyLTE3MTAyNDkx/NjgtNjAxMS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/30067852-AIR-French-Band-Moon-Safari",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "15316189",
+      "title": "Plastic Beach",
+      "year": 2014,
+      "artists": [
+        "Gorillaz"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/lvXdPxY4RZRREV0hgidZIlQ9SKsXTH_9BxJpEUXAz-g/rs:fit/g:sm/q:90/h:535/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE1MzE2/MTg5LTE3MTI4NTA0/MjUtOTkyMi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/15316189-Gorillaz-Plastic-Beach",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "7066979",
+      "title": "Talkie Walkie",
+      "year": 2015,
+      "artists": [
+        "AIR"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/BKaaOuhqQAVEDdC3iHYWq1W04_5D5cXA9Be-WoLS8T0/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTcwNjY5/NzktMTYzODA5NDEw/Ni01OTk0LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/7066979-AIR-Talkie-Walkie",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "7119823",
+      "title": "10 000 Hz Legend",
+      "year": 2015,
+      "artists": [
+        "AIR"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/p6EDYO5-W9KptHUeCpIU6m9575N7ZJ5cH64zmz3vtsE/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTcxMTk4/MjMtMTc0MTk2MzAw/MS05NTYxLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/7119823-AIR-10-000-Hz-Legend",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "4036953",
+      "title": "Help!",
+      "year": 2012,
+      "artists": [
+        "The Beatles"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/rmOePsSdOMZf5vp8EbxJNRGqLo324KY-5GGriqqdMsg/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQwMzY5/NTMtMTM2OTc2ODMy/Ny04ODAwLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/4036953-The-Beatles-Help",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "11603181",
+      "title": "Lodger",
+      "year": 2018,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/2HDiMDotNkSC5c8S1VlNfQNxOw8kOi4Gj5RTTK6NyUE/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExNjAz/MTgxLTE3NjU2OTU0/ODEtNDIxMS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/11603181-David-Bowie-Lodger",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "11606339",
+      "title": "\"Heroes\"",
+      "year": 2018,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/dXtgmm6YHTcyb6FSXTxaT6QJIV0A98a9c8N5ylFD4sU/rs:fit/g:sm/q:90/h:600/w:580/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExNjA2/MzM5LTE1MjA5Njg1/NDYtNDk1NS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/11606339-David-Bowie-Heroes",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "11704921",
+      "title": "Low",
+      "year": 2018,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/kaXNJBjQUBNscHoWuzeqJProSCbrYNBIM-9RPRNNa4U/rs:fit/g:sm/q:90/h:600/w:578/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExNzA0/OTIxLTE1MjA5NjM3/NzUtMjM3Mi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/11704921-David-Bowie-Low",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "9810328",
+      "title": "Station To Station",
+      "year": 2017,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/o_qR3tP7quCOP9YX9iv1SR4wi076P2xmu1MjHSOXuxg/rs:fit/g:sm/q:90/h:593/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk4MTAz/MjgtMTUzNjU2NjA0/OS03MTEyLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/9810328-David-Bowie-Station-To-Station",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "9797722",
+      "title": "Diamond Dogs",
+      "year": 2017,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/RDa8MCIbsUA-dj1WVcQjHaC-lfRGof1k4cauKp3Jb7o/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk3OTc3/MjItMTc2NDY3MDM5/MC0xNTA5LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/9797722-Bowie-Diamond-Dogs",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "4037518",
+      "title": "Rubber Soul",
+      "year": 2012,
+      "artists": [
+        "The Beatles"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/wNlRCncnn9hOTwsQTiaw_rvqR-8A9fBQrWReMiHd84s/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQwMzc1/MTgtMTM2OTgwMzkz/My01NTI0LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/4037518-The-Beatles-Rubber-Soul",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "33338066",
+      "title": "Young Americans",
+      "year": 2025,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/CY_Khf4uj4BYCzo5sdpuh9mbomhDO7_43sLQrXxWum8/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMzMzM4/MDY2LTE3NTI4MTE0/MDYtODMyMy5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/33338066-David-Bowie-Young-Americans",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "3944815",
+      "title": "Gorillaz",
+      "year": 2001,
+      "artists": [
+        "Gorillaz"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/tivy3aXkKAVGZEZs2necXpnC8tJPIsjcOwAlUuxBwcU/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM5NDQ4/MTUtMTQ5MjIwMDY5/MC0xNjAwLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/3944815-Gorillaz-Gorillaz",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "11603231",
+      "title": "Scary Monsters",
+      "year": 2018,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/BzIetMtyUcy2dqUSn6n8HZEeXzBa-anVvCW2QUK9YIE/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExNjAz/MjMxLTE3NjU3NjEz/MjctNjc4MC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/11603231-David-Bowie-Scary-Monsters",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "26205434",
+      "title": "A Divine Symmetry (An Alternative Journey Through Hunky Dory)",
+      "year": 2023,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/Th4mr6NhftxOt98YPhaMSWugOoOHGPwa3Bi8GrcBdzk/rs:fit/g:sm/q:90/h:600/w:594/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI2MjA1/NDM0LTE2NzcyMDI5/MjItNDg4Mi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/26205434-David-Bowie-A-Divine-Symmetry-An-Alternative-Journey-Through-Hunky-Dory",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "27942195",
+      "title": "Ziggy Stardust And The Spiders From Mars: The Motion Picture Soundtrack",
+      "year": 2023,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/87_Awnd11_IiX7scMNsXXockIjPBcX1vRpbx-sLPcwY/rs:fit/g:sm/q:90/h:587/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3OTQy/MTk1LTE2OTE3NTU4/NDEtMTAzNS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/27942195-David-Bowie-Ziggy-Stardust-And-The-Spiders-From-Mars-The-Motion-Picture-Soundtrack",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "28659493",
+      "title": "Pinups",
+      "year": 2023,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/__wQfuMmh_bnpp7duCTraSVFtfpL6SrpAs5pPIgoDmU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI4NjU5/NDkzLTE2OTc4ODY1/MzctNjE4OC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/28659493-Bowie-Pinups",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "30945982",
+      "title": "Rock 'N' Roll Star!",
+      "year": 2024,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/CY8IZY5JKkp8E_s-4Pca2J2ZwkzkK09jyDm1f_SI5l0/rs:fit/g:sm/q:90/h:600/w:593/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwOTQ1/OTgyLTE3MTg1NTE5/NDAtOTMyMi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/30945982-David-Bowie-Rock-N-Roll-Star",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "8161980",
+      "title": "David Bowie",
+      "year": 2016,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/ur1XHT9hyZps8UboH5uhIo3HNOCWVvElf1bBJ9XFVoY/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgxNjE5/ODAtMTU1MDExNDIz/MS0yNzkxLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/8161980-David-Bowie-David-Bowie",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "8162132",
+      "title": "The Man Who Sold The World",
+      "year": 2016,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/Xj8L7IJK5fbHZ351jWQowP8olsp_a2muGxqx6k81bAU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgxNjIx/MzItMTU5NTAzMjQ2/OS0yNTQ1LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/8162132-David-Bowie-The-Man-Who-Sold-The-World",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "8162188",
+      "title": "The Rise And Fall Of Ziggy Stardust And The Spiders From Mars",
+      "year": 2016,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Parlophone",
+        "Parlophone",
+        "Parlophone",
+        "Parlophone"
+      ],
+      "cover_image": "https://i.discogs.com/9JCin7Zj5m1DG4de-SnowglKx_nDZm1jUEU78Jqrh7s/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgxNjIx/ODgtMTQ1NjY3NjQy/MC0xNjU4LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/8162188-David-Bowie-The-Rise-And-Fall-Of-Ziggy-Stardust-And-The-Spiders-From-Mars",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "30414329",
+      "title": "The Dark Side Of The Moon",
+      "year": 2024,
+      "artists": [
+        "Pink Floyd"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Pink Floyd Records"
+      ],
+      "cover_image": "https://i.discogs.com/MPZs2Q5Yqr08drNybtQ-zYGYsszsvX7rAAw7uIAWNIA/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwNDE0/MzI5LTE3MTU3MTA4/MDQtNzc1Mi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/30414329-Pink-Floyd-The-Dark-Side-Of-The-Moon",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "8604223",
+      "title": "Ummagumma",
+      "year": 2016,
+      "artists": [
+        "Pink Floyd"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Pink Floyd Records",
+        "Pink Floyd Records"
+      ],
+      "cover_image": "https://i.discogs.com/bQYftMbjge0YdcHGaCp3vCtoyGuntu1R30RuoO5FRUY/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTg2MDQy/MjMtMTYzNzE2OTk5/My0zMDc1LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/8604223-Pink-Floyd-Ummagumma",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "189678",
+      "title": "L'Eau Rouge - Red Water",
+      "year": 1989,
+      "artists": [
+        "The Young Gods"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Play It Again Sam Records"
+      ],
+      "cover_image": "https://i.discogs.com/ikPoyNUzWTgurqZP4xgiBcPSOLyyA2OF7XzVODm_VFs/rs:fit/g:sm/q:90/h:600/w:593/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE4OTY3/OC0xNTg1Nzc3MTI4/LTE0NTAuanBlZw.jpeg",
+      "discogs_url": "https://www.discogs.com/release/189678-The-Young-Gods-LEau-Rouge-Red-Water",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "8177660",
+      "title": "Symphony In C Major - Jeux D'Enfants - Jeux",
+      "year": 1994,
+      "artists": [
+        "Georges Bizet",
+        "Claude Debussy"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Point Classics"
+      ],
+      "cover_image": "https://i.discogs.com/iDG22cfFZ5r948CuZbZhmLkUrBmwmj8cI4LEMDMKWBE/rs:fit/g:sm/q:90/h:587/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgxNzc2/NjAtMTYwNTk0NTYw/MC02MDY5LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/8177660-Georges-Bizet-Claude-Debussy-Symphony-In-C-Major-Jeux-DEnfants-Jeux",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "32165703",
+      "title": "Songs Of A Lost World",
+      "year": 2024,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD",
+        "CD",
+        "Blu-ray",
+        "All Media"
+      ],
+      "labels": [
+        "Polydor",
+        "Fiction Records"
+      ],
+      "cover_image": "https://i.discogs.com/b-Ejrr5Mk-idwQbDsBHZQZJ2Rfrua2bASH9zIP8PaA0/rs:fit/g:sm/q:90/h:538/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyMTY1/NzAzLTE3MzA0ODQ2/NTgtOTA4Ni5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/32165703-The-Cure-Songs-Of-A-Lost-World",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "11131681",
+      "title": "Three Imaginary Boys",
+      "year": 2005,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Polydor",
+        "Fiction Records",
+        "Universal"
+      ],
+      "cover_image": "https://i.discogs.com/2jHjWpfYRJhfNQvwuo2iig_eJOGagg-Z9wxO8igpKiU/rs:fit/g:sm/q:90/h:595/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExMTMx/NjgxLTE1ODI1NDc0/MjQtNzkzNi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/11131681-The-Cure-Three-Imaginary-Boys",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "16004175",
+      "title": "Violet Bent Backwards Over The Grass",
+      "year": 2020,
+      "artists": [
+        "Lana Del Rey"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Polydor",
+        "Interscope Records"
+      ],
+      "cover_image": "https://i.discogs.com/0f_S55Xz4kku8XmiA-1oev3281y3VWZHQNtu5iN-lSI/rs:fit/g:sm/q:90/h:596/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE2MDA0/MTc1LTE2MzkyNDc4/ODAtMzgzOS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/16004175-Lana-Del-Rey-Violet-Bent-Backwards-Over-The-Grass",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "24556220",
+      "title": "Born To Die",
+      "year": 2015,
+      "artists": [
+        "Lana Del Rey"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Polydor",
+        "Interscope Records"
+      ],
+      "cover_image": "https://i.discogs.com/TzaD7DZA2JTdFYhTbz9dLWdk4sjsFyOYsKqW7g2-GHc/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI0NTU2/MjIwLTE3MDYxMzY0/MTEtNzE3Ni5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/24556220-Lana-Del-Rey-Born-To-Die",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "17860996",
+      "title": "Chemtrails Over The Country Club",
+      "year": 2021,
+      "artists": [
+        "Lana Del Rey"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Polydor",
+        "Interscope Records"
+      ],
+      "cover_image": "https://i.discogs.com/2aLffho26iJShg0qve6NIN99ohFraAXbDDoJ2o5ZUh4/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE3ODYw/OTk2LTE3MzQ1MjU1/MzYtOTY5My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/17860996-Lana-Del-Rey-Chemtrails-Over-The-Country-Club",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "7492972",
+      "title": "Honeymoon",
+      "year": 2015,
+      "artists": [
+        "Lana Del Rey"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Polydor",
+        "Interscope Records"
+      ],
+      "cover_image": "https://i.discogs.com/asfOwAwPDqJAg2wPIDccZIXy8O69_rD8KnbxZQ3T8Ds/rs:fit/g:sm/q:90/h:600/w:597/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTc0OTI5/NzItMTU2Njg0MTA5/My03NjE1LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/7492972-Lana-Del-Rey-Honeymoon",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "26517635",
+      "title": "Did You Know That There's A Tunnel Under Ocean Blvd",
+      "year": 2023,
+      "artists": [
+        "Lana Del Rey"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Polydor",
+        "Interscope Records"
+      ],
+      "cover_image": "https://i.discogs.com/rkGxRZ_WlL6tG-DNS0wDaIXnFnoSBu_BB-JB6sE3TuY/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI2NTE3/NjM1LTE3MzU5MTIz/MjYtNjg5MC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/26517635-Lana-Del-Rey-Did-You-Know-That-Theres-A-Tunnel-Under-Ocean-Blvd",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "25997434",
+      "title": "Lust For Life",
+      "year": 2022,
+      "artists": [
+        "Lana Del Rey"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Polydor",
+        "Interscope Records"
+      ],
+      "cover_image": "https://i.discogs.com/8GhQMX9EYadtmMVCpt3AXlAjdV7XP-Fpc3mE2qzcg7E/rs:fit/g:sm/q:90/h:586/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1OTk3/NDM0LTE2NzU1ODAy/NDUtMjQ3My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/25997434-Lana-Del-Rey-Lust-For-Life",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "13712296",
+      "title": "Disraeli Gears",
+      "year": 2019,
+      "artists": [
+        "Cream (2)"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Polydor",
+        "Universal"
+      ],
+      "cover_image": "https://i.discogs.com/E4Ag0KIhX0Qz4Mm1lOzcCb4jNdnKkIjCoLiQ9T5eFkM/rs:fit/g:sm/q:90/h:595/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzNzEy/Mjk2LTE1NTk1NTU3/OTYtNTA5My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/13712296-Cream-2-Disraeli-Gears",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "831779",
+      "title": "Blow-Up - The Original Soundtrack Album",
+      "year": 1996,
+      "artists": [
+        "Herbie Hancock"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Premier Soundtracks",
+        "Premier Soundtracks",
+        "TCM Turner Classic Movies Music",
+        "TCM Turner Classic Movies Music"
+      ],
+      "cover_image": "https://i.discogs.com/jCR1VDhV_v8M2aCTOrYWUOGkh3m3WmbSowcECPJMpxg/rs:fit/g:sm/q:90/h:554/w:558/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgzMTc3/OS0xMTYzMjk1OTg4/LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/831779-Herbie-Hancock-Blow-Up-The-Original-Soundtrack-Album",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "23880710",
+      "title": "Sticky Fingers",
+      "year": 2022,
+      "artists": [
+        "The Rolling Stones"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Promotone N.V."
+      ],
+      "cover_image": "https://i.discogs.com/_Ut8xNuKeGZYkaPBgkkvsWVNR8ngbj3hOba1ayF4cfQ/rs:fit/g:sm/q:90/h:599/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIzODgw/NzEwLTE2NTc3OTAy/MTgtMjU3Mi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/23880710-The-Rolling-Stones-Sticky-Fingers-",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "32037206",
+      "title": "The Room Next Door (Original Soundtrack)",
+      "year": 2024,
+      "artists": [
+        "Alberto Iglesias"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Quartet Records"
+      ],
+      "cover_image": "https://i.discogs.com/8MZZbxsEyzXN-ZtQWGtBh9M3PhIRvQd60hhne__IiqQ/rs:fit/g:sm/q:90/h:600/w:594/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyMDM3/MjA2LTE3MjkyNjMy/MDAtOTc1NS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/32037206-Alberto-Iglesias-The-Room-Next-Door-Original-Soundtrack",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "710507",
+      "title": "Hunky Dory",
+      "year": 1971,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "RCA Victor"
+      ],
+      "cover_image": "https://i.discogs.com/9Mhb3_r5EPcUojg2AQvt3pSE_vnr6vpL2G7wS0XrG0U/rs:fit/g:sm/q:90/h:599/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTcxMDUw/Ny0xNDY1MDU0NDQ3/LTc1NTUuanBlZw.jpeg",
+      "discogs_url": "https://www.discogs.com/release/710507-David-Bowie-Hunky-Dory",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "354906",
+      "title": "Aladdin Sane",
+      "year": 1973,
+      "artists": [
+        "David Bowie"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "RCA Victor",
+        "RCA Victor"
+      ],
+      "cover_image": "https://i.discogs.com/GRCkybUp0qFCQaBOAl_rRomCEzweg2xSJKnJv-CW4Cg/rs:fit/g:sm/q:90/h:550/w:550/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NDkw/Ni0xNDEyNzc1NzU1/LTQwMTIuanBlZw.jpeg",
+      "discogs_url": "https://www.discogs.com/release/354906-David-Bowie-Aladdin-Sane",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "17985520",
+      "title": "Transformer",
+      "year": 2018,
+      "artists": [
+        "Lou Reed"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "RCA",
+        "RCA Victor"
+      ],
+      "cover_image": "https://i.discogs.com/pMRqyBZcJ0tlqm52mDf_NuEv4SJ99vNYsMxPUkiHd-s/rs:fit/g:sm/q:90/h:596/w:599/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE3OTg1/NTIwLTE2MTY1Nzg1/NDItNjI4Ni5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/17985520-Lou-Reed-Transformer",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "34171027",
+      "title": "Eyes Wide Shut (Music From The Motion Picture)",
+      "year": 2025,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Reprise Records"
+      ],
+      "cover_image": "https://i.discogs.com/elrgmU3np-OHA0EOOgWBq7thDrUzL77YcDkuivB6XDo/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM0MTcx/MDI3LTE3NDkwMjkw/NTgtNDg2Ny5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/34171027-Various-Eyes-Wide-Shut-Music-From-The-Motion-Picture",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "34881422",
+      "title": "Private Music",
+      "year": 2025,
+      "artists": [
+        "Deftones"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Reprise Records",
+        "Reprise Records"
+      ],
+      "cover_image": "https://i.discogs.com/hShOgeaRZ6WDOCmzebxhYPHCIJx85jjpcZtpRUzTSLk/rs:fit/g:sm/q:90/h:598/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM0ODgx/NDIyLTE3NTU3OTIx/MzctMjYxNC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/34881422-Deftones-Private-Music",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "33674139",
+      "title": "The Virgin Suicides (Music From The Motion Picture)",
+      "year": 2025,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "Vinyl",
+        "Flexi-disc",
+        "All Media"
+      ],
+      "labels": [
+        "Rhino Records (2)",
+        "Rhino Records (2)"
+      ],
+      "cover_image": "https://i.discogs.com/TIGdU-KaSnmbJZGDi68_ts-dFtlBdQEYwF60LR2_KB4/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMzNjc0/MTM5LTE3NDU5NTMw/MTktNDQzMC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/33674139-Various-The-Virgin-Suicides-Music-From-The-Motion-Picture",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "28614229",
+      "title": "The Virgin Suicides (Music From The Motion Picture)",
+      "year": 2023,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Rhino Records (2)",
+        "Rhino Records (2)"
+      ],
+      "cover_image": "https://i.discogs.com/Njj3bkoGhhVVvCDSF-wubrVV_2TqEjnxZmM9NaQHd-c/rs:fit/g:sm/q:90/h:574/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI4NjE0/MjI5LTE2OTc0OTE5/MjctODcwNi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/28614229-Various-The-Virgin-Suicides-Music-From-The-Motion-Picture",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "32251374",
+      "title": "Muscle Of Love",
+      "year": 2024,
+      "artists": [
+        "Alice Cooper"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Rhino Records (2)",
+        "Warner Records"
+      ],
+      "cover_image": "https://i.discogs.com/GJA0FIr2lDCEIaYskczJIWA2RVa56hpKkaW0QbLjNbs/rs:fit/g:sm/q:90/h:600/w:597/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyMjUx/Mzc0LTE3MzEyNTYy/OTgtOTA4My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/32251374-Alice-Cooper-Muscle-Of-Love",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "30031852",
+      "title": "Billion Dollar Babies",
+      "year": 2024,
+      "artists": [
+        "Alice Cooper"
+      ],
+      "formats": [
+        "CD",
+        "CD"
+      ],
+      "labels": [
+        "Rhino Records (2)",
+        "Warner Records",
+        "Rhino Records (2)",
+        "Warner Records"
+      ],
+      "cover_image": "https://i.discogs.com/6LbJVx3gtZ1PVgq9G-1vbNcQ75BnMvosxPnOLwIMOOI/rs:fit/g:sm/q:90/h:536/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwMDMx/ODUyLTE3MDk4NTEx/NDYtNDMxMS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/30031852-Alice-Cooper-Billion-Dollar-Babies",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "28606537",
+      "title": "Hackney Diamonds",
+      "year": 2023,
+      "artists": [
+        "The Rolling Stones"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Rolling Stones Records",
+        "Polydor"
+      ],
+      "cover_image": "https://i.discogs.com/xZdSalA1JnFNmv5kVxjMsL-7cUG3KH0Ojrx8h2FKnIg/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI4NjA2/NTM3LTE2OTc3OTU0/NjgtODQ0MS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/28606537-Rolling-Stones-Hackney-Diamonds",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "28642858",
+      "title": "Exile On Main St",
+      "year": 2022,
+      "artists": [
+        "The Rolling Stones"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Rolling Stones Records",
+        "Rolling Stones Records"
+      ],
+      "cover_image": "https://i.discogs.com/vJ2NyhCG0-Qs39tM3gffJODW1bKsvl1jJAWzwbB0wN8/rs:fit/g:sm/q:90/h:589/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI4NjQy/ODU4LTE2OTc3NDEx/NDUtNzYzNS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/28642858-Rolling-Stones-Exile-On-Main-St",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "26053582",
+      "title": "Grrr Live!",
+      "year": 2023,
+      "artists": [
+        "The Rolling Stones"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Rolling Stones Records",
+        "Rolling Stones Records",
+        "Mercury Studios (5)",
+        "Mercury Studios (5)",
+        "Universal Music Group",
+        "Universal Music Group"
+      ],
+      "cover_image": "https://i.discogs.com/wHU12Zof96Z7M4jHTv8aHMt2VjLWveyVTr_Uy72NaLM/rs:fit/g:sm/q:90/h:596/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI2MDUz/NTgyLTE2NzYwMzU2/MDMtNjcyNC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/26053582-Stones-Grrr-Live-",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "21138451",
+      "title": "The Libertines",
+      "year": 2021,
+      "artists": [
+        "The Libertines"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Rough Trade"
+      ],
+      "cover_image": "https://i.discogs.com/tcje_WkWqr0ZSkCGJYA02N-KRG0ujvLhju2Wrs3kbrs/rs:fit/g:sm/q:90/h:500/w:493/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIxMTM4/NDUxLTE2MzgwMDQ2/NjQtNzMwNS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/21138451-The-Libertines-The-Libertines",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "16043809",
+      "title": "Big Band Bossa Nova",
+      "year": 2020,
+      "artists": [
+        "Quincy Jones"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Saga"
+      ],
+      "cover_image": "https://i.discogs.com/jhjssDtCpw3hbiseR2ZQITL5-2ejyKpC85zi7arZNxI/rs:fit/g:sm/q:90/h:494/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE2MDQz/ODA5LTE2MDI0MzEy/MzEtNjU4MC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/16043809-Quincy-Jones-Big-Band-Bossa-Nova",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "30316805",
+      "title": "My Funny Valentine",
+      "year": 2023,
+      "artists": [
+        "Chet Baker"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Sélection FNAC"
+      ],
+      "cover_image": "https://i.discogs.com/eJo8Sba6mCjdUAFSfmjFx-3fE_CgOMuv374WtNNuAso/rs:fit/g:sm/q:90/h:600/w:582/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwMzE2/ODA1LTE3MTQ1NzQz/NjAtNjY5OS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/30316805-Chet-Baker-My-Funny-Valentine",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "28510447",
+      "title": "The Dark Side Of The Moon Redux",
+      "year": 2023,
+      "artists": [
+        "Roger Waters"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "SGB Music Limited",
+        "Cooking Vinyl"
+      ],
+      "cover_image": "https://i.discogs.com/aA9AGVWCZ63NoP92NV-VD8QSPIk_rIqhSTl10Vkj18M/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI4NTEw/NDQ3LTE2OTgwMDIx/NjktMTM1OS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/28510447-Roger-Waters-The-Dark-Side-Of-The-Moon-Redux",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "4591618",
+      "title": "الأطلال   Al Atlal",
+      "year": 1989,
+      "artists": [
+        "Oum Kalthoum"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Sono Cairo"
+      ],
+      "cover_image": "https://i.discogs.com/jVQhZKczrOE7xDYmZysTxxcsSmOpxBvBLB-BFALSewA/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ1OTE2/MTgtMTM2OTMyMjIy/Ni04MzU4LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/4591618-Om-Kalsoum-الأطلال-Al-Atlal",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "12432489",
+      "title": "4:13 Dream",
+      "year": null,
+      "artists": [
+        "The Cure"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Suretone",
+        "Geffen Records"
+      ],
+      "cover_image": "https://i.discogs.com/Jr6HcYuhFBwqCJGDBM0fMImFKLbi2W4o8FLPY3qzw7c/rs:fit/g:sm/q:90/h:591/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyNDMy/NDg5LTE1NDU4MjMx/ODItOTQwMS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/12432489-The-Cure-413-Dream",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "17155057",
+      "title": "Collapsed In Sunbeams",
+      "year": 2021,
+      "artists": [
+        "Arlo Parks"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Transgressive Records"
+      ],
+      "cover_image": "https://i.discogs.com/EwKiZzbizbwWYhOKPnCwBYpPfFYnZANJAko4ulcQ4zE/rs:fit/g:sm/q:90/h:536/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE3MTU1/MDU3LTE2MTE4ODY4/MDEtMjMyOS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/17155057-Arlo-Parks-Collapsed-In-Sunbeams",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "17151046",
+      "title": "Collapsed In Sunbeams",
+      "year": 2021,
+      "artists": [
+        "Arlo Parks"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Transgressive Records",
+        "Beatnik"
+      ],
+      "cover_image": "https://i.discogs.com/2RD3UG0XoxaFHX66iuVsCv58f4GoCkxs7txM3yE80mo/rs:fit/g:sm/q:90/h:599/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE3MTUx/MDQ2LTE2MTM3NjU4/NjQtNDIzMC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/17151046-Arlo-Parks-Collapsed-In-Sunbeams",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "33216201",
+      "title": "Knock On Wood - The Acoustic Sessions",
+      "year": 2025,
+      "artists": [
+        "The Young Gods"
+      ],
+      "formats": [
+        "Vinyl",
+        "CD"
+      ],
+      "labels": [
+        "Two Gentlemen"
+      ],
+      "cover_image": "https://i.discogs.com/yMp1tJni6-ud2ukluKpMr2R5jRMgNy-sWEASP0qx8TY/rs:fit/g:sm/q:90/h:598/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMzMjE2/MjAxLTE3NDAyMzg3/NDMtNTQwMC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/33216201-The-Young-Gods-Knock-On-Wood-The-Acoustic-Sessions",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "2549835",
+      "title": "Everybody Knows",
+      "year": 2010,
+      "artists": [
+        "The Young Gods"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Two Gentlemen Records"
+      ],
+      "cover_image": "https://i.discogs.com/QPBsZkdyBL8sKzO0RGBXE3HaFLecawL2cZmb8-HSOZ0/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1NDk4/MzUtMTM2MzgxMTU3/NC0xMzI5LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/2549835-The-Young-Gods-Everybody-Knows",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "13270212",
+      "title": "Data Mirage Tangram",
+      "year": 2019,
+      "artists": [
+        "The Young Gods"
+      ],
+      "formats": [
+        "Vinyl",
+        "CD"
+      ],
+      "labels": [
+        "Two Gentlemen Records"
+      ],
+      "cover_image": "https://i.discogs.com/IKuWISYvz05dQPfD-xGs8fM01Yz5zlwlcQvRnmIbeZ0/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMjcw/MjEyLTE1NTExMDk3/MDEtMjg1NS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/13270212-The-Young-Gods-Data-Mirage-Tangram",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "18262144",
+      "title": "The Young Gods",
+      "year": 2021,
+      "artists": [
+        "The Young Gods"
+      ],
+      "formats": [
+        "Vinyl",
+        "CD"
+      ],
+      "labels": [
+        "Two Gentlemen Records"
+      ],
+      "cover_image": "https://i.discogs.com/xf6B2NUu8rCXU_kmQJzhdgPUxrMDbKe8lCosAZhy3Lw/rs:fit/g:sm/q:90/h:595/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE4MjYy/MTQ0LTE2MTgyMjAx/ODUtMjk1NC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/18262144-The-Young-Gods-The-Young-Gods",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "24519851",
+      "title": "The Young Gods Play Terry Riley In C",
+      "year": 2022,
+      "artists": [
+        "The Young Gods"
+      ],
+      "formats": [
+        "Vinyl",
+        "CD",
+        "All Media"
+      ],
+      "labels": [
+        "Two Gentlemen Records"
+      ],
+      "cover_image": "https://i.discogs.com/QzlBg5ePzTr7vWjyh8jm0DnAGRUp7viEcUbBJ6cHS0Y/rs:fit/g:sm/q:90/h:587/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI0NTE5/ODUxLTE2NjczMjAy/MTQtNTU0Ny5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/24519851-The-Young-Gods-The-Young-Gods-Play-Terry-Riley-In-C",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "34203484",
+      "title": "Appear Disappear",
+      "year": 2025,
+      "artists": [
+        "The Young Gods"
+      ],
+      "formats": [
+        "Vinyl",
+        "CD",
+        "All Media"
+      ],
+      "labels": [
+        "Two Gentlemen Records"
+      ],
+      "cover_image": "https://i.discogs.com/fAneN7w7TVB0wtCiq4MzFRIfm88qeKu9Mi2ftj-3Dt0/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM0MjAz/NDg0LTE3NDkzMTM5/NDgtNTQ2Mi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/34203484-The-Young-Gods-Appear-Disappear",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "6257522",
+      "title": "Vol.1",
+      "year": 2003,
+      "artists": [
+        "Jane Birkin"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "U.L.M TV Market",
+        "Universal"
+      ],
+      "cover_image": "https://i.discogs.com/3KoglHXexf6tHZA2p7QMYfiVONuGXqQL_jSfJyBpPM8/rs:fit/g:sm/q:90/h:600/w:596/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTYyNTc1/MjItMTQxNDk0OTE5/My02NzkwLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/6257522-Birkin-Vol1",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "496820",
+      "title": "Last Tango In Paris",
+      "year": 1973,
+      "artists": [
+        "Gato Barbieri"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "United Artists Records"
+      ],
+      "cover_image": "https://i.discogs.com/y_pBGIDGjEmydy-vr7nkCCaeZP2O_7rIYUQ4v4B4STM/rs:fit/g:sm/q:90/h:598/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ5Njgy/MC0xMzkxMTkyODcx/LTIzODQuanBlZw.jpeg",
+      "discogs_url": "https://www.discogs.com/release/496820-Gato-Barbieri-Last-Tango-In-Paris",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "25377520",
+      "title": "Live À Paris (Palais D'Argile Tour 2022)",
+      "year": 2022,
+      "artists": [
+        "Feu ! Chatterton"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Universal Music France"
+      ],
+      "cover_image": "https://i.discogs.com/aDV3Dt85ljl9Ob1SJuUtRXty4pFIx_a-pStTtva-BIo/rs:fit/g:sm/q:90/h:534/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1Mzc3/NTIwLTE3MTA0MTU3/OTktOTg3Ny5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/25377520-Feu-Chatterton-Live-À-Paris-Palais-DArgile-Tour-2022",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "15829122",
+      "title": "À Bout De Souffle (Bande Originale Du Film)",
+      "year": 2013,
+      "artists": [
+        "Martial Solal"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Universal Music France",
+        "Universal Music Jazz France",
+        "EmArcy"
+      ],
+      "cover_image": "https://i.discogs.com/8fmdVFFF8owBOJjAuM4ZcVgN8DysKf9VJ3m6uXebxik/rs:fit/g:sm/q:90/h:484/w:550/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE1ODI5/MTIyLTE1OTg1NTc3/ODktNzM4OS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/15829122-Martial-Solal-À-Bout-De-Souffle-Bande-Originale-Du-Film",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "30239906",
+      "title": "Machine Head",
+      "year": 2024,
+      "artists": [
+        "Deep Purple"
+      ],
+      "formats": [
+        "Vinyl",
+        "CD",
+        "CD",
+        "CD",
+        "Blu-ray",
+        "Box Set"
+      ],
+      "labels": [
+        "Universal Music Group",
+        "Universal Music Group"
+      ],
+      "cover_image": "https://i.discogs.com/oAoTIorRUszRMriqvyApTf33s6d5AB3QuP4NhQmDhGs/rs:fit/g:sm/q:90/h:593/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwMjM5/OTA2LTE3MTE3MzUz/ODYtNDU2MC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/30239906-Deep-Purple-Machine-Head",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "32916609",
+      "title": "This Is Music: The Singles",
+      "year": 2025,
+      "artists": [
+        "The Verve"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Universal Music Recordings",
+        "Virgin",
+        "EMI",
+        "Universal Music Recordings",
+        "Virgin",
+        "EMI"
+      ],
+      "cover_image": "https://i.discogs.com/W37o8ixcYSKLZzwZADIYSnwD4HVS4IOKJHwn4rs26iQ/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyOTE2/NjA5LTE3NDE1NDg3/MjctNDI0My5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/32916609-The-Verve-This-Is-Music-The-Singles",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "21141472",
+      "title": "Palais D'Argile",
+      "year": 2021,
+      "artists": [
+        "Feu ! Chatterton"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Universo Em Fogo"
+      ],
+      "cover_image": "https://i.discogs.com/FeenkT5H8QUvzvvJHmCM4OEeDshKG6SG5gTof45O6ec/rs:fit/g:sm/q:90/h:549/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIxMTQx/NDcyLTE2MzgwMjE4/MjAtODEyNy5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/21141472-Feu-Chatterton-Palais-DArgile",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "600616",
+      "title": "Basic Instinct (Original Motion Picture Soundtrack)",
+      "year": 1992,
+      "artists": [
+        "Jerry Goldsmith"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Varèse Sarabande"
+      ],
+      "cover_image": "https://i.discogs.com/Dq_36kwuLXnIQwnTgMzZgJVJI-iyxQy2ifFWyBdThTQ/rs:fit/g:sm/q:90/h:596/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTYwMDYx/Ni0xNDkyOTgyNDg5/LTg5ODQuanBlZw.jpeg",
+      "discogs_url": "https://www.discogs.com/release/600616-Jerry-Goldsmith-Basic-Instinct-Original-Motion-Picture-Soundtrack",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "31288625",
+      "title": "Musique Et Nature Au Château De Gruyères",
+      "year": 2013,
+      "artists": [
+        "Adalberto Maria Riva"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "VDE"
+      ],
+      "cover_image": "https://i.discogs.com/kzheYG8dYQ0W1mqHU_HMUzYle7gIsvyTxOVLzSoJd3Y/rs:fit/g:sm/q:90/h:532/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMxMjg4/NjI1LTE3MjE2NDg1/MDAtMzEwMC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/31288625-Adalberto-Maria-Riva-Musique-Et-Nature-Au-Château-De-Gruyères",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "5790430",
+      "title": "Ultraviolence",
+      "year": 2014,
+      "artists": [
+        "Lana Del Rey"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Vertigo",
+        "Universal Music Group"
+      ],
+      "cover_image": "https://i.discogs.com/n2ESm9ctlNzXb6NK9KX4bbTPnqHq7SDFHRrj3EFQzBQ/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTU3OTA0/MzAtMTQwMjc3MjIz/NC01NjUxLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/5790430-Lana-Del-Rey-Ultraviolence",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "835935",
+      "title": "Marie Antoinette (Original Motion Picture Soundtrack)",
+      "year": 2006,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Verve Forecast",
+        "Polydor"
+      ],
+      "cover_image": "https://i.discogs.com/EZIucGvpQK0bbYpb5-cNIsfGNQ3p7VSa95AvTTQSDIA/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgzNTkz/NS0xNzU1Njc1NDA0/LTI2NjkuanBlZw.jpeg",
+      "discogs_url": "https://www.discogs.com/release/835935-Various-Marie-Antoinette-Original-Motion-Picture-Soundtrack",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "27204540",
+      "title": "Tenace - Part 1",
+      "year": 2023,
+      "artists": [
+        "Mass Hysteria (4)"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Verycords"
+      ],
+      "cover_image": "https://i.discogs.com/jVumTJ6Ra6piUrB9kxvcoCW6BDLVgTUu9aLM8y3N4zQ/rs:fit/g:sm/q:90/h:600/w:596/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3MjA0/NTQwLTE2ODY0ODQ5/MTUtNTUyMi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/27204540-Mass-Hysteria-4-Tenace-Part-1",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "1839185",
+      "title": "The Velvet Underground & Nico",
+      "year": 2008,
+      "artists": [
+        "The Velvet Underground",
+        "Nico (3)"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Vinyl Lovers"
+      ],
+      "cover_image": "https://i.discogs.com/DDf27VLd2EtM6l78TDGJ780DF4TAb0_bOciElb0G160/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE4Mzkx/ODUtMTQ4NDc0NjQ1/MC00NDAwLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/1839185-The-Velvet-Underground-Nico-3-The-Velvet-Underground-Nico",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "4661567",
+      "title": "More In The Mood For Love (More Music From And Inspired By The Motion Picture)",
+      "year": 2001,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Virgin"
+      ],
+      "cover_image": "https://i.discogs.com/xvJD-IpzGwIilEalTwQbIG_enQX82-YtDzOb4kSCkEA/rs:fit/g:sm/q:90/h:595/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ2NjE1/NjctMTM3MjExMzk2/OS0zMDkwLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/4661567-Various-More-In-The-Mood-For-Love-More-Music-From-And-Inspired-By-The-Motion-Picture",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "9371072",
+      "title": "Greatest Hits",
+      "year": 2016,
+      "artists": [
+        "Queen"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Virgin EMI Records"
+      ],
+      "cover_image": "https://i.discogs.com/k7Q4X_bVGADYJW5-ib7-Hoyl-xNxeog22e0Ufnur9zc/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTkzNzEw/NzItMTQ4MzE4MTU2/My05MjgwLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/9371072-Queen-Greatest-Hits",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "9370710",
+      "title": "Greatest Hits II",
+      "year": 2016,
+      "artists": [
+        "Queen"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Virgin EMI Records"
+      ],
+      "cover_image": "https://i.discogs.com/VRTUGzBot9ZbJWuHH7_n0QRtGVCKa3SMLGx8Jm31goY/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTkzNzA3/MTAtMTc1MDU0MDM1/NS01ODQ0LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/9370710-Queen-Greatest-Hits-II",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "30548113",
+      "title": "La Grande Magie",
+      "year": 2023,
+      "artists": [
+        "Feu ! Chatterton"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Virgin Music"
+      ],
+      "cover_image": "https://i.discogs.com/7wkqqd4TjIM6iJoMimLae1O4gfNQNtz7fggixC_PGjg/rs:fit/g:sm/q:90/h:450/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwNTQ4/MTEzLTE3MTQ0OTMx/NTEtNzM3MC5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/30548113-Feu-Chatterton-La-Grande-Magie",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "10571461",
+      "title": "Pocket Symphony",
+      "year": 2007,
+      "artists": [
+        "AIR"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Virgin Music",
+        "Aircheology"
+      ],
+      "cover_image": "https://i.discogs.com/re0eyoeKQCGjWLfN9Jr_piF9VgO1X-ijrNju8Ay8vuY/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEwNTcx/NDYxLTE2MDg0OTUy/ODYtMTIzNy5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/10571461-AIR-Pocket-Symphony",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "1965859",
+      "title": "Love 2",
+      "year": 2009,
+      "artists": [
+        "AIR"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Virgin Music",
+        "Aircheology"
+      ],
+      "cover_image": "https://i.discogs.com/2BfKxeTWy5qFcS0hMymAPxCbqtlNzchvjc3Xd_ckzBk/rs:fit/g:sm/q:90/h:591/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE5NjU4/NTktMTQ3MzAxODkx/MC0zNjA5LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/1965859-AIR-Love-2",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "3385868",
+      "title": "Le Voyage Dans La Lune",
+      "year": 2012,
+      "artists": [
+        "AIR"
+      ],
+      "formats": [
+        "CD",
+        "DVD",
+        "All Media"
+      ],
+      "labels": [
+        "Virgin",
+        "Aircheology",
+        "Revolvair"
+      ],
+      "cover_image": "https://i.discogs.com/sADekLK_33w-E2i-bY-AsxJagV_Y8JlM0S9mNxEkaq4/rs:fit/g:sm/q:90/h:600/w:597/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMzODU4/NjgtMTU0MTQ5ODgy/My03MDQ2LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/3385868-AIR-Le-Voyage-Dans-La-Lune",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "900188",
+      "title": "Le Grand Bleu (Bande Originale Du Film)",
+      "year": 1988,
+      "artists": [
+        "Eric Serra"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Virgin",
+        "Gaumont Musique"
+      ],
+      "cover_image": "https://i.discogs.com/_XdBCHczJvHxnsfRqhSxrPYJ9W9cf-XQMwM5EwVBQV8/rs:fit/g:sm/q:90/h:590/w:585/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTkwMDE4/OC0xMjE3MTc0ODUw/LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/900188-Eric-Serra-Le-Grand-Bleu-Bande-Originale-Du-Film",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "3303964",
+      "title": "Original Motion Picture Score For The Virgin Suicides",
+      "year": 2000,
+      "artists": [
+        "AIR"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Virgin",
+        "Virgin"
+      ],
+      "cover_image": "https://i.discogs.com/nhnHOVjErfRtD0ORVbJOUumuz_Nx70MxT5G7IRxtESA/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMzMDM5/NjQtMTU2NzYxNjI0/NC0yNTgxLmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/3303964-AIR-Original-Motion-Picture-Score-For-The-Virgin-Suicides",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "654402",
+      "title": "Collected",
+      "year": 2006,
+      "artists": [
+        "Massive Attack"
+      ],
+      "formats": [
+        "CD",
+        "Hybrid"
+      ],
+      "labels": [
+        "Virgin",
+        "Virgin"
+      ],
+      "cover_image": "https://i.discogs.com/QalQIggfkJwqOh_AYi4SGqqyFJ2ugxKVL5zEAuCZXck/rs:fit/g:sm/q:90/h:523/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTY1NDQw/Mi0xMjQ4MjE5OTY4/LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/654402-Massive-Attack-Collected",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "1158855",
+      "title": "Roxy Music",
+      "year": 1999,
+      "artists": [
+        "Roxy Music"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Virgin",
+        "Virgin"
+      ],
+      "cover_image": "https://i.discogs.com/o8cV8HAFssUSTDY667TEdwVKU2iQLB9kl5M480BIikA/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExNTg4/NTUtMTE5Njk2MDg1/Mi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/1158855-Roxy-Music-Roxy-Music",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "8960225",
+      "title": "For Your Pleasure",
+      "year": null,
+      "artists": [
+        "Roxy Music"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Virgin",
+        "Virgin"
+      ],
+      "cover_image": "https://i.discogs.com/e9aioEux4Q9o6oeUKQNouRhEklIz2zhHpWwGTZc3Qwg/rs:fit/g:sm/q:90/h:590/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTg5NjAy/MjUtMTQ3MjI5MTg4/MS0yNjc1LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/8960225-Roxy-Music-For-Your-Pleasure",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "5348516",
+      "title": "Pensée Positive",
+      "year": 2007,
+      "artists": [
+        "Thierry Noritop"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Wagram Music"
+      ],
+      "cover_image": "https://i.discogs.com/y6yVJ_5oyu24t2mvV1pwgQI0esV73GM0KGlm1LSpqy0/rs:fit/g:sm/q:90/h:362/w:400/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTUzNDg1/MTYtMTM5MTE3MzQ3/MC04MTQ5LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/5348516-Thierry-Noritop-Pensée-Positive",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "31001590",
+      "title": "Tarantino Sounds - A Tribute To Quentin Tarantino",
+      "year": 2024,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Wagram Music"
+      ],
+      "cover_image": "https://i.discogs.com/aCSyLOTgbiZgy0SAXkQYYTv7L6Q9u6m4AV4oTYf2dDw/rs:fit/g:sm/q:90/h:589/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMxMDAx/NTkwLTE3MTg3OTM5/MzgtNjQzOS5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/31001590-Various-Tarantino-Sounds-A-Tribute-To-Quentin-Tarantino",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "3711154",
+      "title": "Love It To Death",
+      "year": 1972,
+      "artists": [
+        "Alice Cooper"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "Warner Bros. Records"
+      ],
+      "cover_image": "https://i.discogs.com/xR48wo6QZwVJkT_xkMyQ84qBKvGJMY4FoeBvloovV1g/rs:fit/g:sm/q:90/h:443/w:438/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM3MTEx/NTQtMTM0MTMyMjg4/My00NjU5LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/3711154-Alice-Cooper-Love-It-To-Death",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "27342996",
+      "title": "School's Out",
+      "year": 2023,
+      "artists": [
+        "Alice Cooper"
+      ],
+      "formats": [
+        "Vinyl",
+        "Vinyl",
+        "All Media"
+      ],
+      "labels": [
+        "Warner Records",
+        "Rhino Records (2)"
+      ],
+      "cover_image": "https://i.discogs.com/ZO5Dl2ssPO3pxqwDRDvfq2fvv5DwtkTSXm_pIvRhg9Q/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3MzQy/OTk2LTE2ODY0MDMx/MjctMjg3Ny5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/27342996-Alice-Cooper-Schools-Out",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "27375900",
+      "title": "Killer",
+      "year": 2023,
+      "artists": [
+        "Alice Cooper"
+      ],
+      "formats": [
+        "Vinyl",
+        "Vinyl",
+        "All Media"
+      ],
+      "labels": [
+        "Warner Records",
+        "Warner Records Inc.",
+        "Rhino Entertainment Company"
+      ],
+      "cover_image": "https://i.discogs.com/6rfKFTP2RWL0YdckMBt0AgbKhHWHGroJ9AxoIDxe0hQ/rs:fit/g:sm/q:90/h:593/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3Mzc1/OTAwLTE2ODY2OTMz/OTItNjcyNi5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/27375900-Alice-Cooper-Killer",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "863671",
+      "title": "Eyes Wide Shut (Music From The Motion Picture)",
+      "year": 1999,
+      "artists": [
+        "Various"
+      ],
+      "formats": [
+        "CD"
+      ],
+      "labels": [
+        "Warner Sunset Records",
+        "Reprise Records"
+      ],
+      "cover_image": "https://i.discogs.com/du1l0z_2IXV4UJv9Mw3ba9DeSTrm-9zbu62hB2IgJ-M/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTg2MzY3/MS0xMTg3NzI0NzE2/LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/863671-Various-Eyes-Wide-Shut-Music-From-The-Motion-Picture",
+      "support": "CD",
+      "enriched": true
+    },
+    {
+      "release_id": "12687373",
+      "title": "Elvis Is Back",
+      "year": 2013,
+      "artists": [
+        "Elvis Presley"
+      ],
+      "formats": [
+        "Vinyl"
+      ],
+      "labels": [
+        "WaxTime In Color"
+      ],
+      "cover_image": "https://i.discogs.com/WrivM46o428JDEk_sng8429wjx2jetbbvusSHXKKlds/rs:fit/g:sm/q:90/h:458/w:458/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyNjg3/MzczLTE1NDAxMTc1/MTAtNDYyNy5qcGVn.jpeg",
+      "discogs_url": "https://www.discogs.com/release/12687373-Elvis-Presley-Elvis-Is-Back",
+      "support": "Vinyle",
+      "enriched": true
+    },
+    {
+      "release_id": "6152304",
+      "title": "Приказна За Едно Моме =",
+      "year": 2009,
+      "artists": [
+        "Митан"
+      ],
+      "formats": [
+        "CDr"
+      ],
+      "labels": [
+        "ПРО МУЗИКА"
+      ],
+      "cover_image": "https://i.discogs.com/6OpfyjuDxOgqeMqkDAMi853lSz-j7kA1y__4PHTEON0/rs:fit/g:sm/q:90/h:472/w:482/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTYxNTIz/MDQtMTQxMjM3NDI2/NC00NzU1LmpwZWc.jpeg",
+      "discogs_url": "https://www.discogs.com/release/6152304-Митан-Mitan-Приказна-За-Едно-Моме-",
+      "support": "CD",
+      "enriched": true
+    }
+  ]
+}
