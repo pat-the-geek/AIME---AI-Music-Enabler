@@ -152,7 +152,15 @@ async def get_album(
             artist_images[artist.name] = artist_image.url
             logger.info(f"✅ Image trouvée pour {artist.name}: {artist_image.url[:60]}...")
         else:
-            logger.warning(f"❌ Pas d'image pour artiste {artist.name} (ID: {artist.id})")
+            # FALLBACK: Chercher une image depuis d'autres sources (par exemple, discogs_data)
+            # Les images peuvent être stockées aussi dans album.image_url comme proxy
+            logger.warning(f"⚠️ Pas d'image artiste trouvée pour '{artist.name}' (ID: {artist.id})")
+            # Vérifier si l'artiste a une image depuis une autre relation
+            artist_with_images = db.query(Image).filter(Image.artist_id == artist.id).first()
+            if artist_with_images and artist_with_images.url:
+                artist_images[artist.name] = artist_with_images.url
+                logger.info(f"✅ Image alternative trouvée pour {artist.name}")
+            # Note: image placeholder sera affiché au frontend si rien trouvé
     
     ai_info = None
     resume = None

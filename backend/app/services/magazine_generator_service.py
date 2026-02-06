@@ -632,13 +632,13 @@ Format strict :
         artist = None
         if artist_ids:
             artist_id = random.choice([aid[0] for aid in artist_ids])
-            artist = self.db.query(Artist).filter(Artist.id == artist_id).first()
+            artist = self.db.query(Artist).options(joinedload(Artist.images)).filter(Artist.id == artist_id).first()
         
         # Fallback : si pas d'artiste avec images, prendre n'importe quel artiste
         if not artist:
             artist_id = self.db.query(Artist.id).limit(1).offset(random.randint(0, max(0, self.db.query(func.count(Artist.id)).scalar() - 1))).scalar()
             if artist_id:
-                artist = self.db.query(Artist).filter(Artist.id == artist_id).first()
+                artist = self.db.query(Artist).options(joinedload(Artist.images)).filter(Artist.id == artist_id).first()
         
         # Fallback : créer un artiste mockup si vraiment aucun artiste
         if not artist:
@@ -772,8 +772,13 @@ Format strict :
     
     async def _generate_page_2_album_detail(self) -> Dict[str, Any]:
         """Page 2: Album du jour avec description longue."""
+        from sqlalchemy.orm import joinedload
+        from app.models import Image
+        
         # Récupérer un album aléatoire avec description IA RICHE (> 500 chars) - LIMITER!
-        albums = self.db.query(Album).filter(
+        albums = self.db.query(Album).options(
+            joinedload(Album.artists).joinedload(Artist.images)
+        ).filter(
             Album.ai_description.isnot(None),
             func.length(Album.ai_description) > 500  # Description riche uniquement
         ).limit(100).all()  # LIMITE pour éviter de charger 10,000+ albums!
@@ -781,7 +786,9 @@ Format strict :
         # Fallback : accepter des descriptions plus courtes si aucune description riche
         if not albums:
             logger.warning("⚠️ Aucun album avec description riche, fallback vers descriptions courtes")
-            albums = self.db.query(Album).filter(
+            albums = self.db.query(Album).options(
+                joinedload(Album.artists)
+            ).filter(
                 Album.ai_description.isnot(None)
             ).limit(100).all()  # LIMITE ici aussi!
         
@@ -790,6 +797,61 @@ Format strict :
         
         album = random.choice(albums)
         artist_names = ", ".join([a.name for a in album.artists]) if album.artists else "Artiste inconnu"
+        
+        # Récupérer les images d'artiste
+        from app.models import Image
+        artist_images = {}
+        for artist in album.artists:
+            logger.info(f"🔍 Recherche image pour artiste: {artist.name} (ID: {artist.id})")
+            
+            # APPROACH 1: Utiliser les images déjà chargées (joinedload)
+            if hasattr(artist, 'images') and artist.images:
+                for img in artist.images:
+                    if img.image_type == 'artist' and img.url:
+                        artist_images[artist.name] = img.url
+                        logger.info(f"✅ Image artiste trouvée (from joinedload) pour {artist.name}: {img.url[:60]}...")
+                        break  # Prendre la première image d'artiste
+            
+            # APPROACH 2: Requête directe si not found
+            if artist.name not in artist_images:
+                artist_image = self.db.query(Image).filter(
+                    Image.artist_id == artist.id,
+                    Image.image_type == 'artist'
+                ).first()
+                if artist_image and artist_image.url:
+                    artist_images[artist.name] = artist_image.url
+                    logger.info(f"✅ Image artiste trouvée (from query) pour {artist.name}: {artist_image.url[:60]}...")
+                else:
+                    logger.warning(f"⚠️ Pas d'image artiste pour '{artist.name}' (ID: {artist.id}), fallback Spotify...")
+            
+            # APPROACH 3: Fallback à Spotify si toujours pas trouvée
+            if artist.name not in artist_images:
+                try:
+                    if self.spotify_service:
+                        spotify_image = await self.spotify_service.search_artist_image(artist.name)
+                        if spotify_image:
+                            logger.info(f"📸 Image Spotify trouvée pour {artist.name}: {spotify_image[:60]}...")
+                            artist_images[artist.name] = spotify_image
+                            # Créer et sauvegarder pour la prochaine fois
+                            new_image = Image(
+                                url=spotify_image,
+                                image_type='artist',
+                                source='spotify',
+                                artist_id=artist.id
+                            )
+                            self.db.add(new_image)
+                            try:
+                                self.db.commit()
+                                logger.info(f"✅ Image Spotify sauvegardée pour {artist.name}")
+                            except Exception as e:
+                                logger.warning(f"⚠️ Erreur sauvegarde image Spotify pour {artist.name}: {e}")
+                                self.db.rollback()
+                        else:
+                            logger.warning(f"❌ Aucune image Spotify trouvée pour {artist.name}")
+                    else:
+                        logger.warning(f"⚠️ Spotify service not available")
+                except Exception as e:
+                    logger.error(f"❌ Erreur recherche Spotify pour {artist.name}: {e}", exc_info=True)
         
         # Utiliser la description existante (potentiellement enrichie) avec nettoyage
         description = album.ai_description
@@ -830,7 +892,8 @@ Format strict :
                     "image_url": album.image_url,
                     "description": description,
                     "style": album.ai_style
-                }
+                },
+                "artist_images": artist_images
             },
             "dimensions": {
                 "image_size": random.choice(["small", "medium", "large"]),

@@ -12,6 +12,8 @@ import {
 import { Close as CloseIcon } from '@mui/icons-material'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import remarkBreaks from 'remark-breaks'
+import rehypeRaw from 'rehype-raw'
 
 interface ArtistPortraitModalProps {
   open: boolean
@@ -227,6 +229,7 @@ export default function ArtistPortraitModal({
               },
               '& strong': {
                 fontWeight: 700,
+                color: '#1a1a1a',
               },
               '& em': {
                 fontStyle: 'italic',
@@ -247,10 +250,48 @@ export default function ArtistPortraitModal({
                 fontFamily: 'monospace',
                 fontSize: '0.9rem',
               },
+              '& pre': {
+                backgroundColor: 'rgba(0, 0, 0, 0.08)',
+                padding: '12px',
+                borderRadius: '4px',
+                overflow: 'auto',
+                mb: 1.5,
+                '& code': {
+                  backgroundColor: 'transparent',
+                  padding: 0,
+                }
+              },
+              '& hr': {
+                border: 'none',
+                borderTop: '2px solid #e0e0e0',
+                my: 2.5,
+              },
+              '& a': {
+                color: '#1976d2',
+                textDecoration: 'none',
+                '&:hover': {
+                  textDecoration: 'underline',
+                }
+              },
+              '& table': {
+                borderCollapse: 'collapse',
+                width: '100%',
+                mb: 1.5,
+              },
+              '& th, & td': {
+                border: '1px solid #ddd',
+                padding: '8px 12px',
+                textAlign: 'left',
+              },
+              '& th': {
+                backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                fontWeight: 700,
+              },
             }}
           >
             <ReactMarkdown 
-              remarkPlugins={[remarkGfm]}
+              remarkPlugins={[remarkGfm, remarkBreaks]}
+              rehypePlugins={[rehypeRaw]}
             >
               {streamedContent}
             </ReactMarkdown>
