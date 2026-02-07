@@ -639,19 +639,6 @@ export default function Collections() {
                       </CardContent>
                       {roon?.enabled && (
                         <CardActions>
-                          <Tooltip title="Jouer sur Roon">
-                            <Button
-                              size="small"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                handlePlayAlbum(album.id)
-                              }}
-                              startIcon={<PlayArrow />}
-                              disabled={playAlbumMutation.isPending}
-                            >
-                              Roon
-                            </Button>
-                          </Tooltip>
                           {album.spotify_url && (
                             <Tooltip title="Ouvrir sur Spotify">
                               <Button
@@ -666,7 +653,7 @@ export default function Collections() {
                               </Button>
                             </Tooltip>
                           )}
-                          <Tooltip title="Vérifier dans Roon">
+                          <Tooltip title="Lancer la lecture sur Roon">
                             <Button
                               size="small"
                               onClick={(e) => {
@@ -675,7 +662,7 @@ export default function Collections() {
                               }}
                               startIcon={<Search />}
                             >
-                              Vérifier
+                              Lecture Roon
                             </Button>
                           </Tooltip>
                         </CardActions>
