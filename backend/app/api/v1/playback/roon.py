@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 from app.core.config import get_settings
-from app.api.v1.services import get_roon_service as get_roon_service_singleton
+from app.api.v1.tracking.services import get_roon_service as get_roon_service_singleton
 from app.models.album import Album
 from app.database import SessionLocal
 

@@ -844,7 +844,7 @@ Réponds uniquement en français."""
         
         try:
             # Importer la fonction de sync depuis le API
-            from app.api.v1.services import _sync_discogs_task
+            from app.api.v1.tracking.services import _sync_discogs_task
             
             # Exécuter la sync
             await _sync_discogs_task(limit=None)

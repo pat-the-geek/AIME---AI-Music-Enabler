@@ -4,7 +4,7 @@ from typing import Optional, Dict, Any
 from sqlalchemy.orm import Session
 
 from app.models import Playlist, PlaylistTrack, Album
-from app.api.v1.services import get_roon_service
+from app.api.v1.tracking.services import get_roon_service
 
 logger = logging.getLogger(__name__)
 

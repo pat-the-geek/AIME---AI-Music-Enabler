@@ -36,8 +36,7 @@ from fastapi.exceptions import RequestValidationError
 from app.core.config import get_settings
 from app.core.exception_handler import setup_exception_handlers, add_process_time_header, add_request_id_header
 from app.database import init_db, engine
-from app.api.v1 import collection, history, services, search, analytics, roon, collections, magazines, artists
-# from app.api.v1 import playlists  # Temporairement désactivé pendant la migration
+from app.api.v1 import collection, history, services, search, analytics, roon, collections, magazines, artists, playlists
 
 # Configuration du logging amélioré
 logging.basicConfig(
@@ -75,7 +74,7 @@ async def lifespan(app: FastAPI):
         services_initialized = True
         
         # Restaurer les services actifs (trackers, scheduler)
-        from app.api.v1.services import restore_active_services
+        from app.api.v1.tracking.services import restore_active_services
         await restore_active_services()
         
         logger.info("✅ Application ready to serve requests")
@@ -126,7 +125,7 @@ app.include_router(history.router, prefix="/api/v1/history", tags=["History"])
 app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["Analytics"])
 app.include_router(magazines.router, prefix="/api/v1/magazines", tags=["Magazines"])
 app.include_router(artists.router, prefix="/api/v1/artists", tags=["Artists"])
-# app.include_router(playlists.router, prefix="/api/v1/playlists", tags=["Playlists"])  # Temporairement désactivé
+app.include_router(playlists.router, prefix="/api/v1/playlists", tags=["Playlists"])
 app.include_router(collections.router, prefix="/api/v1", tags=["Album Collections"])
 app.include_router(services.router, prefix="/api/v1/services", tags=["Services"])
 app.include_router(search.router, prefix="/api/v1/search", tags=["Search"])
