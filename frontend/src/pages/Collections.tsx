@@ -81,6 +81,7 @@ export default function Collections() {
   const [searchResult, setSearchResult] = useState<any>(null)
   const [searchingForAlbum, setSearchingForAlbum] = useState<{ artist: string; title: string } | null>(null)
   const [playingFromSearch, setPlayingFromSearch] = useState(false)
+  const [playingFromSearchWithZone, setPlayingFromSearchWithZone] = useState(false)
   
   const queryClient = useQueryClient()
   const roon = useRoon()
@@ -259,7 +260,9 @@ export default function Collections() {
         severity: 'success'
       })
       setSearchAlbumDialogOpen(false)
+      setRoonZoneDialogOpen(false)
       setPlayingFromSearch(false)
+      setPlayingFromSearchWithZone(false)
     },
     onError: (error: any) => {
       const errorDetail = error.response?.data?.detail
@@ -281,6 +284,7 @@ export default function Collections() {
         severity: 'error'
       })
       setPlayingFromSearch(false)
+      setPlayingFromSearchWithZone(false)
     }
   })
 
@@ -316,7 +320,20 @@ export default function Collections() {
   }
 
   const handleRoonZoneSelected = () => {
-    if (pendingCollectionId) {
+    // Cas 1: Lecture d'album depuis la recherche
+    if (playingFromSearchWithZone && searchResult?.found && searchResult?.exact_name) {
+      setPlayingFromSearch(true)
+      playAlbumByNameMutation.mutate({
+        artist: searchResult.artist || searchArtist,
+        album: searchResult.exact_name,
+        zoneName: selectedRoonZone || undefined
+      })
+      setRoonZoneDialogOpen(false)
+      setPlayingFromSearchWithZone(false)
+      setSelectedRoonZone('')
+    }
+    // Cas 2: Lecture de collection
+    else if (pendingCollectionId) {
       playCollectionMutation.mutate({ 
         collectionId: pendingCollectionId, 
         zoneName: selectedRoonZone || undefined 
@@ -324,7 +341,9 @@ export default function Collections() {
       setRoonZoneDialogOpen(false)
       setPendingCollectionId(null)
       setSelectedRoonZone('')
-    } else if (pendingAlbumId) {
+    }
+    // Cas 3: Lecture d'album
+    else if (pendingAlbumId) {
       playAlbumMutation.mutate({ 
         albumId: pendingAlbumId, 
         zoneName: selectedRoonZone || undefined 
@@ -361,11 +380,10 @@ export default function Collections() {
 
   const handlePlayAlbumFromSearch = () => {
     if (searchResult?.found && searchResult?.exact_name) {
-      setPlayingFromSearch(true)
-      playAlbumByNameMutation.mutate({
-        artist: searchResult.artist || searchArtist,
-        album: searchResult.exact_name
-      })
+      setPlayingFromSearchWithZone(true)
+      setSearchAlbumDialogOpen(false)
+      setSelectedRoonZone('')
+      setRoonZoneDialogOpen(true)
     }
   }
 
@@ -686,8 +704,11 @@ export default function Collections() {
         </DialogActions>
       </Dialog>
 
-      {/* Dialog: Sélection de zone Roon (utilisé pour Collection et Album) */}
-      <Dialog open={roonZoneDialogOpen} onClose={() => setRoonZoneDialogOpen(false)}>
+      {/* Dialog: Sélection de zone Roon (utilisé pour Collection, Album et Recherche) */}
+      <Dialog open={roonZoneDialogOpen} onClose={() => {
+        setRoonZoneDialogOpen(false)
+        setPlayingFromSearchWithZone(false)
+      }}>
         <DialogTitle>Sélectionner une zone Roon</DialogTitle>
         <DialogContent>
           <FormControl fullWidth sx={{ mt: 2 }}>
@@ -706,11 +727,16 @@ export default function Collections() {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setRoonZoneDialogOpen(false)}>Annuler</Button>
+          <Button onClick={() => {
+            setRoonZoneDialogOpen(false)
+            setPlayingFromSearchWithZone(false)
+          }}>
+            Annuler
+          </Button>
           <Button 
             onClick={handleRoonZoneSelected} 
             variant="contained"
-            disabled={!selectedRoonZone || (playCollectionMutation.isPending || playAlbumMutation.isPending)}
+            disabled={!selectedRoonZone || (playCollectionMutation.isPending || playAlbumMutation.isPending || playAlbumByNameMutation.isPending)}
           >
             Jouer
           </Button>
