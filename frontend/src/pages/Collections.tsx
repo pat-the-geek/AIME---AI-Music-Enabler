@@ -166,7 +166,7 @@ export default function Collections() {
       return response.data
     },
     onSuccess: (data) => {
-      setZoneDialogOpen(false)
+      setRoonZoneDialogOpen(false)
       setSnackbar({ 
         open: true, 
         message: `Lecture lancée: ${data.current_album} (${data.album_count} albums)`, 
@@ -192,7 +192,7 @@ export default function Collections() {
       return response.data
     },
     onSuccess: (data) => {
-      setAlbumZoneDialogOpen(false)
+      setRoonZoneDialogOpen(false)
       setSnackbar({ 
         open: true, 
         message: `Lecture lancée: ${data.album.title}`, 
