@@ -14,7 +14,7 @@ import random
 from sqlalchemy.orm import Session
 
 from app.services.magazine_generator_service import MagazineGeneratorService
-from app.services.ai_service import AIService
+from app.services.external.ai_service import AIService
 from app.services.spotify_service import SpotifyService
 from app.core.config import get_settings
 

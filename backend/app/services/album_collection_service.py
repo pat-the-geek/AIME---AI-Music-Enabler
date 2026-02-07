@@ -1,6 +1,7 @@
 """Service de gestion des collections d'albums."""
 import logging
 import json
+import asyncio
 from typing import List, Optional, Dict, Any
 from sqlalchemy.orm import Session
 from sqlalchemy import func, or_, and_
@@ -18,14 +19,49 @@ class AlbumCollectionService:
         """Initialiser le service."""
         self.db = db
     
+    def _generate_collection_name(self, ai_query: str) -> str:
+        """Générer un nom de collection via Euria IA.
+        
+        Utilise l'IA Euria pour créer un nom synthétique représentative de la requête.
+        """
+        try:
+            from app.services.external.ai_service import AIService
+            ai = AIService()
+            name = ai.generate_collection_name_sync(ai_query)
+            logger.info(f"🎨 Nom généré par Euria: {name}")
+            return name
+        except Exception as e:
+            logger.warning(f"⚠️ Fallback génération nom: {e}")
+            # Fallback simple si Euria indisponible
+            words = ai_query.split()
+            stop_words = {'fais', 'faites', 'faire', 'me', 'moi', 'de', 'du', 'et', 'ou', 'un', 'une', 'des', 'le', 'la', 'les', 'à', 'pour'}
+            key_words = [w for w in words if w.lower() not in stop_words and len(w) > 2][:2]
+            return ' '.join(w.capitalize() for w in key_words) if key_words else "Collection Découverte"
+    
     def create_collection(
         self,
-        name: str,
-        search_type: Optional[str] = None,
+        name: Optional[str] = None,
+        search_type: str = 'ai_query',
         search_criteria: Optional[Dict[str, Any]] = None,
-        ai_query: Optional[str] = None
+        ai_query: Optional[str] = None,
+        web_search: bool = True  # Recherche web prioritaire par défaut
     ) -> AlbumCollection:
-        """Créer une nouvelle collection d'albums et la peupler automatiquement."""
+        """Créer une nouvelle collection d'albums et la peupler automatiquement.
+        
+        Args:
+            name: Nom de la collection (généré automatiquement si None)
+            search_type: Type de recherche (par défaut 'ai_query')
+            search_criteria: Critères de recherche
+            ai_query: Requête IA en langage naturel
+            web_search: Si True, recherche d'abord sur le web (défaut: True)
+        """
+        # Générer le nom automatiquement si non fourni
+        if not name and ai_query:
+            name = self._generate_collection_name(ai_query)
+        
+        if not name:
+            name = "Nouvelle Collection"
+        
         # Convertir search_criteria en JSON string si c'est un dict
         criteria_json = None
         if search_criteria:
@@ -47,7 +83,23 @@ class AlbumCollectionService:
         albums = []
         
         if search_type == 'ai_query' and ai_query:
-            albums = self.search_by_ai_query(ai_query, limit=50)
+            # 🌐 PRIORITÉ ABSOLUE: Recherche Euria IA sur le web
+            if web_search:
+                logger.info(f"🌐 Recherche Euria IA pour: {ai_query}")
+                web_albums = self._search_albums_web(ai_query, limit=50)
+                albums.extend(web_albums)
+                
+                if len(web_albums) > 0:
+                    logger.info(f"🎉 {len(web_albums)} albums proposés par Euria - PAS DE COMPLÉMENT LOCAL")
+                else:
+                    logger.warning(f"⚠️ Euria n'a trouvé aucun album, complément avec librairie locale...")
+                    local_albums = self.search_by_ai_query(ai_query, limit=50)
+                    albums.extend(local_albums)
+            else:
+                # Fallback: Recherche en librairie locale seulement
+                logger.info(f"📚 Recherche locale uniquement pour: {ai_query}")
+                local_albums = self.search_by_ai_query(ai_query, limit=50)
+                albums.extend(local_albums)
         elif search_type == 'genre' and search_criteria and 'genre' in search_criteria:
             albums = self.search_by_genre(search_criteria['genre'], limit=50)
         elif search_type == 'artist' and search_criteria and 'artist' in search_criteria:
@@ -60,13 +112,21 @@ class AlbumCollectionService:
         # Ajouter les albums trouvés à la collection
         if albums:
             album_ids = [album.id for album in albums]
+            
+            # Afficher le détail des albums avant ajout
+            logger.info(f"📋 ALBUMS À AJOUTER À LA COLLECTION ({len(albums)} total):")
+            for album in albums:
+                artists_names = ", ".join([a.name for a in album.artists]) if album.artists else "Unknown"
+                logger.info(f"  • {album.title} - {artists_names} ({album.year}) [Genre: {album.genre}, Support: {album.support}]")
+            
             collection = self.add_albums_to_collection(collection.id, album_ids)
             logger.info(f"✅ {len(album_ids)} albums ajoutés à la collection {name}")
+        else:
+            logger.warning("⚠️ Aucun album trouvé pour ajouter à la collection")
         
         # Rafraîchir pour obtenir le album_count à jour
         self.db.refresh(collection)
         return collection
-    
     def add_albums_to_collection(
         self,
         collection_id: int,
@@ -234,6 +294,190 @@ class AlbumCollectionService:
         
         return albums
     
+    def _search_albums_web(self, query: str, limit: int = 20) -> List[Album]:
+        """Rechercher des albums sur le web via Euria IA.
+        
+        Flux:
+        1. 🧠 Demande à Euria des albums correspondant à la requête (JSON structuré)
+        2. 📚 Crée les albums en base de données avec provenance "Discover IA"
+        3. 🎨 Enrichit avec Spotify (URLs, images)
+        4. ✍️ Génère des descriptions via Euria
+        
+        Returns:
+            Liste des albums créés
+        """
+        logger.info(f"🌐 Recherche web via Euria pour: {query}")
+        
+        try:
+            from app.services.external.ai_service import AIService
+            import os
+            
+            ai = AIService()
+            
+            # Étape 1: Rechercher les albums via EurIA
+            logger.info(f"🧠 Requête à EurIA...")
+            albums_data = ai.search_albums_web_sync(query, limit=limit)
+            
+            logger.info(f"📊 RÉSULTAT BRUT DE EURIA: {albums_data}")
+            logger.info(f"📊 Nombre d'albums retournés: {len(albums_data)}")
+            
+            # Dédupliquer les albums (Euria peut retourner des doublons)
+            seen = set()
+            deduplicated = []
+            duplicates = []
+            
+            for album_info in albums_data:
+                key = (album_info.get('artist', '').lower(), album_info.get('album', '').lower())
+                if key not in seen:
+                    seen.add(key)
+                    deduplicated.append(album_info)
+                else:
+                    duplicates.append(f"{album_info.get('artist')} - {album_info.get('album')}")
+            
+            if duplicates:
+                logger.warning(f"⚠️ {len(duplicates)} albums dupliqués détectés et supprimés: {duplicates}")
+            
+            albums_data = deduplicated
+            logger.info(f"✅ Après déduplication: {len(albums_data)} albums uniques")
+            
+            if not albums_data:
+                logger.warning("⚠️ Aucun album trouvé via Euria")
+                return []
+            
+            logger.info(f"✅ {len(albums_data)} albums trouvés via Euria - Détail: {[(a.get('artist'), a.get('album')) for a in albums_data]}")
+            
+            # Préparer Spotify pour l'enrichissement
+            client_id = os.getenv('SPOTIFY_CLIENT_ID')
+            client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
+            spotify_service = None
+            
+            if client_id and client_secret:
+                from app.services.spotify_service import SpotifyService
+                spotify_service = SpotifyService(client_id, client_secret)
+                logger.info("🎵 Service Spotify prêt pour enrichissement")
+            else:
+                logger.warning("⚠️ Clés Spotify manquantes, enrichissement limité")
+            
+            # Étape 2-4: Créer et enrichir les albums
+            albums_created = []
+            
+            for idx, album_info in enumerate(albums_data, 1):
+                try:
+                    artist_name = album_info.get('artist', 'Unknown')
+                    album_title = album_info.get('album', '')
+                    year = album_info.get('year')
+                    
+                    if not album_title:
+                        logger.warning(f"⏭️  Album sans titre, skip: {album_info}")
+                        continue
+                    
+                    # Rechercher ou créer l'artiste
+                    artist = self.db.query(Artist).filter(
+                        Artist.name.ilike(f"%{artist_name}%")
+                    ).first()
+                    
+                    if not artist:
+                        artist = Artist(name=artist_name)
+                        self.db.add(artist)
+                        self.db.flush()
+                        logger.info(f"  👤 Artiste créé: {artist_name}")
+                    
+                    # Chercher si l'album existe déjà
+                    existing_album = self.db.query(Album).filter(
+                        Album.title.ilike(album_title)
+                    ).filter(
+                        Album.artists.any(Artist.name.ilike(artist_name))
+                    ).first()
+                    
+                    if existing_album:
+                        logger.info(f"  ℹ️ Album existant: {album_title}")
+                        albums_created.append(existing_album)
+                        continue
+                    
+                    # Étape 2: Créer l'album avec provenance "Discover IA"
+                    logger.info(f"  [{idx}/{len(albums_data)}] 📀 Création: {album_title} - {artist_name}")
+                    
+                    album = Album(
+                        title=album_title,
+                        year=year,
+                        genre="Discover IA",  # Provenance
+                        support="Digital"  # Par défaut pour découverte web
+                    )
+                    album.artists.append(artist)
+                    
+                    # Étape 3: Enrichir avec Spotify (+fallback Last.fm)
+                    if spotify_service:
+                        try:
+                            # Chercher les détails et l'image sur Spotify
+                            spotify_details = spotify_service.search_album_details_sync(
+                                artist_name, album_title
+                            )
+                            
+                            if spotify_details:
+                                album.spotify_url = spotify_details.get('spotify_url')
+                                album.image_url = spotify_details.get('image_url')
+                                if not year and spotify_details.get('year'):
+                                    album.year = spotify_details['year']
+                                logger.info(f"    ✨ Enrichi avec Spotify")
+                            else:
+                                logger.info(f"    ⚠️ Non trouvé sur Spotify, fallback Last.fm...")
+                                # Fallback: Chercher via Last.fm
+                                from app.services.spotify_service import get_lastfm_image
+                                lastfm_image = get_lastfm_image(artist_name, album_title)
+                                if lastfm_image:
+                                    album.image_url = lastfm_image
+                                    logger.info(f"    ✨ Image trouvée via Last.fm")
+                                else:
+                                    logger.info(f"    ⏭️ Pas d'image (Spotify + Last.fm), exclusion")
+                                    continue  # Exclure si aucune image
+                        except Exception as e:
+                            logger.warning(f"    ⚠️ Enrichissement échoué, exclusion: {e}")
+                            continue
+                    else:
+                        logger.warning(f"    ⚠️ Spotify désactivé, exclusion de l'album")
+                        continue  # Exclure si Spotify n'est pas configuré
+                    
+                    # Vérification finale: l'album doit avoir une image
+                    if not album.image_url:
+                        logger.info(f"    ⏭️ Aucune image trouvée, exclusion finale")
+                        continue
+                    
+                    # Étape 4: Générer description via Euria
+                    try:
+                        description = euria.generate_album_description_sync(artist_name, album_title, year)
+                        album.ai_description = description
+                        logger.info(f"    ✍️ Description générée")
+                    except Exception as e:
+                        logger.warning(f"    ⚠️ Description Euria échouée: {e}")
+                        album.ai_description = f"Découverte Euria via: {query}"
+                    
+                    self.db.add(album)
+                    self.db.flush()
+                    albums_created.append(album)
+                    logger.info(f"    ✅ Album conservé avec image")
+                    logger.info(f"    ✅ Album créé avec enrichissements")
+                    
+                except Exception as e:
+                    logger.error(f"  ❌ Erreur création album '{album_info.get('album', '?')}': {e}")
+                    continue
+            
+            self.db.commit()
+            
+            logger.info(f"🎉 {len(albums_created)} albums créés et enrichis")
+            
+            # Afficher le détail des albums créés pour debugging
+            for album in albums_created:
+                artists_names = ", ".join([a.name for a in album.artists])
+                logger.info(f"  ✅ ALBUM CRÉÉ: '{album.title}' de {artists_names} ({album.year}) - Genre: {album.genre}, Source pour recherche Euria")
+            
+            return albums_created
+            
+        except Exception as e:
+            logger.error(f"❌ Erreur recherche web: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
+            return []
+    
     def get_collection(self, collection_id: int) -> Optional[AlbumCollection]:
         """Récupérer une collection par son ID."""
         return self.db.query(AlbumCollection).filter(
@@ -241,12 +485,18 @@ class AlbumCollectionService:
         ).first()
     
     def get_collection_albums(self, collection_id: int) -> List[Album]:
-        """Récupérer les albums d'une collection."""
+        """Récupérer les albums d'une collection (seulement ceux avec image)."""
         collection_albums = self.db.query(CollectionAlbum).filter(
             CollectionAlbum.collection_id == collection_id
         ).order_by(CollectionAlbum.position).all()
         
-        return [ca.album for ca in collection_albums]
+        # Filtrer les albums sans image
+        result = []
+        for ca in collection_albums:
+            if ca.album.image_url:  # Seulement les albums avec image
+                result.append(ca.album)
+        
+        return result
     
     def list_collections(
         self,

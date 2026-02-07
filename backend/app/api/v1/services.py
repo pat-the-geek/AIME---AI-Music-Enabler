@@ -23,7 +23,7 @@ from app.services.roon_normalization_service import (
 from app.services.scheduler_service import SchedulerService
 from app.services.discogs_service import DiscogsService
 from app.services.spotify_service import SpotifyService
-from app.services.ai_service import AIService
+from app.services.external.ai_service import AIService
 from app.services.lastfm_service import LastFMService
 from app.models import Album, Artist, Image, Metadata, Track, ListeningHistory, ServiceState, ScheduledTaskExecution
 
@@ -1143,7 +1143,7 @@ async def enrich_single_album(
         
         # 2. Enrichir avec IA (descriptions) - de façon optionnelle sans bloquer
         try:
-            from app.services.ai_service import AIService
+            from app.services.external.ai_service import AIService
             ai_service = AIService(
                 url=secrets.get('euria', {}).get('url', ''),
                 bearer=secrets.get('euria', {}).get('bearer', '')

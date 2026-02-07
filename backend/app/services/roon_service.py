@@ -224,6 +224,108 @@ class RoonService:
         return False
 
     # ========================================================================
+    # Search Album in Roon Library
+    # ========================================================================
+
+    def search_album_in_roon(
+        self, artist: str, album: str, timeout_seconds: float = 30.0
+    ) -> Optional[Dict]:
+        """Chercher un album dans la bibliothèque Roon et retourner les détails si trouvé.
+
+        Essaie plusieurs variantes du nom d'album (avec Deluxe Edition, etc.)
+        pour trouver l'album exact dans la bibliothèque Roon.
+
+        Args:
+            artist: Nom de l'artiste
+            album: Titre de l'album
+            timeout_seconds: Timeout global pour toutes les recherches
+
+        Returns:
+            Dict avec 'found': bool, 'exact_name': str si trouvé, None sinon
+            Exemple: {'found': True, 'exact_name': 'Lucky Shiner (Deluxe Edition)'}
+        """
+        try:
+            start_time = time.time()
+            logger.info("Recherche album dans Roon: %s - %s", artist, album)
+
+            # Essayer plusieurs variantes du nom d'album
+            variants = [
+                f"{album} (Deluxe Edition)",  # La variante exacte la plus courante
+                f"{album} Deluxe Edition",     # Sans parenthèses
+                f"{album} - Deluxe Edition",   # Avec tiret
+                f"{album} (Deluxe)",
+                album,  # Nom exact en dernier
+            ]
+
+            elapsed = time.time() - start_time
+            
+            # Essayer chaque variante
+            for idx, variant in enumerate(variants):
+                elapsed = time.time() - start_time
+                
+                # Arrêter à 85% du timeout global
+                if elapsed > timeout_seconds * 0.85:
+                    logger.warning("Approche du timeout global (%.1fs/%.1fs), arrêt", elapsed, timeout_seconds)
+                    return {"found": False, "artist": artist, "album": album}
+                
+                # Timeout pour cette variante
+                remaining_time = timeout_seconds - elapsed
+                variants_left = len(variants) - idx
+                variant_timeout = min(8.0, max(1.0, remaining_time / (variants_left + 0.5)))
+                
+                if variant_timeout <= 0.5:
+                    logger.warning("Timeout épuisé avant variante %d: %s", idx + 1, variant)
+                    return {"found": False, "artist": artist, "album": album}
+                
+                logger.info("Essai variante (%d/%d, %.1fs elapsed): %s - %s", 
+                           idx + 1, len(variants), elapsed, artist, variant)
+                
+                try:
+                    resp = httpx.post(
+                        f"{self.bridge_url}/search-album",
+                        json={
+                            "artist": artist,
+                            "album": variant,
+                        },
+                        timeout=variant_timeout,
+                    )
+
+                    if resp.status_code == 200:
+                        data = resp.json()
+                        if data.get("found"):
+                            exact_name = data.get("exact_name", variant)
+                            elapsed_total = time.time() - start_time
+                            logger.info(
+                                "✓ Album trouvé dans Roon en %.2fs: %s",
+                                elapsed_total,
+                                exact_name,
+                            )
+                            return {
+                                "found": True,
+                                "exact_name": exact_name,
+                                "artist": artist,
+                            }
+                except httpx.TimeoutException:
+                    logger.debug("Timeout variante %d: %s", idx + 1, variant)
+                    continue
+                
+            # Aucune variante trouvée
+            elapsed_total = time.time() - start_time
+            logger.info(
+                "✗ Album non trouvé après %d variantes (%.2fs): %s - %s",
+                len(variants),
+                elapsed_total,
+                artist,
+                album,
+            )
+            return {"found": False, "artist": artist, "album": album}
+
+        except Exception as e:
+            logger.error("Erreur recherche album: %s", e)
+            return None
+
+
+    # ========================================================================
     # Play Album
     # ========================================================================
 
@@ -295,7 +397,7 @@ class RoonService:
                     "artist": artist,
                     "album": album,
                 },
-                timeout=timeout_seconds + 2,  # Marge pour le réseau
+                timeout=timeout_seconds + 0.5,  # Petite marge pour le réseau seulement
             )
 
             elapsed = time.time() - start_time
@@ -321,6 +423,82 @@ class RoonService:
         except Exception as e:
             logger.error("Erreur play_album_with_timeout: %s", e)
             return None
+
+    def play_album_with_variants(
+        self,
+        zone_or_output_id: str,
+        artist: str,
+        album: str,
+        timeout_seconds: float = 15.0,
+    ) -> Optional[bool]:
+        """Essayer de jouer un album en essayant plusieurs variantes du nom.
+        
+        Si l'album exact n'existe pas, essaie les variantes les plus courantes :
+        - Album (Deluxe Edition)
+        - Album (Deluxe)
+        
+        Chaque variante a un timeout très réduit pour éviter de bloquer trop longtemps.
+        
+        Returns:
+            True si succès, False si échec explicite, None si timeout général.
+        """
+        # Seulement les variantes les plus probables pour réduire le temps total
+        # IMPORTANT: Chercher d'abord la variante Deluxe Edition car c'est probablement celle qui existe
+        variants = [
+            f"{album} (Deluxe Edition)",  # La variante exacte
+            f"{album} Deluxe Edition",     # Sans parenthèses
+            f"{album} - Deluxe Edition",   # Avec tiret
+            f"{album} (Deluxe)",
+            album,  # Nom exact en dernier
+        ]
+        
+        start_time = time.time()
+        
+        # Essayer chaque variante avec un timeout propor tionnel
+        for idx, variant in enumerate(variants):
+            elapsed = time.time() - start_time
+            
+            # Vérifier si on approche du timeout global (arrêter à 85% du timeout)
+            if elapsed > timeout_seconds * 0.85:
+                logger.warning("Approche du timeout global (%.1fs/%.1fs), arrêt des variantes", elapsed, timeout_seconds)
+                return None
+            
+            # Timeout disponible divisé entre variantes restantes
+            remaining_time = timeout_seconds - elapsed
+            variants_left = len(variants) - idx
+            variant_timeout = min(25.0, max(1.0, remaining_time / (variants_left + 0.5)))
+            
+            if variant_timeout <= 0.5:
+                logger.warning("Timeout épuisé avant de pouvoir essayer variante %d: %s", idx + 1, variant)
+                return None
+            
+            logger.info("Essai variante (%d/%d, %.1fs elapsed, %.1fs timeout): %s - %s", idx + 1, len(variants), elapsed, variant_timeout, artist, variant)
+            
+            result = self.play_album_with_timeout(
+                zone_or_output_id=zone_or_output_id,
+                artist=artist,
+                album=variant,
+                timeout_seconds=variant_timeout,
+            )
+            
+            # Si succès, retourner immédiatement
+            if result is True:
+                logger.info("✓ Album trouvé avec variante: %s (%.2fs)", variant, time.time() - start_time)
+                return True
+            
+            # Si timeout global, retourner None
+            elif result is None:
+                elapsed_now = time.time() - start_time
+                logger.warning("Timeout lors de la tentative avec variante: %s (%.2fs elapsed)", variant, elapsed_now)
+                return None
+            
+            # Si False (not found), essayer la variante suivante
+            logger.debug("Album pas trouvé pour variante: %s", variant)
+        
+        # Aucune variante trouvée
+        elapsed = time.time() - start_time
+        logger.warning("Album non trouvé après %d variantes (%.2fs): %s - %s", len(variants), elapsed, artist, album)
+        return False
 
     # ========================================================================
     # Play Track

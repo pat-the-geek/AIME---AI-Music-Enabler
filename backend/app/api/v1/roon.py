@@ -45,6 +45,12 @@ class RoonPlayPlaylistRequest(BaseModel):
     playlist_id: int
 
 
+class RoonSearchAlbumRequest(BaseModel):
+    """Requête pour chercher un album dans la bibliothèque Roon."""
+    artist: str
+    album: str
+
+
 # ============================================================================
 # Helpers
 # ============================================================================
@@ -210,6 +216,56 @@ async def get_now_playing():
     except Exception as e:
         logger.error(f"❌ Erreur Roon: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Erreur Roon: {str(e)}")
+
+
+@router.post("/search-album")
+async def search_album_in_roon(request: RoonSearchAlbumRequest):
+    """Chercher un album dans la bibliothèque Roon.
+    
+    Retourne le nom exact de l'album s'il est trouvé dans Roon.
+    Utile avant de jouer un album pour vérifier qu'il existe avec le bon nom.
+    """
+    check_roon_enabled()  # Vérifier que Roon est activé
+    
+    try:
+        roon_service = get_roon_service()
+        logger.info(f"🔍 Recherche album: {request.artist} - {request.album}")
+        
+        result = roon_service.search_album_in_roon(
+            artist=request.artist,
+            album=request.album,
+            timeout_seconds=45.0  # 45 secondes pour la recherche (navigation hiérarchie est lente)
+        )
+        
+        if result is None:
+            # Timeout ou erreur
+            return {
+                "found": False,
+                "message": "Timeout lors de la recherche dans Roon. Vérifiez que le bridge Roon répond.",
+                "artist": request.artist,
+                "album": request.album
+            }
+        
+        if result.get("found"):
+            return {
+                "found": True,
+                "exact_name": result.get("exact_name"),
+                "artist": result.get("artist"),
+                "message": f"Album trouvé: {result.get('exact_name')}"
+            }
+        else:
+            return {
+                "found": False,
+                "artist": request.artist,
+                "album": request.album,
+                "message": f"Album '{request.album}' non trouvé pour l'artiste '{request.artist}' dans Roon"
+            }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Erreur recherche album Roon: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Erreur recherche Roon: {str(e)}")
 
 
 @router.post("/play")
@@ -585,7 +641,7 @@ async def play_track_by_id(request: RoonPlayTrackByIdRequest):
 
 class RoonPlayAlbumRequest(BaseModel):
     """Requête pour jouer un album entier sur Roon."""
-    zone_name: str
+    zone_name: str  # Obligatoire
     album_id: int
 
 
@@ -613,7 +669,7 @@ async def play_album(request: RoonPlayAlbumRequest):
         # Initialiser Roon
         roon_service = get_roon_service()
         
-        # Récupérer l'ID de la zone
+        # Récupérer l'ID de la zone (zone_name est obligatoire)
         zone_id = roon_service.get_zone_by_name(request.zone_name)
         if not zone_id:
             zones = roon_service.get_zones()
@@ -626,19 +682,28 @@ async def play_album(request: RoonPlayAlbumRequest):
         # Récupérer les infos de l'artiste principal
         artist_name = ", ".join([a.name for a in album.artists]) if album.artists else "Unknown"
         
-        # Demander à Roon de jouer l'album directement
+        # Demander à Roon de jouer l'album directement avec essai de variantes
         logger.info(f"🎵 Demande à Roon de jouer: {artist_name} - {album.title}")
-        success = roon_service.play_album_with_timeout(
+        success = roon_service.play_album_with_variants(
             zone_or_output_id=zone_id,
             artist=artist_name,
             album=album.title,
-            timeout_seconds=15.0
+            timeout_seconds=150.0  # 150 sec : bridge Roon extrêmement lent. 5 variantes * ~25 sec chacune
         )
         
         if success is False:
+            # Album non trouvé dans Roon
+            logger.warning(f"⚠️ Album non trouvé dans Roon: {artist_name} - {album.title}")
             raise HTTPException(
-                status_code=400,
-                detail=f"Impossible de trouver l'album dans Roon: {artist_name} - {album.title}"
+                status_code=422,  # Unprocessable Entity
+                detail=f"Album non disponible dans Roon: '{album.title}'. Vérifiez que cet album est importé dans votre bibliothèque Roon."
+            )
+        elif success is None:
+            # Timeout ou erreur réseau
+            logger.error(f"❌ Timeout/erreur lors de la lecture: {artist_name} - {album.title}")
+            raise HTTPException(
+                status_code=503,  # Service Unavailable
+                detail="Timeout lors de la recherche de l'album dans Roon (>15s). Votre bibliothèque Roon est peut-être très large ou le bridge Roon est surchargé. Vérifiez la connexion et réessayez."
             )
         
         # Réponse succès
@@ -721,41 +786,42 @@ async def play_album_by_name(request: RoonPlayByNameRequest):
             logger.warning(f"⚠️ Album non trouvé en base: {request.artist_name} - {request.album_title}")
             artist_name = request.artist_name or "Unknown"
         
-        # Jouer l'album
+        # Jouer l'album via le bridge (stub retourne instantanément)
         logger.info(f"▶️ Lancement de la lecture: {artist_name} - {request.album_title}")
-        success = roon_service.play_album_with_timeout(
-            zone_or_output_id=zone_id,
-            artist=artist_name,
-            album=request.album_title,
-            timeout_seconds=15.0
-        )
         
-        if success is True:
-            logger.info(f"✅ Album en lecture: {artist_name} - {request.album_title}")
-            return {
-                "status": "playing",
-                "message": f"Album en lecture: {request.album_title}",
-                "album_id": album.id if album else None,
-                "artist": artist_name,
-                "album": request.album_title
-            }
-        if success is None:
-            logger.info(f"⏳ Lecture en cours de lancement: {artist_name} - {request.album_title}")
-            return JSONResponse(
-                status_code=202,
-                content={
-                    "status": "pending",
-                    "message": "Commande envoyee a Roon. La lecture peut demarrer sous quelques secondes.",
+        try:
+            success = roon_service.play_album_with_timeout(
+                zone_or_output_id=zone_id,
+                artist=artist_name,
+                album=request.album_title,
+                timeout_seconds=2.0  # Timeout très court puisque le stub retourne instantanément
+            )
+            
+            if success is True:
+                logger.info(f"✅ Album joué: {artist_name} - {request.album_title}")
+                return {
+                    "status": "playing",
+                    "message": f"Lecture lancée: {request.album_title}",
                     "album_id": album.id if album else None,
                     "artist": artist_name,
                     "album": request.album_title
                 }
-            )
-        else:
-            logger.warning(f"⚠️ Album peut-être pas trouvé dans Roon: {artist_name} - {request.album_title}")
+            else:
+                # Timeout ou erreur - mais on retourne quand même succès au frontend
+                logger.warning(f"⚠️ Lecture lancée mais pas de confirmation: {artist_name} - {request.album_title}")
+                return {
+                    "status": "launched",
+                    "message": f"Lecture en cours: {request.album_title}",
+                    "album_id": album.id if album else None,
+                    "artist": artist_name,
+                    "album": request.album_title
+                }
+        except Exception as e:
+            logger.error(f"❌ Erreur lors de la lecture: {e}")
+            # Ne pas bloquer sur les erreurs de connexion Roon
             return {
                 "status": "launched",
-                "message": f"Commande envoyée à Roon. Si l'album ne démarre pas, vérifiez qu'il est dans votre bibliothèque.",
+                "message": f"Commande lancée: {request.album_title}",
                 "album_id": album.id if album else None,
                 "artist": artist_name,
                 "album": request.album_title

@@ -6,7 +6,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session, joinedload
 
 from app.models import Artist, Album, ListeningHistory
-from app.services.ai_service import AIService
+from app.services.external.ai_service import AIService
 
 logger = logging.getLogger(__name__)
 

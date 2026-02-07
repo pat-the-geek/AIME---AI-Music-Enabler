@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import func
 
 from app.models import Album, Artist, Track, ListeningHistory
-from app.services.ai_service import AIService
+from app.services.external.ai_service import AIService
 from app.services.spotify_service import SpotifyService
 
 logger = logging.getLogger(__name__)

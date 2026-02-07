@@ -28,7 +28,7 @@ async def generate_haiku(
     db: Session = Depends(get_db)
 ):
     """Générer un haïku basé sur l'historique d'écoute récent."""
-    from app.services.ai_service import AIService
+    from app.services.external.ai_service import AIService
     from app.core.config import get_settings
     from datetime import timedelta
     

@@ -14,7 +14,7 @@ from app.schemas import (
     PlaylistExportFormat,
 )
 from app.services.playlist_generator import PlaylistGenerator
-from app.services.ai_service import AIService
+from app.services.external.ai_service import AIService
 from app.core.config import get_settings
 from app.api.v1.services import get_roon_service
 

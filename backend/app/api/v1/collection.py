@@ -12,7 +12,7 @@ from datetime import datetime
 from app.database import get_db
 from app.models import Album, Artist, Image, Metadata, album_artist
 from app.services.markdown_export_service import MarkdownExportService
-from app.services.ai_service import AIService
+from app.services.external.ai_service import AIService
 from app.core.config import get_settings
 from app.schemas import (
     AlbumCreate,

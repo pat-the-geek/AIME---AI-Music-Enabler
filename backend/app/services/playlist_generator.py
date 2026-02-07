@@ -7,7 +7,7 @@ from sqlalchemy import func
 import logging
 
 from app.models import Track, ListeningHistory, Album, Artist
-from app.services.ai_service import AIService
+from app.services.external.ai_service import AIService
 
 logger = logging.getLogger(__name__)
 

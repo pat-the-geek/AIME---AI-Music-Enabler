@@ -17,10 +17,9 @@ router = APIRouter(prefix="/collections", tags=["collections"])
 
 class CollectionCreate(BaseModel):
     """Modèle pour créer une collection."""
-    name: str
-    search_type: Optional[str] = None  # "genre", "artist", "period", "ai_query", "custom"
-    search_criteria: Optional[dict] = None
-    ai_query: Optional[str] = None
+    name: Optional[str] = None  # Sera généré automatiquement par l'IA si non fourni
+    search_type: str = 'ai_query'  # Toujours 'ai_query'
+    ai_query: str  # Requête IA obligatoire
 
 
 class CollectionResponse(BaseModel):
@@ -63,6 +62,7 @@ class AlbumResponse(BaseModel):
     year: Optional[int]
     image_url: Optional[str]
     ai_description: Optional[str]
+    spotify_url: Optional[str] = None
     
     class Config:
         from_attributes = True
@@ -79,14 +79,19 @@ def create_collection(
     collection: CollectionCreate,
     db: Session = Depends(get_db)
 ):
-    """Créer une nouvelle collection d'albums."""
+    """Créer une nouvelle collection d'albums via IA.
+    
+    La requête IA recherchera des albums sur le web et créera une collection
+    avec images enrichies et descriptions générées par l'IA.
+    Le nom de la collection sera généré automatiquement à partir de la requête.
+    """
     service = AlbumCollectionService(db)
     
     new_collection = service.create_collection(
-        name=collection.name,
-        search_type=collection.search_type,
-        search_criteria=collection.search_criteria,
-        ai_query=collection.ai_query
+        name=collection.name,  # Sera généré automatiquement si None
+        search_type='ai_query',
+        ai_query=collection.ai_query,
+        web_search=True  # Activer la recherche web
     )
     
     return CollectionResponse.from_orm(new_collection)
@@ -136,7 +141,8 @@ def get_collection_albums(
             artist_name=album.artists[0].name if album.artists else None,
             year=album.year,
             image_url=album.image_url,
-            ai_description=album.ai_description
+            ai_description=album.ai_description,
+            spotify_url=album.spotify_url
         )
         for album in albums
     ]
@@ -188,7 +194,8 @@ def search_by_genre(
             artist_name=album.artists[0].name if album.artists else None,
             year=album.year,
             image_url=album.image_url,
-            ai_description=album.ai_description
+            ai_description=album.ai_description,
+            spotify_url=album.spotify_url
         )
         for album in albums
     ]
@@ -210,7 +217,8 @@ def search_by_artist(
             artist_name=album.artists[0].name if album.artists else None,
             year=album.year,
             image_url=album.image_url,
-            ai_description=album.ai_description
+            ai_description=album.ai_description,
+            spotify_url=album.spotify_url
         )
         for album in albums
     ]
@@ -234,7 +242,8 @@ def search_by_period(
             artist_name=album.artists[0].name if album.artists else None,
             year=album.year,
             image_url=album.image_url,
-            ai_description=album.ai_description
+            ai_description=album.ai_description,
+            spotify_url=album.spotify_url
         )
         for album in albums
     ]
@@ -256,7 +265,8 @@ def search_by_ai(
             artist_name=album.artists[0].name if album.artists else None,
             year=album.year,
             image_url=album.image_url,
-            ai_description=album.ai_description
+            ai_description=album.ai_description,
+            spotify_url=album.spotify_url
         )
         for album in albums
     ]

@@ -10,7 +10,7 @@ import json
 from io import StringIO
 
 from app.database import SessionLocal
-from app.services.ai_service import AIService
+from app.services.external.ai_service import AIService
 from app.services.spotify_service import SpotifyService
 from app.services.markdown_export_service import MarkdownExportService
 from app.services.magazine_edition_service import MagazineEditionService

@@ -7,7 +7,7 @@ sys.path.insert(0, '/Users/patrickostertag/Documents/DataForIA/AIME - AI Music E
 from app.database import SessionLocal
 from app.models import Album, Image
 from app.services.spotify_service import SpotifyService
-from app.services.euria_service import EuriaService
+from app.services.external.ai_service import AIService, EuriaService
 from sqlalchemy import func
 import asyncio
 

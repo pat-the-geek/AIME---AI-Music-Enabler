@@ -4,6 +4,8 @@
 # Import and re-export the main services for convenience
 
 __all__ = [
+    "AIService",
+    "EuriaService",
     "ai_service",
     "spotify_service",
     "lastfm_service",

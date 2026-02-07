@@ -6,7 +6,7 @@ import logging
 
 from app.database import get_db
 from app.services.artist_article_service import ArtistArticleService
-from app.services.ai_service import AIService
+from app.services.external.ai_service import AIService
 from app.core.config import get_settings
 
 logger = logging.getLogger(__name__)

@@ -15,26 +15,24 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
   Chip,
   Stack,
   Snackbar,
   IconButton,
   Tooltip,
   CardMedia,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material'
 import { 
   Add, 
   PlayArrow, 
   Delete, 
   Search,
-  LibraryMusic,
-  Person,
-  DateRange,
-  Psychology,
+  MusicNote,
+  FindInPage,
 } from '@mui/icons-material'
 import apiClient from '../api/client'
 import { useRoon } from '../contexts/RoonContext'
@@ -57,32 +55,34 @@ interface Album {
   year: number | null
   image_url: string | null
   ai_description: string | null
+  spotify_url?: string | null
 }
-
-const SEARCH_TYPES = [
-  { value: 'genre', label: 'Par Genre', icon: <LibraryMusic />, description: 'Rock, Jazz, Electronic...' },
-  { value: 'artist', label: 'Par Artiste', icon: <Person />, description: 'The Beatles, Miles Davis...' },
-  { value: 'period', label: 'Par Période', icon: <DateRange />, description: 'Années 60, 90s...' },
-  { value: 'ai_query', label: 'Recherche IA', icon: <Psychology />, description: 'Musique mélancolique, énergique...' },
-]
 
 export default function Collections() {
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
   const [detailDialogOpen, setDetailDialogOpen] = useState(false)
   const [selectedCollectionId, setSelectedCollectionId] = useState<number | null>(null)
-  const [collectionName, setCollectionName] = useState('')
-  const [searchType, setSearchType] = useState('ai_query')
-  const [searchQuery, setSearchQuery] = useState('')
-  const [startYear, setStartYear] = useState<number | null>(null)
-  const [endYear, setEndYear] = useState<number | null>(null)
+  const [selectedAlbumId, setSelectedAlbumId] = useState<number | null>(null)
+  const [aiQuery, setAiQuery] = useState('')
   const [zoneDialogOpen, setZoneDialogOpen] = useState(false)
+  const [albumZoneDialogOpen, setAlbumZoneDialogOpen] = useState(false)
   const [pendingCollectionId, setPendingCollectionId] = useState<number | null>(null)
+  const [pendingAlbumId, setPendingAlbumId] = useState<number | null>(null)
   const [selectedZone, setSelectedZone] = useState<string>('')
+  const [selectedAlbumZone, setSelectedAlbumZone] = useState<string>('')
   const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
     open: false,
     message: '',
     severity: 'success'
   })
+  
+  // Recherche d'album dans Roon
+  const [searchAlbumDialogOpen, setSearchAlbumDialogOpen] = useState(false)
+  const [searchArtist, setSearchArtist] = useState('')
+  const [searchAlbumTitle, setSearchAlbumTitle] = useState('')
+  const [searchResult, setSearchResult] = useState<any>(null)
+  const [searchingForAlbum, setSearchingForAlbum] = useState<{ artist: string; title: string } | null>(null)
+  const [playingFromSearch, setPlayingFromSearch] = useState(false)
   
   const queryClient = useQueryClient()
   const roon = useRoon()
@@ -183,54 +183,171 @@ export default function Collections() {
     }
   })
 
+  // Jouer un album sur Roon
+  const playAlbumMutation = useMutation({
+    mutationFn: async ({ albumId, zoneName }: { albumId: number; zoneName?: string }) => {
+      const response = await apiClient.post(`/roon/play-album`, {
+        album_id: albumId,
+        zone_name: zoneName
+      })
+      return response.data
+    },
+    onSuccess: (data) => {
+      setAlbumZoneDialogOpen(false)
+      setSnackbar({ 
+        open: true, 
+        message: `Lecture lancée: ${data.album.title}`, 
+        severity: 'success' 
+      })
+    },
+    onError: (error: any) => {
+      const errorDetail = error.response?.data?.detail
+      const statusCode = error.response?.status
+      
+      let message = 'Erreur lors de la lecture'
+      
+      if (statusCode === 422) {
+        // Album non disponible dans Roon
+        message = errorDetail || 'Cet album n\'existe pas dans votre bibliothèque Roon'
+      } else if (statusCode === 503) {
+        // Problème avec le bridge Roon
+        message = 'Roon n\'est pas accessible. Vérifiez que le bridge Roon est actif.'
+      } else {
+        message = errorDetail || 'Erreur lors de la lecture'
+      }
+      
+      setSnackbar({ 
+        open: true, 
+        message, 
+        severity: 'error' 
+      })
+    }
+  })
+
+  const searchAlbumMutation = useMutation({
+    mutationFn: async ({ artist, album }: { artist: string; album: string }) => {
+      const response = await apiClient.post(`/roon/search-album`, {
+        artist,
+        album
+      })
+      return response.data
+    },
+    onSuccess: (data) => {
+      setSearchResult(data)
+    },
+    onError: (error: any) => {
+      const errorDetail = error.response?.data?.detail
+      setSearchResult({
+        found: false,
+        message: errorDetail || 'Erreur lors de la recherche',
+        error: true
+      })
+    }
+  })
+
+  const playAlbumByNameMutation = useMutation({
+    mutationFn: async ({ artist, album, zoneName }: { artist: string; album: string; zoneName?: string }) => {
+      const response = await apiClient.post(`/roon/play-album-by-name`, {
+        artist_name: artist,
+        album_title: album,
+        zone_name: zoneName
+      })
+      return response.data
+    },
+    onSuccess: (data) => {
+      setSnackbar({
+        open: true,
+        message: `Lecture lancée: ${data.message || 'Album en cours de lecture'}`,
+        severity: 'success'
+      })
+      setSearchAlbumDialogOpen(false)
+      setPlayingFromSearch(false)
+    },
+    onError: (error: any) => {
+      const errorDetail = error.response?.data?.detail
+      const statusCode = error.response?.status
+      
+      let message = 'Erreur lors de la lecture'
+      
+      if (statusCode === 422) {
+        message = errorDetail || 'Album non trouvé dans votre bibliothèque Roon'
+      } else if (statusCode === 503) {
+        message = 'Roon n\'est pas accessible'
+      } else {
+        message = errorDetail || message
+      }
+      
+      setSnackbar({
+        open: true,
+        message,
+        severity: 'error'
+      })
+      setPlayingFromSearch(false)
+    }
+  })
+
   const resetForm = () => {
-    setCollectionName('')
-    setSearchQuery('')
-    setStartYear(null)
-    setEndYear(null)
-    setSearchType('ai_query')
+    setAiQuery('')
   }
 
   const handleCreateCollection = () => {
-    if (!collectionName.trim()) {
-      setSnackbar({ open: true, message: 'Nom de collection requis', severity: 'error' })
+    if (!aiQuery.trim()) {
+      setSnackbar({ open: true, message: 'Requête de recherche IA requise', severity: 'error' })
       return
     }
 
     const payload: any = {
-      name: collectionName,
-      search_type: searchType
-    }
-
-    if (searchType === 'ai_query') {
-      if (!searchQuery.trim()) {
-        setSnackbar({ open: true, message: 'Requête de recherche requise', severity: 'error' })
-        return
-      }
-      payload.ai_query = searchQuery
-    } else if (searchType === 'period') {
-      if (!startYear || !endYear) {
-        setSnackbar({ open: true, message: 'Années de début et fin requises', severity: 'error' })
-        return
-      }
-      payload.search_criteria = { start_year: startYear, end_year: endYear }
-    } else {
-      if (!searchQuery.trim()) {
-        setSnackbar({ open: true, message: 'Critère de recherche requis', severity: 'error' })
-        return
-      }
-      payload.search_criteria = { [searchType]: searchQuery }
+      name: null,  // Sera généré automatiquement par le backend
+      search_type: 'ai_query',
+      ai_query: aiQuery
     }
 
     createCollectionMutation.mutate(payload)
   }
 
   const handlePlayCollection = (collectionId: number) => {
-    if (roonZones && roonZones.length > 0) {
-      setPendingCollectionId(collectionId)
-      setZoneDialogOpen(true)
-    } else {
-      playCollectionMutation.mutate({ collectionId })
+    // Toujours demander la sélection de zone (obligatoire)
+    setPendingCollectionId(collectionId)
+    setZoneDialogOpen(true)
+  }
+
+  const handlePlayAlbum = (albumId: number) => {
+    // Toujours demander la sélection de zone (obligatoire)
+    setPendingAlbumId(albumId)
+    setAlbumZoneDialogOpen(true)
+  }
+
+  const handleSearchAlbum = (artist: string, album: string) => {
+    setSearchingForAlbum({ artist, album })
+    searchAlbumMutation.mutate({ artist, album })
+  }
+
+  const handleOpenSearchDialog = (album: Album) => {
+    setSearchArtist(album.artist_name || '')
+    setSearchAlbumTitle(album.title || '')
+    setSearchResult(null)
+    setSearchAlbumDialogOpen(true)
+  }
+
+  const handleSearchAlbumSubmit = () => {
+    if (!searchArtist.trim() || !searchAlbumTitle.trim()) {
+      setSnackbar({
+        open: true,
+        message: 'Veuillez remplir le nom de l\'artiste et l\'album',
+        severity: 'error'
+      })
+      return
+    }
+    handleSearchAlbum(searchArtist, searchAlbumTitle)
+  }
+
+  const handlePlayAlbumFromSearch = () => {
+    if (searchResult?.found && searchResult?.exact_name) {
+      setPlayingFromSearch(true)
+      playAlbumByNameMutation.mutate({
+        artist: searchResult.artist || searchArtist,
+        album: searchResult.exact_name
+      })
     }
   }
 
@@ -245,15 +362,28 @@ export default function Collections() {
     }
   }
 
+  const handleAlbumZoneSelected = () => {
+    if (pendingAlbumId) {
+      setAlbumZoneDialogOpen(false)
+      setPendingAlbumId(null)
+      playAlbumMutation.mutate({ 
+        albumId: pendingAlbumId, 
+        zoneName: selectedAlbumZone || undefined 
+      })
+    }
+  }
+
   const handleViewDetails = (collectionId: number) => {
     setSelectedCollectionId(collectionId)
+    setSelectedAlbumId(null)
     setDetailDialogOpen(true)
   }
 
   const getSearchTypeLabel = (type: string | null) => {
-    if (!type) return 'Personnalisée'
-    const found = SEARCH_TYPES.find(st => st.value === type)
-    return found ? found.label : type
+    switch (type) {
+      case 'ai_query': return 'Recherche IA'
+      default: return 'IA'
+    }
   }
 
   const getSearchTypeColor = (type: string | null): "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning" => {
@@ -377,92 +507,22 @@ export default function Collections() {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>Découvrir une Nouvelle Collection</DialogTitle>
+        <DialogTitle>Créer une Collection par IA</DialogTitle>
         <DialogContent>
           <Alert severity="info" sx={{ mb: 2 }}>
-            Les albums proviennent de votre libraire Discogs et de votre historique des écoutes (Last.fm, Roon, etc).
+            Décrivez la collection d'albums que vous souhaitez découvrir. L'IA recherchera les albums correspondants sur le web et les enrichira avec des images et descriptions.
           </Alert>
           <Stack spacing={3} mt={2}>
             <TextField
-              label="Nom de la collection"
+              label="Requête IA"
               fullWidth
-              value={collectionName}
-              onChange={(e) => setCollectionName(e.target.value)}
-              placeholder="ex: Rock des années 90"
+              multiline
+              rows={4}
+              value={aiQuery}
+              onChange={(e) => setAiQuery(e.target.value)}
+              placeholder="Exemple: Fais moi une sélection d'album qui sont agréable pour faire du vibe coding à la maison"
+              helperText="Décrivez le type de musique que vous recherchez. L'IA trouvera les albums correspondants sur le web."
             />
-
-            <FormControl fullWidth>
-              <InputLabel>Type de recherche</InputLabel>
-              <Select
-                value={searchType}
-                onChange={(e) => setSearchType(e.target.value)}
-                label="Type de recherche"
-              >
-                {SEARCH_TYPES.map((type) => (
-                  <MenuItem key={type.value} value={type.value}>
-                    <Box display="flex" alignItems="center" gap={1}>
-                      {type.icon}
-                      <Box>
-                        <Typography variant="body1">{type.label}</Typography>
-                        <Typography 
-                          variant="caption" 
-                          color="text.secondary"
-                          sx={isEmptyContent(type.description) ? getHiddenContentSx(type.description) : {}}
-                        >
-                          {type.description}
-                        </Typography>
-                      </Box>
-                    </Box>
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            {searchType === 'period' ? (
-              <Stack direction="row" spacing={2}>
-                <TextField
-                  label="Année de début"
-                  type="number"
-                  fullWidth
-                  value={startYear || ''}
-                  onChange={(e) => setStartYear(parseInt(e.target.value) || null)}
-                  placeholder="1990"
-                />
-                <TextField
-                  label="Année de fin"
-                  type="number"
-                  fullWidth
-                  value={endYear || ''}
-                  onChange={(e) => setEndYear(parseInt(e.target.value) || null)}
-                  placeholder="1999"
-                />
-              </Stack>
-            ) : (
-              <TextField
-                label={
-                  searchType === 'ai_query' ? 'Requête IA' :
-                  searchType === 'genre' ? 'Genre' :
-                  searchType === 'artist' ? 'Artiste' :
-                  'Recherche'
-                }
-                fullWidth
-                multiline={searchType === 'ai_query'}
-                rows={searchType === 'ai_query' ? 3 : 1}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={
-                  searchType === 'ai_query' ? 'ex: musique mélancolique et atmosphérique' :
-                  searchType === 'genre' ? 'ex: Rock, Jazz, Electronic' :
-                  searchType === 'artist' ? 'ex: The Beatles' :
-                  'Critère de recherche'
-                }
-                helperText={
-                  searchType === 'ai_query' ? 
-                    'Décrivez le type de musique que vous recherchez. L\'IA trouvera les albums correspondants.' :
-                    undefined
-                }
-              />
-            )}
           </Stack>
         </DialogContent>
         <DialogActions>
@@ -480,15 +540,65 @@ export default function Collections() {
       {/* Dialog: Détails de la collection */}
       <Dialog 
         open={detailDialogOpen} 
-        onClose={() => setDetailDialogOpen(false)}
+        onClose={() => {
+          setDetailDialogOpen(false)
+          setSelectedAlbumId(null)
+        }}
         maxWidth="md"
         fullWidth
       >
         <DialogTitle>
-          Albums de la Collection
+          {selectedAlbumId ? 'Détail de l\'album' : 'Albums de la Collection'}
         </DialogTitle>
         <DialogContent>
-          {albumsLoading ? (
+          {selectedAlbumId && collectionAlbums ? (
+            // Vue détail d'un album sélectionné
+            (() => {
+              const selectedAlbum = collectionAlbums.find((a) => a.id === selectedAlbumId)
+              return selectedAlbum ? (
+                <Box>
+                  <Box display="flex" gap={3} mb={3} mt={2}>
+                    {selectedAlbum.image_url && (
+                      <Box
+                        component="img"
+                        src={selectedAlbum.image_url}
+                        alt={selectedAlbum.title}
+                        sx={{
+                          width: 200,
+                          height: 200,
+                          objectFit: 'cover',
+                          borderRadius: 1
+                        }}
+                      />
+                    )}
+                    <Box flex={1}>
+                      <Typography variant="h5" gutterBottom fontWeight="bold">
+                        {selectedAlbum.title}
+                      </Typography>
+                      <Typography variant="h6" color="text.secondary" gutterBottom>
+                        {selectedAlbum.artist_name || 'Unknown Artist'}
+                      </Typography>
+                      {selectedAlbum.year && (
+                        <Typography variant="body2" color="text.secondary" gutterBottom>
+                          Année: {selectedAlbum.year}
+                        </Typography>
+                      )}
+                    </Box>
+                  </Box>
+                  {selectedAlbum.ai_description && (
+                    <Box mt={3}>
+                      <Typography variant="h6" gutterBottom>
+                        Description
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" paragraph style={{ whiteSpace: 'pre-wrap' }}>
+                        {selectedAlbum.ai_description}
+                      </Typography>
+                    </Box>
+                  )}
+                </Box>
+              ) : null
+            })()
+          ) : albumsLoading ? (
             <Box display="flex" justifyContent="center" p={3}>
               <CircularProgress />
             </Box>
@@ -496,29 +606,84 @@ export default function Collections() {
             <Grid container spacing={2} mt={1}>
               {collectionAlbums.map((album) => (
                 <Grid item xs={12} sm={6} key={album.id}>
-                  <Card variant="outlined">
-                    <Box display="flex">
+                  <Card 
+                    variant="outlined"
+                    onClick={() => setSelectedAlbumId(album.id)}
+                    sx={{ 
+                      height: '100%', 
+                      cursor: 'pointer',
+                      transition: 'all 0.3s',
+                      '&:hover': {
+                        transform: 'translateY(-4px)',
+                        boxShadow: 3
+                      }
+                    }}
+                  >
+                    <Box display="flex" flexDirection="column" height="100%">
                       {album.image_url && (
                         <CardMedia
                           component="img"
-                          sx={{ width: 100, height: 100, objectFit: 'cover' }}
+                          sx={{ height: 150, objectFit: 'cover' }}
                           image={album.image_url}
                           alt={album.title}
                         />
                       )}
                       <CardContent sx={{ flex: 1 }}>
-                        <Typography variant="subtitle1" fontWeight="bold">
+                        <Typography variant="subtitle1" fontWeight="bold" noWrap>
                           {album.title}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" color="text.secondary" noWrap>
                           {album.artist_name || 'Unknown Artist'}
                         </Typography>
                         {album.year && (
-                          <Typography variant="caption" color="text.secondary">
+                          <Typography variant="caption" color="text.secondary" display="block">
                             {album.year}
                           </Typography>
                         )}
                       </CardContent>
+                      {roon?.enabled && (
+                        <CardActions>
+                          <Tooltip title="Jouer sur Roon">
+                            <Button
+                              size="small"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                handlePlayAlbum(album.id)
+                              }}
+                              startIcon={<PlayArrow />}
+                              disabled={playAlbumMutation.isPending}
+                            >
+                              Roon
+                            </Button>
+                          </Tooltip>
+                          {album.spotify_url && (
+                            <Tooltip title="Ouvrir sur Spotify">
+                              <Button
+                                size="small"
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  window.open(album.spotify_url, '_blank')
+                                }}
+                                startIcon={<MusicNote />}
+                              >
+                                Spotify
+                              </Button>
+                            </Tooltip>
+                          )}
+                          <Tooltip title="Vérifier dans Roon">
+                            <Button
+                              size="small"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                handleOpenSearchDialog(album)
+                              }}
+                              startIcon={<Search />}
+                            >
+                              Vérifier
+                            </Button>
+                          </Tooltip>
+                        </CardActions>
+                      )}
                     </Box>
                   </Card>
                 </Grid>
@@ -529,7 +694,12 @@ export default function Collections() {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setDetailDialogOpen(false)}>Fermer</Button>
+          <Button onClick={() => {
+            setDetailDialogOpen(false)
+            setSelectedAlbumId(null)
+          }}>
+            {selectedAlbumId ? 'Retour' : 'Fermer'}
+          </Button>
         </DialogActions>
       </Dialog>
 
@@ -560,6 +730,132 @@ export default function Collections() {
             disabled={!selectedZone || playCollectionMutation.isPending}
           >
             Jouer
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Dialog: Sélection de zone Roon pour album */}
+      <Dialog open={albumZoneDialogOpen} onClose={() => setAlbumZoneDialogOpen(false)}>
+        <DialogTitle>Sélectionner une zone Roon</DialogTitle>
+        <DialogContent>
+          <FormControl fullWidth sx={{ mt: 2 }}>
+            <InputLabel>Zone</InputLabel>
+            <Select
+              value={selectedAlbumZone}
+              onChange={(e) => setSelectedAlbumZone(e.target.value)}
+              label="Zone"
+            >
+              {(roonZones || []).map((zone: any) => (
+                <MenuItem key={zone.zone_id} value={zone.name}>
+                  {zone.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setAlbumZoneDialogOpen(false)}>Annuler</Button>
+          <Button 
+            onClick={handleAlbumZoneSelected} 
+            variant="contained"
+            disabled={!selectedAlbumZone || playAlbumMutation.isPending}
+          >
+            Jouer
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Dialog: Recherche d'album dans Roon */}
+      <Dialog open={searchAlbumDialogOpen} onClose={() => setSearchAlbumDialogOpen(false)} maxWidth="sm" fullWidth>
+        <DialogTitle>Rechercher un album dans Roon</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2} sx={{ mt: 2 }}>
+            <TextField
+              label="Artiste"
+              value={searchArtist}
+              onChange={(e) => setSearchArtist(e.target.value)}
+              fullWidth
+              disabled={searchAlbumMutation.isPending}
+            />
+            <TextField
+              label="Titre de l'album"
+              value={searchAlbumTitle}
+              onChange={(e) => setSearchAlbumTitle(e.target.value)}
+              fullWidth
+              disabled={searchAlbumMutation.isPending}
+            />
+            
+            {searchResult && (
+              <Box sx={{
+                p: 2,
+                borderRadius: 1,
+                backgroundColor: searchResult.found ? '#e8f5e9' : '#ffebee',
+                border: `1px solid ${searchResult.found ? '#4caf50' : '#f44336'}`
+              }}>
+                {searchResult.found ? (
+                  <Stack spacing={1}>
+                    <Typography variant="body2" color="success.dark" sx={{ fontWeight: 'bold' }}>
+                      ✓ Album trouvé!
+                    </Typography>
+                    <Typography variant="body2">
+                      <strong>Nom exact:</strong> {searchResult.exact_name}
+                    </Typography>
+                    {searchResult.artist && (
+                      <Typography variant="body2">
+                        <strong>Artiste:</strong> {searchResult.artist}
+                      </Typography>
+                    )}
+                    <Typography variant="caption" color="text.secondary">
+                      Vous pouvez maintenant jouer cet album sur Roon.
+                    </Typography>
+                  </Stack>
+                ) : (
+                  <Stack spacing={1}>
+                    <Typography variant="body2" color="error.dark" sx={{ fontWeight: 'bold' }}>
+                      ✗ Album non trouvé
+                    </Typography>
+                    <Typography variant="body2">
+                      {searchResult.message || `Album '${searchResult.album}' non trouvé pour '${searchResult.artist}'`}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      Vérifiez que cet album est importé dans votre bibliothèque Roon.
+                    </Typography>
+                  </Stack>
+                )}
+              </Box>
+            )}
+
+            {searchAlbumMutation.isPending && (
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2 }}>
+                <CircularProgress size={20} />
+                <Typography variant="body2">Recherche en cours...</Typography>
+              </Box>
+            )}
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button 
+            onClick={() => setSearchAlbumDialogOpen(false)} 
+            disabled={searchAlbumMutation.isPending || playingFromSearch}
+          >
+            Fermer
+          </Button>
+          {searchResult?.found && (
+            <Button 
+              onClick={handlePlayAlbumFromSearch} 
+              variant="contained"
+              color="success"
+              disabled={playingFromSearch || searchAlbumMutation.isPending}
+            >
+              {playingFromSearch ? 'Lancement...' : '▶️ Jouer sur Roon'}
+            </Button>
+          )}
+          <Button 
+            onClick={handleSearchAlbumSubmit} 
+            variant="contained"
+            disabled={searchAlbumMutation.isPending || !searchArtist.trim() || !searchAlbumTitle.trim()}
+          >
+            Rechercher
           </Button>
         </DialogActions>
       </Dialog>

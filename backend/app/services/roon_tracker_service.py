@@ -8,7 +8,7 @@ import logging
 from app.database import SessionLocal
 from app.services.roon_service import RoonService
 from app.services.spotify_service import SpotifyService
-from app.services.ai_service import AIService
+from app.services.external.ai_service import AIService
 from app.models import Track, ListeningHistory, Artist, Album, Image, Metadata
 
 logger = logging.getLogger(__name__)

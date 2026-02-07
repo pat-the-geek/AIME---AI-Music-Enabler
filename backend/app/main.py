@@ -14,7 +14,15 @@ import sys
 import warnings
 import asyncio
 import logging
+import os
 from contextlib import asynccontextmanager
+
+# Charger les variables d'environnement depuis .env
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv non disponible
 
 # Contournement pour Python 3.14 et SQLAlchemy
 if sys.version_info >= (3, 14):
