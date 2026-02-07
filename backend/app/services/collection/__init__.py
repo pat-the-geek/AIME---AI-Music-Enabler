@@ -1,15 +1,19 @@
-"""Collection & Library services (Albums, Artists, Tracks, Search)."""
+"""Collection & Library services (Albums, Artists, Exports, Stats)."""
+
+from app.services.collection.album_service import AlbumService
+from app.services.collection.artist_service import ArtistService
+from app.services.collection.stats_service import CollectionStatsService
+from app.services.collection.export_service import ExportService
 
 # Services for managing the music collection
+# - Album operations (CRUD, pagination, filtering)
 # - Artist operations and metadata
-# - Album operations and metadata
-# - Track operations and metadata
-# - Unified search across collection
+# - Collection statistics and analytics
+# - Exports (Markdown, JSON)
 
 __all__ = [
-    "artist_service",
-    "album_service",
-    "track_service",
-    "search_service",
-    "collection_service",
+    "AlbumService",
+    "ArtistService",
+    "CollectionStatsService",
+    "ExportService",
 ]
