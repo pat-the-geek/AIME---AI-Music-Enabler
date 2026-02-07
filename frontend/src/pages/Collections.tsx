@@ -64,12 +64,10 @@ export default function Collections() {
   const [selectedCollectionId, setSelectedCollectionId] = useState<number | null>(null)
   const [selectedAlbumId, setSelectedAlbumId] = useState<number | null>(null)
   const [aiQuery, setAiQuery] = useState('')
-  const [zoneDialogOpen, setZoneDialogOpen] = useState(false)
-  const [albumZoneDialogOpen, setAlbumZoneDialogOpen] = useState(false)
+  const [roonZoneDialogOpen, setRoonZoneDialogOpen] = useState(false)
   const [pendingCollectionId, setPendingCollectionId] = useState<number | null>(null)
   const [pendingAlbumId, setPendingAlbumId] = useState<number | null>(null)
-  const [selectedZone, setSelectedZone] = useState<string>('')
-  const [selectedAlbumZone, setSelectedAlbumZone] = useState<string>('')
+  const [selectedRoonZone, setSelectedRoonZone] = useState<string>('')
   const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
     open: false,
     message: '',
@@ -306,15 +304,35 @@ export default function Collections() {
   }
 
   const handlePlayCollection = (collectionId: number) => {
-    // Toujours demander la sélection de zone (obligatoire)
     setPendingCollectionId(collectionId)
-    setZoneDialogOpen(true)
+    setSelectedRoonZone('')
+    setRoonZoneDialogOpen(true)
   }
 
   const handlePlayAlbum = (albumId: number) => {
-    // Toujours demander la sélection de zone (obligatoire)
     setPendingAlbumId(albumId)
-    setAlbumZoneDialogOpen(true)
+    setSelectedRoonZone('')
+    setRoonZoneDialogOpen(true)
+  }
+
+  const handleRoonZoneSelected = () => {
+    if (pendingCollectionId) {
+      playCollectionMutation.mutate({ 
+        collectionId: pendingCollectionId, 
+        zoneName: selectedRoonZone || undefined 
+      })
+      setRoonZoneDialogOpen(false)
+      setPendingCollectionId(null)
+      setSelectedRoonZone('')
+    } else if (pendingAlbumId) {
+      playAlbumMutation.mutate({ 
+        albumId: pendingAlbumId, 
+        zoneName: selectedRoonZone || undefined 
+      })
+      setRoonZoneDialogOpen(false)
+      setPendingAlbumId(null)
+      setSelectedRoonZone('')
+    }
   }
 
   const handleSearchAlbum = (artist: string, album: string) => {
@@ -347,28 +365,6 @@ export default function Collections() {
       playAlbumByNameMutation.mutate({
         artist: searchResult.artist || searchArtist,
         album: searchResult.exact_name
-      })
-    }
-  }
-
-  const handleZoneSelected = () => {
-    if (pendingCollectionId) {
-      setZoneDialogOpen(false)
-      setPendingCollectionId(null)
-      playCollectionMutation.mutate({ 
-        collectionId: pendingCollectionId, 
-        zoneName: selectedZone || undefined 
-      })
-    }
-  }
-
-  const handleAlbumZoneSelected = () => {
-    if (pendingAlbumId) {
-      setAlbumZoneDialogOpen(false)
-      setPendingAlbumId(null)
-      playAlbumMutation.mutate({ 
-        albumId: pendingAlbumId, 
-        zoneName: selectedAlbumZone || undefined 
       })
     }
   }
@@ -703,15 +699,15 @@ export default function Collections() {
         </DialogActions>
       </Dialog>
 
-      {/* Dialog: Sélection de zone Roon */}
-      <Dialog open={zoneDialogOpen} onClose={() => setZoneDialogOpen(false)}>
+      {/* Dialog: Sélection de zone Roon (utilisé pour Collection et Album) */}
+      <Dialog open={roonZoneDialogOpen} onClose={() => setRoonZoneDialogOpen(false)}>
         <DialogTitle>Sélectionner une zone Roon</DialogTitle>
         <DialogContent>
           <FormControl fullWidth sx={{ mt: 2 }}>
             <InputLabel>Zone</InputLabel>
             <Select
-              value={selectedZone}
-              onChange={(e) => setSelectedZone(e.target.value)}
+              value={selectedRoonZone}
+              onChange={(e) => setSelectedRoonZone(e.target.value)}
               label="Zone"
             >
               {(roonZones || []).map((zone: any) => (
@@ -723,42 +719,11 @@ export default function Collections() {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setZoneDialogOpen(false)}>Annuler</Button>
+          <Button onClick={() => setRoonZoneDialogOpen(false)}>Annuler</Button>
           <Button 
-            onClick={handleZoneSelected} 
+            onClick={handleRoonZoneSelected} 
             variant="contained"
-            disabled={!selectedZone || playCollectionMutation.isPending}
-          >
-            Jouer
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      {/* Dialog: Sélection de zone Roon pour album */}
-      <Dialog open={albumZoneDialogOpen} onClose={() => setAlbumZoneDialogOpen(false)}>
-        <DialogTitle>Sélectionner une zone Roon</DialogTitle>
-        <DialogContent>
-          <FormControl fullWidth sx={{ mt: 2 }}>
-            <InputLabel>Zone</InputLabel>
-            <Select
-              value={selectedAlbumZone}
-              onChange={(e) => setSelectedAlbumZone(e.target.value)}
-              label="Zone"
-            >
-              {(roonZones || []).map((zone: any) => (
-                <MenuItem key={zone.zone_id} value={zone.name}>
-                  {zone.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setAlbumZoneDialogOpen(false)}>Annuler</Button>
-          <Button 
-            onClick={handleAlbumZoneSelected} 
-            variant="contained"
-            disabled={!selectedAlbumZone || playAlbumMutation.isPending}
+            disabled={!selectedRoonZone || (playCollectionMutation.isPending || playAlbumMutation.isPending)}
           >
             Jouer
           </Button>
