@@ -319,14 +319,24 @@ export default function Collections() {
     setRoonZoneDialogOpen(true)
   }
 
-  const handleRoonZoneSelected = () => {
+  const handleZoneClicked = (zoneName: string) => {
+    // Sélectionner la zone et lancer la lecture directement
+    setSelectedRoonZone(zoneName)
+    
+    // La fonction handleRoonZoneSelected utilisera selectedRoonZone qui a été mis à jour
+    // Mais comme setState est asynchrone, on doit passer la zone en paramètre
+    // Alors on refactorise handleRoonZoneSelected en passant la zone
+    handleRoonZoneSelectedWithZone(zoneName)
+  }
+
+  const handleRoonZoneSelectedWithZone = (zoneName: string) => {
     // Cas 1: Lecture d'album depuis la recherche
     if (playingFromSearchWithZone && searchResult?.found && searchResult?.exact_name) {
       setPlayingFromSearch(true)
       playAlbumByNameMutation.mutate({
         artist: searchResult.artist || searchArtist,
         album: searchResult.exact_name,
-        zoneName: selectedRoonZone || undefined
+        zoneName: zoneName || undefined
       })
       setRoonZoneDialogOpen(false)
       setPlayingFromSearchWithZone(false)
@@ -336,7 +346,7 @@ export default function Collections() {
     else if (pendingCollectionId) {
       playCollectionMutation.mutate({ 
         collectionId: pendingCollectionId, 
-        zoneName: selectedRoonZone || undefined 
+        zoneName: zoneName || undefined 
       })
       setRoonZoneDialogOpen(false)
       setPendingCollectionId(null)
@@ -346,12 +356,16 @@ export default function Collections() {
     else if (pendingAlbumId) {
       playAlbumMutation.mutate({ 
         albumId: pendingAlbumId, 
-        zoneName: selectedRoonZone || undefined 
+        zoneName: zoneName || undefined 
       })
       setRoonZoneDialogOpen(false)
       setPendingAlbumId(null)
       setSelectedRoonZone('')
     }
+  }
+
+  const handleRoonZoneSelected = () => {
+    handleRoonZoneSelectedWithZone(selectedRoonZone)
   }
 
   const handleSearchAlbum = (artist: string, album: string) => {
@@ -708,37 +722,39 @@ export default function Collections() {
       <Dialog open={roonZoneDialogOpen} onClose={() => {
         setRoonZoneDialogOpen(false)
         setPlayingFromSearchWithZone(false)
-      }}>
-        <DialogTitle>Sélectionner une zone Roon</DialogTitle>
+      }} maxWidth="sm" fullWidth>
+        <DialogTitle>Choisir une zone Roon</DialogTitle>
         <DialogContent>
-          <FormControl fullWidth sx={{ mt: 2 }}>
-            <InputLabel>Zone</InputLabel>
-            <Select
-              value={selectedRoonZone}
-              onChange={(e) => setSelectedRoonZone(e.target.value)}
-              label="Zone"
-            >
-              {(roonZones || []).map((zone: any) => (
-                <MenuItem key={zone.zone_id} value={zone.name}>
-                  {zone.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <Stack spacing={1} sx={{ mt: 2 }}>
+            {(roonZones || []).map((zone: any) => (
+              <Button
+                key={zone.zone_id}
+                onClick={() => handleZoneClicked(zone.name)}
+                variant="outlined"
+                fullWidth
+                sx={{
+                  py: 1.5,
+                  textAlign: 'left',
+                  justifyContent: 'flex-start',
+                  '&:hover': {
+                    backgroundColor: '#f5f5f5',
+                    borderColor: 'primary.main',
+                  }
+                }}
+                disabled={playCollectionMutation.isPending || playAlbumMutation.isPending || playAlbumByNameMutation.isPending}
+              >
+                {zone.name}
+              </Button>
+            ))}
+          </Stack>
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{ justifyContent: 'flex-end' }}>
           <Button onClick={() => {
             setRoonZoneDialogOpen(false)
             setPlayingFromSearchWithZone(false)
+            setSelectedRoonZone('')
           }}>
             Annuler
-          </Button>
-          <Button 
-            onClick={handleRoonZoneSelected} 
-            variant="contained"
-            disabled={!selectedRoonZone || (playCollectionMutation.isPending || playAlbumMutation.isPending || playAlbumByNameMutation.isPending)}
-          >
-            Jouer
           </Button>
         </DialogActions>
       </Dialog>

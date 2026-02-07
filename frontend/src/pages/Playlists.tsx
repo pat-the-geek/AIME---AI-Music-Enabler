@@ -218,6 +218,19 @@ export default function Playlists() {
     }
   })
 
+  const handleZoneClickedForPlaylist = (zoneName: string) => {
+    // Lancer la lecture directement quand une zone est cliquée
+    if (pendingPlaylistId) {
+      playPlaylistMutation.mutate({
+        playlistId: pendingPlaylistId,
+        zone: zoneName
+      })
+      setZoneDialogOpen(false)
+      setPendingPlaylistId(null)
+      setSelectedZone('')
+    }
+  }
+
   // Gérer les contrôles Roon (play, pause, next, previous)
   const handlePlaybackControl = async (control: 'play' | 'pause' | 'next' | 'previous' | 'stop') => {
     try {
@@ -726,67 +739,43 @@ export default function Playlists() {
         onClose={() => {
           setZoneDialogOpen(false)
           setPendingPlaylistId(null)
+          setSelectedZone('')
         }}
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span>Sélectionner la zone Roon</span>
-            <IconButton
-              size="small"
-              onClick={() => refetchZones()}
-              title="Rafraîchir la liste des zones"
-            >
-              <Refresh fontSize="small" />
-            </IconButton>
-          </Box>
-        </DialogTitle>
-        <DialogContent sx={{ pt: 3 }}>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Choisissez la zone sur laquelle démarrer la lecture :
-          </Typography>
-          <FormControl fullWidth>
-            <InputLabel>Zone de lecture</InputLabel>
-            <Select
-              value={selectedZone}
-              label="Zone de lecture"
-              onChange={(e) => setSelectedZone(e.target.value)}
-            >
-              {roonZones?.map((zone: { zone_id: string; name: string; state: string }) => (
-                <MenuItem key={zone.zone_id} value={zone.name}>
-                  {zone.name} ({zone.state})
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          {selectedZone && (
-            <Typography variant="caption" color="success.main" sx={{ display: 'block', mt: 2 }}>
-              ✅ Zone sélectionnée : {selectedZone}
-            </Typography>
-          )}
+        <DialogTitle>Choisir une zone Roon</DialogTitle>
+        <DialogContent sx={{ pt: 2 }}>
+          <Stack spacing={1}>
+            {roonZones?.map((zone: { zone_id: string; name: string; state: string }) => (
+              <Button
+                key={zone.zone_id}
+                onClick={() => handleZoneClickedForPlaylist(zone.name)}
+                variant="outlined"
+                fullWidth
+                sx={{
+                  py: 1.5,
+                  textAlign: 'left',
+                  justifyContent: 'flex-start',
+                  '&:hover': {
+                    backgroundColor: '#f5f5f5',
+                    borderColor: 'primary.main',
+                  }
+                }}
+                disabled={playPlaylistMutation.isPending}
+              >
+                {zone.name} ({zone.state})
+              </Button>
+            ))}
+          </Stack>
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{ justifyContent: 'flex-end' }}>
           <Button onClick={() => {
             setZoneDialogOpen(false)
             setPendingPlaylistId(null)
+            setSelectedZone('')
           }}>
             Annuler
-          </Button>
-          <Button
-            onClick={() => {
-              if (selectedZone && pendingPlaylistId) {
-                playPlaylistMutation.mutate({
-                  playlistId: pendingPlaylistId,
-                  zone: selectedZone
-                })
-              }
-            }}
-            variant="contained"
-            color="success"
-            disabled={!selectedZone || playPlaylistMutation.isPending}
-          >
-            {playPlaylistMutation.isPending ? <CircularProgress size={20} /> : 'Lancer'}
           </Button>
         </DialogActions>
       </Dialog>

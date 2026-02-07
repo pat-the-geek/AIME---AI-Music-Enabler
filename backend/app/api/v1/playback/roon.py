@@ -688,7 +688,7 @@ async def play_album(request: RoonPlayAlbumRequest):
             zone_or_output_id=zone_id,
             artist=artist_name,
             album=album.title,
-            timeout_seconds=150.0  # 150 sec : bridge Roon extrêmement lent. 5 variantes * ~25 sec chacune
+            timeout_seconds=30.0  # 30s max : nom exact trouvé rapidement (5s), variantes if needed
         )
         
         if success is False:
@@ -786,15 +786,15 @@ async def play_album_by_name(request: RoonPlayByNameRequest):
             logger.warning(f"⚠️ Album non trouvé en base: {request.artist_name} - {request.album_title}")
             artist_name = request.artist_name or "Unknown"
         
-        # Jouer l'album via le bridge (stub retourne instantanément)
+        # Jouer l'album via le bridge avec essais de variantes
         logger.info(f"▶️ Lancement de la lecture: {artist_name} - {request.album_title}")
         
         try:
-            success = roon_service.play_album_with_timeout(
+            success = roon_service.play_album_with_variants(
                 zone_or_output_id=zone_id,
                 artist=artist_name,
                 album=request.album_title,
-                timeout_seconds=2.0  # Timeout très court puisque le stub retourne instantanément
+                timeout_seconds=30.0  # Même timeout que /play-album
             )
             
             if success is True:

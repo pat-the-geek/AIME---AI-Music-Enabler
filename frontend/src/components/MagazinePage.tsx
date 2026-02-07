@@ -193,6 +193,43 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
   }
 
   // Fonction pour confirmer et lancer la lecture
+  const handleZoneClickedForMagazine = async (zoneName: string) => {
+    if (!albumToPlay) {
+      showSnackbar('Album introuvable.', 'error')
+      return
+    }
+
+    const artistName = albumToPlay.artist_name || albumToPlay.artist
+    const albumTitle = albumToPlay.album_title || albumToPlay.title
+
+    if (!albumTitle) {
+      showSnackbar('Album introuvable dans le magazine.', 'error')
+      return
+    }
+
+    setZoneDialogOpen(false)
+    setSelectedZone('')
+    setAlbumToPlay(null)
+
+    try {
+      console.log('📤 Envoi à Roon:', { artist_name: artistName, album_title: albumTitle, zone: zoneName })
+
+      await apiClient.post('/roon/play-album-by-name', {
+        artist_name: artistName,
+        album_title: albumTitle,
+        zone_name: zoneName
+      }, {
+        timeout: 120000
+      })
+
+      showSnackbar(`🎵 Lecture lancée: ${albumTitle}`, 'success')
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.detail || error?.message || 'Erreur inconnue'
+      console.error('❌ Erreur Roon:', error)
+      showSnackbar(`❌ Échec: ${errorMsg}`, 'error')
+    }
+  }
+
   const confirmPlayInRoon = async () => {
     console.log('🔄 confirmPlayInRoon appelé - selectedZone:', selectedZone, 'albumToPlay:', albumToPlay)
     if (!selectedZone || !albumToPlay) {
@@ -276,21 +313,17 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
               roonZones.map((zone: any) => (
                 <Button
                   key={zone.zone_id}
-                  variant={selectedZone === zone.name ? 'contained' : 'text'}
+                  variant="outlined"
                   fullWidth
-                  onClick={() => {
-                    console.log('🎯 Zone sélectionnée:', zone.name)
-                    setSelectedZone(zone.name)
-                  }}
+                  onClick={() => handleZoneClickedForMagazine(zone.name)}
                   sx={{
                     justifyContent: 'flex-start',
-                    height: '36px',
-                    fontSize: '0.9rem',
+                    height: '40px',
+                    fontSize: '0.95rem',
                     px: 1.5,
-                    backgroundColor: selectedZone === zone.name ? '#23a7dd' : 'transparent',
-                    color: selectedZone === zone.name ? 'white' : '#333',
                     '&:hover': {
-                      backgroundColor: selectedZone === zone.name ? '#1a8bc4' : '#f5f5f5'
+                      backgroundColor: '#f5f5f5',
+                      borderColor: 'primary.main'
                     }
                   }}
                 >
@@ -302,25 +335,12 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
             )}
           </Stack>
         </DialogContent>
-        <DialogActions sx={{ p: 1.5, gap: 1 }}>
+        <DialogActions sx={{ p: 1.5, justifyContent: 'flex-end' }}>
           <Button 
             onClick={() => setZoneDialogOpen(false)}
             sx={{ textTransform: 'none' }}
           >
             Annuler
-          </Button>
-          <Button
-            variant="contained"
-            disabled={!selectedZone}
-            onClick={confirmPlayInRoon}
-            sx={{ 
-              backgroundColor: '#23a7dd',
-              textTransform: 'none',
-              '&:hover': { backgroundColor: '#1a8bc4' },
-              '&:disabled': { backgroundColor: '#ccc' }
-            }}
-          >
-            Lancer
           </Button>
         </DialogActions>
       </Dialog>

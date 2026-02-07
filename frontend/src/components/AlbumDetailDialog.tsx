@@ -171,6 +171,13 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
     onClose()
   }
 
+  const handleZoneClickedForAlbum = (zoneName: string) => {
+    if (albumId) {
+      setSelectedZone(zoneName)
+      playAlbumMutation.mutate({ albumId, zoneName })
+    }
+  }
+
   return (
     <>
       <Dialog 
@@ -528,61 +535,47 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
       </Dialog>
 
       {/* Dialog de sélection de zone Roon - Compact */}
-      <Dialog open={zoneDialogOpen} onClose={() => setZoneDialogOpen(false)}>
-        <DialogTitle sx={{ pb: 1 }}>Sélectionner une zone</DialogTitle>
-        <DialogContent sx={{ minWidth: 250, p: 1 }}>
-          <Stack spacing={0.5} sx={{ py: 0.5 }}>
+      <Dialog open={zoneDialogOpen} onClose={() => {
+        setZoneDialogOpen(false)
+        setSelectedZone('')
+      }} maxWidth="xs" fullWidth>
+        <DialogTitle>Choisir une zone Roon</DialogTitle>
+        <DialogContent sx={{ pt: 2 }}>
+          <Stack spacing={1}>
             {roonZones && roonZones.length > 0 ? (
               roonZones.map((zone: any) => (
                 <Button
                   key={zone.zone_id}
-                  variant={selectedZone === zone.name ? 'contained' : 'text'}
+                  onClick={() => handleZoneClickedForAlbum(zone.name)}
+                  variant="outlined"
                   fullWidth
-                  onClick={() => setSelectedZone(zone.name)}
                   sx={{
+                    py: 1.5,
+                    textAlign: 'left',
                     justifyContent: 'flex-start',
-                    height: '36px',
-                    fontSize: '0.9rem',
-                    px: 1.5,
-                    backgroundColor: selectedZone === zone.name ? '#23a7dd' : 'transparent',
-                    color: selectedZone === zone.name ? 'white' : '#333',
                     '&:hover': {
-                      backgroundColor: selectedZone === zone.name ? '#1a8bc4' : '#f5f5f5'
+                      backgroundColor: '#f5f5f5',
+                      borderColor: 'primary.main',
                     }
                   }}
+                  disabled={playAlbumMutation.isPending}
                 >
                   {zone.name}
                 </Button>
               ))
             ) : (
-              <Typography variant="body2" color="text.secondary" sx={{ p: 1 }}>Aucune zone</Typography>
+              <Typography variant="body2" color="text.secondary">Aucune zone disponible</Typography>
             )}
           </Stack>
         </DialogContent>
-        <DialogActions sx={{ p: 1.5, gap: 1 }}>
+        <DialogActions sx={{ justifyContent: 'flex-end' }}>
           <Button 
-            onClick={() => setZoneDialogOpen(false)}
-            sx={{ textTransform: 'none' }}
+            onClick={() => {
+              setZoneDialogOpen(false)
+              setSelectedZone('')
+            }}
           >
             Annuler
-          </Button>
-          <Button
-            variant="contained"
-            disabled={!selectedZone || playAlbumMutation.isPending}
-            onClick={() => {
-              if (albumId && selectedZone) {
-                setZoneDialogOpen(false)
-                playAlbumMutation.mutate({ albumId, zoneName: selectedZone })
-              }
-            }}
-            sx={{ 
-              backgroundColor: '#23a7dd',
-              textTransform: 'none',
-              '&:hover': { backgroundColor: '#1a8bc4' },
-              '&:disabled': { backgroundColor: '#ccc' }
-            }}
-          >
-            {playAlbumMutation.isPending ? <CircularProgress size={16} /> : 'Lancer'}
           </Button>
         </DialogActions>
       </Dialog>

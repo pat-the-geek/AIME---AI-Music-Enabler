@@ -345,6 +345,7 @@ async function _findAndExecuteAction(zoneOrOutputId, targetAction) {
     const playActions = ["Play Now", "Play Album", "Play", "Play from Here"];
     const targetActions = targetAction ? [targetAction] : playActions;
     
+    // PASS 1: Look for actions with proper hints
     for (const item of loadResult.items) {
         if (item.hint === "action" || item.hint === "action_list") {
             for (const ta of targetActions) {
@@ -388,6 +389,52 @@ async function _findAndExecuteAction(zoneOrOutputId, targetAction) {
                     
                     return { found: true, action: item.title, result: result };
                 }
+            }
+        }
+    }
+    
+    // PASS 2: If no action with proper hints found, search more broadly (sometimes Roon API hints vary)
+    console.log(`[roon-bridge] No actions with proper hints found, searching more broadly...`);
+    for (const item of loadResult.items) {
+        for (const ta of targetActions) {
+            if (item.title && item.title.toLowerCase() === ta.toLowerCase()) {
+                console.log(`[roon-bridge] ⚠️ Found action WITHOUT proper hint: "${item.title}" (hint="${item.hint}")`);
+                // Execute this action anyway
+                let result = await _browseRequest({
+                    hierarchy:         "browse",
+                    item_key:          item.item_key,
+                    zone_or_output_id: zoneOrOutputId
+                });
+                
+                // Handle sub-lists like before
+                if (result.action === "list" && result.list && result.list.hint === "action_list") {
+                    console.log(`[roon-bridge] Action "${item.title}" returned sub-menu, looking for "Play Now"...`);
+                    let subLoad = await _loadRequest({ hierarchy: "browse", offset: 0, count: 100 });
+                    if (subLoad.items) {
+                        for (const subItem of subLoad.items) {
+                            if (subItem.title && subItem.title.toLowerCase() === "play now") {
+                                let playResult = await _browseRequest({
+                                    hierarchy:         "browse",
+                                    item_key:          subItem.item_key,
+                                    zone_or_output_id: zoneOrOutputId
+                                });
+                                console.log(`[roon-bridge] ✅ "Play Now" executed from sub-menu`);
+                                return { found: true, action: "Play Now", result: playResult };
+                            }
+                        }
+                        // No "Play Now" found, try first item
+                        if (subLoad.items.length > 0 && subLoad.items[0].item_key) {
+                            let fallbackResult = await _browseRequest({
+                                hierarchy:         "browse",
+                                item_key:          subLoad.items[0].item_key,
+                                zone_or_output_id: zoneOrOutputId
+                            });
+                            return { found: true, action: subLoad.items[0].title, result: fallbackResult };
+                        }
+                    }
+                }
+                
+                return { found: true, action: item.title, result: result };
             }
         }
     }
@@ -789,71 +836,98 @@ app.post("/play-album", async (req, res) => {
     const startTime = Date.now();
     console.log(`[roon-bridge] 🎵 play-album request: ${artist} - ${album} (zone: ${zoneId})`);
     
-    // STUB: Retourner succès immédiatement pour tester l'UI
-    // À remplacer par une vrai navigation Roon quand le flux fonctionne
-    console.log(`[roon-bridge] ✅ STUB: Album joué instantanément: ${artist} - ${album}`);
-    return res.json({ success: true, artist, album });
-    
     try {
         // Serialize browse operations to prevent race conditions
         const result = await withBrowseLock(async () => {
-            // Generate artist/album variants for fuzzy matching
+            let lastError = null;
+            
+            // STRATEGY 1: Try exact album name first (without variants) - most albums exist with their exact name
+            console.log(`[roon-bridge] 📂 Trying exact album name first: ${artist} - ${album}...`);
+            try {
+                const r = await browseByPath(
+                    zoneId,
+                    ["Library", "Artists", artist, album],
+                    null  // default action
+                );
+                // Check if navigation succeeded
+                if (r.success) {
+                    console.log(`[roon-bridge] ✅ Album found (exact name) in ${Date.now() - startTime}ms: ${artist} - ${album}`);
+                    return { success: true, artist: artist, album: album, result: r };
+                }
+                lastError = r.error;
+            } catch (err) {
+                lastError = err.message;
+            }
+            
+            // STRATEGY 2: Try with "Play Now" action on exact name
+            console.log(`[roon-bridge] 🔍 Trying exact name with Play Now action...`);
+            try {
+                const r = await browseByPath(
+                    zoneId,
+                    ["Library", "Artists", artist, album],
+                    "Play Now"
+                );
+                // Check if navigation succeeded
+                if (r.success) {
+                    console.log(`[roon-bridge] ✅ Album found (exact, Play Now) in ${Date.now() - startTime}ms: ${artist} - ${album}`);
+                    return { success: true, artist: artist, album: album, result: r };
+                }
+                lastError = r.error;
+            } catch (err) {
+                lastError = err.message;
+            }
+            
+            // STRATEGY 3: Only if exact name failed, try variants
+            console.log(`[roon-bridge] 📚 Exact name not found, trying variants...`);
             const artistVariants = _generateArtistVariants(artist);
             const albumVariants  = _generateAlbumVariants(album);
             
-            let lastError = null;
+            console.log(`[roon-bridge] Artist variants: [${artistVariants.join(", ")}]`);
+            console.log(`[roon-bridge] Album variants: [${albumVariants.join(", ")}]`);
             
-            // STRATEGY 1: Try Artists hierarchy
-            console.log(`[roon-bridge] 📂 Trying Artists search (${artistVariants.length} artist variants × ${albumVariants.length} album variants)...`);
             for (const testArtist of artistVariants) {
                 for (const testAlbum of albumVariants) {
-                    try {
-                        const r = await browseByPath(
-                            zoneId,
-                            ["Library", "Artists", testArtist, testAlbum],
-                            null  // default action
-                        );
-                        if (r.success) {
-                            console.log(`[roon-bridge] ✅ Album found via Artists in ${Date.now() - startTime}ms: ${testArtist} - ${testAlbum}`);
-                            return { success: true, artist: testArtist, album: testAlbum, result: r };
-                        }
-                        lastError = r.error;
-                    } catch (err) {
-                        lastError = err.message;
+                    // Skip exact combination we already tried
+                    if (testArtist === artist && testAlbum === album) {
+                        console.log(`[roon-bridge] ⏭️  Skipping exact combo: ${testArtist} - ${testAlbum}`);
+                        continue;
                     }
-                }
-            }
-            
-            // STRATEGY 2: Try with "Play Now" action explicitly
-            console.log(`[roon-bridge] 🔍 Trying Artists with Play Now action...`);
-            for (const testArtist of artistVariants) {
-                for (const testAlbum of albumVariants) {
+                    
+                    console.log(`[roon-bridge] 🔍 Testing variant: ${testArtist} - ${testAlbum}...`);
+                    
                     try {
                         const r = await browseByPath(
                             zoneId,
                             ["Library", "Artists", testArtist, testAlbum],
                             "Play Now"
                         );
+                // Check both that navigation succeeded AND that the action was executed
                         if (r.success) {
-                            console.log(`[roon-bridge] ✅ Album found (Play Now) in ${Date.now() - startTime}ms: ${testArtist} - ${testAlbum}`);
+                            // Success! Don't check action_result.found - if r.success is true, that's enough
+                            console.log(`[roon-bridge] ✅ Album found (variant) in ${Date.now() - startTime}ms: ${testArtist} - ${testAlbum}`);
                             return { success: true, artist: testArtist, album: testAlbum, result: r };
+                        } else {
+                            console.log(`[roon-bridge] ❌ Variant not found: ${r.error || "action not executed"}`);
                         }
-                        lastError = r.error;
+                        lastError = r.error || (r.action_result ? `Action not executed` : `Navigation failed`);
                     } catch (err) {
+                        console.log(`[roon-bridge] ⚠️ Error testing variant: ${err.message}`);
                         lastError = err.message;
                     }
                 }
             }
             
-            // STRATEGY 3: Try Albums hierarchy (some systems organize by album name directly)
+            // STRATEGY 4: Try Albums hierarchy as fallback
             console.log(`[roon-bridge] 📚 Falling back to Albums hierarchy...`);
-            for (const testAlbum of albumVariants) {
+            const albumVariantsOnly = _generateAlbumVariants(album);
+            for (const testAlbum of albumVariantsOnly) {
                 try {
                     const r = await browseByPath(
                         zoneId,
                         ["Library", "Albums", testAlbum],
                         "Play Now"
                     );
+                    // Check if navigation succeeded
                     if (r.success) {
                         console.log(`[roon-bridge] ✅ Album found in Albums hierarchy in ${Date.now() - startTime}ms: ${testAlbum}`);
                         return { success: true, artist: artist, album: testAlbum, result: r };
@@ -864,7 +938,7 @@ app.post("/play-album", async (req, res) => {
                 }
             }
             
-            console.log(`[roon-bridge] ❌ Album not found after all strategies. Last error: ${lastError}`);
+            console.log(`[roon-bridge] ❌ Album not found after all strategies (time: ${Date.now() - startTime}ms). Last error: ${lastError}`);
             return { success: false, error: `Album not found in Roon: ${artist} - ${album}`, detail: lastError };
         });
         
@@ -1038,29 +1112,41 @@ function _generateArtistVariants(artist) {
 }
 
 function _generateAlbumVariants(album) {
-    const variants = new Set([album]); // Use Set to avoid duplicates
+    const variants = new Set();
     const lower = album.toLowerCase();
     
-    // Try without "The " prefix
+    // PRIORITY 1: Stripped version first (most likely - many albums listed without edition/remaster suffix)
+    const stripped = album.replace(/\s*[\[\(].*[\]\)]$/g, "").trim();
+    if (stripped !== album && stripped.length > 3) {
+        variants.add(stripped);  // Add stripped FIRST, not at the end
+    }
+    
+    // PRIORITY 2: Original exact name
+    variants.add(album);
+    
+    // PRIORITY 3: Try without "The " prefix
     if (lower.startsWith("the ")) {
         variants.add(album.substring(4).trim());
     }
     
-    // Try without disc/edition suffixes in brackets/parens (keep base)
-    const stripped = album.replace(/\s*[\[\(].*[\]\)]$/g, "").trim();
-    if (stripped !== album && stripped.length > 3) {
-        variants.add(stripped);
-    }
-    
-    // Try with brackets/parens swapped
+    // PRIORITY 4: Try with brackets/parens swapped
     if (album.includes("[")) {
         variants.add(album.replace(/\[/g, "(").replace(/\]/g, ")"));
     } else if (album.includes("(")) {
         variants.add(album.replace(/\(/g, "[").replace(/\)/g, "]"));
     }
     
-    // Add Deluxe Edition variants (matches backend behavior)
-    // These are very common in Roon
+    // PRIORITY 5: Add Deluxe Edition variants (common in Roon)
+    // But only if we haven't already added them
+    if (stripped !== album) {
+        // Try Deluxe variants on the stripped version
+        variants.add(`${stripped} (Deluxe Edition)`);
+        variants.add(`${stripped} Deluxe Edition`);
+        variants.add(`${stripped} - Deluxe Edition`);
+        variants.add(`${stripped} (Deluxe)`);
+    }
+    
+    // Also try Deluxe on original
     variants.add(`${album} (Deluxe Edition)`);
     variants.add(`${album} Deluxe Edition`);
     variants.add(`${album} - Deluxe Edition`);

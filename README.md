@@ -12,13 +12,27 @@ Cette application a été entièrement développée en exploitant les capacités
 
 - **Frontend**: React 18 + TypeScript + Material-UI
 - **Backend**: FastAPI + Python 3.10+
-- **Base de données**: SQLite
+- **Base de données**: SQLite / PostgreSQL
 - **APIs Intégrées**: 
   - **Last.fm**: Agrégation multi-sources (Roon ARC, PlexAmp, Quobuz, etc.)
   - **Roon**: Contrôle direct via pyroon, zones, lecture en cours, commandes playback
   - **Spotify**: URLs, images, métadonnées tracks
   - **Discogs**: Collection, vinyl records
   - **EurIA** (Infomaniak AI): Descriptions automatiques
+
+### 📖 Documentation d'Architecture Détaillée
+
+Pour une compréhension complète de l'architecture, consulter les documents dans le dossier `/docs`:
+
+| Document | Contenu |
+|----------|---------|
+| [**ARCHITECTURE-INDEX.md**](docs/ARCHITECTURE-INDEX.md) | 🗺️ Guide de navigation (COMMENCER ICI) |
+| [**ARCHITECTURE-GUI-AND-APIS.md**](docs/ARCHITECTURE-GUI-AND-APIS.md) | 🎨 Interface graphique + tous les API externes détaillés |
+| [**ARCHITECTURE-DIAGRAMS.md**](docs/ARCHITECTURE-DIAGRAMS.md) | 🎨 Diagrammes Mermaid des flux et dépendances |
+| [**CODE-ORGANIZATION-SUMMARY.md**](docs/CODE-ORGANIZATION-SUMMARY.md) | 🔧 Refactoring plan et organisation du code |
+| [**ARCHITECTURE-VERIFICATION-2026-02-07.md**](docs/ARCHITECTURE-VERIFICATION-2026-02-07.md) | ✅ Rapport de vérification complète |
+
+👉 **Pour les développeurs:** Commencez par [ARCHITECTURE-INDEX.md](docs/ARCHITECTURE-INDEX.md) pour naviguer efficacement
 
 ## 📋 Fonctionnalités
 

@@ -433,23 +433,18 @@ class RoonService:
     ) -> Optional[bool]:
         """Essayer de jouer un album en essayant plusieurs variantes du nom.
         
-        Si l'album exact n'existe pas, essaie les variantes les plus courantes :
-        - Album (Deluxe Edition)
-        - Album (Deluxe)
-        
-        Chaque variante a un timeout très réduit pour éviter de bloquer trop longtemps.
+        Essaie d'abord le nom exact, puis les variantes Deluxe si pas trouvé.
         
         Returns:
             True si succès, False si échec explicite, None si timeout général.
         """
-        # Seulement les variantes les plus probables pour réduire le temps total
-        # IMPORTANT: Chercher d'abord la variante Deluxe Edition car c'est probablement celle qui existe
+        # Ordre d'essai: nom exact d'abord, puis variantes (la plupart des albums existent sous leur nom exact)
         variants = [
-            f"{album} (Deluxe Edition)",  # La variante exacte
-            f"{album} Deluxe Edition",     # Sans parenthèses
-            f"{album} - Deluxe Edition",   # Avec tiret
+            album,  # Nom exact EN PREMIER (réduit drastiquement le temps de recherche)
+            f"{album} (Deluxe Edition)",
+            f"{album} Deluxe Edition",
+            f"{album} - Deluxe Edition",
             f"{album} (Deluxe)",
-            album,  # Nom exact en dernier
         ]
         
         start_time = time.time()

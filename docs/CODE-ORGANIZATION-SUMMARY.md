@@ -1,7 +1,59 @@
-# 🎯 SUMMARY - Code Organization  Refactoring
+# 🎯 SUMMARY - Code Organization & System Architecture
 
 **Status:** Phase 0-1 Complete ✅ | Phase 2 Ready to Start 🚀  
 **Last Updated:** 7 février 2026
+
+---
+
+## 📋 Nouveau: Architecture Détaillée avec Interface Graphique & API Externes
+
+**👉 Document complet:** Voir [ARCHITECTURE-GUI-AND-APIS.md](ARCHITECTURE-GUI-AND-APIS.md)
+
+### Quick Reference: Composants Frontend & API Calls
+
+| Page/Composant | Rôle | APIs Appelées | Services Concernés |
+|---|---|---|---|
+| **Collection.tsx** | Grille albums + filtrage | `GET /collection/albums` | album_service, ai_service (EurIA), spotify_service |
+| **Magazine.tsx** | Lecteur magazines IA | `GET /magazines/editions/*`, `POST /magazines/refresh` | magazine_generator, haiku_service (EurIA), spotify_service |
+| **Playlists.tsx** | Gestion playlists | `GET /playback/playlists`, `POST /playback/roon/play` | playlist_service, roon_service (Roon API) |
+| **ArtistArticle.tsx** | Biographies artistes | `GET /content/articles/*` | article_service (EurIA), spotify_service |
+| **Journal.tsx** | Historique écoute | `GET /tracking/history` | tracking_service (via Roon) |
+| **Analytics.tsx** | Statistiques | `GET /analytics/stats` | stats_service (DB) |
+| **FloatingRoonController** | Widget contrôle | `POST /playback/roon/control` | roon_service (Roon API) |
+
+### API EXTERNES INTÉGRÉES
+
+```
+🧠 EurIA (Infomaniak AI)
+   ├─ haiku_service.py           → haïkus générés
+   ├─ article_service.py         → biographies artistes
+   ├─ description_service.py     → descriptions albums
+   ├─ album_collection_service.py → recherche IA
+   └─ magazine_generator_service.py → contenu magazine
+
+🎵 Spotify API
+   ├─ Album artwork              → covers pour grille
+   ├─ Artist images              → photos artistes
+   ├─ Album details              → métadonnées
+
+🎼 Last.fm API
+   └─ Fallback images            → si Spotify échoue
+
+📀 Discogs API
+   ├─ Synchronisation collection → import albums
+   └─ Enrichissement métadonnées → formats, labels
+
+🎼 Roon API (via Bridge Node.js)
+   ├─ Playback control           → play/pause/next
+   ├─ Zone management            → zones de lecture
+   ├─ Listening history          → historique écoute
+   └─ Browse navigation          → sources musik
+
+💾 PostgreSQL (Local)
+   ├─ Cache collection           → recherche rapide
+   ├─ Magazine editions          → contenu pré-généré
+   └─ Listening stats            → analytiques
+```
 
 ---
 
