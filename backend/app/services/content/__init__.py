@@ -1,13 +1,13 @@
 """Content Generation services (AI-powered: Haikus, Articles, Descriptions)."""
 
-# Services for generating content using AI (Euria/LLM)
-# - Haiku generation from listening history
-# - Artist article generation (long-form ~3000 words)
-# - Album/Track description generation
-# - All content generation unified under one API service
+from app.services.content.haiku_service import HaikuService
+from app.services.content.article_service import ArticleService
+from app.services.content.description_service import DescriptionService
+from app.services.content.analysis_service import AnalysisService
 
 __all__ = [
-    "haiku_service",
-    "article_service",
-    "description_service",
+    "HaikuService",
+    "ArticleService",
+    "DescriptionService",
+    "AnalysisService",
 ]
