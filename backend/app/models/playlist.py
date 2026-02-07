@@ -1,42 +1,41 @@
-"""Modèle AlbumCollection (collections d'albums)."""
+"""Modèles pour les playlists."""
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.database import Base
 
 
-class AlbumCollection(Base):
-    """Modèle pour les collections d'albums."""
+class Playlist(Base):
+    """Modèle pour les playlists."""
     
-    __tablename__ = "album_collections"
+    __tablename__ = "playlists"
     
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String(255), nullable=False)
-    search_type = Column(String(50), nullable=False)  # 'genre', 'artist', 'period', 'ai_query', 'custom'
-    search_criteria = Column(Text, nullable=True)  # JSON avec les critères de recherche
-    ai_query = Column(Text, nullable=True)  # Requête en langage naturel pour recherche AI
-    album_count = Column(Integer, nullable=False)
+    algorithm = Column(String(50), nullable=False, default="manual")
+    ai_prompt = Column(Text, nullable=True)
+    track_count = Column(Integer, nullable=False, default=0)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     
     # Relations
-    albums = relationship("CollectionAlbum", back_populates="collection", cascade="all, delete-orphan")
+    tracks = relationship("PlaylistTrack", back_populates="playlist", cascade="all, delete-orphan")
     
     def __repr__(self):
-        return f"<AlbumCollection(id={self.id}, name='{self.name}', type='{self.search_type}')>"
+        return f"<Playlist(id={self.id}, name='{self.name}', algorithm='{self.algorithm}')>"
 
 
-class CollectionAlbum(Base):
-    """Modèle pour les albums dans les collections."""
+class PlaylistTrack(Base):
+    """Modèle pour les tracks dans les playlists."""
     
-    __tablename__ = "collection_albums"
+    __tablename__ = "playlist_tracks"
     
-    collection_id = Column(Integer, ForeignKey('album_collections.id', ondelete='CASCADE'), primary_key=True)
-    album_id = Column(Integer, ForeignKey('albums.id', ondelete='CASCADE'), primary_key=True)
+    playlist_id = Column(Integer, ForeignKey('playlists.id', ondelete='CASCADE'), primary_key=True)
+    track_id = Column(Integer, ForeignKey('tracks.id', ondelete='CASCADE'), primary_key=True)
     position = Column(Integer, nullable=False)
     
     # Relations
-    collection = relationship("AlbumCollection", back_populates="albums")
-    album = relationship("Album")
+    playlist = relationship("Playlist", back_populates="tracks")
+    track = relationship("Track")
     
     def __repr__(self):
-        return f"<CollectionAlbum(collection_id={self.collection_id}, album_id={self.album_id}, pos={self.position})>"
+        return f"<PlaylistTrack(playlist_id={self.playlist_id}, track_id={self.track_id}, pos={self.position})>"
