@@ -775,12 +775,20 @@ app.post("/seek", async (req, res) => {
 
 app.post("/volume", async (req, res) => {
     const { output_id, how, value } = req.body;
-    if (!output_id) return res.status(400).json({ error: "output_id required" });
+    
+    if (!output_id) {
+        console.error("❌ [/volume] output_id manquant");
+        return res.status(400).json({ error: "output_id required" });
+    }
+    
+    console.log(`📡 [/volume] output_id=${output_id}, how=${how || 'relative'}, value=${value || 0}`);
     
     try {
         await transportChangeVolume(output_id, how || "relative", value || 0);
+        console.log(`✅ [/volume] Succès pour ${output_id}`);
         res.json({ success: true });
     } catch (err) {
+        console.error(`❌ [/volume] Erreur: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
 });

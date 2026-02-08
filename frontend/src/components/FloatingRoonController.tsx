@@ -65,24 +65,40 @@ export default function FloatingRoonController() {
 
   const handleVolumeChange = async (newVolume: number) => {
     try {
+      // Vérifier que zone_id existe
+      if (!nowPlaying?.zone_id) {
+        setError('Zone Roon non disponible. Aucun track en cours.')
+        return
+      }
+      
       setVolume(newVolume)
       // Appel API pour changer le volume
       const response = await fetch('/api/v1/playback/roon/volume', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          zone_id: nowPlaying?.zone_id,
+          zone_id: nowPlaying.zone_id,
           how: 'absolute',
           value: newVolume
         })
       })
+      
+      // Capturer et afficher l'erreur réelle du serveur
       if (!response.ok) {
-        throw new Error('Impossible de changer le volume')
+        let errorMessage = 'Impossible de changer le volume'
+        try {
+          const errorData = await response.json()
+          errorMessage = errorData.detail || errorData.error || errorMessage
+        } catch (e) {
+          errorMessage = `Erreur serveur: ${response.statusText}`
+        }
+        throw new Error(errorMessage)
       }
+      
       setSuccess('Volume mis à jour')
     } catch (error) {
       console.error('Erreur changement volume:', error)
-      setError('Impossible de changer le volume')
+      setError(error instanceof Error ? error.message : 'Impossible de changer le volume')
     }
   }
 

@@ -2125,8 +2125,8 @@ async def change_volume(request: RoonVolumeRequest):
     ```
     
     **Parameters:**
-    - `zone_id`: Output/zone ID (can be obtained from /zones endpoint)
-    - `value`: Volume value (0-100 for absolute, -5 to 5 for relative)
+    - `zone_id`: Zone ID (can be obtained from /zones endpoint)
+    - `value`: Volume value (0-100 for absolute)
     - `how`: "absolute" (0-100%) or "relative" (-100 to 100 steps)
     
     **Response (200 OK):**
@@ -2142,34 +2142,101 @@ async def change_volume(request: RoonVolumeRequest):
     **Error Handling:**
     - Invalid parameters: 400 Bad Request
     - Zone not found: 404 Not Found
-    - Volume control not supported: 400 Bad Request
     - Roon unavailable: 503 Service Unavailable
     """
     check_roon_enabled()
+    
+    # Validation des paramètres
+    if not request.zone_id or not request.how:
+        raise HTTPException(
+            status_code=400,
+            detail="zone_id et how sont requis"
+        )
+    
+    if request.value < 0 or request.value > 100:
+        raise HTTPException(
+            status_code=400,
+            detail="value doit être entre 0 et 100"
+        )
     
     try:
         import httpx
         
         bridge_url = get_settings().app_config.get('roon_control', {}).get('bridge_url', 'http://localhost:3330')
+        logger.debug(f"📡 Appel volume au bridge: {bridge_url}/volume")
         
-        # Faire l'appel au bridge
+        # Étape 1: Récupérer les zones pour trouver l'output de la zone
+        logger.debug(f"🔍 Récupération des zones pour zone_id: {request.zone_id}")
+        zones_response = httpx.get(
+            f"{bridge_url}/zones",
+            timeout=5.0
+        )
+        
+        if zones_response.status_code != 200:
+            logger.error(f"❌ Impossible de récupérer les zones: {zones_response.text}")
+            raise HTTPException(
+                status_code=503,
+                detail="Bridge Roon indisponible"
+            )
+        
+        zones_data = zones_response.json()
+        zones_list = zones_data.get('zones', [])
+        
+        # Trouver la zone avec le zone_id
+        target_zone = None
+        for zone in zones_list:
+            if zone.get('zone_id') == request.zone_id:
+                target_zone = zone
+                break
+        
+        if not target_zone:
+            logger.error(f"❌ Zone non trouvée: {request.zone_id}")
+            raise HTTPException(
+                status_code=404,
+                detail=f"Zone '{request.zone_id}' non trouvée"
+            )
+        
+        # Étape 2: Récupérer le premier output de la zone
+        outputs = target_zone.get('outputs', [])
+        if not outputs:
+            logger.error(f"❌ Aucun output trouvé pour la zone: {request.zone_id}")
+            raise HTTPException(
+                status_code=400,
+                detail=f"Aucun output trouvé pour la zone '{request.zone_id}'"
+            )
+        
+        output_id = outputs[0].get('output_id')
+        if not output_id:
+            logger.error(f"❌ output_id invalide pour la zone: {request.zone_id}")
+            raise HTTPException(
+                status_code=400,
+                detail="Output invalide"
+            )
+        
+        logger.debug(f"✅ Utilisation de l'output: {output_id} pour la zone: {request.zone_id}")
+        
+        # Étape 3: Appeler le volume endpoint du bridge avec l'output_id
         response = httpx.post(
             f"{bridge_url}/volume",
             json={
-                "output_id": request.zone_id,
+                "output_id": output_id,
                 "how": request.how,
                 "value": request.value
             },
             timeout=10.0
         )
         
+        logger.debug(f"📡 Réponse bridge: status={response.status_code}")
+        
         if response.status_code != 200:
+            error_text = response.text
+            logger.error(f"❌ Bridge error: {error_text}")
             raise HTTPException(
-                status_code=500,
-                detail=f"Erreur bridge Roon: {response.text}"
+                status_code=response.status_code,
+                detail=f"Bridge Roon error: {error_text}"
             )
         
-        logger.info(f"✅ Volume: {request.zone_id} → {request.value} ({request.how})")
+        logger.info(f"✅ Volume: {request.zone_id} (output {output_id}) → {request.value}% ({request.how})")
         
         return {
             "success": True,
@@ -2180,6 +2247,21 @@ async def change_volume(request: RoonVolumeRequest):
         
     except HTTPException:
         raise
+    except httpx.TimeoutException as e:
+        logger.error(f"❌ Timeout bridge Roon: {e}")
+        raise HTTPException(
+            status_code=503,
+            detail="Bridge Roon indisponible (timeout)"
+        )
+    except httpx.ConnectError as e:
+        logger.error(f"❌ Impossible de se connecter au bridge: {e}")
+        raise HTTPException(
+            status_code=503,
+            detail="Bridge Roon indisponible (connexion impossible)"
+        )
     except Exception as e:
-        logger.error(f"❌ Erreur volume: {e}")
-        raise HTTPException(status_code=500, detail=f"Erreur Roon: {str(e)}")
+        logger.error(f"❌ Erreur volume: {str(e)}", exc_info=True)
+        raise HTTPException(
+            status_code=500,
+            detail=f"Erreur Roon: {str(e)}"
+        )
