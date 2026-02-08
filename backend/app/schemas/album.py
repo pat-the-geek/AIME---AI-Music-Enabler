@@ -12,6 +12,7 @@ class AlbumBase(BaseModel):
     discogs_id: Optional[str] = Field(None, max_length=100, description="ID Discogs")
     spotify_url: Optional[str] = Field(None, max_length=500, description="URL Spotify")
     discogs_url: Optional[str] = Field(None, max_length=500, description="URL Discogs")
+    genre: Optional[str] = Field(None, max_length=200, description="Genre musical principal")
 
 
 class AlbumCreate(AlbumBase):
@@ -27,6 +28,7 @@ class AlbumUpdate(BaseModel):
     discogs_id: Optional[str] = Field(None, max_length=100)
     spotify_url: Optional[str] = Field(None, max_length=500)
     discogs_url: Optional[str] = Field(None, max_length=500)
+    genre: Optional[str] = Field(None, max_length=200)
     artist_ids: Optional[List[int]] = None
 
 

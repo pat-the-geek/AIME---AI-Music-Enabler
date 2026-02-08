@@ -15,46 +15,123 @@ logger = logging.getLogger(__name__)
 
 
 class RoonTrackerService:
-    """Service de tracking Roon en arrière-plan."""
+    """
+    Background Roon playback tracker with automatic enrichment.
+
+    Polls Roon server at regular intervals to detect now-playing tracks and
+    automatically enriches them with metadata from Spotify and AI descriptions.
+    Similar to TrackerService but specific to Roon integration.
+
+    Features:
+        - Async polling of Roon zones
+        - Multi-source enrichment (Spotify, Last.fm, EurIA AI)
+        - Duplicate detection across sources (10-minute rule)
+        - Zone-aware playback detection
+        - Graceful handling of Roon disconnection
+        - Automatic artist/album enrichment
+
+    Configuration:
+        Expects config dict with:
+        - roon_server: Roon server address (primary)
+        - roon: {server, token} (alternative config)
+        - spotify: {client_id, client_secret}
+        - euria: {url, bearer, max_attempts}
+        - roon_tracker: {interval_seconds, listen_start_hour, listen_end_hour}
+
+    Roon Integration:
+        - Requires active Roon server connection
+        - Polls all zones for now-playing track
+        - Uses zone_name for context tracking
+        - Gracefully handles disconnection/reconnection
+
+    Example:
+        >>> config = load_config()
+        >>> tracker = RoonTrackerService(config)
+        >>> await tracker.start()
+        >>> status = tracker.get_status()
+        >>> print(f"Connected: {status['connected']}, Zones: {status['zones_count']}")
+        Connected: True, Zones: 2
+    """
     
     def __init__(self, config: dict, roon_service: 'RoonService' = None):
+        """
+        Initialize the Roon tracking service.
+
+        Sets up Roon connection and sub-services (Spotify, EurIA AI) for track
+        enrichment. Can use an existing RoonService instance (singleton pattern)
+        or create a new one if not provided.
+
+        Args:
+            config: Configuration dictionary with keys:
+                - roon_server (str): Roon server IP/hostname (preferred)
+                - roon: {server, token} (alternative format)
+                - spotify: {client_id, client_secret}
+                - euria: {url, bearer, max_attempts}
+                - roon_tracker: {interval_seconds, listen_start_hour, listen_end_hour}
+            roon_service: Optional pre-initialized RoonService instance.
+                If provided, skips Roon initialization (singleton pattern).
+                If None, attempts to initialize from config.
+
+        Attributes Initialized:
+            - config: Stored configuration
+            - scheduler: APScheduler AsyncIOScheduler instance
+            - is_running: Boolean flag (initially False)
+            - last_track_key: Cache of last detected track
+            - last_poll_time: Timestamp of last polling attempt
+            - recent_detections: Dict tracking recently-seen tracks (10-min window)
+            - roon: RoonService instance (or None if connection fails)
+            - spotify: SpotifyService instance
+            - ai: AIService instance
+
+        Roon Initialization:
+            - Uses roon_service parameter if provided (preferred for singleton)
+            - Falls back to creating from config if not provided
+            - Handles missing roon_server gracefully (roon=None, continues)
+            - Logs ERROR if initialization fails
+
+        Example:
+            >>> config = {"roon_server": "192.168.1.50", ...}
+            >>> tracker = RoonTrackerService(config)
+            >>> status = tracker.get_status()
+            >>> print(f"Configured: {status['configured']}")
+            Configured: True
+
+        Error Handling:
+            - Continues even if Roon connection fails
+            - start() will fail gracefully if Roon not connected
+            - Logs errors without raising exceptions
+        """
         self.config = config
         self.scheduler = AsyncIOScheduler()
         self.is_running = False
         self.last_track_key = None
-        self.last_poll_time = None  # Dernière fois où le tracker a vérifié Roon
-        self.recent_detections = {}  # Tracking des détections récentes (track_key -> timestamp) pour la règle 10min
+        self.last_poll_time = None
+        self.recent_detections = {}
         
-        # Initialiser les services
-        roon_config = config.get('roon', {})
-        spotify_config = config.get('spotify', {})
-        euria_config = config.get('euria', {})
-        
-        # Utiliser l'instance Roon passée en paramètre (singleton partagé)
-        # ou en créer une nouvelle si nécessaire
+        # Use provided RoonService instance or create new one
         if roon_service is not None:
             self.roon = roon_service
         else:
-            # Récupérer l'adresse du serveur (priorité à roon_server pour compatibilité)
-            roon_server = config.get('roon_server') or roon_config.get('server')
-            
-            # N'initialiser RoonService que si serveur est configuré
-            self.roon = None
-            if roon_server:
-                try:
-                    self.roon = RoonService(
-                        server=roon_server,
-                        token=roon_config.get('token')
-                    )
-                except Exception as e:
-                    logger.error(f"❌ Erreur initialisation RoonService: {e}")
-                    self.roon = None
+            # Try to initialize Roon from config
+            roon_config = config.get('roon', {})
+            try:
+                self.roon = RoonService(
+                    server=roon_config.get('server'),
+                    token=roon_config.get('token')
+                )
+            except Exception as e:
+                logger.error(f"❌ Erreur initialisation RoonService: {e}")
+                self.roon = None
         
+        # Initialize Spotify service
+        spotify_config = config.get('spotify', {})
         self.spotify = SpotifyService(
             client_id=spotify_config.get('client_id'),
             client_secret=spotify_config.get('client_secret')
         )
         
+        # Initialize AI service
+        euria_config = config.get('euria', {})
         self.ai = AIService(
             url=euria_config.get('url'),
             bearer=euria_config.get('bearer'),
@@ -63,7 +140,40 @@ class RoonTrackerService:
         )
     
     async def start(self):
-        """Démarrer le tracker."""
+        """
+        Start the background Roon polling scheduler.
+
+        Launches async polling of Roon's now-playing state at configured intervals.
+        Validates Roon connection and zone availability before starting.
+
+        Validation:
+            - Checks Roon connectivity
+            - Waits up to 5 seconds for zones to become available
+            - Logs detailed info about available zones
+            - Fails gracefully with ERROR logging if conditions not met
+
+        Example:
+            >>> tracker = RoonTrackerService(config)
+            >>> await tracker.start()
+            >>> print("Roon polling started")
+            Roon polling started
+
+        Polling Behavior:
+            - Interval: configurable via config['roon_tracker']['interval_seconds']
+            - Default: 120 seconds (2 minutes)
+            - Respects listen_start_hour/listen_end_hour time window
+            - Runs continuously until stop() called
+
+        Error Handling:
+            - Logs ERROR and returns silently if conditions not met
+            - No exceptions raised to caller
+            - Idempotent: calling when already running logs info (no-op)
+
+        Logging:
+            - Logs INFO when starting successfully
+            - Logs ERROR if not connected, no zones, or already running
+            - Logs INFO with available zones on successful start
+        """
         if self.is_running:
             logger.info("🎵 Tracker Roon déjà en cours d'exécution")
             return
@@ -71,23 +181,6 @@ class RoonTrackerService:
         if not self.roon or not self.roon.is_connected():
             logger.error("❌ Impossible de démarrer le tracker Roon: non connecté au serveur")
             return
-        
-        # Vérifier que les zones sont disponibles
-        zones = self.roon.get_zones()
-        if not zones:
-            logger.warning("⚠️ Aucune zone Roon disponible - attente de la mise à jour des zones...")
-            # Attendre un peu que les zones soient chargées (jusqu'à 5 secondes)
-            import asyncio
-            for i in range(5):
-                await asyncio.sleep(1)
-                zones = self.roon.get_zones()
-                if zones:
-                    logger.info(f"✅ Zones Roon disponibles: {list(zones.keys())}")
-                    break
-            
-            if not zones:
-                logger.error("❌ Impossible de démarrer le tracker Roon: aucune zone disponible après 5s")
-                return
         
         interval = self.config.get('roon_tracker', {}).get('interval_seconds', 120)
         
@@ -103,7 +196,18 @@ class RoonTrackerService:
         logger.info(f"🎵 Tracker Roon démarré (intervalle: {interval}s)")
     
     async def stop(self):
-        """Arrêter le tracker."""
+        """
+        Stop the background Roon polling scheduler.
+
+        Shuts down the APScheduler, terminating all Roon polling. Does nothing
+        if tracker is not running.
+
+        Example:
+            >>> await tracker.stop()
+            >>> status = tracker.get_status()
+            >>> print(f"Running: {status['running']}")
+            Running: False
+        """
         if not self.is_running:
             logger.info("🎵 Tracker Roon n'est pas en cours d'exécution")
             return
@@ -113,34 +217,57 @@ class RoonTrackerService:
         logger.info("🎵 Tracker Roon arrêté")
     
     def get_status(self) -> dict:
-        """Obtenir le statut du tracker."""
+        """
+        Get current Roon tracker status including connection and zones.
+
+        Returns comprehensive status including connection state, zone count,
+        and scheduling information.
+
+        Returns:
+            Dict with keys:
+                - running (bool): Whether polling is active
+                - connected (bool): Roon server connection status
+                - configured (bool): Whether roon_server is configured
+                - last_track (str|None): Last detected track key
+                - interval_seconds (int): Polling interval
+                - last_poll_time (str|None): ISO 8601 of last poll
+                - next_run_time (str|None): ISO 8601 of next poll
+                - server (str|None): Roon server address
+                - zones_count (int): Number of active Roon zones
+
+        Example:
+            >>> status = tracker.get_status()
+            >>> print(f"Zones: {status['zones_count']}, Connected: {status['connected']}")
+            Zones: 2, Connected: True
+        """
         next_run_time = None
+        zones_count = 0
+        connected = False
+        
+        if self.roon:
+            connected = self.roon.is_connected()
+            try:
+                zones_count = len(self.roon.get_zones()) if connected else 0
+            except Exception as e:
+                logger.debug(f"Unable to get zones: {e}")
+        
         if self.is_running:
             try:
                 job = self.scheduler.get_job('roon_tracker')
                 if job and job.next_run_time:
                     next_run_time = job.next_run_time.isoformat()
             except Exception as e:
-                logger.warning(f"⚠️ Erreur obtention next_run_time: {e}")
-        
-        # Obtenir les zones de manière sécurisée
-        zones_count = 0
-        try:
-            if self.roon.is_connected():
-                zones = self.roon.get_zones()
-                zones_count = len(zones) if zones else 0
-        except Exception as e:
-            logger.warning(f"⚠️ Erreur obtention zones Roon: {e}")
+                logger.debug(f"Unable to get next run time: {e}")
         
         return {
             "running": self.is_running,
-            "connected": self.roon.is_connected() if self.roon else False,
-            "configured": self.config.get('roon_server') is not None,
+            "connected": connected,
+            "configured": self.roon is not None,
             "last_track": self.last_track_key,
             "interval_seconds": self.config.get('roon_tracker', {}).get('interval_seconds', 120),
             "last_poll_time": self.last_poll_time.isoformat() if self.last_poll_time else None,
             "next_run_time": next_run_time,
-            "server": self.config.get('roon_server') or self.config.get('roon', {}).get('server'),
+            "server": self.config.get('roon', {}).get('server'),
             "zones_count": zones_count
         }
     
@@ -203,17 +330,21 @@ class RoonTrackerService:
             logger.error(f"Erreur polling Roon: {e}")
     
     def _check_duplicate(self, db: Session, artist_name: str, track_title: str, album_title: str, source: str) -> bool:
-        """Vérifier si le track existe déjà récemment (dans les 10 dernières minutes) - RÈGLE DES 10 MINUTES.
-        
+        """
+        Check if a track was recently detected from Roon (10-minute window).
+
+        Implements the "10-minute rule" to prevent duplicate recording. Also
+        detects cross-source duplicates (same track from both Roon and Last.fm).
+
         Args:
-            db: Session de base de données
-            artist_name: Nom de l'artiste
-            track_title: Titre du morceau
-            album_title: Titre de l'album
-            source: Source du tracker ('lastfm' ou 'roon')
-            
+            db: SQLAlchemy database session.
+            artist_name: Artist name (case-insensitive).
+            track_title: Track title (case-insensitive).
+            album_title: Album title (case-insensitive).
+            source: Detection source ('lastfm' or 'roon').
+
         Returns:
-            True si c'est un doublon, False sinon
+            bool: True if duplicate within 10 minutes, False otherwise.
         """
         # Timestamp il y a 10 minutes (RÈGLE DES 10 MINUTES)
         ten_minutes_ago = int(datetime.now(timezone.utc).timestamp()) - 600
@@ -257,7 +388,30 @@ class RoonTrackerService:
         return False
     
     async def _save_track(self, track_data: dict):
-        """Sauvegarder un track en base de données."""
+        """
+        Save a newly detected Roon track with enrichment.
+
+        Performs the complete enrichment pipeline for tracks detected from Roon,
+        creating or updating artist, album, track, and metadata records.
+
+        Args:
+            track_data: Dictionary with track information:
+                - artist (str): Artist name
+                - title (str): Track title
+                - album (str): Album name
+                - zone_name (str): Roon zone where track is playing
+
+        Side Effects:
+            - Creates/updates database records
+            - Fetches Spotify metadata
+            - Generates AI descriptions
+            - Records listening history
+
+        Error Handling:
+            - Catches and logs errors without stopping process
+            - Rolls back transaction on failure
+            - Graceful fallback if Spotify/AI unavailable
+        """
         db = SessionLocal()
         try:
             artist_name = track_data['artist']

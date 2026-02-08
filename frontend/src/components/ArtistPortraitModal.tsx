@@ -13,6 +13,7 @@ import { Close as CloseIcon } from '@mui/icons-material'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
+import apiClient from '@/api/client'
 import rehypeRaw from 'rehype-raw'
 
 interface ArtistPortraitModalProps {
@@ -43,7 +44,7 @@ export default function ArtistPortraitModal({
       setStreamError(null)
 
       try {
-        const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1'
+        const baseURL = apiClient.defaults.baseURL
         const response = await fetch(
           `${baseURL}/artists/${artistId}/article/stream`,
           {

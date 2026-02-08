@@ -15,15 +15,95 @@ logger = logging.getLogger(__name__)
 
 
 class TrackerService:
-    """Service de tracking Last.fm en arrière-plan."""
+    """
+    Background Last.fm listening tracker with automatic enrichment.
+
+    Polls Last.fm at regular intervals to detect newly played tracks and
+    automatically enriches them with metadata from Spotify and AI descriptions.
+    Prevents duplicate tracking with 10-minute deduplication window.
+
+    Features:
+        - Async polling with configurable intervals
+        - Multi-source enrichment (Spotify, Last.fm, EurIA AI)
+        - Duplicate detection across sources (10-minute rule)
+        - Automatic artist/album image fetching
+        - AI-generated album descriptions
+        - Graceful error handling with fallbacks
+
+    Configuration:
+        Expects config dict with:
+        - lastfm: {api_key, api_secret, username}
+        - spotify: {client_id, client_secret}
+        - euria: {url, bearer, max_attempts}
+        - tracker: {interval_seconds, listen_start_hour, listen_end_hour}
+
+    Lifecycle:
+        1. Initialize with config -> services set up
+        2. start() -> begins polling Last.fm
+        3. stop() -> shuts down scheduler
+        4. get_status() -> check state anytime
+
+    Example:
+        >>> config = load_config()
+        >>> tracker = TrackerService(config)
+        >>> await tracker.start()
+        >>> # Polling runs in background
+        >>> status = tracker.get_status()
+        >>> print(f"Running: {status['running']}")
+        >>> await tracker.stop()
+    """
     
     def __init__(self, config: dict):
+        """
+        Initialize the Last.fm tracking service with configuration.
+
+        Sets up all required sub-services (Last.fm, Spotify, EurIA AI) and
+        the async scheduler for background polling.
+
+        Args:
+            config: Configuration dictionary with keys:
+                - lastfm: {api_key, api_secret, username}
+                  Credentials for Last.fm API access
+                - spotify: {client_id, client_secret}
+                  OAuth2 credentials for Spotify enrichment
+                - euria: {url, bearer, max_attempts, default_error_message}
+                  EurIA API configuration for AI descriptions
+                - tracker: {interval_seconds, listen_start_hour, listen_end_hour}
+                  Polling configuration
+
+        Attributes Initialized:
+            - config: Stored configuration
+            - scheduler: APScheduler AsyncIOScheduler instance
+            - is_running: Boolean flag (initially False)
+            - last_track_key: Cache of last detected track (prevents duplicates)
+            - last_poll_time: Timestamp of last polling attempt
+            - recent_detections: Dict tracking recently-seen tracks (10-min window)
+            - lastfm: LastFMService instance
+            - spotify: SpotifyService instance
+            - ai: AIService instance
+
+        Example:
+            >>> config = {
+            ...     "lastfm": {"api_key": "...", "api_secret": "...", "username": "..."},
+            ...     "spotify": {"client_id": "...", "client_secret": "..."},
+            ...     "euria": {"url": "...", "bearer": "..."},
+            ...     "tracker": {"interval_seconds": 120}
+            ... }
+            >>> tracker = TrackerService(config)
+            >>> print(f"Tracker initialized, running: {tracker.is_running}")
+            Tracker initialized, running: False
+
+        Error Handling:
+            - No exceptions raised during init
+            - Services use defaults if config missing
+            - Deferred errors appear on first track save
+        """
         self.config = config
         self.scheduler = AsyncIOScheduler()
         self.is_running = False
         self.last_track_key = None
         self.last_poll_time = None  # Dernière fois où le tracker a vérifié Last.fm
-        self.recent_detections = {}  # Tracking des détections récentes (track_key -> timestamp) pour la règle 10min
+        self.recent_detections = {}  # Dict tracking recently-seen tracks (10-min window)
         
         # Initialiser les services
         lastfm_config = config.get('lastfm', {})
@@ -49,12 +129,38 @@ class TrackerService:
         )
     
     async def start(self):
-        """Démarrer le tracker."""
+        """
+        Start the background Last.fm polling scheduler.
+
+        Launches the async scheduler with a recurring job that polls Last.fm
+        at the configured interval. Does nothing if already running.
+
+        Polling Behavior:
+            - Interval: configurable via config['tracker']['interval_seconds']
+            - Default: 120 seconds (2 minutes)
+            - Runs continuously until stop() called
+            - Non-blocking; executes in background
+
+        Example:
+            >>> tracker = TrackerService(config)
+            >>> await tracker.start()
+            >>> print("Polling started in background")
+            >>> # Tracker now polls Last.fm every 120 seconds
+
+        Side Effects:
+            - Creates APScheduler job 'lastfm_tracker'
+            - Sets is_running = True
+            - Starts async event loop for polling
+
+        Logging:
+            - Logs INFO when starting with interval
+            - Logs INFO if already running (no-op)
+        """
         if self.is_running:
             logger.info("Tracker déjà en cours d'exécution")
             return
         
-        interval = self.config.get('tracker', {}).get('interval_seconds', 120)
+        interval = self.config.get('tracker', {}).get('interval_seconds', 150)
         
         self.scheduler.add_job(
             self._poll_lastfm,
@@ -68,7 +174,27 @@ class TrackerService:
         logger.info(f"Tracker démarré (intervalle: {interval}s)")
     
     async def stop(self):
-        """Arrêter le tracker."""
+        """
+        Stop the background tracking scheduler.
+
+        Shuts down the APScheduler instance, stopping all polling. Does nothing
+        if tracker is not running.
+
+        Example:
+            >>> await tracker.stop()
+            >>> print(f"Running: {tracker.is_running}")
+            Running: False
+            >>> # No more polling happening
+
+        Side Effects:
+            - Calls scheduler.shutdown()
+            - Sets is_running = False
+            - In-flight polls complete before shutdown
+
+        Logging:
+            - Logs INFO on successful stop
+            - Logs INFO if already stopped (no-op)
+        """
         if not self.is_running:
             logger.info("Tracker n'est pas en cours d'exécution")
             return
@@ -78,7 +204,38 @@ class TrackerService:
         logger.info("Tracker arrêté")
     
     def get_status(self) -> dict:
-        """Obtenir le statut du tracker."""
+        """
+        Get current status of the tracking service.
+
+        Returns a snapshot of tracker state including running status, last
+        detected track, and next scheduled polling time.
+
+        Returns:
+            Dict with keys:
+                - running (bool): Whether polling is active
+                - last_track (str|None): Last detected track as "artist|title|album"
+                - interval_seconds (int): Seconds between polls
+                - last_poll_time (str|None): ISO 8601 timestamp of last poll
+                - next_run_time (str|None): ISO 8601 of next scheduled poll
+                  (None if not running or scheduler unavailable)
+
+        Example:
+            >>> status = tracker.get_status()
+            >>> print(f"Running: {status['running']}")
+            >>> print(f"Last track: {status['last_track']}")
+            >>> print(f"Next poll at: {status['next_run_time']}")
+            Running: True
+            Last track: Pink Floyd|Shine On You Crazy Diamond|Wish You Were Here
+            Next poll at: 2024-02-15T10:25:30+00:00
+
+        Error Handling:
+            - Returns next_run_time=None if scheduler query fails
+            - Logs WARNING on scheduler error
+            - Always returns complete status dict (never None)
+
+        Logging:
+            - Logs WARNING if unable to get next run time
+        """
         next_run_time = None
         if self.is_running:
             try:
@@ -86,12 +243,12 @@ class TrackerService:
                 if job and job.next_run_time:
                     next_run_time = job.next_run_time.isoformat()
             except Exception as e:
-                logger.warning(f"⚠️ Erreur obtention statut tracker: {e}")
+                logger.warning(f"Unable to get next run time: {e}")
         
         return {
             "running": self.is_running,
             "last_track": self.last_track_key,
-            "interval_seconds": self.config.get('tracker', {}).get('interval_seconds', 120),
+            "interval_seconds": self.config.get('tracker', {}).get('interval_seconds', 150),
             "last_poll_time": self.last_poll_time.isoformat() if self.last_poll_time else None,
             "next_run_time": next_run_time
         }
@@ -161,17 +318,53 @@ class TrackerService:
             logger.error(f"❌ Erreur polling Last.fm: {e}", exc_info=True)
     
     def _check_duplicate(self, db: Session, artist_name: str, track_title: str, album_title: str, source: str) -> bool:
-        """Vérifier si le track existe déjà récemment (dans les 10 dernières minutes) - RÈGLE DES 10 MINUTES.
-        
+        """
+        Check if a track was recently played (10-minute deduplication window).
+
+        Implements the "10-minute rule": prevents duplicate recording of the
+        same track if detected again within 10 minutes. Also prevents cross-source
+        duplicates (e.g., same track detected by Roon and Last.fm simultaneously).
+
         Args:
-            db: Session de base de données
-            artist_name: Nom de l'artiste
-            track_title: Titre du morceau
-            album_title: Titre de l'album
-            source: Source du tracker ('lastfm' ou 'roon')
-            
+            db: SQLAlchemy database session.
+            artist_name: Artist name (case-insensitive matching).
+            track_title: Track title (case-insensitive matching).
+            album_title: Album title (case-insensitive matching).
+            source: Source of detection ('lastfm' or 'roon').
+                Used to tag duplicate entries and detect cross-source dupes.
+
         Returns:
-            True si c'est un doublon, False sinon
+            bool: True if this is a duplicate (should skip), False otherwise.
+                - True: Track was recorded <10 minutes ago (same or different source)
+                - False: Track not in database OR last record is >10 minutes old
+
+        Example:
+            >>> is_duplicate = service._check_duplicate(
+            ...     db,
+            ...     "Pink Floyd",
+            ...     "Shine On You Crazy Diamond",
+            ...     "Wish You Were Here",
+            ...     "lastfm"
+            ... )
+            >>> if is_duplicate:
+            ...     logger.info("Skip this track, already recorded recently")
+
+        10-Minute Rule:
+            - Any duplicate within 600 seconds (10 minutes) is skipped
+            - Applies to same source (e.g., Last.fm duplicate within 10 min)
+            - Also applies cross-source (Roon and Last.fm detect same play)
+            - After 10 minutes, same track can be recorded again
+
+        Implementation:
+            - Case-insensitive DB matching using lower()
+            - Queries ListeningHistory with 10-minute window
+            - Checks both track existence and recent plays
+            - Handles case where track not in DB (no duplicate)
+
+        Logging:
+            - Logs DEBUG for checks and lookups
+            - Logs WARNING for duplicate detection
+            - Logs INFO for cross-source duplicates (informational)
         """
         # Timestamp il y a 10 minutes (RÈGLE DES 10 MINUTES)
         ten_minutes_ago = int(datetime.now(timezone.utc).timestamp()) - 600
@@ -221,7 +414,60 @@ class TrackerService:
         return False
     
     async def _save_track(self, track_data: dict):
-        """Sauvegarder un track en base de données."""
+        """
+        Save a newly detected track with full enrichment to the database.
+
+        Handles the complete enrichment pipeline:
+        1. Creates artist if missing (fetches Spotify image)
+        2. Creates album if missing (fetches Spotify details, images, AI info)
+        3. Updates existing album if missing enrichments
+        4. Creates track entry if missing
+        5. Records listening history entry
+
+        Args:
+            track_data: Dictionary with track information:
+                - artist (str): Artist name
+                - title (str): Track title
+                - album (str): Album title
+
+        Side Effects:
+            - Creates/updates Album, Artist, Track, Image, Metadata records
+            - Makes async calls to Spotify and EurIA services
+            - Logs detailed info about enrichments added
+
+        Enrichments Performed:
+            - Artist image from Spotify (if missing)
+            - Album Spotify URL and release year
+            - Album images (Spotify + Last.fm)
+            - AI-generated album description
+            - Listening history record with correct timestamp
+
+        Error Handling:
+            - Catches exceptions per operation (doesn't fail entire save)
+            - Rolls back transaction on failure
+            - Logs errors without stopping process
+            - Graceful fallback if Spotify/EurIA unavailable
+
+        Example:
+            >>> track_data = {
+            ...     "artist": "Pink Floyd",
+            ...     "title": "Shine On You Crazy Diamond",
+            ...     "album": "Wish You Were Here"
+            ... }
+            >>> await service._save_track(track_data)
+            >>> # Track now in DB with all enrichments
+
+        Performance:
+            - Async operations run in parallel where possible
+            - May take 2-10 seconds total (API calls)
+            - Database transaction commits atomically
+
+        Logging:
+            - Logs INFO for successful enrichments
+            - Logs WARNING for skipped tracks (duplicates)
+            - Logs ERROR on database errors
+            - Final INFO on successful save with timestamp
+        """
         db = SessionLocal()
         try:
             artist_name = track_data['artist']

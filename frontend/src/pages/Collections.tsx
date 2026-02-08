@@ -58,6 +58,13 @@ interface Album {
   spotify_url?: string | null
 }
 
+// Nettoyer le nom de l'artiste en supprimant les parenthèses et tout ce qui suit
+const cleanArtistName = (name: string): string => {
+  if (!name) return name
+  const parenIndex = name.indexOf('(')
+  return parenIndex !== -1 ? name.substring(0, parenIndex).trim() : name
+}
+
 export default function Collections() {
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
   const [detailDialogOpen, setDetailDialogOpen] = useState(false)
@@ -110,7 +117,7 @@ export default function Collections() {
   const { data: roonZones } = useQuery({
     queryKey: ['roon-zones'],
     queryFn: async () => {
-      const response = await apiClient.get('/roon/zones')
+      const response = await apiClient.get('/playback/roon/zones')
       return response.data?.zones || []
     },
     enabled: roon?.enabled && roon?.available,
@@ -185,7 +192,7 @@ export default function Collections() {
   // Jouer un album sur Roon
   const playAlbumMutation = useMutation({
     mutationFn: async ({ albumId, zoneName }: { albumId: number; zoneName?: string }) => {
-      const response = await apiClient.post(`/roon/play-album`, {
+      const response = await apiClient.post(`/playback/roon/play-album`, {
         album_id: albumId,
         zone_name: zoneName
       })
@@ -225,7 +232,7 @@ export default function Collections() {
 
   const searchAlbumMutation = useMutation({
     mutationFn: async ({ artist, album }: { artist: string; album: string }) => {
-      const response = await apiClient.post(`/roon/search-album`, {
+      const response = await apiClient.post(`/playback/roon/search-album`, {
         artist,
         album
       })
@@ -246,9 +253,12 @@ export default function Collections() {
 
   const playAlbumByNameMutation = useMutation({
     mutationFn: async ({ artist, album, zoneName }: { artist: string; album: string; zoneName?: string }) => {
-      const response = await apiClient.post(`/roon/play-album-by-name`, {
-        artist_name: artist,
-        album_title: album,
+      // Nettoyer le titre et l'artiste en supprimant les parenthèses et tout ce qui suit
+      const cleanedAlbum = album.indexOf('(') !== -1 ? album.substring(0, album.indexOf('(')).trim() : album
+      const cleanedArtist = cleanArtistName(artist)
+      const response = await apiClient.post(`/playback/roon/play-album-by-name`, {
+        artist_name: cleanedArtist,
+        album_title: cleanedAlbum,
         zone_name: zoneName
       })
       return response.data
@@ -369,7 +379,7 @@ export default function Collections() {
   }
 
   const handleSearchAlbum = (artist: string, album: string) => {
-    setSearchingForAlbum({ artist, album })
+    setSearchingForAlbum({ artist, title: album })
     searchAlbumMutation.mutate({ artist, album })
   }
 
@@ -677,7 +687,9 @@ export default function Collections() {
                                 size="small"
                                 onClick={(e) => {
                                   e.stopPropagation()
-                                  window.open(album.spotify_url, '_blank')
+                                  if (album.spotify_url) {
+                                    window.open(album.spotify_url, '_blank')
+                                  }
                                 }}
                                 startIcon={<MusicNote />}
                               >

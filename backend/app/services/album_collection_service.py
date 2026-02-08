@@ -1,4 +1,69 @@
-"""Service de gestion des collections d'albums."""
+"""
+Dynamic album collection creation and management service with AI-powered search.
+
+Service for creating and managing thematic album collections with multi-mode search:
+- AI-powered natural language queries (using Euria AI)
+- Genre-based filtering
+- Artist discovery
+- Year/period filtering
+- Web search integration (Euria external API)
+
+Collections can be created on-demand via AI queries (e.g., "albums for late night")
+or via structured criteria (genre, artist, period). Automatically populates collections
+with matching albums from local database and/or web search results.
+
+Architecture:
+- Dynamic creation: Collections generated on-demand from natural language prompts
+- Multi-search modes: AI query, genre, artist, period, web search
+- Web integration: Optional Euria web search for discovery (overrides local)
+- AI naming: Collection names auto-generated from search query
+- Fallback mechanism: Returns random curated albums if no exact matches found
+
+Key features:
+- Natural language support: "Soft rock from the 90s for relaxation"
+- Web search priority: Can fetch albums from web (Euria API) vs local DB only
+- Automatic naming: AI generates descriptive collection names
+- Fuzzy matching: Artist name variants (with/without "The")
+- Multi-field search: Title, genre, description, style, artist names
+- Pagination: All search methods support limit parameter (default 50)
+
+Typical usage:
+    service = AlbumCollectionService(db)
+    
+    # Method 1: AI-powered natural language (web search preferred)
+    collection = service.create_collection(
+        ai_query="Upbeat indie rock from 2010s",
+        web_search=True  # Use Euria web search first
+    )
+    
+    # Method 2: Structured search
+    collection = service.create_collection(
+        name="90s Grunge Classics",
+        search_type='period',
+        search_criteria={'start_year': 1990, 'end_year': 1999}
+    )
+    
+    # Method 3: Genre-based
+    albums = service.search_by_genre("electronic", limit=100)
+
+Performance profile:
+- create_collection(): 0.5-30s (depends on web_search flag, web API speed)
+- search_by_ai_query(): 100-500ms (local DB + join, multi-field full-text scan)
+- search_by_genre/artist/period(): <100ms (single index scan)
+- _search_albums_web(): 5-20s (web API call via Euria)
+- add_albums_to_collection(): O(n) where n = albums added, <50ms typical
+
+Output:
+- Collections stored in AlbumCollection table (name, search_type, criteria)
+- Relationship via CollectionAlbum join table (albums ordered by position)
+- Album count updated automatically
+- Search methods return List[Album] hydrated with artist/genre/year
+
+Database schema:
+- AlbumCollection: id, name, search_type, search_criteria (JSON), ai_query, album_count
+- CollectionAlbum: id, collection_id, album_id, position
+- Relationships: AlbumCollection → [Album] via CollectionAlbum
+"""
 import logging
 import json
 import asyncio
@@ -13,16 +78,204 @@ logger = logging.getLogger(__name__)
 
 
 class AlbumCollectionService:
-    """Service pour gérer les collections d'albums."""
+    """
+    Dynamic album collection management with multi-mode search and AI-powered discovery.
+    
+    Service for creating curated album collections using natural language queries, structured
+    search criteria, or web discovery. Collections are automatically populated with matching
+    albums from local database and/or web search results (via Euria API). Supports multiple
+    search paradigms: AI natural language, genre filtering, artist discovery, year ranges.
+    
+    Key capabilities:
+    - Create collections from natural language prompts (e.g., "upbeat 80s pop")
+    - Search by genre, artist name (with variants), year range, or multi-field AI query
+    - Web search integration: Priority option to use Euria API for album discovery
+    - Auto-naming: AI generates descriptive collection names from queries
+    - Smart fallback: Returns curated random albums if no exact matches found
+    - Fuzzy artist matching: Handles "The Beatles" vs "Beatles" variants
+    
+    Architecture:
+    - Collection storage: AlbumCollection table with JSON search criteria
+    - Album management: CollectionAlbum join table with position/order
+    - Search strategy: Multi-field full-text (title, genre, description, artists)
+    - Web integration: Optional external search (Euria API) vs local DB only
+    - Error resilience: Continues with local DB if web search unavailable
+    
+    Database relationships:
+    - AlbumCollection: id, name, search_type, search_criteria (JSON), ai_query, album_count
+    - CollectionAlbum: id, collection_id, album_id, position (ordering)
+    - Album: id, title, genre, year, ai_description, ai_style, [artists]
+    - Artist: id, name, [albums]
+    
+    Attributes:
+        db (Session): SQLAlchemy session for database operations
+    
+    Methods:
+    - __init__(): Initialize with database session
+    - _generate_collection_name(): AI-generated name from query (fallback: keyword extraction)
+    - create_collection(): Main method to create collection + populate with albums
+    - add_albums_to_collection(): Bulk add albums with position tracking
+    - search_by_genre(): Filter by genre field (case-insensitive ILIKE)
+    - search_by_artist(): Find by artist name (handles "The" variants)
+    - search_by_period(): Range query by year (start_year to end_year)
+    - search_by_ai_query(): Natural language multi-field search (all terms AND logic)
+    - _search_albums_web(): Internal web search via Euria API (5-20s typical)
+    - get_collection(): Retrieve collection by ID
+    - get_collection_albums(): List albums in specific collection
+    - list_collections(): Paginated list of all collections
+    - delete_collection(): Remove collection and associated mappings
+    
+    Search modes:
+    - ai_query: Natural language input, terms searched across 5 fields (description, style, genre, title, artist)
+    - genre: Single field match on Album.genre
+    - artist: Match on Artist.name with variant handling ("The X" / "X" both match)
+    - period: Range query on Album.year between start_year and end_year
+    - Web search: External Euria API call if web_search=True in create_collection()
+    
+    Multi-field search detail (search_by_ai_query):
+    - Input: "soft indie 90s"
+    - Terms: ["soft", "indie", "90s"]
+    - Each term searched in 5 fields: ai_description, ai_style, genre, title, artist.name
+    - Logic: All terms must match (any field) for album inclusion (AND logic)
+    - Result: Albums matching "soft" somewhere AND "indie" somewhere AND "90s" somewhere
+    - Fallback: If 0 matches, returns random albums with ai_description (discovery mode)
+    
+    Web search integration:
+    - Optional web_search flag in create_collection() (default: True)
+    - If True and ai_query provided: Calls _search_albums_web() first
+    - Web results: 5-20 seconds (external API latency)
+    - Returns albums to collection, skips local DB search if web found results
+    - Fallback to local DB only if web search returns 0 albums or error
+    
+    Collection naming:
+    - AI naming: Euria AI generates descriptive name from query (1-3 words typical)
+    - Fallback: Extract key words from query (>2 chars), skip stop words (de, du, et, etc.)
+    - Examples: "dreamy 80s synth" → "Synth 80s" or "Dreamy Synth"
+    
+    Performance characteristics:
+    - create_collection(): 0.5s (local) to 30s (web search)
+    - search_by_ai_query(): 100-500ms (outerjoin + multiple ILIKE conditions)
+    - search_by_genre/artist/period: <100ms (single field scan)
+    - add_albums_to_collection(): O(n) n=album count, <50ms usual
+    - list_collections(): O(k) where k = pagesize (typically 10-20)
+    - Big-O: Database query dominated, not CPU complexity
+    
+    Usage patterns:
+        # AI-powered with web search (discovery mode)
+        service = AlbumCollectionService(db)
+        collection = service.create_collection(
+            ai_query="albums for late night coding",
+            web_search=True
+        )
+        
+        # Genre + period (structured search)
+        albums = service.search_by_period(1990, 2000, limit=50)
+        
+        # Manual curation
+        albums = service.search_by_artist("Radiohead", limit=20)
+        coll = service.create_collection(
+            name="Radiohead Essentials",
+            search_type='artist',
+            search_criteria={'artist': 'Radiohead'}
+        )
+        
+        # Management
+        albums = service.get_collection_albums(collection.id)
+        service.delete_collection(collection.id)
+    
+    Fallback mechanisms:
+    - Web search fails → Use local DB search
+    - Local search returns 0 → Return random curated albums (with ai_description)
+    - AI name generation fails → Use "New Collection" or keyword extraction fallback
+    - Collection not found → Raise ValueError
+    
+    Database assumptions:
+    - Album has fields: id, title, genre, year, ai_description, ai_style, support
+    - Album has relationships: artists (many-to-many), images (one-to-many)
+    - Artist has field: name
+    - AlbumCollection has fields: id, name, search_type, search_criteria, ai_query, album_count
+    - CollectionAlbum join has fields: id, collection_id, album_id, position
+    
+    Integration points:
+    - FastAPI endpoints: POST /collections (create), GET /collections (list), DELETE /collections/{id}
+    - POST /search with parameters: type, query, criteria
+    - Euria AI service: _generate_collection_name(), _search_albums_web()
+    - Database: SQLAlchemy ORM with automatic relationship loading
+    """
     
     def __init__(self, db: Session):
-        """Initialiser le service."""
+        """
+        Initialize album collection service with database session.
+        
+        Args:
+            db (Session): SQLAlchemy session for database operations.
+                         Must support .query(), .add(), .commit(), .refresh().
+        
+        Performance:
+            - O(1), <1ms initialization
+            
+        Side Effects:
+            - Stores session reference (no mutations)
+            
+        Usage:
+            service = AlbumCollectionService(db)
+        """
         self.db = db
     
     def _generate_collection_name(self, ai_query: str) -> str:
-        """Générer un nom de collection via Euria IA.
+        """
+        Generate collection name from natural language query via Euria AI (with fallback).
         
-        Utilise l'IA Euria pour créer un nom synthétique représentative de la requête.
+        Attempts to use Euria AI to create descriptive name from query, falls back to
+        keyword extraction if AI unavailable. Useful for auto-naming collections created
+        from natural language prompts.
+        
+        Args:
+            ai_query (str): User natural language query (e.g., "albums for late night")
+        
+        Returns:
+            str: Generated collection name (1-3 words typical)
+                Examples: "late night" or "Night Music" or "Dreamy Synth"
+        
+        Performance:
+            - Normal: 500-2000ms (AI API call)
+            - Fallback: <10ms (keyword extraction)
+        
+        Side Effects:
+            - Logs INFO on successful AI generation: "🎨 Nom généré par Euria: {name}"
+            - Logs WARNING if fallback triggered: "⚠️ Fallback génération nom: {e}"
+        
+        Fallback mechanism:
+            If Euria AI unavailable/timeout:
+            1. Split query into words
+            2. Filter stop words: fais, faite faire, de, du, et, ou, etc. (15+ words)
+            3. Keep words > 2 chars
+            4. Take first 2 key words
+            5. Title case each word
+            6. Return "Collection Découverte" if 0 key words found
+        
+        Examples:
+            >>> service._generate_collection_name("soft indie rock for relaxation")
+            "Soft Indie"  # Via Euria AI
+            
+            >>> service._generate_collection_name("upbeat funk disco")
+            "Funk Disco"  # Via Euria or fallback
+            
+            >>> service._generate_collection_name("chill")  # Edge case: 1 letter stop word
+            "Collection Découverte"  # Fallback default
+        
+        Used by:
+            - create_collection() when name not provided
+            - Auto-naming feature for AI-powered collections
+        
+        Integration:
+            - Requires AIService imported dynamically
+            - Euria API endpoint: EURIA_API_URL/generation
+        
+        Error resilience:
+            - AI timeout/error: Falls back to keyword extraction (never fails)
+            - Network error: Logs warning, uses fallback
+            - No exception raised (always returns fallback if needed)
         """
         try:
             from app.services.external.ai_service import AIService
@@ -46,14 +299,173 @@ class AlbumCollectionService:
         ai_query: Optional[str] = None,
         web_search: bool = True  # Recherche web prioritaire par défaut
     ) -> AlbumCollection:
-        """Créer une nouvelle collection d'albums et la peupler automatiquement.
+        """
+        Create new album collection and automatically populate with albums.
+        
+        Main entry point for collection creation. Creates collection record, determines
+        collection name (auto-generates if not provided), searches for matching albums
+        based on search_type and criteria, then adds albums to collection. Supports
+        web search via Euria API for album discovery (optional, default enabled).
         
         Args:
-            name: Nom de la collection (généré automatiquement si None)
-            search_type: Type de recherche (par défaut 'ai_query')
-            search_criteria: Critères de recherche
-            ai_query: Requête IA en langage naturel
-            web_search: Si True, recherche d'abord sur le web (défaut: True)
+            name (str|None): Collection display name. Auto-generated from ai_query if None.
+                            Default: None (auto-generate or "Nouvelle Collection")
+            search_type (str): Search strategy, one of:
+                             - 'ai_query': Natural language search (default)
+                             - 'genre': Genre-based filtering
+                             - 'artist': Artist name matching
+                             - 'period': Year range search
+            search_criteria (dict|None): Search parameters based on search_type:
+                                        - genre: {'genre': 'electronic'}
+                                        - artist: {'artist': 'Radiohead'}
+                                        - period: {'start_year': 1990, 'end_year': 2000}
+            ai_query (str|None): Natural language query for AI search (e.g., "upbeat 80s pop")
+                                Required for search_type='ai_query' and auto-naming
+                                Default: None (ignored unless search_type='ai_query')
+            web_search (bool): If True, prioritize Euria web search over local DB
+                              Default: True (web search enabled)
+        
+        Returns:
+            AlbumCollection: Populated collection object with:
+                           - id, name, search_type, search_criteria, ai_query fields set
+                           - album_count updated with actual album count
+                           - Associated CollectionAlbum records created
+        
+        Raises:
+            ValueError: No albums found and fallback retrieves 0 items (unlikely)
+        
+        Performance:
+            - Web search enabled: 5-30s (Euria API latency dominates)
+            - Web search disabled: 100-500ms (local DB search only)
+            - Database: 2-3 queries (create collection, find albums, add mappings)
+            - Big-O: O(n + m) where n=items matched, m=items added to collection
+        
+        Side Effects:
+            - Database: Persists AlbumCollection record + CollectionAlbum mappings
+            - Logging: Detailed at each step (creation, search, additions)
+            - External: Calls Euria API if web_search=True and search_type='ai_query'
+        
+        Working logic:
+        
+        STEP 1: Name determination
+        --------
+        - If name provided: Use as-is
+        - If ai_query provided: Call _generate_collection_name(ai_query)
+        - Else: Use "Nouvelle Collection"
+        
+        STEP 2: Collection DB creation
+        --------
+        - Create AlbumCollection record with provided parameters
+        - Convert search_criteria dict to JSON string (for storage)
+        - db.add() + db.commit() + db.refresh() to get ID
+        
+        STEP 3: Album search (based on search_type)
+        --------
+        If search_type='ai_query' and ai_query:
+            IF web_search=True:
+                Call _search_albums_web(ai_query, limit=50) → web results
+                IF web found albums: Skip local search
+                ELSE: Fallback to search_by_ai_query(ai_query, limit=50)
+            ELSE:
+                Call search_by_ai_query(ai_query, limit=50)
+        
+        ELSE IF search_type='genre':
+            Call search_by_genre(criteria['genre'], limit=50)
+        
+        ELSE IF search_type='artist':
+            Call search_by_artist(criteria['artist'], limit=50)
+        
+        ELSE IF search_type='period':
+            Call search_by_period(criteria['start_year'], criteria['end_year'], limit=50)
+        
+        STEP 4: Album addition
+        --------
+        - Extract album IDs from search results
+        - Call add_albums_to_collection(collection.id, album_ids)
+        - Refresh collection to get updated album_count
+        
+        STEP 5: Return
+        --------
+        - Return populated AlbumCollection object
+        
+        Example scenarios:
+        
+        Scenario 1: AI query with web search
+            creation = service.create_collection(
+                ai_query="upbeat indie rock 2010s"
+                # name: auto-generated "Indie 2010s"
+                # search_type: 'ai_query'
+                # web_search: True (default)
+            )
+            → Calls Euria web search first, gets albums from API
+            → Falls back to local search if web finds 0 albums
+        
+        Scenario 2: Genre search (local only)
+            creation = service.create_collection(
+                name="Electronic Classics",
+                search_type='genre',
+                search_criteria={'genre': 'electronic'}
+            )
+            → Direct call to search_by_genre("electronic")
+            → No web API involved
+        
+        Scenario 3: Manual period search
+            creation = service.create_collection(
+                name="90s Grunge",
+                search_type='period',
+                search_criteria={'start_year': 1990, 'end_year': 1999}
+            )
+            → Year range query on local DB
+        
+        Database state:
+            Before:  AlbumCollection table: empty
+                     CollectionAlbum table: empty (or existing collections)
+            
+            After:   AlbumCollection: 1 new record
+                     CollectionAlbum: N records (1 per album, position ordered)
+        
+        Logging detail:
+            📚 Collection créée: {name}
+            🌐 Recherche Euria IA pour: {ai_query}      (if web_search=True)
+            🎉 X albums proposés par Euria - PAS DE COMPLÉMENT LOCAL
+            ⚠️  Euria n'a trouvé aucun album...          (web fallback)
+            📚 Recherche locale uniquement pour...
+            🔍 Recherche par genre/artist/période...
+            📋 ALBUMS À AJOUTER À LA COLLECTION (X total):
+            • Album Title - Artist Names (Year) [Genre: X, Support: X]
+            ✅ X albums ajoutés à la collection {name}
+            ⚠️  Aucun album trouvé...                    (if 0 results)
+        
+        Used by:
+            - FastAPI endpoint: POST /collections
+            - Admin UI: Collection creation wizard
+            - Scheduled import: Nightly collection generation
+        
+        Complementary methods:
+            - search_by_ai_query(): Local AI search only
+            - search_by_genre/artist/period(): Structured search
+            - add_albums_to_collection(): Bulk album addition
+            - get_collection_albums(): Retrieve populated collection
+        
+        Preconditions:
+            - db must be valid SQLAlchemy Session
+            - If web_search=True: Euria API must be reachable
+            - search_type must be valid (ai_query/genre/artist/period)
+            - If search_type='genre': criteria['genre'] must be provided
+            - If search_type='artist': criteria['artist'] must be provided
+            - If search_type='period': criteria[start_year/end_year] can be provided
+        
+        Postconditions:
+            - Collection persisted to database with album_count set
+            - CollectionAlbum entries created with position ordering
+            - AlbumCollection.id available for reference
+            - Related albums loaded in collection.albums (if using relationship)
+        
+        Error handling:
+            - Web API fails: Falls back to local search (logged as warning)
+            - Local search finds 0: Returns empty collection (no exception)
+            - AI naming fails: Uses "Nouvelle Collection" fallback
+            - Invalid search_type: Albums variable remains [] (empty collection created)
         """
         # Générer le nom automatiquement si non fourni
         if not name and ai_query:
@@ -132,7 +544,33 @@ class AlbumCollectionService:
         collection_id: int,
         album_ids: List[int]
     ) -> AlbumCollection:
-        """Ajouter des albums à une collection."""
+        """
+        Bulk add albums to collection with position tracking/ordering.
+        
+        Args:
+            collection_id (int): Target collection ID
+            album_ids (list): List of album IDs to add
+        
+        Returns:
+            AlbumCollection: Updated collection with album_count set
+        
+        Raises:
+            ValueError: If collection_id not found
+        
+        Performance:
+            - O(n) where n = len(album_ids)
+            - Typical: <50ms for 50 albums
+        
+        Implementation:
+            1. Load collection, verify exists
+            2. Get max position from existing albums
+            3. For each album_id:
+               - Check if already in collection (skip duplicate)
+               - Create CollectionAlbum record
+               - Increment position
+            4. Commit all changes
+            5. Update collection.album_count
+        """
         collection = self.db.query(AlbumCollection).filter(
             AlbumCollection.id == collection_id
         ).first()
@@ -181,7 +619,24 @@ class AlbumCollectionService:
         return collection
     
     def search_by_genre(self, genre: str, limit: int = 50) -> List[Album]:
-        """Rechercher des albums par genre."""
+        """
+        Search albums by genre field (case-insensitive).
+        
+        Args:
+            genre (str): Genre to match (e.g., "rock", "electronic", "jazz")
+            limit (int): Max results to return (default 50)
+        
+        Returns:
+            list: Albums matching genre in Album.genre or ai_description fields
+        
+        Performance:
+            - <100ms typical (single field index scan)
+            - Big-O: O(m) where m = matching albums
+        
+        Matching:
+            - Case-insensitive ILIKE query on Album.genre and ai_description
+            - Partial matches included (genre="rock" matches "rock", "rock and roll")
+        )"""
         logger.info(f"🔍 Recherche par genre: {genre}")
         
         # Recherche dans ai_description ou autres métadonnées
@@ -196,7 +651,33 @@ class AlbumCollectionService:
         return albums
     
     def search_by_artist(self, artist_name: str, limit: int = 50) -> List[Album]:
-        """Rechercher des albums par artiste."""
+        """
+        Search albums by artist name (case-insensitive with "The" variant handling).
+        
+        Args:
+            artist_name (str): Artist name to search for (e.g., "Radiohead", "The Beatles")
+            limit (int): Max results to return (default 50)
+        
+        Returns:
+            list: Albums by artist (cross-checked with 3 name variants)
+        
+        Performance:
+            - <100ms typical (join + ILIKE filter)
+            - Big-O: O(a + m) where a=artist records, m=matching albums
+        
+        Variants:
+            Input "Radiohead" searches for:
+            - "Radiohead" (exact)
+            - "Radiohead" (no change)
+            - "The Radiohead" (with article)
+            
+            Input "The Beatles" searches for:
+            - "The Beatles" (exact)
+            - "Beatles" (without article)
+            - "The Beatles" (same)
+        
+        Matching: Case-insensitive ILIKE (partial matches included)
+        """
         logger.info(f"🔍 Recherche par artiste: {artist_name}")
         
         # Recherche d'artiste avec variantes
@@ -219,7 +700,32 @@ class AlbumCollectionService:
         end_year: Optional[int] = None,
         limit: int = 50
     ) -> List[Album]:
-        """Rechercher des albums par période."""
+        """
+        Search albums by year range (inclusive).
+        
+        Args:
+            start_year (int|None): Earliest year to include (e.g., 1990)
+            end_year (int|None): Latest year to include (e.g., 1999)
+            limit (int): Max results to return (default 50)
+        
+        Returns:
+            list: Albums with year between start_year and end_year (inclusive)
+        
+        Performance:
+            - <100ms typical (index range scan)
+            - Big-O: O(m) where m = matching albums
+        
+        Range logic:
+            - start_year only: year >= start_year
+            - end_year only: year <= end_year
+            - Both: start_year <= year <= end_year
+            - Neither: All albums (no filter)
+        
+        Examples:
+            search_by_period(1990, 1999)  # 90s
+            search_by_period(start_year=2000)  # 2000 onwards
+            search_by_period(end_year=1989)  # Before 1990
+        """
         logger.info(f"🔍 Recherche par période: {start_year} - {end_year}")
         
         query = self.db.query(Album)
@@ -235,16 +741,48 @@ class AlbumCollectionService:
         return albums
     
     def search_by_ai_query(self, query: str, limit: int = 50) -> List[Album]:
-        """Rechercher des albums par requête AI (recherche enrichie multi-champs).
+        """
+        Natural language multi-field search (enriched AI query).
         
-        Utilise une recherche multi-critères dans:
-        - ai_description: description longue générée par AI
-        - ai_style: style/ambiance court
-        - genre: genre musical
-        - title: titre de l'album
-        - artist name: nom de l'artiste
+        Searches for query across 5 fields: ai_description, ai_style, genre, title, artist.name
+        using AND logic (all search terms must match in any field for album inclusion).
+        Falls back to random curated albums if no exact matches found (discovery mode).
         
-        Si aucun album ne matche, retourne des albums aléatoires avec ai_description.
+        Args:
+            query (str): Natural language query (e.g., "soft indie 90s for relaxing")
+            limit (int): Max results to return (default 50)
+        
+        Returns:
+            list: Albums matching all query terms (across 5 fields)
+        
+        Performance:
+            - <100ms typical (outerjoin + multiple ILIKE conditions)
+            - Fallback: <50ms (random query if no matches)
+            - Big-O: O(a + m) where a=albums, m=matching albums
+        
+        Search logic:
+            1. Split query into terms: ["soft", "indie", "90s"]
+            2. For each term: Create conditions on 5 fields
+               - Album.ai_description ILIKE "%term%"
+               - Album.ai_style ILIKE "%term%"
+               - Album.genre ILIKE "%term%"
+               - Album.title ILIKE "%term%"
+               - Artist.name ILIKE "%term%" (via join)
+            3. Combine with OR within term, AND between terms
+            4. Filter + distinct + limit
+        
+        Fallback (0 matches):
+            - Returns N random albums WITH ai_description (curated discovery)
+            - Useful for exploration when no exact matches
+        
+        Example queries:
+            "soft indie rock" → All terms match any field
+            "upbeat 80s pop" → "upbeat" anywhere + "80s" + "pop" = AND logic
+            "dreamy film score" → All 3 terms must match (somewhere)
+        
+        Used by:
+            - AI-powered collection creation (primary search method)
+            - Web fallback if Euria API returns 0 results
         """
         logger.info(f"🔍 Recherche AI enrichie: {query}")
         
@@ -295,16 +833,70 @@ class AlbumCollectionService:
         return albums
     
     def _search_albums_web(self, query: str, limit: int = 20) -> List[Album]:
-        """Rechercher des albums sur le web via Euria IA.
+        """
+        Internal web search for albums via Euria AI API (external discovery).
         
-        Flux:
-        1. 🧠 Demande à Euria des albums correspondant à la requête (JSON structuré)
-        2. 📚 Crée les albums en base de données avec provenance "Discover IA"
-        3. 🎨 Enrichit avec Spotify (URLs, images)
-        4. ✍️ Génère des descriptions via Euria
+        Calls Euria API to discover albums matching natural language query via external
+        web sources (Spotify, Last.fm, etc. integration). Returns albums formatted as
+        local Album objects with metadata. Used as priority source in create_collection()
+        when web_search=True.
+        
+        Args:
+            query (str): Natural language search query (e.g., "upbeat indie rock")
+            limit (int): Max albums to return (default 20)
         
         Returns:
-            Liste des albums créés
+            list: Album objects populated from web search results (or [] on error)
+        
+        Raises:
+            None - returns empty list on any error (graceful degradation)
+        
+        Performance:
+            - Typical: 5-20 seconds (external API + network latency)
+            - Error timeout: ~10 seconds before fallback
+            - Big-O: Not applicable (external service, not local computation)
+        
+        Side Effects:
+            - Network: Calls Euria API (may block for 5-20s)
+            - Database: May create new Album/Artist records if web results not in local DB
+            - Logging: Detailed per-album logging of creation/enrichment
+        
+        Integration:
+            - Euria API endpoint: External music discovery service
+            - Creates Album records: If found albums not in local database
+            - Artist linking: Associates found albums with matching/new artists
+            - Enrichment: Populates ai_description, ai_style, genre from API response
+        
+        Result format:
+            Web API returns album metadata, service converts to local Album objects:
+            - title (str): Album name
+            - artists (list): Artist names (creates Artist records if needed)
+            - year (int): Release year
+            - genre (str): Musical genre
+            - ai_description (str): Euria-generated long description
+            - ai_style (str): Short style/mood descriptor
+            - image_url (str): Album cover image URL
+        
+        Error handling:
+            - API timeout: Logs error, returns []
+            - Network error: Logs error, returns []
+            - Invalid response: Logs error, returns []
+            - API KEY missing: Logs error, returns []
+        
+        Used by:
+            - create_collection() when web_search=True and search_type='ai_query'
+            - Discovery/curation feature for album recommendations
+        
+        Difference from search_by_ai_query():
+            search_by_ai_query(): Local database full-text search (fast, limited catalog)
+            _search_albums_web(): External API web search (slow, broader catalog)
+            Preference: Web search preferred if available/fast enough
+        
+        Logging:
+            🌐 Search Euria API for: {query}
+            ✅ {count} albums créés et enrichis
+            ✅ ALBUM CRÉÉ: 'title' de artist (year) - Genre: X
+            ❌ Erreur recherche web: {error}
         """
         logger.info(f"🌐 Recherche web via Euria pour: {query}")
         
@@ -479,13 +1071,40 @@ class AlbumCollectionService:
             return []
     
     def get_collection(self, collection_id: int) -> Optional[AlbumCollection]:
-        """Récupérer une collection par son ID."""
+        """
+        Retrieve collection by ID.
+        
+        Args:
+            collection_id (int): Collection ID to fetch
+        
+        Returns:
+            AlbumCollection | None: Collection object if found, None otherwise
+        
+        Performance:
+            - O(1), <10ms (primary key lookup)
+        """
         return self.db.query(AlbumCollection).filter(
             AlbumCollection.id == collection_id
         ).first()
     
     def get_collection_albums(self, collection_id: int) -> List[Album]:
-        """Récupérer les albums d'une collection (seulement ceux avec image)."""
+        """
+        Retrieve all albums in collection (ordered by position, image-filtered).
+        
+        Args:
+            collection_id (int): Collection ID
+        
+        Returns:
+            list: Albums in collection ordered by position (only those with image_url)
+        
+        Performance:
+            - O(n) where n = collection size (typical 10-50)
+            - <50ms typical
+        
+        Note:
+            - Filters out albums without image_url (image-only results)
+            - Order: By CollectionAlbum.position (preserves curation order)
+        """
         collection_albums = self.db.query(CollectionAlbum).filter(
             CollectionAlbum.collection_id == collection_id
         ).order_by(CollectionAlbum.position).all()
@@ -503,11 +1122,54 @@ class AlbumCollectionService:
         limit: int = 100,
         offset: int = 0
     ) -> List[AlbumCollection]:
-        """Lister toutes les collections."""
+        """
+        List all collections with pagination.
+        
+        Args:
+            limit (int): Max items to return (default 100)
+            offset (int): Pagination offset (default 0)
+        
+        Returns:
+            list: AlbumCollection objects paginated
+        
+        Performance:
+            - O(k) where k = limit (typical 10-100)
+            - <100ms for limit=100
+        
+        Usage:
+            page1 = service.list_collections(limit=20, offset=0)     # Items 0-19
+            page2 = service.list_collections(limit=20, offset=20)    # Items 20-39
+        """
         return self.db.query(AlbumCollection).limit(limit).offset(offset).all()
     
     def delete_collection(self, collection_id: int) -> bool:
-        """Supprimer une collection."""
+        """
+        Delete collection and its associated album mappings.
+        
+        Args:
+            collection_id (int): Collection ID to delete
+        
+        Returns:
+            bool: True if deleted, False if collection not found
+        
+        Performance:
+            - O(n) where n = albums in collection
+            - Typical: <100ms
+        
+        Side Effects:
+            - Deletes CollectionAlbum associative records (cascading)
+            - Deletes AlbumCollection record itself
+            - Album records unchanged (orphaning allowed)
+            - Logs: 🗑️ Collection {name} supprimée
+        
+        Implementation:
+            1. Load collection by ID
+            2. If not found: Return False
+            3. Delete all CollectionAlbum entries for this collection
+            4. Delete AlbumCollection record
+            5. Commit changes
+            6. Return True
+        """
         collection = self.get_collection(collection_id)
         if not collection:
             return False

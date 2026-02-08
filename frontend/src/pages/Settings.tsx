@@ -108,7 +108,7 @@ export default function Settings() {
   const { data: roonZones } = useQuery({
     queryKey: ['roon-zones'],
     queryFn: async () => {
-      const response = await apiClient.get('/roon/zones')
+      const response = await apiClient.get('/playback/roon/zones')
       return response.data
     },
     enabled: roonEnabled && roonAvailable,
@@ -154,7 +154,7 @@ export default function Settings() {
     },
     enabled: normalizationDialogOpen,
     // Continuer le polling jusqu'à ce que asynchrone complété ou erreur
-    refetchInterval: (data) => {
+    refetchInterval: (data: any) => {
       // Si status est 'completed' ou 'error', ARRÊTER le polling (retourner undefined)
       if (data?.status === 'completed' || data?.status === 'error') {
         return undefined // ✓ Arrête le polling proprement
@@ -456,7 +456,7 @@ export default function Settings() {
       setSnackbar({
         open: true,
         message: '⏳ Normalisation lancée en arrière-plan... (cela peut prendre quelques secondes)',
-        severity: 'info'
+        severity: 'success'
       })
       
       // Attendre 2 secondes avant de fermer pour laisser le temps au backend
@@ -1130,7 +1130,7 @@ export default function Settings() {
               setSnackbar({
                 open: true,
                 message: '🤖 Enrichissement démarré en arrière-plan avec Euria + Spotify...',
-                severity: 'info'
+                severity: 'success'
               })
               apiClient.post('/services/discogs/enrich', null, {
                 timeout: 1800000 // 30 minutes
@@ -1173,8 +1173,7 @@ export default function Settings() {
             }}
             disabled={syncProgress && (syncProgress.status === 'running' || syncProgress.status === 'starting')}
             startIcon={<AutoAwesome />}
-            color="info"
-            variant="contained"
+            color="primary"
           >
             🤖 Enrichir avec Euria + Spotify
           </Button>

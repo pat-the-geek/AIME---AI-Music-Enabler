@@ -524,7 +524,29 @@ function findZoneByName(name) {
 /**
  * Get now playing info from the first zone that is playing.
  */
-function getNowPlaying() {
+function getNowPlaying(zoneId) {
+    // Si zoneId spécifié, retourner le track de cette zone
+    if (zoneId) {
+        const z = zones[zoneId];
+        if (z && z.now_playing) {
+            const np = z.now_playing;
+            const tl = np.three_line || {};
+            return {
+                title:            tl.line1 || "Unknown Title",
+                artist:           tl.line2 || "Unknown Artist",
+                album:            tl.line3 || "Unknown Album",
+                zone_id:          z.zone_id,
+                zone_name:        z.display_name,
+                state:            z.state || "stopped",
+                duration_seconds: np.length || null,
+                seek_position:    np.seek_position || null,
+                image_key:        np.image_key || null
+            };
+        }
+        return null;
+    }
+
+    // Chercher d'abord une zone en "playing"
     for (const zoneId of Object.keys(zones)) {
         const z = zones[zoneId];
         if (z.state === "playing" && z.now_playing) {
@@ -536,12 +558,34 @@ function getNowPlaying() {
                 album:            tl.line3 || "Unknown Album",
                 zone_id:          z.zone_id,
                 zone_name:        z.display_name,
+                state:            z.state || "stopped",
                 duration_seconds: np.length || null,
                 seek_position:    np.seek_position || null,
                 image_key:        np.image_key || null
             };
         }
     }
+
+    // Sinon, chercher une zone en "paused" ou "stopped" (track en pause ou arrêté)
+    for (const zoneId of Object.keys(zones)) {
+        const z = zones[zoneId];
+        if (z.now_playing) {
+            const np = z.now_playing;
+            const tl = np.three_line || {};
+            return {
+                title:            tl.line1 || "Unknown Title",
+                artist:           tl.line2 || "Unknown Artist",
+                album:            tl.line3 || "Unknown Album",
+                zone_id:          z.zone_id,
+                zone_name:        z.display_name,
+                state:            z.state || "stopped",
+                duration_seconds: np.length || null,
+                seek_position:    np.seek_position || null,
+                image_key:        np.image_key || null
+            };
+        }
+    }
+
     return null;
 }
 
@@ -648,8 +692,23 @@ app.get("/search", async (req, res) => {
 // ---------- Now Playing ----------
 
 app.get("/now-playing", (req, res) => {
-    const np = getNowPlaying();
-    if (!np) return res.json({ playing: false, message: "Nothing playing" });
+    const { zone_id, zone_name } = req.query;
+    
+    let targetZoneId = zone_id;
+    
+    // Si zone_name fourni, le convertir en zone_id
+    if (zone_name && !targetZoneId) {
+        const z = findZoneByName(zone_name);
+        if (!z) {
+            return res.status(404).json({ error: `Zone "${zone_name}" not found` });
+        }
+        targetZoneId = z.zone_id;
+    }
+    
+    const np = getNowPlaying(targetZoneId);
+    if (!np) {
+        return res.json({ playing: false, message: "Nothing playing" });
+    }
     res.json({ playing: true, ...np });
 });
 

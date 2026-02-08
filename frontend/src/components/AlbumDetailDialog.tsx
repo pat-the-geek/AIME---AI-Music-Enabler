@@ -86,7 +86,7 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
   const { data: roonZones } = useQuery({
     queryKey: ['roon-zones'],
     queryFn: async () => {
-      const response = await apiClient.get('/roon/zones')
+      const response = await apiClient.get('/playback/roon/zones')
       return response.data?.zones || []
     },
     enabled: roon?.enabled && roon?.available,
@@ -133,7 +133,7 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
   // Mutation pour jouer l'album sur Roon
   const playAlbumMutation = useMutation({
     mutationFn: async ({ albumId, zoneName }: { albumId: number; zoneName: string }) => {
-      const response = await apiClient.post('/roon/play-album', {
+      const response = await apiClient.post('/playback/roon/play-album', {
         zone_name: zoneName,
         album_id: albumId
       })

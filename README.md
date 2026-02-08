@@ -91,8 +91,10 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
    
    ![Paramètres Scheduler](docs/screenshots/Screen%20captures/Settings%20-%20Scheduler.png)
 
-7. **Contrôle Roon Direct** ✨ **v4.5 - Robustesse Améliorée**
+7. **Contrôle Roon Direct** ✨ **v4.6 - Zone Selection Avancée**
    - **Widget Flottant** : Affichage en temps réel du morceau en cours
+   - **Sélection de Zone** : Dropdown pour choisir la zone Roon à contrôler (récemment ajouté)
+   - **Auto-Détection** : La zone actuellement en lecture est auto-sélectionnée au démarrage
    - **Contrôles Intégrés** : Play, Pause, Next, Previous, Stop depuis les playlists
    - **Tracking Multi-Zone** : Détection automatique des zones Roon actives
    - **Démarrage Automatique** : Le tracker Roon redémarre après un reboot serveur

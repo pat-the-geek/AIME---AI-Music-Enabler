@@ -1,0 +1,450 @@
+{
+  "id": "2026-02-08-007",
+  "edition_number": 7,
+  "generated_at": "2026-02-08T19:30:07.170229+00:00",
+  "albums": [],
+  "pages": [
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1162,
+          "title": "Only Heaven",
+          "artist": "The Young Gods",
+          "year": 2025,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273be0c4bf8000c1fa3881c4c48",
+          "description": "**Album Review: *Only Heaven* – The Young Gods (2025)**\n\n*The Young Gods* return in 2025 with *Only Heaven*, a bold and atmospheric reinvention that blends industrial metal, post-punk, and darkwave into a hauntingly cinematic experience. The Swiss trio’s signature blend of crushing rhythms, eerie synthesizers, and Franz Treichler’s commanding vocals remains intact, but with a sharper, more polished production that amplifies their signature tension.\n\nThe album’s emotional impact is immediate—*Only Heaven* thrives in its moody, almost apocalyptic atmosphere, weaving themes of existential dread and defiance. Tracks like the title cut, *Only Heaven*, and *Ashes to Ashes* showcase Treichler’s growling delivery over relentless percussion and brooding synthscapes, while *Blackout* delivers a pulsating, club-friendly edge. The production is sleek yet raw, with crisp guitars and immersive sound design that heightens the album’s dramatic weight.\n\nStandout moments include the industrial juggernaut *Down in Flames* and the haunting *Lament*, where spare piano and ghostly electronics create an unforgettable melanch",
+          "style": null
+        },
+        "artist_images": {
+          "The Young Gods": "https://i.discogs.com/qazWV92JvAB7KqH6a_7_UQKl3N_OxUQ8mMkGUDyIqm0/rs:fit/g:sm/q:90/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTI4MzQ4/MTE0LTE0NjY4NDQ4/MDEtMjAzOC5qcGVn.jpeg"
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "small"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Jelly Roll",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "bottom",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "chaos",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "tilt"
+      },
+      "content": {
+        "artist": {
+          "name": "Jelly Roll",
+          "albums_count": 8,
+          "haiku": "**More Songs About Buildings and Food**\nBriques chantent en rythme\nFlavors dansent la nuit\n\n*(Inspiré par l'univers éclectique et dansant de Talking Heads, mêlant architecture et saveurs en mélodies.)*",
+          "bio": "**Jelly Roll** nous offre 8 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5eb27901c1c025fa90f5dc007ef"
+        },
+        "albums": [
+          {
+            "id": 269,
+            "title": "More Songs About Buildings and Food",
+            "year": 1978,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27391237668384c4d646b30c05c",
+            "genre": null,
+            "artist": "Talking Heads",
+            "description": "Talking Heads livre avec *More Songs About Buildings and Food* (1978) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 272,
+            "title": "Wild and Clear and Blue",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273e1917e26e66f38eac61be589",
+            "genre": null,
+            "artist": "I’m With Her",
+            "description": "Dans *Wild and Clear and Blue*, I’m With Her nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 249,
+            "title": "The Dark Side of the Moon",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273db216ca805faf5fe35df4ee6",
+            "genre": null,
+            "artist": "Pink Floyd",
+            "description": "Pink Floyd livre avec *The Dark Side of the Moon* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 312,
+            "title": "The Very Best of Supertramp",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f82d2bd1097e3e60a6a049a3",
+            "genre": null,
+            "artist": "Supertramp",
+            "description": "**The Very Best of Supertramp** de *Supertramp* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 253,
+            "title": "The Universe Smiles Upon You",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273e08ee206ad63148105336a19",
+            "genre": null,
+            "artist": "Khruangbin",
+            "description": "**The Universe Smiles Upon You** de *Khruangbin* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 260,
+            "title": "The Slow Rush B-sides & Remixes",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27322b9cdd0c4ce8cee5857f6a4",
+            "genre": null,
+            "artist": "Tame Impala",
+            "description": "**The Slow Rush B-sides & Remixes** de *Tame Impala* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 319,
+            "title": "Close To the Edge",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2730b4444fe9bc1a73ccbb949db",
+            "genre": null,
+            "artist": "Yes",
+            "description": "Yes livre avec *Close To the Edge* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 334,
+            "title": "Genesis (2007 Remaster)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273945c366eda66495226e4a46d",
+            "genre": null,
+            "artist": "Genesis",
+            "description": "Dans *Genesis (2007 Remaster)*, Genesis nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "remaster_detail"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 300,
+        "text_columns": 1,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 347,
+            "title": "Toto",
+            "artist": "Toto",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273ebd6d20c0082524244ef83df",
+            "genre": null
+          },
+          {
+            "id": 430,
+            "title": "Esprit de Famille",
+            "artist": "Dalida",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273cfe9ad11054bedeec66cb295",
+            "genre": null
+          },
+          {
+            "id": 341,
+            "title": "So (remastered)",
+            "artist": "Peter Gabriel",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27311bb04f55be562c76d8e8ecf",
+            "genre": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 347,
+            "album_title": "Toto",
+            "haiku": "**Toto**\nCordes qui chantent l'aube\nVents électriques légers",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "right",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#10b981",
+              "specialEffect": "gradient"
+            },
+            "description": "La **poésie musicale** de *Toto* de Toto transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 430,
+            "album_title": "Esprit de Famille",
+            "haiku": "Voici un haïku poétique pour l'album *Esprit de Famille* de Dalida :\n\n**Esprit de Famille**\nMélodies tissées d’amour\nRythmes berçant les mémoires\n\n*(Ou, en variant légèrement la métaphore :*\n**Esprit de Famille**\nVoix chaudes, liens sans fin\nÉchos d’une tendresse ancienne)*\n\nJ’ai privilégié des images douces et intemporelles, évoquant l’héritage",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "right",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#ff6b35",
+              "specialEffect": "zoom"
+            },
+            "description": "La **poésie musicale** de *Esprit de Famille* de Dalida transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 341,
+            "album_title": "So (remastered)",
+            "haiku": "**So (remastered)**\nRêves chuchotés aux cordes\nL'âme vibre en échos\n\n*(Inspiré par la sensualité et les textures organiques de l'album, mêlant voix et instruments comme des murmures intemporels.)*",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "right",
+              "imageSize": "large",
+              "textLayout": "single-column",
+              "composition": "playful",
+              "accentColor": "#06b6d4",
+              "specialEffect": "none"
+            },
+            "description": "**So (remastered)** de *Peter Gabriel* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "small",
+        "columns": 3,
+        "spacing": "normal"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "bottom",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "classic",
+        "accentColor": "#764ba2",
+        "specialEffect": "gradient"
+      },
+      "content": {
+        "total_recent_listens": 100,
+        "unique_artists": 25,
+        "unique_albums": 19,
+        "top_artists": [
+          {
+            "artist_id": 27,
+            "artist_name": "Beck",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb675a6e778640f767626f2e66",
+            "count": 15
+          },
+          {
+            "artist_id": 617,
+            "artist_name": "Beck & St. Vincent",
+            "image_url": null,
+            "count": 15
+          },
+          {
+            "artist_id": 618,
+            "artist_name": "Beck & Terrell Hines",
+            "image_url": null,
+            "count": 15
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 12
+          },
+          {
+            "artist_id": 581,
+            "artist_name": "Simon & Garfunkel",
+            "image_url": "https://i.scdn.co/image/afde2fdd14f8c8ca23393f257e3a369a234a24b6",
+            "count": 8
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1105,
+            "album_title": "Hyperspace (2020)",
+            "artist_name": "Beck, Beck & St. Vincent, Beck & Terrell Hines",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27330312f869979f64fd17d8bad",
+            "count": 15
+          },
+          {
+            "album_id": 1099,
+            "album_title": "Blow-up (original Motion Picture Soundtrack)",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "count": 12
+          },
+          {
+            "album_id": 1107,
+            "album_title": "The Graduate (original Motion Picture Soundtrack)",
+            "artist_name": "Simon & Garfunkel, Dave Grusin",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f33d75cac5da4be6c3753196",
+            "count": 7
+          },
+          {
+            "album_id": 1096,
+            "album_title": "Lost Highway (soundtrack From the Motion Picture)",
+            "artist_name": "Nine Inch Nails, Angelo Badalamenti, The Smashing Pumpkins, Trent Reznor",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb752fca27c5b839ea47d5100d",
+            "count": 5
+          },
+          {
+            "album_id": 1100,
+            "album_title": "Bombshell (original Music From the Motion Picture Soundtrack)",
+            "artist_name": "Theodore Shapiro, Regina Spektor",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273a2af04afb76860ba2d3cf065",
+            "count": 4
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "bar",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Nuits Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Nuits Musique",
+          "description": "*Nuits Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 264,
+              "title": "In Sides",
+              "artist": "Orbital",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2738582db75b4e80ca0077697bc",
+              "year": 1996,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Nuits Musique*."
+            },
+            {
+              "id": 286,
+              "title": "Trilogy 3 (live)",
+              "artist": "Chick Corea, Brian Blade & Christian Mcbride",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273636688536fdadbf58c806e9a",
+              "year": null,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 2,
+              "title": "Torches",
+              "artist": "Foster the People",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+              "year": 2011,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Nuits Musique*."
+            },
+            {
+              "id": 256,
+              "title": "Live From the Royal Albert Hall",
+              "artist": "Ry X & London Contemporary Orchestra",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+              "year": null,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "playful",
+                "accentColor": "#06b6d4",
+                "specialEffect": "gradient"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 282,
+              "title": "A Tribute To Benny Moré and Nat King Cole",
+              "artist": "Gonzalo Rubalcaba, Yainer Horta & Joey Calveiro",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27360b945d9b545e3d640082f8a",
+              "year": null,
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "detailed",
+        "image_position": "top"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

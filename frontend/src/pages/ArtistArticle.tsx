@@ -91,7 +91,7 @@ export default function ArtistArticle() {
     setGenerateArticle(true)
     
     try {
-      const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1'
+      const baseURL = apiClient.defaults.baseURL
       const response = await fetch(`${baseURL}/artists/${selectedArtist.id}/article/stream`, {
         headers: {
           'Accept': 'text/event-stream'
@@ -570,219 +570,270 @@ export default function ArtistArticle() {
             <ReactMarkdown 
               remarkPlugins={[remarkGfm]}
               components={{
-                h1: ({node, ...props}) => (
-                  <Typography 
-                    variant="h1" 
-                    component="h1" 
-                    sx={{
-                      fontSize: '2.5rem',
-                      fontWeight: 700,
-                      mb: 3,
-                      mt: 0,
-                      color: dominantColor,
-                      borderBottom: '3px solid',
-                      borderColor: dominantColor,
-                      pb: 2,
-                    }}
-                    {...props} 
-                  />
-                ),
-                h2: ({node, ...props}) => (
-                  <Typography 
-                    variant="h2" 
-                    component="h2" 
-                    sx={{
-                      fontSize: '2rem',
-                      fontWeight: 600,
-                      mt: 5,
-                      mb: 2,
-                      color: 'text.primary',
-                      borderLeft: '4px solid',
-                      borderColor: dominantColor,
-                      pl: 2,
-                    }}
-                    {...props} 
-                  />
-                ),
-                h3: ({node, ...props}) => (
-                  <Typography 
-                    variant="h3" 
-                    component="h3" 
-                    sx={{
-                      fontSize: '1.5rem',
-                      fontWeight: 600,
-                      mt: 3,
-                      mb: 2,
-                      color: 'text.secondary',
-                    }}
-                    {...props} 
-                  />
-                ),
-                p: ({node, ...props}) => (
-                  <Typography 
-                    variant="body1" 
-                    component="p" 
-                    sx={{
-                      fontSize: '1.1rem',
-                      lineHeight: 1.8,
-                      mb: 2,
-                      textAlign: 'justify',
-                    }}
-                    {...props} 
-                  />
-                ),
-                strong: ({node, ...props}) => (
-                  <Box 
-                    component="strong" 
-                    sx={{
-                      fontWeight: 700,
-                      color: 'text.primary',
-                    }}
-                    {...props} 
-                  />
-                ),
-                em: ({node, ...props}) => (
-                  <Box 
-                    component="em" 
-                    sx={{
-                      fontStyle: 'italic',
-                      color: 'text.secondary',
-                    }}
-                    {...props} 
-                  />
-                ),
-                ul: ({node, ...props}) => (
-                  <Box 
-                    component="ul" 
-                    sx={{
-                      ml: 4,
-                      mb: 2,
-                    }}
-                    {...props} 
-                  />
-                ),
-                ol: ({node, ...props}) => (
-                  <Box 
-                    component="ol" 
-                    sx={{
-                      ml: 4,
-                      mb: 2,
-                    }}
-                    {...props} 
-                  />
-                ),
-                li: ({node, ...props}) => (
-                  <Box 
-                    component="li" 
-                    sx={{
-                      mb: 1,
-                      fontSize: '1.1rem',
-                      lineHeight: 1.6,
-                    }}
-                    {...props} 
-                  />
-                ),
-                blockquote: ({node, ...props}) => (
-                  <Box 
-                    component="blockquote" 
-                    sx={{
-                      borderLeft: '4px solid',
-                      borderColor: dominantColor,
-                      pl: 3,
-                      py: 1,
-                      my: 3,
-                      fontStyle: 'italic',
-                      backgroundColor: 'grey.50',
-                      borderRadius: 1,
-                    }}
-                    {...props} 
-                  />
-                ),
-                code: ({node, inline, ...props}: any) => (
-                  <Box 
-                    component="code" 
-                    sx={{
-                      backgroundColor: inline ? 'grey.100' : 'transparent',
-                      px: inline ? 1 : 0,
-                      py: inline ? 0.5 : 0,
-                      borderRadius: inline ? 0.5 : 0,
-                      fontFamily: 'monospace',
-                    }}
-                    {...props} 
-                  />
-                ),
-                pre: ({node, ...props}) => (
-                  <Box 
-                    component="pre" 
-                    sx={{
-                      backgroundColor: 'grey.900',
-                      color: 'grey.100',
-                      p: 2,
-                      borderRadius: 1,
-                      overflow: 'auto',
-                      fontSize: '0.9rem',
-                    }}
-                    {...props} 
-                  />
-                ),
-                a: ({node, ...props}) => (
-                  <Box 
-                    component="a" 
-                    sx={{
-                      color: 'primary.main',
-                      textDecoration: 'none',
-                      '&:hover': {
-                        textDecoration: 'underline',
-                      },
-                    }}
-                    {...props} 
-                  />
-                ),
-                hr: ({node, ...props}) => (
-                  <Divider 
-                    sx={{
-                      my: 4,
-                      borderColor: dominantColor,
-                      borderWidth: '2px',
-                    }}
-                    {...props} 
-                  />
-                ),
-                table: ({node, ...props}) => (
-                  <Box 
-                    component="table" 
-                    sx={{
-                      width: '100%',
-                      borderCollapse: 'collapse',
-                      my: 3,
-                    }}
-                    {...props} 
-                  />
-                ),
-                th: ({node, ...props}) => (
-                  <Box 
-                    component="th" 
-                    sx={{
-                      backgroundColor: 'primary.main',
-                      color: 'white',
-                      p: 2,
-                      textAlign: 'left',
-                      fontWeight: 600,
-                    }}
-                    {...props} 
-                  />
-                ),
-                td: ({node, ...props}) => (
-                  <Box 
-                    component="td" 
-                    sx={{
-                      p: 2,
-                      borderBottom: '1px solid',
-                      borderColor: 'grey.300',
-                    }}
-                    {...props} 
-                  />
-                ),
+                h1: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Typography 
+                      variant="h1" 
+                      component="h1" 
+                      sx={{
+                        fontSize: '2.5rem',
+                        fontWeight: 700,
+                        mb: 3,
+                        mt: 0,
+                        color: dominantColor,
+                        borderBottom: '3px solid',
+                        borderColor: dominantColor,
+                        pb: 2,
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                h2: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Typography 
+                      variant="h2" 
+                      component="h2" 
+                      sx={{
+                        fontSize: '2rem',
+                        fontWeight: 600,
+                        mt: 5,
+                        mb: 2,
+                        color: 'text.primary',
+                        borderLeft: '4px solid',
+                        borderColor: dominantColor,
+                        pl: 2,
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                h3: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Typography 
+                      variant="h3" 
+                      component="h3" 
+                      sx={{
+                        fontSize: '1.5rem',
+                        fontWeight: 600,
+                        mt: 3,
+                        mb: 2,
+                        color: 'text.secondary',
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                p: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Typography 
+                      variant="body1" 
+                      component="p" 
+                      sx={{
+                        fontSize: '1.1rem',
+                        lineHeight: 1.8,
+                        mb: 2,
+                        textAlign: 'justify',
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                strong: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Box 
+                      component="strong" 
+                      sx={{
+                        fontWeight: 700,
+                        color: 'text.primary',
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                em: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Box 
+                      component="em"
+                      sx={{
+                        fontStyle: 'italic',
+                        color: 'text.secondary',
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                ul: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Box 
+                      component="ul" 
+                      sx={{
+                        ml: 4,
+                        mb: 2,
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                ol: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Box 
+                      component="ol" 
+                      sx={{
+                        ml: 4,
+                        mb: 2,
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                li: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Box 
+                      component="li" 
+                      sx={{
+                        mb: 1,
+                        fontSize: '1.1rem',
+                        lineHeight: 1.6,
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                blockquote: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Box 
+                      component="blockquote" 
+                      sx={{
+                        borderLeft: '4px solid',
+                        borderColor: dominantColor,
+                        pl: 3,
+                        py: 1,
+                        my: 3,
+                        fontStyle: 'italic',
+                        backgroundColor: 'grey.50',
+                        borderRadius: 1,
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                code: ({node, inline, ...props}: any) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Box 
+                      component="code" 
+                      sx={{
+                        backgroundColor: inline ? 'grey.100' : 'transparent',
+                        px: inline ? 1 : 0,
+                        py: inline ? 0.5 : 0,
+                        borderRadius: inline ? 0.5 : 0,
+                        fontFamily: 'monospace',
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                pre: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Box 
+                      component="pre" 
+                      sx={{
+                        backgroundColor: 'grey.900',
+                        color: 'grey.100',
+                        p: 2,
+                        borderRadius: 1,
+                        overflow: 'auto',
+                        fontSize: '0.9rem',
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                a: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Box 
+                      component="a" 
+                      sx={{
+                        color: 'primary.main',
+                        textDecoration: 'none',
+                        '&:hover': {
+                          textDecoration: 'underline',
+                        },
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                hr: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Divider 
+                      sx={{
+                        my: 4,
+                        borderColor: dominantColor,
+                        borderWidth: '2px',
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                table: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Box 
+                      component="table" 
+                      sx={{
+                        width: '100%',
+                        borderCollapse: 'collapse',
+                        my: 3,
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                th: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Box 
+                      component="th" 
+                      sx={{
+                        backgroundColor: 'primary.main',
+                        color: 'white',
+                        p: 2,
+                        textAlign: 'left',
+                        fontWeight: 600,
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
+                td: ({node, ...props}) => {
+                  const { ref, ...restProps } = props as any
+                  return (
+                    <Box 
+                      component="td" 
+                      sx={{
+                        p: 2,
+                        borderBottom: '1px solid',
+                        borderColor: 'grey.300',
+                      }}
+                      {...restProps} 
+                    />
+                  )
+                },
               }}
             >
               {article.content}

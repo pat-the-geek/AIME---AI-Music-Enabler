@@ -73,3 +73,11 @@ class ValidationException(HTTPException):
         if field:
             detail += f" (champ: {field})"
         super().__init__(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=detail)
+
+class ResourceNotFoundException(HTTPException):
+    """Exception levée quand une ressource n'est pas trouvée."""
+    def __init__(self, resource: str, resource_id: Optional[str] = None):
+        detail = f"{resource} non trouvé"
+        if resource_id:
+            detail += f" (ID: {resource_id})"
+        super().__init__(status_code=status.HTTP_404_NOT_FOUND, detail=detail)

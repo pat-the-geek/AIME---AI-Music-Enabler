@@ -1,0 +1,479 @@
+{
+  "id": "2026-02-08-001",
+  "edition_number": 1,
+  "generated_at": "2026-02-08T16:12:18.543021+00:00",
+  "albums": [],
+  "pages": [
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 4,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 408,
+            "title": "Blessée",
+            "artist": "Lynda Lemay",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2734778c785792185aaf087c954",
+            "genre": null
+          },
+          {
+            "id": 419,
+            "title": "Essential",
+            "artist": "Nina Simone",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273e41495b534ebc1cf5ae70150",
+            "genre": null
+          },
+          {
+            "id": 389,
+            "title": "The Best of Roxy Music",
+            "artist": "Roxy Music",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273cdd6f71f3d22476a9a1319cd",
+            "genre": null
+          },
+          {
+            "id": 407,
+            "title": "Selected Solo Works",
+            "artist": "Frankie Valli",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27397a8a0289882441e2019ae70",
+            "genre": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 408,
+            "album_title": "Blessée",
+            "haiku": "**Blessée**\nCœurs brisés en notes\nLarmes en mélodie\n\nOu, en variant légèrement :\n**Blessée**\nUne voix qui saigne\nLes accords se déchirent\n\n(Les deux versions gardent la structure et l'esprit musical, avec des images évoquant la douleur transformée en art.)",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "diagonal",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "gradient"
+            },
+            "description": "*Blessée* marque un moment dans la carrière de Lynda Lemay. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          },
+          {
+            "album_id": 419,
+            "album_title": "Essential",
+            "haiku": "**Essential**\nNuit d'or en accords\nSouffle éternel vibrant",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "left",
+              "imageSize": "small",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#10b981",
+              "specialEffect": "none"
+            },
+            "description": "**Essential** de *Nina Simone* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          },
+          {
+            "album_id": 389,
+            "album_title": "The Best of Roxy Music",
+            "haiku": "**The Best of Roxy Music**\nÉchos d'or sous la lune\nGlamour en notes d'argent",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "top",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#10b981",
+              "specialEffect": "zoom"
+            },
+            "description": "Dans *The Best of Roxy Music*, Roxy Music nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 407,
+            "album_title": "Selected Solo Works",
+            "haiku": "**Selected Solo Works**\nVoix d'or s'élançant\nDans la nuit étoilée",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "diagonal",
+              "imageSize": "large",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "none"
+            },
+            "description": "*Selected Solo Works* marque un moment dans la carrière de Frankie Valli. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "columns": 3,
+        "spacing": "normal"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "split",
+        "imageSize": "medium",
+        "textLayout": "vertical",
+        "composition": "minimalist",
+        "accentColor": "#764ba2",
+        "specialEffect": "frame"
+      },
+      "content": {
+        "total_recent_listens": 100,
+        "unique_artists": 22,
+        "unique_albums": 13,
+        "top_artists": [
+          {
+            "artist_id": 27,
+            "artist_name": "Beck",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb675a6e778640f767626f2e66",
+            "count": 15
+          },
+          {
+            "artist_id": 617,
+            "artist_name": "Beck & St. Vincent",
+            "image_url": null,
+            "count": 15
+          },
+          {
+            "artist_id": 618,
+            "artist_name": "Beck & Terrell Hines",
+            "image_url": null,
+            "count": 15
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 12
+          },
+          {
+            "artist_id": 40,
+            "artist_name": "Ethel Cain",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb3bbecf739fb7198dffd61795",
+            "count": 10
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1105,
+            "album_title": "Hyperspace (2020)",
+            "artist_name": "Beck, Beck & St. Vincent, Beck & Terrell Hines",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27330312f869979f64fd17d8bad",
+            "count": 15
+          },
+          {
+            "album_id": 1099,
+            "album_title": "Blow-up (original Motion Picture Soundtrack)",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "count": 12
+          },
+          {
+            "album_id": 839,
+            "album_title": "Preacher’s Daughter",
+            "artist_name": "Ethel Cain",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273ccd1887cc78b0bd55f54bbe1",
+            "count": 10
+          },
+          {
+            "album_id": 1095,
+            "album_title": "Love Is Like (deluxe)",
+            "artist_name": "Maroon 5, Maroon 5 & Sexyy Red, Maroon 5 & Lisa, Maroon 5 & Lil Wayne",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732b833d53096cf72b6e3609d3",
+            "count": 9
+          },
+          {
+            "album_id": 1096,
+            "album_title": "Lost Highway (soundtrack From the Motion Picture)",
+            "artist_name": "Nine Inch Nails, Angelo Badalamenti, The Smashing Pumpkins, Trent Reznor",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb752fca27c5b839ea47d5100d",
+            "count": 6
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "area",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Échos Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Échos Musique",
+          "description": "*Échos Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 242,
+              "title": "Dire Straits",
+              "artist": "Dire Straits",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273b49d49cc95564aede7998bb8",
+              "year": 1978,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 256,
+              "title": "Live From the Royal Albert Hall",
+              "artist": "Ry X & London Contemporary Orchestra",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+              "year": null,
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "gradient"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 248,
+              "title": "Surfer Rosa (2007 Remaster)",
+              "artist": "Pixies",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2738aa545a0ea869940cce358b5",
+              "year": 1988,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 266,
+              "title": "A Tribute To the King of Zydeco",
+              "artist": "Lucinda Williams, Tommy Mclain, Keith Frank",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273146a4587303793c56ba0749b",
+              "year": null,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Échos Musique."
+            },
+            {
+              "id": 287,
+              "title": "Gnx",
+              "artist": "Kendrick Lamar",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58",
+              "year": null,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "gradient"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 271,
+              "title": "Big Money",
+              "artist": "Jon Batiste",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2734788bd968a2f7368e16418f0",
+              "year": null,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "minimal",
+        "image_position": "background"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Dorothy Ashby",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "double-column",
+        "composition": "dramatic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "content": {
+        "artist": {
+          "name": "Dorothy Ashby",
+          "albums_count": 7,
+          "haiku": "**Songs of a Lost World**\nÉchos d'un arc-en-ciel brisé\nHarpe électrique des abysses\n\n*(Inspiré par Dorothy Ashby, pionnière de la harpe jazz, et son mélange de douceur et de profondeur.)*",
+          "bio": "**Dorothy Ashby** nous offre 7 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273375f3b7b1e2a3e4fe4704596"
+        },
+        "albums": [
+          {
+            "id": 292,
+            "title": "Songs of a Lost World",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738613a922e2b503736fb2f91f",
+            "genre": null,
+            "artist": "The Cure",
+            "description": "Dans *Songs of a Lost World*, The Cure nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 309,
+            "title": "Trio of Doom",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27352fa6cf02bdb8346b2443e31",
+            "genre": null,
+            "artist": "John Mclaughlin, Jaco Pastorius, Tony Williams",
+            "description": "John Mclaughlin, Jaco Pastorius, Tony Williams livre avec *Trio of Doom* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 274,
+            "title": "Beautifully Broken (pickin’ Up the Pieces)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273d48a214080d6d848654c5a41",
+            "genre": null,
+            "artist": "Jelly Roll",
+            "description": "**Beautifully Broken (pickin’ Up the Pieces)** de *Jelly Roll* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 300,
+            "title": "The Art of Loving",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2739a336bfb6d40bbd90a507417",
+            "genre": null,
+            "artist": "Olivia Dean",
+            "description": "Dans *The Art of Loving*, Olivia Dean nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 280,
+            "title": "A Matter of Time",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738f68f6e65c1cfd36bb21561c",
+            "genre": null,
+            "artist": "Laufey",
+            "description": "*A Matter of Time* marque un moment dans la carrière de Laufey. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 251,
+            "title": "Naked",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273569adf0916825b184451a8e9",
+            "genre": null,
+            "artist": "Talking Heads",
+            "description": "**Naked** de *Talking Heads* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 242,
+            "title": "Dire Straits",
+            "year": 1978,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b49d49cc95564aede7998bb8",
+            "genre": null,
+            "artist": "Dire Straits",
+            "description": "Dans *Dire Straits*, Dire Straits nous offre un **voyage sonore** particulier. Sorti en 1978, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 300,
+        "text_columns": 1,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "large",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1166,
+          "title": "Beggars Banquet",
+          "artist": "The Rolling Stones",
+          "year": 2017,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b27344934a06d21864415376f5f2",
+          "description": "**Album Review: *Beggars Banquet* – The Rolling Stones (2017 Remaster)**\n\nThe Rolling Stones’ *Beggars Banquet* (1968) remains a defining moment in rock history, and the 2017 remaster breathes new life into this iconic album. Blending blues, rock, and psychedelia, the band delivers raw, unfiltered energy with tracks like the raucous \"Sympathy for the Devil\" and the bluesy \"Street Fighting Man.\" The production, overseen by Jimmy Miller, retains its gritty, live-in-the-studio feel, with Mick Jagger’s charismatic vocals and Keith Richards’ jagged riffs taking center stage. Brian Jones’ slide guitar on \"Dear Doctor\" and Charlie Watts’ precise drumming add depth, while Nicky Hopkins’ piano work on \"Stray Cat Blues\" enhances the album’s rebellious spirit.\n\nEmotionally, *Beggars Banquet* is a swaggering, rebellious celebration of rock ‘n’ roll, capturing the late ‘60s counterculture with defiance and swagger. The remaster’s clarity elevates the sound without sanitizing its raw",
+          "style": null
+        },
+        "artist_images": {
+          "The Rolling Stones": "https://i.scdn.co/image/ab6761610000e5ebe4cea917b68726aadb4854b8"
+        }
+      },
+      "dimensions": {
+        "image_size": "large",
+        "description_length": "full",
+        "font_size": "medium"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

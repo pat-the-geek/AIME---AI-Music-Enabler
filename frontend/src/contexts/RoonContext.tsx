@@ -9,6 +9,15 @@ interface NowPlayingTrack {
   zone_name: string
   zone_id: string
   image_url?: string
+  state?: string
+  duration_seconds?: number
+  position_seconds?: number
+}
+
+interface RoonZone {
+  zone_id: string
+  name: string
+  state: string
 }
 
 interface RoonContextType {
@@ -16,6 +25,9 @@ interface RoonContextType {
   available: boolean
   zone: string
   setZone: (zone: string) => void
+  playbackZone: string
+  setPlaybackZone: (zone: string) => void
+  zones: RoonZone[]
   playTrack: (trackId: number) => Promise<void>
   playPlaylist: (playlistId: number) => Promise<void>
   isLoading: boolean
@@ -32,19 +44,20 @@ export function RoonProvider({ children }: { children: ReactNode }) {
   const [zone, setZone] = useState<string>(() => {
     return localStorage.getItem('roon_zone') || ''
   })
+  const [playbackZone, setPlaybackZone] = useState<string>('')
   const [isLoading, setIsLoading] = useState(true)
   const [nowPlaying, setNowPlaying] = useState<NowPlayingTrack | null>(null)
+  const [zones, setZones] = useState<RoonZone[]>([])
 
   // Vérifier le statut Roon au démarrage et périodiquement
   useEffect(() => {
     const checkRoonStatus = async () => {
       try {
-        const response = await apiClient.get('/roon/status')
+        const response = await apiClient.get('/playback/roon/status')
         const data = response.data
         setEnabled(data.enabled)
         setAvailable(data.available)
       } catch (error) {
-        console.error('Erreur lors de la vérification du statut Roon:', error)
         setEnabled(false)
         setAvailable(false)
       } finally {
@@ -71,19 +84,19 @@ export function RoonProvider({ children }: { children: ReactNode }) {
       }
       
       try {
-        const response = await apiClient.get('/roon/now-playing')
+        const params = playbackZone ? { zone_name: playbackZone } : {}
+        const response = await apiClient.get('/playback/roon/now-playing', { params })
         if (response.data?.title) {
           setNowPlaying(response.data as NowPlayingTrack)
         } else {
           setNowPlaying(null)
         }
       } catch (error) {
-        console.debug('Aucun track en cours de lecture')
         setNowPlaying(null)
       }
     }
 
-    // Vérification initiale
+    // Vérification initiale + immédiate quand zone change
     if (enabled && available) {
       fetchNowPlaying()
     }
@@ -94,7 +107,56 @@ export function RoonProvider({ children }: { children: ReactNode }) {
     return () => {
       if (interval) clearInterval(interval)
     }
+  }, [enabled, available, playbackZone])
+
+  // Récupérer la liste des zones disponibles
+  useEffect(() => {
+    const fetchZones = async () => {
+      if (!enabled || !available) {
+        setZones([])
+        return
+      }
+      
+      try {
+        const response = await apiClient.get('/playback/roon/zones')
+        if (response.data?.zones) {
+          setZones(response.data.zones as RoonZone[])
+        }
+      } catch (error) {
+        setZones([])
+      }
+    }
+
+    // Vérification initiale
+    if (enabled && available) {
+      fetchZones()
+    }
+
+    // Polling toutes les 10 secondes quand Roon est disponible
+    const interval = enabled && available ? setInterval(fetchZones, 10000) : null
+    
+    return () => {
+      if (interval) clearInterval(interval)
+    }
   }, [enabled, available])
+
+  // Initialiser playbackZone avec la zone en lecture, ou la première zone si aucune n'est en lecture
+  useEffect(() => {
+    if (!playbackZone && zones.length > 0) {
+      // Chercher une zone qui est en lecture ou en pause
+      const playingZone = zones.find(z => z.state === 'playing' || z.state === 'paused')
+      const zoneToSelect = playingZone || zones[0]
+      setPlaybackZone(zoneToSelect.name)
+    } else if (playbackZone && zones.length > 0) {
+      // Vérifier que la zone sélectionnée existe toujours dans la liste
+      const zoneExists = zones.some(z => z.name === playbackZone)
+      if (!zoneExists) {
+        // Si la zone n'existe plus, chercher une zone en lecture ou sélectionner la première
+        const playingZone = zones.find(z => z.state === 'playing' || z.state === 'paused')
+        setPlaybackZone(playingZone ? playingZone.name : zones[0].name)
+      }
+    }
+  }, [zones])
 
   // Sauvegarder la zone dans localStorage
   const handleSetZone = (newZone: string) => {
@@ -111,7 +173,7 @@ export function RoonProvider({ children }: { children: ReactNode }) {
       throw new Error('Aucune zone Roon sélectionnée. Allez dans Paramètres pour choisir une zone.')
     }
     
-    await apiClient.post('/roon/play-track', {
+    await apiClient.post('/playback/roon/play-track', {
       zone_name: zone,
       track_id: trackId
     })
@@ -126,7 +188,7 @@ export function RoonProvider({ children }: { children: ReactNode }) {
       throw new Error('Aucune zone Roon sélectionnée. Allez dans Paramètres pour choisir une zone.')
     }
     
-    await apiClient.post('/roon/play-playlist', {
+    await apiClient.post('/playback/roon/play-playlist', {
       zone_name: zone,
       playlist_id: playlistId
     })
@@ -150,7 +212,7 @@ export function RoonProvider({ children }: { children: ReactNode }) {
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 5000)
       
-      await apiClient.post('/roon/control', {
+      await apiClient.post('/playback/roon/control', {
         zone_name: targetZone,
         control
       }, {
@@ -179,7 +241,7 @@ export function RoonProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <RoonContext.Provider value={{ enabled, available, zone, setZone: handleSetZone, playTrack, playPlaylist, isLoading, nowPlaying, playbackControl }}>
+    <RoonContext.Provider value={{ enabled, available, zone, setZone: handleSetZone, playbackZone, setPlaybackZone, zones, playTrack, playPlaylist, isLoading, nowPlaying, playbackControl }}>
       {children}
     </RoonContext.Provider>
   )

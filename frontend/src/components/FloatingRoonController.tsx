@@ -13,6 +13,11 @@ import {
   Paper,
   Snackbar,
   Alert,
+  LinearProgress,
+  Slider,
+  FormControl,
+  Select,
+  MenuItem,
 } from '@mui/material'
 import {
   PlayArrow,
@@ -26,20 +31,84 @@ import {
 } from '@mui/icons-material'
 
 export default function FloatingRoonController() {
-  const { enabled, available, nowPlaying, playbackControl } = useRoon()
+  const { enabled, available, nowPlaying, playbackControl, playbackZone, setPlaybackZone, zones } = useRoon()
   const [expanded, setExpanded] = useState(true)
   const [isPlaying, setIsPlaying] = useState(false)
   const [loading, setLoading] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
+  const [volume, setVolume] = useState(50)
+  const [isSeeking, setIsSeeking] = useState(false)
   
   // Synchroniser isPlaying avec l'état réel de Roon
   useEffect(() => {
-    if (nowPlaying?.state) {
-      setIsPlaying(nowPlaying.state === 'playing')
+    if (nowPlaying) {
+      const currentlyPlaying = nowPlaying.state === 'playing'
+      setIsPlaying(currentlyPlaying)
     }
-  }, [nowPlaying?.state])
+  }, [nowPlaying])
+
+  // Formater les secondes en MM:SS
+  const formatTime = (seconds: number | undefined): string => {
+    if (!seconds || seconds < 0) return '0:00'
+    const mins = Math.floor(seconds / 60)
+    const secs = Math.floor(seconds % 60)
+    return `${mins}:${secs.toString().padStart(2, '0')}`
+  }
+
+  // Obtenir le pourcentage de progression
+  const getProgressPercent = (): number => {
+    if (!nowPlaying?.duration_seconds || nowPlaying.duration_seconds <= 0) return 0
+    return ((nowPlaying.position_seconds || 0) / nowPlaying.duration_seconds) * 100
+  }
+
+  const handleVolumeChange = async (newVolume: number) => {
+    try {
+      setVolume(newVolume)
+      // Appel API pour changer le volume
+      const response = await fetch('/api/v1/playback/roon/volume', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          zone_id: nowPlaying?.zone_id,
+          how: 'absolute',
+          value: newVolume
+        })
+      })
+      if (!response.ok) {
+        throw new Error('Impossible de changer le volume')
+      }
+      setSuccess('Volume mis à jour')
+    } catch (error) {
+      console.error('Erreur changement volume:', error)
+      setError('Impossible de changer le volume')
+    }
+  }
+
+  const handleProgressChange = async (newPosition: number) => {
+    try {
+      setIsSeeking(true)
+      // Appel API pour chercher
+      const response = await fetch('/api/v1/playback/roon/seek', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          zone_name: nowPlaying?.zone_name,
+          seconds: Math.floor(newPosition)
+        })
+      })
+      if (!response.ok) {
+        throw new Error('Impossible de changer la position')
+      }
+      setSuccess('Position mise à jour')
+    } catch (error) {
+      console.error('Erreur changement position:', error)
+      setError('Impossible de changer la position')
+    } finally {
+      setIsSeeking(false)
+    }
+  }
 
   if (!enabled || !available || hidden) {
     return null
@@ -81,37 +150,28 @@ export default function FloatingRoonController() {
       
       await playbackControl(control)
       
-      // Mise à jour optimiste de l'état
+      // Afficher le message de succès seulement
       if (control === 'play') {
-        setIsPlaying(true)
         setSuccess('Lecture démarrée')
-      }
-      if (control === 'pause') {
-        setIsPlaying(false)
+      } else if (control === 'pause') {
         setSuccess('Lecture en pause')
-      }
-      if (control === 'stop') {
-        setIsPlaying(false)
+      } else if (control === 'stop') {
         setSuccess('Lecture arrêtée')
-      }
-      if (control === 'next') {
+      } else if (control === 'next') {
         setSuccess('Morceau suivant')
-      }
-      if (control === 'previous') {
+      } else if (control === 'previous') {
         setSuccess('Morceau précédent')
       }
       
-      // L'état réel sera synchronisé via useEffect quand nowPlaying sera mis à jour
+      // NE PAS faire d'optimistic update manuelle
+      // Laisser le backend via le contexte Roon décider du vrai state
+      // Le polling toutes les 3 secondes mettra à jour nowPlaying
+      // et le useEffect synchronisera isPlaying
       
     } catch (error: any) {
       console.error('Erreur contrôle Roon:', error)
       const errorMessage = error?.response?.data?.detail || error?.message || 'Erreur inconnue'
       setError(`Échec ${control}: ${errorMessage}`)
-      
-      // Réinitialiser l'état en cas d'erreur
-      if (nowPlaying?.state) {
-        setIsPlaying(nowPlaying.state === 'playing')
-      }
     } finally {
       setLoading(false)
     }
@@ -285,19 +345,150 @@ export default function FloatingRoonController() {
               {nowPlaying.album}
             </Typography>
 
-            {/* Zone */}
-            <Typography
-              variant="caption"
-              sx={{
-                color: '#ffffff',
-                display: 'block',
-                mb: 2,
-                fontSize: '0.7rem',
-                fontWeight: 500,
-              }}
-            >
-              📻 {nowPlaying.zone_name}
-            </Typography>
+            {/* Zone Selector */}
+            {zones.length > 0 && (
+              <FormControl fullWidth sx={{ mb: 2 }} size="small">
+                <Select
+                  value={playbackZone || ''}
+                  onChange={(e) => {
+                    setPlaybackZone(e.target.value)
+                  }}
+                  sx={{
+                    color: '#ffffff',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    fontSize: '0.9rem',
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'rgba(255, 255, 255, 0.2)',
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'rgba(255, 255, 255, 0.4)',
+                    },
+                    '& .MuiSvgIcon-root': {
+                      color: '#ffffff',
+                    },
+                  }}
+                  displayEmpty
+                  renderValue={(value) => {
+                    if (!value) return <span>📻 Sélectionner zone</span>
+                    const zone = zones.find(z => z.name === value)
+                    return <span>📻 {zone?.name || value}</span>
+                  }}
+                >
+                  {zones.map((z) => (
+                    <MenuItem key={z.zone_id} value={z.name}>
+                      {z.name} ({z.state})
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
+            {zones.length === 0 && (
+              <Typography
+                variant="caption"
+                sx={{
+                  color: '#ffffff',
+                  display: 'block',
+                  mb: 2,
+                  fontSize: '0.7rem',
+                  fontWeight: 500,
+                }}
+              >
+                ⚠️ Aucune zone disponible
+              </Typography>
+            )}
+
+            {/* Barre de Progression */}
+            {nowPlaying.duration_seconds && nowPlaying.duration_seconds > 0 && (
+              <Box sx={{ mb: 2 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    mb: 1,
+                  }}
+                >
+                  <Slider
+                    size="small"
+                    min={0}
+                    max={nowPlaying.duration_seconds}
+                    value={nowPlaying.position_seconds || 0}
+                    onChange={(e: any) => {
+                      // Mise à jour simple du slider sans appel API
+                      // (l'appel API sera fait au onChangeCommitted)
+                    }}
+                    onChangeCommitted={(e: any, newValue: any) => {
+                      handleProgressChange(newValue)
+                    }}
+                    disabled={!isPlaying || isSeeking}
+                    sx={{
+                      flex: 1,
+                      color: '#4caf50',
+                      '& .MuiSlider-track': {
+                        backgroundColor: '#4caf50',
+                      },
+                      '& .MuiSlider-rail': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                      },
+                      '& .MuiSlider-thumb': {
+                        backgroundColor: '#4caf50',
+                      },
+                    }}
+                  />
+                </Box>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    color: 'rgba(255, 255, 255, 0.7)',
+                    fontSize: '0.75rem',
+                    display: 'block',
+                    textAlign: 'center',
+                  }}
+                >
+                  {formatTime(nowPlaying.position_seconds)} / {formatTime(nowPlaying.duration_seconds)}
+                </Typography>
+              </Box>
+            )}
+
+            {/* Contrôle du Volume */}
+            <Box sx={{ mb: 2 }}>
+              <Typography
+                variant="caption"
+                sx={{
+                  color: '#ffffff',
+                  display: 'block',
+                  mb: 1,
+                  fontSize: '0.75rem',
+                  fontWeight: 500,
+                }}
+              >
+                Volume: {volume}%
+              </Typography>
+              <Slider
+                size="small"
+                min={0}
+                max={100}
+                value={volume}
+                onChange={(e: any, newValue: any) => {
+                  setVolume(newValue)
+                }}
+                onChangeCommitted={(e: any, newValue: any) => {
+                  handleVolumeChange(newValue)
+                }}
+                sx={{
+                  color: '#ff9800',
+                  '& .MuiSlider-track': {
+                    backgroundColor: '#ff9800',
+                  },
+                  '& .MuiSlider-rail': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  },
+                  '& .MuiSlider-thumb': {
+                    backgroundColor: '#ff9800',
+                  },
+                }}
+              />
+            </Box>
 
             {/* Contrôles */}
             <Stack

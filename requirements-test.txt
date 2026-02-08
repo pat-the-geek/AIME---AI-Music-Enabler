@@ -1,0 +1,26 @@
+# requirements-test.txt - Dépendances pour la suite de tests
+
+# Pytest et plugins
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+pytest-timeout>=2.1.0
+pytest-mock>=3.11.0
+pytest-xdist>=3.3.0  # Pour les tests parallèles
+
+# Mocking et fixtures
+responses>=0.23.0  # Mock des requêtes HTTP
+faker>=19.0.0  # Génération de données de test
+factory-boy>=3.3.0  # Fixtures factories
+
+# Code quality pour les tests
+black>=23.0.0
+isort>=5.12.0
+flake8>=6.0.0
+mypy>=1.4.0
+
+# Performance et profiling
+pytest-benchmark>=4.0.0
+
+# Helpers
+python-dotenv>=1.0.0

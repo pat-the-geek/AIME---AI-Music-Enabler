@@ -7,6 +7,21 @@ import ReactMarkdown from 'react-markdown'
 import apiClient from '@/api/client'
 import ArtistPortraitModal from '@/components/ArtistPortraitModal'
 import { getHiddenContentSx, isEmptyContent, shouldHideSmallTextSx } from '@/utils/hideEmptyContent'
+import { useRoon } from '@/contexts/RoonContext'
+
+// Nettoyer le titre de l'album en supprimant les parenthèses et tout ce qui suit
+const cleanAlbumTitle = (title: string): string => {
+  if (!title) return title
+  const parenIndex = title.indexOf('(')
+  return parenIndex !== -1 ? title.substring(0, parenIndex).trim() : title
+}
+
+// Nettoyer le nom de l'artiste en supprimant les parenthèses et tout ce qui suit
+const cleanArtistName = (name: string): string => {
+  if (!name) return name
+  const parenIndex = name.indexOf('(')
+  return parenIndex !== -1 ? name.substring(0, parenIndex).trim() : name
+}
 
 interface AILayout {
   imagePosition?: string
@@ -42,6 +57,9 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
     severity: 'success' as 'success' | 'error' | 'info'
   })
   
+  // Hook Roon pour mettre à jour la zone après lecture
+  const { setPlaybackZone } = useRoon()
+  
   // States pour le portrait d'artiste
   const [portraitOpen, setPortraitOpen] = useState(false)
   const [portraitArtistId, setPortraitArtistId] = useState<number | null>(null)
@@ -54,7 +72,7 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
   const { data: roonZones } = useQuery({
     queryKey: ['roon-zones'],
     queryFn: async () => {
-      const response = await apiClient.get('/roon/zones')
+      const response = await apiClient.get('/playback/roon/zones')
       return response.data?.zones || []
     },
     refetchInterval: 10000,
@@ -208,25 +226,33 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
     }
 
     setZoneDialogOpen(false)
-    setSelectedZone('')
-    setAlbumToPlay(null)
+    setSelectedZone(zoneName)
 
     try {
-      console.log('📤 Envoi à Roon:', { artist_name: artistName, album_title: albumTitle, zone: zoneName })
+      const cleanedAlbumTitle = cleanAlbumTitle(albumTitle)
+      const cleanedArtistName = cleanArtistName(artistName)
+      console.log('📤 Envoi à Roon:', { artist_name: cleanedArtistName, album_title: cleanedAlbumTitle, zone: zoneName })
 
-      await apiClient.post('/roon/play-album-by-name', {
-        artist_name: artistName,
-        album_title: albumTitle,
+      await apiClient.post('/playback/roon/play-album-by-name', {
+        artist_name: cleanedArtistName,
+        album_title: cleanedAlbumTitle,
         zone_name: zoneName
       }, {
         timeout: 120000
       })
 
-      showSnackbar(`🎵 Lecture lancée: ${albumTitle}`, 'success')
+      // Mettre à jour la zone du contexte Roon
+      setPlaybackZone(zoneName)
+      
+      showSnackbar(`🎵 Lecture lancée: ${cleanedAlbumTitle}`, 'success')
+      setSelectedZone('')
+      setAlbumToPlay(null)
     } catch (error: any) {
       const errorMsg = error?.response?.data?.detail || error?.message || 'Erreur inconnue'
       console.error('❌ Erreur Roon:', error)
       showSnackbar(`❌ Échec: ${errorMsg}`, 'error')
+      setSelectedZone('')
+      setAlbumToPlay(null)
     }
   }
 
@@ -250,16 +276,21 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
     setZoneDialogOpen(false)
 
     try {
-      console.log('📤 Envoi à Roon:', { artist_name: artistName, album_title: albumTitle, zone: selectedZone })
+      const cleanedAlbumTitle = cleanAlbumTitle(albumTitle)
+      const cleanedArtistName = cleanArtistName(artistName)
+      console.log('📤 Envoi à Roon:', { artist_name: cleanedArtistName, album_title: cleanedAlbumTitle, zone: selectedZone })
 
-      await apiClient.post('/roon/play-album-by-name', {
-        artist_name: artistName,
-        album_title: albumTitle,
+      await apiClient.post('/playback/roon/play-album-by-name', {
+        artist_name: cleanedArtistName,
+        album_title: cleanedAlbumTitle,
         zone_name: selectedZone
       }, {
         timeout: 120000
       })
 
+      // Mettre à jour la zone du contexte Roon
+      setPlaybackZone(selectedZone)
+      
       showSnackbar(`🎵 Lecture lancée: ${albumTitle}`, 'success')
       setSelectedZone('')
       setAlbumToPlay(null)
@@ -465,7 +496,7 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
 
             {/* Haiku - Position dynamique selon layout IA */}
             <Grid item xs={12} 
-              md={isCenter || isFloating || isFullWidth ? 12 : (imagePosition === 'top' || imagePosition === 'bottom' ? 12 : isMassive ? 12 : 4)}
+              md={isCenter || isFloating || isFullWidth ? 12 : (imagePosition === 'top' || imagePosition === 'bottom' ? 12 : (isMassive || imageSize === 'large') ? 12 : 4)}
               order={isBottom ? 3 : (imagePosition === 'right' || isCorner ? 1 : 2)}
               sx={isFloating || isCorner ? {
                 position: { md: 'absolute' },
@@ -503,7 +534,7 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
 
             {/* Albums Grid - Position et colonnes dynamiques - Photo d'artiste dessus */}
             <Grid item xs={12} 
-              md={isCenter || isFloating || isFullWidth ? 12 : (imagePosition === 'top' || imagePosition === 'bottom' ? 12 : isMassive ? 12 : 8)}
+              md={isCenter || isFloating || isFullWidth ? 12 : (imagePosition === 'top' || imagePosition === 'bottom' ? 12 : (isMassive || imageSize === 'large') ? 12 : 8)}
               order={isBottom ? 2 : (imagePosition === 'right' || isCorner ? 2 : artist.image_url ? 3 : 1)}
             >
               <Grid container spacing={isSplit || isMassive ? 1 : 2} sx={{ 
@@ -766,7 +797,7 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
           <Grid container spacing={4} alignItems="flex-start">
             {/* Image */}
             {album.image_url && !isImageTop && (
-              <Grid item xs={12} md={isMassive || isFullWidth ? 12 : (imageSize === 'large' ? 6 : 4)} order={isImageLeft ? 1 : 2}>
+              <Grid item xs={12} md={isMassive || isFullWidth || imageSize === 'large' ? 12 : 4} order={isImageLeft ? 1 : 2}>
                 <Box sx={{
                   position: 'relative',
                   paddingBottom: isMassive || isFullWidth ? `${(imageHeight / (typeof window !== 'undefined' ? window.innerWidth : 1200)) * 100}%` : '100%',
@@ -799,7 +830,7 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
             )}
 
             {/* Content */}
-            <Grid item xs={12} md={album.image_url && !isImageTop ? (isMassive || isFullWidth ? 12 : (imageSize === 'large' ? 6 : 8)) : 12} order={isImageLeft ? 2 : 1}>
+            <Grid item xs={12} md={album.image_url && !isImageTop ? (isMassive || isFullWidth || imageSize === 'large' ? 12 : 8) : 12} order={isImageLeft ? 2 : 1}>
               <Box sx={{ position: 'relative' }}>
                 {/* Image de l'artiste - coin supérieur droit */}
                 {page.content.artist_images && 

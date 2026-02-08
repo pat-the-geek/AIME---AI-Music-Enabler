@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.495" timestamp="2026-02-08T16:52:59.477524" hostname="36:67:a1:7c:b6:cb"><testcase classname="backend.tests.e2e.test_workflows.TestExportWorkflow" name="test_full_markdown_export" time="0.030"><failure message="assert 405 in [200, 500]&#10; +  where 405 = &lt;Response [405 Method Not Allowed]&gt;.status_code">tests/e2e/test_workflows.py:254: in test_full_markdown_export
+    assert response.status_code in [200, 500]
+E   assert 405 in [200, 500]
+E    +  where 405 = &lt;Response [405 Method Not Allowed]&gt;.status_code</failure></testcase></testsuite></testsuites>

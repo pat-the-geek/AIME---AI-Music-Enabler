@@ -4,7 +4,7 @@ import json
 import asyncio
 from typing import List
 from datetime import datetime
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from app.models import Album, Artist
 from app.services.markdown_export_service import MarkdownExportService
@@ -20,13 +20,34 @@ class ExportService:
     @staticmethod
     def export_markdown_full(db: Session) -> str:
         """
-        Exporter la collection complète en markdown.
-        
+        Export the entire collection in Markdown format.
+
+        Generates a comprehensive markdown document of all albums in the collection.
+        The output includes artist discographies, album details, links, and metadata.
+        Uses MarkdownExportService for formatting.
+
         Args:
-            db: Session de base de données
-            
+            db: SQLAlchemy database session for query execution.
+
         Returns:
-            Contenu markdown
+            str: Complete markdown content of the collection as a single string.
+                Format includes multiple sections with album metadata and links.
+                Ready to write to .md file or display in web interface.
+
+        Example:
+            >>> db_session = get_db()
+            >>> markdown_content = ExportService.export_markdown_full(db_session)
+            >>> with open("collection.md", "w") as f:
+            ...     f.write(markdown_content)
+            >>> print(f"Exported {len(markdown_content)} characters")
+
+        Logging:
+            - Logs INFO when export starts
+
+        Performance Notes:
+            - Fetches entire collection from database
+            - May be slow for collections >10,000 albums
+            - Consider pagination or filtering for large exports
         """
         logger.info("📝 Export markdown collection complète")
         markdown_content = MarkdownExportService.get_collection_markdown(db)
@@ -35,17 +56,36 @@ class ExportService:
     @staticmethod
     def export_markdown_artist(db: Session, artist_id: int) -> str:
         """
-        Exporter la discographie d'un artiste en markdown.
-        
+        Export an artist's complete discography in Markdown format.
+
+        Generates a markdown document containing all albums by a specific artist
+        in the collection. The output includes album titles, years, links to
+        Spotify and Discogs, and descriptions.
+
         Args:
-            db: Session de base de données
-            artist_id: ID de l'artiste
-            
+            db: SQLAlchemy database session for query execution.
+            artist_id: The database ID of the artist whose discography to export.
+
         Returns:
-            Contenu markdown
-            
+            str: Markdown content of the artist's discography.
+                Includes album list with metadata and external links.
+
         Raises:
-            Exception: Si l'artiste n'existe pas ou sans albums
+            Exception: If artist_id does not exist.
+                Message: "Artiste {artist_id} non trouvé"
+            Exception: If artist has no albums in the collection.
+                Message: "Aucun album trouvé pour l'artiste {name}"
+
+        Example:
+            >>> db_session = get_db()
+            >>> try:
+            ...     markdown = ExportService.export_markdown_artist(db_session, artist_id=1)
+            ...     print(f"Generated {len(markdown)} characters")
+            ... except Exception as e:
+            ...     print(f"Error: {e}")
+
+        Logging:
+            - Logs INFO with artist name when export intiates
         """
         # Vérifier que l'artiste existe
         artist = db.query(Artist).filter(Artist.id == artist_id).first()
@@ -63,17 +103,43 @@ class ExportService:
     @staticmethod
     def export_markdown_support(db: Session, support: str) -> str:
         """
-        Exporter tous les albums d'un support en markdown.
-        
+        Export all albums of a specific media type/support in Markdown format.
+
+        Generates a markdown document containing all albums in the collection
+        with a specific media support type (e.g., Vinyl, CD, Digital).
+
         Args:
-            db: Session de base de données
-            support: Support (Vinyle, CD, Digital, Cassette)
-            
+            db: SQLAlchemy database session for query execution.
+            support: Media type/support to export. Valid values:
+                - 'Vinyle': Vinyl records
+                - 'CD': Compact discs
+                - 'Digital': Digital downloads/streaming
+                - 'Cassette': Cassette tapes
+                Case-sensitive. Must match exactly.
+
         Returns:
-            Contenu markdown
-            
+            str: Markdown content of all albums for the specified support type.
+                Includes metadata and links for each album.
+
         Raises:
-            Exception: Si le support est invalide
+            Exception: If support parameter is invalid.
+                Message: "Support invalide. Supports valides: Vinyle, CD, Digital, Cassette"
+
+        Example:
+            >>> db_session = get_db()
+            >>> vinyl_markdown = ExportService.export_markdown_support(db_session, "Vinyle")
+            >>> print(f"Exported {len(vinyl_markdown)} characters")
+            >>> with open("vinyl_collection.md", "w") as f:
+            ...     f.write(vinyl_markdown)
+
+        Valid Support Types:
+            - 'Vinyle': Popular for collectors, includes LP/EP information
+            - 'CD': Standard compact disc format
+            - 'Digital': Streaming/digital purchases
+            - 'Cassette': Vintage tape format
+
+        Logging:
+            - Logs INFO with support type when export starts
         """
         valid_supports = ['Vinyle', 'CD', 'Digital', 'Cassette']
         if support not in valid_supports:
@@ -86,18 +152,60 @@ class ExportService:
     @staticmethod
     def export_json_full(db: Session) -> str:
         """
-        Exporter la collection complète en JSON.
-        
+        Export the entire collection in JSON format.
+
+        Generates a complete JSON export of all albums from 'discogs' source,
+        including all metadata, images, and relationships. Output is formatted
+        with 2-space indentation and supports UTF-8 characters.
+
         Args:
-            db: Session de base de données
-            
+            db: SQLAlchemy database session for query execution.
+
         Returns:
-            Contenu JSON
+            str: JSON-formatted string containing:
+                - export_date: ISO 8601 timestamp of export time
+                - total_albums: Count of albums in export
+                - albums: Array of album objects with full metadata
+
+                Example structure:
+                {
+                    "export_date": "2024-02-15T10:30:45.123456",
+                    "total_albums": 42,
+                    "albums": [
+                        {
+                            "id": 1,
+                            "title": "Album Name",
+                            "artists": ["Artist1", "Artist2"],
+                            ...
+                        }
+                    ]
+                }
+
+        Example:
+            >>> db_session = get_db()
+            >>> json_export = ExportService.export_json_full(db_session)
+            >>> data = json.loads(json_export)  # Parse JSON
+            >>> print(f"Exported {data['total_albums']} albums")
+            Exported 42 albums
+            >>> with open("collection.json", "w") as f:
+            ...     f.write(json_export)
+
+        Logging:
+            - Logs INFO when export starts
+
+        Performance Notes:
+            - Fetches all albums with source='discogs'
+            - Large collections (>5000 albums) may consume significant memory
+            - JSON serialization adds ~20-30% overhead vs database size
         """
         logger.info("📊 Export JSON collection complète")
         
-        # Récupérer tous les albums de collection
-        albums = db.query(Album).filter(Album.source == 'discogs').order_by(Album.title).all()
+        # Récupérer tous les albums de collection avec eager loading
+        albums = db.query(Album).filter(Album.source == 'discogs').options(
+            joinedload(Album.artists),
+            joinedload(Album.images),
+            joinedload(Album.album_metadata)
+        ).order_by(Album.title).all()
         
         # Construire les données JSON
         data = {
@@ -115,17 +223,49 @@ class ExportService:
     @staticmethod
     def export_json_support(db: Session, support: str) -> str:
         """
-        Exporter tous les albums d'un support en JSON.
-        
+        Export all albums of a specific media type in JSON format.
+
+        Generates a JSON document containing all albums with the specified
+        media support type from the 'discogs' source. Includes complete
+        metadata, images, and relationships for each album.
+
         Args:
-            db: Session de base de données
-            support: Support (Vinyle, CD, Digital, Cassette)
-            
+            db: SQLAlchemy database session for query execution.
+            support: Media type/support to export. Valid values:
+                - 'Vinyle': Vinyl records
+                - 'CD': Compact discs
+                - 'Digital': Digital downloads/streaming
+                - 'Cassette': Cassette tapes
+                Case-sensitive. Must match exactly.
+
         Returns:
-            Contenu JSON
-            
+            str: JSON-formatted string containing:
+                - export_date: ISO 8601 timestamp of export
+                - support: The media type that was exported
+                - total_albums: Count of albums with this support
+                - albums: Array of album objects
+
+                Example structure:
+                {
+                    "export_date": "2024-02-15T10:30:45.123456",
+                    "support": "Vinyle",
+                    "total_albums": 15,
+                    "albums": [...]
+                }
+
         Raises:
-            Exception: Si le support est invalide
+            Exception: If support parameter is invalid.
+                Message: "Support invalide. Supports valides: Vinyle, CD, Digital, Cassette"
+
+        Example:
+            >>> db_session = get_db()
+            >>> json_vinyl = ExportService.export_json_support(db_session, "Vinyle")
+            >>> vinyl_data = json.loads(json_vinyl)
+            >>> print(f"Exported {vinyl_data['total_albums']} vinyl albums")
+            Exported 25 vinyl albums
+
+        Logging:
+            - Logs INFO with support type when export starts
         """
         valid_supports = ['Vinyle', 'CD', 'Digital', 'Cassette']
         if support not in valid_supports:
@@ -133,10 +273,14 @@ class ExportService:
         
         logger.info(f"📊 Export JSON pour support: {support}")
         
-        # Récupérer les albums du support
+        # Récupérer les albums du support avec eager loading
         albums = db.query(Album).filter(
             Album.source == 'discogs',
             Album.support == support
+        ).options(
+            joinedload(Album.artists),
+            joinedload(Album.images),
+            joinedload(Album.album_metadata)
         ).order_by(Album.title).all()
         
         # Construire les données JSON
@@ -156,18 +300,72 @@ class ExportService:
     @staticmethod
     async def generate_presentation_markdown(db: Session, album_ids: List[int], include_haiku: bool = True) -> str:
         """
-        Générer une présentation markdown avec les albums sélectionnés.
-        
+        Generate a formatted presentation markdown with selected albums and AI descriptions.
+
+        Creates a curated markdown presentation of specific albums with AI-generated
+        descriptions and optional haiku. Fetches albums from 'discogs' source and
+        uses EurIA AI service to generate content. Includes fallback descriptions
+        if AI service fails.
+
         Args:
-            db: Session de base de données
-            album_ids: Liste d'IDs d'albums
-            include_haiku: Inclure un haïku généré
-            
+            db: SQLAlchemy database session for query execution.
+            album_ids: List of album database IDs to include in presentation.
+                Must not be empty.
+            include_haiku: Whether to generate a haiku at the beginning.
+                Defaults to True. AI service is used if enabled and may fail gracefully
+                with fallback haiku.
+
         Returns:
-            Contenu markdown avec présentation
-            
+            str: Formatted markdown suitable for presentation or web display.
+                Includes:
+                - Optional haiku header
+                - Album date and count
+                - For each album:
+                  - Artist name as heading
+                  - Album title with year
+                  - Spotify and Discogs links
+                  - Media support type
+                  - AI-generated description (35 words max)
+                  - Album cover image (if available)
+                - Footer with generation credits
+
         Raises:
-            Exception: Si aucun album trouvé ou paramètres invalides
+            Exception: If album_ids list is empty.
+                Message: "Aucun album sélectionné"
+            Exception: If no albums found matching the provided IDs.
+                Message: "Aucun album trouvé"
+
+        Example:
+            >>> db_session = get_db()
+            >>> presentation = await ExportService.generate_presentation_markdown(
+            ...     db_session,
+            ...     album_ids=[1, 2, 3],
+            ...     include_haiku=True
+            ... )
+            >>> print(presentation[:500])
+            # Album Haïku
+            #### The 15 of February, 2024
+                3 albums from Discogs collection
+
+        AI Integration:
+            - Uses EurIA AI service if configured (from app.json)
+            - Generates haiku in French if include_haiku=True
+            - Generates 35-word max descriptions per album in French
+            - Falls back to default descriptions if AI request fails
+            - Logs warnings if AI service errors occur
+
+        Performance Notes:
+            - Async method must be awaited
+            - One AI request per haiku (if enabled)
+            - One AI request per album for description (N albums = N requests)
+            - Consider caching AI responses for frequently used albums
+            - May take 5-30 seconds depending on AI service latency
+
+        Logging:
+            - Logs INFO when generation starts
+            - Logs WARNING if haiku generation fails (uses fallback)
+            - Logs WARNING if description generation fails per album
+            - Logs INFO on successful generation with character count
         """
         if not album_ids:
             raise Exception("Aucun album sélectionné")
@@ -282,7 +480,53 @@ Réponds uniquement en français."""
     
     @staticmethod
     def _format_album_json(album: Album) -> dict:
-        """Formater un album pour l'export JSON."""
+        """
+        Format a single Album ORM object into a JSON-serializable dictionary.
+
+        Converts SQLAlchemy Album model to a plain dictionary suitable for
+        JSON export. Handles all relationships and metadata, providing sensible
+        defaults for missing data.
+
+        Args:
+            album: SQLAlchemy Album ORM instance to format.
+
+        Returns:
+            dict: Album data formatted as:
+                {
+                    "id": int,
+                    "title": str,
+                    "artists": [str],  # List of artist names
+                    "year": int,
+                    "support": str,
+                    "discogs_id": str,
+                    "spotify_url": str|null,
+                    "discogs_url": str|null,
+                    "images": [
+                        {"url": str, "type": str, "source": str},
+                        ...
+                    ],
+                    "created_at": datetime (ISO 8601 string)|null,
+                    "metadata": {
+                        "ai_info": str|null,
+                        "resume": str|null,
+                        "labels": str|null,  # Comma-separated
+                        "film_title": str|null,  # Soundtrack info
+                        "film_year": int|null,
+                        "film_director": str|null
+                    }
+                }
+
+        Implementation Notes:
+            - Safely accesses all relationships (handles null/missing)
+            - Timestamps converted to ISO 8601 format
+            - Empty lists for missing images/artists (no null lists)
+            - Metadata always present even if all fields are null
+            - Image objects include type and source information
+
+        Performance Notes:
+            - O(1) operation assuming relationships are loaded
+            - No additional database queries
+        """
         # Traiter les images
         images = []
         if album.images:
@@ -317,5 +561,6 @@ Réponds uniquement en français."""
             "discogs_url": album.discogs_url,
             "images": images,
             "created_at": album.created_at.isoformat() if album.created_at else None,
+            "ai_description": album.ai_description,
             "metadata": metadata
         }

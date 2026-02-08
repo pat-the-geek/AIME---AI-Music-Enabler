@@ -1,0 +1,474 @@
+{
+  "id": "2026-02-08-003",
+  "edition_number": 3,
+  "generated_at": "2026-02-08T17:12:24.408084+00:00",
+  "albums": [],
+  "pages": [
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Échos Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Échos Musique",
+          "description": "*Échos Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 286,
+              "title": "Trilogy 3 (live)",
+              "artist": "Chick Corea, Brian Blade & Christian Mcbride",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273636688536fdadbf58c806e9a",
+              "year": null,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "gradient"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 283,
+              "title": "Without Further Ado, Vol 1",
+              "artist": "Christian Mcbride",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+              "year": null,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "scattered",
+                "composition": "chaos",
+                "accentColor": "#FF00FF",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 2,
+              "title": "Torches",
+              "artist": "Foster the People",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+              "year": 2011,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "scattered",
+                "composition": "playful",
+                "accentColor": "#ff6b35",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Échos Musique*."
+            },
+            {
+              "id": 254,
+              "title": "Everyday Robots",
+              "artist": "Damon Albarn",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2736ed97e7df0962eb994a54bc3",
+              "year": null,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "playful",
+                "accentColor": "#06b6d4",
+                "specialEffect": "none"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 265,
+              "title": "Monsters Exist (deluxe)",
+              "artist": "Orbital",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273bd38413ff0aae6f75333b40e",
+              "year": null,
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#06b6d4",
+                "specialEffect": "none"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 249,
+              "title": "The Dark Side of the Moon",
+              "artist": "Pink Floyd",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273db216ca805faf5fe35df4ee6",
+              "year": null,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "tilt"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Échos Musique."
+            },
+            {
+              "id": 272,
+              "title": "Wild and Clear and Blue",
+              "artist": "I’m With Her",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273e1917e26e66f38eac61be589",
+              "year": null,
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "detailed",
+        "image_position": "left"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 4,
+        "imagePosition": "split",
+        "imageSize": "medium",
+        "textLayout": "double-column",
+        "composition": "zen",
+        "accentColor": "#f59e0b",
+        "specialEffect": "overlay"
+      },
+      "content": {
+        "total_recent_listens": 100,
+        "unique_artists": 23,
+        "unique_albums": 14,
+        "top_artists": [
+          {
+            "artist_id": 27,
+            "artist_name": "Beck",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb675a6e778640f767626f2e66",
+            "count": 15
+          },
+          {
+            "artist_id": 617,
+            "artist_name": "Beck & St. Vincent",
+            "image_url": null,
+            "count": 15
+          },
+          {
+            "artist_id": 618,
+            "artist_name": "Beck & Terrell Hines",
+            "image_url": null,
+            "count": 15
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 12
+          },
+          {
+            "artist_id": 40,
+            "artist_name": "Ethel Cain",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb3bbecf739fb7198dffd61795",
+            "count": 10
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1105,
+            "album_title": "Hyperspace (2020)",
+            "artist_name": "Beck, Beck & St. Vincent, Beck & Terrell Hines",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27330312f869979f64fd17d8bad",
+            "count": 15
+          },
+          {
+            "album_id": 1099,
+            "album_title": "Blow-up (original Motion Picture Soundtrack)",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "count": 12
+          },
+          {
+            "album_id": 839,
+            "album_title": "Preacher’s Daughter",
+            "artist_name": "Ethel Cain",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273ccd1887cc78b0bd55f54bbe1",
+            "count": 10
+          },
+          {
+            "album_id": 1096,
+            "album_title": "Lost Highway (soundtrack From the Motion Picture)",
+            "artist_name": "Nine Inch Nails, Angelo Badalamenti, The Smashing Pumpkins, Trent Reznor",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb752fca27c5b839ea47d5100d",
+            "count": 6
+          },
+          {
+            "album_id": 1095,
+            "album_title": "Love Is Like (deluxe)",
+            "artist_name": "Maroon 5, Maroon 5 & Sexyy Red, Maroon 5 & Lisa, Maroon 5 & Lil Wayne",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732b833d53096cf72b6e3609d3",
+            "count": 5
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "bar",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 273,
+            "title": "Sad and Beautiful World",
+            "artist": "Mavis Staples",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27306f66604593294e5c831fa9c",
+            "genre": null
+          },
+          {
+            "id": 304,
+            "title": "Remain In Light",
+            "artist": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273e56fa8c916dc6ce419dcf557",
+            "genre": null
+          },
+          {
+            "id": 385,
+            "title": "Top Gun: Maverick [music From the Motion Picture]",
+            "artist": "Lady Gaga/onerepublic/hans Zimmer",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27302701cfe03aca6827b5c5449",
+            "genre": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 273,
+            "album_title": "Sad and Beautiful World",
+            "haiku": "**Sad and Beautiful World**\nMélodies en pleurs dorés\nRythmes d'espoir fragile\n\n*(Inspiré par l'émotion brute et la grâce de la voix de Mavis Staples, où la tristesse et la beauté s'entrelacent comme des notes de gospel sous la lune.)*",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "diagonal",
+              "imageSize": "medium",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#ff6b35",
+              "specialEffect": "none"
+            },
+            "description": "La **poésie musicale** de *Sad and Beautiful World* de Mavis Staples transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 304,
+            "album_title": "Remain In Light",
+            "haiku": "**Remain In Light**\nLumières qui pulsent en rythme\nÉchos perdus dans la nuit\n\n(*Inspiration tirée des rythmes africains et des synthés électroniques de l'album, évoquant une danse hypnotique entre ombre et lumière.*)",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "left",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#06b6d4",
+              "specialEffect": "none"
+            },
+            "description": "*Remain In Light* marque un moment dans la carrière de Talking Heads. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          },
+          {
+            "album_id": 385,
+            "album_title": "Top Gun: Maverick [music From the Motion Picture]",
+            "haiku": "**Top Gun: Maverick**\nVents sauvages du ciel\nÉchos de fierté et d'acier\n\n*(Option alternative plus épique :)*\n**Top Gun: Maverick**\nVol de feu et de vitesse\nCœurs battants sous les étoiles",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "diagonal",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#ab47bc",
+              "specialEffect": "zoom"
+            },
+            "description": "Dans *Top Gun: Maverick [music From the Motion Picture]*, Lady Gaga/onerepublic/hans Zimmer nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "columns": 3,
+        "spacing": "spacious"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Supertramp",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "corner",
+        "imageSize": "micro",
+        "textLayout": "double-column",
+        "composition": "playful",
+        "accentColor": "#ec4899",
+        "specialEffect": "gradient"
+      },
+      "content": {
+        "artist": {
+          "name": "Supertramp",
+          "albums_count": 7,
+          "haiku": "**L.A. Woman**\nVoix de soie et sable\nGuitares flamboyantes au vent\n\n*(Inspiré par l'album mythique de The Doors, mêlant sensualité urbaine et rock enflammé, avec une touche Supertramp dans l'évocation poétique.)*",
+          "bio": "**Supertramp** nous offre 7 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/eebed895cad509b17c7c6faf47f21f1fc35e8829"
+        },
+        "albums": [
+          {
+            "id": 338,
+            "title": "L.a. Woman (50th Anniversary Deluxe Edition)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273bf14f5f357caf85f221dbbe7",
+            "genre": null,
+            "artist": "The Doors",
+            "description": "*L.a. Woman (50th Anniversary Deluxe Edition)* marque un moment dans la carrière de The Doors. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 2,
+            "title": "Torches",
+            "year": 2011,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+            "genre": null,
+            "artist": "Foster the People",
+            "description": "La **poésie musicale** de *Torches* de Foster the People transcende les années depuis 2011. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 322,
+            "title": "The Wall (remastered 2011 Version)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273394a5add67c488985d470fac",
+            "genre": null,
+            "artist": "Pink Floyd",
+            "description": "**The Wall (remastered 2011 Version)** de *Pink Floyd* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 316,
+            "title": "Communiqué",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b1f7f1d5898b28c1ce3f4947",
+            "genre": null,
+            "artist": "Dire Straits",
+            "description": "La **poésie musicale** de *Communiqué* de Dire Straits transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 273,
+            "title": "Sad and Beautiful World",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27306f66604593294e5c831fa9c",
+            "genre": null,
+            "artist": "Mavis Staples",
+            "description": "La **poésie musicale** de *Sad and Beautiful World* de Mavis Staples transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 267,
+            "title": "Preacher Kids",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f9560cf7664563dd6da1454d",
+            "genre": null,
+            "artist": "Robert Randolph",
+            "description": "Dans *Preacher Kids*, Robert Randolph nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 274,
+            "title": "Beautifully Broken (pickin’ Up the Pieces)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273d48a214080d6d848654c5a41",
+            "genre": null,
+            "artist": "Jelly Roll",
+            "description": "**Beautifully Broken (pickin’ Up the Pieces)** de *Jelly Roll* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 600,
+        "text_columns": 3,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "right",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1249,
+          "title": "Wish",
+          "artist": "The Cure",
+          "year": 2022,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b2739c72b249fcaa04d074c1dfcd",
+          "description": "**Album Review: *Wish* by The Cure (2022)**\n\n*The Cure’s* 17th studio album, *Wish*, is a hauntingly beautiful return to their signature dark, atmospheric sound. Released in 2022, the album blends post-punk, gothic rock, and dream pop, delivering a brooding yet melodic experience. Robert Smith’s ethereal vocals soar over layers of reverb-drenched guitars, driving basslines, and hypnotic rhythms, creating an immersive, melancholic atmosphere.\n\nProduction-wise, *Wish* is polished yet raw, with crisp instrumentation and a balanced mix that allows each element—from the shimmering synths to the weighty drum beats—to shine. Standout tracks include the title song, *Wish*, a slow-burning anthem with a soaring chorus, and *Like Hell*, a punchy, driving rocker with biting lyrics and infectious energy. *Cut Here* and *Feeling* showcase Smith’s knack for hauntingly beautiful ballads, while *The Walking Dead* delivers a creepy, cinematic edge.\n\nWith its evocative lyrics and rich soundscapes, *Wish* is a masterclass",
+          "style": null
+        },
+        "artist_images": {
+          "The Cure": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868"
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "small"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

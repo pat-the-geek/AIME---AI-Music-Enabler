@@ -80,7 +80,7 @@ export default function Playlists() {
   const { data: roonZones, refetch: refetchZones } = useQuery({
     queryKey: ['roon-zones'],
     queryFn: async () => {
-      const response = await apiClient.get('/roon/zones')
+      const response = await apiClient.get('/playback/roon/zones')
       return response.data?.zones || []
     },
     enabled: roon?.enabled && roon?.available,
@@ -174,7 +174,7 @@ export default function Playlists() {
       // Mettre à jour la zone sélectionnée dans RoonContext
       roon?.setZone(zone)
       // Appeler l'API Roon avec la zone sélectionnée
-      const response = await apiClient.post('/roon/play-playlist', {
+      const response = await apiClient.post('/playback/roon/play-playlist', {
         zone_name: zone,
         playlist_id: playlistId
       })

@@ -490,8 +490,8 @@ export default function Magazine() {
               variant="determinate"
               value={
                 refreshStatus?.status === 'refreshing'
-                  ? (refreshStatus?.total_albums > 0 ? (refreshStatus?.refreshed_count / refreshStatus?.total_albums * 100) : 0)
-                  : (refreshStatus?.total_albums > 0 ? (refreshStatus?.enriched_count / refreshStatus?.total_albums * 100) : 0)
+                  ? ((refreshStatus?.total_albums ?? 0) > 0 ? ((refreshStatus?.refreshed_count ?? 0) / (refreshStatus?.total_albums ?? 1) * 100) : 0)
+                  : ((refreshStatus?.total_albums ?? 0) > 0 ? ((refreshStatus?.enriched_count ?? 0) / (refreshStatus?.total_albums ?? 1) * 100) : 0)
               }
               size={120}
               thickness={4}
@@ -510,8 +510,8 @@ export default function Magazine() {
             }}>
               {Math.round(
                 refreshStatus?.status === 'refreshing'
-                  ? (refreshStatus?.total_albums > 0 ? (refreshStatus?.refreshed_count / refreshStatus?.total_albums * 100) : 0)
-                  : (refreshStatus?.total_albums > 0 ? (refreshStatus?.enriched_count / refreshStatus?.total_albums * 100) : 0)
+                  ? ((refreshStatus?.total_albums ?? 0) > 0 ? ((refreshStatus?.refreshed_count ?? 0) / (refreshStatus?.total_albums ?? 1) * 100) : 0)
+                  : ((refreshStatus?.total_albums ?? 0) > 0 ? ((refreshStatus?.enriched_count ?? 0) / (refreshStatus?.total_albums ?? 1) * 100) : 0)
               )}%
             </Typography>
 
