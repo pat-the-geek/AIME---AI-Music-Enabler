@@ -619,6 +619,7 @@ function findZoneByName(name) {
 /**
  * Récupérer le volume principal d'une zone.
  * Volume = premier output avec control_value
+ * Retourne null si pas trouvé (jamais undefined)
  */
 function getZoneVolume(zone) {
     if (!zone || !zone.outputs || zone.outputs.length === 0) {
@@ -644,11 +645,11 @@ function getZoneVolume(zone) {
     if (output.volume && output.volume.control_value !== undefined) {
         const vol = output.volume.control_value;
         console.debug(`[getZoneVolume] ✅ Found volume: ${vol}`);
-        return vol;
+        return vol;  // Return the actual number
     }
     
-    console.debug(`[getZoneVolume] ❌ No control_value in volume object`);
-    return null;
+    console.debug(`[getZoneVolume] ❌ No control_value in volume object, returning null`);
+    return null;  // Always return null, never undefined
 }
 
 /**
