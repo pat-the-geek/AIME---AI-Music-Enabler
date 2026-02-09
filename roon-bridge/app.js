@@ -617,6 +617,22 @@ function findZoneByName(name) {
 }
 
 /**
+ * Récupérer le volume principal d'une zone.
+ * Volume = premier output avec control_value
+ */
+function getZoneVolume(zone) {
+    if (!zone || !zone.outputs || zone.outputs.length === 0) {
+        return null;
+    }
+    // Utiliser le volume du premier output
+    const output = zone.outputs[0];
+    if (output && output.volume && output.volume.control_value !== undefined) {
+        return output.volume.control_value;
+    }
+    return null;
+}
+
+/**
  * Get now playing info from the first zone that is playing.
  */
 function getNowPlaying(zoneId) {
@@ -635,7 +651,8 @@ function getNowPlaying(zoneId) {
                 state:            z.state || "stopped",
                 duration_seconds: np.length || null,
                 seek_position:    np.seek_position || null,
-                image_key:        np.image_key || null
+                image_key:        np.image_key || null,
+                volume:           getZoneVolume(z)
             };
         }
         return null;
@@ -656,7 +673,8 @@ function getNowPlaying(zoneId) {
                 state:            z.state || "stopped",
                 duration_seconds: np.length || null,
                 seek_position:    np.seek_position || null,
-                image_key:        np.image_key || null
+                image_key:        np.image_key || null,
+                volume:           getZoneVolume(z)
             };
         }
     }
@@ -676,7 +694,8 @@ function getNowPlaying(zoneId) {
                 state:            z.state || "stopped",
                 duration_seconds: np.length || null,
                 seek_position:    np.seek_position || null,
-                image_key:        np.image_key || null
+                image_key:        np.image_key || null,
+                volume:           getZoneVolume(z)
             };
         }
     }

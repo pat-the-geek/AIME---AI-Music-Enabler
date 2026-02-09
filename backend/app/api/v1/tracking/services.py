@@ -600,6 +600,34 @@ async def get_all_services_status():
     }
 
 
+@router.get("/config/ui")
+async def get_ui_config():
+    """Get UI refresh configuration parameters.
+    
+    Returns frontend configuration for automatic refresh intervals of timeline
+    and journal views. These intervals should match tracker polling frequency
+    for synchronized real-time updates.
+    
+    **Response (200 OK):**
+    ```json
+    {
+      "timeline_refresh_seconds": 120,
+      "journal_refresh_seconds": 120
+    }
+    ```
+    
+    **Usage:** Frontend uses these values to set `refetchInterval` in React Query
+    for automatic data refresh. Values are defined in config/app.json under `ui` section.
+    """
+    settings = get_settings()
+    ui_config = settings.app_config.get('ui', {})
+    
+    return {
+        "timeline_refresh_seconds": ui_config.get('timeline_refresh_seconds', 120),
+        "journal_refresh_seconds": ui_config.get('journal_refresh_seconds', 120)
+    }
+
+
 @router.get("/roon-tracker/status")
 async def get_roon_tracker_status():
     """

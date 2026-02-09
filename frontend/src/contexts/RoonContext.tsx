@@ -12,6 +12,7 @@ interface NowPlayingTrack {
   state?: string
   duration_seconds?: number
   position_seconds?: number
+  volume?: number
 }
 
 interface RoonZone {

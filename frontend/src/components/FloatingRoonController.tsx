@@ -40,6 +40,8 @@ export default function FloatingRoonController() {
   const [success, setSuccess] = useState<string | null>(null)
   const [volume, setVolume] = useState(50)
   const [isSeeking, setIsSeeking] = useState(false)
+  const [lastFetchTime, setLastFetchTime] = useState<number>(Date.now())
+  const [interpolatedPosition, setInterpolatedPosition] = useState<number>(0)
   
   // Synchroniser isPlaying avec l'état réel de Roon
   useEffect(() => {
@@ -48,6 +50,42 @@ export default function FloatingRoonController() {
       setIsPlaying(currentlyPlaying)
     }
   }, [nowPlaying])
+
+  // Synchroniser le volume avec Roon
+  useEffect(() => {
+    if (nowPlaying && nowPlaying.volume !== undefined) {
+      setVolume(nowPlaying.volume)
+    }
+  }, [nowPlaying?.volume])
+
+  // Mettre à jour la position de départ quand le track change
+  useEffect(() => {
+    if (nowPlaying) {
+      setLastFetchTime(Date.now())
+      setInterpolatedPosition(nowPlaying.position_seconds || 0)
+    }
+  }, [nowPlaying?.title])  // Déclenche juste quand le titre change (nouveau track)
+
+  // Interpoler la position en temps réel pendant la lecture
+  useEffect(() => {
+    if (!isPlaying || !nowPlaying || isSeeking) {
+      return
+    }
+
+    const interval = setInterval(() => {
+      const elapsed = (Date.now() - lastFetchTime) / 1000  // Secondes écoulées
+      let newPosition = (nowPlaying.position_seconds || 0) + elapsed
+      
+      // Ne pas dépasser la durée du track
+      if (nowPlaying.duration_seconds && newPosition > nowPlaying.duration_seconds) {
+        newPosition = nowPlaying.duration_seconds
+      }
+      
+      setInterpolatedPosition(newPosition)
+    }, 100)  // Mise à jour 10 fois par seconde pour une animation fluide
+
+    return () => clearInterval(interval)
+  }, [isPlaying, nowPlaying?.title, lastFetchTime, isSeeking])
 
   // Auto-show player when track is active, especially on system wake-up
   // Si un morceau est en cours de lecture, afficher automatiquement le player flottant
@@ -70,7 +108,7 @@ export default function FloatingRoonController() {
   // Obtenir le pourcentage de progression
   const getProgressPercent = (): number => {
     if (!nowPlaying?.duration_seconds || nowPlaying.duration_seconds <= 0) return 0
-    return ((nowPlaying.position_seconds || 0) / nowPlaying.duration_seconds) * 100
+    return (interpolatedPosition / nowPlaying.duration_seconds) * 100
   }
 
   const handleVolumeChange = async (newVolume: number) => {
@@ -127,6 +165,10 @@ export default function FloatingRoonController() {
       if (!response.ok) {
         throw new Error('Impossible de changer la position')
       }
+      
+      // Mettre à jour la position interpolée immédiatement
+      setInterpolatedPosition(newPosition)
+      setLastFetchTime(Date.now())
       setSuccess('Position mise à jour')
     } catch (error) {
       console.error('Erreur changement position:', error)
@@ -438,7 +480,7 @@ export default function FloatingRoonController() {
                     size="small"
                     min={0}
                     max={nowPlaying.duration_seconds}
-                    value={nowPlaying.position_seconds || 0}
+                    value={interpolatedPosition}
                     onChange={(e: any) => {
                       // Mise à jour simple du slider sans appel API
                       // (l'appel API sera fait au onChangeCommitted)
@@ -471,7 +513,7 @@ export default function FloatingRoonController() {
                     textAlign: 'center',
                   }}
                 >
-                  {formatTime(nowPlaying.position_seconds)} / {formatTime(nowPlaying.duration_seconds)}
+                  {formatTime(interpolatedPosition)} / {formatTime(nowPlaying.duration_seconds)}
                 </Typography>
               </Box>
             )}

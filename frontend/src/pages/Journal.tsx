@@ -40,6 +40,7 @@ import {
 import ReactMarkdown from 'react-markdown'
 import { getHiddenContentSx, isEmptyContent } from '@/utils/hideEmptyContent'
 import apiClient from '@/api/client'
+import { useUIConfig } from '@/hooks/useUIConfig'
 import type { ListeningHistory, PaginatedResponse } from '@/types/models'
 import AlbumDetailDialog from '@/components/AlbumDetailDialog'
 import { useRoon } from '@/contexts/RoonContext'
@@ -65,6 +66,7 @@ export default function Journal() {
 
   const queryClient = useQueryClient()
   const { enabled: roonEnabled, available: roonAvailable, playTrack } = useRoon()
+  const { journalRefreshMs } = useUIConfig()
 
   // Debounce de la recherche
   useEffect(() => {
@@ -91,7 +93,7 @@ export default function Journal() {
       const response = await apiClient.get(`/history/tracks?${params}`)
       return response.data
     },
-    refetchInterval: 30000, // Rafraîchir toutes les 30 secondes
+    refetchInterval: journalRefreshMs,
     refetchOnWindowFocus: true,
   })
 
@@ -105,7 +107,7 @@ export default function Journal() {
       const response = await apiClient.get(`/history/stats?${params}`)
       return response.data
     },
-    refetchInterval: 30000, // Rafraîchir toutes les 30 secondes
+    refetchInterval: journalRefreshMs,
   })
 
   const toggleLoveMutation = useMutation({

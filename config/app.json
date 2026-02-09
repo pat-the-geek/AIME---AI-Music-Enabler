@@ -39,6 +39,10 @@
   "roon_control": {
     "enabled": true
   },
+  "ui": {
+    "timeline_refresh_seconds": 120,
+    "journal_refresh_seconds": 120
+  },
   "roon_server": "192.168.1.253",
   "roon_token": "9ad44880-d8b7-446f-b26b-a12926dbd68b",
   "euria": {

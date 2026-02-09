@@ -27,6 +27,7 @@ import {
   Refresh,
 } from '@mui/icons-material'
 import apiClient from '@/api/client'
+import { useUIConfig } from '@/hooks/useUIConfig'
 import AlbumDetailDialog from '@/components/AlbumDetailDialog'
 import { useRoon } from '@/contexts/RoonContext'
 
@@ -69,6 +70,7 @@ export default function Timeline() {
 
   const { enabled: roonEnabled, available: roonAvailable, playTrack } = useRoon()
   const queryClient = useQueryClient()
+  const { timelineRefreshMs } = useUIConfig()
 
   const { data, isLoading, isFetching } = useQuery<TimelineData>({
     queryKey: ['timeline', selectedDate],
@@ -76,7 +78,7 @@ export default function Timeline() {
       const response = await apiClient.get(`/history/timeline?date=${selectedDate}`)
       return response.data
     },
-    refetchInterval: 30000, // Rafraîchir toutes les 30 secondes
+    refetchInterval: timelineRefreshMs, // Synchronized with tracker frequency
     refetchOnWindowFocus: true,
   })
 
