@@ -70,6 +70,37 @@
 
 ---
 
+## 📱 Spécifications iOS
+
+**Répertoire:** `specs/`
+
+| Fichier | Description |
+|---------|-------------|
+| **[IOS-INDEX.md](specs/IOS-INDEX.md)** | 🌟 Index de navigation des spécifications iOS |
+| **[IOS-APP-SPECIFICATIONS.md](specs/IOS-APP-SPECIFICATIONS.md)** | Spécifications complètes de l'app iOS native |
+| **[IOS-XCODE-SETUP-GUIDE.md](specs/IOS-XCODE-SETUP-GUIDE.md)** | Guide configuration Xcode étape par étape |
+| **[IOS-API-QUICK-REFERENCE.md](specs/IOS-API-QUICK-REFERENCE.md)** | Référence rapide API & diagrammes |
+
+**Contenu:**
+- Architecture MVVM + Combine + SwiftUI
+- 4 entités CoreData (Album, Magazine, ListeningHistory, TimelineData)
+- 5 vues principales (Collection, Magazine, Journal, Timeline, Settings)
+- Stratégie de cache offline complète
+- Capacité de mettre en cache: Bibliothèque Discogs, 5 Magazines, Timeline (7 jours), Journal (1000 tracks)
+- NetworkService avec URLSession + async/await
+- ImageCache avec Kingfisher
+- Background refresh automatique
+- Mode offline-first
+- Estimation: 11-18 jours de développement
+
+**Prérequis:**
+- Xcode 15.0+
+- iOS 16.0+
+- Swift 5.9+
+- Backend AIME fonctionnel
+
+---
+
 ## 📚 Guides
 
 ### 👤 Guides Utilisateur
