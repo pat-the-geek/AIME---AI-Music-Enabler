@@ -8,7 +8,22 @@
 
 ## 📚 Documents Disponibles
 
-### 1. 📋 [IOS-APP-SPECIFICATIONS.md](./IOS-APP-SPECIFICATIONS.md)
+### 1. 📊 [IOS-VISUAL-SUMMARY.md](./IOS-VISUAL-SUMMARY.md) ⭐ **NOUVEAU**
+**Résumé Visuel du Projet - Vue d'Ensemble Complète**
+
+Contenu:
+- ✅ Résumé des 4 documents avec statistiques
+- ✅ Vue d'ensemble du contenu (78 KB, 33 blocs de code)
+- ✅ Diagrammes visuels de l'architecture
+- ✅ Phases de développement détaillées
+- ✅ Checklist finale complète
+- ✅ Points d'entrée recommandés
+
+**À utiliser pour:** Avoir une vue d'ensemble du projet avant de plonger dans les détails.
+
+---
+
+### 2. 📋 [IOS-APP-SPECIFICATIONS.md](./IOS-APP-SPECIFICATIONS.md)
 **Document Principal - Spécifications Complètes**
 
 Contenu:
@@ -24,7 +39,7 @@ Contenu:
 
 ---
 
-### 2. 🛠️ [IOS-XCODE-SETUP-GUIDE.md](./IOS-XCODE-SETUP-GUIDE.md)
+### 3. 🛠️ [IOS-XCODE-SETUP-GUIDE.md](./IOS-XCODE-SETUP-GUIDE.md)
 **Guide Pratique - Configuration Xcode Étape par Étape**
 
 Contenu:
@@ -40,7 +55,7 @@ Contenu:
 
 ---
 
-### 3. 📊 [IOS-API-QUICK-REFERENCE.md](./IOS-API-QUICK-REFERENCE.md)
+### 4. 📊 [IOS-API-QUICK-REFERENCE.md](./IOS-API-QUICK-REFERENCE.md)
 **Référence Rapide - API & Diagrammes**
 
 Contenu:
@@ -59,17 +74,22 @@ Contenu:
 
 ### Pour démarrer immédiatement dans Xcode:
 
-1. **Lire d'abord:** [IOS-XCODE-SETUP-GUIDE.md](./IOS-XCODE-SETUP-GUIDE.md)
+1. **Vue d'ensemble:** [IOS-VISUAL-SUMMARY.md](./IOS-VISUAL-SUMMARY.md) ⭐
+   - Comprendre l'étendue du projet
+   - Voir les statistiques globales
+   - Identifier les points d'entrée
+
+2. **Lire ensuite:** [IOS-XCODE-SETUP-GUIDE.md](./IOS-XCODE-SETUP-GUIDE.md)
    - Suivre les étapes 1 à 7
    - Configurer le projet Xcode
    - Tester la connexion au backend
 
-2. **Consulter ensuite:** [IOS-APP-SPECIFICATIONS.md](./IOS-APP-SPECIFICATIONS.md)
+3. **Consulter après:** [IOS-APP-SPECIFICATIONS.md](./IOS-APP-SPECIFICATIONS.md)
    - Comprendre l'architecture MVVM
    - Voir les ViewModels à implémenter
    - Étudier la stratégie de cache
 
-3. **Garder sous la main:** [IOS-API-QUICK-REFERENCE.md](./IOS-API-QUICK-REFERENCE.md)
+4. **Garder sous la main:** [IOS-API-QUICK-REFERENCE.md](./IOS-API-QUICK-REFERENCE.md)
    - Référence pendant le développement
    - API endpoints
    - Exemples de code
