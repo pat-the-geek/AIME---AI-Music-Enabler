@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from pydantic import BaseModel
 from typing import Optional
 import logging
+import asyncio
 
 from app.database import get_db, SessionLocal
 from app.core.config import get_settings
@@ -113,24 +114,41 @@ async def restore_active_services():
         for service_state in active_services:
             service_name = service_state.service_name
             try:
+                # Définir les timeouts par service pour éviter le blocage post-wake
+                # Trackers: 10s (peuvent prendre du temps pour se connecter)
+                # Scheduler: 15s (peut prendre du temps pour charger les jobs)
+                timeout = 10 if service_name in ['tracker', 'roon_tracker'] else 15
+                
                 if service_name == 'tracker':
                     tracker = get_tracker()
-                    await tracker.start()
-                    logger.info(f"✅ Tracker Last.fm restauré")
-                    restored_count += 1
+                    try:
+                        await asyncio.wait_for(tracker.start(), timeout=timeout)
+                        logger.info(f"✅ Tracker Last.fm restauré (< {timeout}s)")
+                        restored_count += 1
+                    except asyncio.TimeoutError:
+                        logger.warning(f"⏱️ Tracker Last.fm timeout après {timeout}s - continuant")
+                        failed_count += 1
                         
                 elif service_name == 'roon_tracker':
                     roon_tracker = get_roon_tracker()
-                    await roon_tracker.start()
-                    logger.info(f"✅ Tracker Roon restauré")
-                    restored_count += 1
+                    try:
+                        await asyncio.wait_for(roon_tracker.start(), timeout=timeout)
+                        logger.info(f"✅ Tracker Roon restauré (< {timeout}s)")
+                        restored_count += 1
+                    except asyncio.TimeoutError:
+                        logger.warning(f"⏱️ Tracker Roon timeout après {timeout}s - continuant")
+                        failed_count += 1
                         
                 elif service_name == 'scheduler':
                     scheduler_found = True
                     scheduler = get_scheduler()
-                    await scheduler.start()
-                    logger.info(f"✅ Scheduler restauré")
-                    restored_count += 1
+                    try:
+                        await asyncio.wait_for(scheduler.start(), timeout=timeout)
+                        logger.info(f"✅ Scheduler restauré (< {timeout}s)")
+                        restored_count += 1
+                    except asyncio.TimeoutError:
+                        logger.warning(f"⏱️ Scheduler timeout après {timeout}s - continuant")
+                        failed_count += 1
                 else:
                     logger.warning(f"⚠️ Service inconnu: {service_name}")
                     
@@ -145,7 +163,7 @@ async def restore_active_services():
             logger.info("📅 Démarrage automatique du scheduler (non trouvé en base)")
             scheduler = get_scheduler()
             try:
-                await scheduler.start()
+                await asyncio.wait_for(scheduler.start(), timeout=15)
                 # Marquer comme actif en base pour la prochaine fois
                 scheduler_state = db.query(ServiceState).filter_by(service_name='scheduler').first()
                 if scheduler_state is None:
@@ -154,8 +172,11 @@ async def restore_active_services():
                 scheduler_state.is_active = True
                 scheduler_state.last_updated = datetime.now(timezone.utc)
                 db.commit()
-                logger.info(f"✅ Scheduler démarré et marqué comme actif en base")
+                logger.info(f"✅ Scheduler démarré et marqué comme actif en base (< 15s)")
                 restored_count += 1
+            except asyncio.TimeoutError:
+                logger.warning(f"⏱️ Scheduler timeout après 15s lors du démarrage automatique - continuant")
+                failed_count += 1
             except Exception as e:
                 logger.error(f"❌ Erreur démarrage automatique du scheduler: {e}", exc_info=True)
                 failed_count += 1
@@ -786,9 +807,17 @@ async def start_roon_tracker():
     - **GET /roon/status**: Verify Roon connection and authorization
     """
     tracker = get_roon_tracker()
-    await tracker.start()
-    save_service_state('roon_tracker', True)
-    return {"status": "started"}
+    try:
+        await asyncio.wait_for(tracker.start(), timeout=10)
+        save_service_state('roon_tracker', True)
+        return {"status": "started"}
+    except asyncio.TimeoutError:
+        logger.warning("Roon tracker start timeout - service may still be initializing")
+        save_service_state('roon_tracker', True)  # Still mark as active
+        return {"status": "started with timeout"}
+    except Exception as e:
+        logger.error(f"Error starting Roon tracker: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to start Roon tracker: {str(e)}")
 
 
 @router.post("/roon-tracker/stop")
@@ -1464,9 +1493,17 @@ async def start_tracker():
     - **GET /tracker/status**: Check if tracking is running
     """
     tracker = get_tracker()
-    await tracker.start()
-    save_service_state('tracker', True)
-    return {"status": "started"}
+    try:
+        await asyncio.wait_for(tracker.start(), timeout=10)
+        save_service_state('tracker', True)
+        return {"status": "started"}
+    except asyncio.TimeoutError:
+        logger.warning("Last.fm tracker start timeout - service may still be initializing")
+        save_service_state('tracker', True)  # Still mark as active
+        return {"status": "started with timeout"}
+    except Exception as e:
+        logger.error(f"Error starting Last.fm tracker: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to start Last.fm tracker: {str(e)}")
 
 
 @router.post("/tracker/stop")
@@ -1810,9 +1847,19 @@ async def start_scheduler():
     - **POST /scheduler/trigger/{task_name}**: Manually run task
     """
     scheduler = get_scheduler()
-    await scheduler.start()
-    save_service_state('scheduler', True)
-    return {"status": "started"}
+    try:
+        await asyncio.wait_for(scheduler.start(), timeout=15)
+        save_service_state('scheduler', True)
+        logger.info("✅ Scheduler démarré manuellement")
+        return {"status": "started"}
+    except asyncio.TimeoutError:
+        logger.warning("Scheduler start timeout - service may still be initializing")
+        save_service_state('scheduler', True)  # Still mark as active
+        logger.info("✅ Scheduler marqué comme actif (en démarrage)")
+        return {"status": "started with timeout"}
+    except Exception as e:
+        logger.error(f"Error starting scheduler: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to start scheduler: {str(e)}")
 
 
 @router.post("/scheduler/stop")

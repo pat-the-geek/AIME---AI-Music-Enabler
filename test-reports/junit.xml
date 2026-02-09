@@ -1,1 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="0" time="0.024" timestamp="2026-02-07T20:24:13.321279" hostname="36:67:a1:7c:b6:cb" /></testsuites>
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="0.087" timestamp="2026-02-09T19:47:56.441957" hostname="36:67:a1:7c:b6:cb"><testcase classname="" name="backend.test_integration_post_wake" time="0.000"><error message="collection failure">ImportError while importing test module '/Users/patrickostertag/Documents/DataForIA/AIME - AI Music Enabler/backend/test_integration_post_wake.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+.venv/lib/python3.14/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+.venv/lib/python3.14/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1398: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1371: in _find_and_load
+    ???
+&lt;frozen importlib._bootstrap&gt;:1342: in _find_and_load_unlocked
+    ???
+&lt;frozen importlib._bootstrap&gt;:938: in _load_unlocked
+    ???
+.venv/lib/python3.14/site-packages/_pytest/assertion/rewrite.py:186: in exec_module
+    exec(co, module.__dict__)
+backend/test_integration_post_wake.py:20: in &lt;module&gt;
+    from app.api.v1.tracking.services import restore_active_services
+E   ModuleNotFoundError: No module named 'app'</error></testcase></testsuite></testsuites>
