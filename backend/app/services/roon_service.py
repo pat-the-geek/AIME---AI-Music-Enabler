@@ -458,6 +458,10 @@ class RoonService:
             resp = httpx.get(url, params=params, timeout=DEFAULT_TIMEOUT)
             if resp.status_code == 200:
                 data = resp.json()
+                # Log la réponse complète du bridge
+                logger.debug(f"📡 Bridge now-playing response keys: {data.keys() if isinstance(data, dict) else 'not a dict'}")
+                logger.debug(f"📡 Bridge now-playing full response: {data}")
+                
                 # Pas de track en cours si pas de titre
                 if not data.get("title"):
                     return None
@@ -479,6 +483,9 @@ class RoonService:
                     "volume": data.get("volume"),  # Volume du output Roon
                     "image_url": None,
                 }
+                
+                logger.debug(f"✅ Roon service now_playing result keys: {result.keys()}")
+                logger.debug(f"✅ Volume in result: {result.get('volume')}")
 
                 # Construire l'URL d'image via le bridge si image_key est disponible
                 image_key = data.get("image_key")
