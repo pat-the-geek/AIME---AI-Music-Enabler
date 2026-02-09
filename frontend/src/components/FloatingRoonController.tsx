@@ -61,7 +61,9 @@ export default function FloatingRoonController() {
         console.log('Setting volume to:', nowPlaying.volume)
         setVolume(nowPlaying.volume)
       } else {
-        console.log('Volume is null/undefined, not updating')
+        console.log('Volume is null/undefined, using default 50')
+        // If Roon doesn't return volume, use a reasonable default
+        setVolume(50)
       }
     }
   }, [nowPlaying])
