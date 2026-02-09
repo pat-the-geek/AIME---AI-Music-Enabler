@@ -5,7 +5,6 @@ from datetime import datetime, timezone
 from pydantic import BaseModel
 from typing import Optional
 import logging
-import asyncio
 
 from app.database import get_db, SessionLocal
 from app.core.config import get_settings
@@ -93,11 +92,10 @@ def get_service_state(service_name: str) -> bool:
 
 
 async def restore_active_services():
-    """Restaurer automatiquement les services qui étaient actifs avec timeouts.
+    """Restaurer automatiquement les services qui étaient actifs.
     
-    Chaque service a un timeout de 10 secondes pour se démarrer.
-    Si un service timeout, on continue avec les autres.
-    Le scheduler est toujours démarré.
+    Récupère la liste des services actifs depuis la base de données et les
+    redémarre avec les timeouts globaux du démarrage de l'application.
     """
     logger.info("🔄 Restauration des services actifs...")
     db = SessionLocal()
@@ -111,49 +109,19 @@ async def restore_active_services():
             try:
                 if service_name == 'tracker':
                     tracker = get_tracker()
-                    # Timeout de 10 secondes pour le tracker Last.fm
-                    try:
-                        if hasattr(asyncio, 'timeout'):
-                            # Python 3.11+
-                            async with asyncio.timeout(10):
-                                await tracker.start()
-                        else:
-                            # Python < 3.11
-                            await asyncio.wait_for(tracker.start(), timeout=10.0)
-                        logger.info(f"✅ Tracker Last.fm restauré")
-                    except asyncio.TimeoutError:
-                        logger.error(f"❌ TIMEOUT restauration Last.fm tracker (>10s)")
+                    await tracker.start()
+                    logger.info(f"✅ Tracker Last.fm restauré")
                         
                 elif service_name == 'roon_tracker':
                     roon_tracker = get_roon_tracker()
-                    # Timeout de 10 secondes pour le tracker Roon
-                    try:
-                        if hasattr(asyncio, 'timeout'):
-                            # Python 3.11+
-                            async with asyncio.timeout(10):
-                                await roon_tracker.start()
-                        else:
-                            # Python < 3.11
-                            await asyncio.wait_for(roon_tracker.start(), timeout=10.0)
-                        logger.info(f"✅ Tracker Roon restauré")
-                    except asyncio.TimeoutError:
-                        logger.error(f"❌ TIMEOUT restauration Roon tracker (>10s)")
+                    await roon_tracker.start()
+                    logger.info(f"✅ Tracker Roon restauré")
                         
                 elif service_name == 'scheduler':
                     scheduler_found = True
                     scheduler = get_scheduler()
-                    # Timeout de 10 secondes pour le scheduler
-                    try:
-                        if hasattr(asyncio, 'timeout'):
-                            # Python 3.11+
-                            async with asyncio.timeout(10):
-                                await scheduler.start()
-                        else:
-                            # Python < 3.11
-                            await asyncio.wait_for(scheduler.start(), timeout=10.0)
-                        logger.info(f"✅ Scheduler restauré")
-                    except asyncio.TimeoutError:
-                        logger.error(f"❌ TIMEOUT restauration scheduler (>10s)")
+                    await scheduler.start()
+                    logger.info(f"✅ Scheduler restauré")
                 else:
                     logger.warning(f"⚠️ Service inconnu: {service_name}")
             except Exception as e:
@@ -165,14 +133,7 @@ async def restore_active_services():
             logger.info("📅 Démarrage automatique du scheduler (non trouvé en base)")
             scheduler = get_scheduler()
             try:
-                if hasattr(asyncio, 'timeout'):
-                    # Python 3.11+
-                    async with asyncio.timeout(10):
-                        await scheduler.start()
-                else:
-                    # Python < 3.11
-                    await asyncio.wait_for(scheduler.start(), timeout=10.0)
-                    
+                await scheduler.start()
                 # Marquer comme actif en base pour la prochaine fois
                 scheduler_state = db.query(ServiceState).filter_by(service_name='scheduler').first()
                 if scheduler_state is None:
@@ -182,8 +143,8 @@ async def restore_active_services():
                 scheduler_state.last_updated = datetime.now(timezone.utc)
                 db.commit()
                 logger.info(f"✅ Scheduler démarré et marqué comme actif en base")
-            except asyncio.TimeoutError:
-                logger.error(f"❌ TIMEOUT démarrage automatique du scheduler (>10s)")
+            except Exception as e:
+                logger.error(f"❌ Erreur démarrage automatique du scheduler: {e}")
         
         if not active_services and not scheduler_found:
             logger.info("ℹ️ Aucun service actif à restaurer")

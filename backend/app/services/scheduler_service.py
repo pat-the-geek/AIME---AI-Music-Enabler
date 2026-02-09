@@ -41,8 +41,6 @@ from collections import Counter
 import logging
 import os
 import json
-import asyncio
-from concurrent.futures import ThreadPoolExecutor
 from io import StringIO
 
 from app.database import SessionLocal
@@ -213,30 +211,13 @@ class SchedulerService:
             replace_existing=True
         )
         
-        # Exécuter scheduler.start() dans un thread séparé pour éviter le blocage
-        def _start_scheduler():
-            try:
-                self.scheduler.start()
-            except Exception as e:
-                logger.error(f"Erreur démarrage scheduler: {e}")
-        
-        loop = asyncio.get_event_loop()
-        executor = ThreadPoolExecutor(max_workers=1)
-        
         try:
-            # Lancer dans un thread avec timeout de 5 secondes
-            future = loop.run_in_executor(executor, _start_scheduler)
-            await asyncio.wait_for(future, timeout=5.0)
+            self.scheduler.start()
             self.is_running = True
             logger.info("✅ Scheduler démarré avec tâches optimisées")
-        except asyncio.TimeoutError:
-            logger.error("❌ Timeout démarrage scheduler (>5s) - base de données non accessible?")
-            self.is_running = False
         except Exception as e:
             logger.error(f"❌ Erreur démarrage scheduler: {e}")
             self.is_running = False
-        finally:
-            executor.shutdown(wait=False)
 
     
     async def stop(self):
