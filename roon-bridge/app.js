@@ -622,33 +622,54 @@ function findZoneByName(name) {
  * Retourne null si pas trouvé (jamais undefined)
  */
 function getZoneVolume(zone) {
+    console.log(`[getZoneVolume] Called for zone: ${zone?.display_name}`);
+    console.log(`[getZoneVolume] Zone keys:`, zone ? Object.keys(zone) : 'ZONE IS NULL');
+    
     if (!zone || !zone.outputs || zone.outputs.length === 0) {
-        console.debug(`[getZoneVolume] No outputs for zone ${zone?.display_name}`);
+        console.debug(`[getZoneVolume] ❌ No outputs for zone ${zone?.display_name}`);
+        console.debug(`[getZoneVolume]   - zone is null: ${!zone}`);
+        console.debug(`[getZoneVolume]   - zone.outputs is null: ${zone && !zone.outputs}`);
+        console.debug(`[getZoneVolume]   - zone.outputs is empty: ${zone && zone.outputs && zone.outputs.length === 0}`);
         return null;
     }
+    
     // Utiliser le volume du premier output
     const output = zone.outputs[0];
+    console.log(`[getZoneVolume] First output found: ${output.display_name}`);
+    console.log(`[getZoneVolume] Output keys:`, Object.keys(output));
+    
     if (!output) {
-        console.debug(`[getZoneVolume] First output is null`);
+        console.debug(`[getZoneVolume] ❌ First output is null`);
         return null;
     }
     
     // Log full structure
-    console.debug(`[getZoneVolume] Output structure:`, {
-        output_id: output.output_id,
-        display_name: output.display_name,
+    console.log(`[getZoneVolume] Output volume info:`, {
         has_volume: !!output.volume,
         volume_type: typeof output.volume,
-        volume: output.volume
+        volume_is_null: output.volume === null,
+        volume_is_undefined: output.volume === undefined,
+        volume_keys: output.volume ? Object.keys(output.volume) : 'N/A',
     });
     
-    if (output.volume && output.volume.control_value !== undefined) {
-        const vol = output.volume.control_value;
-        console.debug(`[getZoneVolume] ✅ Found volume: ${vol}`);
-        return vol;  // Return the actual number
+    // Try 'value' field (standard Roon API)
+    if (output.volume && output.volume.value !== undefined && output.volume.value !== null) {
+        const vol = output.volume.value;
+        console.log(`[getZoneVolume] ✅ Found volume via .value: ${vol}`);
+        return vol;
     }
     
-    console.debug(`[getZoneVolume] ❌ No control_value in volume object, returning null`);
+    // Fallback to control_value if it exists
+    if (output.volume && output.volume.control_value !== undefined) {
+        const vol = output.volume.control_value;
+        console.log(`[getZoneVolume] ✅ Found volume via .control_value: ${vol}`);
+        return vol;
+    }
+    
+    console.log(`[getZoneVolume] ❌ No value or control_value in volume object`);
+    if (output.volume) {
+        console.log(`[getZoneVolume]    Volume object exists but value missing. Keys:`, Object.keys(output.volume));
+    }
     return null;  // Always return null, never undefined
 }
 
@@ -786,6 +807,25 @@ app.get("/zones/:name", (req, res) => {
     const zone = findZoneByName(req.params.name);
     if (!zone) return res.status(404).json({ error: `Zone "${req.params.name}" not found` });
     res.json({ zone_id: zone.zone_id, display_name: zone.display_name, state: zone.state });
+});
+
+app.get("/debug/zone-structure", (req, res) => {
+    // Affiche la structure complète d'une zone
+    if (Object.keys(zones).length === 0) {
+        return res.json({ error: "No zones available" });
+    }
+    const firstZone = Object.values(zones)[0];
+    const firstOutput = firstZone.outputs?.[0];
+    
+    res.json({
+        zone_name: firstZone.display_name,
+        has_outputs: !!firstZone.outputs,
+        outputs_count: firstZone.outputs?.length || 0,
+        first_output_keys: firstOutput ? Object.keys(firstOutput) : [],
+        first_output_volume: firstOutput?.volume || "MISSING",
+        first_output_volume_keys: firstOutput?.volume ? Object.keys(firstOutput.volume) : [],
+        first_output_full: firstOutput ? { ...firstOutput } : null
+    });
 });
 
 app.get("/search", async (req, res) => {
