@@ -90,6 +90,7 @@ export function RoonProvider({ children }: { children: ReactNode }) {
         const params = playbackZone ? { zone_name: playbackZone } : {}
         const response = await apiClient.get('/playback/roon/now-playing', { params })
         if (response.data?.title) {
+          console.log('[RoonContext] Now playing response:', response.data)
           setNowPlaying(response.data as NowPlayingTrack)
         } else {
           setNowPlaying(null)

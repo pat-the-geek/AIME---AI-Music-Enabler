@@ -509,6 +509,7 @@ async def get_now_playing(zone_name: Optional[str] = None):
                 logger.error(f"❌ Erreur lors de la recherche d'image: {e}", exc_info=True)
         
         logger.info(f"🎵 Now playing après lookup image: image_url={result.get('image_url', 'NONE')}")
+        logger.info(f"🎵 Now playing volume: {result.get('volume', 'NONE')}")
         return result
         
     except HTTPException:

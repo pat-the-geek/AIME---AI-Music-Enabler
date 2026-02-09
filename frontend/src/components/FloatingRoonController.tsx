@@ -53,9 +53,16 @@ export default function FloatingRoonController() {
 
   // Synchroniser le volume avec Roon
   useEffect(() => {
-    if (nowPlaying && nowPlaying.volume !== undefined) {
-      console.log('Volume sync:', nowPlaying.volume)
-      setVolume(nowPlaying.volume)
+    console.log('Volume sync effect triggered. nowPlaying:', nowPlaying)
+    if (nowPlaying) {
+      console.log('Volume value:', nowPlaying.volume, 'Type:', typeof nowPlaying.volume)
+      // Check for null OR undefined (not just undefined)
+      if (nowPlaying.volume != null) {
+        console.log('Setting volume to:', nowPlaying.volume)
+        setVolume(nowPlaying.volume)
+      } else {
+        console.log('Volume is null/undefined, not updating')
+      }
     }
   }, [nowPlaying])
 
