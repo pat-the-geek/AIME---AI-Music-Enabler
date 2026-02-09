@@ -51,7 +51,7 @@ Bienvenue dans la documentation du projet AIME - AI Music Enabler !
 
 - **[README Principal](../README.md)** - Vue d'ensemble du projet
 - **[Guide de Démarrage Rapide](guides/utilisateur/QUICKSTART.md)** - Installation pas à pas
-- **[STATUS](../STATUS.md)** - État actuel de l'application
+- **[STATUS](archive/STATUS.md)** - État actuel de l'application
 - **[Historique des modifications](changelogs/CHANGELOG.md)** - Toutes les versions
 
 ### Pour les Développeurs
@@ -59,7 +59,7 @@ Bienvenue dans la documentation du projet AIME - AI Music Enabler !
 - **[Documentation API](api/API.md)** - Référence complète des endpoints REST
 - **[Architecture](architecture/ARCHITECTURE.md)** - Structure technique détaillée
 - **[Spécifications](specs/)** - Cahiers des charges et specs techniques
-- **[Résumé du Projet](../PROJECT-SUMMARY.md)** - Ce qui a été créé et pourquoi
+- **[Résumé du Projet](archive/PROJECT-SUMMARY.md)** - Ce qui a été créé et pourquoi
 - **[Nouvelles Fonctionnalités](features/NOUVELLES-FONCTIONNALITES.md)** - Version 4.0.0
 
 ### Résolution de Problèmes
@@ -170,7 +170,7 @@ Cette documentation est **vivante** et doit être mise à jour en continu :
 - ✅ Versionner les changements majeurs
 
 ### "Je veux voir ce qui a été fait"
-→ [PROJECT-SUMMARY.md](../PROJECT-SUMMARY.md)
+→ [PROJECT-SUMMARY.md](archive/PROJECT-SUMMARY.md)
 
 ### "Je veux savoir ce qui a changé"
 → [CHANGELOG.md](../CHANGELOG.md)

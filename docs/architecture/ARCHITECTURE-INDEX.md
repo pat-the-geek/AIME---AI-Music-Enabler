@@ -70,7 +70,7 @@
 
 ---
 
-### 4. 🔧 [REFACTORING-ACTION-PLAN.md](REFACTORING-ACTION-PLAN.md) *(si existe)*
+### 4. 🔧 [REFACTORING-ACTION-PLAN.md](../archive/REFACTORING-ACTION-PLAN.md) *(si existe)*
 **Implementation guide** pour consolidation des services
 
 **Étapes:**
@@ -101,7 +101,7 @@
 
 ### 🐛 "Code est dupliqué, comment refactoriser?"
 1. Consulter [CODE-ORGANIZATION-SUMMARY.md](CODE-ORGANIZATION-SUMMARY.md) → "Duplication Map"
-2. Lire [REFACTORING-ACTION-PLAN.md](REFACTORING-ACTION-PLAN.md) pour les étapes
+2. Lire [REFACTORING-ACTION-PLAN.md](../archive/REFACTORING-ACTION-PLAN.md) pour les étapes
 3. Suivre structure proposée dans CODE-ORGANIZATION-SUMMARY.md
 
 ### 🚀 "Je veux optimiser la performance"

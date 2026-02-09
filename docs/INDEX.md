@@ -25,10 +25,10 @@
 |---------|-------------|
 | **[README.md](README.md)** | Documentation principale du projet |
 | **[INDEX.md](INDEX.md)** | Ce fichier - Index complet |
-| **[STRUCTURE.md](STRUCTURE.md)** | Structure du projet |
-| **[PROJECT-SUMMARY.md](PROJECT-SUMMARY.md)** | Résumé complet du projet |
-| **[STATUS.md](STATUS.md)** | État actuel de l'application |
-| **[GITHUB-REPO-INFO.md](GITHUB-REPO-INFO.md)** | Info GitHub (SEO, topics) |
+| **[STRUCTURE.md](archive/STRUCTURE.md)** | Structure du projet |
+| **[PROJECT-SUMMARY.md](archive/PROJECT-SUMMARY.md)** | Résumé complet du projet |
+| **[STATUS.md](archive/STATUS.md)** | État actuel de l'application |
+| **[GITHUB-REPO-INFO.md](archive/GITHUB-REPO-INFO.md)** | Info GitHub (SEO, topics) |
 
 ---
 
@@ -374,7 +374,7 @@ Spécifications techniques et designs.
 
 **Essentiels:**
 - 🏠 [README principal](README.md)
-- 📁 [STRUCTURE.md](STRUCTURE.md)
+- 📁 [STRUCTURE.md](archive/STRUCTURE.md)
 - 🚀 [Démarrage rapide](guides/utilisateur/QUICKSTART.md)
 
 **Architecture:**

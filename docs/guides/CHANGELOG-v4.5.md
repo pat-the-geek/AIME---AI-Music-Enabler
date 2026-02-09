@@ -203,7 +203,7 @@ Toutes les améliorations sont transparentes et rétro-compatibles.
 ## 📚 Références
 
 - [ROON-IMPROVEMENTS-SUMMARY-ROOT.md](ROON-IMPROVEMENTS-SUMMARY-ROOT.md) - Amélioration Roon v4.4.0
-- [README.md](README.md) - Documentation principale
+- [README.md](../README.md) - Documentation principale
 
 ---
 

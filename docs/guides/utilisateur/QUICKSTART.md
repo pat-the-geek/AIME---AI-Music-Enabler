@@ -8,7 +8,7 @@
 # Vérifier Python 3.10-3.13 (recommandé)
 python3 --version
 
-# ⚠️ Si vous avez Python 3.14, voir docs/TROUBLESHOOTING.md#problème-1
+# ⚠️ Si vous avez Python 3.14, voir [TROUBLESHOOTING.md#problème-1](../troubleshooting/TROUBLESHOOTING.md#problème-1)
 
 # Vérifier Node.js 18+
 node --version

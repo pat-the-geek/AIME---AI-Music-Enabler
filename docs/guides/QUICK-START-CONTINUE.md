@@ -92,17 +92,17 @@ Difficulty: ⭐⭐ Medium
 
 Before you start, read:
 
-1. **[CODE-ORGANIZATION-SUMMARY.md](CODE-ORGANIZATION-SUMMARY.md)** - 5 min read
+1. **[CODE-ORGANIZATION-SUMMARY.md](../archive/CODE-ORGANIZATION-SUMMARY.md)** - 5 min read
    - Before/after overview
    - Benefits at a glance
    - What's working now
 
-2. **[CODE-ORGANIZATION-VISUAL.md](CODE-ORGANIZATION-VISUAL.md)** - 10 min read
+2. **[CODE-ORGANIZATION-VISUAL.md](../archive/CODE-ORGANIZATION-VISUAL.md)** - 10 min read
    - Visual comparisons
    - Import changes
    - File mappings
 
-3. **[REFACTORING-IMPLEMENTATION-GUIDE.md](REFACTORING-IMPLEMENTATION-GUIDE.md)** - Complete reference
+3. **[REFACTORING-IMPLEMENTATION-GUIDE.md](../archive/REFACTORING-IMPLEMENTATION-GUIDE.md)** - Complete reference
    - How to migrate each service
    - Code patterns
    - Checklist

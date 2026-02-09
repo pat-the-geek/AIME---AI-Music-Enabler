@@ -189,4 +189,4 @@ L'import Discogs fonctionne maintenant correctement:
 
 ---
 
-*Pour toute question, consultez [TROUBLESHOOTING.md](TROUBLESHOOTING.md)*
+*Pour toute question, consultez [TROUBLESHOOTING.md](../guides/troubleshooting/TROUBLESHOOTING.md)*

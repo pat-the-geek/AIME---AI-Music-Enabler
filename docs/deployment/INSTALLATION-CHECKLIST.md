@@ -81,7 +81,7 @@ curl http://localhost:8000/api/v1/history/stats | jq .
 | Frontend blanc | Attendre le build Vite (60s max) |
 | DB corrompue | `rm data/music_tracker.db` et redémarrer |
 
-**Guide complet**: [docs/TROUBLESHOOTING-INFRASTRUCTURE.md](../TROUBLESHOOTING-INFRASTRUCTURE.md)
+**Guide complet**: [TROUBLESHOOTING-INFRASTRUCTURE.md](../guides/troubleshooting/TROUBLESHOOTING-INFRASTRUCTURE.md)
 
 ---
 

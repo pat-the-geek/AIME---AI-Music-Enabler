@@ -57,10 +57,10 @@ Le démarrage de la lecture sur Roon a été **significativement amélioré** av
 
 | Profil | Document | Temps |
 |--------|----------|-------|
-| **Utilisateur** | [Guide Utilisateur](./docs/features/roon/GUIDE-UTILISATEUR-AMELIORATIONS.md) | 5 min |
-| **Manager** | [Résumé Exécutif](./docs/features/roon/ROON-IMPROVEMENTS-SUMMARY.md) | 3 min |
-| **Développeur** | [Doc Technique](./docs/features/roon/ROON-PLAYBACK-IMPROVEMENTS.md) | 20 min |
-| **Navigation** | [INDEX](./docs/features/roon/INDEX.md) | - |
+| **Utilisateur** | [Guide Utilisateur](../features/roon/GUIDE-UTILISATEUR-AMELIORATIONS.md) | 5 min |
+| **Manager** | [Résumé Exécutif](../features/roon/ROON-IMPROVEMENTS-SUMMARY.md) | 3 min |
+| **Développeur** | [Doc Technique](../features/roon/ROON-PLAYBACK-IMPROVEMENTS.md) | 20 min |
+| **Navigation** | [INDEX](../features/roon/INDEX.md) | - |
 
 ---
 

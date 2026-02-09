@@ -215,7 +215,7 @@ Les **services doivent toujours avoir leurs dépendances** passées:
 ## 📞 Support
 
 Si vous avez des questions:
-1. Consultez [docs/LASTFM-IMPORT-QUICK-FIX.md](LASTFM-IMPORT-QUICK-FIX.md)
+1. Consultez [LASTFM-IMPORT-QUICK-FIX.md](LASTFM-IMPORT-QUICK-FIX.md)
 2. Lancez `python scripts/check_import_quality.py`
 3. Regardez les logs du script
 

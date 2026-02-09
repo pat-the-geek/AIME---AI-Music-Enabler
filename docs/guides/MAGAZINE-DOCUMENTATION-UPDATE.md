@@ -12,7 +12,7 @@ La fonctionnalité **Magazine Éditorial** a été ajoutée à la documentation 
 
 ## 📄 Fichiers Modifiés
 
-### 1. **[README.md](README.md)** - Fichier Principal
+### 1. **[README.md](../README.md)** - Fichier Principal
 #### ✅ Modifications Appliquées:
 
 - **Ligne 84-95**: Ajout de la fonctionnalité Magazine dans la section "Fonctionnalités Implémentées"
@@ -212,7 +212,7 @@ curl -X GET http://localhost:8000/api/v1/magazines/generate | jq .
 ```
 
 ### Pour Lire la Documentation
-1. Commencer par [README.md](README.md) lignes 84-95
+1. Commencer par [README.md](../README.md) lignes 84-95
 2. Consulter [MAGAZINE-README.md](docs/MAGAZINE-README.md)
 3. Lire [MAGAZINE-GUIDE.md](docs/MAGAZINE-GUIDE.md)
 

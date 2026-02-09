@@ -7,7 +7,7 @@
 
 ## 📚 Nouveaux Documents Créés
 
-### 1. 🗺️ [ARCHITECTURE-INDEX.md](ARCHITECTURE-INDEX.md) ⭐ COMMENCER ICI
+### 1. 🗺️ [ARCHITECTURE-INDEX.md](../architecture/ARCHITECTURE-INDEX.md) ⭐ COMMENCER ICI
 **Guide de navigation vers tous les documents d'architecture**
 
 Contient:
@@ -20,7 +20,7 @@ Contient:
 
 ---
 
-### 2. 🏗️ [ARCHITECTURE-GUI-AND-APIS.md](ARCHITECTURE-GUI-AND-APIS.md)
+### 2. 🏗️ [ARCHITECTURE-GUI-AND-APIS.md](../architecture/ARCHITECTURE-GUI-AND-APIS.md)
 **Documentation COMPLÈTE de l'interface graphique et des API externes**
 
 Contient:
@@ -41,7 +41,7 @@ Contient:
 
 ---
 
-### 3. 🎨 [ARCHITECTURE-DIAGRAMS.md](ARCHITECTURE-DIAGRAMS.md)
+### 3. 🎨 [ARCHITECTURE-DIAGRAMS.md](../architecture/ARCHITECTURE-DIAGRAMS.md)
 **Diagrammes Mermaid de l'architecture et des flux**
 
 Contient:
@@ -57,7 +57,7 @@ Contient:
 
 ---
 
-### 4. ✅ [ARCHITECTURE-VERIFICATION-2026-02-07.md](ARCHITECTURE-VERIFICATION-2026-02-07.md)
+### 4. ✅ [ARCHITECTURE-VERIFICATION-2026-02-07.md](../archive/ARCHITECTURE-VERIFICATION-2026-02-07.md)
 **Rapport de vérification complète de l'architecture**
 
 Contient:
@@ -73,7 +73,7 @@ Contient:
 
 ## 🔄 Documents Mis à Jour
 
-### ✏️ [CODE-ORGANIZATION-SUMMARY.md](CODE-ORGANIZATION-SUMMARY.md)
+### ✏️ [CODE-ORGANIZATION-SUMMARY.md](../archive/CODE-ORGANIZATION-SUMMARY.md)
 **Ajouts pour compléter la documentation:**
 - Section: "Architecture Détaillée avec Interface Graphique & API Externes"
 - Tableau: "Quick Reference: Composants Frontend & API Calls"
@@ -131,28 +131,28 @@ Contient:
 ## 🚀 Comment Utiliser
 
 ### Je suis un nouveau développeur
-1. Ouvrir [ARCHITECTURE-INDEX.md](ARCHITECTURE-INDEX.md)
+1. Ouvrir [ARCHITECTURE-INDEX.md](../architecture/ARCHITECTURE-INDEX.md)
 2. Parcourir "Navigation par Use Case"
 3. Consulter document approprié
 
 ### Je veux ajouter une page
-1. Consulter [ARCHITECTURE-GUI-AND-APIS.md](ARCHITECTURE-GUI-AND-APIS.md) § Pages
+1. Consulter [ARCHITECTURE-GUI-AND-APIS.md](../architecture/ARCHITECTURE-GUI-AND-APIS.md) § Pages
 2. Voir un exemple similar
 3. Suivre pattern établi
 
 ### Je veux intégrer une API
-1. Consulter [ARCHITECTURE-GUI-AND-APIS.md](ARCHITECTURE-GUI-AND-APIS.md) § APIs Externes
+1. Consulter [ARCHITECTURE-GUI-AND-APIS.md](../architecture/ARCHITECTURE-GUI-AND-APIS.md) § APIs Externes
 2. Étudier exemple API (EurIA ou Spotify)
 3. Suivre même structure
 
 ### Je dois déboguer un flux
-1. Consulter [ARCHITECTURE-DIAGRAMS.md](ARCHITECTURE-DIAGRAMS.md) § Data Flows
+1. Consulter [ARCHITECTURE-DIAGRAMS.md](../architecture/ARCHITECTURE-DIAGRAMS.md) § Data Flows
 2. Tracer chaque étape
 3. Ajouter logs à chaque point
 
 ### J'ai besoin de comprendre une dépendance
-1. Consulter [ARCHITECTURE-INDEX.md](ARCHITECTURE-INDEX.md) § Service Graph
-2. Visualiser dans [ARCHITECTURE-DIAGRAMS.md](ARCHITECTURE-DIAGRAMS.md)
+1. Consulter [ARCHITECTURE-INDEX.md](../architecture/ARCHITECTURE-INDEX.md) § Service Graph
+2. Visualiser dans [ARCHITECTURE-DIAGRAMS.md](../architecture/ARCHITECTURE-DIAGRAMS.md)
 
 ---
 
@@ -208,7 +208,7 @@ Tous les documents sont croisés et linkés pour:
 ## 🎓 Recommandations
 
 ### Immédiatement
-- [ ] Lire [ARCHITECTURE-INDEX.md](ARCHITECTURE-INDEX.md)
+- [ ] Lire [ARCHITECTURE-INDEX.md](../architecture/ARCHITECTURE-INDEX.md)
 - [ ] Bookmarker ARCHITECTURE-GUI-AND-APIS.md
 - [ ] Consulter ARCHITECTURE-DIAGRAMS.md si besoin visuel
 
@@ -228,13 +228,13 @@ Tous les documents sont croisés et linkés pour:
 ## 🔗 Tous les Liens
 
 **Architecture:**
-- [ARCHITECTURE-INDEX.md](ARCHITECTURE-INDEX.md) - 🗺️ Guide navigation
-- [ARCHITECTURE-GUI-AND-APIS.md](ARCHITECTURE-GUI-AND-APIS.md) - 🏗️ Architecture détaillée
-- [ARCHITECTURE-DIAGRAMS.md](ARCHITECTURE-DIAGRAMS.md) - 🎨 Diagrammes
-- [ARCHITECTURE-VERIFICATION-2026-02-07.md](ARCHITECTURE-VERIFICATION-2026-02-07.md) - ✅ Rapport vérif
+- [ARCHITECTURE-INDEX.md](../architecture/ARCHITECTURE-INDEX.md) - 🗺️ Guide navigation
+- [ARCHITECTURE-GUI-AND-APIS.md](../architecture/ARCHITECTURE-GUI-AND-APIS.md) - 🏗️ Architecture détaillée
+- [ARCHITECTURE-DIAGRAMS.md](../architecture/ARCHITECTURE-DIAGRAMS.md) - 🎨 Diagrammes
+- [ARCHITECTURE-VERIFICATION-2026-02-07.md](../archive/ARCHITECTURE-VERIFICATION-2026-02-07.md) - ✅ Rapport vérif
 
 **Organisation Code:**
-- [CODE-ORGANIZATION-SUMMARY.md](CODE-ORGANIZATION-SUMMARY.md) - 🔧 Refactoring
+- [CODE-ORGANIZATION-SUMMARY.md](../archive/CODE-ORGANIZATION-SUMMARY.md) - 🔧 Refactoring
 
 **Accueil:**
 - [README.md](../README.md) - 📖 Vue générale projet

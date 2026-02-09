@@ -272,14 +272,14 @@ npm run dev -- --debug
 
 ## 🔗 Ressources
 
-- **Documentation complète**: [docs/README.md](docs/README.md)
-- **Guide de dépannage**: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
-- **API Reference**: [docs/API.md](docs/API.md)
+- **Documentation complète**: [README.md](../README.md)
+- **Guide de dépannage**: [TROUBLESHOOTING.md](../guides/troubleshooting/TROUBLESHOOTING.md)
+- **API Reference**: [API.md](../api/API.md)
 
 ## 📞 En cas de problème
 
 1. Vérifier les logs dans le terminal
-2. Consulter [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
+2. Consulter [TROUBLESHOOTING.md](../guides/troubleshooting/TROUBLESHOOTING.md)
 3. Vérifier que la base de données existe: `ls -lh data/musique.db`
 4. Tester le health check: `curl http://localhost:8000/health`
 

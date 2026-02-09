@@ -404,8 +404,8 @@ Les changements sont **entièrement backward-compatible**:
 ## 📚 Références
 
 Voir aussi:
-- [docs/LASTFM-IMPORT-FIXES.md](LASTFM-IMPORT-FIXES.md) - Guide complet
-- [docs/LASTFM-IMPORT-QUICK-FIX.md](LASTFM-IMPORT-QUICK-FIX.md) - Guide rapide
+- [LASTFM-IMPORT-FIXES.md](LASTFM-IMPORT-FIXES.md) - Guide complet
+- [LASTFM-IMPORT-QUICK-FIX.md](LASTFM-IMPORT-QUICK-FIX.md) - Guide rapide
 - [scripts/check_import_quality.py](../scripts/check_import_quality.py) - Diagnostic
 - [scripts/fix_lastfm_import_issues.py](../scripts/fix_lastfm_import_issues.py) - Corrections
 - [scripts/repair_lastfm_import.py](../scripts/repair_lastfm_import.py) - Réparation complète
