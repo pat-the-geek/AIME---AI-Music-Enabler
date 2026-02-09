@@ -99,14 +99,25 @@ export function RoonProvider({ children }: { children: ReactNode }) {
     // Vérification initiale + immédiate quand zone change
     if (enabled && available) {
       fetchNowPlaying()
+      
+      // Premier polling plus agressif au démarrage (1s) pour détecter
+      // rapidement un track actif lors du réveil du système
+      const quickCheckInterval = setTimeout(() => {
+        fetchNowPlaying()
+      }, 1000)
+      
+      // Polling normal toutes les 3 secondes après le premier check rapide
+      const normalInterval = setInterval(() => {
+        fetchNowPlaying()
+      }, 3000)
+      
+      return () => {
+        clearTimeout(quickCheckInterval)
+        clearInterval(normalInterval)
+      }
     }
-
-    // Polling toutes les 3 secondes quand Roon est disponible
-    const interval = enabled && available ? setInterval(fetchNowPlaying, 3000) : null
     
-    return () => {
-      if (interval) clearInterval(interval)
-    }
+    return () => {}
   }, [enabled, available, playbackZone])
 
   // Récupérer la liste des zones disponibles

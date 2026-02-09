@@ -49,6 +49,16 @@ export default function FloatingRoonController() {
     }
   }, [nowPlaying])
 
+  // Auto-show player when track is active, especially on system wake-up
+  // Si un morceau est en cours de lecture, afficher automatiquement le player flottant
+  useEffect(() => {
+    if (nowPlaying && nowPlaying.title && hidden) {
+      // Un morceau est en cours de lecture et le player est caché
+      // Afficher le player automatiquement
+      setHidden(false)
+    }
+  }, [nowPlaying])
+
   // Formater les secondes en MM:SS
   const formatTime = (seconds: number | undefined): string => {
     if (!seconds || seconds < 0) return '0:00'
