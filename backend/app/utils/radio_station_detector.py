@@ -32,12 +32,15 @@ class RadioStationDetector:
         La détection se fait en vérifiant:
         1. Le champ 'source' (si disponible)
         2. Le champ 'artist' (pour Roon ou Last.fm)
-        3. Le champ 'album' (alternative si l'album contient le nom de station)
+        3. Le champ 'title' (pour Roon où le titre peut être le nom de station)
+        4. Le champ 'album' (alternative si l'album contient le nom de station)
+        5. Le champ 'zone_name' (pour Roon)
         
         Args:
             track_data: Dictionnaire contenant les données du track avec les clés:
                        - source (optionnel): Source du track (Roon, Last.fm, etc.)
                        - artist (str): Nom de l'artiste
+                       - title (str): Titre de la piste (peut être le nom de station pour Roon)
                        - album (str): Nom de l'album
                        - zone_name (optionnel): Nom de la zone Roon
         
@@ -52,6 +55,7 @@ class RadioStationDetector:
         fields_to_check = [
             ('source', track_data.get('source', '')),
             ('artist', track_data.get('artist', '')),
+            ('title', track_data.get('title', '')),  # Ajouter title (pour Roon/Last.fm où le titre est le nom de station)
             ('album', track_data.get('album', '')),
             ('zone_name', track_data.get('zone_name', '')),
         ]
