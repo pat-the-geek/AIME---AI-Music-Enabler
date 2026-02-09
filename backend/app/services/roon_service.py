@@ -476,6 +476,7 @@ class RoonService:
                     "state": state,  # État normalisé du playback
                     "duration_seconds": data.get("duration_seconds"),
                     "position_seconds": data.get("seek_position"),  # seek_position du bridge → position_seconds
+                    "volume": data.get("volume"),  # Volume du output Roon
                     "image_url": None,
                 }
 

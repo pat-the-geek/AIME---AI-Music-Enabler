@@ -629,6 +629,17 @@ function getZoneVolume(zone) {
     if (output && output.volume && output.volume.control_value !== undefined) {
         return output.volume.control_value;
     }
+    
+    // Log debug si volume pas trouvé avec la structure attendue
+    if (output) {
+        console.debug(`[getZoneVolume] Structure output:`, JSON.stringify({
+            output_id: output.output_id,
+            volume: output.volume,
+            has_volume: !!output.volume,
+            has_control_value: output.volume ? output.volume.control_value !== undefined : false
+        }, null, 2));
+    }
+    
     return null;
 }
 
@@ -664,6 +675,7 @@ function getNowPlaying(zoneId) {
         if (z.state === "playing" && z.now_playing) {
             const np = z.now_playing;
             const tl = np.three_line || {};
+            const vol = getZoneVolume(z);
             return {
                 title:            tl.line1 || "Unknown Title",
                 artist:           tl.line2 || "Unknown Artist",
@@ -674,7 +686,7 @@ function getNowPlaying(zoneId) {
                 duration_seconds: np.length || null,
                 seek_position:    np.seek_position || null,
                 image_key:        np.image_key || null,
-                volume:           getZoneVolume(z)
+                volume:           vol
             };
         }
     }
