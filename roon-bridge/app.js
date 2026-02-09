@@ -622,24 +622,32 @@ function findZoneByName(name) {
  */
 function getZoneVolume(zone) {
     if (!zone || !zone.outputs || zone.outputs.length === 0) {
+        console.debug(`[getZoneVolume] No outputs for zone ${zone?.display_name}`);
         return null;
     }
     // Utiliser le volume du premier output
     const output = zone.outputs[0];
-    if (output && output.volume && output.volume.control_value !== undefined) {
-        return output.volume.control_value;
+    if (!output) {
+        console.debug(`[getZoneVolume] First output is null`);
+        return null;
     }
     
-    // Log debug si volume pas trouvé avec la structure attendue
-    if (output) {
-        console.debug(`[getZoneVolume] Structure output:`, JSON.stringify({
-            output_id: output.output_id,
-            volume: output.volume,
-            has_volume: !!output.volume,
-            has_control_value: output.volume ? output.volume.control_value !== undefined : false
-        }, null, 2));
+    // Log full structure
+    console.debug(`[getZoneVolume] Output structure:`, {
+        output_id: output.output_id,
+        display_name: output.display_name,
+        has_volume: !!output.volume,
+        volume_type: typeof output.volume,
+        volume: output.volume
+    });
+    
+    if (output.volume && output.volume.control_value !== undefined) {
+        const vol = output.volume.control_value;
+        console.debug(`[getZoneVolume] ✅ Found volume: ${vol}`);
+        return vol;
     }
     
+    console.debug(`[getZoneVolume] ❌ No control_value in volume object`);
     return null;
 }
 
@@ -676,6 +684,7 @@ function getNowPlaying(zoneId) {
             const np = z.now_playing;
             const tl = np.three_line || {};
             const vol = getZoneVolume(z);
+            console.debug(`[getNowPlaying] Playing zone: ${z.display_name}, volume: ${vol}`);
             return {
                 title:            tl.line1 || "Unknown Title",
                 artist:           tl.line2 || "Unknown Artist",
@@ -840,6 +849,8 @@ app.get("/now-playing", (req, res) => {
     if (!np) {
         return res.json({ playing: false, message: "Nothing playing" });
     }
+    
+    console.debug(`[/now-playing] Response volume field:`, np.volume);
     res.json({ playing: true, ...np });
 });
 
