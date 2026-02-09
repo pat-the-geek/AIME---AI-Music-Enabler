@@ -1,4 +1,5 @@
 """Service de tracking Roon en arrière-plan."""
+import asyncio
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from datetime import datetime, timezone
@@ -271,11 +272,89 @@ class RoonTrackerService:
             "zones_count": zones_count
         }
     
+    async def _recover_connection(self):
+        """
+        Attempt to recover connection after wake-up from sleep or network issues.
+        
+        Called when polling fails. Performs health checks and attempts to
+        reinitialize the connection if the bridge appears to be stale.
+        
+        Recovery actions:
+        - Check bridge health status
+        - Log detailed diagnostics
+        - May trigger bridge reconnection via health check endpoint
+        
+        Returns:
+            bool: True if recovery appears successful, False if still disconnected
+        """
+        logger.warning("🔄 Attempting to recover Roon connection...")
+        
+        if not self.roon:
+            logger.error("❌ Roon service not initialized")
+            return False
+        
+        try:
+            # Get detailed health info
+            health = self.roon.get_bridge_health()
+            logger.info(
+                f"🏥 Bridge health: accessible={health['bridge_accessible']}, "
+                f"connected={health['connected_to_core']}, "
+                f"zones={health['zones_count']}, "
+                f"health_failures={health['health_failures']}"
+            )
+            
+            # If bridge is accessible but not connected, wait a moment for bridge to reconnect
+            if health['bridge_accessible'] and not health['connected_to_core']:
+                logger.info("⏳ Bridge accessible but disconnected from Core - waiting for bridge reconnection...")
+                await asyncio.sleep(2)  # Wait for bridge's health check to trigger reconnection
+                
+                # Check again
+                health = self.roon.get_bridge_health()
+                if health['connected_to_core']:
+                    logger.info("✅ Bridge reconnected to Core")
+                    return True
+                else:
+                    logger.warning(f"❌ Still disconnected after wait. Health failures: {health['health_failures']}")
+                    return False
+            
+            # If bridge not accessible, something is very wrong
+            if not health['bridge_accessible']:
+                logger.error("❌ Bridge not responding - may need to restart bridge service")
+                return False
+            
+            # If connected but no zones, may be in process of initializing
+            if health['connected_to_core'] and health['zones_count'] == 0:
+                logger.info("⏳ Connected but no zones yet - waiting for zone initialization...")
+                await asyncio.sleep(3)
+                zones = self.roon.get_zones()
+                if zones:
+                    logger.info(f"✅ Zones now available: {len(zones)} zone(s)")
+                    return True
+            
+            # Check if actually connected now
+            is_connected = self.roon.is_connected()
+            if is_connected:
+                logger.info("✅ Connection recovered")
+                return True
+            else:
+                logger.warning("❌ Connection still failing")
+                return False
+                
+        except Exception as e:
+            logger.error(f"❌ Error during connection recovery: {e}", exc_info=True)
+            return False
+    
     async def _poll_roon(self):
         """Interroger Roon et enregistrer les nouveaux tracks."""
         try:
             # Enregistrer l'heure du poll
             self.last_poll_time = datetime.now(timezone.utc)
+            
+            # Vérifier la connexion au serveur
+            if not self.roon or not self.roon.is_connected():
+                logger.warning("⚠️ Roon not connected, attempting recovery...")
+                await self._recover_connection()
+                return
             
             # Vérifier si nous sommes dans la plage horaire active
             current_hour = datetime.now().hour

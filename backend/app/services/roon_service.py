@@ -215,12 +215,69 @@ class RoonService:
         try:
             resp = httpx.get(f"{self.bridge_url}/status", timeout=DEFAULT_TIMEOUT)
             if resp.status_code == 200:
-                self._connected = resp.json().get("connected", False)
+                data = resp.json()
+                self._connected = data.get("connected", False)
                 return self._connected
         except Exception:
             pass
         self._connected = False
         return False
+
+    def get_bridge_health(self) -> dict:
+        """Get detailed bridge health status including connection and diagnostics.
+        
+        Returns comprehensive bridge health information useful for diagnostics
+        after wake-up from sleep or connection issues.
+        
+        Returns:
+            Dict with keys:
+                - bridge_accessible (bool): Bridge HTTP responding to requests
+                - connected_to_core (bool): Connected to Roon Core
+                - core_name (str|None): Roon Core display name if connected
+                - zones_count (int): Number of zones available
+                - transport_ready (bool): Transport service initialized
+                - browse_ready (bool): Browse service initialized
+                - image_ready (bool): Image service initialized
+                - health_failures (int): Consecutive health check failures
+                - last_health_check (str): ISO 8601 timestamp of last check
+        
+        Error Handling:
+            Returns None for unavailable fields instead of raising exceptions
+        
+        Example:
+            >>> health = roon.get_bridge_health()
+            >>> if health['zones_count'] == 0 and health['connected_to_core']:
+            ...     print("Connected but no zones available - may need time to load")
+        """
+        result = {
+            "bridge_accessible": False,
+            "connected_to_core": False,
+            "core_name": None,
+            "zones_count": 0,
+            "transport_ready": False,
+            "browse_ready": False,
+            "image_ready": False,
+            "health_failures": None,
+            "last_health_check": None,
+        }
+        
+        try:
+            resp = httpx.get(f"{self.bridge_url}/status", timeout=DEFAULT_TIMEOUT)
+            if resp.status_code == 200:
+                data = resp.json()
+                result["bridge_accessible"] = True
+                result["connected_to_core"] = data.get("connected", False)
+                result["core_name"] = data.get("core_name")
+                result["zones_count"] = data.get("zones_count", 0)
+                result["transport_ready"] = data.get("transport_ready", False)
+                result["browse_ready"] = data.get("browse_ready", False)
+                result["image_ready"] = data.get("image_ready", False)
+                result["health_failures"] = data.get("health_failures", 0)
+                result["last_health_check"] = data.get("last_health_check")
+        except Exception as e:
+            logger.debug(f"Could not get bridge health: {e}")
+        
+        return result
 
     # ========================================================================
     # Zones

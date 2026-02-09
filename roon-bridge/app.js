@@ -146,6 +146,101 @@ console.log("[roon-bridge] Starting SOOD discovery on UDP 9003…");
 roon.start_discovery();
 
 // ============================================================================
+// Health Check & Auto-Reconnect on Wake-up
+// ============================================================================
+
+let lastHealthCheckTime = Date.now();
+let healthCheckFailures = 0;
+const HEALTH_CHECK_INTERVAL = 10000;  // Check every 10 seconds
+const MAX_FAILURES = 2;               // Reconnect after 2 consecutive failures (20 seconds)
+
+/**
+ * Periodic health check to detect stale connections after system wake-up.
+ * If the connection becomes unresponsive, triggers automatic reconnection.
+ */
+function startHealthCheck() {
+    setInterval(() => {
+        const now = Date.now();
+        const timeSinceCheck = now - lastHealthCheckTime;
+        
+        // If core is null, we're already disconnected
+        if (!core) {
+            healthCheckFailures += 1;
+            if (healthCheckFailures > MAX_FAILURES) {
+                console.log("[roon-bridge] ⚠️ Disconnected for too long, triggering reconnect...");
+                healthCheckFailures = 0;
+                triggerReconnect();
+            }
+            return;
+        }
+        
+        // Try a simple zone subscription refresh to detect if connection is alive
+        try {
+            // If transport exists, try to get zones (lightweight operation)
+            if (transport) {
+                // Attempt to subscribe to zones again - this will fail silently if connection is dead
+                transport.subscribe_zones((cmd, data) => {
+                    // If we get here, connection is alive
+                    lastHealthCheckTime = Date.now();
+                    healthCheckFailures = 0;
+                    console.log(`[roon-bridge] ✅ Health check OK (${new Date().toLocaleTimeString()})`);
+                });
+            }
+        } catch (err) {
+            healthCheckFailures += 1;
+            console.warn(`[roon-bridge] ⚠️ Health check failed: ${err.message} (failures: ${healthCheckFailures}/${MAX_FAILURES})`);
+            
+            if (healthCheckFailures > MAX_FAILURES) {
+                console.log("[roon-bridge] 🔄 Connection appears stale, triggering reconnect...");
+                healthCheckFailures = 0;
+                triggerReconnect();
+            }
+        }
+    }, HEALTH_CHECK_INTERVAL);
+}
+
+/**
+ * Force reconnection by trigging SOOD discovery again.
+ * This handles cases where the WebSocket becomes stale after system sleep.
+ */
+function triggerReconnect() {
+    console.log("[roon-bridge] 🔄 Initiating Roon Core reconnection...");
+    
+    // Reset state
+    core = null;
+    transport = null;
+    browse = null;
+    image = null;
+    zones = {};
+    svc_status.set_status("Reconnecting…", false);
+    
+    // Trigger discovery again
+    try {
+        // stop_discovery() if available, then restart
+        if (typeof roon.stop_discovery === 'function') {
+            roon.stop_discovery();
+            console.log("[roon-bridge] Stopped discovery");
+        }
+    } catch (err) {
+        console.warn("[roon-bridge] Could not stop discovery:", err.message);
+    }
+    
+    // Wait a moment and restart discovery
+    setTimeout(() => {
+        console.log("[roon-bridge] Restarting SOOD discovery on UDP 9003…");
+        try {
+            roon.start_discovery();
+        } catch (err) {
+            console.error("[roon-bridge] Error restarting discovery:", err.message);
+        }
+    }, 2000);
+}
+
+// Start periodic health checks once bridge is initialized
+console.log("[roon-bridge] Starting periodic health checks (interval: " + HEALTH_CHECK_INTERVAL + "ms)");
+startHealthCheck();
+
+// ============================================================================
 // Helper: promisify RoonApiTransport callbacks
 // ============================================================================
 
@@ -604,10 +699,15 @@ app.get("/health", (req, res) => {
 
 app.get("/status", (req, res) => {
     res.json({
-        connected:    !!core,
-        core_name:    core ? core.display_name : null,
-        core_version: core ? core.display_version : null,
-        zones_count:  Object.keys(zones).length
+        connected:         !!core,
+        core_name:         core ? core.display_name : null,
+        core_version:      core ? core.display_version : null,
+        zones_count:       Object.keys(zones).length,
+        transport_ready:   !!transport,
+        browse_ready:      !!browse,
+        image_ready:       !!image,
+        health_failures:   healthCheckFailures,
+        last_health_check: new Date(lastHealthCheckTime).toISOString()
     });
 });
 
