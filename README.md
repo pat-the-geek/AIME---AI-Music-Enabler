@@ -1,4 +1,4 @@
-# 🎵 AIME - AI Music Enabler - Version 4.6.2
+# 🎵 AIME - AI Music Enabler - Version 4.6.3
 
 Application web moderne pour tracker et analyser l'historique d'écoute musicale depuis Last.fm, avec enrichissement automatique via Spotify, Discogs et IA.
 
@@ -465,9 +465,17 @@ MIT License
 
 ---
 
-**Version**: 4.6.2  
-**Date**: 7 février 2026  
+**Version**: 4.6.3  
+**Date**: 9 février 2026  
 **Auteur**: Patrick Ostertag
+
+### Changelog 4.6.3
+
+**Volume Sync & UI Improvements (09/02/2026)**
+- 🔊 **Fix Roon Volume Sync** : Utilise `output.volume.value` au lieu de `control_value` pour la synchronisation correcte du volume
+- 🎨 **Transparence UI** : Player Roon en transparence quand pas en focus (95% opaque au hover, 15% sinon)
+- 📸 **Album Art Transparency** : Vignette album aussi en transparence lors de la perte de focus
+- 🧹 **Code Cleanup** : Nettoyage du logging inutile
 
 ### Changelog 4.6.2
 
