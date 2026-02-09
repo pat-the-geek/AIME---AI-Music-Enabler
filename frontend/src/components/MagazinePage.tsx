@@ -178,7 +178,7 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
     try {
       // Si on n'a pas l'ID, chercher l'artiste
       if (!artistId) {
-        const response = await apiClient.get('/artists/list', {
+        const response = await apiClient.get('/collection/artists/list', {
           params: { search: artistName, limit: 1 }
         })
         if (response.data?.artists?.[0]) {

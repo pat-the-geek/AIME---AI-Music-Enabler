@@ -1,5 +1,5 @@
 """Modèle Album (album musical)."""
-from sqlalchemy import Column, Integer, String, DateTime, Enum, CheckConstraint
+from sqlalchemy import Column, Integer, String, DateTime, Enum, CheckConstraint, Index
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from enum import Enum as PyEnum
@@ -40,6 +40,15 @@ class Album(Base):
     tracks = relationship("Track", back_populates="album", cascade="all, delete-orphan")
     images = relationship("Image", back_populates="album", cascade="all, delete-orphan")
     album_metadata = relationship("Metadata", back_populates="album", uselist=False, cascade="all, delete-orphan")
+    
+    __table_args__ = (
+        Index('idx_albums_discogs_id', 'discogs_id'),
+        Index('idx_albums_spotify_url', 'spotify_url'),
+        Index('idx_albums_discogs_url', 'discogs_url'),
+        Index('idx_albums_source_created', 'source', 'created_at'),
+        Index('idx_albums_title_source', 'title', 'source'),
+        Index('idx_albums_year', 'year'),
+    )
     
     def is_collection_album(self) -> bool:
         """Vérifier si c'est un album de collection Discogs."""

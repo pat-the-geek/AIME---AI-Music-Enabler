@@ -81,6 +81,7 @@
 | **[QUICKSTART.md](guides/utilisateur/QUICKSTART.md)** | Guide de démarrage rapide |
 | **[QUICK-REFERENCE.md](guides/utilisateur/QUICK-REFERENCE.md)** | Référence rapide |
 | **[DISCOVER-GUIDE.md](guides/utilisateur/DISCOVER-GUIDE.md)** | Guide de découverte |
+| **[GUIDE-UTILISATEUR-TRACKER-CONFIGURATION.md](guides/utilisateur/GUIDE-UTILISATEUR-TRACKER-CONFIGURATION.md)** | Configuration du tracker (stations de radio, horaires) |
 | **[GUIDE-UTILISATEUR-OPTIMIZATION-SETTINGS.md](guides/utilisateur/GUIDE-UTILISATEUR-OPTIMIZATION-SETTINGS.md)** | Guide optimisation settings |
 | **[GUIDE-UTILISATEUR-ROON-PLAYLISTS.md](guides/utilisateur/GUIDE-UTILISATEUR-ROON-PLAYLISTS.md)** | Guide playlists Roon |
 
@@ -285,6 +286,8 @@
 | **[CHANGELOG-UI-ENRICHMENT.md](changelogs/CHANGELOG-UI-ENRICHMENT.md)** | Améliorations UI |
 | **[CHANGELOG-UNIFIED-ALBUM-DISPLAY.md](changelogs/CHANGELOG-UNIFIED-ALBUM-DISPLAY.md)** | Affichage albums unifié |
 | **[CHANGELOG-ANALYTICS-ADVANCED.md](changelogs/CHANGELOG-ANALYTICS-ADVANCED.md)** | Analytics avancés |
+| **[CHANGELOG-v4.7.0-RADIO-STATIONS.md](changelogs/CHANGELOG-v4.7.0-RADIO-STATIONS.md)** | Détection stations de radio |
+| **[CHANGELOG-v4.7.1-BUGFIX.md](changelogs/CHANGELOG-v4.7.1-BUGFIX.md)** | Bugfix: Portrait button endpoint |
 | **[IMPROVEMENTS.md](changelogs/IMPROVEMENTS.md)** | Améliorations générales |
 
 ---

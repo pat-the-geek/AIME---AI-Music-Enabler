@@ -27,6 +27,7 @@ class Metadata(Base):
     __table_args__ = (
         Index('idx_metadata_album', 'album_id'),
         Index('idx_metadata_film', 'film_title'),
+        Index('idx_metadata_film_year', 'film_year'),
     )
     
     def __repr__(self):

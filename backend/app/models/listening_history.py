@@ -25,6 +25,9 @@ class ListeningHistory(Base):
         Index('idx_history_timestamp', 'timestamp'),
         Index('idx_history_source', 'source'),
         Index('idx_history_date', 'date'),
+        Index('idx_history_track_timestamp', 'track_id', 'timestamp'),
+        Index('idx_history_timestamp_source', 'timestamp', 'source'),
+        Index('idx_history_date_source', 'date', 'source'),
     )
     
     def __repr__(self):

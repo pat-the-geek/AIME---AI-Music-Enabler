@@ -271,7 +271,12 @@ async def get_timeline(
         return TimelineResponse(
             date=date,
             hours=hours_dict,
-            stats=stats_data['hourly_breakdown']
+            stats={
+                "total_tracks": stats_data['total_tracks'],
+                "unique_artists": stats_data['unique_artists'],
+                "unique_albums": stats_data['unique_albums'],
+                "peak_hour": stats_data['peak_hour']
+            }
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

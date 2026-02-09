@@ -46,7 +46,7 @@ export default function ArtistPortraitModal({
       try {
         const baseURL = apiClient.defaults.baseURL
         const response = await fetch(
-          `${baseURL}/artists/${artistId}/article/stream`,
+          `${baseURL}/collection/artists/${artistId}/article/stream`,
           {
             headers: {
               Accept: 'text/event-stream',

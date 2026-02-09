@@ -11,7 +11,7 @@ async def test_portrait_streaming():
     
     # Test with artist ID 24 (Beck)
     artist_id = 24
-    url = f"http://localhost:8000/api/v1/artists/{artist_id}/article/stream"
+    url = f"http://localhost:8000/api/v1/collection/artists/{artist_id}/article/stream"
     
     print(f"🎤 Testing portrait streaming for artist {artist_id}...")
     print(f"📡 URL: {url}\n")

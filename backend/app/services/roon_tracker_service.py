@@ -10,6 +10,7 @@ from app.database import SessionLocal
 from app.services.roon_service import RoonService
 from app.services.spotify_service import SpotifyService
 from app.services.external.ai_service import AIService
+from app.utils.radio_station_detector import RadioStationDetector
 from app.models import Track, ListeningHistory, Artist, Album, Image, Metadata
 
 logger = logging.getLogger(__name__)
@@ -139,6 +140,13 @@ class RoonTrackerService:
             max_attempts=euria_config.get('max_attempts', 5),
             default_error_message=euria_config.get('default_error_message', 'Aucune information disponible')
         )
+        
+        # Initialize radio station detector
+        roon_tracker_config = config.get('roon_tracker', {})
+        radio_stations = roon_tracker_config.get('radio_stations', [])
+        self.radio_detector = RadioStationDetector(radio_stations)
+        if radio_stations:
+            logger.info(f"📻 Stations de radio configurées: {', '.join(radio_stations)}")
     
     async def start(self):
         """
@@ -374,6 +382,11 @@ class RoonTrackerService:
             
             if not current_track:
                 logger.debug("Aucun track en cours de lecture sur Roon")
+                return
+            
+            # Vérifier si c'est une station de radio (à ignorer)
+            if self.radio_detector.is_radio_station(current_track):
+                logger.debug(f"📻 Station de radio ignorée: {current_track.get('artist', 'Unknown')} - {current_track.get('title', 'Unknown')}")
                 return
             
             # Créer clé unique pour éviter doublons

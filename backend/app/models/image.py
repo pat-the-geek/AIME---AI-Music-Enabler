@@ -30,6 +30,9 @@ class Image(Base):
         ),
         Index('idx_image_artist', 'artist_id'),
         Index('idx_image_album', 'album_id'),
+        Index('idx_images_artist_type', 'artist_id', 'image_type'),
+        Index('idx_images_album_type', 'album_id', 'image_type'),
+        Index('idx_images_source', 'source'),
     )
     
     def __repr__(self):

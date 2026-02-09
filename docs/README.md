@@ -51,6 +51,8 @@ Bienvenue dans la documentation du projet AIME - AI Music Enabler !
 
 - **[README Principal](../README.md)** - Vue d'ensemble du projet
 - **[Guide de Démarrage Rapide](guides/utilisateur/QUICKSTART.md)** - Installation pas à pas
+- **[Configuration du Tracker](guides/utilisateur/GUIDE-UTILISATEUR-TRACKER-CONFIGURATION.md)** - Stations de radio, horaires d'écoute
+- **[Guides Utilisateur](guides/utilisateur/)** - Référence rapide, découverte, optimisation
 - **[STATUS](archive/STATUS.md)** - État actuel de l'application
 - **[Historique des modifications](changelogs/CHANGELOG.md)** - Toutes les versions
 
@@ -76,6 +78,9 @@ Bienvenue dans la documentation du projet AIME - AI Music Enabler !
 
 ### "Je veux installer l'application"
 → [QUICKSTART.md](guides/utilisateur/QUICKSTART.md)
+
+### "Je veux configurer mes trackers (stations de radio, horaires)"
+→ [GUIDE-UTILISATEUR-TRACKER-CONFIGURATION.md](guides/utilisateur/GUIDE-UTILISATEUR-TRACKER-CONFIGURATION.md)
 
 ### "J'ai une erreur au démarrage"
 → [TROUBLESHOOTING.md](guides/troubleshooting/TROUBLESHOOTING.md)

@@ -9,6 +9,7 @@ from app.database import SessionLocal
 from app.services.spotify_service import SpotifyService
 from app.services.lastfm_service import LastFMService
 from app.services.external.ai_service import AIService
+from app.utils.radio_station_detector import RadioStationDetector
 from app.models import Track, ListeningHistory, Artist, Album, Image, Metadata
 
 logger = logging.getLogger(__name__)
@@ -127,6 +128,14 @@ class TrackerService:
             max_attempts=euria_config.get('max_attempts', 5),
             default_error_message=euria_config.get('default_error_message', 'Aucune information disponible')
         )
+        
+        # Initialize radio station detector
+        # Note: For Last.fm tracker, we get radio_stations from roon_tracker config
+        # since both trackers might be synchronized
+        roon_tracker_config = config.get('roon_tracker', {})
+        radio_stations = roon_tracker_config.get('radio_stations', [])
+        self.radio_detector = RadioStationDetector(radio_stations)
+
     
     async def start(self):
         """
@@ -290,6 +299,11 @@ class TrackerService:
                 return
             
             current_track = recent_tracks[0]
+            
+            # Vérifier si c'est une station de radio (à ignorer)
+            if self.radio_detector.is_radio_station(current_track):
+                logger.debug(f"📻 Station de radio ignorée: {current_track.get('artist', 'Unknown')} - {current_track.get('title', 'Unknown')}")
+                return
             
             # Créer clé unique pour éviter doublons
             track_key = f"{current_track['artist']}|{current_track['title']}|{current_track['album']}"

@@ -92,7 +92,7 @@ export default function ArtistArticle() {
     
     try {
       const baseURL = apiClient.defaults.baseURL
-      const response = await fetch(`${baseURL}/artists/${selectedArtist.id}/article/stream`, {
+      const response = await fetch(`${baseURL}/collection/artists/${selectedArtist.id}/article/stream`, {
         headers: {
           'Accept': 'text/event-stream'
         }

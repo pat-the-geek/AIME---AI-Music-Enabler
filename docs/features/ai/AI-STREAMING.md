@@ -27,7 +27,7 @@ Le **streaming AI** permet d'afficher le texte du portrait d'artiste **caractèr
 
 ```
 Client (Browser)
-    ↓ HTTP GET /api/v1/artists/{id}/article/stream
+    ↓ HTTP GET /api/v1/collection/artists/{id}/article/stream
     ↓
 FastAPI Endpoint
     ↓ StreamingResponse (SSE)
@@ -144,7 +144,7 @@ async def stream_artist_article(artist_id: int, db: Session = Depends(get_db)):
 
 ```typescript
 const handleGenerateArticleStream = async () => {
-  const response = await fetch(`${baseURL}/artists/${id}/article/stream`, {
+  const response = await fetch(`${baseURL}/collection/artists/${id}/article/stream`, {
     headers: { 'Accept': 'text/event-stream' }
   })
   
@@ -376,7 +376,7 @@ console.log('Contenu actuel:', streamedContent)
 ### Tester avec cURL
 
 ```bash
-curl -N http://localhost:8000/api/v1/artists/123/article/stream
+curl -N http://localhost:8000/api/v1/collection/artists/123/article/stream
 ```
 
 L'option `-N` désactive le buffering cURL.
