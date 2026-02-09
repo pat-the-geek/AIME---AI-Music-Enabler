@@ -96,9 +96,15 @@ async def restore_active_services():
     
     Récupère la liste des services actifs depuis la base de données et les
     redémarre avec les timeouts globaux du démarrage de l'application.
+    
+    Note: Les erreurs de service ne sont pas bloquantes. Si un service ne peut
+    pas démarrer (ex: connection timeout après wake-up), l'app continue.
     """
     logger.info("🔄 Restauration des services actifs...")
     db = SessionLocal()
+    restored_count = 0
+    failed_count = 0
+    
     try:
         # Récupérer tous les services actifs
         active_services = db.query(ServiceState).filter_by(is_active=True).all()
@@ -111,23 +117,29 @@ async def restore_active_services():
                     tracker = get_tracker()
                     await tracker.start()
                     logger.info(f"✅ Tracker Last.fm restauré")
+                    restored_count += 1
                         
                 elif service_name == 'roon_tracker':
                     roon_tracker = get_roon_tracker()
                     await roon_tracker.start()
                     logger.info(f"✅ Tracker Roon restauré")
+                    restored_count += 1
                         
                 elif service_name == 'scheduler':
                     scheduler_found = True
                     scheduler = get_scheduler()
                     await scheduler.start()
                     logger.info(f"✅ Scheduler restauré")
+                    restored_count += 1
                 else:
                     logger.warning(f"⚠️ Service inconnu: {service_name}")
+                    
             except Exception as e:
-                logger.error(f"❌ Erreur restauration service '{service_name}': {e}")
+                logger.error(f"❌ Erreur restauration service '{service_name}': {e}", exc_info=True)
+                failed_count += 1
+                # Don't raise - other services can still start
         
-        # ⭐ NOUVEAU : Assurer que le scheduler est TOUJOURS actif
+        # ⭐ Assurer que le scheduler est TOUJOURS actif
         # Si le scheduler n'a pas été trouvé en base, le démarrer et le marquer comme actif
         if not scheduler_found:
             logger.info("📅 Démarrage automatique du scheduler (non trouvé en base)")
@@ -143,13 +155,20 @@ async def restore_active_services():
                 scheduler_state.last_updated = datetime.now(timezone.utc)
                 db.commit()
                 logger.info(f"✅ Scheduler démarré et marqué comme actif en base")
+                restored_count += 1
             except Exception as e:
-                logger.error(f"❌ Erreur démarrage automatique du scheduler: {e}")
+                logger.error(f"❌ Erreur démarrage automatique du scheduler: {e}", exc_info=True)
+                failed_count += 1
         
         if not active_services and not scheduler_found:
             logger.info("ℹ️ Aucun service actif à restaurer")
+        
+        # Résumé de la restauration
+        if restored_count > 0 or failed_count > 0:
+            logger.info(f"📊 Restauration complète: {restored_count} succès, {failed_count} erreurs")
+            
     except Exception as e:
-        logger.error(f"❌ Erreur lors de la restauration des services: {e}")
+        logger.error(f"❌ Erreur critique lors de la restauration des services: {e}", exc_info=True)
     finally:
         db.close()
 

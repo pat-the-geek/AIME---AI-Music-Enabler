@@ -54,32 +54,56 @@ services_initialized = False
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Gestion du cycle de vie de l'application."""
+    """Gestion du cycle de vie de l'application avec resilience.
+    
+    Les erreurs de service startup ne bloquent pas l'application.
+    Cela permet au système de démarrer même si les trackers/scheduler
+    ont des problèmes de connexion temporaires (ex: après wake-up).
+    """
     # Startup
     try:
         logger.info("🚀 Démarrage de l'application AIME - AI Music Enabler")
         
         # Initialiser la base de données
-        init_db()
-        logger.info("✅ Base de données initialisée")
+        try:
+            init_db()
+            logger.info("✅ Base de données initialisée")
+        except Exception as e:
+            logger.error(f"❌ Erreur initialisation BD: {e}", exc_info=True)
+            raise RuntimeError(f"Database initialization failed: {e}")
         
         # Valider les composants au démarrage
-        from app.services.health_monitor import health_monitor
-        if not health_monitor.validate_startup():
-            logger.error("❌ Startup validation failed - aborting")
-            raise RuntimeError("Application startup validation failed")
+        try:
+            from app.services.health_monitor import health_monitor
+            if not health_monitor.validate_startup():
+                logger.error("❌ Startup validation failed - aborting")
+                raise RuntimeError("Application startup validation failed")
+            logger.info("✅ Tous les composants validés")
+        except Exception as e:
+            logger.error(f"❌ Erreur validation: {e}", exc_info=True)
+            raise RuntimeError(f"Startup validation failed: {e}")
         
-        logger.info("✅ Tous les composants validés")
         global services_initialized
         services_initialized = True
         
         # Restaurer les services actifs (trackers, scheduler)
-        from app.api.v1.tracking.services import restore_active_services
-        await restore_active_services()
+        # Les erreurs de service ne sont pas fatales - l'app peut démarrer sans
+        try:
+            from app.api.v1.tracking.services import restore_active_services
+            await restore_active_services()
+            logger.info("✅ Services restaurés")
+        except Exception as e:
+            logger.error(f"❌ Erreur restauration services: {e}", exc_info=True)
+            # Continue même si les services échouent
+            logger.warning("⚠️ Application démarrant sans services actifs")
         
         logger.info("✅ Application ready to serve requests")
+    except RuntimeError as e:
+        # Erreur fatale - arrêter l'application
+        logger.error(f"❌ Erreur critique au démarrage: {e}", exc_info=True)
+        raise
     except Exception as e:
-        logger.error(f"❌ Erreur lors du démarrage: {e}", exc_info=True)
+        logger.error(f"❌ Erreur inattendue au démarrage: {e}", exc_info=True)
         raise RuntimeError(f"Failed to start application: {str(e)}")
     
     yield

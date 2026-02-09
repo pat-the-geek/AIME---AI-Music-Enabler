@@ -36,16 +36,28 @@ engine = create_engine(
 # Event listeners pour la gestion des erreurs
 @event.listens_for(engine, "connect")
 def receive_connect(dbapi_conn, connection_record):
-    """Configuration des connexions."""
+    """Configuration des connexions.
+    
+    Appelé à chaque nouvelle connexion (y compris après reconnexion suite à wake-up).
+    """
     if settings.database_url.startswith("sqlite"):
         dbapi_conn.execute("PRAGMA journal_mode = WAL")  # Write-Ahead Logging pour SQLite
         dbapi_conn.execute("PRAGMA synchronous = NORMAL")
         dbapi_conn.execute("PRAGMA cache_size = 10000")
+        logger.debug("🔌 SQLite connection configured with WAL mode")
 
 @event.listens_for(engine, "engine_disposed")
 def receive_engine_disposed(engine):
-    """Log quand le moteur est fermé."""
-    logger.info("Moteur de base de données fermé")
+    """Log quand le moteur est fermé (ex: après wake-up)."""
+    logger.info("🔌 Moteur de base de données fermé - nouvelle connexion au prochain accès")
+
+@event.listens_for(engine, "connect")
+def receive_dbapi_connect(dbapi_conn, connection_record):
+    """Optimisations de performance pour SQLite."""
+    if settings.database_url.startswith("sqlite"):
+        # Augmenter les timeouts pour post-wake-up recovery
+        dbapi_conn.timeout = 30
+        logger.debug("🔌 Database connection timeout set to 30s")
 
 # Session locale
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

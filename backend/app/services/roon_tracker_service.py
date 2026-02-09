@@ -142,17 +142,15 @@ class RoonTrackerService:
     
     async def start(self):
         """
-        Start the background Roon polling scheduler (non-blocking).
+        Start the background Roon polling scheduler.
 
         Launches async polling of Roon's now-playing state at configured intervals.
-        Validates Roon connection and zone availability before starting.
-        Scheduler startup runs in background thread to prevent blocking event loop.
+        Validates Roon connection before starting.
 
         Validation:
             - Checks Roon connectivity
-            - Waits up to 5 seconds for zones to become available
             - Logs detailed info about available zones
-            - Fails gracefully with ERROR logging if conditions not met
+            - Fails gracefully with ERROR logging if not connected
 
         Example:
             >>> tracker = RoonTrackerService(config)
@@ -165,22 +163,16 @@ class RoonTrackerService:
             - Default: 120 seconds (2 minutes)
             - Respects listen_start_hour/listen_end_hour time window
             - Runs continuously until stop() called
-            - Timeout: 5 seconds for scheduler startup
 
         Error Handling:
-            - Logs ERROR and returns silently if conditions not met
+            - Logs ERROR and returns silently if not connected
             - No exceptions raised to caller
             - Idempotent: calling when already running logs info (no-op)
 
         Logging:
             - Logs INFO when starting successfully
-            - Logs ERROR if not connected, no zones, or already running
+            - Logs ERROR if not connected or other issues
             - Logs INFO with available zones on successful start
-            - Logs ERROR if startup times out
-
-        Implementation:
-            Uses run_in_executor() to avoid blocking event loop when
-            calling scheduler.start() which is synchronous.
         """
         if self.is_running:
             logger.info("🎵 Tracker Roon déjà en cours d'exécution")
@@ -204,8 +196,9 @@ class RoonTrackerService:
             self.is_running = True
             logger.info(f"✅ Tracker Roon démarré (intervalle: {interval}s)")
         except Exception as e:
-            logger.error(f"❌ Erreur démarrage Roon tracker: {e}")
+            logger.error(f"❌ Erreur démarrage Roon tracker: {e}", exc_info=True)
             self.is_running = False
+            # Ne pas lever l'exception pour ne pas bloquer le startup de l'app
 
     
     async def stop(self):

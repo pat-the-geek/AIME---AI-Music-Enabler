@@ -104,7 +104,7 @@ class SchedulerService:
         )
     
     async def start(self):
-        """Start APScheduler with all configured background tasks (non-blocking).
+        """Start APScheduler with all configured background tasks.
         
         Registers 9 scheduled tasks with cron triggers (UTC times):
         - 02:00: Daily enrichment (images, descriptions)
@@ -117,20 +117,17 @@ class SchedulerService:
         - 23:00: Magazine edition batch generation
         - 00:00: Discogs daily sync
         
-        Scheduler startup runs in background thread to prevent blocking event loop.
         Idempotent: Does nothing if already running.
         
         Side Effects:
-            - Starts APScheduler in background thread
+            - Starts APScheduler in background
             - Sets is_running = True
             - Logs INFO: "📅 Scheduler démarré..."
         
-        Performance:
-            Scheduler.start() non-blocking via executor
-        
         Error Handling:
-            - Logs ERROR if startup times out
+            - Logs ERROR if startup fails
             - Sets is_running = False on error
+            - Does not raise exception (allows app startup to continue)
         
         Note:
             All tasks run UTC. Adjust CronTrigger hours for other timezones.
@@ -216,8 +213,9 @@ class SchedulerService:
             self.is_running = True
             logger.info("✅ Scheduler démarré avec tâches optimisées")
         except Exception as e:
-            logger.error(f"❌ Erreur démarrage scheduler: {e}")
+            logger.error(f"❌ Erreur démarrage scheduler: {e}", exc_info=True)
             self.is_running = False
+            # Ne pas lever l'exception pour ne pas bloquer le startup de l'app
 
     
     async def stop(self):

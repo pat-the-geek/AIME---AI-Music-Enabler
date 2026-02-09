@@ -130,24 +130,22 @@ class TrackerService:
     
     async def start(self):
         """
-        Start the background Last.fm polling scheduler (non-blocking).
+        Start the background Last.fm polling scheduler.
 
         Launches the async scheduler with a recurring job that polls Last.fm
-        at the configured interval. Scheduler startup runs in background thread
-        to prevent blocking the event loop. Does nothing if already running.
+        at the configured interval. Does nothing if already running.
 
         Polling Behavior:
             - Interval: configurable via config['tracker']['interval_seconds']
-            - Default: 120 seconds (2 minutes)
+            - Default: 150 seconds (2.5 minutes)
             - Runs continuously until stop() called
-            - Non-blocking; executes in background
-            - Timeout: 5 seconds per service startup
+            - Non-blocking; executes in background via APScheduler
 
         Example:
             >>> tracker = TrackerService(config)
             >>> await tracker.start()
-            >>> print("Polling started in background")
-            >>> # Tracker now polls Last.fm every 120 seconds
+            >>> print("Polling started")
+            >>> # Tracker now polls Last.fm every 150 seconds
 
         Side Effects:
             - Creates APScheduler job 'lastfm_tracker'
@@ -157,11 +155,11 @@ class TrackerService:
         Logging:
             - Logs INFO when starting with interval
             - Logs INFO if already running (no-op)
-            - Logs ERROR if startup times out
+            - Logs ERROR if startup fails
 
-        Implementation:
-            Uses run_in_executor() to avoid blocking event loop when
-            calling scheduler.start() which is synchronous.
+        Error Handling:
+            Catches and logs exceptions but doesn't raise them,
+            allowing app startup to continue if tracker fails.
         """
         if self.is_running:
             logger.info("Tracker Last.fm déjà en cours d'exécution")
@@ -181,8 +179,9 @@ class TrackerService:
             self.is_running = True
             logger.info(f"✅ Tracker Last.fm démarré (intervalle: {interval}s)")
         except Exception as e:
-            logger.error(f"❌ Erreur démarrage Last.fm tracker: {e}")
+            logger.error(f"❌ Erreur démarrage Last.fm tracker: {e}", exc_info=True)
             self.is_running = False
+            # Ne pas lever l'exception pour ne pas bloquer le startup de l'app
 
     
     async def stop(self):
