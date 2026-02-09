@@ -378,6 +378,8 @@ export default function FloatingRoonController() {
                   objectFit: 'cover',
                   borderRadius: 1,
                   marginBottom: 2,
+                  opacity: hasFocus ? 1 : 0.3,
+                  transition: 'opacity 0.3s ease',
                 }}
               />
             )}
