@@ -73,9 +73,24 @@ async def lifespan(app: FastAPI):
         global services_initialized
         services_initialized = True
         
-        # Restaurer les services actifs (trackers, scheduler)
+        # Restaurer les services actifs (trackers, scheduler) avec timeout global
         from app.api.v1.tracking.services import restore_active_services
-        await restore_active_services()
+        try:
+            if hasattr(asyncio, 'timeout'):
+                # Python 3.11+: utiliser asyncio.timeout()
+                async with asyncio.timeout(30):
+                    await restore_active_services()
+            else:
+                # Python < 3.11: utiliser asyncio.wait_for()
+                await asyncio.wait_for(
+                    restore_active_services(),
+                    timeout=30.0
+                )
+            logger.info("✅ Services restaurés avec succès")
+        except asyncio.TimeoutError:
+            logger.error("❌ TIMEOUT restauration services (>30s) - démarrage sans services actifs")
+        except Exception as e:
+            logger.error(f"❌ Erreur restauration services: {e}")
         
         logger.info("✅ Application ready to serve requests")
     except Exception as e:

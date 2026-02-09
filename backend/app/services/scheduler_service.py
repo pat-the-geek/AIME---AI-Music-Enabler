@@ -41,6 +41,8 @@ from collections import Counter
 import logging
 import os
 import json
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 from io import StringIO
 
 from app.database import SessionLocal
@@ -104,7 +106,7 @@ class SchedulerService:
         )
     
     async def start(self):
-        """Start APScheduler with all configured background tasks.
+        """Start APScheduler with all configured background tasks (non-blocking).
         
         Registers 9 scheduled tasks with cron triggers (UTC times):
         - 02:00: Daily enrichment (images, descriptions)
@@ -117,15 +119,20 @@ class SchedulerService:
         - 23:00: Magazine edition batch generation
         - 00:00: Discogs daily sync
         
+        Scheduler startup runs in background thread to prevent blocking event loop.
         Idempotent: Does nothing if already running.
         
         Side Effects:
-            - Starts APScheduler background thread
+            - Starts APScheduler in background thread
             - Sets is_running = True
             - Logs INFO: "📅 Scheduler démarré..."
         
         Performance:
-            O(1) - scheduler.start() is non-blocking
+            Scheduler.start() non-blocking via executor
+        
+        Error Handling:
+            - Logs ERROR if startup times out
+            - Sets is_running = False on error
         
         Note:
             All tasks run UTC. Adjust CronTrigger hours for other timezones.
@@ -206,9 +213,31 @@ class SchedulerService:
             replace_existing=True
         )
         
-        self.scheduler.start()
-        self.is_running = True
-        logger.info("📅 Scheduler démarré avec tâches optimisées")
+        # Exécuter scheduler.start() dans un thread séparé pour éviter le blocage
+        def _start_scheduler():
+            try:
+                self.scheduler.start()
+            except Exception as e:
+                logger.error(f"Erreur démarrage scheduler: {e}")
+        
+        loop = asyncio.get_event_loop()
+        executor = ThreadPoolExecutor(max_workers=1)
+        
+        try:
+            # Lancer dans un thread avec timeout de 5 secondes
+            future = loop.run_in_executor(executor, _start_scheduler)
+            await asyncio.wait_for(future, timeout=5.0)
+            self.is_running = True
+            logger.info("✅ Scheduler démarré avec tâches optimisées")
+        except asyncio.TimeoutError:
+            logger.error("❌ Timeout démarrage scheduler (>5s) - base de données non accessible?")
+            self.is_running = False
+        except Exception as e:
+            logger.error(f"❌ Erreur démarrage scheduler: {e}")
+            self.is_running = False
+        finally:
+            executor.shutdown(wait=False)
+
     
     async def stop(self):
         """

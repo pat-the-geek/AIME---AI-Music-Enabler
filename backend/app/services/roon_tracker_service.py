@@ -1,5 +1,6 @@
 """Service de tracking Roon en arrière-plan."""
 import asyncio
+from concurrent.futures import ThreadPoolExecutor
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from datetime import datetime, timezone
@@ -142,10 +143,11 @@ class RoonTrackerService:
     
     async def start(self):
         """
-        Start the background Roon polling scheduler.
+        Start the background Roon polling scheduler (non-blocking).
 
         Launches async polling of Roon's now-playing state at configured intervals.
         Validates Roon connection and zone availability before starting.
+        Scheduler startup runs in background thread to prevent blocking event loop.
 
         Validation:
             - Checks Roon connectivity
@@ -164,6 +166,7 @@ class RoonTrackerService:
             - Default: 120 seconds (2 minutes)
             - Respects listen_start_hour/listen_end_hour time window
             - Runs continuously until stop() called
+            - Timeout: 5 seconds for scheduler startup
 
         Error Handling:
             - Logs ERROR and returns silently if conditions not met
@@ -174,6 +177,11 @@ class RoonTrackerService:
             - Logs INFO when starting successfully
             - Logs ERROR if not connected, no zones, or already running
             - Logs INFO with available zones on successful start
+            - Logs ERROR if startup times out
+
+        Implementation:
+            Uses run_in_executor() to avoid blocking event loop when
+            calling scheduler.start() which is synchronous.
         """
         if self.is_running:
             logger.info("🎵 Tracker Roon déjà en cours d'exécution")
@@ -192,9 +200,31 @@ class RoonTrackerService:
             replace_existing=True
         )
         
-        self.scheduler.start()
-        self.is_running = True
-        logger.info(f"🎵 Tracker Roon démarré (intervalle: {interval}s)")
+        # Exécuter scheduler.start() dans un thread séparé pour éviter le blocage
+        def _start_scheduler():
+            try:
+                self.scheduler.start()
+            except Exception as e:
+                logger.error(f"Erreur démarrage scheduler Roon: {e}")
+        
+        loop = asyncio.get_event_loop()
+        executor = ThreadPoolExecutor(max_workers=1)
+        
+        try:
+            # Lancer dans un thread avec timeout de 5 secondes
+            future = loop.run_in_executor(executor, _start_scheduler)
+            await asyncio.wait_for(future, timeout=5.0)
+            self.is_running = True
+            logger.info(f"✅ Tracker Roon démarré (intervalle: {interval}s)")
+        except asyncio.TimeoutError:
+            logger.error("❌ Timeout démarrage Roon tracker (>5s) - Roon service non accessible?")
+            self.is_running = False
+        except Exception as e:
+            logger.error(f"❌ Erreur démarrage Roon tracker: {e}")
+            self.is_running = False
+        finally:
+            executor.shutdown(wait=False)
+
     
     async def stop(self):
         """

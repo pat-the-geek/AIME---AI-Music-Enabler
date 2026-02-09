@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from pydantic import BaseModel
 from typing import Optional
 import logging
+import asyncio
 
 from app.database import get_db, SessionLocal
 from app.core.config import get_settings
@@ -92,7 +93,12 @@ def get_service_state(service_name: str) -> bool:
 
 
 async def restore_active_services():
-    """Restaurer automatiquement les services qui étaient actifs."""
+    """Restaurer automatiquement les services qui étaient actifs avec timeouts.
+    
+    Chaque service a un timeout de 10 secondes pour se démarrer.
+    Si un service timeout, on continue avec les autres.
+    Le scheduler est toujours démarré.
+    """
     logger.info("🔄 Restauration des services actifs...")
     db = SessionLocal()
     try:
@@ -105,22 +111,49 @@ async def restore_active_services():
             try:
                 if service_name == 'tracker':
                     tracker = get_tracker()
-                    await tracker.start()
-                    logger.info(f"✅ Tracker Last.fm restauré")
+                    # Timeout de 10 secondes pour le tracker Last.fm
+                    try:
+                        if hasattr(asyncio, 'timeout'):
+                            # Python 3.11+
+                            async with asyncio.timeout(10):
+                                await tracker.start()
+                        else:
+                            # Python < 3.11
+                            await asyncio.wait_for(tracker.start(), timeout=10.0)
+                        logger.info(f"✅ Tracker Last.fm restauré")
+                    except asyncio.TimeoutError:
+                        logger.error(f"❌ TIMEOUT restauration Last.fm tracker (>10s)")
+                        
                 elif service_name == 'roon_tracker':
-                    # Pour Roon, attendre un peu plus que les zones soient disponibles
-                    import asyncio
-                    logger.info(f"⏳ Attente connexion Roon avant restauration du tracker...")
-                    await asyncio.sleep(2)  # Donner 2s de plus à Roon pour se connecter
-                    
                     roon_tracker = get_roon_tracker()
-                    await roon_tracker.start()
-                    logger.info(f"✅ Tracker Roon restauré")
+                    # Timeout de 10 secondes pour le tracker Roon
+                    try:
+                        if hasattr(asyncio, 'timeout'):
+                            # Python 3.11+
+                            async with asyncio.timeout(10):
+                                await roon_tracker.start()
+                        else:
+                            # Python < 3.11
+                            await asyncio.wait_for(roon_tracker.start(), timeout=10.0)
+                        logger.info(f"✅ Tracker Roon restauré")
+                    except asyncio.TimeoutError:
+                        logger.error(f"❌ TIMEOUT restauration Roon tracker (>10s)")
+                        
                 elif service_name == 'scheduler':
                     scheduler_found = True
                     scheduler = get_scheduler()
-                    await scheduler.start()
-                    logger.info(f"✅ Scheduler restauré")
+                    # Timeout de 10 secondes pour le scheduler
+                    try:
+                        if hasattr(asyncio, 'timeout'):
+                            # Python 3.11+
+                            async with asyncio.timeout(10):
+                                await scheduler.start()
+                        else:
+                            # Python < 3.11
+                            await asyncio.wait_for(scheduler.start(), timeout=10.0)
+                        logger.info(f"✅ Scheduler restauré")
+                    except asyncio.TimeoutError:
+                        logger.error(f"❌ TIMEOUT restauration scheduler (>10s)")
                 else:
                     logger.warning(f"⚠️ Service inconnu: {service_name}")
             except Exception as e:
@@ -131,23 +164,34 @@ async def restore_active_services():
         if not scheduler_found:
             logger.info("📅 Démarrage automatique du scheduler (non trouvé en base)")
             scheduler = get_scheduler()
-            await scheduler.start()
-            # Marquer comme actif en base pour la prochaine fois
-            scheduler_state = db.query(ServiceState).filter_by(service_name='scheduler').first()
-            if scheduler_state is None:
-                scheduler_state = ServiceState(service_name='scheduler')
-                db.add(scheduler_state)
-            scheduler_state.is_active = True
-            scheduler_state.last_updated = datetime.now(timezone.utc)
-            db.commit()
-            logger.info(f"✅ Scheduler démarré et marqué comme actif en base")
+            try:
+                if hasattr(asyncio, 'timeout'):
+                    # Python 3.11+
+                    async with asyncio.timeout(10):
+                        await scheduler.start()
+                else:
+                    # Python < 3.11
+                    await asyncio.wait_for(scheduler.start(), timeout=10.0)
+                    
+                # Marquer comme actif en base pour la prochaine fois
+                scheduler_state = db.query(ServiceState).filter_by(service_name='scheduler').first()
+                if scheduler_state is None:
+                    scheduler_state = ServiceState(service_name='scheduler')
+                    db.add(scheduler_state)
+                scheduler_state.is_active = True
+                scheduler_state.last_updated = datetime.now(timezone.utc)
+                db.commit()
+                logger.info(f"✅ Scheduler démarré et marqué comme actif en base")
+            except asyncio.TimeoutError:
+                logger.error(f"❌ TIMEOUT démarrage automatique du scheduler (>10s)")
         
-        if not active_services and scheduler_found:
-            logger.info("ℹ️ Aucun service actif à restaurer (scheduler déjà géré)")
+        if not active_services and not scheduler_found:
+            logger.info("ℹ️ Aucun service actif à restaurer")
     except Exception as e:
         logger.error(f"❌ Erreur lors de la restauration des services: {e}")
     finally:
         db.close()
+
 
 
 def get_tracker():

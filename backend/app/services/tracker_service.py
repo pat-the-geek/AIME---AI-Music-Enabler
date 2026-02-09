@@ -4,6 +4,8 @@ from apscheduler.triggers.interval import IntervalTrigger
 from datetime import datetime, timezone
 from sqlalchemy.orm import Session
 import logging
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 
 from app.database import SessionLocal
 from app.services.spotify_service import SpotifyService
@@ -130,16 +132,18 @@ class TrackerService:
     
     async def start(self):
         """
-        Start the background Last.fm polling scheduler.
+        Start the background Last.fm polling scheduler (non-blocking).
 
         Launches the async scheduler with a recurring job that polls Last.fm
-        at the configured interval. Does nothing if already running.
+        at the configured interval. Scheduler startup runs in background thread
+        to prevent blocking the event loop. Does nothing if already running.
 
         Polling Behavior:
             - Interval: configurable via config['tracker']['interval_seconds']
             - Default: 120 seconds (2 minutes)
             - Runs continuously until stop() called
             - Non-blocking; executes in background
+            - Timeout: 5 seconds per service startup
 
         Example:
             >>> tracker = TrackerService(config)
@@ -150,14 +154,19 @@ class TrackerService:
         Side Effects:
             - Creates APScheduler job 'lastfm_tracker'
             - Sets is_running = True
-            - Starts async event loop for polling
+            - Starts scheduler in background thread
 
         Logging:
             - Logs INFO when starting with interval
             - Logs INFO if already running (no-op)
+            - Logs ERROR if startup times out
+
+        Implementation:
+            Uses run_in_executor() to avoid blocking event loop when
+            calling scheduler.start() which is synchronous.
         """
         if self.is_running:
-            logger.info("Tracker déjà en cours d'exécution")
+            logger.info("Tracker Last.fm déjà en cours d'exécution")
             return
         
         interval = self.config.get('tracker', {}).get('interval_seconds', 150)
@@ -169,9 +178,31 @@ class TrackerService:
             replace_existing=True
         )
         
-        self.scheduler.start()
-        self.is_running = True
-        logger.info(f"Tracker démarré (intervalle: {interval}s)")
+        # Exécuter scheduler.start() dans un thread séparé pour éviter le blocage
+        def _start_scheduler():
+            try:
+                self.scheduler.start()
+            except Exception as e:
+                logger.error(f"Erreur démarrage scheduler Last.fm: {e}")
+        
+        loop = asyncio.get_event_loop()
+        executor = ThreadPoolExecutor(max_workers=1)
+        
+        try:
+            # Lancer dans un thread avec timeout de 5 secondes
+            future = loop.run_in_executor(executor, _start_scheduler)
+            await asyncio.wait_for(future, timeout=5.0)
+            self.is_running = True
+            logger.info(f"✅ Tracker Last.fm démarré (intervalle: {interval}s)")
+        except asyncio.TimeoutError:
+            logger.error("❌ Timeout démarrage Last.fm tracker (>5s) - Last.fm service non accessible?")
+            self.is_running = False
+        except Exception as e:
+            logger.error(f"❌ Erreur démarrage Last.fm tracker: {e}")
+            self.is_running = False
+        finally:
+            executor.shutdown(wait=False)
+
     
     async def stop(self):
         """
