@@ -42,6 +42,7 @@ export default function FloatingRoonController() {
   const [isSeeking, setIsSeeking] = useState(false)
   const [lastFetchTime, setLastFetchTime] = useState<number>(Date.now())
   const [interpolatedPosition, setInterpolatedPosition] = useState<number>(0)
+  const [hasFocus, setHasFocus] = useState(false)
   
   // Synchroniser isPlaying avec l'état réel de Roon
   useEffect(() => {
@@ -275,15 +276,21 @@ export default function FloatingRoonController() {
           },
         },
       }}
+      onFocus={() => setHasFocus(true)}
+      onBlur={() => setHasFocus(false)}
+      onMouseEnter={() => setHasFocus(true)}
+      onMouseLeave={() => setHasFocus(false)}
+      tabIndex={0}
     >
       <Paper
         elevation={8}
         sx={{
           borderRadius: 2,
           overflow: 'hidden',
-          backgroundColor: 'rgba(30, 30, 30, 0.95)',
+          backgroundColor: hasFocus ? 'rgba(30, 30, 30, 0.95)' : 'rgba(30, 30, 30, 0.15)',
           backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
+          border: hasFocus ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0.05)',
+          transition: 'background-color 0.3s ease, border-color 0.3s ease',
         }}
       >
         {/* Header */}
