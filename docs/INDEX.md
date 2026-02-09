@@ -1,7 +1,7 @@
-# 📚 Index de la Documentation - AIME v4.6.0
+# 📚 Index de la Documentation - AIME v4.6.3
 
-**Date:** 6 février 2026  
-**Dernière réorganisation:** 6 février 2026
+**Date:** 9 février 2026  
+**Dernière réorganisation:** 9 février 2026
 
 ---
 
