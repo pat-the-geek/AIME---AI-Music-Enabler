@@ -54,9 +54,10 @@ export default function FloatingRoonController() {
   // Synchroniser le volume avec Roon
   useEffect(() => {
     if (nowPlaying && nowPlaying.volume !== undefined) {
+      console.log('Volume sync:', nowPlaying.volume)
       setVolume(nowPlaying.volume)
     }
-  }, [nowPlaying?.volume])
+  }, [nowPlaying])
 
   // Mettre à jour la position de départ quand le track change
   useEffect(() => {
