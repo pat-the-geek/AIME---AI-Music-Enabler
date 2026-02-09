@@ -44,7 +44,9 @@ export function RoonProvider({ children }: { children: ReactNode }) {
   const [zone, setZone] = useState<string>(() => {
     return localStorage.getItem('roon_zone') || ''
   })
-  const [playbackZone, setPlaybackZone] = useState<string>('')
+  const [playbackZone, setPlaybackZone] = useState<string>(() => {
+    return localStorage.getItem('roon_playback_zone') || ''
+  })
   const [isLoading, setIsLoading] = useState(true)
   const [nowPlaying, setNowPlaying] = useState<NowPlayingTrack | null>(null)
   const [zones, setZones] = useState<RoonZone[]>([])
@@ -168,6 +170,27 @@ export function RoonProvider({ children }: { children: ReactNode }) {
       }
     }
   }, [zones])
+
+  // Quand un morceau est détecté comme en cours de lecture,
+  // placer la zone de lecture sur celle où il est en cours de lecture
+  // Cela garantit que les contrôles du player flottant contrôlent la zone correcte
+  useEffect(() => {
+    if (nowPlaying && nowPlaying.zone_name) {
+      // Un morceau est en cours de lecture, mettre à jour la zone de lecture
+      if (playbackZone !== nowPlaying.zone_name) {
+        setPlaybackZone(nowPlaying.zone_name)
+      }
+    }
+  }, [nowPlaying?.zone_name])
+
+  // Sauvegarder la zone de lecture dans localStorage pour persistence
+  useEffect(() => {
+    if (playbackZone) {
+      localStorage.setItem('roon_playback_zone', playbackZone)
+    }
+  }, [playbackZone])
+
+
 
   // Sauvegarder la zone dans localStorage
   const handleSetZone = (newZone: string) => {
