@@ -490,47 +490,80 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                       objectFit: 'cover'
                     }}
                   />
+                  
+                  {/* Overlay avec texte superposé pour les grandes images */}
+                  {isMassive && artist.haiku && !isEmptyContent(artist.haiku) && (
+                    <Box sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: '80%',
+                      maxWidth: '800px',
+                      textAlign: 'center',
+                      zIndex: 2,
+                      padding: '32px',
+                      backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                      backdropFilter: 'blur(8px)',
+                      borderRadius: '4px',
+                      fontFamily: '"Crimson Text", "Georgia", serif',
+                      fontStyle: 'italic',
+                      lineHeight: 1.8,
+                      color: '#e0f2ff',
+                      fontWeight: 400,
+                      letterSpacing: '0.03em',
+                      fontSize: '1.5rem',
+                      textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)',
+                      '& p': { margin: '12px 0', whiteSpace: 'pre-wrap' },
+                      '& strong': { fontWeight: 700, color: '#aed9ff' },
+                      '& em': { fontStyle: 'italic', color: '#c4e3ff' }
+                    }}>
+                      <ReactMarkdown>{artist.haiku}</ReactMarkdown>
+                    </Box>
+                  )}
                 </Box>
               </Grid>
             )}
 
-            {/* Haiku - Position dynamique selon layout IA */}
-            <Grid item xs={12} 
-              md={isCenter || isFloating || isFullWidth ? 12 : (imagePosition === 'top' || imagePosition === 'bottom' ? 12 : (isMassive || imageSize === 'large') ? 12 : 4)}
-              order={isBottom ? 3 : (imagePosition === 'right' || isCorner ? 1 : 2)}
-              sx={isFloating || isCorner ? {
-                position: { md: 'absolute' },
-                top: isCorner ? '5%' : '20%',
-                right: isCorner ? '2%' : '5%',
-                left: isCorner && imagePosition.includes('left') ? '2%' : 'auto',
-                zIndex: 10,
-                maxWidth: '350px'
-              } : {}}
-            >
-              <Box sx={{
-                padding: isFloating || isCorner ? '24px' : '32px',
-                textAlign: 'center',
-                height: isFloating || isCorner ? 'auto' : '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontFamily: '"Crimson Text", "Georgia", serif',
-                fontStyle: 'italic',
-                lineHeight: 2.2,
-                color: '#2c3e50',
-                fontWeight: 400,
-                letterSpacing: '0.03em',
-                fontSize: isFloating || isCorner ? '1.1rem' : '1.3rem',
-                '& p': { margin: '8px 0', whiteSpace: 'pre-wrap' },
-                '& strong': { fontWeight: 700, color: '#1a1a1a' },
-                '& em': { fontStyle: 'italic' },
-                '&::before': { content: '"\\201C"', fontSize: '2em', color: '#1a1a1a', lineHeight: 0, marginRight: '4px', float: 'left' },
-                '&::after': { content: '"\\201D"', fontSize: '2em', color: '#1a1a1a', lineHeight: 0, marginLeft: '4px' },
-                ...(isEmptyContent(artist.haiku) ? getHiddenContentSx(artist.haiku) : {})
-              }}>
-                <ReactMarkdown>{artist.haiku}</ReactMarkdown>
-              </Box>
-            </Grid>
+            {/* Haiku - Position dynamique selon layout IA - Masqué si image massive (texte superposé sur image) */}
+            {!isMassive && (
+              <Grid item xs={12} 
+                md={isCenter || isFloating || isFullWidth ? 12 : (imagePosition === 'top' || imagePosition === 'bottom' ? 12 : (imageSize === 'large') ? 12 : 4)}
+                order={isBottom ? 3 : (imagePosition === 'right' || isCorner ? 1 : 2)}
+                sx={isFloating || isCorner ? {
+                  position: { md: 'absolute' },
+                  top: isCorner ? '5%' : '20%',
+                  right: isCorner ? '2%' : '5%',
+                  left: isCorner && imagePosition.includes('left') ? '2%' : 'auto',
+                  zIndex: 10,
+                  maxWidth: '350px'
+                } : {}}
+              >
+                <Box sx={{
+                  padding: isFloating || isCorner ? '24px' : '32px',
+                  textAlign: 'center',
+                  height: isFloating || isCorner ? 'auto' : '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontFamily: '"Crimson Text", "Georgia", serif',
+                  fontStyle: 'italic',
+                  lineHeight: 2.2,
+                  color: '#2c3e50',
+                  fontWeight: 400,
+                  letterSpacing: '0.03em',
+                  fontSize: isFloating || isCorner ? '1.1rem' : '1.3rem',
+                  '& p': { margin: '8px 0', whiteSpace: 'pre-wrap' },
+                  '& strong': { fontWeight: 700, color: '#1a1a1a' },
+                  '& em': { fontStyle: 'italic' },
+                  '&::before': { content: '"\\201C"', fontSize: '2em', color: '#1a1a1a', lineHeight: 0, marginRight: '4px', float: 'left' },
+                  '&::after': { content: '"\\201D"', fontSize: '2em', color: '#1a1a1a', lineHeight: 0, marginLeft: '4px' },
+                  ...(isEmptyContent(artist.haiku) ? getHiddenContentSx(artist.haiku) : {})
+                }}>
+                  <ReactMarkdown>{artist.haiku}</ReactMarkdown>
+                </Box>
+              </Grid>
+            )}
 
             {/* Albums Grid - Position et colonnes dynamiques - Photo d'artiste dessus */}
             <Grid item xs={12} 
@@ -825,12 +858,77 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                               specialEffect === 'overlay' ? 'brightness(0.8)' : 'none'
                     }}
                   />
+                  
+                  {/* Overlay avec texte superposé pour les grandes images */}
+                  {isMassive && (
+                    <Box sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: '80%',
+                      maxWidth: '900px',
+                      zIndex: 2,
+                      padding: '40px',
+                      backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                      backdropFilter: 'blur(8px)',
+                      borderRadius: '4px',
+                      textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)'
+                    }}>
+                      {/* Titre de l'album */}
+                      <Typography variant="h2" sx={{
+                        fontFamily: '"Playfair Display", "Georgia", serif',
+                        fontWeight: 900,
+                        marginBottom: '16px',
+                        color: '#aed9ff',
+                        letterSpacing: '0.02em',
+                        textTransform: 'uppercase',
+                        fontSize: '2.5rem',
+                        textAlign: 'center'
+                      }}>
+                        {album.title}
+                      </Typography>
+                      
+                      {/* Artiste et année */}
+                      <Typography variant="h5" sx={{ 
+                        fontFamily: '"Merriweather", "Georgia", serif',
+                        color: '#c4e3ff',
+                        fontWeight: 400,
+                        fontStyle: 'italic',
+                        textAlign: 'center',
+                        marginBottom: '24px'
+                      }}>
+                        {album.artist}
+                        {album.year && ` • ${album.year}`}
+                      </Typography>
+                      
+                      {/* Description courte si disponible */}
+                      {album.description && !isEmptyContent(album.description) && (
+                        <Box sx={{
+                          fontFamily: '"Merriweather", "Georgia", serif',
+                          fontStyle: 'italic',
+                          lineHeight: 1.8,
+                          color: '#e0f2ff',
+                          fontSize: '1.1rem',
+                          textAlign: 'center',
+                          maxHeight: '200px',
+                          overflow: 'hidden',
+                          '& p': { margin: '8px 0' },
+                          '& strong': { fontWeight: 700, color: '#aed9ff' },
+                          '& em': { fontStyle: 'italic', color: '#c4e3ff' }
+                        }}>
+                          <ReactMarkdown>{album.description.split('\n\n')[0]}</ReactMarkdown>
+                        </Box>
+                      )}
+                    </Box>
+                  )}
                 </Box>
               </Grid>
             )}
 
-            {/* Content */}
-            <Grid item xs={12} md={album.image_url && !isImageTop ? (isMassive || isFullWidth || imageSize === 'large' ? 12 : 8) : 12} order={isImageLeft ? 2 : 1}>
+            {/* Content - Masqué si image massive (texte superposé sur image) */}
+            {!isMassive && (
+              <Grid item xs={12} md={album.image_url && !isImageTop ? (isFullWidth || imageSize === 'large' ? 12 : 8) : 12} order={isImageLeft ? 2 : 1}>
               <Box sx={{ position: 'relative' }}>
                 {/* Image de l'artiste - coin supérieur droit */}
                 {page.content.artist_images && 
@@ -1009,6 +1107,7 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                 )}
               </Box>
             </Grid>
+            )}
           </Grid>
         </Box>
       </Box>
