@@ -47,7 +47,7 @@
 - 3 tiers (Frontend React / Backend FastAPI / DB SQLite)
 - 11 tables (albums, artists, tracks, listening_history, metadata, images, service_states, album_artist, album_collections, collection_albums, alembic_version)
 - Auto-restart services
-- Intégration Roon, Last.fm, Discogs, Spotify
+- Intégrations Last.fm, Discogs, Spotify
 - Flow de contrôle détaillé
 
 ---
@@ -64,7 +64,7 @@
 - `/albums` - Gestion albums
 - `/artists` - Gestion artistes  
 - `/history` - Historique d'écoute
-- `/services` - Services externes (Last.fm, Roon, Discogs, Spotify)
+- `/services` - Services externes (Last.fm, Discogs, Spotify)
 - `/analytics` - Statistiques avancées
 - `/collection` - Collections et exports
 
@@ -114,7 +114,6 @@
 | **[DISCOVER-GUIDE.md](guides/utilisateur/DISCOVER-GUIDE.md)** | Guide de découverte |
 | **[GUIDE-UTILISATEUR-TRACKER-CONFIGURATION.md](guides/utilisateur/GUIDE-UTILISATEUR-TRACKER-CONFIGURATION.md)** | Configuration du tracker (stations de radio, horaires) |
 | **[GUIDE-UTILISATEUR-OPTIMIZATION-SETTINGS.md](guides/utilisateur/GUIDE-UTILISATEUR-OPTIMIZATION-SETTINGS.md)** | Guide optimisation settings |
-| **[GUIDE-UTILISATEUR-ROON-PLAYLISTS.md](guides/utilisateur/GUIDE-UTILISATEUR-ROON-PLAYLISTS.md)** | Guide playlists Roon |
 
 ### 🔧 Installation
 
@@ -189,21 +188,6 @@
 | **[EXPORT-MARKDOWN.md](features/export/EXPORT-MARKDOWN.md)** | Export Markdown |
 | **[EXPORT-MARKDOWN-FEATURE.md](features/export/EXPORT-MARKDOWN-FEATURE.md)** | Fonctionnalité export |
 | **[EXPORT-MARKDOWN-FRONTEND.md](features/export/EXPORT-MARKDOWN-FRONTEND.md)** | Intégration frontend |
-
-### 🎛️ Roon
-
-**Répertoire:** `features/roon/`
-
-| Fichier | Description |
-|---------|-------------|
-| **[ROON-TRACKER-DOC.md](features/roon/ROON-TRACKER-DOC.md)** | Documentation tracker Roon |
-| **[ROON-BUGFIXES.md](features/roon/ROON-BUGFIXES.md)** | Corrections bugs Roon |
-| **[ROON-CHANGELOG.md](features/roon/ROON-CHANGELOG.md)** | Changelog Roon |
-| **[ROON-CONTROLS-GUIDE.md](features/roon/ROON-CONTROLS-GUIDE.md)** | Guide contrôles Roon |
-| **[ROON-PLAYLISTS-GUIDE.md](features/roon/ROON-PLAYLISTS-GUIDE.md)** | Guide playlists Roon |
-| **[MIGRATION-ROON-PLAYLISTS.md](features/roon/MIGRATION-ROON-PLAYLISTS.md)** | Migration playlists |
-
-**Autres sous-dossiers Roon:** `features/roon/` (contient documentation détaillée d'intégration)
 
 ### ⏰ Scheduler
 

@@ -8,7 +8,7 @@ class ListeningHistoryBase(BaseModel):
     """Schéma de base pour l'historique."""
     timestamp: int = Field(..., description="Unix timestamp")
     date: str = Field(..., max_length=20, description="Date au format YYYY-MM-DD HH:MM")
-    source: str = Field(..., max_length=20, description="Source (roon, lastfm)")
+    source: str = Field(..., max_length=20, description="Source (lastfm)")
     loved: bool = Field(default=False, description="Favori")
 
 

@@ -22,18 +22,11 @@ def upgrade() -> None:
     
     # Update existing albums:
     # - Albums with discogs_id are from Discogs
-    # - Albums with support="Roon" are from Roon
     # - Others are assumed to be from various sources but no clear origin
     op.execute("""
         UPDATE albums 
         SET source = 'discogs' 
         WHERE discogs_id IS NOT NULL
-    """)
-    
-    op.execute("""
-        UPDATE albums 
-        SET source = 'roon' 
-        WHERE support = 'Roon'
     """)
     
     # Create index on source column for better query performance

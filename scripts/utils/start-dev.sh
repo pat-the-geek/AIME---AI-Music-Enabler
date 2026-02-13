@@ -15,16 +15,12 @@ NC='\033[0m'
 # Variables
 BACKEND_PORT=8000
 FRONTEND_PORT=5173
-ROON_BRIDGE_PORT=3330
 MAX_RETRIES=3
 RETRY_DELAY=2
 
 # Fonction pour tuer les processus au Ctrl+C
 cleanup() {
     echo -e "\n${YELLOW}Arrêt des services...${NC}"
-    if [ ! -z "$ROON_BRIDGE_PID" ]; then
-        kill $ROON_BRIDGE_PID 2>/dev/null || true
-    fi
     if [ ! -z "$BACKEND_PID" ]; then
         kill $BACKEND_PID 2>/dev/null || true
     fi
@@ -33,7 +29,7 @@ cleanup() {
     fi
     # Attendre 2 secondes puis forcer si nécessaire
     sleep 2
-    kill -9 $ROON_BRIDGE_PID $BACKEND_PID $FRONTEND_PID 2>/dev/null || true
+    kill -9 $BACKEND_PID $FRONTEND_PID 2>/dev/null || true
     exit 0
 }
 
@@ -63,33 +59,6 @@ if ! check_port $BACKEND_PORT; then
         exit 1
     fi
 fi
-
-if ! check_port $ROON_BRIDGE_PORT; then
-    echo -e "${RED}⚠️  Port $ROON_BRIDGE_PORT en cours d'utilisation${NC}"
-    free_port $ROON_BRIDGE_PORT
-    sleep 1
-    if ! check_port $ROON_BRIDGE_PORT; then
-        echo -e "${RED}❌ Impossible de libérer le port $ROON_BRIDGE_PORT${NC}"
-        exit 1
-    fi
-fi
-
-# Démarrer le backend avec retry
-echo -e "${BLUE}🚀 Démarrage Roon Bridge (Port $ROON_BRIDGE_PORT)...${NC}"
-cd roon-bridge
-node app.js >/dev/null 2>&1 &
-ROON_BRIDGE_PID=$!
-cd ..
-
-# Attendre que le bridge soit prêt
-sleep 2
-
-if ! kill -0 $ROON_BRIDGE_PID 2>/dev/null; then
-    echo -e "${RED}❌ Impossible de démarrer Roon Bridge${NC}"
-    exit 1
-fi
-
-echo -e "${GREEN}✅ Roon Bridge démarré (PID: $ROON_BRIDGE_PID)${NC}"
 
 # Démarrer le backend avec retry
 echo -e "${BLUE}🚀 Démarrage Backend (Port $BACKEND_PORT)...${NC}"
@@ -142,9 +111,6 @@ cd ..
 echo -e "${GREEN}✅ Frontend démarré (PID: $FRONTEND_PID)${NC}"
 
 echo -e "\n${GREEN}✅ Services démarrés avec succès!${NC}"
-echo ""
-echo -e "${YELLOW}Roon Bridge:${NC}"
-echo "  http://localhost:$ROON_BRIDGE_PORT"
 echo ""
 echo -e "${YELLOW}Backend API:${NC}"
 echo "  http://localhost:$BACKEND_PORT"

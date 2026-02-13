@@ -14,8 +14,7 @@ Cette application a été entièrement développée en exploitant les capacités
 - **Backend**: FastAPI + Python 3.10+
 - **Base de données**: SQLite / PostgreSQL
 - **APIs Intégrées**: 
-  - **Last.fm**: Agrégation multi-sources (Roon ARC, PlexAmp, Quobuz, etc.)
-  - **Roon**: Contrôle direct via pyroon, zones, lecture en cours, commandes playback
+  - **Last.fm**: Agrégation multi-sources (PlexAmp, Quobuz, etc.)
   - **Spotify**: URLs, images, métadonnées tracks
   - **Discogs**: Collection, vinyl records
   - **EurIA** (Infomaniak AI): Descriptions automatiques
@@ -40,7 +39,7 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
 
 1. **Tracking Temps Réel - Multi-Source**
    - Surveillance automatique Last.fm toutes les 2 minutes (agrège données de multiples sources)
-   - Support des sources : **Roon ARC**, **PlexAmp**, **Quobuz**, et autres services compatibles Last.fm
+  - Support des sources : **PlexAmp**, **Quobuz**, et autres services compatibles Last.fm
    - Détection nouveaux tracks écoutés en temps réel
    - Enrichissement métadonnées (images artistes/albums de Spotify, Last.fm, Discogs)
    - Génération automatique descriptions IA
@@ -70,11 +69,9 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
    ![Détail Timeline](docs/screenshots/Screen%20captures/TimeLine%20-%20Detail.png)
 
 5. **Gestion des Trackers**
-   - Configuration Last.fm et Roon
-   - Suivi automatique des écoutes
-   - **✨ Auto-restart** : Les trackers redémarrent automatiquement après un redémarrage serveur
-   
-   ![Paramètres Trackers](docs/screenshots/Screen%20captures/Settings%20-%20Roon%20-%20Lastfm%20-%20Trackers.png)
+  - Configuration Last.fm
+  - Suivi automatique des écoutes
+  - **✨ Auto-restart** : Le tracker redémarre automatiquement après un redémarrage serveur
 
 6. **Scheduler et Exports Automatiques** ✨ **v4.5 - Auto-Start Garanti**
    - 🎋 Génération quotidienne de haikus pour 5 albums aléatoires (6h00)
@@ -91,24 +88,7 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
    
    ![Paramètres Scheduler](docs/screenshots/Screen%20captures/Settings%20-%20Scheduler.png)
 
-7. **Contrôle Roon Direct** ✨ **v4.6 - Zone Selection Avancée**
-   - **Widget Flottant** : Affichage en temps réel du morceau en cours
-   - **Sélection de Zone** : Dropdown pour choisir la zone Roon à contrôler (récemment ajouté)
-   - **Auto-Détection** : La zone actuellement en lecture est auto-sélectionnée au démarrage
-   - **Contrôles Intégrés** : Play, Pause, Next, Previous, Stop depuis les playlists
-   - **Tracking Multi-Zone** : Détection automatique des zones Roon actives
-   - **Démarrage Automatique** : Le tracker Roon redémarre après un reboot serveur
-   - **🛡️ Robustesse** : 
-     - Retry automatique (2 tentatives) sur tous les contrôles
-     - 3 niveaux de fallback pour le démarrage d'albums
-     - Timeout de 5-10s pour éviter les blocages
-     - Feedback visuel avec Snackbar (plus d'alertes)
-     - Génération de 50+ variantes artiste/album pour recherche
-   - **Interface Moderne** : Glassmorphism design avec animations fluides
-   
-   ![Paramètres Roon](docs/screenshots/Screen%20captures/Settings%20-%20Trackers%20-%20Roon.png)
-
-8. **📖 Magazine Éditorial** ✨ **NOUVEAU v4.5** (5 février 2026)
+7. **📖 Magazine Éditorial** ✨ **NOUVEAU v4.5** (5 février 2026)
    - **Format Éditorial** : 5 pages scrollables avec contenu aléatoire
    - **Page 1 - Artiste Aléatoire** : Présentation complète + albums + haïku IA
    - **Page 2 - Album du Jour** : Album spotlight + description IA longue (2000+ caractères)
@@ -127,7 +107,7 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
    ![Magazine Page 2](docs/screenshots/Screen%20captures/Magazine%202.png)
    ![Magazine Page 3](docs/screenshots/Screen%20captures/Magazine%203.png)
 
-9. **🎭 Portrait d'Artiste** ✨ **NOUVEAU v4.5**
+8. **🎭 Portrait d'Artiste** ✨ **NOUVEAU v4.5**
    - **Génération IA Streaming** : Texte généré progressivement par EurIA
    - **Format Markdown** : Support complet avec titres, listes, emphases
    - **Accessible Partout** : Boutons "Portrait" sur tous les artistes du magazine
@@ -136,8 +116,8 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
    
    ![Portrait Artiste](docs/screenshots/Screen%20captures/Portrait%20-%20Artiste.png)
 
-10. **API REST Complète**
-   - Endpoints pour collection, historique, playlists, services, Roon, magazines
+9. **API REST Complète**
+  - Endpoints pour collection, historique, playlists, services, magazines
    - Documentation Swagger auto-générée
    - Validation Pydantic
 
@@ -147,14 +127,6 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
 - Génération playlists (7 algorithmes)
 - Analytics et statistiques avancées
 - Export playlists (M3U, JSON, CSV)
-
-### ⚠️ Limitations Connues
-
-**Intégration Roon:**
-- � **Robustesse améliorée v4.5** : Retry automatique, fallback multi-niveaux, timeout
-- 🟡 Taux de succès: ~90-95% (vs 60-70% avant v4.5)
-- 💡 **Si échec**: Le système réessaie automatiquement 2 fois avant d'afficher une erreur
-- 📖 **Détails**: Voir [ROON-IMPROVEMENTS-SUMMARY-ROOT.md](ROON-IMPROVEMENTS-SUMMARY-ROOT.md)
 
 ## 🚀 Installation
 
@@ -311,21 +283,8 @@ Endpoints principaux:
 - `GET /api/v1/services/tracker/status` - Statut tracker Last.fm
 - `POST /api/v1/services/tracker/start` - Démarrer tracker Last.fm
 - `POST /api/v1/services/tracker/stop` - Arrêter tracker Last.fm
-- `GET /api/v1/services/roon-tracker/status` - Statut tracker Roon
-- `POST /api/v1/services/roon-tracker/start` - Démarrer tracker Roon
-- `POST /api/v1/services/roon-tracker/stop` - Arrêter tracker Roon
 - `POST /api/v1/services/discogs/sync` - Synchroniser Discogs
 - `POST /api/v1/services/ai/generate-info` - Générer info IA
-
-### Roon Control ✨ **NOUVEAU**
-- `GET /api/v1/roon/status` - Statut connexion Roon
-- `GET /api/v1/roon/zones` - Liste des zones disponibles
-- `GET /api/v1/roon/now-playing` - Morceau en cours de lecture
-- `POST /api/v1/roon/play` - Démarrer lecture
-- `POST /api/v1/roon/pause` - Mettre en pause
-- `POST /api/v1/roon/next` - Morceau suivant
-- `POST /api/v1/roon/previous` - Morceau précédent
-- `POST /api/v1/roon/stop` - Arrêter lecture
 
 ### Magazine ✨ **NOUVEAU**
 - `GET /api/v1/magazines/generate` - Générer nouveau magazine éditorial
@@ -413,9 +372,6 @@ npm run test
 ### Documentation des Fonctionnalités
 
 - **[Tracker Last.fm](docs/features/LASTFM-IMPORT-TRACKER-DOC.md)** - Configuration et import
-- **[Tracker Roon](docs/features/ROON-TRACKER-DOC.md)** - Intégration Roon
-- **[Intégration Roon Complète](docs/features/roon/ROON-INTEGRATION-COMPLETE.md)** - Guide complet Roon
-- **[Bugs Roon](docs/features/roon/ROON-BUGS-TRACKING.md)** - Suivi bugs et workarounds
 - **[Journal/Timeline](docs/features/JOURNAL-TIMELINE-DOC.md)** - Vue chronologique
 - **[Scheduler et Exports](docs/SCHEDULER.md)** - Tâches automatiques et configuration
 - **[Magazine Éditorial](docs/MAGAZINE-README.md)** - Guide complet du Magazine (10 pages)
@@ -471,23 +427,21 @@ MIT License
 
 ### Changelog 4.6.3
 
-**Volume Sync & UI Improvements (09/02/2026)**
-- 🔊 **Fix Roon Volume Sync** : Utilise `output.volume.value` au lieu de `control_value` pour la synchronisation correcte du volume
-- 🎨 **Transparence UI** : Player Roon en transparence quand pas en focus (95% opaque au hover, 15% sinon)
-- 📸 **Album Art Transparency** : Vignette album aussi en transparence lors de la perte de focus
-- 🧹 **Code Cleanup** : Nettoyage du logging inutile
+**Nettoyage Roon (09/02/2026)**
+- 🗑️ Suppression de l'intégration Roon (API, tracker, contrôle playback)
+- 🧹 Nettoyage de la configuration et de la documentation obsolète
 
 ### Changelog 4.6.2
 
 **Refactorisation Code & Architecture (07/02/2026)**
 - 🏗️ **Nouvelle Architecture Services** : Services organisés par domaine (8 groupes logiques)
   - `dialog/` - Réponses unifiées (erreurs, succès, streaming)
-  - `external/` - Intégrations externes (Spotify, Last.fm, Discogs, Roon, AI)
+  - `external/` - Intégrations externes (Spotify, Last.fm, Discogs, AI)
   - `collection/` - Gestion collection (albums, artistes, tracks, search)
   - `content/` - Génération contenu IA (haikus, articles, descriptions)
-  - `playback/` - Playback audio (playlists, queue, Roon)
+  - `playback/` - Playback audio (playlists, queue)
   - `analytics/` - Statistiques (listening history, patterns)
-  - `tracking/` - Tracking temps réel (Last.fm, Roon)
+  - `tracking/` - Tracking temps réel (Last.fm)
   - `magazine/` - Feature magazine (déjà bien organisée)
 - 🔧 **Module Dialogue Unifié** : Réponses HTTP, erreurs, SSE standardisées
   - `dialog/error_dialog.py` - Gestion centralisée des erreurs
@@ -534,18 +488,6 @@ MIT License
 - 📱 **Responsive** : Desktop, Tablet, Mobile optimisés
 - 📚 **Documentation Complète** : 7 fichiers de documentation (125+ pages)
 - 🔌 **Endpoints API** : `/api/v1/magazines/generate` et `/api/v1/magazines/regenerate`
-
-### Changelog 4.3.1
-
-**Intégration Roon Complète + Auto-Restart (01/02/2026)**
-- 🎛️ **Contrôle Roon Direct**: Widget flottant avec affichage temps réel du morceau en cours
-- ▶️ **Commandes Playback**: Play, Pause, Next, Previous, Stop intégrés dans les playlists
-- 🔄 **Auto-Restart des Services**: Trackers (Last.fm, Roon) et Scheduler redémarrent automatiquement
-- 🗄️ **Persistance États**: Nouvelle table `service_states` pour la restauration automatique
-- 🎯 **Gestion Zones Roon**: Détection automatique et attente du chargement des zones
-- 🐛 **Fix Zones Vides**: Correction du problème de zones non disponibles au démarrage
-- 📱 **Interface Moderne**: Glassmorphism design avec animations fluides
-- 📚 **Documentation**: [Auto-Restart Guide](docs/guides/AUTO-RESTART-TEST-GUIDE.md), [Roon Zones Fix](docs/features/roon/ROON-ZONES-FIX.md)
 
 ### Changelog 4.3.0
 

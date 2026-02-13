@@ -1,0 +1,692 @@
+{
+  "id": "2026-02-10-007",
+  "edition_number": 7,
+  "generated_at": "2026-02-10T05:20:50.751870+00:00",
+  "albums": [
+    {
+      "id": 263,
+      "title": "Orbital 2 (the Brown Album Expanded)",
+      "artist": "Orbital",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273eaef26541dc08b0d74a7f609",
+      "year": null,
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "gradient"
+      },
+      "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+    },
+    {
+      "id": 273,
+      "title": "Sad and Beautiful World",
+      "artist": "Mavis Staples",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27306f66604593294e5c831fa9c",
+      "year": null,
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "dramatic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "gradient"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+    },
+    {
+      "id": 245,
+      "title": "Is This It",
+      "artist": "The Strokes",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+      "year": 2001,
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "classic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+    },
+    {
+      "id": 285,
+      "title": "Portrait",
+      "artist": "Samara Joy",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+      "year": null,
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 281,
+      "title": "Live-action",
+      "artist": "Nate Smith",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+      "year": null,
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "chaos",
+        "accentColor": "#FF00FF",
+        "specialEffect": "gradient"
+      },
+      "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+    },
+    {
+      "id": 265,
+      "title": "Monsters Exist (deluxe)",
+      "artist": "Orbital",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273bd38413ff0aae6f75333b40e",
+      "year": null,
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 271,
+      "title": "Big Money",
+      "artist": "Jon Batiste",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2734788bd968a2f7368e16418f0",
+      "year": null,
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "chaos",
+        "accentColor": "#06b6d4",
+        "specialEffect": "gradient"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 1182,
+      "title": "Led Zeppelin Iii",
+      "artist": "Led Zeppelin",
+      "year": null,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27390a50cfe99a4c19ff3cbfbdb",
+      "description": "**Album Review: *Led Zeppelin III* – A Folk-Rock Evolution**\n\n*Led Zeppelin III* (1970) marks a bold departure for the British rock titans, blending their signature hard-rock intensity with acoustic folk influences. The album’s duality—balanced between raw electric energy and pastoral serenity—creates a dynamic sonic landscape. Tracks like the thunderous *\"Immigrant Song\"* showcase Jimmy Page’s searing riffs and Robert Plant’s soaring vocals, while *\"That’s the Way\"* and *\"Bron-Y-Aur Stomp\"* reveal a rustic charm, rooted in traditional folk and country twang.\n\nThe production, though less polished than later works, captures an organic, intimate feel, with intricate layering of mandolins, acoustic guitars, and Mellotron. The standout *\"Since I’ve Been Loving You\"* is a bluesy masterpiece, driven by John Paul Jones’ moody organ and John Bonham’s relentless rhythm. Emotionally, the album swings between triumph and reflection, evoking both primal power and delicate beauty. *Led Zeppelin III* remains a testament to the band’s fearless creativity and enduring legacy.",
+      "style": null
+    },
+    {
+      "album_id": 1107,
+      "album_title": "The Graduate (original Motion Picture Soundtrack)",
+      "artist_name": "Simon & Garfunkel, Dave Grusin",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f33d75cac5da4be6c3753196",
+      "count": 21
+    },
+    {
+      "id": 327,
+      "title": "The Complete Greatest Hits",
+      "artist": "Eagles",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738ba7b9be0ea28900ee4e8f87",
+      "genre": null
+    },
+    {
+      "id": 341,
+      "title": "So (remastered)",
+      "artist": "Peter Gabriel",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27311bb04f55be562c76d8e8ecf",
+      "genre": null
+    },
+    {
+      "id": 358,
+      "title": "Santana Iii",
+      "artist": "Santana",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273c1ad6b971f64399174d1c901",
+      "genre": null
+    },
+    {
+      "id": 286,
+      "title": "Trilogy 3 (live)",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273636688536fdadbf58c806e9a",
+      "genre": null,
+      "artist": "Chick Corea, Brian Blade & Christian Mcbride",
+      "description": "*Trilogy 3 (live)* marque un moment dans la carrière de Chick Corea, Brian Blade & Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 318,
+      "title": "David Bowie (aka Space Oddity) (2015 Remaster)",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733395f3e809dfbc2b1101d464",
+      "genre": null,
+      "artist": "David Bowie",
+      "description": "David Bowie livre avec *David Bowie (aka Space Oddity) (2015 Remaster)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 335,
+      "title": "Crime of the Century",
+      "year": 1974,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27389d7032603b62e9aedb03fa2",
+      "genre": null,
+      "artist": "Supertramp",
+      "description": "La **poésie musicale** de *Crime of the Century* de Supertramp transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 267,
+      "title": "Preacher Kids",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f9560cf7664563dd6da1454d",
+      "genre": null,
+      "artist": "Robert Randolph",
+      "description": "Dans *Preacher Kids*, Robert Randolph nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 308,
+      "title": "Fourplay",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273de138ee8ff61fde0b9a4217d",
+      "genre": null,
+      "artist": "Fourplay",
+      "description": "La **poésie musicale** de *Fourplay* de Fourplay transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 300,
+      "title": "The Art of Loving",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2739a336bfb6d40bbd90a507417",
+      "genre": null,
+      "artist": "Olivia Dean",
+      "description": "Dans *The Art of Loving*, Olivia Dean nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Voyage Musique",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Voyage Musique",
+          "description": "*Voyage Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 263,
+              "title": "Orbital 2 (the Brown Album Expanded)",
+              "artist": "Orbital",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273eaef26541dc08b0d74a7f609",
+              "year": null,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 273,
+              "title": "Sad and Beautiful World",
+              "artist": "Mavis Staples",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27306f66604593294e5c831fa9c",
+              "year": null,
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+            },
+            {
+              "id": 245,
+              "title": "Is This It",
+              "artist": "The Strokes",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+              "year": 2001,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+            },
+            {
+              "id": 285,
+              "title": "Portrait",
+              "artist": "Samara Joy",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+              "year": null,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 281,
+              "title": "Live-action",
+              "artist": "Nate Smith",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+              "year": null,
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "chaos",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 265,
+              "title": "Monsters Exist (deluxe)",
+              "artist": "Orbital",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273bd38413ff0aae6f75333b40e",
+              "year": null,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 271,
+              "title": "Big Money",
+              "artist": "Jon Batiste",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2734788bd968a2f7368e16418f0",
+              "year": null,
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "chaos",
+                "accentColor": "#06b6d4",
+                "specialEffect": "gradient"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "artistic",
+        "image_position": "top"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "right",
+        "imageSize": "medium",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1182,
+          "title": "Led Zeppelin Iii",
+          "artist": "Led Zeppelin",
+          "year": null,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b27390a50cfe99a4c19ff3cbfbdb",
+          "description": "**Album Review: *Led Zeppelin III* – A Folk-Rock Evolution**\n\n*Led Zeppelin III* (1970) marks a bold departure for the British rock titans, blending their signature hard-rock intensity with acoustic folk influences. The album’s duality—balanced between raw electric energy and pastoral serenity—creates a dynamic sonic landscape. Tracks like the thunderous *\"Immigrant Song\"* showcase Jimmy Page’s searing riffs and Robert Plant’s soaring vocals, while *\"That’s the Way\"* and *\"Bron-Y-Aur Stomp\"* reveal a rustic charm, rooted in traditional folk and country twang.\n\nThe production, though less polished than later works, captures an organic, intimate feel, with intricate layering of mandolins, acoustic guitars, and Mellotron. The standout *\"Since I’ve Been Loving You\"* is a bluesy masterpiece, driven by John Paul Jones’ moody organ and John Bonham’s relentless rhythm. Emotionally, the album swings between triumph and reflection, evoking both primal power and delicate beauty. *Led Zeppelin III* remains a testament to the band’s fearless creativity and enduring legacy.",
+          "style": null
+        },
+        "artist_images": {
+          "Led Zeppelin": "https://i.scdn.co/image/207803ce008388d3427a685254f9de6a8f61dc2e"
+        }
+      },
+      "dimensions": {
+        "image_size": "small",
+        "description_length": "full",
+        "font_size": "small"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 4,
+        "imagePosition": "bottom",
+        "imageSize": "large",
+        "textLayout": "vertical",
+        "composition": "zen",
+        "accentColor": "#ec4899",
+        "specialEffect": "blur"
+      },
+      "content": {
+        "total_recent_listens": 100,
+        "unique_artists": 43,
+        "unique_albums": 22,
+        "top_artists": [
+          {
+            "artist_id": 581,
+            "artist_name": "Simon & Garfunkel",
+            "image_url": "https://i.scdn.co/image/afde2fdd14f8c8ca23393f257e3a369a234a24b6",
+            "count": 22
+          },
+          {
+            "artist_id": 601,
+            "artist_name": "Dave Grusin",
+            "image_url": "https://i.scdn.co/image/29135f6101e2b98e0ab188693c41ba48bd248c4b",
+            "count": 21
+          },
+          {
+            "artist_id": 27,
+            "artist_name": "Beck",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb675a6e778640f767626f2e66",
+            "count": 15
+          },
+          {
+            "artist_id": 617,
+            "artist_name": "Beck & St. Vincent",
+            "image_url": null,
+            "count": 15
+          },
+          {
+            "artist_id": 618,
+            "artist_name": "Beck & Terrell Hines",
+            "image_url": null,
+            "count": 15
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1107,
+            "album_title": "The Graduate (original Motion Picture Soundtrack)",
+            "artist_name": "Simon & Garfunkel, Dave Grusin",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f33d75cac5da4be6c3753196",
+            "count": 21
+          },
+          {
+            "album_id": 1105,
+            "album_title": "Hyperspace (2020)",
+            "artist_name": "Beck, Beck & St. Vincent, Beck & Terrell Hines",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27330312f869979f64fd17d8bad",
+            "count": 15
+          },
+          {
+            "album_id": 1119,
+            "album_title": "A Minecraft Movie (songs From the Original Motion Picture Soundtrack)",
+            "artist_name": "Jack Black, Jack Black & Jason Momoa, Jamieson Shaw, Bret Mckenzie, Benee, Dayglow, Dirty Honey",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2736c983ef4297b7b05025613e8",
+            "count": 4
+          },
+          {
+            "album_id": 1103,
+            "album_title": "La Haine (musiques Inspirées du Film)",
+            "artist_name": "La Haine.",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27308098fd0dfeaf75b8b79e8ee",
+            "count": 2
+          },
+          {
+            "album_id": 1117,
+            "album_title": "Summer: the Original Hits",
+            "artist_name": "Donna Summer",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f0062d3c4f9444cef85891f7",
+            "count": 2
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "bar",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 327,
+            "title": "The Complete Greatest Hits",
+            "artist": "Eagles",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738ba7b9be0ea28900ee4e8f87",
+            "genre": null
+          },
+          {
+            "id": 341,
+            "title": "So (remastered)",
+            "artist": "Peter Gabriel",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27311bb04f55be562c76d8e8ecf",
+            "genre": null
+          },
+          {
+            "id": 358,
+            "title": "Santana Iii",
+            "artist": "Santana",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273c1ad6b971f64399174d1c901",
+            "genre": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 327,
+            "album_title": "The Complete Greatest Hits",
+            "haiku": "**The Complete Greatest Hits**\nÉchos d'or s'envolent\nSous le ciel de la mémoire",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "right",
+              "imageSize": "small",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "gradient"
+            },
+            "description": "La **poésie musicale** de *The Complete Greatest Hits* de Eagles transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 341,
+            "album_title": "So (remastered)",
+            "haiku": "**So (remastered)**\nÉchos du cœur battant\nRêves en notes dorées",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "right",
+              "imageSize": "large",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#ab47bc",
+              "specialEffect": "none"
+            },
+            "description": "La **poésie musicale** de *So (remastered)* de Peter Gabriel transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 358,
+            "album_title": "Santana Iii",
+            "haiku": "**Santana III**\nRythmes flamboyants s'envolent\nGuitares enflammant l'âme.",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "left",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "gradient"
+            },
+            "description": "**Santana Iii** de *Santana* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "small",
+        "columns": 1,
+        "spacing": "normal"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "John Coltrane Quartet",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "blur"
+      },
+      "content": {
+        "artist": {
+          "name": "John Coltrane Quartet",
+          "albums_count": 7,
+          "haiku": "**Trilogy 3 (live)**\nCordes vibrantes en flammes\nRythmes tissant l'univers\n\n*(Inspiré par l'énergie alchimique du trio, évoquant la fusion jazz du quartet mythique de Coltrane.)*",
+          "bio": "**John Coltrane Quartet** nous offre 7 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273a3d4884d3433efed2c4a0563"
+        },
+        "albums": [
+          {
+            "id": 286,
+            "title": "Trilogy 3 (live)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273636688536fdadbf58c806e9a",
+            "genre": null,
+            "artist": "Chick Corea, Brian Blade & Christian Mcbride",
+            "description": "*Trilogy 3 (live)* marque un moment dans la carrière de Chick Corea, Brian Blade & Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 318,
+            "title": "David Bowie (aka Space Oddity) (2015 Remaster)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2733395f3e809dfbc2b1101d464",
+            "genre": null,
+            "artist": "David Bowie",
+            "description": "David Bowie livre avec *David Bowie (aka Space Oddity) (2015 Remaster)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 335,
+            "title": "Crime of the Century",
+            "year": 1974,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27389d7032603b62e9aedb03fa2",
+            "genre": null,
+            "artist": "Supertramp",
+            "description": "La **poésie musicale** de *Crime of the Century* de Supertramp transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 267,
+            "title": "Preacher Kids",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f9560cf7664563dd6da1454d",
+            "genre": null,
+            "artist": "Robert Randolph",
+            "description": "Dans *Preacher Kids*, Robert Randolph nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 308,
+            "title": "Fourplay",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273de138ee8ff61fde0b9a4217d",
+            "genre": null,
+            "artist": "Fourplay",
+            "description": "La **poésie musicale** de *Fourplay* de Fourplay transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 285,
+            "title": "Portrait",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+            "genre": null,
+            "artist": "Samara Joy",
+            "description": "La **poésie musicale** de *Portrait* de Samara Joy transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 300,
+            "title": "The Art of Loving",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2739a336bfb6d40bbd90a507417",
+            "genre": null,
+            "artist": "Olivia Dean",
+            "description": "Dans *The Art of Loving*, Olivia Dean nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 500,
+        "text_columns": 1,
+        "color_scheme": "newspaper"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

@@ -60,12 +60,12 @@ export default function ArtistArticle() {
   const { data: artistsData, isLoading: artistsLoading } = useQuery({
     queryKey: ['artists-list', searchTerm],
     queryFn: async () => {
-      const response = await apiClient.get('/artists/list', {
+      const response = await apiClient.get('/collection/artists/list', {
         params: { search: searchTerm || undefined, limit: 100 }
       })
       return response.data
     },
-    enabled: searchTerm.length > 0,
+    enabled: true, // Toujours activé pour permettre la recherche dès l'ouverture
   })
 
   // Générer l'article (mode non-streaming - gardé pour compatibilité)
@@ -73,7 +73,7 @@ export default function ArtistArticle() {
     queryKey: ['artist-article', selectedArtist?.id],
     queryFn: async () => {
       if (!selectedArtist) throw new Error('Aucun artiste sélectionné')
-      const response = await apiClient.get(`/artists/${selectedArtist.id}/article`)
+      const response = await apiClient.get(`/collection/artists/${selectedArtist.id}/article`)
       return response.data
     },
     enabled: false, // Désactivé par défaut, on préfère le streaming

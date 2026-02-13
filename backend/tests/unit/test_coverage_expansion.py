@@ -351,7 +351,7 @@ class TestListeningHistory:
             track_id=track_in_db.id,
             timestamp=timestamp,
             date=date_str,
-            source="roon"
+            source="lastfm"
         )
         db_session.add(entry)
         db_session.commit()
@@ -361,7 +361,7 @@ class TestListeningHistory:
         ).first()
         
         assert retrieved is not None
-        assert retrieved.source == "roon"
+        assert retrieved.source == "lastfm"
     
     def test_listening_history_timeframe(
         self,
@@ -383,13 +383,13 @@ class TestListeningHistory:
             track_id=track_in_db.id,
             timestamp=now_ts,
             date=now_str,
-            source="roon"
+            source="lastfm"
         )
         entry2 = ListeningHistory(
             track_id=track_in_db.id,
             timestamp=past_ts,
             date=past_str,
-            source="roon"
+            source="lastfm"
         )
         
         db_session.add_all([entry1, entry2])

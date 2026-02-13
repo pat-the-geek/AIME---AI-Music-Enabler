@@ -11,7 +11,7 @@ from app.schemas import (
     PlaylistDetailResponse,
     PlaylistExportFormat,
 )
-from app.services.playback import PlaylistService, RoonPlaybackService
+from app.services.playback import PlaylistService
 from app.services.external.ai_service import AIService
 from app.core.config import get_settings
 import logging
@@ -132,7 +132,6 @@ async def list_playlists(
     **Related Endpoints:**
     - POST /api/v1/playback/playlists: Create new playlist
     - GET /api/v1/playback/playlists/{id}: Get playlist details
-    - POST /api/v1/playback/playlists/{id}/play-on-roon: Play playlist
     """
     try:
         playlists = PlaylistService.list_playlists(db)
@@ -256,7 +255,6 @@ async def create_playlist(
     - GET /api/v1/playback/playlists: List all playlists
     - POST /api/v1/playback/playlists/generate: AI-generate playlist
     - GET /api/v1/playback/playlists/{id}: Get playlist detail
-    - POST /api/v1/playback/playlists/{id}/play-on-roon: Play it
     """
     try:
         playlist = PlaylistService.create_playlist(
@@ -575,7 +573,6 @@ async def get_playlist(
     **Related Endpoints:**
     - GET /api/v1/playback/playlists: List all playlists
     - DELETE /api/v1/playback/playlists/{id}: Delete playlist
-    - POST /api/v1/playback/playlists/{id}/play-on-roon: Play it
     - GET /api/v1/playback/playlists/{id}/export: Export tracks
     """
     try:
@@ -847,7 +844,6 @@ async def export_playlist(
     **Related Endpoints:**
     - GET /api/v1/playback/playlists/{id}: View playlist
     - POST /api/v1/playback/playlists: Create new
-    - POST /api/v1/playback/playlists/{id}/play-on-roon: Play it
     """
     try:
         result = PlaylistService.export_playlist(db, playlist_id, format.value)
@@ -859,161 +855,6 @@ async def export_playlist(
     except Exception as e:
         logger.error(f"Erreur export playlist: {e}")
         raise HTTPException(status_code=500, detail="Erreur export")
-
-
-@router.post("/{playlist_id}/play-on-roon")
-async def play_playlist_on_roon(
-    playlist_id: int,
-    zone_name: str,
-    db: Session = Depends(get_db)
-):
-    """
-    Play a playlist on Roon with automatic track sequencing.
-    
-    Starts sequential playback of a playlist on a Roon zone. Automatically manages
-    track sequencing so songs play in order with proper timing synchronization.
-    Uses playlist track order for playback sequence. Essential for playing full
-    playlists without manual intervention.
-    
-    **Query Parameters:**
-    - `zone_name`: Target Roon zone name (string, required)
-      - Example: "Living Room", "Kitchen"
-      - Must be an existing zone
-    - `playlist_id`: Playlist ID in URL path
-    
-    **Response (200 OK - Success):**
-    ```json
-    {
-      "message": "Lecture de la playlist démarrée avec enchaînement automatique: Weekend Relaxation",
-      "playlist": {
-        "id": 1,
-        "name": "Weekend Relaxation",
-        "track_count": 42
-      },
-      "now_playing": {
-        "title": "Clair de Lune",
-        "artist": "Claude Debussy",
-        "album": "The Essential Debussy"
-      },
-      "queue_info": {
-        "total_tracks": 42,
-        "mode": "automatic_sequential",
-        "description": "Les tracks seront lus séquentiellement avec synchronisation basée sur la durée"
-      },
-      "zone": "Living Room"
-    }
-    ```
-    
-    **Playback Sequencing:**
-    - Starts: First track in playlist (position 1)
-    - Transitions: After each track finishes, switch to next
-    - Sequencing: Automatic based on track duration
-    - Syncing: Position tracked against expected cumulative time
-    - Fallback: Manual skip if duration mismatch
-    
-    **Queue Management:**
-    - Mode: "automatic_sequential"
-    - Tracks: Queued in order
-    - Skips: User can skip to next/previous
-    - Repeat: Loop playlist (if configured)
-    
-    **Database Flow:**
-    1. Fetch playlist: SELECT * FROM playlist WHERE id = playlist_id
-    2. Get tracks: SELECT track FROM playlist_track WHERE playlist_id = id ORDER BY position
-    3. Get metadata: Album, artist, duration for each track
-    4. Sort: By position (already in playlist order)
-    5. Send: Track list to Roon bridge
-    
-    **Performance:**
-    - Playlist lookup: 10-20ms
-    - Track retrieval (per track): 5ms
-    - Metadata joins: 50-200ms
-    - Roon queue setup: 100-500ms
-    - Total (50 tracks): 300-800ms
-    - Total (200 tracks): 600-1500ms
-    
-    **Roon Integration:**
-    - Roon service: RoonPlaybackService
-    - Method: playback control with track queue
-    - API: Via Roon bridge HTTP endpoint
-    - Queue: Managed by Roon (1000+ track limit)
-    
-    **Error Scenarios:**
-    - Playlist not found: 404 Not Found
-    - Zone not found: 404 with available zones list
-    - Roon unavailable: 503 Service Unavailable
-    - Roon control disabled: 403 Forbidden
-    - Empty playlist: 400 Bad Request (no tracks)
-    
-    **Usage Examples:**
-    ```bash
-    # Play playlist on Living Room zone
-    POST /api/v1/playback/playlists/1/play-on-roon?zone_name=Living%20Room
-    
-    # Response shows playback initiated
-    {"message": "Lecture de la playlist démarrée...", "now_playing": {...}}
-    ```
-    
-    **Frontend Integration:**
-    ```javascript
-    // Playlist play button
-    async function playPlaylist(playlistId, zoneName) {
-      const response = await fetch(
-        `/api/v1/playback/playlists/${playlistId}/play-on-roon?zone_name=${zoneName}`,
-        { method: 'POST' }
-      ).then(r => r.json());
-      
-      if (response.message) {
-        // Update now-playing display
-        updateNowPlaying(response.now_playing);
-        
-        // Show status
-        showNotification(
-          `Now playing: ${response.now_playing.title} (${response.queue_info.total_tracks} tracks)`
-        );
-      }
-    }
-    ```
-    
-    **Zone Selection:**
-    - zone_name: Display name from Roon
-    - Must match exactly (case-sensitive)
-    - Use GET /api/v1/playback/roon/zones to list
-    
-    **Automatic Sequencing Details:**
-    - Tracks ordered by: position in playlist
-    - Timing: Based on track duration_seconds
-    - Expected time next track: current_time + track_duration
-    - Verification: Check actual Roon time matches expectation
-    - Adjustment: Manual skip if drift detected
-    
-    **Limitations:**
-    - Max tracks: 1000 (Roon queue limit)
-    - Long playlists: May timeout (>30s setup)
-    - Network: Latency affects sequencing accuracy
-    - No pause: Can't pause playlist while maintaining queue
-    
-    **Related Endpoints:**
-    - GET /api/v1/playback/playlists/{id}: View playlist before playing
-    - GET /api/v1/playback/roon/zones: List available zones
-    - POST /api/v1/playback/roon/play-track: Play single track
-    - POST /api/v1/playback/roon/control: Control playback (pause/skip)
-    """
-    try:
-        settings = get_settings()
-        roon_control_config = settings.app_config.get('roon_control', {})
-        if not roon_control_config.get('enabled', False):
-            raise HTTPException(status_code=403, detail="Le contrôle Roon n'est pas activé")
-        
-        result = RoonPlaybackService.play_playlist_on_roon(db, playlist_id, zone_name)
-        return result
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Erreur playback Roon: {e}")
-        raise HTTPException(status_code=500, detail=f"Erreur Roon: {str(e)}")
 
 
 

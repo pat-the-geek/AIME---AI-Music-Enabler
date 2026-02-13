@@ -10,7 +10,6 @@ class AlbumSource(PyEnum):
     """Source d'origine de l'album."""
     DISCOGS = "discogs"      # Collection Discogs
     LASTFM = "lastfm"        # Importé depuis Last.fm (historique d'écoute)
-    ROON = "roon"            # Importé depuis Roon (historique d'écoute)
     SPOTIFY = "spotify"      # Importé depuis Spotify
     MANUAL = "manual"        # Ajouté manuellement
 

@@ -13,6 +13,7 @@ interface NowPlayingTrack {
   duration_seconds?: number
   position_seconds?: number
   volume?: number
+  fetchedAt?: number
 }
 
 interface RoonZone {
@@ -39,6 +40,33 @@ interface RoonContextType {
 const RoonContext = createContext<RoonContextType | undefined>(undefined)
 
 export function RoonProvider({ children }: { children: ReactNode }) {
+  // Roon UI disabled: always hide playback controls/buttons
+  const roonDisabled = true
+  if (roonDisabled) {
+    const noop = () => {}
+    const reject = async () => { throw new Error('Roon est désactivé dans l’interface') }
+    return (
+      <RoonContext.Provider
+        value={{
+          enabled: false,
+          available: false,
+          zone: '',
+          setZone: noop,
+          playbackZone: '',
+          setPlaybackZone: noop,
+          zones: [],
+          playTrack: reject,
+          playPlaylist: reject,
+          isLoading: false,
+          nowPlaying: null,
+          playbackControl: reject
+        }}
+      >
+        {children}
+      </RoonContext.Provider>
+    )
+  }
+
   const queryClient = useQueryClient()
   const [enabled, setEnabled] = useState(false)
   const [available, setAvailable] = useState(false)
@@ -90,6 +118,7 @@ export function RoonProvider({ children }: { children: ReactNode }) {
         const params = playbackZone ? { zone_name: playbackZone } : {}
         const response = await apiClient.get('/playback/roon/now-playing', { params })
         if (response.data?.title) {
+          const fetchedAt = Date.now()
           console.log('[RoonContext] Now playing response keys:', Object.keys(response.data))
           console.log('[RoonContext] Title:', response.data.title)
           console.log('[RoonContext] Artist:', response.data.artist)
@@ -98,7 +127,7 @@ export function RoonProvider({ children }: { children: ReactNode }) {
           console.log('[RoonContext] Volume value:', response.data.volume)
           console.log('[RoonContext] Volume type:', typeof response.data.volume)
           console.log('[RoonContext] Full response data:', JSON.stringify(response.data, null, 2))
-          setNowPlaying(response.data as NowPlayingTrack)
+          setNowPlaying({ ...(response.data as NowPlayingTrack), fetchedAt })
         } else {
           setNowPlaying(null)
         }
@@ -111,16 +140,16 @@ export function RoonProvider({ children }: { children: ReactNode }) {
     if (enabled && available) {
       fetchNowPlaying()
       
-      // Premier polling plus agressif au démarrage (1s) pour détecter
+      // Premier polling plus agressif au démarrage (500ms) pour détecter
       // rapidement un track actif lors du réveil du système
       const quickCheckInterval = setTimeout(() => {
         fetchNowPlaying()
-      }, 1000)
+      }, 500)
       
-      // Polling normal toutes les 3 secondes après le premier check rapide
+      // Polling toutes les secondes pour une synchronisation précise
       const normalInterval = setInterval(() => {
         fetchNowPlaying()
-      }, 3000)
+      }, 1000)
       
       return () => {
         clearTimeout(quickCheckInterval)

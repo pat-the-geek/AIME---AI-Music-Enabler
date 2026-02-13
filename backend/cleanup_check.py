@@ -82,7 +82,7 @@ def cleanup_check(db_path: str):
         cursor.execute("""
             SELECT id, title, support, source, created_at
             FROM albums 
-            WHERE source IN ('lastfm', 'roon')
+            WHERE source = 'lastfm'
             AND datetime(created_at) < datetime('now', '-365 days')
             ORDER BY created_at ASC
             LIMIT 10
@@ -127,7 +127,7 @@ def cleanup_check(db_path: str):
 def move_album_to_source(db_path: str, album_id: int, new_source: str, new_support: str = None):
     """Déplacer un album vers une autre source."""
     
-    if new_source not in ['discogs', 'lastfm', 'roon', 'spotify', 'manual']:
+    if new_source not in ['discogs', 'lastfm', 'spotify', 'manual']:
         print(f"❌ Source invalide: {new_source}")
         return False
     

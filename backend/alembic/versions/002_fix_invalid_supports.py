@@ -19,14 +19,7 @@ def upgrade() -> None:
     # Move albums with invalid support (not Vinyle, CD, Digital) from Discogs to their listening source
     # These are albums that came from listening history but were mistakenly added to collection
     
-    # Albums with support="Roon" that were marked as discogs - move to roon source
-    op.execute("""
-        UPDATE albums 
-        SET source = 'roon', support = 'Roon'
-        WHERE source = 'discogs' AND support = 'Roon'
-    """)
-    
-    # Albums with other invalid supports from Discogs - move to manual source
+    # Albums with invalid supports from Discogs - move to manual source
     # (we can't determine their real source, so mark as manual for manual review)
     op.execute("""
         UPDATE albums 

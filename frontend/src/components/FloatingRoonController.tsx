@@ -1,396 +1,392 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRoon } from '@/contexts/RoonContext'
 import {
-  Box,
-  Card,
-  CardContent,
-  IconButton,
-  Typography,
-  Stack,
-  CircularProgress,
-  Tooltip,
-  Collapse,
-  Paper,
-  Snackbar,
   Alert,
-  LinearProgress,
-  Slider,
+  Box,
+  Chip,
+  CircularProgress,
+  Divider,
   FormControl,
-  Select,
+  IconButton,
   MenuItem,
+  Paper,
+  Select,
+  Slider,
+  Snackbar,
+  Stack,
+  Tooltip,
+  Typography,
 } from '@mui/material'
 import {
-  PlayArrow,
+  Close,
+  ExpandLess,
+  ExpandMore,
+  OpenInNew,
   Pause,
+  PlayArrow,
   SkipNext,
   SkipPrevious,
   Stop,
-  ExpandMore,
-  ExpandLess,
-  Close,
 } from '@mui/icons-material'
 
+type ControlAction = 'play' | 'pause' | 'next' | 'previous' | 'stop'
+
 export default function FloatingRoonController() {
-  const { enabled, available, nowPlaying, playbackControl, playbackZone, setPlaybackZone, zones } = useRoon()
+  const { nowPlaying, playbackZone, setPlaybackZone, playbackControl, zones, enabled, available } = useRoon()
   const [expanded, setExpanded] = useState(true)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [hidden, setHidden] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
-  const [volume, setVolume] = useState(50)
+  const [hidden, setHidden] = useState(() => localStorage.getItem('roon_controller_hidden') === '1')
+  const [volume, setVolume] = useState<number>(50)
+  const [basePosition, setBasePosition] = useState(0)
+  const [lastFetchTime, setLastFetchTime] = useState(Date.now())
   const [isSeeking, setIsSeeking] = useState(false)
-  const [lastFetchTime, setLastFetchTime] = useState<number>(Date.now())
-  const [interpolatedPosition, setInterpolatedPosition] = useState<number>(0)
-  const [hasFocus, setHasFocus] = useState(false)
-  
-  // Synchroniser isPlaying avec l'état réel de Roon
-  useEffect(() => {
-    if (nowPlaying) {
-      const currentlyPlaying = nowPlaying.state === 'playing'
-      setIsPlaying(currentlyPlaying)
-    }
+  const [isAdjustingVolume, setIsAdjustingVolume] = useState(false)
+  const [lastSeekTime, setLastSeekTime] = useState(0)
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [messageCount, setMessageCount] = useState(0)
+  const [lastUpdateTime, setLastUpdateTime] = useState('')
+  const [stateVersion, setStateVersion] = useState(0)
+
+  const popupRef = useRef<Window | null>(null)
+  const basePositionRef = useRef(0)
+  const lastFetchTimeRef = useRef(Date.now())
+  const isSeekingRef = useRef(false)
+  const isAdjustingVolumeRef = useRef(false)
+  const lastSeekTimeRef = useRef(0)
+  const stateVersionRef = useRef(0)
+  const lastUpdateWallRef = useRef(Date.now())
+  const lastUpdatePerfRef = useRef(performance.now())
+  const lastUpdateTsRef = useRef(Date.now())
+
+  useEffect(() => { basePositionRef.current = basePosition }, [basePosition])
+  useEffect(() => { lastFetchTimeRef.current = lastFetchTime }, [lastFetchTime])
+  useEffect(() => { isSeekingRef.current = isSeeking }, [isSeeking])
+  useEffect(() => { isAdjustingVolumeRef.current = isAdjustingVolume }, [isAdjustingVolume])
+  useEffect(() => { lastSeekTimeRef.current = lastSeekTime }, [lastSeekTime])
+  useEffect(() => { stateVersionRef.current = stateVersion }, [stateVersion])
+  useEffect(() => { localStorage.setItem('roon_controller_hidden', hidden ? '1' : '0') }, [hidden])
+
+  const sendUpdateToPopup = useCallback((basePositionOverride?: number, lastUpdateOverride?: number, overrideVersion?: number) => {
+    if (!popupRef.current || popupRef.current.closed || !nowPlaying) return
+    const nowWall = Date.now()
+    const version = overrideVersion ?? stateVersionRef.current
+    const isPlaying = nowPlaying.state !== 'paused' && nowPlaying.state !== 'stopped'
+    const lastUpdateTs = lastUpdateOverride ?? lastUpdateTsRef.current ?? nowWall
+    const basePos = basePositionOverride ?? basePositionRef.current
+
+    popupRef.current.postMessage({
+      type: 'ROON_UPDATE',
+      nowPlaying,
+      basePositionSeconds: basePos,
+      durationSeconds: nowPlaying.duration_seconds,
+      isPlaying,
+      lastUpdateTs,
+      stateVersion: version,
+      sentAt: nowWall,
+    }, '*')
+    setMessageCount((c) => c + 1)
+    setLastUpdateTime(new Date(nowWall).toLocaleTimeString())
   }, [nowPlaying])
 
-  // Synchroniser le volume avec Roon
-  useEffect(() => {
-    console.log('Volume sync effect triggered. nowPlaying:', nowPlaying)
-    if (nowPlaying) {
-      console.log('Volume value:', nowPlaying.volume, 'Type:', typeof nowPlaying.volume)
-      // Check for null OR undefined (not just undefined)
-      if (nowPlaying.volume != null) {
-        console.log('Setting volume to:', nowPlaying.volume)
-        setVolume(nowPlaying.volume)
-      } else {
-        console.log('Volume is null/undefined, using default 50')
-        // If Roon doesn't return volume, use a reasonable default
-        setVolume(50)
-      }
+  const handleOpenPopup = useCallback(() => {
+    const win = window.open('/roon-player', 'roon-player', 'width=440,height=860')
+    if (win) {
+      popupRef.current = win
+      sendUpdateToPopup()
+    } else {
+      setError('Impossible d’ouvrir la fenêtre')
     }
-  }, [nowPlaying])
+  }, [sendUpdateToPopup])
 
-  // Mettre à jour la position de départ quand le track change
-  useEffect(() => {
-    if (nowPlaying) {
-      setLastFetchTime(Date.now())
-      setInterpolatedPosition(nowPlaying.position_seconds || 0)
-    }
-  }, [nowPlaying?.title])  // Déclenche juste quand le titre change (nouveau track)
-
-  // Interpoler la position en temps réel pendant la lecture
-  useEffect(() => {
-    if (!isPlaying || !nowPlaying || isSeeking) {
-      return
-    }
-
-    const interval = setInterval(() => {
-      const elapsed = (Date.now() - lastFetchTime) / 1000  // Secondes écoulées
-      let newPosition = (nowPlaying.position_seconds || 0) + elapsed
-      
-      // Ne pas dépasser la durée du track
-      if (nowPlaying.duration_seconds && newPosition > nowPlaying.duration_seconds) {
-        newPosition = nowPlaying.duration_seconds
-      }
-      
-      setInterpolatedPosition(newPosition)
-    }, 100)  // Mise à jour 10 fois par seconde pour une animation fluide
-
-    return () => clearInterval(interval)
-  }, [isPlaying, nowPlaying?.title, lastFetchTime, isSeeking])
-
-  // Auto-show player when track is active, especially on system wake-up
-  // Si un morceau est en cours de lecture, afficher automatiquement le player flottant
-  useEffect(() => {
-    if (nowPlaying && nowPlaying.title && hidden) {
-      // Un morceau est en cours de lecture et le player est caché
-      // Afficher le player automatiquement
-      setHidden(false)
-    }
-  }, [nowPlaying])
-
-  // Formater les secondes en MM:SS
-  const formatTime = (seconds: number | undefined): string => {
-    if (!seconds || seconds < 0) return '0:00'
-    const mins = Math.floor(seconds / 60)
-    const secs = Math.floor(seconds % 60)
-    return `${mins}:${secs.toString().padStart(2, '0')}`
-  }
-
-  // Obtenir le pourcentage de progression
-  const getProgressPercent = (): number => {
-    if (!nowPlaying?.duration_seconds || nowPlaying.duration_seconds <= 0) return 0
-    return (interpolatedPosition / nowPlaying.duration_seconds) * 100
-  }
-
-  const handleVolumeChange = async (newVolume: number) => {
+  const handleControl = useCallback(async (control: ControlAction) => {
     try {
-      // Vérifier que zone_id existe
-      if (!nowPlaying?.zone_id) {
-        setError('Zone Roon non disponible. Aucun track en cours.')
-        return
+      setLoading(true)
+      await playbackControl(control)
+      const messages: Record<ControlAction, string> = {
+        play: 'Lecture démarrée',
+        pause: 'Pause',
+        stop: 'Arrêté',
+        next: 'Suivant',
+        previous: 'Précédent',
       }
-      
+      setSuccess(messages[control])
+      if (popupRef.current && !popupRef.current.closed) {
+        popupRef.current.postMessage({ type: 'CONTROL_ACTION', control }, '*')
+      }
+    } catch (e: any) {
+      setError(e?.message || 'Erreur de contrôle')
+    } finally {
+      setLoading(false)
+    }
+  }, [playbackControl])
+
+  const handleVolumeChange = useCallback(async (newVolume: number) => {
+    if (!nowPlaying?.zone_id) return
+    try {
       setVolume(newVolume)
-      // Appel API pour changer le volume
       const response = await fetch('/api/v1/playback/roon/volume', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           zone_id: nowPlaying.zone_id,
           how: 'absolute',
-          value: newVolume
-        })
+          value: newVolume,
+        }),
       })
-      
-      // Capturer et afficher l'erreur réelle du serveur
-      if (!response.ok) {
-        let errorMessage = 'Impossible de changer le volume'
-        try {
-          const errorData = await response.json()
-          errorMessage = errorData.detail || errorData.error || errorMessage
-        } catch (e) {
-          errorMessage = `Erreur serveur: ${response.statusText}`
-        }
-        throw new Error(errorMessage)
-      }
-      
+      if (!response.ok) throw new Error('Impossible de changer le volume')
       setSuccess('Volume mis à jour')
-    } catch (error) {
-      console.error('Erreur changement volume:', error)
-      setError(error instanceof Error ? error.message : 'Impossible de changer le volume')
+      if (popupRef.current && !popupRef.current.closed) {
+        popupRef.current.postMessage({ type: 'VOLUME_CHANGED', volume: newVolume }, '*')
+      }
+    } catch (e: any) {
+      setError(e?.message || 'Erreur de volume')
+    } finally {
+      setIsAdjustingVolume(false)
     }
-  }
+  }, [nowPlaying?.zone_id])
 
-  const handleProgressChange = async (newPosition: number) => {
+  const handleProgressChange = useCallback(async (newPosition: number) => {
+    const now = Date.now()
+    setIsSeeking(false)
+    setLastSeekTime(now)
     try {
-      setIsSeeking(true)
-      // Appel API pour chercher
       const response = await fetch('/api/v1/playback/roon/seek', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          zone_name: nowPlaying?.zone_name,
-          seconds: Math.floor(newPosition)
-        })
+          zone_name: playbackZone || nowPlaying?.zone_name,
+          seconds: Math.floor(newPosition),
+        }),
       })
-      if (!response.ok) {
-        throw new Error('Impossible de changer la position')
-      }
-      
-      // Mettre à jour la position interpolée immédiatement
-      setInterpolatedPosition(newPosition)
-      setLastFetchTime(Date.now())
+      if (!response.ok) throw new Error('Impossible de changer la position')
+      const nextVersion = stateVersionRef.current + 1
+      stateVersionRef.current = nextVersion
+      setStateVersion(nextVersion)
+      basePositionRef.current = newPosition
+      lastFetchTimeRef.current = now
+      lastUpdateWallRef.current = now
+      lastUpdateTsRef.current = now
+      lastUpdatePerfRef.current = performance.now()
+      setBasePosition(newPosition)
+      setLastFetchTime(now)
       setSuccess('Position mise à jour')
-    } catch (error) {
-      console.error('Erreur changement position:', error)
-      setError('Impossible de changer la position')
-    } finally {
-      setIsSeeking(false)
+      if (popupRef.current && !popupRef.current.closed) {
+        popupRef.current.postMessage({
+          type: 'ROON_UPDATE',
+          nowPlaying,
+          basePositionSeconds: newPosition,
+          durationSeconds: nowPlaying?.duration_seconds,
+          isPlaying: true,
+          lastUpdateTs: now,
+          stateVersion: nextVersion,
+          sentAt: now,
+        }, '*')
+      }
+    } catch (e: any) {
+      setError(e?.message || 'Erreur de position')
     }
-  }
+  }, [playbackZone, nowPlaying?.zone_name, nowPlaying])
 
-  if (!enabled || !available || hidden) {
+  useEffect(() => {
+    if (!nowPlaying) return
+    const nowWall = Date.now()
+    const baseRaw = typeof nowPlaying.position_seconds === 'number' ? nowPlaying.position_seconds : 0
+    const fetchedAt = nowPlaying.fetchedAt ?? nowWall
+    const current = baseRaw + Math.max(0, (nowWall - fetchedAt) / 1000)
+
+    if (nowPlaying.volume != null && !isAdjustingVolumeRef.current) {
+      setVolume(nowPlaying.volume)
+    }
+
+    const timeSinceSeek = nowWall - lastSeekTimeRef.current
+    if (!isSeekingRef.current && timeSinceSeek > 500) {
+      const nextVersion = stateVersionRef.current + 1
+      stateVersionRef.current = nextVersion
+      setStateVersion(nextVersion)
+      basePositionRef.current = baseRaw
+      lastFetchTimeRef.current = fetchedAt
+      lastUpdateWallRef.current = fetchedAt
+      lastUpdateTsRef.current = fetchedAt
+      lastUpdatePerfRef.current = performance.now()
+      setBasePosition(baseRaw)
+      setLastFetchTime(fetchedAt)
+      sendUpdateToPopup(baseRaw, fetchedAt, nextVersion)
+    }
+  }, [nowPlaying, sendUpdateToPopup])
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (!event.data) return
+      if (event.data.type === 'POPUP_READY') {
+        sendUpdateToPopup()
+      }
+      if (event.data.type === 'POSITION_CHANGED' && typeof event.data.position === 'number') {
+        const nextVersion = event.data.stateVersion && typeof event.data.stateVersion === 'number'
+          ? Math.max(stateVersionRef.current + 1, event.data.stateVersion)
+          : stateVersionRef.current + 1
+        stateVersionRef.current = nextVersion
+        setStateVersion(nextVersion)
+        const ts = event.data.timestamp || Date.now()
+        basePositionRef.current = event.data.position
+        lastFetchTimeRef.current = ts
+        lastUpdateWallRef.current = ts
+        lastUpdateTsRef.current = ts
+        lastUpdatePerfRef.current = performance.now()
+        setBasePosition(event.data.position)
+        setLastFetchTime(ts)
+      }
+      if (event.data.type === 'VOLUME_CHANGED' && typeof event.data.volume === 'number') {
+        setVolume(event.data.volume)
+      }
+    }
+    window.addEventListener('message', handleMessage)
+    const interval = setInterval(() => {
+      if (popupRef.current && popupRef.current.closed) {
+        popupRef.current = null
+      }
+    }, 2000)
+    return () => {
+      window.removeEventListener('message', handleMessage)
+      clearInterval(interval)
+    }
+  }, [sendUpdateToPopup])
+
+  useEffect(() => {
+    if (!nowPlaying) return
+    const heartbeat = setInterval(() => {
+      sendUpdateToPopup()
+    }, 10000)
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        sendUpdateToPopup()
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibility)
+    return () => {
+      clearInterval(heartbeat)
+      document.removeEventListener('visibilitychange', onVisibility)
+    }
+  }, [nowPlaying, sendUpdateToPopup])
+
+  if (!enabled || !available || !nowPlaying) {
     return null
   }
 
-  // Si aucun track en cours de lecture, afficher un mini contrôleur
-  if (!nowPlaying) {
+  if (hidden) {
     return (
       <Box
         sx={{
           position: 'fixed',
           bottom: 20,
           right: 20,
-          zIndex: 1000,
+          zIndex: 1200,
         }}
       >
-        <Tooltip title="Aucune lecture en cours">
-          <Box
-            sx={{
-              p: 1.5,
-              borderRadius: 2,
-              backgroundColor: 'rgba(200, 200, 200, 0.1)',
-              backdropFilter: 'blur(10px)',
-              cursor: 'pointer',
-            }}
-            onClick={() => setExpanded(!expanded)}
-          >
-            <PlayArrow sx={{ color: 'rgba(255, 255, 255, 0.5)' }} />
-          </Box>
-        </Tooltip>
+        <Paper
+          elevation={8}
+          sx={{
+            borderRadius: 2,
+            px: 2,
+            py: 1,
+            background: 'linear-gradient(135deg, #0a0f1f 0%, #0f1c33 50%, #0b1428 100%)',
+            color: '#e5ecff',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+          }}
+        >
+          <Typography variant="body2" sx={{ flex: 1 }}>
+            Contrôleur Roon masqué
+          </Typography>
+          <IconButton size="small" onClick={() => setHidden(false)} sx={{ color: '#4dd0e1' }}>
+            <ExpandMore />
+          </IconButton>
+        </Paper>
       </Box>
     )
-  }
-
-  const handleControl = async (control: 'play' | 'pause' | 'next' | 'previous' | 'stop') => {
-    try {
-      setLoading(true)
-      setError(null)
-      
-      await playbackControl(control)
-      
-      // Afficher le message de succès seulement
-      if (control === 'play') {
-        setSuccess('Lecture démarrée')
-      } else if (control === 'pause') {
-        setSuccess('Lecture en pause')
-      } else if (control === 'stop') {
-        setSuccess('Lecture arrêtée')
-      } else if (control === 'next') {
-        setSuccess('Morceau suivant')
-      } else if (control === 'previous') {
-        setSuccess('Morceau précédent')
-      }
-      
-      // NE PAS faire d'optimistic update manuelle
-      // Laisser le backend via le contexte Roon décider du vrai state
-      // Le polling toutes les 3 secondes mettra à jour nowPlaying
-      // et le useEffect synchronisera isPlaying
-      
-    } catch (error: any) {
-      console.error('Erreur contrôle Roon:', error)
-      const errorMessage = error?.response?.data?.detail || error?.message || 'Erreur inconnue'
-      setError(`Échec ${control}: ${errorMessage}`)
-    } finally {
-      setLoading(false)
-    }
   }
 
   return (
     <Box
       sx={{
         position: 'fixed',
-        bottom: 20,
-        right: 20,
-        zIndex: 1000,
-        maxWidth: 350,
-        animation: 'slideIn 0.3s ease-in-out',
-        '@keyframes slideIn': {
-          from: {
-            transform: 'translateX(400px)',
-            opacity: 0,
-          },
-          to: {
-            transform: 'translateX(0)',
-            opacity: 1,
-          },
-        },
+        bottom: 24,
+        right: 24,
+        zIndex: 1200,
+        maxWidth: 440,
       }}
-      onFocus={() => setHasFocus(true)}
-      onBlur={() => setHasFocus(false)}
-      onMouseEnter={() => setHasFocus(true)}
-      onMouseLeave={() => setHasFocus(false)}
-      tabIndex={0}
     >
       <Paper
-        elevation={8}
+        elevation={10}
         sx={{
-          borderRadius: 2,
+          borderRadius: 18,
           overflow: 'hidden',
-          backgroundColor: hasFocus ? 'rgba(30, 30, 30, 0.95)' : 'rgba(30, 30, 30, 0.15)',
-          backdropFilter: 'blur(10px)',
-          border: hasFocus ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0.05)',
-          transition: 'background-color 0.3s ease, border-color 0.3s ease',
+          border: '1px solid rgba(255,255,255,0.2)',
+          background: 'linear-gradient(145deg, #0b1224 0%, #0f1b33 45%, #0c1429 100%)',
+          color: '#e5ecff',
+          backdropFilter: 'blur(12px)',
+          boxShadow: '0 14px 36px rgba(0,0,0,0.35)',
+          fontFamily: 'Space Grotesk, "DM Sans", "Helvetica Neue", sans-serif',
         }}
       >
-        {/* Header */}
-        <Box
-          sx={{
-            p: 1.5,
-            backgroundColor: '#ffffff',
-            borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            cursor: 'pointer',
-          }}
-          onClick={() => setExpanded(!expanded)}
-        >
-          <Stack direction="row" spacing={1} alignItems="center" sx={{ flex: 1 }}>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: 8,
-                height: 8,
-                borderRadius: '50%',
-                backgroundColor: '#4caf50',
-                animation: 'pulse 1.5s ease-in-out infinite',
-                '@keyframes pulse': {
-                  '0%, 100%': {
-                    opacity: 1,
-                  },
-                  '50%': {
-                    opacity: 0.5,
-                  },
-                },
-              }}
-            />
-            <Typography
-              variant="caption"
-              sx={{
-                fontWeight: 600,
-                color: '#000000',
-                textTransform: 'uppercase',
-                letterSpacing: 0.5,
-              }}
-            >
-              En cours de lecture
-            </Typography>
-          </Stack>
-          <Stack direction="row" spacing={0.5}>
-            <IconButton
-              size="small"
-              onClick={(e) => {
-                e.stopPropagation()
-                setHidden(true)
-              }}
-              sx={{ color: 'rgba(0, 0, 0, 0.5)' }}
-            >
-              <Close fontSize="small" />
-            </IconButton>
-            <IconButton
-              size="small"
-              onClick={(e) => {
-                e.stopPropagation()
-                setExpanded(!expanded)
-              }}
-              sx={{ color: 'rgba(0, 0, 0, 0.5)' }}
-            >
-              {expanded ? <ExpandLess fontSize="small" /> : <ExpandMore fontSize="small" />}
-            </IconButton>
-          </Stack>
-        </Box>
-
-        {/* Contenu détaillé */}
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent sx={{ py: 2 }}>
-            {/* Image de l'album */}
-            {nowPlaying.image_url && (
+        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', p: 2 }}>
+          <Box
+            sx={{
+              width: 70,
+              height: 70,
+              borderRadius: 0,
+              overflow: 'hidden',
+              flexShrink: 0,
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
+              border: '1px solid rgba(255,255,255,0.06)',
+            }}
+          >
+            {nowPlaying.image_url ? (
               <Box
                 component="img"
                 src={nowPlaying.image_url}
                 alt={nowPlaying.album}
+                sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            ) : (
+              <Box sx={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #1d2b4a, #0f162b)' }} />
+            )}
+          </Box>
+
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 0.5 }}>
+              <Chip
+                label={nowPlaying.state === 'playing' ? 'Lecture' : 'En pause'}
+                size="small"
+                variant="filled"
                 sx={{
-                  width: '100%',
-                  height: 200,
-                  objectFit: 'cover',
-                  borderRadius: 1,
-                  marginBottom: 2,
-                  opacity: hasFocus ? 1 : 0.3,
-                  transition: 'opacity 0.3s ease',
+                  height: 22,
+                  fontSize: 11,
+                  backgroundColor: nowPlaying.state === 'playing' ? 'rgba(77, 208, 225, 0.2)' : 'rgba(255,255,255,0.08)',
+                  color: '#c4d6ff',
                 }}
               />
-            )}
-            
-            {/* Titre du track */}
+              {playbackZone && (
+                <Chip
+                  label={playbackZone}
+                  size="small"
+                  variant="outlined"
+                  sx={{
+                    height: 22,
+                    fontSize: 11,
+                    borderColor: 'rgba(255,255,255,0.2)',
+                    color: '#c4d6ff',
+                  }}
+                />
+              )}
+            </Stack>
+
             <Typography
-              variant="subtitle2"
+              variant="subtitle1"
               sx={{
-                fontWeight: 600,
-                color: '#fff',
-                mb: 0.5,
+                fontWeight: 700,
+                color: '#f4f6ff',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
@@ -399,65 +395,61 @@ export default function FloatingRoonController() {
             >
               {nowPlaying.title}
             </Typography>
-
-            {/* Artiste */}
             <Typography
-              variant="caption"
+              variant="body2"
               sx={{
-                color: '#ffffff',
-                display: 'block',
-                mb: 0.5,
+                color: 'rgba(229, 236, 255, 0.75)',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
               }}
-              title={nowPlaying.artist}
+              title={`${nowPlaying.artist} • ${nowPlaying.album}`}
             >
-              {nowPlaying.artist}
+              {nowPlaying.artist} • {nowPlaying.album}
             </Typography>
+          </Box>
 
-            {/* Album */}
-            <Typography
-              variant="caption"
-              sx={{
-                color: '#ffffff',
-                display: 'block',
-                mb: 2,
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
-              title={nowPlaying.album}
-            >
-              {nowPlaying.album}
-            </Typography>
+          <Stack spacing={0.5} alignItems="center">
+            <Tooltip title="Ouvrir dans une fenêtre">
+              <IconButton size="small" onClick={handleOpenPopup} sx={{ color: '#c4d6ff' }}>
+                <OpenInNew fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={expanded ? 'Réduire' : 'Déployer'}>
+              <IconButton size="small" onClick={() => setExpanded(!expanded)} sx={{ color: '#c4d6ff' }}>
+                {expanded ? <ExpandLess fontSize="small" /> : <ExpandMore fontSize="small" />}
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Masquer le contrôleur">
+              <IconButton size="small" onClick={() => setHidden(true)} sx={{ color: '#c4d6ff' }}>
+                <Close fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          </Stack>
+        </Box>
 
-            {/* Zone Selector */}
-            {zones.length > 0 && (
-              <FormControl fullWidth sx={{ mb: 2 }} size="small">
+        {expanded && (
+          <Box sx={{ px: 2, pb: 2 }}>
+            <Divider sx={{ mb: 2, borderColor: 'rgba(255,255,255,0.08)' }} />
+
+            {zones.length > 0 ? (
+              <FormControl fullWidth size="small" sx={{ mb: 2 }}>
                 <Select
                   value={playbackZone || ''}
-                  onChange={(e) => {
-                    setPlaybackZone(e.target.value)
-                  }}
+                  onChange={(e) => setPlaybackZone(e.target.value as string)}
                   sx={{
-                    color: '#ffffff',
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    color: '#e5ecff',
+                    backgroundColor: 'rgba(255, 255, 255, 0.06)',
                     fontSize: '0.9rem',
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'rgba(255, 255, 255, 0.2)',
-                    },
-                    '&:hover .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'rgba(255, 255, 255, 0.4)',
-                    },
-                    '& .MuiSvgIcon-root': {
-                      color: '#ffffff',
-                    },
+                    borderRadius: 1.25,
+                    '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255, 255, 255, 0.18)' },
+                    '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255, 255, 255, 0.32)' },
+                    '& .MuiSvgIcon-root': { color: '#e5ecff' },
                   }}
                   displayEmpty
                   renderValue={(value) => {
-                    if (!value) return <span>📻 Sélectionner zone</span>
-                    const zone = zones.find(z => z.name === value)
+                    if (!value) return <span>📻 Sélectionner la zone</span>
+                    const zone = zones.find((z) => z.name === value)
                     return <span>📻 {zone?.name || value}</span>
                   }}
                 >
@@ -468,202 +460,111 @@ export default function FloatingRoonController() {
                   ))}
                 </Select>
               </FormControl>
-            )}
-            {zones.length === 0 && (
-              <Typography
-                variant="caption"
-                sx={{
-                  color: '#ffffff',
-                  display: 'block',
-                  mb: 2,
-                  fontSize: '0.7rem',
-                  fontWeight: 500,
-                }}
-              >
+            ) : (
+              <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)', display: 'block', mb: 2 }}>
                 ⚠️ Aucune zone disponible
               </Typography>
             )}
 
-            {/* Barre de Progression */}
-            {nowPlaying.duration_seconds && nowPlaying.duration_seconds > 0 && (
-              <Box sx={{ mb: 2 }}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1,
-                    mb: 1,
-                  }}
-                >
-                  <Slider
-                    size="small"
-                    min={0}
-                    max={nowPlaying.duration_seconds}
-                    value={interpolatedPosition}
-                    onChange={(e: any) => {
-                      // Mise à jour simple du slider sans appel API
-                      // (l'appel API sera fait au onChangeCommitted)
-                    }}
-                    onChangeCommitted={(e: any, newValue: any) => {
-                      handleProgressChange(newValue)
-                    }}
-                    disabled={!isPlaying || isSeeking}
-                    sx={{
-                      flex: 1,
-                      color: '#4caf50',
-                      '& .MuiSlider-track': {
-                        backgroundColor: '#4caf50',
-                      },
-                      '& .MuiSlider-rail': {
-                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                      },
-                      '& .MuiSlider-thumb': {
-                        backgroundColor: '#4caf50',
-                      },
-                    }}
-                  />
-                </Box>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: 'rgba(255, 255, 255, 0.7)',
-                    fontSize: '0.75rem',
-                    display: 'block',
-                    textAlign: 'center',
-                  }}
-                >
-                  {formatTime(interpolatedPosition)} / {formatTime(nowPlaying.duration_seconds)}
-                </Typography>
-              </Box>
-            )}
-
-            {/* Contrôle du Volume */}
-            <Box sx={{ mb: 2 }}>
-              <Typography
-                variant="caption"
-                sx={{
-                  color: '#ffffff',
-                  display: 'block',
-                  mb: 1,
-                  fontSize: '0.75rem',
-                  fontWeight: 500,
-                }}
-              >
-                Volume: {volume}%
-              </Typography>
-              <Slider
-                size="small"
-                min={0}
-                max={100}
-                value={volume}
-                onChange={(e: any, newValue: any) => {
-                  setVolume(newValue)
-                }}
-                onChangeCommitted={(e: any, newValue: any) => {
-                  handleVolumeChange(newValue)
-                }}
-                sx={{
-                  color: '#ff9800',
-                  '& .MuiSlider-track': {
-                    backgroundColor: '#ff9800',
-                  },
-                  '& .MuiSlider-rail': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                  },
-                  '& .MuiSlider-thumb': {
-                    backgroundColor: '#ff9800',
-                  },
-                }}
-              />
-            </Box>
-
-            {/* Contrôles */}
-            <Stack
-              direction="row"
-              spacing={1}
-              justifyContent="center"
-              sx={{ mt: 2 }}
-            >
+            <Stack direction="row" spacing={1} justifyContent="center" alignItems="center" sx={{ mb: 1.5 }}>
               <Tooltip title="Précédent">
                 <IconButton
-                  size="small"
+                  size="medium"
                   disabled={loading}
                   onClick={() => handleControl('previous')}
-                  sx={{
-                    color: '#fff',
-                    '&:hover': { backgroundColor: 'rgba(76, 175, 80, 0.2)' },
-                  }}
+                  sx={{ color: '#e5ecff' }}
                 >
-                  <SkipPrevious fontSize="small" />
+                  <SkipPrevious />
                 </IconButton>
               </Tooltip>
 
               {loading ? (
                 <Box sx={{ display: 'flex', alignItems: 'center', px: 1 }}>
-                  <CircularProgress size={24} sx={{ color: '#4caf50' }} />
+                  <CircularProgress size={26} sx={{ color: '#4dd0e1' }} />
                 </Box>
-              ) : isPlaying ? (
+              ) : nowPlaying.state === 'playing' ? (
                 <Tooltip title="Pause">
                   <IconButton
-                    size="small"
+                    size="large"
                     onClick={() => handleControl('pause')}
                     sx={{
-                      color: '#4caf50',
-                      backgroundColor: 'rgba(76, 175, 80, 0.2)',
-                      '&:hover': { backgroundColor: 'rgba(76, 175, 80, 0.3)' },
+                      color: '#0b1224',
+                      backgroundColor: '#4dd0e1',
+                      '&:hover': { backgroundColor: '#5be2f3' },
                     }}
                   >
-                    <Pause fontSize="small" />
+                    <Pause />
                   </IconButton>
                 </Tooltip>
               ) : (
-                <Tooltip title="Play">
+                <Tooltip title="Lecture">
                   <IconButton
-                    size="small"
+                    size="large"
                     onClick={() => handleControl('play')}
                     sx={{
-                      color: '#fff',
-                      '&:hover': { backgroundColor: 'rgba(76, 175, 80, 0.2)', color: '#4caf50' },
+                      color: '#0b1224',
+                      backgroundColor: '#4dd0e1',
+                      '&:hover': { backgroundColor: '#5be2f3' },
                     }}
                   >
-                    <PlayArrow fontSize="small" />
+                    <PlayArrow />
                   </IconButton>
                 </Tooltip>
               )}
 
               <Tooltip title="Suivant">
                 <IconButton
-                  size="small"
+                  size="medium"
                   disabled={loading}
                   onClick={() => handleControl('next')}
-                  sx={{
-                    color: '#fff',
-                    '&:hover': { backgroundColor: 'rgba(76, 175, 80, 0.2)' },
-                  }}
+                  sx={{ color: '#e5ecff' }}
                 >
-                  <SkipNext fontSize="small" />
+                  <SkipNext />
                 </IconButton>
               </Tooltip>
 
-              <Tooltip title="Arrêter">
+              <Tooltip title="Stop">
                 <IconButton
-                  size="small"
+                  size="medium"
                   disabled={loading}
                   onClick={() => handleControl('stop')}
-                  sx={{
-                    color: 'rgba(255, 255, 255, 0.5)',
-                    '&:hover': { backgroundColor: 'rgba(244, 67, 54, 0.2)', color: '#f44336' },
-                  }}
+                  sx={{ color: 'rgba(229,236,255,0.65)' }}
                 >
-                  <Stop fontSize="small" />
+                  <Stop />
                 </IconButton>
               </Tooltip>
             </Stack>
-          </CardContent>
-        </Collapse>
+
+            <Box>
+              <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 0.75 }}>
+                <Typography variant="caption" sx={{ color: 'rgba(229,236,255,0.75)' }}>
+                  Volume {volume}%
+                </Typography>
+                <Typography variant="caption" sx={{ color: 'rgba(229,236,255,0.6)' }}>
+                  🔄 {messageCount} • {lastUpdateTime || '–'}
+                </Typography>
+              </Stack>
+              <Slider
+                size="small"
+                min={0}
+                max={100}
+                value={volume}
+                onChange={(_, val) => {
+                  setIsAdjustingVolume(true)
+                  setVolume(val as number)
+                }}
+                onChangeCommitted={(_, val) => handleVolumeChange(val as number)}
+                sx={{
+                  color: '#7c4dff',
+                  '& .MuiSlider-rail': { backgroundColor: 'rgba(255,255,255,0.15)' },
+                  '& .MuiSlider-thumb': { boxShadow: '0 0 0 6px rgba(124,77,255,0.18)' },
+                }}
+              />
+            </Box>
+          </Box>
+        )}
       </Paper>
-      
-      {/* Snackbar pour les succès */}
+
       <Snackbar
         open={!!success}
         autoHideDuration={2000}
@@ -674,8 +575,7 @@ export default function FloatingRoonController() {
           {success}
         </Alert>
       </Snackbar>
-      
-      {/* Snackbar pour les erreurs */}
+
       <Snackbar
         open={!!error}
         autoHideDuration={4000}

@@ -5,7 +5,7 @@ Application FastAPI principale - AIME (AI Music Enabler) v4.3.0
 
 Modern web application for tracking and analyzing music listening history from Last.fm,
 with automatic enrichment from multiple sources:
-- Last.fm: Listening history, track metadata (aggregates from Roon ARC, PlexAmp, Quobuz, etc.)
+- Last.fm: Listening history, track metadata (aggregates from PlexAmp, Quobuz, etc.)
 - Spotify: Album URLs, cover images, track details
 - Discogs: Collection management, vinyl records
 - EurIA (Infomaniak AI): Automatic AI descriptions
@@ -36,7 +36,7 @@ from fastapi.exceptions import RequestValidationError
 from app.core.config import get_settings
 from app.core.exception_handler import setup_exception_handlers, add_process_time_header, add_request_id_header
 from app.database import init_db, engine
-from app.api.v1 import collection, history, services, search, analytics, roon, collections, magazines, artists, playlists
+from app.api.v1 import collection, history, services, search, analytics, collections, magazines, artists, playlists
 
 # Configuration du logging amélioré
 logging.basicConfig(
@@ -153,7 +153,6 @@ app.include_router(playlists.router, prefix="/api/v1/playlists", tags=["Playlist
 app.include_router(collections.router, prefix="/api/v1", tags=["Album Collections"])
 app.include_router(services.router, prefix="/api/v1/services", tags=["Services"])
 app.include_router(search.router, prefix="/api/v1/search", tags=["Search"])
-app.include_router(roon.router, prefix="/api/v1/playback/roon", tags=["Roon Control"])
 
 
 @app.get("/")

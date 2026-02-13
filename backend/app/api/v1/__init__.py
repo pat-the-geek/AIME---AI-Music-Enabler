@@ -6,7 +6,7 @@ from app.api.v1.collection import albums_router, album_collections_router, artis
 from app.api.v1.content import history_router
 
 # Playback domain
-from app.api.v1.playback import playlists_router, roon_router
+from app.api.v1.playback import playlists_router
 
 # Tracking domain
 from app.api.v1.tracking import services_router
@@ -31,7 +31,6 @@ artists = _ModuleWrapper(artists_router)
 collections = _ModuleWrapper(album_collections_router)
 history = _ModuleWrapper(history_router)
 playlists = _ModuleWrapper(playlists_router)
-roon = _ModuleWrapper(roon_router)
 services = _ModuleWrapper(services_router)
 analytics = _ModuleWrapper(analytics_router)
 magazines = _ModuleWrapper(magazines_router)
@@ -43,7 +42,6 @@ __all__ = [
     "collections",
     "history",
     "playlists",
-    "roon",
     "services",
     "analytics",
     "magazines",

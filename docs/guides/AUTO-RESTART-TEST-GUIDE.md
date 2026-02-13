@@ -2,7 +2,7 @@
 
 ## ✅ Fonctionnalité Implémentée
 
-Les services background (Trackers Last.fm/Roon, Scheduler) redémarrent automatiquement après un redémarrage du serveur s'ils étaient actifs.
+Les services background (Tracker Last.fm et Scheduler) redémarrent automatiquement après un redémarrage du serveur s'ils étaient actifs.
 
 ## 🏗️ Architecture
 
@@ -151,14 +151,11 @@ curl -X POST "http://localhost:8000/api/v1/services/tracker/start"
 # Démarrer scheduler
 curl -X POST "http://localhost:8000/api/v1/services/scheduler/start"
 
-# Démarrer tracker Roon
-curl -X POST "http://localhost:8000/api/v1/services/roon-tracker/start"
-
 # Vérifier tous les états
 curl "http://localhost:8000/api/v1/services/status/all"
 ```
 
-**Redémarrer le serveur** → Tous les 3 services doivent se restaurer automatiquement.
+**Redémarrer le serveur** → Les 2 services doivent se restaurer automatiquement.
 
 ## 🔍 Vérification Base de Données
 
@@ -181,7 +178,6 @@ db.close()
 ```
 ✅ tracker - MAJ: 2026-02-01 17:40:00.123456
 ✅ scheduler - MAJ: 2026-02-01 17:40:05.789012
-⏸️ roon_tracker - MAJ: 2026-02-01 16:30:00.456789
 ```
 
 ## 🐛 Troubleshooting

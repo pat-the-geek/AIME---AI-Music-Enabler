@@ -20,7 +20,6 @@ Bienvenue dans la documentation du projet AIME - AI Music Enabler !
 - **NOUVELLES-FONCTIONNALITES.md** - Dernières fonctionnalités ajoutées (v4.0.0)
 - **JOURNAL-TIMELINE-DOC.md** - Documentation de la vue Journal/Timeline
 - **LASTFM-IMPORT-TRACKER-DOC.md** - Tracker Last.fm et import d'historique
-- **ROON-TRACKER-DOC.md** - Tracker Roon et configuration
 
 ### 🔧 Configuration (`/config`)
 - **TRACKER-CONFIG-OPTIMALE.md** - Configuration optimale du tracker d'écoute
@@ -112,7 +111,7 @@ Voici un aperçu visuel de l'application :
 ![Détail Timeline](../Screen%20captures/TimeLine%20-%20Detail.png)
 
 ### Paramètres & Trackers
-![Paramètres Trackers](../Screen%20captures/Settings%20-%20Roon%20-%20Lastfm%20-%20Trackers.png)
+![Paramètres Trackers](../Screen%20captures/Settings%20-%20Lastfm%20-%20Trackers.png)
 
 ---
 

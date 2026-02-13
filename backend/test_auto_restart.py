@@ -45,8 +45,7 @@ def test_auto_restart():
         # Ajouter des états actifs
         test_services = [
             ('tracker', True),
-            ('scheduler', True),
-            ('roon_tracker', False)
+            ('scheduler', True)
         ]
         
         for service_name, is_active in test_services:

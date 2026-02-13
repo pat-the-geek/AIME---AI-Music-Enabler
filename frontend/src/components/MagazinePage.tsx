@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { Box, Typography, Grid, Card, CardContent, CardMedia, Stack, Paper, Avatar, Chip, Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Snackbar, Alert } from '@mui/material'
-import { PlayArrow, Article as ArticleIcon } from '@mui/icons-material'
+import { Box, Typography, Grid, Card, CardContent, CardMedia, Stack, Paper, Avatar, Chip, Button } from '@mui/material'
+import { Article as ArticleIcon } from '@mui/icons-material'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import apiClient from '@/api/client'
 import ArtistPortraitModal from '@/components/ArtistPortraitModal'
 import { getHiddenContentSx, isEmptyContent, shouldHideSmallTextSx } from '@/utils/hideEmptyContent'
-import { useRoon } from '@/contexts/RoonContext'
 
 // Nettoyer le titre de l'album en supprimant les parenthèses et tout ce qui suit
 const cleanAlbumTitle = (title: string): string => {
@@ -47,19 +45,6 @@ interface PageProps {
 }
 
 export default function MagazinePage({ page, index, totalPages }: PageProps) {
-  // States pour le dialog de sélection de zone
-  const [zoneDialogOpen, setZoneDialogOpen] = useState(false)
-  const [selectedZone, setSelectedZone] = useState<string>('')
-  const [albumToPlay, setAlbumToPlay] = useState<any>(null)
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: '',
-    severity: 'success' as 'success' | 'error' | 'info'
-  })
-  
-  // Hook Roon pour mettre à jour la zone après lecture
-  const { setPlaybackZone } = useRoon()
-  
   // States pour le portrait d'artiste
   const [portraitOpen, setPortraitOpen] = useState(false)
   const [portraitArtistId, setPortraitArtistId] = useState<number | null>(null)
@@ -67,17 +52,6 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
   
   // State pour la couleur dynamique du fond
   const [dominantColor, setDominantColor] = useState<string>('#ffffff')
-
-  // Récupérer les zones Roon
-  const { data: roonZones } = useQuery({
-    queryKey: ['roon-zones'],
-    queryFn: async () => {
-      const response = await apiClient.get('/playback/roon/zones')
-      return response.data?.zones || []
-    },
-    refetchInterval: 10000,
-    refetchOnMount: true,
-  })
 
   // Fonction pour extraire la couleur la plus claire d'une image
   const extractBrightestColor = async (imageUrl: string): Promise<string> => {
@@ -198,110 +172,6 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
     }
   }
 
-  // Fonction pour jouer dans Roon
-  const handlePlayInRoon = (album: any) => {
-    console.log('🎵 handlePlayInRoon appelé avec:', album)
-    setAlbumToPlay(album)
-    setZoneDialogOpen(true)
-    console.log('🎵 Dialog ouvert, zoneDialogOpen devrait être true')
-  }
-
-  const showSnackbar = (message: string, severity: 'success' | 'error' | 'info') => {
-    setSnackbar({ open: true, message, severity })
-  }
-
-  // Fonction pour confirmer et lancer la lecture
-  const handleZoneClickedForMagazine = async (zoneName: string) => {
-    if (!albumToPlay) {
-      showSnackbar('Album introuvable.', 'error')
-      return
-    }
-
-    const artistName = albumToPlay.artist_name || albumToPlay.artist
-    const albumTitle = albumToPlay.album_title || albumToPlay.title
-
-    if (!albumTitle) {
-      showSnackbar('Album introuvable dans le magazine.', 'error')
-      return
-    }
-
-    setZoneDialogOpen(false)
-    setSelectedZone(zoneName)
-
-    try {
-      const cleanedAlbumTitle = cleanAlbumTitle(albumTitle)
-      const cleanedArtistName = cleanArtistName(artistName)
-      console.log('📤 Envoi à Roon:', { artist_name: cleanedArtistName, album_title: cleanedAlbumTitle, zone: zoneName })
-
-      await apiClient.post('/playback/roon/play-album-by-name', {
-        artist_name: cleanedArtistName,
-        album_title: cleanedAlbumTitle,
-        zone_name: zoneName
-      }, {
-        timeout: 120000
-      })
-
-      // Mettre à jour la zone du contexte Roon
-      setPlaybackZone(zoneName)
-      
-      showSnackbar(`🎵 Lecture lancée: ${cleanedAlbumTitle}`, 'success')
-      setSelectedZone('')
-      setAlbumToPlay(null)
-    } catch (error: any) {
-      const errorMsg = error?.response?.data?.detail || error?.message || 'Erreur inconnue'
-      console.error('❌ Erreur Roon:', error)
-      showSnackbar(`❌ Échec: ${errorMsg}`, 'error')
-      setSelectedZone('')
-      setAlbumToPlay(null)
-    }
-  }
-
-  const confirmPlayInRoon = async () => {
-    console.log('🔄 confirmPlayInRoon appelé - selectedZone:', selectedZone, 'albumToPlay:', albumToPlay)
-    if (!selectedZone || !albumToPlay) {
-      console.warn('⚠️ Conditions non remplies:', { selectedZone, albumToPlay })
-      showSnackbar('Veuillez sélectionner une zone Roon.', 'error')
-      return
-    }
-
-    // Normaliser les données (support pour différentes structures d'objet)
-    const artistName = albumToPlay.artist_name || albumToPlay.artist
-    const albumTitle = albumToPlay.album_title || albumToPlay.title
-
-    if (!albumTitle) {
-      showSnackbar('Album introuvable dans le magazine.', 'error')
-      return
-    }
-
-    setZoneDialogOpen(false)
-
-    try {
-      const cleanedAlbumTitle = cleanAlbumTitle(albumTitle)
-      const cleanedArtistName = cleanArtistName(artistName)
-      console.log('📤 Envoi à Roon:', { artist_name: cleanedArtistName, album_title: cleanedAlbumTitle, zone: selectedZone })
-
-      await apiClient.post('/playback/roon/play-album-by-name', {
-        artist_name: cleanedArtistName,
-        album_title: cleanedAlbumTitle,
-        zone_name: selectedZone
-      }, {
-        timeout: 120000
-      })
-
-      // Mettre à jour la zone du contexte Roon
-      setPlaybackZone(selectedZone)
-      
-      showSnackbar(`🎵 Lecture lancée: ${albumTitle}`, 'success')
-      setSelectedZone('')
-      setAlbumToPlay(null)
-    } catch (error: any) {
-      const errorMsg = error?.response?.data?.detail || error?.message || 'Erreur inconnue'
-      console.error('❌ Erreur Roon:', error)
-      showSnackbar(`❌ Échec: ${errorMsg}`, 'error')
-      setSelectedZone('')
-      setAlbumToPlay(null)
-    }
-  }
 
   // Extraire les infos de layout AI
   const aiLayout: AILayout | null = typeof page.layout === 'object' ? page.layout : null
@@ -326,57 +196,8 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
   }
   const imageHeight = imageSizes[imageSize as keyof typeof imageSizes] || 300
 
-  // Helper pour wrapper le contenu avec le Dialog
-  const renderPageWithDialog = (content: React.ReactNode) => (
-    <>
-      {content}
-      
-      {/* Dialog de sélection de zone Roon - Compact */}
-      <Dialog open={zoneDialogOpen} onClose={() => setZoneDialogOpen(false)}>
-        <DialogTitle sx={{ pb: 1 }}>Sélectionner une zone</DialogTitle>
-        <DialogContent sx={{ minWidth: 250, p: 1 }}>
-          <Stack spacing={0.5} sx={{ py: 0.5 }}>
-            {(() => {
-              console.log('🔍 roonZones:', roonZones, 'length:', roonZones?.length)
-              return null
-            })()}
-            {roonZones && roonZones.length > 0 ? (
-              roonZones.map((zone: any) => (
-                <Button
-                  key={zone.zone_id}
-                  variant="outlined"
-                  fullWidth
-                  onClick={() => handleZoneClickedForMagazine(zone.name)}
-                  sx={{
-                    justifyContent: 'flex-start',
-                    height: '40px',
-                    fontSize: '0.95rem',
-                    px: 1.5,
-                    '&:hover': {
-                      backgroundColor: '#f5f5f5',
-                      borderColor: 'primary.main'
-                    }
-                  }}
-                >
-                  {zone.name}
-                </Button>
-              ))
-            ) : (
-              <Typography variant="body2" color="text.secondary" sx={{ p: 1 }}>Aucune zone</Typography>
-            )}
-          </Stack>
-        </DialogContent>
-        <DialogActions sx={{ p: 1.5, justifyContent: 'flex-end' }}>
-          <Button 
-            onClick={() => setZoneDialogOpen(false)}
-            sx={{ textTransform: 'none' }}
-          >
-            Annuler
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
-  )
+  // Helper pour wrapper le contenu (sans actions Roon)
+  const renderPageWithDialog = (content: React.ReactNode) => content
 
   // Déterminer le nombre de colonnes pour le texte
   const getTextColumns = () => {
@@ -736,27 +557,6 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                           >
                             Portrait
                           </Button>
-                          <Button
-                            size="small"
-                            variant="contained"
-                            onClick={() => handlePlayInRoon(album)}
-                            sx={{
-                              backgroundColor: '#23a7dd',
-                              color: '#ffffff',
-                              fontFamily: '"Roboto Condensed", sans-serif',
-                              fontWeight: 700,
-                              fontSize: '9px',
-                              padding: '2px 6px',
-                              height: '18px',
-                              minWidth: '40px',
-                              textTransform: 'uppercase',
-                              '&:hover': {
-                                backgroundColor: '#1a8bc4'
-                              }
-                            }}
-                          >
-                            ▶ Roon
-                          </Button>
                         </Box>
                       </CardContent>
                     </Card>
@@ -1004,26 +804,6 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                     >
                       Portrait
                     </Button>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      onClick={() => handlePlayInRoon(album)}
-                      sx={{
-                        backgroundColor: '#23a7dd',
-                        color: '#ffffff',
-                        fontFamily: '"Roboto Condensed", sans-serif',
-                        fontWeight: 700,
-                        fontSize: '11px',
-                        padding: '4px 8px',
-                        height: '24px',
-                        textTransform: 'uppercase',
-                        '&:hover': {
-                          backgroundColor: '#1a8bc4'
-                        }
-                      }}
-                    >
-                      ▶ Roon
-                    </Button>
                   </Box>
                 </Box>
 
@@ -1227,27 +1007,6 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                         }}
                       >
                         Portrait
-                      </Button>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        onClick={() => handlePlayInRoon(album)}
-                        sx={{
-                          backgroundColor: '#23a7dd',
-                          color: '#ffffff',
-                          fontFamily: '"Roboto Condensed", sans-serif',
-                          fontWeight: 700,
-                          fontSize: '9px',
-                          padding: '2px 6px',
-                          height: '18px',
-                          minWidth: '40px',
-                          textTransform: 'uppercase',
-                          '&:hover': {
-                            backgroundColor: '#1a8bc4'
-                          }
-                        }}
-                      >
-                        ▶ Roon
                       </Button>
                     </Box>
                   </CardContent>
@@ -1568,21 +1327,6 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                       }}
                     />
                   </Box>
-                  <IconButton
-                    size="small"
-                    onClick={() => handlePlayInRoon(item)}
-                    sx={{
-                      color: '#23a7dd',
-                      marginLeft: '12px',
-                      '&:hover': {
-                        backgroundColor: 'rgba(35, 167, 221, 0.1)',
-                        color: '#2eb8f5'
-                      }
-                    }}
-                    title="Jouer sur Roon"
-                  >
-                    <PlayArrow fontSize="small" />
-                  </IconButton>
                 </Box>
               ))}
             </Paper>
@@ -1743,29 +1487,6 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                     >
                       Portrait
                     </Button>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      onClick={() => handlePlayInRoon(album)}
-                      sx={{
-                        backgroundColor: '#23a7dd',
-                        color: '#ffffff',
-                        fontFamily: '"Roboto Condensed", sans-serif',
-                        fontWeight: 700,
-                        fontSize: '9px',
-                        padding: '2px 6px',
-                        height: '18px',
-                        minWidth: '40px',
-                        textTransform: 'uppercase',
-                        display: 'flex',
-                        alignItems: 'center',
-                      '&:hover': {
-                        backgroundColor: '#1a8bc4'
-                      }
-                    }}
-                  >
-                    ▶ Roon
-                  </Button>
                   </Box>
                 </CardContent>
               </Card>
@@ -1803,16 +1524,6 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
         artistName={portraitArtistName}
         onClose={() => setPortraitOpen(false)}
       />
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={4000}
-        onClose={() => setSnackbar({ ...snackbar, open: false })}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert onClose={() => setSnackbar({ ...snackbar, open: false })} severity={snackbar.severity}>
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
     </>
   )
 }

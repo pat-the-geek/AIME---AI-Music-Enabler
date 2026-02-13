@@ -44,7 +44,7 @@ class AlbumService:
             is_soundtrack: Optional filter for soundtrack status. If True, returns only
                 albums with associated film metadata. If False, excludes soundtracks.
             source: Optional data source filter. Defaults to 'discogs' if not specified.
-                Valid values: 'discogs', 'lastfm', 'roon', 'spotify'.
+                Valid values: 'discogs', 'lastfm', 'spotify', 'manual'.
 
         Returns:
             A tuple containing:

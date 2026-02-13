@@ -53,34 +53,6 @@ services:
     profiles:
       - init
 
-  roon-bridge:
-    build:
-      context: ./roon-bridge
-      dockerfile: Dockerfile
-    container_name: music-tracker-roon-bridge
-    ports:
-      - "3330:3330"
-    volumes:
-      - ./config:/app/config
-    environment:
-      - ROON_BRIDGE_PORT=3330
-    restart: unless-stopped
-    networks:
-      - music-tracker-network
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3330/health"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 15s
-    labels:
-      - "com.aime.service=roon-bridge"
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-
   frontend:
     build:
       context: ./frontend

@@ -22,29 +22,10 @@
     "listen_start_hour": 0,
     "listen_end_hour": 24
   },
-  "roon_tracker": {
-    "enabled": true,
-    "interval_seconds": 120,
-    "listen_start_hour": 0,
-    "listen_end_hour": 24,
-    "radio_stations": [
-      "RTS La Première",
-      "RTS Couleur 3",
-      "RTS Espace 2",
-      "RTS Option Musique",
-      "Radio Meuh",
-      "Radio Nova"
-    ]
-  },
-  "roon_control": {
-    "enabled": true
-  },
   "ui": {
     "timeline_refresh_seconds": 120,
     "journal_refresh_seconds": 120
   },
-  "roon_server": "192.168.1.253",
-  "roon_token": "9ad44880-d8b7-446f-b26b-a12926dbd68b",
   "euria": {
     "url": "https://api.infomaniak.com/2/ai/106561/openai/v1/chat/completions",
     "bearer": "xAw7abygtFt9iB0cOJANoFPpkjPwjtSwTycaS_AGBd9sQedV11GH1ejHfYzL8zz3nWNNIL15pv18nkf2",

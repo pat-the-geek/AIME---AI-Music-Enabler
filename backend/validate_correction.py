@@ -94,17 +94,7 @@ def validate_database(db_path: str):
         else:
             print(f"  ✅ Tous les albums ont une source")
         
-        # 7. Albums Roon
-        print("\n🎧 Albums Roon...")
-        cursor.execute("SELECT COUNT(*) FROM albums WHERE source = 'roon'")
-        roon_count = cursor.fetchone()[0]
-        print(f"  Total: {roon_count}")
-        
-        cursor.execute("SELECT support, COUNT(*) FROM albums WHERE source = 'roon' GROUP BY support")
-        for support, count in cursor.fetchall():
-            print(f"  - {support or '(NULL)'}: {count}")
-        
-        # 8. Vérifier les relations
+        # 7. Vérifier les relations
         print("\n🔗 Vérification des relations...")
         cursor.execute("""
             SELECT COUNT(DISTINCT a.id) 

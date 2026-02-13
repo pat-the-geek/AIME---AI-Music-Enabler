@@ -51,15 +51,6 @@ def migrate_database(db_path: str):
         discogs_count = cursor.rowcount
         print(f"  - {discogs_count} albums Discogs marqués")
         
-        # Albums avec support="Roon" -> roon
-        cursor.execute("""
-            UPDATE albums 
-            SET source = 'roon' 
-            WHERE support = 'Roon' AND source = 'manual'
-        """)
-        roon_count = cursor.rowcount
-        print(f"  - {roon_count} albums Roon marqués")
-        
         # 4. Corriger les supports invalides pour les albums Discogs
         print("✅ Correction des supports invalides...")
         cursor.execute("""

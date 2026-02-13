@@ -9,7 +9,7 @@ class ServiceState(Base):
     
     __tablename__ = 'service_states'
     
-    service_name = Column(String, primary_key=True)  # 'tracker', 'roon_tracker', 'scheduler'
+    service_name = Column(String, primary_key=True)  # 'tracker', 'scheduler'
     is_active = Column(Boolean, default=False, nullable=False)
     last_updated = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False)
     

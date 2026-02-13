@@ -1,6 +1,6 @@
 # AIME Services Management
 
-Outils de démarrage et gestion des services AIME (Roon Bridge + Backend + Frontend).
+Outils de démarrage et gestion des services AIME (Backend + Frontend).
 
 ## Quick Start
 
@@ -10,10 +10,9 @@ Outils de démarrage et gestion des services AIME (Roon Bridge + Backend + Front
 ```
 
 Cela va:
-- ✅ Lancer le Roon Bridge (port 3330)
 - ✅ Lancer le backend Python FastAPI (port 8000)
 - ✅ Lancer le frontend React (port 5173)
-- 📊 Monitorer tous les services avec auto-restart
+- 📊 Monitorer les services avec auto-restart
 
 ### 2. Arrêter tous les services
 ```bash
@@ -23,7 +22,7 @@ Cela va:
 ## Scripts Disponibles
 
 ### `start-services.sh`
-Lance le bridge, backend, et frontend avec monitoring automatique.
+Lance le backend et le frontend avec monitoring automatique.
 
 **Features:**
 - Détecte les ports déjà en usage et les nettoie
@@ -35,10 +34,9 @@ Lance le bridge, backend, et frontend avec monitoring automatique.
 
 **Endpoints disponibles:**
 ```
-🌉 Roon Bridge: http://localhost:3330/status
-🎵 Backend:     http://localhost:8000/api/v1/roon/zones
-📚 API Docs:    http://localhost:8000/docs
-⚛️  Frontend:    http://localhost:5173
+🎵 Backend:  http://localhost:8000
+📚 API Docs: http://localhost:8000/docs
+⚛️  Frontend: http://localhost:5173
 ```
 
 ### `stop-services.sh`
@@ -49,26 +47,10 @@ Arrête proprement tous les services.
 - Nettoie les fichiers PID
 - Vérifie que tout est bien arrêté
 
-### `install-launch-agent.sh` (macOS uniquement)
-Configure le Roon Bridge pour démarrer automatiquement au login.
-
-**Installation:**
-```bash
-./scripts/install-launch-agent.sh
-```
-
-**Après installation:**
-- 🚀 Le bridge démarre automatiquement à chaque login macOS
-- 📋 Vérifier le statut: `launchctl list | grep roon-bridge`
-- 📝 Voir les logs: `tail -f /tmp/aime_bridge.log`
-- 🔄 Recharger: `launchctl unload ~/Library/LaunchAgents/com.aime.roon-bridge.plist && launchctl load ~/Library/LaunchAgents/com.aime.roon-bridge.plist`
-- 🗑️  Désinstaller: `rm ~/Library/LaunchAgents/com.aime.roon-bridge.plist`
-
 ## Dossiers de Logs
 
 Tous les logs sont dans `/tmp/`:
 ```bash
-tail -f /tmp/aime_bridge.log      # Logs du bridge
 tail -f /tmp/aime_backend.log     # Logs du backend
 tail -f /tmp/aime_frontend.log    # Logs du frontend
 ```
@@ -76,16 +58,9 @@ tail -f /tmp/aime_frontend.log    # Logs du frontend
 Ou utiliser les chemins du projet:
 ```bash
 tail -f backend/server.log        # Backend logs
-tail -f roon-bridge/bridge.log    # Bridge logs
 ```
 
 ## Variables d'Environnement
-
-### Roon Bridge
-```bash
-export ROON_BRIDGE_PORT=3330      # Port d'écoute HTTP (défaut: 3330)
-export CONFIG_DIR=./config        # Répertoire de config (défaut: ./config)
-```
 
 ### Backend Python
 ```bash
@@ -95,18 +70,6 @@ export UVICORN_WORKERS=1          # Nombre de workers
 ```
 
 ## Dépannage
-
-### Le bridge ne démarre pas
-```bash
-# Vérifier que Node.js est installé
-node --version
-
-# Vérifier que le port 3330 est libre
-lsof -i :3330
-
-# Voir les erreurs détaillées
-tail -f /tmp/aime_bridge.log
-```
 
 ### Le backend ne démarre pas
 ```bash
@@ -144,11 +107,8 @@ rm -rf /tmp/aime_pids
 
 ### Vérifier la santé des services
 ```bash
-# Bridge
-curl http://localhost:3330/status
-
 # Backend
-curl http://localhost:8000/api/v1/roon/zones
+curl http://localhost:8000
 
 # Frontend
 curl http://localhost:5173
@@ -156,60 +116,20 @@ curl http://localhost:5173
 
 ### Monitorer les ports
 ```bash
-lsof -i :3330  # Bridge
 lsof -i :8000  # Backend
 lsof -i :5173  # Frontend (si en dev)
-```
-
-### Voir les PIDs
-```bash
-cat /tmp/aime_pids/bridge.pid
-cat /tmp/aime_pids/backend.pid
-cat /tmp/aime_pids/frontend.pid
-```
-
-### Tuer manuellement un service
-```bash
-kill -9 $(lsof -ti :3330)  # Bridge
-kill -9 $(lsof -ti :8000)  # Backend
-kill -9 $(lsof -ti :5173)  # Frontend
-```
-
-## macOS LaunchAgent
-
-Le LaunchAgent `com.aime.roon-bridge` redémarre automatiquement le bridge s'il crash:
-- ✅ Auto-start au login
-- ✅ Auto-restart si crash
-- ✅ Max 10 redémarrages avant de s'arrêter
-- 📝 Logs dans `/tmp/aime_bridge.log`
-
-### Configuration du LaunchAgent
-```bash
-# Voir la config
-cat ~/Library/LaunchAgents/com.aime.roon-bridge.plist
-
-# Désactiver le auto-restart
-launchctl unload ~/Library/LaunchAgents/com.aime.roon-bridge.plist
-
-# Réactiver
-launchctl load ~/Library/LaunchAgents/com.aime.roon-bridge.plist
 ```
 
 ## Performance
 
 ### Optimization Tips:
 
-1. **Roon Bridge:**
-   - Écoute sur tous les ports: `0.0.0.0:3330`
-   - Timeout SOOD: 5 secondes (pour Roon discovery)
-   - Browse mutex: Sérialise les requêtes (pas de race conditions)
-
-2. **Backend:**
+1. **Backend:**
    - Workers: 1 (single-worker pour simplicité)
-   - Timeout: 15 secondes pour playback
+   - Timeout: 15 secondes
    - Reload: Activé pour développement
 
-3. **Frontend:**
+2. **Frontend:**
    - Vite dev server (HMR actif)
    - Port: 5173
 

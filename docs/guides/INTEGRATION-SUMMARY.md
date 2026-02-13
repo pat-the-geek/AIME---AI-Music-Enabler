@@ -16,7 +16,7 @@
 
 ### 3. Interface Utilisateur
 - **Nouveau bouton** dans Paramètres : "🤖 Enrichir avec Euria + Spotify"
-- **Design cohérent** avec les autres boutons (Sync Discogs, Normalisation Roon)
+- **Design cohérent** avec les autres boutons (Sync Discogs)
 - **Notifications en temps réel** : statut et résultats
 - **Retrocompatible** : ne casse rien d'existant
 
@@ -215,7 +215,6 @@ python3 verify_enrichment.py
 ### Compatible avec :
 - ✅ Synchronisation Discogs (avant)
 - ✅ Refresh complèt (après)
-- ✅ Normalisation Roon
 - ✅ Tracker Last.fm
 - ✅ Scheduler tâches
 - ✅ Tous les services existants
@@ -232,12 +231,10 @@ python3 verify_enrichment.py
 1. Synchroniser Discogs
    ↓
 2. ➡️ Enrichir avec Euria + Spotify ⬅️ (NOUVEAU)
-   ↓
+  ↓
 3. Refresh complet (optionnel)
-   ↓
-4. Normaliser avec Roon (optionnel)
-   ↓
-5. ✅ Collection enrichie et normalisée
+  ↓
+4. ✅ Collection enrichie
 ```
 
 ## 💡 Cas d'usage

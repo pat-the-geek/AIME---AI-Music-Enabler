@@ -88,7 +88,7 @@ GET /history/tracks
 **Query Parameters:**
 - `page` (int): Numéro de page
 - `page_size` (int): Nombre d'éléments
-- `source` (string): Filtrer par source (lastfm, roon)
+- `source` (string): Filtrer par source (lastfm)
 - `loved` (boolean): Filtrer favoris
 - `artist` (string): Filtrer par artiste
 - `album` (string): Filtrer par album
@@ -175,7 +175,7 @@ GET /history/stats
 
 ### Playlists
 
-> ⚠️ **Note:** Les endpoints de playlists sont temporairement désactivés durant la migration. Ils seront réactivés dans une version ultérieure avec support Roon intégré.
+> ⚠️ **Note:** Les endpoints de playlists sont temporairement désactivés durant la migration.
 
 #### Générer une playlist (Désactivé)
 
@@ -307,110 +307,6 @@ POST /services/ai/generate-info?album_id=1
 {
   "album_id": 1,
   "ai_info": "Pastel Blues est un album de Nina Simone..."
-}
-```
-
-### Roon ✨ **NOUVEAU v4.3.1**
-
-#### Statut Roon
-
-```http
-GET /roon/status
-```
-
-**Response:**
-```json
-{
-  "connected": true,
-  "server": "192.168.1.253:9330",
-  "zones_count": 9,
-  "active_zones": 2
-}
-```
-
-#### Liste des zones
-
-```http
-GET /roon/zones
-```
-
-**Response:**
-```json
-{
-  "zones": [
-    {
-      "zone_id": "15000c5ba7e6ae00360057c7a00b3131",
-      "display_name": "Salon",
-      "state": "playing",
-      "is_play_allowed": true,
-      "is_pause_allowed": true
-    }
-  ]
-}
-```
-
-#### Lecture en cours
-
-```http
-GET /roon/now-playing
-```
-
-**Response:**
-```json
-{
-  "zone_id": "15000c5ba7e6ae00360057c7a00b3131",
-  "zone_name": "Salon",
-  "state": "playing",
-  "artist": "Nina Simone",
-  "title": "I Put a Spell on You",
-  "album": "Pastel Blues",
-  "image_key": "...",
-  "duration": 180,
-  "position": 45
-}
-```
-
-#### Contrôler la lecture
-
-```http
-POST /roon/control
-```
-
-**Request Body:**
-```json
-{
-  "zone_id": "15000c5ba7e6ae00360057c7a00b3131",
-  "action": "play"
-}
-```
-
-**Actions disponibles:** `play`, `pause`, `stop`, `next`, `previous`
-
-#### Lire un album
-
-```http
-POST /roon/play-album
-```
-
-**Request Body:**
-```json
-{
-  "album_id": 1,
-  "zone_id": "15000c5ba7e6ae00360057c7a00b3131"
-}
-```
-
-#### Lire une piste
-
-```http
-POST /roon/play-track
-```
-
-**Request Body:**
-```json
-{
-  "track_id": 1,
-  "zone_id": "15000c5ba7e6ae00360057c7a00b3131"
 }
 ```
 

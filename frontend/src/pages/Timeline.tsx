@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   Box,
@@ -71,6 +71,10 @@ export default function Timeline() {
   const { enabled: roonEnabled, available: roonAvailable, playTrack } = useRoon()
   const queryClient = useQueryClient()
   const { timelineRefreshMs } = useUIConfig()
+  
+  // Refs pour le scroll automatique vers l'heure actuelle
+  const timelineContainerRef = useRef<HTMLDivElement>(null)
+  const currentHourRefs = useRef<{ [key: number]: HTMLDivElement | null }>({})
 
   const { data, isLoading, isFetching } = useQuery<TimelineData>({
     queryKey: ['timeline', selectedDate],
@@ -81,6 +85,25 @@ export default function Timeline() {
     refetchInterval: timelineRefreshMs, // Synchronized with tracker frequency
     refetchOnWindowFocus: true,
   })
+
+  // Scroll automatique vers l'heure actuelle lors du chargement
+  useEffect(() => {
+    if (data && timelineContainerRef.current && selectedDate === new Date().toISOString().split('T')[0]) {
+      const currentHour = new Date().getHours()
+      const currentHourElement = currentHourRefs.current[currentHour]
+      
+      if (currentHourElement) {
+        // Scroll avec un petit délai pour s'assurer que le rendu est terminé
+        setTimeout(() => {
+          currentHourElement.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'nearest', 
+            inline: 'center' 
+          })
+        }, 100)
+      }
+    }
+  }, [data, selectedDate])
 
   const handlePrevDay = () => {
     const date = new Date(selectedDate)
@@ -232,7 +255,7 @@ export default function Timeline() {
       </Paper>
 
       {/* Timeline horaire avec scroll horizontal */}
-      <Box sx={{ overflowX: 'auto', pb: 2 }}>
+      <Box ref={timelineContainerRef} sx={{ overflowX: 'auto', pb: 2 }}>
         <Box sx={{ display: 'flex', minWidth: 'max-content', gap: 0 }}>
           {hourRange.map((hour) => {
             const tracks = data?.hours[String(hour)] || []
@@ -242,8 +265,9 @@ export default function Timeline() {
             return (
               <Paper
                 key={hour}
+                ref={(el) => (currentHourRefs.current[hour] = el)}
                 sx={{
-                  minWidth: viewMode === 'detailed' ? 320 : 180,
+                  minWidth: viewMode === 'detailed' ? 280 : 150,
                   backgroundColor: getHourColor(hour),
                   borderRadius: 0,
                   borderRight: '1px solid',

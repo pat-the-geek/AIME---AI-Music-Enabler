@@ -1,9 +1,7 @@
-"""Playback services (Playlists, Queue, Roon integration)."""
+"""Playback services (Playlists, Queue)."""
 
 from app.services.playback.playlist_service import PlaylistService
-from app.services.playback.roon_playback_service import RoonPlaybackService
 
 __all__ = [
     "PlaylistService",
-    "RoonPlaybackService",
 ]

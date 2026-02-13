@@ -1,0 +1,643 @@
+{
+  "id": "2026-02-10-009",
+  "edition_number": 9,
+  "generated_at": "2026-02-10T06:21:23.617030+00:00",
+  "albums": [
+    {
+      "album_id": 1107,
+      "album_title": "The Graduate (original Motion Picture Soundtrack)",
+      "artist_name": "Simon & Garfunkel, Dave Grusin",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f33d75cac5da4be6c3753196",
+      "count": 21
+    },
+    {
+      "id": 285,
+      "title": "Portrait",
+      "artist": "Samara Joy",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+      "genre": null
+    },
+    {
+      "id": 396,
+      "title": "Music Has the Right To Children",
+      "artist": "Boards of Canada",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2739effb26eea559ce6f3fed751",
+      "genre": null
+    },
+    {
+      "id": 244,
+      "title": "If You Wait (deluxe Version)",
+      "artist": "London Grammar",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738e411f06d11a04c99df55247",
+      "genre": null
+    },
+    {
+      "id": 286,
+      "title": "Trilogy 3 (live)",
+      "artist": "Chick Corea, Brian Blade & Christian Mcbride",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273636688536fdadbf58c806e9a",
+      "genre": null
+    },
+    {
+      "id": 245,
+      "title": "Is This It",
+      "year": 2001,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+      "genre": null,
+      "artist": "The Strokes",
+      "description": "The Strokes livre avec *Is This It* (2001) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "existing"
+    },
+    {
+      "id": 340,
+      "title": "Fragile",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273fb00f7be0eca020bb5c05911",
+      "genre": null,
+      "artist": "Yes",
+      "description": "*Fragile* marque un moment dans la carrière de Yes. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 326,
+      "title": "Counterparts",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273171534172e49028410ed8fcb",
+      "genre": null,
+      "artist": "Rush",
+      "description": "La **poésie musicale** de *Counterparts* de Rush transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 261,
+      "title": "Clouds Taste Metallic",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27380f1543dba9c40d32c21f01b",
+      "genre": null,
+      "artist": "The Flaming Lips",
+      "description": "**Clouds Taste Metallic** de *The Flaming Lips* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 262,
+      "title": "Woman Worldwide",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27314a99b6cf89499f1c4ca200c",
+      "genre": null,
+      "artist": "Justice",
+      "description": "La **poésie musicale** de *Woman Worldwide* de Justice transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 298,
+      "title": "Wicked: One Wonderful Night (live) – the Soundtrack",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273c111a1f33d362055e786fdf1",
+      "genre": null,
+      "artist": "Cynthia Erivo",
+      "description": "Cynthia Erivo livre avec *Wicked: One Wonderful Night (live) – the Soundtrack* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "existing"
+    },
+    {
+      "id": 258,
+      "title": "Late Night (remixes)",
+      "artist": "Foals",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27345f82f2dc0706ea44d8aa7d7",
+      "year": null,
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#FF00FF",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Horizons Musique*."
+    },
+    {
+      "id": 250,
+      "title": "L.a. Woman",
+      "artist": "The Doors",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+      "year": null,
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "gradient"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 275,
+      "title": "Cold Beer & Country Music",
+      "artist": "Zach Top",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273eff0aba5b84f925e09f70b29",
+      "year": null,
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#ff6b35",
+        "specialEffect": "tilt"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 268,
+      "title": "Ain't Done With the Blues",
+      "artist": "Buddy Guy",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273c6336d29c7f3c2dce8d98aa3",
+      "year": null,
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "asymmetric",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "gradient"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Horizons Musique*."
+    },
+    {
+      "id": 243,
+      "title": "Illinois",
+      "artist": "Sufjan Stevens",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273712c76b4152918fb8d37c53d",
+      "year": null,
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 1226,
+      "title": "Resound Nyc",
+      "artist": "Moby",
+      "year": 2023,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2734820135d6ff571deeb2e3238",
+      "description": "**Album Review: *Resound NYC* by Moby (2023)**\n\nMoby’s *Resound NYC* (2023) is a hauntingly atmospheric electronic album that blends ambient, downtempo, and post-rock influences into a cohesive, introspective soundscape. Drawing from his signature minimalist style, Moby crafts a meditative journey through layers of ethereal synths, spectral vocals, and rhythmic pulses. The album’s emotional resonance is profound, evoking a sense of urban solitude and existential reflection, much like his earlier works, but with a more mature, cinematic depth.\n\nProduction-wise, *Resound NYC* is meticulously crafted, featuring lush, immersive sound design that balances warmth with subtle industrial textures. Standout tracks like *\"The Last Minute\"* and *\"Shelter\"* showcase Moby’s knack for blending orchestral grandeur with electronic precision, while *\"Night in New York\"* highlights his use of atmospheric instrumentation—gentle piano motifs, reverberant strings, and hypnotic beats—that create a dreamlike yet grounded ambiance. A standout for fans of introspective electronic music, *Resound NYC* is a masterclass in emotional storytelling through sound.",
+      "style": null
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "triple-column",
+        "composition": "playful",
+        "accentColor": "#f59e0b",
+        "specialEffect": "overlay"
+      },
+      "content": {
+        "total_recent_listens": 100,
+        "unique_artists": 43,
+        "unique_albums": 22,
+        "top_artists": [
+          {
+            "artist_id": 581,
+            "artist_name": "Simon & Garfunkel",
+            "image_url": "https://i.scdn.co/image/afde2fdd14f8c8ca23393f257e3a369a234a24b6",
+            "count": 22
+          },
+          {
+            "artist_id": 601,
+            "artist_name": "Dave Grusin",
+            "image_url": "https://i.scdn.co/image/29135f6101e2b98e0ab188693c41ba48bd248c4b",
+            "count": 21
+          },
+          {
+            "artist_id": 27,
+            "artist_name": "Beck",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb675a6e778640f767626f2e66",
+            "count": 15
+          },
+          {
+            "artist_id": 617,
+            "artist_name": "Beck & St. Vincent",
+            "image_url": null,
+            "count": 15
+          },
+          {
+            "artist_id": 618,
+            "artist_name": "Beck & Terrell Hines",
+            "image_url": null,
+            "count": 15
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1107,
+            "album_title": "The Graduate (original Motion Picture Soundtrack)",
+            "artist_name": "Simon & Garfunkel, Dave Grusin",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f33d75cac5da4be6c3753196",
+            "count": 21
+          },
+          {
+            "album_id": 1105,
+            "album_title": "Hyperspace (2020)",
+            "artist_name": "Beck, Beck & St. Vincent, Beck & Terrell Hines",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27330312f869979f64fd17d8bad",
+            "count": 15
+          },
+          {
+            "album_id": 1119,
+            "album_title": "A Minecraft Movie (songs From the Original Motion Picture Soundtrack)",
+            "artist_name": "Jack Black, Jack Black & Jason Momoa, Jamieson Shaw, Bret Mckenzie, Benee, Dayglow, Dirty Honey",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2736c983ef4297b7b05025613e8",
+            "count": 4
+          },
+          {
+            "album_id": 1103,
+            "album_title": "La Haine (musiques Inspirées du Film)",
+            "artist_name": "La Haine.",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27308098fd0dfeaf75b8b79e8ee",
+            "count": 2
+          },
+          {
+            "album_id": 1117,
+            "album_title": "Summer: the Original Hits",
+            "artist_name": "Donna Summer",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f0062d3c4f9444cef85891f7",
+            "count": 2
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "bar",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 285,
+            "title": "Portrait",
+            "artist": "Samara Joy",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+            "genre": null
+          },
+          {
+            "id": 396,
+            "title": "Music Has the Right To Children",
+            "artist": "Boards of Canada",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2739effb26eea559ce6f3fed751",
+            "genre": null
+          },
+          {
+            "id": 244,
+            "title": "If You Wait (deluxe Version)",
+            "artist": "London Grammar",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738e411f06d11a04c99df55247",
+            "genre": null
+          },
+          {
+            "id": 286,
+            "title": "Trilogy 3 (live)",
+            "artist": "Chick Corea, Brian Blade & Christian Mcbride",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273636688536fdadbf58c806e9a",
+            "genre": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 285,
+            "album_title": "Portrait",
+            "haiku": "**Portrait**\nVoix veloutée d'or\nNotes murmurent ton âme",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "right",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "playful",
+              "accentColor": "#06b6d4",
+              "specialEffect": "zoom"
+            },
+            "description": "La **poésie musicale** de *Portrait* de Samara Joy transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 396,
+            "album_title": "Music Has the Right To Children",
+            "haiku": "**Music Has the Right To Children**\nMurmures de printemps électroniques\nNuits bercées de synthés lointains",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "left",
+              "imageSize": "large",
+              "textLayout": "single-column",
+              "composition": "dramatic",
+              "accentColor": "#ff6b35",
+              "specialEffect": "none"
+            },
+            "description": "Dans *Music Has the Right To Children*, Boards of Canada nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 244,
+            "album_title": "If You Wait (deluxe Version)",
+            "haiku": "**If You Wait (Deluxe Version)**\nÉchos perdus dans la nuit\nSilence vibrant en chœur",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "right",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#10b981",
+              "specialEffect": "gradient"
+            },
+            "description": "*If You Wait (deluxe Version)* marque un moment dans la carrière de London Grammar. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          },
+          {
+            "album_id": 286,
+            "album_title": "Trilogy 3 (live)",
+            "haiku": "**Trilogy 3 (live)**\nNotes jaillissent en feu\nRythmes dansent en liberté",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "top",
+              "imageSize": "large",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#ff6b35",
+              "specialEffect": "zoom"
+            },
+            "description": "*Trilogy 3 (live)* marque un moment dans la carrière de Chick Corea, Brian Blade & Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "columns": 3,
+        "spacing": "normal"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Camille Saint-saëns",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "fullwidth",
+        "imageSize": "small",
+        "textLayout": "double-column",
+        "composition": "dramatic",
+        "accentColor": "#764ba2",
+        "specialEffect": "blur"
+      },
+      "content": {
+        "artist": {
+          "name": "Camille Saint-saëns",
+          "albums_count": 6,
+          "haiku": "**Is This It**\nGuitares électriques pleurant\nNuits urbaines en écho\n\n*(Inspiré par l'énergie brute et la mélancolie rock de l'album, avec une touche de lyrisme à la Camille Saint-Saëns.)*",
+          "bio": "**Camille Saint-saëns** nous offre 6 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/f565d81f8dcfdec438207f6d8b34689f3489232a"
+        },
+        "albums": [
+          {
+            "id": 245,
+            "title": "Is This It",
+            "year": 2001,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+            "genre": null,
+            "artist": "The Strokes",
+            "description": "The Strokes livre avec *Is This It* (2001) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 340,
+            "title": "Fragile",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273fb00f7be0eca020bb5c05911",
+            "genre": null,
+            "artist": "Yes",
+            "description": "*Fragile* marque un moment dans la carrière de Yes. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 326,
+            "title": "Counterparts",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273171534172e49028410ed8fcb",
+            "genre": null,
+            "artist": "Rush",
+            "description": "La **poésie musicale** de *Counterparts* de Rush transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 261,
+            "title": "Clouds Taste Metallic",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27380f1543dba9c40d32c21f01b",
+            "genre": null,
+            "artist": "The Flaming Lips",
+            "description": "**Clouds Taste Metallic** de *The Flaming Lips* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 262,
+            "title": "Woman Worldwide",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27314a99b6cf89499f1c4ca200c",
+            "genre": null,
+            "artist": "Justice",
+            "description": "La **poésie musicale** de *Woman Worldwide* de Justice transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 298,
+            "title": "Wicked: One Wonderful Night (live) – the Soundtrack",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273c111a1f33d362055e786fdf1",
+            "genre": null,
+            "artist": "Cynthia Erivo",
+            "description": "Cynthia Erivo livre avec *Wicked: One Wonderful Night (live) – the Soundtrack* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 400,
+        "text_columns": 2,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Horizons Musique",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Horizons Musique",
+          "description": "*Horizons Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 258,
+              "title": "Late Night (remixes)",
+              "artist": "Foals",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27345f82f2dc0706ea44d8aa7d7",
+              "year": null,
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#FF00FF",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Horizons Musique*."
+            },
+            {
+              "id": 250,
+              "title": "L.a. Woman",
+              "artist": "The Doors",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+              "year": null,
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 275,
+              "title": "Cold Beer & Country Music",
+              "artist": "Zach Top",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273eff0aba5b84f925e09f70b29",
+              "year": null,
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#ff6b35",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 268,
+              "title": "Ain't Done With the Blues",
+              "artist": "Buddy Guy",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273c6336d29c7f3c2dce8d98aa3",
+              "year": null,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Horizons Musique*."
+            },
+            {
+              "id": 243,
+              "title": "Illinois",
+              "artist": "Sufjan Stevens",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273712c76b4152918fb8d37c53d",
+              "year": null,
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "artistic",
+        "image_position": "top"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "right",
+        "imageSize": "large",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1226,
+          "title": "Resound Nyc",
+          "artist": "Moby",
+          "year": 2023,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b2734820135d6ff571deeb2e3238",
+          "description": "**Album Review: *Resound NYC* by Moby (2023)**\n\nMoby’s *Resound NYC* (2023) is a hauntingly atmospheric electronic album that blends ambient, downtempo, and post-rock influences into a cohesive, introspective soundscape. Drawing from his signature minimalist style, Moby crafts a meditative journey through layers of ethereal synths, spectral vocals, and rhythmic pulses. The album’s emotional resonance is profound, evoking a sense of urban solitude and existential reflection, much like his earlier works, but with a more mature, cinematic depth.\n\nProduction-wise, *Resound NYC* is meticulously crafted, featuring lush, immersive sound design that balances warmth with subtle industrial textures. Standout tracks like *\"The Last Minute\"* and *\"Shelter\"* showcase Moby’s knack for blending orchestral grandeur with electronic precision, while *\"Night in New York\"* highlights his use of atmospheric instrumentation—gentle piano motifs, reverberant strings, and hypnotic beats—that create a dreamlike yet grounded ambiance. A standout for fans of introspective electronic music, *Resound NYC* is a masterclass in emotional storytelling through sound.",
+          "style": null
+        },
+        "artist_images": {
+          "Moby": "https://i.scdn.co/image/ab6761610000e5eb51998989b51d8bda6a7486f2"
+        }
+      },
+      "dimensions": {
+        "image_size": "small",
+        "description_length": "full",
+        "font_size": "small"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

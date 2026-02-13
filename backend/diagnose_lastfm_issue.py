@@ -45,9 +45,7 @@ def diagnose():
         print("\n2️⃣  RÉPARTITION PAR SOURCE")
         print("-" * 70)
         lastfm_count = db.query(ListeningHistory).filter_by(source='lastfm').count()
-        roon_count = db.query(ListeningHistory).filter_by(source='roon').count()
         print(f"   Last.fm: {lastfm_count}")
-        print(f"   Roon:    {roon_count}")
         
         if lastfm_count == 0:
             print("   ⚠️ AUCUNE LECTURE LAST.FM! Cela explique le problème.")
@@ -150,7 +148,6 @@ def diagnose():
             print("      - Consulter les logs: docker-compose logs backend")
         elif lastfm_count == 0:
             print("   ⚠️ PROBLÈME: Aucune lecture Last.fm enregistrée")
-            print("      - Seul Roon enregistre des lectures")
             print("      - Le tracker Last.fm n'est peut-être pas actif")
         else:
             if len(recent) == 0:

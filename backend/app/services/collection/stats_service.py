@@ -73,7 +73,6 @@ class CollectionStatsService:
         
         listening_sources = {
             'lastfm': db.query(Album).filter(Album.source == 'lastfm').count(),
-            'roon': db.query(Album).filter(Album.source == 'roon').count(),
             'spotify': db.query(Album).filter(Album.source == 'spotify').count(),
             'manual': db.query(Album).filter(Album.source == 'manual').count(),
         }

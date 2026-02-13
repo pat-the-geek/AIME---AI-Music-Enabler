@@ -241,10 +241,10 @@ def create_not_found_error(resource: str, resource_id: Any) -> Dict[str, Any]:
 def create_service_error(service: str, message: str) -> Dict[str, Any]:
     """Create 502 service integration error response.
     
-    Used when external service (Spotify, AI, Roon, etc) call fails.
+    Used when an external service call fails (e.g., Spotify, AI, third-party trackers).
     
     Args:
-        service: Service name that failed (Spotify, RoonBridge, etc.)
+        service: Service name that failed (Spotify, bridge service, etc.)
         message: Error from external service
     
     Returns:

@@ -39,7 +39,7 @@ class TestWakeUpRecoveryWithTimeouts:
                 async def timeout_func():
                     await asyncio.sleep(20)  # Longer than 10s timeout
                 
-                mock_tracker.start = timeout_func
+                mock_tracker.start = AsyncMock(side_effect=timeout_func)
                 mock_get_tracker.return_value = mock_tracker
                 
                 # Should not raise, should complete quickly
@@ -52,22 +52,19 @@ class TestWakeUpRecoveryWithTimeouts:
     
     @pytest.mark.asyncio
     async def test_multiple_services_with_mixed_timeouts(self):
-        """Test multiple services where some timeout, some succeed."""
+        """Test multiple services where one times out and others succeed."""
         with patch('app.api.v1.tracking.services.SessionLocal') as mock_session_local:
             mock_session = MagicMock()
             mock_service_1 = Mock(service_name='tracker', is_active=True)
-            mock_service_2 = Mock(service_name='roon_tracker', is_active=True)
-            mock_service_3 = Mock(service_name='scheduler', is_active=True)
+            mock_service_2 = Mock(service_name='scheduler', is_active=True)
             
             mock_session.query().filter_by().all.return_value = [
                 mock_service_1, 
-                mock_service_2,
-                mock_service_3
+                mock_service_2
             ]
             mock_session_local.return_value = mock_session
             
             with patch('app.api.v1.tracking.services.get_tracker') as mock_get_tracker, \
-                 patch('app.api.v1.tracking.services.get_roon_tracker') as mock_get_roon_tracker, \
                  patch('app.api.v1.tracking.services.get_scheduler') as mock_get_scheduler:
                 
                 # Tracker succeeds quickly
@@ -75,27 +72,22 @@ class TestWakeUpRecoveryWithTimeouts:
                 mock_tracker.start = AsyncMock()
                 mock_get_tracker.return_value = mock_tracker
                 
-                # Roon tracker times out
-                mock_roon_tracker = AsyncMock()
-                async def timeout_roon():
+                # Scheduler times out
+                mock_scheduler = AsyncMock()
+                async def timeout_scheduler():
                     await asyncio.sleep(20)
                 
-                mock_roon_tracker.start = timeout_roon
-                mock_get_roon_tracker.return_value = mock_roon_tracker
-                
-                # Scheduler succeeds
-                mock_scheduler = AsyncMock()
-                mock_scheduler.start = AsyncMock()
+                mock_scheduler.start = AsyncMock(side_effect=timeout_scheduler)
                 mock_get_scheduler.return_value = mock_scheduler
                 
                 start_time = asyncio.get_event_loop().time()
                 await restore_active_services()
                 elapsed = asyncio.get_event_loop().time() - start_time
                 
-                # Should take ~10s (roon timeout) not ~30s
-                assert elapsed < 15, f"Took {elapsed}s, should be <15s"
+                # Should take ~15s (scheduler timeout) not ~30s
+                assert elapsed < 17, f"Took {elapsed}s, should be <17s"
                 
-                # Tracker and scheduler should still be called
+                # Tracker should still be called
                 mock_tracker.start.assert_called_once()
                 mock_scheduler.start.assert_called_once()
     
@@ -147,7 +139,7 @@ class TestManualServiceStartWithTimeouts:
             async def timeout_start():
                 await asyncio.sleep(15)  # Longer than 10s timeout
             
-            mock_tracker.start = timeout_start
+            mock_tracker.start = AsyncMock(side_effect=timeout_start)
             mock_get_tracker.return_value = mock_tracker
             
             with patch('app.api.v1.tracking.services.save_service_state') as mock_save:
@@ -226,7 +218,7 @@ class TestErrorHandlingWithTimeouts:
                 async def timeout_start():
                     await asyncio.sleep(15)
                 
-                mock_tracker.start = timeout_start
+                mock_tracker.start = AsyncMock(side_effect=timeout_start)
                 mock_get_tracker.return_value = mock_tracker
                 
                 await restore_active_services()
@@ -254,7 +246,7 @@ class TestErrorHandlingWithTimeouts:
                     except asyncio.CancelledError:
                         raise Exception("Service crashed")
                 
-                mock_tracker.start = timeout_with_exception
+                mock_tracker.start = AsyncMock(side_effect=timeout_with_exception)
                 mock_get_tracker.return_value = mock_tracker
                 
                 # Should not raise exception

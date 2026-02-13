@@ -1851,17 +1851,17 @@ Format strict :
     
     async def _generate_page_4_timeline(self) -> Dict[str, Any]:
         """Page 4: Timeline visuelle + Stats avec images artistes et albums."""
-        # Récupérer les DERNIERS IDs en évitant le full table scan avec ORDER BY (au lieu de charger tout et trier!)
-        # Utiliser max(id) - 100 pour éviter la trie
+        # Récupérer les DERNIÈRES écoutes en utilisant ORDER BY DESC pour garantir l'ordre chronologique
+        # Optimisé avec min_id pour éviter le full table scan sur les anciennes données
         max_id = self.db.query(func.max(ListeningHistory.id)).scalar() or 0
-        min_id = max(0, max_id - 500)  # Récupérer les 500 derniers IDs
+        min_id = max(0, max_id - 1000)  # Range plus large pour avoir plus de données
         
-        # Charger les écoutes récentes avec joinedload
+        # Charger les 300 écoutes les plus récentes avec joinedload (au lieu de 100)
         recent_history = self.db.query(ListeningHistory).options(
             joinedload(ListeningHistory.track).joinedload(Track.album).joinedload(Album.artists)
         ).filter(
             ListeningHistory.id > min_id
-        ).limit(100).all()  # Limiter à 100 après le filtre
+        ).order_by(ListeningHistory.id.desc()).limit(300).all()  # Tri décroissant et limite augmentée
         
         if not recent_history:
             return self._empty_page()

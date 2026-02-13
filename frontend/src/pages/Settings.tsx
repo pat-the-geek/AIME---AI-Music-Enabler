@@ -18,10 +18,6 @@ import {
   LinearProgress,
   Snackbar,
   Chip,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Paper,
 } from '@mui/material'
 import {
@@ -32,7 +28,6 @@ import {
   AutoAwesome,
 } from '@mui/icons-material'
 import apiClient from '@/api/client'
-import { useRoon } from '@/contexts/RoonContext'
 
 // Helper pour formater les dates
 const formatLastActivity = (isoDate: string | null | undefined): string => {
@@ -56,18 +51,11 @@ export default function Settings() {
   const [importLimit, setImportLimit] = useState<number | null>(null) // null = import ALL
   const [importDialogOpen, setImportDialogOpen] = useState(false)
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' })
-  const [roonServer, setRoonServer] = useState('')
-  const [testingRoonConnection, setTestingRoonConnection] = useState(false)
   const [maxFilesPerType, setMaxFilesPerType] = useState(5)
   const [syncProgress, setSyncProgress] = useState<any>(null)
   const [lastfmImportProgress, setLastfmImportProgress] = useState<any>(null)
-  const [normalizationDialogOpen, setNormalizationDialogOpen] = useState(false)
-  const [simulationResults, setSimulationResults] = useState<any>(null)
-  const [normalizationInProgress, setNormalizationInProgress] = useState(false)
-  const [isLoadingSimulationResults, setIsLoadingSimulationResults] = useState(false)
   
   const queryClient = useQueryClient()
-  const { enabled: roonEnabled, available: roonAvailable, zone, setZone } = useRoon()
 
   // Récupérer tous les statuts en une seule requête
   const { data: allServicesStatus, isLoading, refetch: refetchAllStatus } = useQuery({
@@ -76,45 +64,8 @@ export default function Settings() {
       const response = await apiClient.get('/services/status/all')
       return response.data
     },
-    refetchInterval: 5000, // Rafraîchir toutes les 5 secondes
-  })
-
-  // Récupérer la configuration Roon
-  const roonConfigQuery = useQuery({
-    queryKey: ['roon-config'],
-    queryFn: async () => {
-      const response = await apiClient.get('/services/roon/config')
-      return response.data
-    },
-  })
-
-  useEffect(() => {
-    if (roonConfigQuery.data?.server) {
-      setRoonServer(roonConfigQuery.data.server)
-    }
-  }, [roonConfigQuery.data?.server])
-
-  // Récupérer le statut de connexion Roon (avec rafraîchissement)
-  const { data: roonStatus, refetch: refetchRoonStatus } = useQuery({
-    queryKey: ['roon-status'],
-    queryFn: async () => {
-      const response = await apiClient.get('/services/roon/status')
-      return response.data
-    },
-    refetchInterval: 5000, // Rafraîchir toutes les 5 secondes
-  })
-
-  // Récupérer les zones Roon disponibles
-  const { data: roonZones } = useQuery({
-    queryKey: ['roon-zones'],
-    queryFn: async () => {
-      const response = await apiClient.get('/playback/roon/zones')
-      return response.data
-    },
-    enabled: roonEnabled && roonAvailable,
-    refetchInterval: 10000,
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
+    refetchInterval: false,
   })
 
   // Récupérer la configuration du scheduler
@@ -135,44 +86,6 @@ export default function Settings() {
     }
   }, [schedulerConfig?.max_files_per_type])
 
-  // Récupérer le statut de normalisation Roon
-  const { data: normalizationStatus, refetch: refetchNormalizationStatus } = useQuery({
-    queryKey: ['normalization-status'],
-    queryFn: async () => {
-      const response = await apiClient.get('/services/roon/normalize/status')
-      return response.data
-    },
-    refetchInterval: 5000,
-  })
-
-  // Récupérer les résultats de simulation
-  const { data: normalizationSimulationResults } = useQuery({
-    queryKey: ['normalization-simulation-results'],
-    queryFn: async () => {
-      const response = await apiClient.get('/services/roon/normalize/simulate-results')
-      return response.data
-    },
-    enabled: normalizationDialogOpen,
-    // Continuer le polling jusqu'à ce que asynchrone complété ou erreur
-    refetchInterval: (data: any) => {
-      // Si status est 'completed' ou 'error', ARRÊTER le polling (retourner undefined)
-      if (data?.status === 'completed' || data?.status === 'error') {
-        return undefined // ✓ Arrête le polling proprement
-      }
-      // Sinon, refetch toutes les 500ms
-      return 500
-    },
-  })
-
-  useEffect(() => {
-    if (normalizationSimulationResults) {
-      setSimulationResults(normalizationSimulationResults)
-      // Arrêter le loading dès que les résultats arrivent
-      if (normalizationSimulationResults.status === 'completed' || normalizationSimulationResults.status === 'error') {
-        setIsLoadingSimulationResults(false)
-      }
-    }
-  }, [normalizationSimulationResults])
 
   // Récupérer les résultats d'optimisation IA
   const { data: optimizationResults, refetch: refetchOptimization } = useQuery({
@@ -181,7 +94,8 @@ export default function Settings() {
       const response = await apiClient.get('/services/scheduler/optimization-results')
       return response.data
     },
-    refetchInterval: 60000, // Rafraîchir toutes les minutes
+    refetchOnWindowFocus: false,
+    refetchInterval: false,
   })
 
   // Pour la compatibilité avec le code existant
@@ -326,66 +240,6 @@ export default function Settings() {
     },
   })
 
-  const saveRoonConfigMutation = useMutation({
-    mutationFn: async (server: string) => {
-      const response = await apiClient.post('/services/roon/config', { server })
-      return response.data
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['roon-config'] })
-      queryClient.invalidateQueries({ queryKey: ['roon-status'] })
-      queryClient.invalidateQueries({ queryKey: ['all-services-status'] })
-      refetchRoonStatus()
-      setSnackbar({
-        open: true,
-        message: '✅ Configuration Roon sauvegardée. Vérifiez Roon → Settings → Extensions',
-        severity: 'success'
-      })
-    },
-    onError: (error: any) => {
-      setSnackbar({ open: true, message: `Erreur: ${error.message}`, severity: 'error' })
-    },
-  })
-
-  const testRoonConnectionMutation = useMutation({
-    mutationFn: async (server: string) => {
-      const response = await apiClient.post('/services/roon/test-connection', { server })
-      return response.data
-    },
-    onSuccess: (data) => {
-      if (data.connected) {
-        setSnackbar({
-          open: true,
-          message: `✅ Connexion réussie ! ${data.zones_found || 0} zone(s) détectée(s)`,
-          severity: 'success'
-        })
-      } else {
-        setSnackbar({
-          open: true,
-          message: `⚠️ Impossible de se connecter: ${data.error || 'Erreur inconnue'}`,
-          severity: 'error'
-        })
-      }
-    },
-    onError: (error: any) => {
-      setSnackbar({ 
-        open: true, 
-        message: `❌ Erreur de connexion: ${error.response?.data?.detail || error.message}`, 
-        severity: 'error' 
-      })
-    },
-  })
-
-  const handleTestRoonConnection = async () => {
-    if (!roonServer.trim()) {
-      setSnackbar({ open: true, message: '⚠️ Veuillez saisir une adresse serveur', severity: 'error' })
-      return
-    }
-    setTestingRoonConnection(true)
-    await testRoonConnectionMutation.mutateAsync(roonServer)
-    setTestingRoonConnection(false)
-  }
-
   const updateSchedulerConfigMutation = useMutation({
     mutationFn: async (maxFiles: number) => {
       const response = await apiClient.patch('/services/scheduler/config', null, {
@@ -405,96 +259,6 @@ export default function Settings() {
       setSnackbar({ open: true, message: `Erreur: ${error.message}`, severity: 'error' })
     },
   })
-
-  const simulateNormalizationMutation = useMutation({
-    mutationFn: async (limit?: number) => {
-      // Réinitialiser l'état de loading
-      setIsLoadingSimulationResults(true)
-      setSimulationResults(null) // Effacer les résultats précédents
-      
-      // CRITIQUE: Reset COMPLET du cache React Query pour éviter les données stale
-      // On ne peut pas juste invalider, il faut effacer les données du cache
-      queryClient.setQueryData(['normalization-simulation-results'], {
-        status: 'simulating',
-        changes: { artists: [], albums: [] },
-        stats: { artists_total: 0, artists_would_update: 0, albums_total: 0, albums_would_update: 0, no_matches: 0 },
-        error: null
-      })
-      
-      const response = await apiClient.post(
-        `/services/roon/normalize/simulate`,
-        {},
-        { params: limit ? { limit } : {} }
-      )
-      return response.data
-    },
-    onSuccess: () => {
-      setNormalizationDialogOpen(true)
-      setSnackbar({
-        open: true,
-        message: '🔍 Simulation lancée en arrière-plan...',
-        severity: 'success'
-      })
-    },
-    onError: (error: any) => {
-      setIsLoadingSimulationResults(false) // Arrêter le loading en cas d'erreur
-      setSnackbar({ 
-        open: true, 
-        message: `Erreur simulation: ${error.response?.data?.detail || error.message}`, 
-        severity: 'error' 
-      })
-    },
-  })
-
-  const normalizeWithRoonMutation = useMutation({
-    mutationFn: async () => {
-      const response = await apiClient.post('/services/roon/normalize', {})
-      return response.data
-    },
-    onSuccess: () => {
-      // Ne pas fermer tout de suite - garder le dialog ouvert pour montrer que c'est en cours
-      setSnackbar({
-        open: true,
-        message: '⏳ Normalisation lancée en arrière-plan... (cela peut prendre quelques secondes)',
-        severity: 'success'
-      })
-      
-      // Attendre 2 secondes avant de fermer pour laisser le temps au backend
-      setTimeout(() => {
-        setNormalizationDialogOpen(false)
-        setSimulationResults(null)
-        setIsLoadingSimulationResults(false)
-        
-        // CRITIQUE: Invalider les caches React Query pour forcer le refretch des données mises à jour
-        queryClient.invalidateQueries({ queryKey: ['artists'] })
-        queryClient.invalidateQueries({ queryKey: ['albums'] })
-        queryClient.invalidateQueries({ queryKey: ['history'] })
-        
-        refetchNormalizationStatus()
-        
-        setSnackbar({
-          open: true,
-          message: '✅ Normalisation appliquée! La bibliothèque a été mise à jour.',
-          severity: 'success'
-        })
-      }, 2000)
-    },
-    onError: (error: any) => {
-      setSnackbar({ 
-        open: true, 
-        message: `Erreur normalisation: ${error.response?.data?.detail || error.message}`, 
-        severity: 'error' 
-      })
-    },
-  })
-
-  const handleSaveRoonConfig = () => {
-    if (!roonServer.trim()) {
-      setSnackbar({ open: true, message: '⚠️ Veuillez saisir une adresse serveur', severity: 'error' })
-      return
-    }
-    saveRoonConfigMutation.mutate(roonServer)
-  }
 
   const handleStartImport = () => {
     importHistoryMutation.mutate(importLimit)
@@ -585,220 +349,6 @@ export default function Settings() {
           </Stack>
         </CardContent>
       </Card>
-      {/* Configuration Roon */}
-      <Card sx={{ mb: 3 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            🔧 Configuration Roon
-          </Typography>
-          
-          <Divider sx={{ mb: 2 }} />
-          
-          {roonStatus?.configured && roonStatus?.connected && (
-            roonStatus.authorized ? (
-              <Alert severity="success" sx={{ mb: 2 }}>
-                ✅ Extension autorisée dans Roon ! ({roonStatus.zones_count} zone(s) détectée(s))
-              </Alert>
-            ) : (
-              <Alert severity="warning" sx={{ mb: 2 }}>
-                ⏳ Extension connectée mais en attente d'autorisation. 
-                Allez dans Roon → Settings → Extensions pour autoriser "AIME - AI Music Enabler".
-              </Alert>
-            )
-          )}
-          
-          {roonStatus?.configured && !roonStatus?.connected && (
-            <Alert severity="error" sx={{ mb: 2 }}>
-              ❌ Impossible de se connecter au serveur Roon. Vérifiez l'adresse et que Roon Core est démarré.
-            </Alert>
-          )}
-          
-          {!roonStatus?.configured && (
-            <Alert severity="info" sx={{ mb: 2 }}>
-              Configurez l'adresse de votre serveur Roon pour activer le tracking local. 
-              L'extension doit être autorisée dans les paramètres Roon.
-            </Alert>
-          )}
-
-          <Stack spacing={2}>
-            <TextField
-              label="Adresse du serveur Roon"
-              placeholder="192.168.1.100 ou roon-core.local"
-              value={roonServer}
-              onChange={(e) => setRoonServer(e.target.value)}
-              fullWidth
-              helperText="Entrez l'adresse IP ou le hostname de votre Roon Core"
-            />
-
-            <Stack direction="row" spacing={2}>
-              <Button
-                variant="outlined"
-                onClick={handleTestRoonConnection}
-                disabled={testingRoonConnection || !roonServer.trim()}
-                startIcon={testingRoonConnection ? <CircularProgress size={20} /> : null}
-              >
-                {testingRoonConnection ? 'Test en cours...' : 'Tester la connexion'}
-              </Button>
-
-              <Button
-                variant="contained"
-                onClick={handleSaveRoonConfig}
-                disabled={saveRoonConfigMutation.isPending || !roonServer.trim()}
-                color="primary"
-              >
-                Enregistrer
-              </Button>
-              
-              {roonStatus?.configured && (
-                <Button
-                  variant="text"
-                  onClick={() => refetchRoonStatus()}
-                  size="small"
-                >
-                  Actualiser
-                </Button>
-              )}
-            </Stack>
-
-            <Typography variant="caption" color="text.secondary">
-              💡 Après avoir enregistré, l'extension "AIME - AI Music Enabler" devrait apparaître dans 
-              Roon → Settings → Extensions. Autorisez-la pour activer le tracking.
-            </Typography>
-          </Stack>
-        </CardContent>
-      </Card>
-
-      {/* Zone Roon pour le contrôle */}
-      {roonEnabled && roonAvailable && (
-        <Card sx={{ mb: 3 }}>
-          <CardContent>
-            <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              🎛️ Contrôle Roon
-            </Typography>
-            
-            <Divider sx={{ mb: 2 }} />
-            
-            <Alert severity="info" sx={{ mb: 2 }}>
-              Sélectionnez la zone Roon à utiliser pour le contrôle de lecture depuis l'application.
-            </Alert>
-
-            <FormControl fullWidth>
-              <InputLabel>Zone de lecture</InputLabel>
-              <Select
-                value={zone}
-                label="Zone de lecture"
-                onChange={(e) => setZone(e.target.value)}
-              >
-                {roonZones?.zones?.map((zoneObj: { zone_id: string; name: string; state: string }) => (
-                  <MenuItem key={zoneObj.zone_id} value={zoneObj.name}>
-                    {zoneObj.name} ({zoneObj.state})
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            {zone && (
-              <Typography variant="caption" color="success.main" sx={{ display: 'block', mt: 2 }}>
-                ✅ Zone sélectionnée : {zone}
-              </Typography>
-            )}
-
-            <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2 }}>
-              💡 Cette zone sera utilisée lorsque vous cliquez sur "Écouter sur Roon" dans le Journal ou la Timeline.
-            </Typography>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Tracker Roon */}
-      <Card sx={{ mb: 3 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            🎵 Tracker Roon
-          </Typography>
-          
-          <Divider sx={{ mb: 2 }} />
-          
-          {isLoading ? (
-            <CircularProgress />
-          ) : allServicesStatus?.roon_tracker?.running ? (
-            <Alert severity="success" sx={{ mb: 2 }}>
-              ✅ Le tracker Roon est actif et surveille vos écoutes
-            </Alert>
-          ) : (
-            <Alert severity="warning" sx={{ mb: 2 }}>
-              ⏸️ Le tracker Roon est arrêté - Aucune nouvelle écoute n'est enregistrée
-            </Alert>
-          )}
-
-          {roonStatus?.configured && !roonStatus?.connected && (
-            <Alert severity="error" sx={{ mb: 2 }}>
-              ❌ Non connecté au serveur Roon ({roonStatus?.server || 'non configuré'})
-            </Alert>
-          )}
-
-          {roonStatus?.connected && (
-            <Alert severity="info" sx={{ mb: 2 }}>
-              📡 Connecté au serveur Roon - {roonStatus?.zones_count || 0} zone(s) disponible(s)
-            </Alert>
-          )}
-
-          <Stack direction="row" spacing={2}>
-            <Button
-              variant="contained"
-              onClick={() => {
-                const action = allServicesStatus?.roon_tracker?.running ? 'stop' : 'start'
-                apiClient.post(`/services/roon-tracker/${action}`).then(() => {
-                  refetchStatus()
-                  setSnackbar({
-                    open: true,
-                    message: `Tracker Roon ${action === 'start' ? 'démarré' : 'arrêté'}!`,
-                    severity: 'success'
-                  })
-                }).catch((error) => {
-                  setSnackbar({
-                    open: true,
-                    message: `Erreur: ${error.response?.data?.detail || error.message}`,
-                    severity: 'error'
-                  })
-                })
-              }}
-              disabled={!allServicesStatus?.roon_tracker?.connected}
-              startIcon={allServicesStatus?.roon_tracker?.running ? <Stop /> : <PlayArrow />}
-              color={allServicesStatus?.roon_tracker?.running ? 'error' : 'success'}
-            >
-              {allServicesStatus?.roon_tracker?.running ? 'Arrêter' : 'Démarrer'} le Tracker
-            </Button>
-            
-            <Button
-              variant="outlined"
-              onClick={() => refetchStatus()}
-            >
-              Actualiser le statut
-            </Button>
-          </Stack>
-
-          <Stack spacing={1} sx={{ mt: 2 }}>
-            <Typography variant="caption" color="text.secondary">
-              💡 Le tracker surveille Roon toutes les {allServicesStatus?.roon_tracker?.interval_seconds || 120} secondes 
-              pour détecter les nouvelles écoutes et les enregistrer automatiquement.
-            </Typography>
-            
-            {allServicesStatus?.roon_tracker?.last_poll_time && (
-              <Typography variant="caption" color="text.secondary">
-                🕐 Dernière vérification : {formatLastActivity(allServicesStatus.roon_tracker.last_poll_time)}
-              </Typography>
-            )}
-            
-            {allServicesStatus?.roon_tracker?.last_track && (
-              <Typography variant="caption" color="primary.main">
-                🎵 Dernier morceau détecté : {allServicesStatus.roon_tracker.last_track}
-              </Typography>
-            )}
-          </Stack>
-        </CardContent>
-      </Card>
-
       {/* Scheduler - Tâches automatiques */}
       <Card sx={{ mb: 3 }}>
         <CardContent>
@@ -920,50 +470,6 @@ export default function Settings() {
               Vérifier le statut
             </Button>
           </Stack>
-        </CardContent>
-      </Card>
-
-      {/* Normalisation Roon */}
-      <Card sx={{ mb: 3 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            📚 Normalisation Roon
-          </Typography>
-          
-          <Divider sx={{ mb: 2 }} />
-          
-          {!normalizationStatus?.roon_connected ? (
-            <Alert severity="error" sx={{ mb: 2 }}>
-              ❌ Roon n'est pas connecté. Vérifiez votre configuration et le Bridge Roon.
-            </Alert>
-          ) : (
-            <Alert severity="success" sx={{ mb: 2 }}>
-              ✅ Roon est connecté et prêt pour la normalisation
-            </Alert>
-          )}
-
-          <Typography variant="body2" sx={{ mb: 2 }}>
-            Alignez les noms d'artistes et d'albums de votre base de données avec ceux de Roon 
-            pour améliorer la compatibilité de lecture à 100%. Cette opération remplace les noms locaux 
-            par les noms canoniques de Roon.
-          </Typography>
-
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 2 }}>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => simulateNormalizationMutation.mutate(undefined)}
-              disabled={!normalizationStatus?.roon_connected || simulateNormalizationMutation.isPending}
-              startIcon={simulateNormalizationMutation.isPending ? <CircularProgress size={20} /> : undefined}
-            >
-              👁️ Prévisualiser tout
-            </Button>
-          </Stack>
-
-          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2 }}>
-            💡 Cliquez sur "Prévisualiser tout" pour vérifier l'impact complet. Vous pouvez toujours 
-            appliquer après avoir révisé les changements.
-          </Typography>
         </CardContent>
       </Card>
 
@@ -1583,147 +1089,6 @@ export default function Settings() {
           >
             {importHistoryMutation.isPending ? 'Import en cours...' : 'Démarrer l\'Import'}
           </Button>
-        </DialogActions>
-      </Dialog>
-
-      {/* Dialog Normalisation */}
-      <Dialog 
-        open={normalizationDialogOpen} 
-        onClose={() => {
-          if (!simulateNormalizationMutation.isPending && !normalizeWithRoonMutation.isPending && !isLoadingSimulationResults) {
-            setNormalizationDialogOpen(false)
-            setIsLoadingSimulationResults(false)
-            setSimulationResults(null) // Nettoyer les résultats quand on ferme
-          }
-        }}
-        maxWidth="sm" 
-        fullWidth
-      >
-        <DialogTitle>Résultats de la Normalisation Roon</DialogTitle>
-        <DialogContent>
-          <Box sx={{ pt: 2 }}>
-            {(simulateNormalizationMutation.isPending || isLoadingSimulationResults) && (
-              <Box sx={{ textAlign: 'center', py: 3 }}>
-                <CircularProgress sx={{ mb: 2 }} />
-                <Typography variant="body2" color="text.secondary">
-                  ⏳ Simulation en cours... Veuillez patienter.
-                </Typography>
-              </Box>
-            )}
-
-            {!isLoadingSimulationResults && normalizationSimulationResults?.status === 'completed' && normalizationSimulationResults?.changes && (
-              <Box>
-                <Alert severity="success" sx={{ mb: 2 }}>
-                  ✅ Simulation terminée avec succès!
-                </Alert>
-
-                <Box sx={{ p: 2, backgroundColor: '#f5f5f5', borderRadius: 1, mb: 2 }}>
-                  <Typography variant="subtitle2" gutterBottom>
-                    📊 Résumé des changements prévus:
-                  </Typography>
-                  <Stack spacing={1} sx={{ mt: 1 }}>
-                    <Typography variant="body2">
-                      🎤 <strong>Artistes:</strong> {normalizationSimulationResults.changes.artists?.length || 0} changements
-                    </Typography>
-                    <Typography variant="body2">
-                      💿 <strong>Albums:</strong> {normalizationSimulationResults.changes.albums?.length || 0} changements
-                    </Typography>
-                    {normalizationSimulationResults.stats && (
-                      <>
-                        <Typography variant="body2">
-                          📈 <strong>Artistes affectés:</strong> {normalizationSimulationResults.stats.artists_would_update || 0}
-                        </Typography>
-                        <Typography variant="body2">
-                          📈 <strong>Albums affectés:</strong> {normalizationSimulationResults.stats.albums_would_update || 0}
-                        </Typography>
-                      </>
-                    )}
-                  </Stack>
-                </Box>
-
-                {(normalizationSimulationResults.changes.artists?.length > 0 || normalizationSimulationResults.changes.albums?.length > 0) && (
-                  <Box sx={{ maxHeight: 300, overflow: 'auto', border: '1px solid #ddd', borderRadius: 1, p: 1, mb: 2 }}>
-                    {normalizationSimulationResults.changes.artists?.length > 0 && (
-                      <Box>
-                        <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1 }}>
-                          🎤 Artistes à mettre à jour:
-                        </Typography>
-                        {normalizationSimulationResults.changes.artists?.slice(0, 10).map((change: any, idx: number) => (
-                          <Typography key={idx} variant="caption" display="block" sx={{ mb: 0.5 }}>
-                            {change.local_name} → <strong>{change.roon_name}</strong>
-                          </Typography>
-                        ))}
-                        {(normalizationSimulationResults.changes.artists?.length || 0) > 10 && (
-                          <Typography variant="caption" color="text.secondary" display="block">
-                            ... et {(normalizationSimulationResults.changes.artists?.length || 0) - 10} autres
-                          </Typography>
-                        )}
-                      </Box>
-                    )}
-
-                    {normalizationSimulationResults.changes.albums?.length > 0 && (
-                      <Box sx={{ mt: 2 }}>
-                        <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1 }}>
-                          💿 Albums à mettre à jour:
-                        </Typography>
-                        {normalizationSimulationResults.changes.albums?.slice(0, 10).map((change: any, idx: number) => (
-                          <Typography key={idx} variant="caption" display="block" sx={{ mb: 0.5 }}>
-                            {change.local_name} → <strong>{change.roon_name}</strong>
-                          </Typography>
-                        ))}
-                        {(normalizationSimulationResults.changes.albums?.length || 0) > 10 && (
-                          <Typography variant="caption" color="text.secondary" display="block">
-                            ... et {(normalizationSimulationResults.changes.albums?.length || 0) - 10} autres
-                          </Typography>
-                        )}
-                      </Box>
-                    )}
-                  </Box>
-                )}
-
-                {normalizationSimulationResults.changes.artists?.length === 0 && normalizationSimulationResults.changes.albums?.length === 0 && (
-                  <Alert severity="info" sx={{ mb: 2 }}>
-                    ℹ️ Aucune modification détectée. Votre bibliothèque est déjà alignée avec Roon.
-                  </Alert>
-                )}
-              </Box>
-            )}
-
-            {!isLoadingSimulationResults && normalizationSimulationResults?.status === 'error' && (
-              <Alert severity="error" sx={{ mb: 2 }}>
-                ❌ Erreur lors de la simulation: {normalizationSimulationResults?.error}
-              </Alert>
-            )}
-
-            {!isLoadingSimulationResults && !normalizationSimulationResults && (
-              <Alert severity="warning" sx={{ mb: 2 }}>
-                ⚠️ Impossible de récupérer le statut de la simulation. Veuillez vérifier votre connexion.
-              </Alert>
-            )}
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button 
-            onClick={() => {
-              setNormalizationDialogOpen(false)
-              setIsLoadingSimulationResults(false)
-            }}
-            disabled={simulateNormalizationMutation.isPending || normalizeWithRoonMutation.isPending || isLoadingSimulationResults}
-          >
-            Annuler
-          </Button>
-          {normalizationSimulationResults?.status === 'completed' && 
-           (normalizationSimulationResults.changes.artists?.length > 0 || normalizationSimulationResults.changes.albums?.length > 0) && (
-            <Button
-              variant="contained"
-              color="success"
-              onClick={() => normalizeWithRoonMutation.mutate()}
-              disabled={normalizeWithRoonMutation.isPending}
-              startIcon={normalizeWithRoonMutation.isPending ? <CircularProgress size={20} /> : undefined}
-            >
-              {normalizeWithRoonMutation.isPending ? 'Application...' : '✅ Appliquer'}
-            </Button>
-          )}
         </DialogActions>
       </Dialog>
 

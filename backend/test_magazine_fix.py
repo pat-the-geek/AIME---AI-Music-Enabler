@@ -3,9 +3,13 @@
 
 import asyncio
 import json
+import pytest
 from app.database import SessionLocal
 from app.services.magazine_generator_service import MagazineGeneratorService
 from app.core.config import get_settings
+
+# Debug utility only; skip during automated runs
+pytest.skip("Debug magazine fix helper", allow_module_level=True)
 
 async def test_magazine_albums_fix():
     """Générer un magazine pour tester que le fix fonctionne."""

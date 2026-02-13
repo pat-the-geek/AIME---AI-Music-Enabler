@@ -163,7 +163,7 @@ async def list_listening_albums(
     page: int = Query(1, ge=1, description="Page number"),
     page_size: int = Query(30, ge=1, le=100, description="Items per page"),
     search: Optional[str] = Query(None, description="Search in title or artist"),
-    source: Optional[str] = Query(None, description="Filter by source (lastfm, roon, spotify, manual)"),
+    source: Optional[str] = Query(None, description="Filter by source (lastfm, spotify, manual)"),
     db: Session = Depends(get_db)
 ):
     """Liste des albums provenant des écoutes (non-Discogs)."""

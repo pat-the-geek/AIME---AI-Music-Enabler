@@ -1,0 +1,660 @@
+{
+  "id": "2026-02-10-006",
+  "edition_number": 6,
+  "generated_at": "2026-02-10T04:50:48.565288+00:00",
+  "albums": [
+    {
+      "id": 434,
+      "title": "Trilogy: Past, Present & Future",
+      "artist": "Frank Sinatra",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273525feb64b8c90fa8fff368ef",
+      "genre": null
+    },
+    {
+      "id": 344,
+      "title": "The Dark Side of the Moon (50th Anniversary; 2023 Remaster)",
+      "artist": "Pink Floyd",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27324c6558b03a69581bfcbb711",
+      "genre": null
+    },
+    {
+      "id": 247,
+      "title": "Who's Next",
+      "artist": "The Who",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b738367ec6cdbd3e29d7efdf",
+      "genre": null
+    },
+    {
+      "id": 334,
+      "title": "Genesis (2007 Remaster)",
+      "artist": "Genesis",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273945c366eda66495226e4a46d",
+      "genre": null
+    },
+    {
+      "id": 311,
+      "title": "Baroque Favourites",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273876c7eed71fdfe29697bcdcd",
+      "genre": null,
+      "artist": "Australian Brandenburg Orchestra, Paul Dyer, Capella Istropolitana, Richard Edlinger",
+      "description": "Dans *Baroque Favourites*, Australian Brandenburg Orchestra, Paul Dyer, Capella Istropolitana, Richard Edlinger nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 284,
+      "title": "Southern Nights",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273336ed72565af2eb861952e8e",
+      "genre": null,
+      "artist": "Sullivan Fortner",
+      "description": "*Southern Nights* marque un moment dans la carrière de Sullivan Fortner. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 333,
+      "title": "Fleetwood Mac",
+      "year": 1975,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2734fb043195e8d07e72edc7226",
+      "genre": null,
+      "artist": "Fleetwood Mac",
+      "description": "**Fleetwood Mac** de *Fleetwood Mac* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 332,
+      "title": "The Kick Inside (2018 Remaster)",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2730ac530fa01d68e1b89169e01",
+      "genre": null,
+      "artist": "Kate Bush",
+      "description": "Dans *The Kick Inside (2018 Remaster)*, Kate Bush nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 240,
+      "title": "A Moon Shaped Pool (radiohead)",
+      "year": 2016,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27345643f5cf119cbc9d2811c22",
+      "genre": null,
+      "artist": "Radiohead",
+      "description": "**A Moon Shaped Pool (radiohead)** de *Radiohead* (2016) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 297,
+      "title": "Eusexua",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27344a21bdb6c1364be205aadf5",
+      "genre": null,
+      "artist": "Fka Twigs",
+      "description": "La **poésie musicale** de *Eusexua* de Fka Twigs transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 275,
+      "title": "Cold Beer & Country Music",
+      "artist": "Zach Top",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273eff0aba5b84f925e09f70b29",
+      "year": null,
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "none"
+      },
+      "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+    },
+    {
+      "id": 278,
+      "title": "Bad As I Used To Be (from F1® the Movie)",
+      "artist": "Chris Stapleton",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27339e6d052ab967e46e022b851",
+      "year": null,
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "gradient"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 2,
+      "title": "Torches",
+      "artist": "Foster the People",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+      "year": 2011,
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "playful",
+        "accentColor": "#ab47bc",
+        "specialEffect": "gradient"
+      },
+      "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+    },
+    {
+      "id": 282,
+      "title": "A Tribute To Benny Moré and Nat King Cole",
+      "artist": "Gonzalo Rubalcaba, Yainer Horta & Joey Calveiro",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27360b945d9b545e3d640082f8a",
+      "year": null,
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#ab47bc",
+        "specialEffect": "tilt"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Nuits Musique."
+    },
+    {
+      "id": 285,
+      "title": "Portrait",
+      "artist": "Samara Joy",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+      "year": null,
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Nuits Musique."
+    },
+    {
+      "album_id": 1107,
+      "album_title": "The Graduate (original Motion Picture Soundtrack)",
+      "artist_name": "Simon & Garfunkel, Dave Grusin",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f33d75cac5da4be6c3753196",
+      "count": 21
+    },
+    {
+      "id": 1195,
+      "title": "Definitely Maybe",
+      "artist": "Oasis (2)",
+      "year": 2024,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273d86a1e021e7acc7c07c7d668",
+      "description": "**Oasis – *Definitely Maybe* (2024) – Album Review**\n\n*Definitely Maybe*, Oasis’s iconic 1994 debut, receives a breathtaking 2024 reimagining, blending the raw energy of Britpop with modern production finesse. The album retains its anthemic rock roots, merging jangly guitars, soaring melodies, and Liam Gallagher’s unmistakable vocals, but with enhanced clarity and depth. The emotional impact remains potent—nostalgic yet timeless—evoking the same rebellious spirit and existential longing that defined the original.\n\nProduction quality is stellar, with meticulous sound design preserving the rawness of the live recordings while elevating the mix. Drums crack with precision, guitars shimmer with added reverb, and basslines thump with newfound weight. Standout tracks like *\"Live Forever\"* and *\"Supersonic\"* benefit from lush instrumentation, while *\"Cigarettes & Alcohol\"* retains its gritty edge.\n\nA masterclass in rejuvenation, this edition honors the original while introducing *Definitely Maybe* to a new generation. Essential listening.",
+      "style": null
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 434,
+            "title": "Trilogy: Past, Present & Future",
+            "artist": "Frank Sinatra",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273525feb64b8c90fa8fff368ef",
+            "genre": null
+          },
+          {
+            "id": 344,
+            "title": "The Dark Side of the Moon (50th Anniversary; 2023 Remaster)",
+            "artist": "Pink Floyd",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27324c6558b03a69581bfcbb711",
+            "genre": null
+          },
+          {
+            "id": 247,
+            "title": "Who's Next",
+            "artist": "The Who",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b738367ec6cdbd3e29d7efdf",
+            "genre": null
+          },
+          {
+            "id": 334,
+            "title": "Genesis (2007 Remaster)",
+            "artist": "Genesis",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273945c366eda66495226e4a46d",
+            "genre": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 434,
+            "album_title": "Trilogy: Past, Present & Future",
+            "haiku": "**Trilogy: Past, Present & Future**\nNostalgie en rythme d'or\nL'écho du temps éternel",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "diagonal",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#ab47bc",
+              "specialEffect": "gradient"
+            },
+            "description": "Frank Sinatra livre avec *Trilogy: Past, Present & Future* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 344,
+            "album_title": "The Dark Side of the Moon (50th Anniversary; 2023 Remaster)",
+            "haiku": "**The Dark Side of the Moon (50th Anniversary; 2023 Remaster)**\nRivière argentée d'écho\nLunes sonores s'effacent\n\n*(Ou alternative :)*\n**The Dark Side of the Moon (50th Anniversary; 2023 Remaster)**\nÉclats de verre liquide\nNuages de rythme étouffés",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "diagonal",
+              "imageSize": "large",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#10b981",
+              "specialEffect": "zoom"
+            },
+            "description": "La **poésie musicale** de *The Dark Side of the Moon (50th Anniversary; 2023 Remaster)* de Pink Floyd transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 247,
+            "album_title": "Who's Next",
+            "haiku": "**Who's Next**\nÉchos explosant dans le vent\nRiffs dorés du futur",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "right",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "playful",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "none"
+            },
+            "description": "*Who's Next* marque un moment dans la carrière de The Who. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          },
+          {
+            "album_id": 334,
+            "album_title": "Genesis (2007 Remaster)",
+            "haiku": "**Genesis (2007 Remaster)**\nCordes tissant l'aube\nRythmes échos éternels",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "top",
+              "imageSize": "medium",
+              "textLayout": "single-column",
+              "composition": "playful",
+              "accentColor": "#ab47bc",
+              "specialEffect": "zoom"
+            },
+            "description": "*Genesis (2007 Remaster)* marque un moment dans la carrière de Genesis. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "columns": 3,
+        "spacing": "compact"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Franco Piersanti",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "bottom",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "playful",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "artist": {
+          "name": "Franco Piersanti",
+          "albums_count": 6,
+          "haiku": "**Baroque Favourites**\nLuths chuchotant l'or\nNotes d'or en vol\n\n*(Métaphore : les instruments anciens comme des luths sussurrant des trésors, les mélodies devenant des particules lumineuses en mouvement, évoquant l'élégance intemporelle du Baroque.)*\n\n*Inspiré par le style ornementé de Franco Piersanti, compositeur italien au répertoire riche et cinématographique, tout en gardant la",
+          "bio": "**Franco Piersanti** nous offre 6 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5eb7de95334f02df506b11eada1"
+        },
+        "albums": [
+          {
+            "id": 311,
+            "title": "Baroque Favourites",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273876c7eed71fdfe29697bcdcd",
+            "genre": null,
+            "artist": "Australian Brandenburg Orchestra, Paul Dyer, Capella Istropolitana, Richard Edlinger",
+            "description": "Dans *Baroque Favourites*, Australian Brandenburg Orchestra, Paul Dyer, Capella Istropolitana, Richard Edlinger nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 284,
+            "title": "Southern Nights",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273336ed72565af2eb861952e8e",
+            "genre": null,
+            "artist": "Sullivan Fortner",
+            "description": "*Southern Nights* marque un moment dans la carrière de Sullivan Fortner. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 333,
+            "title": "Fleetwood Mac",
+            "year": 1975,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2734fb043195e8d07e72edc7226",
+            "genre": null,
+            "artist": "Fleetwood Mac",
+            "description": "**Fleetwood Mac** de *Fleetwood Mac* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 332,
+            "title": "The Kick Inside (2018 Remaster)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2730ac530fa01d68e1b89169e01",
+            "genre": null,
+            "artist": "Kate Bush",
+            "description": "Dans *The Kick Inside (2018 Remaster)*, Kate Bush nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 240,
+            "title": "A Moon Shaped Pool (radiohead)",
+            "year": 2016,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27345643f5cf119cbc9d2811c22",
+            "genre": null,
+            "artist": "Radiohead",
+            "description": "**A Moon Shaped Pool (radiohead)** de *Radiohead* (2016) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 297,
+            "title": "Eusexua",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27344a21bdb6c1364be205aadf5",
+            "genre": null,
+            "artist": "Fka Twigs",
+            "description": "La **poésie musicale** de *Eusexua* de Fka Twigs transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 500,
+        "text_columns": 1,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Nuits Musique",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Nuits Musique",
+          "description": "*Nuits Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 275,
+              "title": "Cold Beer & Country Music",
+              "artist": "Zach Top",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273eff0aba5b84f925e09f70b29",
+              "year": null,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 278,
+              "title": "Bad As I Used To Be (from F1® the Movie)",
+              "artist": "Chris Stapleton",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27339e6d052ab967e46e022b851",
+              "year": null,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "gradient"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 2,
+              "title": "Torches",
+              "artist": "Foster the People",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+              "year": 2011,
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "gradient"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 282,
+              "title": "A Tribute To Benny Moré and Nat King Cole",
+              "artist": "Gonzalo Rubalcaba, Yainer Horta & Joey Calveiro",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27360b945d9b545e3d640082f8a",
+              "year": null,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Nuits Musique."
+            },
+            {
+              "id": 285,
+              "title": "Portrait",
+              "artist": "Samara Joy",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+              "year": null,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Nuits Musique."
+            },
+            {
+              "id": 247,
+              "title": "Who's Next",
+              "artist": "The Who",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273b738367ec6cdbd3e29d7efdf",
+              "year": 2023,
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "detailed",
+        "image_position": "left"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "left",
+        "imageSize": "huge",
+        "textLayout": "double-column",
+        "composition": "magazine",
+        "accentColor": "#764ba2",
+        "specialEffect": "shadow"
+      },
+      "content": {
+        "total_recent_listens": 100,
+        "unique_artists": 43,
+        "unique_albums": 22,
+        "top_artists": [
+          {
+            "artist_id": 581,
+            "artist_name": "Simon & Garfunkel",
+            "image_url": "https://i.scdn.co/image/afde2fdd14f8c8ca23393f257e3a369a234a24b6",
+            "count": 22
+          },
+          {
+            "artist_id": 601,
+            "artist_name": "Dave Grusin",
+            "image_url": "https://i.scdn.co/image/29135f6101e2b98e0ab188693c41ba48bd248c4b",
+            "count": 21
+          },
+          {
+            "artist_id": 27,
+            "artist_name": "Beck",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb675a6e778640f767626f2e66",
+            "count": 15
+          },
+          {
+            "artist_id": 617,
+            "artist_name": "Beck & St. Vincent",
+            "image_url": null,
+            "count": 15
+          },
+          {
+            "artist_id": 618,
+            "artist_name": "Beck & Terrell Hines",
+            "image_url": null,
+            "count": 15
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1107,
+            "album_title": "The Graduate (original Motion Picture Soundtrack)",
+            "artist_name": "Simon & Garfunkel, Dave Grusin",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f33d75cac5da4be6c3753196",
+            "count": 21
+          },
+          {
+            "album_id": 1105,
+            "album_title": "Hyperspace (2020)",
+            "artist_name": "Beck, Beck & St. Vincent, Beck & Terrell Hines",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27330312f869979f64fd17d8bad",
+            "count": 15
+          },
+          {
+            "album_id": 1119,
+            "album_title": "A Minecraft Movie (songs From the Original Motion Picture Soundtrack)",
+            "artist_name": "Jack Black, Jack Black & Jason Momoa, Jamieson Shaw, Bret Mckenzie, Benee, Dayglow, Dirty Honey",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2736c983ef4297b7b05025613e8",
+            "count": 4
+          },
+          {
+            "album_id": 1103,
+            "album_title": "La Haine (musiques Inspirées du Film)",
+            "artist_name": "La Haine.",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27308098fd0dfeaf75b8b79e8ee",
+            "count": 2
+          },
+          {
+            "album_id": 1117,
+            "album_title": "Summer: the Original Hits",
+            "artist_name": "Donna Summer",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f0062d3c4f9444cef85891f7",
+            "count": 2
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "bar",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1195,
+          "title": "Definitely Maybe",
+          "artist": "Oasis (2)",
+          "year": 2024,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273d86a1e021e7acc7c07c7d668",
+          "description": "**Oasis – *Definitely Maybe* (2024) – Album Review**\n\n*Definitely Maybe*, Oasis’s iconic 1994 debut, receives a breathtaking 2024 reimagining, blending the raw energy of Britpop with modern production finesse. The album retains its anthemic rock roots, merging jangly guitars, soaring melodies, and Liam Gallagher’s unmistakable vocals, but with enhanced clarity and depth. The emotional impact remains potent—nostalgic yet timeless—evoking the same rebellious spirit and existential longing that defined the original.\n\nProduction quality is stellar, with meticulous sound design preserving the rawness of the live recordings while elevating the mix. Drums crack with precision, guitars shimmer with added reverb, and basslines thump with newfound weight. Standout tracks like *\"Live Forever\"* and *\"Supersonic\"* benefit from lush instrumentation, while *\"Cigarettes & Alcohol\"* retains its gritty edge.\n\nA masterclass in rejuvenation, this edition honors the original while introducing *Definitely Maybe* to a new generation. Essential listening.",
+          "style": null
+        },
+        "artist_images": {
+          "Oasis (2)": "https://i.scdn.co/image/ab67616d0000b27326bd4a14405f67542a1ed77c"
+        }
+      },
+      "dimensions": {
+        "image_size": "small",
+        "description_length": "full",
+        "font_size": "large"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

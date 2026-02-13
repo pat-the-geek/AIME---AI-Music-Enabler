@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Debug script to test metadata loading in get_album()"""
+"""Debug script to test metadata loading in get_album()."""
+
+import pytest
+
+# This file is a manual debugging harness, not a real test.
+pytest.skip("Debug utility; exclude from automated test runs", allow_module_level=True)
 
 import sys
 sys.path.insert(0, '.')

@@ -14,7 +14,7 @@ class ListeningHistory(Base):
     track_id = Column(Integer, ForeignKey('tracks.id', ondelete='CASCADE'), nullable=False)
     timestamp = Column(Integer, nullable=False, index=True)  # Unix timestamp
     date = Column(String(20), nullable=False, index=True)  # Format: YYYY-MM-DD HH:MM
-    source = Column(String(20), nullable=False, index=True)  # 'roon' ou 'lastfm'
+    source = Column(String(20), nullable=False, index=True)  # Source d'écoute (ex: 'lastfm')
     loved = Column(Boolean, nullable=False, default=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     

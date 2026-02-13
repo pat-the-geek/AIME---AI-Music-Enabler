@@ -129,11 +129,9 @@ class TrackerService:
             default_error_message=euria_config.get('default_error_message', 'Aucune information disponible')
         )
         
-        # Initialize radio station detector
-        # Note: For Last.fm tracker, we get radio_stations from roon_tracker config
-        # since both trackers might be synchronized
-        roon_tracker_config = config.get('roon_tracker', {})
-        radio_stations = roon_tracker_config.get('radio_stations', [])
+        # Initialize radio station detector (from tracker config if provided)
+        tracker_config = config.get('tracker', {})
+        radio_stations = tracker_config.get('radio_stations', [])
         self.radio_detector = RadioStationDetector(radio_stations)
 
     
@@ -348,14 +346,14 @@ class TrackerService:
 
         Implements the "10-minute rule": prevents duplicate recording of the
         same track if detected again within 10 minutes. Also prevents cross-source
-        duplicates (e.g., same track detected by Roon and Last.fm simultaneously).
+        duplicates when multiple trackers report the same play.
 
         Args:
             db: SQLAlchemy database session.
             artist_name: Artist name (case-insensitive matching).
             track_title: Track title (case-insensitive matching).
             album_title: Album title (case-insensitive matching).
-            source: Source of detection ('lastfm' or 'roon').
+            source: Source of detection label (e.g., 'lastfm').
                 Used to tag duplicate entries and detect cross-source dupes.
 
         Returns:
@@ -377,7 +375,7 @@ class TrackerService:
         10-Minute Rule:
             - Any duplicate within 600 seconds (10 minutes) is skipped
             - Applies to same source (e.g., Last.fm duplicate within 10 min)
-            - Also applies cross-source (Roon and Last.fm detect same play)
+            - Also applies cross-source when multiple trackers detect the same play
             - After 10 minutes, same track can be recorded again
 
         Implementation:

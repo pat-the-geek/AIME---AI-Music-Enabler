@@ -218,6 +218,15 @@ class DiscogsService:
         )
         self.rate_limit_delay = 0.5  # Délai entre requêtes pour respecter les limites
         self.last_request_time = 0
+
+    async def search_album(self, query: str, artist: Optional[str] = None, year: Optional[int] = None):
+        """Search Discogs catalogue for an album title.
+
+        Lightweight placeholder to satisfy consumers expecting a search method.
+        The current implementation delegates to collection import workflows; extend
+        with real search logic if needed.
+        """
+        raise NotImplementedError("search_album is not implemented yet")
     
     def _rate_limit_wait(self) -> None:
         """
