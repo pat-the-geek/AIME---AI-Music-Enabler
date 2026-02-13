@@ -99,7 +99,7 @@ tail -f /tmp/scheduler-monitor.log
 
 ## 📚 Documentation
 
-- **Diagnostic complet** : [`docs/troubleshooting/HAIKU-SCHEDULER-FIX.md`](../troubleshooting/HAIKU-SCHEDULER-FIX.md)
+- **Diagnostic complet** : [`docs/troubleshooting/HAIKU-SCHEDULER-FIX.md`](./HAIKU-SCHEDULER-FIX.md)
 - **Configuration monitoring** : [`docs/guides/SCHEDULER-MONITORING-SETUP.md`](../guides/SCHEDULER-MONITORING-SETUP.md)
 
 ---
