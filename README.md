@@ -15,7 +15,8 @@ Cette application a été entièrement développée en exploitant les capacités
 - **Base de données**: SQLite / PostgreSQL
 - **APIs Intégrées**: 
   - **Last.fm**: Agrégation multi-sources (PlexAmp, Quobuz, Apple Music, etc.)
-  - **Spotify**: URLs, images, métadonnées tracks
+  - **Spotify**: URLs, images, métadonnées tracks, lecture directe
+  - **Apple Music**: Liens directs, recherche intelligente, lecture directe ✨ **v4.7**
   - **Discogs**: Collection, vinyl records
   - **EurIA** (Infomaniak AI): Descriptions automatiques
 

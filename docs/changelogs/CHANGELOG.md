@@ -2,6 +2,46 @@
 
 Tous les changements notables de ce projet sont documentés dans ce fichier.
 
+## [4.7.0] - 2026-02-14
+
+### 🎵 Apple Music Integration ✨
+
+**Documentation détaillée:** [CHANGELOG-v4.7.0-APPLE-MUSIC.md](CHANGELOG-v4.7.0-APPLE-MUSIC.md)
+
+#### ✨ Nouvelles Fonctionnalités
+- 🎵 **Boutons Apple Music** sur toutes les pages d'albums (Magazine, Collection, Journal, Collections)
+- 🔗 **Lien direct** vers Apple Music via Euria (quand disponible)
+- 🔍 **Recherche intelligente** fallback (titre + artiste)
+- 🪟 **Auto-fermeture** des fenêtres vides après 1 sec
+- 🎨 **Styling cohérent** avec couleur Apple (#FA243C)
+
+#### 🗄️ Base de Données
+- Nouvelle colonne: `albums.apple_music_url` (VARCHAR(500), nullable)
+- Nouvel index: `idx_albums_apple_music_url`
+- Migration SQLite exécutée avec succès
+
+#### 🔌 Backend
+- Ajout champ Apple Music à Album model
+- Propagation URL via magazine_generator_service (5 pages)
+- API endpoints retournent apple_music_url
+
+#### 🎨 Frontend
+- Handler `handleOpenAppleMusic` cohérent cross-pages
+- Intégration dans 4 pages: Magazine, Collection, Journal, Collections
+- Support multi-locations (grille, modal, timeline)
+
+### 📻 Radio Stations Detection
+
+**Documentation détaillée:** [CHANGELOG-v4.7.0-RADIO-STATIONS.md](CHANGELOG-v4.7.0-RADIO-STATIONS.md)
+
+#### ✨ Nouvelles Fonctionnalités
+- Détection automatique des stations de radio
+- Configuration flexible via `config/app.json`
+- Smart matching (exact, partial, format variations)
+- Support multi-sources (Last.fm, Roon)
+
+---
+
 ## [4.0.1] - 2026-01-30
 
 ### 🐛 Corrections de Bugs
