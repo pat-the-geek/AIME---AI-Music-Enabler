@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import {
   Typography,
@@ -21,6 +21,8 @@ import {
   IconButton,
   Tooltip,
   CardMedia,
+  FormControlLabel,
+  Switch,
   FormControl,
   InputLabel,
   Select,
@@ -37,6 +39,7 @@ import {
 import apiClient from '../api/client'
 import { useRoon } from '../contexts/RoonContext'
 import { getHiddenContentSx, isEmptyContent } from '../utils/hideEmptyContent'
+import ArtistPortraitModal from '@/components/ArtistPortraitModal'
 
 interface Collection {
   id: number
@@ -90,6 +93,20 @@ export default function Collections() {
   const [searchingForAlbum, setSearchingForAlbum] = useState<{ artist: string; title: string } | null>(null)
   const [playingFromSearch, setPlayingFromSearch] = useState(false)
   const [playingFromSearchWithZone, setPlayingFromSearchWithZone] = useState(false)
+  const [groupByImage, setGroupByImage] = useState(() => {
+    const stored = localStorage.getItem('discover-group-by-image')
+    return stored ? stored === 'true' : true
+  })
+
+  useEffect(() => {
+    localStorage.setItem('discover-group-by-image', String(groupByImage))
+  }, [groupByImage])
+
+  const [portraitOpen, setPortraitOpen] = useState(false)
+  const [portraitArtistId, setPortraitArtistId] = useState<number | null>(null)
+  const [portraitArtistName, setPortraitArtistName] = useState('')
+  const [descriptionOpen, setDescriptionOpen] = useState(false)
+  const [descriptionAlbum, setDescriptionAlbum] = useState<Album | null>(null)
   
   const queryClient = useQueryClient()
   const roon = useRoon()
@@ -113,6 +130,24 @@ export default function Collections() {
     },
     enabled: !!selectedCollectionId
   })
+
+  const groupedAlbums = useMemo(() => {
+    if (!collectionAlbums || collectionAlbums.length === 0) return []
+    const groups = new Map<string, Album[]>()
+    for (const album of collectionAlbums) {
+      const key = album.image_url || 'no-image'
+      const existing = groups.get(key)
+      if (existing) {
+        existing.push(album)
+      } else {
+        groups.set(key, [album])
+      }
+    }
+    return Array.from(groups.entries()).map(([imageUrl, albums]) => ({
+      imageUrl,
+      albums
+    }))
+  }, [collectionAlbums])
 
   // Récupérer les zones Roon
   const { data: roonZones } = useQuery({
@@ -433,10 +468,48 @@ export default function Collections() {
     if (w) setTimeout(() => w.close(), 1000)
   }
 
+  const handleOpenArtistPortrait = async (event: React.MouseEvent, artistName?: string) => {
+    event.stopPropagation()
+    if (!artistName) return
+    try {
+      const response = await apiClient.get('/collection/artists/list', {
+        params: { search: artistName, limit: 1 }
+      })
+      if (response.data?.artists?.[0]) {
+        setPortraitArtistId(response.data.artists[0].id)
+        setPortraitArtistName(response.data.artists[0].name)
+        setPortraitOpen(true)
+      }
+    } catch (error) {
+      console.error('Erreur recherche artiste:', error)
+    }
+  }
+
+  const handleOpenAlbumDescription = (event: React.MouseEvent, album: Album) => {
+    event.stopPropagation()
+    setDescriptionAlbum(album)
+    setDescriptionOpen(true)
+  }
+
+  const handleDescriptionClose = () => {
+    setDescriptionOpen(false)
+  }
+
   const handleViewDetails = (collectionId: number) => {
     setSelectedCollectionId(collectionId)
     setSelectedAlbumId(null)
     setDetailDialogOpen(true)
+  }
+
+  const handleDetailDialogClose = (
+    _event: object,
+    reason: 'backdropClick' | 'escapeKeyDown'
+  ) => {
+    if (selectedAlbumId) {
+      setSelectedAlbumId(null)
+      return
+    }
+    setDetailDialogOpen(false)
   }
 
   const getSearchTypeLabel = (type: string | null) => {
@@ -600,12 +673,14 @@ export default function Collections() {
       {/* Dialog: Détails de la collection */}
       <Dialog 
         open={detailDialogOpen} 
-        onClose={() => {
-          setDetailDialogOpen(false)
-          setSelectedAlbumId(null)
-        }}
-        maxWidth="md"
+        onClose={handleDetailDialogClose}
+        maxWidth="xl"
         fullWidth
+        sx={{
+          '& .MuiDialog-paper': {
+            maxWidth: '95vw'
+          }
+        }}
       >
         <DialogTitle>
           {selectedAlbumId ? 'Détail de l\'album' : 'Albums de la Collection'}
@@ -686,116 +761,314 @@ export default function Collections() {
             <Box display="flex" justifyContent="center" p={3}>
               <CircularProgress />
             </Box>
-          ) : collectionAlbums && collectionAlbums.length > 0 ? (
-            <Grid container spacing={2} mt={1}>
-              {collectionAlbums.map((album) => (
-                <Grid item xs={12} sm={6} key={album.id}>
-                  <Card 
-                    variant="outlined"
-                    onClick={() => setSelectedAlbumId(album.id)}
-                    sx={{ 
-                      height: '100%', 
-                      cursor: 'pointer',
-                      transition: 'all 0.3s',
-                      '&:hover': {
-                        transform: 'translateY(-4px)',
-                        boxShadow: 3
-                      }
-                    }}
-                  >
-                    <Box display="flex" flexDirection="column" height="100%">
-                      {album.image_url && (
+          ) : groupedAlbums.length > 0 ? (
+            <Box mt={1} display="flex" flexDirection="column" gap={3}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={groupByImage}
+                    onChange={(e) => setGroupByImage(e.target.checked)}
+                  />
+                }
+                label={groupByImage ? 'Groupé par image' : 'Liste simple'}
+                sx={{ alignSelf: 'flex-start' }}
+              />
+              {groupByImage ? (
+                groupedAlbums.map((group) => (
+                  <Box key={group.imageUrl}>
+                    <Box display="flex" alignItems="center" gap={2} mb={1}>
+                      {group.imageUrl !== 'no-image' && (
                         <CardMedia
                           component="img"
-                          sx={{ height: 150, objectFit: 'cover' }}
-                          image={album.image_url}
-                          alt={album.title}
+                          sx={{ width: 64, height: 64, objectFit: 'cover', borderRadius: 1 }}
+                          image={group.imageUrl}
+                          alt="Album cover"
                         />
                       )}
-                      <CardContent sx={{ flex: 1 }}>
-                        <Typography variant="subtitle1" fontWeight="bold" noWrap>
-                          {album.title}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary" noWrap>
-                          {album.artist_name || 'Unknown Artist'}
-                        </Typography>
-                        {album.year && (
-                          <Typography variant="caption" color="text.secondary" display="block">
-                            {album.year}
-                          </Typography>
-                        )}
-                      </CardContent>
-                      <CardActions>
-                        <Box sx={{ display: 'flex', gap: 1, width: '100%' }}>
-                          {album.spotify_url && (
-                            <Tooltip title="Jouer sur Spotify">
-                              <Button
-                                size="small"
-                                onClick={handleOpenSpotify}
-                                startIcon={<MusicNote />}
-                              >
-                                Spotify
-                              </Button>
-                            </Tooltip>
-                          )}
-                          {(album.apple_music_url || album.title) && (
-                            <Tooltip title="Ouvrir sur Apple Music">
-                              <Button
-                                size="small"
-                                onClick={(e) =>
-                                  handleOpenAppleMusic(
-                                    e,
-                                    album.title,
-                                    album.artist_name,
-                                    album.apple_music_url
-                                  )
-                                }
-                                sx={{
-                                  color: '#FA243C',
-                                  '&:hover': {
-                                    backgroundColor: '#FA243C',
-                                    color: 'white'
-                                  }
-                                }}
-                              >
-                                Apple
-                              </Button>
-                            </Tooltip>
-                          )}
-                        </Box>
-                        {roon?.enabled && (
-                          <Tooltip title="Lancer la lecture sur Roon">
-                            <Button
-                              size="small"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                handleOpenSearchDialog(album)
-                              }}
-                              startIcon={<Search />}
-                            >
-                              Lecture Roon
-                            </Button>
-                          </Tooltip>
-                        )}
-                      </CardActions>
+                      <Typography variant="subtitle2" color="text.secondary">
+                        {group.imageUrl === 'no-image'
+                          ? `Sans image (${group.albums.length})`
+                          : `Visuel partage (${group.albums.length})`}
+                      </Typography>
                     </Box>
-                  </Card>
+                    <Grid container spacing={2}>
+                      {group.albums.map((album) => (
+                        <Grid item xs={12} sm={6} md={3} key={album.id}>
+                          <Card 
+                            variant="outlined"
+                            onClick={() => setSelectedAlbumId(album.id)}
+                            sx={{ 
+                              height: '100%', 
+                              cursor: 'pointer',
+                              transition: 'all 0.3s',
+                              '&:hover': {
+                                transform: 'translateY(-4px)',
+                                boxShadow: 3
+                              }
+                            }}
+                          >
+                            <Box display="flex" flexDirection="column" height="100%">
+                              {album.image_url && (
+                                <CardMedia
+                                  component="img"
+                                  sx={{ height: 150, objectFit: 'cover' }}
+                                  image={album.image_url}
+                                  alt={album.title}
+                                />
+                              )}
+                              <CardContent sx={{ flex: 1 }}>
+                                <Typography variant="subtitle1" fontWeight="bold" noWrap>
+                                  {album.title}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary" noWrap>
+                                  {album.artist_name || 'Unknown Artist'}
+                                </Typography>
+                                {album.year && (
+                                  <Typography variant="caption" color="text.secondary" display="block">
+                                    {album.year}
+                                  </Typography>
+                                )}
+                              </CardContent>
+                              <CardActions>
+                                <Box sx={{ display: 'flex', gap: 1, width: '100%' }}>
+                                  {album.spotify_url && (
+                                    <Tooltip title="Jouer sur Spotify">
+                                      <Button
+                                        size="small"
+                                        onClick={handleOpenSpotify}
+                                        startIcon={<MusicNote />}
+                                      >
+                                        Spotify
+                                      </Button>
+                                    </Tooltip>
+                                  )}
+                                  {(album.apple_music_url || album.title) && (
+                                    <Tooltip title="Ouvrir sur Apple Music">
+                                      <Button
+                                        size="small"
+                                        onClick={(e) =>
+                                          handleOpenAppleMusic(
+                                            e,
+                                            album.title,
+                                            album.artist_name,
+                                            album.apple_music_url
+                                          )
+                                        }
+                                        sx={{
+                                          color: '#FA243C',
+                                          '&:hover': {
+                                            backgroundColor: '#FA243C',
+                                            color: 'white'
+                                          }
+                                        }}
+                                      >
+                                        Apple
+                                      </Button>
+                                    </Tooltip>
+                                  )}
+                                  {album.artist_name && (
+                                    <Tooltip title="Profil artiste">
+                                      <Button
+                                        size="small"
+                                        onClick={(e) => handleOpenArtistPortrait(e, album.artist_name || undefined)}
+                                      >
+                                        Profil
+                                      </Button>
+                                    </Tooltip>
+                                  )}
+                                  <Tooltip title="Description EurIA">
+                                    <Button
+                                      size="small"
+                                      onClick={(e) => handleOpenAlbumDescription(e, album)}
+                                    >
+                                      Description
+                                    </Button>
+                                  </Tooltip>
+                                </Box>
+                                {roon?.enabled && (
+                                  <Tooltip title="Lancer la lecture sur Roon">
+                                    <Button
+                                      size="small"
+                                      onClick={(e) => {
+                                        e.stopPropagation()
+                                        handleOpenSearchDialog(album)
+                                      }}
+                                      startIcon={<Search />}
+                                    >
+                                      Lecture Roon
+                                    </Button>
+                                  </Tooltip>
+                                )}
+                              </CardActions>
+                            </Box>
+                          </Card>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </Box>
+                ))
+              ) : (
+                <Grid container spacing={2}>
+                  {collectionAlbums?.map((album) => (
+                    <Grid item xs={12} sm={6} md={3} key={album.id}>
+                      <Card 
+                        variant="outlined"
+                        onClick={() => setSelectedAlbumId(album.id)}
+                        sx={{ 
+                          height: '100%', 
+                          cursor: 'pointer',
+                          transition: 'all 0.3s',
+                          '&:hover': {
+                            transform: 'translateY(-4px)',
+                            boxShadow: 3
+                          }
+                        }}
+                      >
+                        <Box display="flex" flexDirection="column" height="100%">
+                          {album.image_url && (
+                            <CardMedia
+                              component="img"
+                              sx={{ height: 150, objectFit: 'cover' }}
+                              image={album.image_url}
+                              alt={album.title}
+                            />
+                          )}
+                          <CardContent sx={{ flex: 1 }}>
+                            <Typography variant="subtitle1" fontWeight="bold" noWrap>
+                              {album.title}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary" noWrap>
+                              {album.artist_name || 'Unknown Artist'}
+                            </Typography>
+                            {album.year && (
+                              <Typography variant="caption" color="text.secondary" display="block">
+                                {album.year}
+                              </Typography>
+                            )}
+                          </CardContent>
+                          <CardActions>
+                            <Box sx={{ display: 'flex', gap: 1, width: '100%' }}>
+                              {album.spotify_url && (
+                                <Tooltip title="Jouer sur Spotify">
+                                  <Button
+                                    size="small"
+                                    onClick={handleOpenSpotify}
+                                    startIcon={<MusicNote />}
+                                  >
+                                    Spotify
+                                  </Button>
+                                </Tooltip>
+                              )}
+                              {(album.apple_music_url || album.title) && (
+                                <Tooltip title="Ouvrir sur Apple Music">
+                                  <Button
+                                    size="small"
+                                    onClick={(e) =>
+                                      handleOpenAppleMusic(
+                                        e,
+                                        album.title,
+                                        album.artist_name,
+                                        album.apple_music_url
+                                      )
+                                    }
+                                    sx={{
+                                      color: '#FA243C',
+                                      '&:hover': {
+                                        backgroundColor: '#FA243C',
+                                        color: 'white'
+                                      }
+                                    }}
+                                  >
+                                    Apple
+                                  </Button>
+                                </Tooltip>
+                              )}
+                              {album.artist_name && (
+                                <Tooltip title="Profil artiste">
+                                  <Button
+                                    size="small"
+                                    onClick={(e) => handleOpenArtistPortrait(e, album.artist_name || undefined)}
+                                  >
+                                    Profil
+                                  </Button>
+                                </Tooltip>
+                              )}
+                              <Tooltip title="Description EurIA">
+                                <Button
+                                  size="small"
+                                  onClick={(e) => handleOpenAlbumDescription(e, album)}
+                                >
+                                  Description
+                                </Button>
+                              </Tooltip>
+                            </Box>
+                            {roon?.enabled && (
+                              <Tooltip title="Lancer la lecture sur Roon">
+                                <Button
+                                  size="small"
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    handleOpenSearchDialog(album)
+                                  }}
+                                  startIcon={<Search />}
+                                >
+                                  Lecture Roon
+                                </Button>
+                              </Tooltip>
+                            )}
+                          </CardActions>
+                        </Box>
+                      </Card>
+                    </Grid>
+                  ))}
                 </Grid>
-              ))}
-            </Grid>
+              )}
+            </Box>
           ) : (
             <Alert severity="info">Aucun album dans cette collection</Alert>
           )}
         </DialogContent>
         <DialogActions>
           <Button onClick={() => {
+            if (selectedAlbumId) {
+              setSelectedAlbumId(null)
+              return
+            }
             setDetailDialogOpen(false)
-            setSelectedAlbumId(null)
           }}>
             {selectedAlbumId ? 'Retour' : 'Fermer'}
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Dialog: Description album */}
+      <Dialog
+        open={descriptionOpen}
+        onClose={handleDescriptionClose}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle>Description de l'album</DialogTitle>
+        <DialogContent>
+          {descriptionAlbum?.ai_description ? (
+            <Typography variant="body2" color="text.secondary" style={{ whiteSpace: 'pre-wrap' }}>
+              {descriptionAlbum.ai_description}
+            </Typography>
+          ) : (
+            <Alert severity="info">Aucune description disponible pour cet album.</Alert>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDescriptionClose}>Fermer</Button>
+        </DialogActions>
+      </Dialog>
+
+      <ArtistPortraitModal
+        open={portraitOpen}
+        artistId={portraitArtistId}
+        artistName={portraitArtistName}
+        onClose={() => setPortraitOpen(false)}
+      />
 
       {/* Dialog: Sélection de zone Roon (utilisé pour Collection, Album et Recherche) */}
       <Dialog open={roonZoneDialogOpen} onClose={() => {

@@ -62,6 +62,7 @@ class AlbumResponse(BaseModel):
     image_url: Optional[str]
     ai_description: Optional[str]
     spotify_url: Optional[str] = None
+    apple_music_url: Optional[str] = None
     
     class Config:
         from_attributes = True

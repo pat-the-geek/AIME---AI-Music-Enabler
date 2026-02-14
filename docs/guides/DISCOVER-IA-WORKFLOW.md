@@ -1,5 +1,11 @@
 # 🎵 Recherche de Collections par IA Euria
 
+**Version:** 4.7.1  
+**Date:** 15 février 2026  
+**Statut:** ✅ Production (web-only mode actif)
+
+---
+
 ## Workflow Complet
 
 Lorsqu'un utilisateur crée une collection avec une requête IA, voici le processus optimisé:
@@ -93,31 +99,47 @@ create_collection()
 Retour collection avec albums enrichis
 ```
 
-## Variables d'Environnement Requises
-
-```env
-# Euria IA
-EURIA_API_URL=https://api.euria.infomaniak.com/v1/chat/completions
-EURIA_BEARER_TOKEN=<token>
-EURIA_MAX_ATTEMPTS=3
-
-# Spotify (optionnel pour enrichissement)
-SPOTIFY_CLIENT_ID=<id>
-SPOTIFY_CLIENT_SECRET=<secret>
-```
-
 ## Améliorations par Rapport à Spotify Only
 
-| Aspect | Avant (Spotify) | Après (Euria) |
+| Aspect | Avant (Spotify) | Après (Euria v4.7.0+) |
 |--------|-----------------|---------------|
 | **Recherche** | Keywords simples | Requête naturelle complète |
 | **Résultats** | Basés popularity | Basés sur compréhension IA |
 | **Nombres** | ~25 albums max | ~50 albums optimisés |
-| **Néw Albums** | Priorité | Garantie (Euria en premier) |
+| **New Albums** | Priorité | Garantie (Euria en premier) |
 | **Descriptions** | Non générées | Générées par Euria |
 | **Nom Collection** | Heuristique simple | Synthèse intelligente Euria |
+| **Mode** | Hybride (web + local) | Web-only (pas complément local) |
+| **Déduplication** | Par ID uniquement | Par ID + titre/artiste normalisé |
 
-## Exemple d'Exécution
+---
+
+## Configuration (secrets.json)
+
+Le fichier `config/secrets.json` à la racine du projet contient les credentials nécessaires:
+
+```json
+{
+  "euria": {
+    "url": "https://api.infomaniak.com/2/ai/YOUR_MODEL_ID/openai/v1/chat/completions",
+    "bearer_token": "sk-xxxxxxxxxxxxxxxxxxxxxx"
+  },
+  "spotify": {
+    "client_id": "your_client_id",
+    "client_secret": "your_client_secret"
+  }
+}
+```
+
+**Fallback legacy:** Variables d'environnement toujours supportées:
+- `EURIA_URL` / `EURIA_API_URL`
+- `EURIA_BEARER` / `EURIA_BEARER_TOKEN` / `EURIA_API_KEY`
+- `SPOTIFY_CLIENT_ID`
+- `SPOTIFY_CLIENT_SECRET`
+
+---
+
+## Exemple d'Exécution (v4.7.1)
 
 ```
 [15:30:42] 🌐 Recherche web via Euria pour: Fais moi une sélection d'album agréable pour faire du vibe coding
@@ -134,8 +156,61 @@ SPOTIFY_CLIENT_SECRET=<secret>
 [15:30:49]     ✅ Album créé avec enrichissements
 ...
 [15:31:30] 🎉 42 albums créés et enrichis
+[15:31:30] 🎉 42 albums proposés par Euria - PAS DE COMPLÉMENT LOCAL
 [15:31:30] 🎨 Nom généré par Euria: Vibe Coding Vibes
 [15:31:30] 📚 Collection créée: Vibe Coding Vibes
-[15:31:31] 📚 Complément librairie locale (besoin 8 albums supplémentaires)
-[15:31:32] ✅ 50 albums ajoutés à la collection Vibe Coding Vibes
+[15:31:31] ✅ 42 albums ajoutés à la collection Vibe Coding Vibes (après déduplication)
 ```
+
+**Note:** Depuis v4.7.0, le mode web-only est activé par défaut. Aucun complément de la bibliothèque locale n'est ajouté si EurIA retourne des résultats.
+
+---
+
+## Fonctionnalités UI (v4.7.1)
+
+### Interface Collections
+
+- **Dialog XL:** Largeur 95vw pour meilleur affichage
+- **Grid 4 colonnes:** md={3} pour 4 albums par ligne sur desktop
+- **Groupement par image:** Toggle pour grouper albums avec même cover
+  - État persisté dans localStorage
+  - Mode "flat" ou "grouped" au choix
+- **Boutons d'action par album:**
+  - 🎨 **Profil Artiste:** Ouvre le portrait/biographie (réutilise composant Magazine)
+  - 📝 **Description Album:** Affiche la description générée par EurIA
+- **Navigation améliorée:**
+  - Échap / Retour depuis détail album → retour à collection (ne ferme pas dialog)
+  - Échap depuis collection → ferme dialog complet
+  - Backdrop click → ferme dialog complet
+
+### Déduplication
+
+Deux passes de déduplication:
+1. **Par ID:** Albums déjà en collection (via collection_id + album_id)
+2. **Par identité logique:** Normalisation titre + artiste (minuscules, trim)
+
+```python
+# Exemple déduplication
+title_key = album.title.strip().lower()
+artist_names = sorted([a.name.strip().lower() for a in album.artists])
+album_key = (title_key, "|".join(artist_names))
+# Si clé existe déjà → skip
+```
+
+---
+
+## Changelog Discover
+
+| Version | Date | Modifications |
+|---------|------|---------------|
+| 4.7.1 | 2026-02-15 | UI: Dialog XL (95vw), grid 4 cols, groupement images, boutons artiste/description |
+| 4.7.0 | 2026-02-14 | Mode web-only par défaut, déduplication améliorée (ID + titre/artiste) |
+| 4.6.5 | 2026-02-10 | Fix config loading (secrets.json multi-path search) |
+| 4.6.0 | 2026-02-05 | Discover initial avec Spotify credentials fallback |
+
+---
+
+**Documentation complète des prompts:** Voir [AI-PROMPTS.md](../features/ai/AI-PROMPTS.md#prompts-de-recherche-de-collections-discover)
+
+**Maintenu par:** Équipe AIME  
+**Dernière mise à jour:** 15 février 2026

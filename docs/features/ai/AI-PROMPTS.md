@@ -1,14 +1,14 @@
 # 🤖 Catalogue des Prompts IA - AIME
 
-**Date:** 3 février 2026  
-**Version:** 4.3.1  
+**Date:** 15 février 2026  
+**Version:** 4.7.1  
 **Service IA:** EurIA (Infomaniak AI) - Modèle Mistral3
 
 ---
 
 ## 📋 Vue d'ensemble
 
-Ce document recense tous les prompts utilisés pour communiquer avec l'IA EurIA dans l'application AIME - AI Music Enabler. L'IA est utilisée pour générer des descriptions d'albums, des haïkus, et enrichir automatiquement le contenu.
+Ce document recense tous les prompts utilisés pour communiquer avec l'IA EurIA dans l'application AIME - AI Music Enabler. L'IA est utilisée pour générer des descriptions d'albums, des haïkus, enrichir automatiquement le contenu, et découvrir des collections d'albums via des requêtes en langage naturel.
 
 **Configuration:**
 - **API:** Infomaniak AI (EurIA)
@@ -20,7 +20,207 @@ Ce document recense tous les prompts utilisés pour communiquer avec l'IA EurIA 
 
 ---
 
-## 🎵 Prompts de Description d'Albums
+## 📚 Table des Matières
+
+1. [Prompts de Recherche de Collections (Discover)](#prompts-de-recherche-de-collections-discover)
+2. [Prompts de Description d'Albums](#prompts-de-description-dalbums)
+3. [Prompts d'Optimisation Système](#prompts-doptimisation-système)
+4. [Prompts de Haïkus](#prompts-de-haïkus)
+5. [Bonnes Pratiques](#bonnes-pratiques)
+6. [Cas d'Usage par Service](#cas-dusage-par-service)
+
+---
+
+## � Prompts de Recherche de Collections (Discover)
+
+### 1. Recherche d'Albums par IA (Web Search)
+
+**Fichier:** `backend/app/services/external/ai_service.py` → `search_albums_web()`
+
+**Contexte d'utilisation:**
+- Fonction "Discover" dans l'interface Collections
+- Recherche d'albums via EurIA basée sur langage naturel
+- Découverte de nouveaux albums non présents dans la bibliothèque locale
+- Priorité absolue sur la recherche en base locale
+
+**Prompt:**
+```python
+prompt = f"""Tu es un expert en musique. Basé sur cette requête: "{query}"
+
+Recherche et liste les meilleures sélections d'albums qui correspondent à cette demande.
+
+Retourne UNIQUEMENT un JSON valide (pas d'autre texte avant ou après) avec ce format:
+{{
+  "albums": [
+    {{"artist": "Artiste", "album": "Titre Album", "year": 2024}},
+    {{"artist": "Artiste 2", "album": "Album 2", "year": 2023}}
+  ]
+}}
+
+IMPORTANT:
+- Retourne UNIQUEMENT le JSON valide, sans texte avant ou après
+- Maximum {limit} albums (recommandations pertinentes)
+- Inclure l'année de sortie si connue
+- Privilégier les albums reconnus qui correspondent bien à la demande
+"""
+```
+
+**Paramètres:**
+- `max_tokens`: 3000
+- `temperature`: 0.7
+- Variables: 
+  - `{query}`: Requête en langage naturel de l'utilisateur
+  - `{limit}`: Nombre maximum d'albums à retourner (défaut: 50)
+
+**Exemples de requêtes:**
+```
+"Fais-moi une sélection d'albums agréables pour faire du vibe coding à la maison"
+"Albums de rock progressif des années 70"
+"Musique électronique ambient parfaite pour la méditation"
+"Albums hip-hop français années 90"
+"Meilleurs albums de jazz fusion"
+```
+
+**Format de réponse attendu:**
+```json
+{
+  "albums": [
+    {"artist": "Boards of Canada", "album": "Music Has the Right to Children", "year": 1998},
+    {"artist": "Tycho", "album": "Dive", "year": 2011},
+    {"artist": "Bonobo", "album": "Black Sands", "year": 2010}
+  ]
+}
+```
+
+**Post-traitement:**
+1. Extraction du JSON de la réponse IA
+2. Création des albums dans la base de données (source: "Discover IA")
+3. Enrichissement Spotify: URLs + images haute résolution
+4. Génération de description IA pour chaque album
+5. Fallback Last.fm si Spotify échoue
+6. Déduplication par ID et par titre+artiste normalisé
+
+**Workflow complet:**
+```
+Utilisateur → "Albums chill pour coder"
+        ↓
+EurIA search_albums_web() → JSON albums
+        ↓
+Pour chaque album:
+  ├─ Créer/chercher artiste en DB
+  ├─ Créer album (source="Discover IA", support="Digital")
+  ├─ Enrichir avec Spotify (URL + image)
+  ├─ Générer description via EurIA
+  └─ Fallback Last.fm si nécessaire
+        ↓
+Ajouter à collection avec déduplication
+```
+
+**Logs typiques:**
+```
+🌐 Recherche web via Euria pour: Albums relaxants pour étudier
+🧠 Requête à EurIA...
+📊 Nombre d'albums retournés: 42
+✅ ALBUM CRÉÉ: 'Music for Airports' de Brian Eno (1978) - Genre: Ambient
+✅ ALBUM CRÉÉ: 'Selected Ambient Works' de Aphex Twin (1992) - Genre: Electronic
+...
+🎉 42 albums proposés par Euria - PAS DE COMPLÉMENT LOCAL
+📚 Collection créée: Musique d'étude relaxante
+✅ 42 albums ajoutés à la collection
+```
+
+**Différence avec recherche locale:**
+- **Recherche web (EurIA):** Découverte de nouveaux albums, requêtes en langage naturel complexe, enrichissement complet
+- **Recherche locale:** Recherche rapide dans bibliothèque existante, multi-champs (genre, titre, artiste, description)
+- **Mode web-only:** Pas de complément local si web_search=True (comportement par défaut depuis v4.7.0)
+
+---
+
+### 2. Génération du Nom de Collection
+
+**Fichier:** `backend/app/services/external/ai_service.py` → `generate_collection_name()`
+
+**Contexte d'utilisation:**
+- Auto-génération du nom pour collections créées via Discover
+- Appelé si l'utilisateur ne fournit pas de nom personnalisé
+- Crée un titre court et évocateur basé sur la requête
+
+**Prompt:**
+```python
+prompt = f"""À partir de cette requête musicale: "{query}"
+
+Génère un nom de collection court et évocateur (2-4 mots maximum).
+
+RÈGLES:
+- Maximum 4 mots
+- Capturer l'essence de la requête
+- Éviter les articles (le, la, les, de, du, des)
+- Style: élégant et concis
+
+Exemples:
+- "albums relaxants pour étudier" → "Concentration Zen"
+- "rock années 80" → "Rock 80s"
+- "jazz fusion progressif" → "Fusion Progressive"
+
+Retourne UNIQUEMENT le nom (sans guillemets ni explications).
+"""
+```
+
+**Paramètres:**
+- `max_tokens`: 50
+- `temperature`: 0.7
+- Variables: `{query}`: Requête originale de l'utilisateur
+
+**Exemples de résultats:**
+| Requête | Nom généré |
+|---------|-----------|
+| "albums chill pour coder la nuit" | "Code Nocturne" |
+| "meilleurs albums hip-hop français 90s" | "Hip-Hop FR 90s" |
+| "musique ambient pour méditer" | "Méditation Ambient" |
+| "rock progressif années 70" | "Prog Rock 70s" |
+
+**Fallback:**
+Si l'IA échoue, extraction des mots-clés de la requête (>2 caractères, sans stopwords):
+```python
+stopwords = ['le', 'la', 'les', 'de', 'du', 'des', 'et', 'ou', 'pour', 'par', 'dans', 'sur', 'avec']
+keywords = [word for word in query.split() if len(word) > 2 and word.lower() not in stopwords]
+return ' '.join(keywords[:3]).title()
+```
+
+---
+
+### 3. Description d'Album Découvert
+
+**Fichier:** `backend/app/services/album_collection_service.py` → `_search_albums_web()`
+
+**Contexte d'utilisation:**
+- Génération de description AI pour chaque album découvert via EurIA
+- Enrichissement des métadonnées après création en base
+- Appelé dans la boucle d'enrichissement Spotify
+
+**Prompt:**
+Réutilise le prompt standard de [Description Longue (2000 caractères)](#1-description-longue-2000-caractères) avec les métadonnées de l'album découvert.
+
+**Workflow:**
+```
+Album découvert: "Kind of Blue" - Miles Davis (1959)
+        ↓
+ai.generate_album_info("Miles Davis", "Kind of Blue")
+        ↓
+Description complète (1800-2000 caractères)
+        ↓
+Stockage dans album.ai_description
+```
+
+**Particularités:**
+- Température identique: 0.7
+- Max tokens identique: 750
+- Troncature à 2000 caractères
+- Fallback: description vide (null) si erreur
+
+---
+
+## �🎵 Prompts de Description d'Albums
 
 ### 1. Description Longue (2000 caractères)
 
@@ -612,6 +812,7 @@ Réponds uniquement en français.
 
 | Date | Version | Modification |
 |------|---------|--------------|
+| 2026-02-15 | 4.7.1 | Ajout prompts Discover (recherche collections, web search) |
 | 2026-02-03 | 4.3.1 | Documentation initiale des prompts |
 | 2026-02-01 | 4.3.0 | Ajout haïku scheduler quotidien |
 | 2026-01-30 | 4.0.0 | Circuit breaker et retry logic |
@@ -638,4 +839,4 @@ Réponds uniquement en français.
 
 **Maintenu par:** Équipe AIME  
 **Contact:** Via GitHub Issues  
-**Dernière mise à jour:** 3 février 2026
+**Dernière mise à jour:** 15 février 2026

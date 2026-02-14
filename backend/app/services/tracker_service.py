@@ -7,6 +7,7 @@ import logging
 
 from app.database import SessionLocal
 from app.services.spotify_service import SpotifyService
+from app.services.apple_music_service import AppleMusicService
 from app.services.lastfm_service import LastFMService
 from app.services.external.ai_service import AIService
 from app.utils.radio_station_detector import RadioStationDetector
@@ -121,6 +122,9 @@ class TrackerService:
             client_id=spotify_config.get('client_id'),
             client_secret=spotify_config.get('client_secret')
         )
+        
+        # Initialize Apple Music service (no config needed for search URLs)
+        self.apple_music = AppleMusicService()
         
         self.ai = AIService(
             url=euria_config.get('url'),
@@ -572,6 +576,13 @@ class TrackerService:
                         )
                         db.add(img_spotify)
                 
+                # Récupérer URL Apple Music
+                if not album.apple_music_url:
+                    apple_music_url = self.apple_music.generate_url_for_album(artist_name, album_title)
+                    if apple_music_url:
+                        album.apple_music_url = apple_music_url
+                        logger.info(f"🍎 URL Apple Music ajoutée: {apple_music_url}")
+                
                 album_image_lastfm = await self.lastfm.get_album_image(artist_name, album_title)
                 if album_image_lastfm:
                     img_lastfm = Image(
@@ -602,6 +613,13 @@ class TrackerService:
                         if not album.year and spotify_details.get("year"):
                             album.year = spotify_details["year"]
                             logger.info(f"📅 Année ajoutée: {spotify_details['year']}")
+                
+                # Vérifier URL Apple Music
+                if not album.apple_music_url:
+                    apple_music_url = self.apple_music.generate_url_for_album(artist_name, album_title)
+                    if apple_music_url:
+                        album.apple_music_url = apple_music_url
+                        logger.info(f"🍎 URL Apple Music ajoutée: {apple_music_url}")
                 
                 # Vérifier images Spotify
                 has_spotify_image = db.query(Image).filter_by(

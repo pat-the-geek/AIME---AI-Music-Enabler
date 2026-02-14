@@ -39,6 +39,7 @@ class ListeningHistoryResponse(BaseModel):
     album_image: Optional[str] = None
     album_lastfm_image: Optional[str] = None
     spotify_url: Optional[str] = None
+    apple_music_url: Optional[str] = None
     discogs_url: Optional[str] = None
     ai_info: Optional[str] = None
     

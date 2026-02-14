@@ -67,6 +67,7 @@ Database schema:
 import logging
 import json
 import asyncio
+from pathlib import Path
 from typing import List, Optional, Dict, Any
 from sqlalchemy.orm import Session
 from sqlalchemy import func, or_, and_
@@ -505,9 +506,7 @@ class AlbumCollectionService:
                 if len(web_albums) > 0:
                     logger.info(f"🎉 {len(web_albums)} albums proposés par Euria - PAS DE COMPLÉMENT LOCAL")
                 else:
-                    logger.warning(f"⚠️ Euria n'a trouvé aucun album, complément avec librairie locale...")
-                    local_albums = self.search_by_ai_query(ai_query, limit=50)
-                    albums.extend(local_albums)
+                    logger.warning("⚠️ Euria n'a trouvé aucun album - aucun complément local (web-only)")
             else:
                 # Fallback: Recherche en librairie locale seulement
                 logger.info(f"📚 Recherche locale uniquement pour: {ai_query}")
@@ -524,6 +523,20 @@ class AlbumCollectionService:
         
         # Ajouter les albums trouvés à la collection
         if albums:
+            # Deduplicate by logical identity (title + artist names), not only by id
+            unique_albums = []
+            seen_keys = set()
+            for album in albums:
+                title_key = (album.title or "").strip().lower()
+                artist_names = [a.name.strip().lower() for a in album.artists] if album.artists else ["unknown"]
+                artist_key = "|".join(sorted(artist_names))
+                album_key = (title_key, artist_key)
+                if album_key in seen_keys:
+                    continue
+                seen_keys.add(album_key)
+                unique_albums.append(album)
+
+            albums = unique_albums
             album_ids = [album.id for album in albums]
             
             # Afficher le détail des albums avant ajout
@@ -584,9 +597,18 @@ class AlbumCollectionService:
             CollectionAlbum.collection_id == collection_id
         ).scalar() or 0
         
+        # Deduplicate input ids to avoid duplicate inserts in same request
+        seen_album_ids = set()
+        unique_album_ids = []
+        for album_id in album_ids:
+            if album_id in seen_album_ids:
+                continue
+            seen_album_ids.add(album_id)
+            unique_album_ids.append(album_id)
+
         # Ajouter les albums
         added_count = 0
-        for idx, album_id in enumerate(album_ids):
+        for idx, album_id in enumerate(unique_album_ids):
             # Vérifier si l'album n'est pas déjà dans la collection
             exists = self.db.query(CollectionAlbum).filter(
                 and_(
@@ -942,6 +964,27 @@ class AlbumCollectionService:
             # Préparer Spotify pour l'enrichissement
             client_id = os.getenv('SPOTIFY_CLIENT_ID')
             client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
+
+            if not client_id or not client_secret:
+                base_path = Path(__file__).resolve()
+                candidate_paths = [
+                    base_path.parents[3] / "config" / "secrets.json",
+                    base_path.parents[4] / "config" / "secrets.json"
+                ]
+                for secrets_path in candidate_paths:
+                    if not secrets_path.exists():
+                        continue
+                    try:
+                        with open(secrets_path, 'r', encoding='utf-8') as f:
+                            secrets = json.load(f)
+                            spotify_config = secrets.get('spotify', {})
+                            client_id = client_id or spotify_config.get('client_id')
+                            client_secret = client_secret or spotify_config.get('client_secret')
+                        if client_id and client_secret:
+                            logger.info(f"🎵 Spotify credentials chargées depuis {secrets_path}")
+                            break
+                    except Exception as e:
+                        logger.warning(f"⚠️ Erreur chargement Spotify secrets ({secrets_path}): {e}")
             spotify_service = None
             
             if client_id and client_secret:
@@ -1047,7 +1090,7 @@ class AlbumCollectionService:
                     
                     # Étape 4: Générer description via Euria
                     try:
-                        description = euria.generate_album_description_sync(artist_name, album_title, year)
+                        description = ai.generate_album_description_sync(artist_name, album_title, year)
                         album.ai_description = description
                         logger.info(f"    ✍️ Description générée")
                     except Exception as e:

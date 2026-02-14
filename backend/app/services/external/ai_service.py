@@ -126,32 +126,36 @@ class AIService:
         Raises:
             KeyError: Si clés manquantes dans config
         """
-        # Chemin par défaut
-        secrets_path = Path(__file__).parent.parent.parent.parent / "config" / "secrets.json"
+        # Chercher secrets.json (backend/config puis racine/config)
+        base_path = Path(__file__).resolve()
+        candidate_paths = [
+            base_path.parents[4] / "config" / "secrets.json",
+            base_path.parents[5] / "config" / "secrets.json"
+        ]
         
-        # Essayer de charger depuis secrets.json
-        if secrets_path.exists():
-            try:
-                with open(secrets_path, 'r', encoding='utf-8') as f:
-                    secrets = json.load(f)
-                    euria_config = secrets.get('euria', {})
-                    
-                    logger.info("✅ Configuration EurIA chargée depuis secrets.json")
-                    
-                    return {
-                        'url': euria_config.get('url', 'https://api.infomaniak.com/2/ai/106561/openai/v1/chat/completions'),
-                        'bearer': euria_config.get('bearer', ''),
-                        'max_attempts': euria_config.get('max_attempts', 3),
-                        'default_error_message': euria_config.get('default_error_message', 'Aucune information disponible')
-                    }
-            except Exception as e:
-                logger.warning(f"⚠️ Erreur chargement secrets.json: {e}")
+        for secrets_path in candidate_paths:
+            if secrets_path.exists():
+                try:
+                    with open(secrets_path, 'r', encoding='utf-8') as f:
+                        secrets = json.load(f)
+                        euria_config = secrets.get('euria', {})
+                        
+                        logger.info(f"✅ Configuration EurIA chargée depuis {secrets_path}")
+                        
+                        return {
+                            'url': euria_config.get('url', 'https://api.infomaniak.com/2/ai/106561/openai/v1/chat/completions'),
+                            'bearer': euria_config.get('bearer', ''),
+                            'max_attempts': euria_config.get('max_attempts', 3),
+                            'default_error_message': euria_config.get('default_error_message', 'Aucune information disponible')
+                        }
+                except Exception as e:
+                    logger.warning(f"⚠️ Erreur chargement secrets.json ({secrets_path}): {e}")
         
         # Fallback: variables d'environnement
         logger.warning("⚠️ secrets.json non trouvé ou inaccessible, utilisation variables d'environnement")
         return {
-            'url': os.getenv('EURIA_API_URL', 'https://api.infomaniak.com/2/ai/106561/openai/v1/chat/completions'),
-            'bearer': os.getenv('EURIA_BEARER_TOKEN', ''),
+            'url': os.getenv('EURIA_API_URL') or os.getenv('EURIA_URL') or 'https://api.infomaniak.com/2/ai/106561/openai/v1/chat/completions',
+            'bearer': os.getenv('EURIA_BEARER_TOKEN') or os.getenv('EURIA_BEARER') or '',
             'max_attempts': int(os.getenv('EURIA_MAX_ATTEMPTS', '3')),
             'default_error_message': os.getenv('EURIA_ERROR_MESSAGE', 'Aucune information disponible')
         }

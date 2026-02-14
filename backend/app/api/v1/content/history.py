@@ -163,6 +163,7 @@ async def list_history(
             album_image=album_image,
             album_lastfm_image=album_lastfm_image,
             spotify_url=album.spotify_url if album else None,
+            apple_music_url=album.apple_music_url if album else None,
             discogs_url=album.discogs_url if album else None,
             ai_info=ai_info
         ))
@@ -259,6 +260,7 @@ async def get_timeline(
                 "album_image": album_image,
                 "album_lastfm_image": album_lastfm_image,
                 "spotify_url": album.spotify_url if album else None,
+                "apple_music_url": album.apple_music_url if album else None,
                 "discogs_url": album.discogs_url if album else None
             })
         
