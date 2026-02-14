@@ -1,7 +1,7 @@
-# 📚 Index de la Documentation - AIME v4.6.3
+# 📚 Index de la Documentation - AIME v4.7.0
 
-**Date:** 9 février 2026  
-**Dernière réorganisation:** 9 février 2026
+**Date:** 14 février 2026  
+**Dernière réorganisation:** 14 février 2026
 
 ---
 
@@ -115,16 +115,7 @@
 | **[GUIDE-UTILISATEUR-TRACKER-CONFIGURATION.md](guides/utilisateur/GUIDE-UTILISATEUR-TRACKER-CONFIGURATION.md)** | Configuration du tracker (stations de radio, horaires) |
 | **[GUIDE-UTILISATEUR-OPTIMIZATION-SETTINGS.md](guides/utilisateur/GUIDE-UTILISATEUR-OPTIMIZATION-SETTINGS.md)** | Guide optimisation settings |
 
-### 🔧 Installation
-
-**Répertoire:** `guides/installation/`
-
-| Fichier | Description |
-|---------|-------------|
-| **[INSTALLATION-CHECKLIST.md](guides/installation/INSTALLATION-CHECKLIST.md)** | Checklist d'installation |
-| **[INSTALLATION-CORRECTION.md](guides/installation/INSTALLATION-CORRECTION.md)** | Corrections d'installation |
-
-### 🐛 Troubleshooting
+###  Troubleshooting
 
 **Répertoire:** `guides/troubleshooting/`
 
