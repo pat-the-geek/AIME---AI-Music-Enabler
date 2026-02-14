@@ -26,13 +26,13 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
 
 | Document | Contenu |
 |----------|---------|
-| [**ARCHITECTURE-INDEX.md**](docs/ARCHITECTURE-INDEX.md) | 🗺️ Guide de navigation (COMMENCER ICI) |
-| [**ARCHITECTURE-GUI-AND-APIS.md**](docs/ARCHITECTURE-GUI-AND-APIS.md) | 🎨 Interface graphique + tous les API externes détaillés |
-| [**ARCHITECTURE-DIAGRAMS.md**](docs/ARCHITECTURE-DIAGRAMS.md) | 🎨 Diagrammes Mermaid des flux et dépendances |
-| [**CODE-ORGANIZATION-SUMMARY.md**](docs/CODE-ORGANIZATION-SUMMARY.md) | 🔧 Refactoring plan et organisation du code |
-| [**ARCHITECTURE-VERIFICATION-2026-02-07.md**](docs/ARCHITECTURE-VERIFICATION-2026-02-07.md) | ✅ Rapport de vérification complète |
+| [**ARCHITECTURE-INDEX.md**](docs/architecture/ARCHITECTURE-INDEX.md) | 🗺️ Guide de navigation (COMMENCER ICI) |
+| [**ARCHITECTURE-GUI-AND-APIS.md**](docs/architecture/ARCHITECTURE-GUI-AND-APIS.md) | 🎨 Interface graphique + tous les API externes détaillés |
+| [**ARCHITECTURE-DIAGRAMS.md**](docs/architecture/ARCHITECTURE-DIAGRAMS.md) | 🎨 Diagrammes Mermaid des flux et dépendances |
+| [**CODE-ORGANIZATION-SUMMARY.md**](docs/architecture/CODE-ORGANIZATION-SUMMARY.md) | 🔧 Refactoring plan et organisation du code |
+| [**AI-PROMPTS.md**](docs/features/ai/AI-PROMPTS.md) | 🤖 Catalogue complet des prompts EurIA |
 
-👉 **Pour les développeurs:** Commencez par [ARCHITECTURE-INDEX.md](docs/ARCHITECTURE-INDEX.md) pour naviguer efficacement
+👉 **Pour les développeurs:** Commencez par [ARCHITECTURE-INDEX.md](docs/architecture/ARCHITECTURE-INDEX.md) pour naviguer efficacement
 
 ## 📋 Fonctionnalités
 
@@ -51,6 +51,14 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
    - Visualisation avec pochettes
    
    ![Albums Collection](docs/screenshots/Screen%20captures/Collection%20-%20Albums.png)
+
+2b. **✨ Découverte par IA - Créer Collections**
+   - Génération automatique de collections basées sur des requêtes en langage naturel
+   - Recherche intelligente d'albums via EurIA
+   - Création de playlists thématiques personnalisées
+   - Suggestions d'albums basées sur le contexte musicale
+   
+   ![Collection Créée par IA](docs/screenshots/Screen%20captures/Collection%20-%20Cr%C3%A9er%20par%20IA.png)
 
 3. **Journal d'Écoute**
    - Liste chronologique inversée
@@ -390,38 +398,31 @@ npm run test
 
 ## � Documentation
 
-- **[Guide de Démarrage Rapide](docs/QUICKSTART.md)** - Installation en 5 minutes
+- **[Guide de Démarrage Rapide](docs/START-HERE.md)** - Point de départ (COMMENCER ICI)
 - **[Documentation Complète](docs/)** - Guide complet avec index
-- **[Structure du Projet](docs/STRUCTURE.md)** - Organisation des fichiers
 - **[Architecture Complète](docs/architecture/ARCHITECTURE-COMPLETE.md)** - Architecture système détaillée
 - **[Schéma Base de Données](docs/architecture/DATABASE-SCHEMA.md)** - Modèle relationnel (Mermaid)
-- **[Catalogue Prompts IA](docs/AI-PROMPTS.md)** - 🤖 Tous les prompts EurIA utilisés
-- **[Dépannage](docs/TROUBLESHOOTING.md)** - Solutions aux problèmes courants
-- **[Architecture](docs/ARCHITECTURE.md)** - Détails techniques
-- **[API REST](docs/API.md)** - Documentation endpoints
+- **[Catalogue Prompts IA](docs/features/ai/AI-PROMPTS.md)** - 🤖 Tous les prompts EurIA utilisés
+- **[Architecture Détaillée](docs/architecture/ARCHITECTURE.md)** - Détails techniques complets
+- **[API REST](docs/api/API.md)** - Documentation endpoints
 - **[Nouvelles Fonctionnalités](docs/features/NOUVELLES-FONCTIONNALITES.md)** - Version 4.0.0
 
 ### Documentation des Fonctionnalités
 
 - **[Tracker Last.fm](docs/features/LASTFM-IMPORT-TRACKER-DOC.md)** - Configuration et import
 - **[Journal/Timeline](docs/features/JOURNAL-TIMELINE-DOC.md)** - Vue chronologique
-- **[Scheduler et Exports](docs/SCHEDULER.md)** - Tâches automatiques et configuration
-- **[Magazine Éditorial](docs/MAGAZINE-README.md)** - Guide complet du Magazine (10 pages)
-- **[Magazine - Guide d'Utilisation](docs/MAGAZINE-GUIDE.md)** - Guide de démarrage (15 pages)
-- **[Magazine - Implémentation](docs/MAGAZINE-IMPLEMENTATION.md)** - Architecture technique (12 pages)
-- **[Magazine - Améliorations](docs/MAGAZINE-IMPROVEMENTS.md)** - Roadmap et idées futures (20 pages)
-- **[Magazine - Prompts EurIA](docs/MAGAZINE-EURIA-PROMPTS.md)** - Catalogue des prompts IA (18 pages)
-- **[Magazine - Testing](docs/MAGAZINE-TESTING.md)** - Guide de test complet (16 pages)
-- **[Magazine - Vue Visuelle](docs/MAGAZINE-VISUAL.md)** - Mockups et designs (14 pages)
+- **[Scheduler et Exports](docs/features/scheduler/SCHEDULER.md)** - Tâches automatiques et configuration
+- **[Magazine Éditorial](docs/magazine/MAGAZINE-README.md)** - Guide complet du Magazine (10 pages)
+- **[Magazine - Guide d'Utilisation](docs/magazine/MAGAZINE-GUIDE.md)** - Guide de démarrage (15 pages)
+- **[Magazine - Implémentation](docs/magazine/MAGAZINE-IMPLEMENTATION.md)** - Architecture technique (12 pages)
+- **[Magazine - Améliorations](docs/magazine/MAGAZINE-IMPROVEMENTS.md)** - Roadmap et idées futures (20 pages)
+- **[Magazine - Prompts EurIA](docs/magazine/MAGAZINE-EURIA-PROMPTS.md)** - Catalogue des prompts IA (18 pages)
+- **[Magazine - Testing](docs/magazine/MAGAZINE-TESTING.md)** - Guide de test complet (16 pages)
+- **[Magazine - Vue Visuelle](docs/magazine/MAGAZINE-VISUAL.md)** - Mockups et designs (14 pages)
 
 ## 🔧 Dépannage
 
-Si vous rencontrez des problèmes lors de l'installation ou du démarrage:
-
-- **Base de données ne se crée pas**: Voir [Problème 4](docs/TROUBLESHOOTING.md#problème-4-chemin-de-base-de-données-incorrect)
-- **Python 3.14 incompatibilité**: Voir [Problème 1](docs/TROUBLESHOOTING.md#problème-1-python-314-incompatible-avec-sqlalchemy)
-- **Reloads infinis**: Voir [Problème 6](docs/TROUBLESHOOTING.md#problème-6-reloads-infinis-duvicorn)
-- **Autres problèmes**: Consultez le [Guide de Dépannage Complet](docs/TROUBLESHOOTING.md)
+Si vous rencontrez des problèmes lors de l'installation ou du démarrage, consultez le [Guide de Dépannage Complet](docs/guides/troubleshooting/TROUBLESHOOTING.md) pour des solutions détaillées.
 
 ### Problèmes Connus Résolus
 
@@ -456,13 +457,6 @@ MIT License
 **Version**: 4.6.3  
 **Date**: 9 février 2026  
 **Auteur**: Patrick Ostertag
-
-### Changelog 4.6.3
-
-**Nettoyage Roon (09/02/2026)**
-- 🗑️ Suppression de l'intégration Roon (API, tracker, contrôle playback)
-- 🧹 Nettoyage de la configuration et de la documentation obsolète
-
 ### Changelog 4.6.2
 
 **Refactorisation Code & Architecture (07/02/2026)**
