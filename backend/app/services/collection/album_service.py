@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session, joinedload
 from app.models import Album, Artist, Image, Metadata
 from app.schemas import AlbumCreate, AlbumUpdate, AlbumResponse, AlbumDetail
 from app.core.exceptions import ResourceNotFoundException, ValidationException
+from app.services.apple_music_service import AppleMusicService
 
 logger = logging.getLogger(__name__)
 
@@ -215,6 +216,7 @@ class AlbumService:
             support=album.support,
             discogs_id=album.discogs_id,
             spotify_url=album.spotify_url,
+            apple_music_url=album.apple_music_url,
             discogs_url=album.discogs_url,
             artists=[a.name for a in album.artists],
             images=[img.url for img in album.images],
@@ -308,6 +310,15 @@ class AlbumService:
         db.commit()
         db.refresh(album)
         
+        # Enrichir avec Apple Music URL si non fournie
+        if not album.apple_music_url and album.artists:
+            artist_name = album.artists[0].name if album.artists else ""
+            apple_music_url = AppleMusicService.generate_url_for_album(artist_name, album.title)
+            if apple_music_url and AppleMusicService.is_compatible_url(apple_music_url):
+                album.apple_music_url = apple_music_url
+                db.commit()
+                logger.info(f"🍎 URL Apple Music ajoutée: {apple_music_url}")
+        
         logger.info(f"✅ Album créé: {album.title} (ID: {album.id})")
         
         return AlbumResponse(
@@ -317,6 +328,7 @@ class AlbumService:
             support=album.support,
             discogs_id=album.discogs_id,
             spotify_url=album.spotify_url,
+            apple_music_url=album.apple_music_url,
             discogs_url=album.discogs_url,
             genre=album.genre,
             artists=[a.name for a in album.artists],
@@ -413,6 +425,7 @@ class AlbumService:
             support=album.support,
             discogs_id=album.discogs_id,
             spotify_url=album.spotify_url,
+            apple_music_url=album.apple_music_url,
             discogs_url=album.discogs_url,
             genre=album.genre,
             artists=[a.name for a in album.artists],
@@ -655,6 +668,7 @@ class AlbumService:
                     support=album.support,
                     discogs_id=album.discogs_id,
                     spotify_url=album.spotify_url,
+                    apple_music_url=album.apple_music_url,
                     discogs_url=album.discogs_url,
                     genre=album.genre,
                     artists=artists,

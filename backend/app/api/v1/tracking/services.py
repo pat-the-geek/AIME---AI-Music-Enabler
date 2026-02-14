@@ -13,6 +13,7 @@ from app.services.tracker_service import TrackerService
 from app.services.scheduler_service import SchedulerService
 from app.services.discogs_service import DiscogsService
 from app.services.spotify_service import SpotifyService
+from app.services.apple_music_service import AppleMusicService
 from app.services.external.ai_service import AIService
 from app.services.lastfm_service import LastFMService
 from app.models import Album, Artist, Image, Metadata, Track, ListeningHistory, ServiceState, ScheduledTaskExecution
@@ -1762,6 +1763,18 @@ async def _sync_discogs_task(limit: int = None):
                         logger.debug(f"⚠️ Spotify failed for {album_data['title']}: {e}")
                         # Continue même si Spotify fail
                 
+                # Generate Apple Music URL
+                apple_music_url = None
+                try:
+                    artist_name = album_data['artists'][0] if album_data.get('artists') else ""
+                    generated_url = AppleMusicService.generate_url_for_album(artist_name, album_data['title'])
+                    # Valider que l'URL est compatible avec window.open()
+                    if generated_url and AppleMusicService.is_compatible_url(generated_url):
+                        apple_music_url = generated_url
+                except Exception as e:
+                    logger.debug(f"⚠️ Apple Music failed for {album_data['title']}: {e}")
+                    # Continue même si Apple Music fail
+                
                 # ================================================================
                 # ÉTAPE 5: Créer l'album en BD
                 # ================================================================
@@ -1773,7 +1786,8 @@ async def _sync_discogs_task(limit: int = None):
                     source='discogs',
                     discogs_id=release_id,
                     discogs_url=album_data.get('discogs_url'),
-                    spotify_url=spotify_url
+                    spotify_url=spotify_url,
+                    apple_music_url=apple_music_url
                 )
                 album.artists = artists
                 db.add(album)

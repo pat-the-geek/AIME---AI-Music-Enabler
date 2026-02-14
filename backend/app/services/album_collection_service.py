@@ -73,6 +73,7 @@ from sqlalchemy import func, or_, and_
 
 from app.models import Album, Artist, AlbumCollection, CollectionAlbum
 from app.database import get_db
+from app.services.apple_music_service import AppleMusicService
 
 logger = logging.getLogger(__name__)
 
@@ -1028,6 +1029,16 @@ class AlbumCollectionService:
                     else:
                         logger.warning(f"    ⚠️ Spotify désactivé, exclusion de l'album")
                         continue  # Exclure si Spotify n'est pas configuré
+                    
+                    # Enrichir avec Apple Music URL
+                    try:
+                        generated_url = AppleMusicService.generate_url_for_album(artist_name, album_title)
+                        if generated_url and AppleMusicService.is_compatible_url(generated_url):
+                            album.apple_music_url = generated_url
+                            logger.info(f"    🍎 URL Apple Music ajoutée")
+                    except Exception as e:
+                        logger.debug(f"    ⚠️ Apple Music enrichment failed: {e}")
+                        # Non-blocking, continue without Apple Music URL
                     
                     # Vérification finale: l'album doit avoir une image
                     if not album.image_url:

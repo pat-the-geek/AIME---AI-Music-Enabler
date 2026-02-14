@@ -64,5 +64,14 @@ class Album(Base):
         # Pour les autres sources, tous les supports sont acceptés
         return True
     
+    def is_valid_apple_music_url(self) -> bool:
+        """Vérifier que l'URL Apple Music est compatible avec window.open()."""
+        if not self.apple_music_url:
+            return True  # None est acceptable
+        
+        # Importer ici pour éviter une import circulaire
+        from app.services.apple_music_service import AppleMusicService
+        return AppleMusicService.is_compatible_url(self.apple_music_url)
+    
     def __repr__(self):
         return f"<Album(id={self.id}, title='{self.title}', source='{self.source}', year={self.year})>"
