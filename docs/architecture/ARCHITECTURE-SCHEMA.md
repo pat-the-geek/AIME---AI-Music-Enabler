@@ -1,4 +1,4 @@
-# 📊 Schéma Architecture AIME v4.3.1 - Vue Simplifiée
+# 📊 Schéma Architecture AIME v4.7.0 - Vue Simplifiée
 
 ## 🎯 Architecture 3-Tiers
 
@@ -60,14 +60,15 @@
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
 │  Tables:                                                        │
-│  • albums (source: discogs/roon/manual)                        │
+│  • albums (source: discogs/roon/manual, spotify_url, apple_music_url v4.7) │
 │  • artists (images, metadata)                                  │
 │  • tracks (durée, ISRC)                                        │
 │  • listening_history (Last.fm + Roon)                          │
 │  • playlists (7 algorithmes)                                   │
-│  • service_states ← Nouveau (auto-restart)                     │
+│  • service_states (auto-restart)                               │
 │                                                                 │
-│  Indexes: source, listened_at, last_updated                    │
+│  Indexes: source, listened_at, last_updated,                   │
+│          idx_albums_spotify_url, idx_albums_apple_music_url    │
 │                                                                 │
 └─────────────────────────┬───────────────────────────────────────┘
                           │
@@ -86,14 +87,19 @@
 │   - Images          │        │    120s polling     │
 │   - URLs            │        │    Multi-zones      │
 │                     │        │    Auto-restart ✅  │
-│ 💿 Discogs          │        │                     │
-│   - Collection      │        │ 📅 Scheduler        │
-│   - Vinyl           │        │    Tâches cron      │
-│                     │        │    Auto-restart ✅  │
-│ 🤖 EurIA (AI)       │        │    • 2h: enrich     │
-│   - Descriptions    │        │    • 6h: haikus     │
-│   - Haikus          │        │    • 8h: export MD  │
-│                     │        │    • 10h: export JSON│
+│ 🍎 Apple Music NEW  │        │                     │
+│ (v4.7.0)            │        │ 📅 Scheduler        │
+│   - Direct links    │        │    Tâches cron      │
+│   - URLs Euria      │        │    Auto-restart ✅  │
+│                     │        │    • 2h: enrich     │
+│ 💿 Discogs          │        │    • 6h: haikus     │
+│   - Collection      │        │    • 8h: export MD  │
+│   - Vinyl           │        │    • 10h: export JSON│
+│                     │        │                     │
+│ 🤖 EurIA (AI)       │        │ 🤖 EurIA Prompts    │
+│   - Descriptions    │        │   - Haikus          │
+│   - Haikus          │        │   - Descriptions    │
+│   - Apple URLs      │        │   - Apple Music Gen │
 │ 🎛️ Roon Server      │        │                     │
 │   - pyroon API      │        └─────────────────────┘
 │   - Port 9330       │

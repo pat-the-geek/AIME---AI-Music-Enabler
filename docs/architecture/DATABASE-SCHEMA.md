@@ -22,6 +22,7 @@ erDiagram
         string source "discogs, lastfm, roon, spotify, manual"
         string discogs_id UK
         string spotify_url
+        string apple_music_url "v4.7.0 - Direct link or search"
         string discogs_url
         datetime created_at
         datetime updated_at
@@ -128,10 +129,14 @@ erDiagram
 ### 🎵 Tables Musicales
 
 #### **albums**
-Albums musicaux provenant de différentes sources (Discogs, Last.fm, Roon, Spotify).
+Albums musicaux provenant de différentes sources (Discogs, Last.fm, Roon, Spotify) avec enrichissements Spotify et Apple Music.
 - **PK**: `id`
 - **UK**: `discogs_id`
-- **Indexes**: `title`, `source`
+- **Columns**: 
+  - `spotify_url` - URL directe Spotify (enrichissement Spotify)
+  - `apple_music_url` - URL directe Apple Music ou search query (v4.7.0, enrichissement Euria futur)
+  - `discogs_url` - URL Discogs
+- **Indexes**: `title`, `source`, `idx_albums_spotify_url`, `idx_albums_apple_music_url` (v4.7.0)
 - **Relations**: 
   - One-to-Many avec `tracks`
   - One-to-One avec `metadata`
@@ -209,16 +214,23 @@ Table associative Many-to-Many entre albums et collections.
 - **5 relations One-to-Many**
 - **3 relations Many-to-Many**
 - **1 relation One-to-One**
-- **12 index** pour optimisation
+- **13 indexes** pour optimisation (incluant `idx_albums_apple_music_url` v4.7.0)
 - **2 contraintes** de validation
 
 ## Migrations
 
-Les migrations Alembic sont dans `/backend/alembic/versions/`:
+Les migrations Alembic sont dans `/backend/alembic/versions/` :
 - `001_*` - Schema initial
 - `002_*` - Add source column
 - `003_*` - Add service_states table
+- `004_*` - Playlist features
+- `005_*` - Roon integration
+- `006_*` - Additional enrichment
+- `007_add_apple_music_url.py` - Apple Music integration (v4.7.0, 14 février 2026)
+  - Added `apple_music_url` VARCHAR(500) nullable column
+  - Created `idx_albums_apple_music_url` index for query optimization
+  - Migration script: `/backend/migrate_add_apple_music_url.py` (direct SQLite, executed successfully)
 
 ---
 
-*Dernière mise à jour: 3 février 2026 - v4.3.1*
+*Dernière mise à jour: 14 février 2026 - v4.7.0 (Apple Music Integration)*
