@@ -499,7 +499,13 @@ class AIService:
         # Créer un prompt pour EurIA demandant un résultat JSON
         prompt = f"""Tu es un expert en musique. Basé sur cette requête: "{query}"
 
-Recherche et liste les meilleures sélections d'albums qui correspondent à cette demande.
+IMPORTANT: Recherche des albums dont le TITRE ou le NOM D'ARTISTE contiennent EXACTEMENT les termes de cette requête.
+
+Critères de recherche STRICTS:
+- Les mots de la requête doivent apparaître dans le titre de l'album OU dans le nom de l'artiste
+- Privilégie les correspondances exactes (mots complets)
+- Si aucune correspondance exacte n'existe, cherche des albums avec des termes similaires ou apparentés
+- Ne propose PAS d'albums qui n'ont aucun rapport avec les termes de la requête
 
 Retourne UNIQUEMENT un JSON valide (pas d'autre texte avant ou après) avec ce format:
 {{
@@ -510,7 +516,7 @@ Retourne UNIQUEMENT un JSON valide (pas d'autre texte avant ou après) avec ce f
 }}
 
 Limite ta réponse à {limit} albums maximum.
-Assure-toi que les albums existent réellement et correspondent bien à la demande."""
+Assure-toi que les albums existent réellement et respectent les critères de correspondance."""
 
         logger.info(f"📝 PROMPT ENVOYÉ À EURIA:\n{prompt}")
         

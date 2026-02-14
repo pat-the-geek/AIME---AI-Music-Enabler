@@ -57,6 +57,17 @@ Tous les changements notables de ce projet sont documentés dans ce fichier.
 - Composant visuel en grille responsive
 - Images affichées dans les cartes de collections (page Discover)
 
+### 🎯 AI Search Precision Improvement
+
+#### 🔧 Améliorations
+- 🎯 **Recherche plus précise**: Prompt IA optimisé pour correspondances exactes dans titres/artistes
+- 📝 **Critères stricts**: L'IA recherche maintenant les termes exacts de la requête dans les titres d'albums ou noms d'artistes
+- ✅ **Réduction du bruit**: Moins d'albums non pertinents dans les collections découvertes
+
+#### 🔌 Backend
+- Modification du prompt dans `ai_service.py` → `search_albums_web()`
+- Documentation mise à jour dans `AI-PROMPTS.md`
+
 ---
 
 ## [4.0.1] - 2026-01-30
