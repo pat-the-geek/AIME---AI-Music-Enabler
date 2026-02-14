@@ -22,6 +22,34 @@ cd frontend && npm run dev
 http://localhost:5173/magazine
 ```
 
+### 🌐 Accès depuis un autre poste du réseau
+
+1) Côté backend (`backend/.env`) : ajoute l'origine du frontend dans `CORS_ORIGINS` (séparée par des virgules)
+```
+CORS_ORIGINS=http://localhost:5173,http://192.168.1.X:5173,http://192.168.1.X
+```
+
+2) Côté frontend (`frontend/.env`) : pointe l'API vers l'IP du serveur (pas localhost)
+```
+VITE_API_URL=http://192.168.1.X:8000/api/v1
+```
+
+3) Lancer en écoutant toutes les interfaces
+```bash
+# Backend
+cd backend && uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+# Frontend
+cd frontend && npm run dev
+```
+
+4) Depuis le poste distant : ouvrir `http://192.168.1.X:5173`
+
+Checklist rapide :
+- `VITE_API_URL` pointe vers l'IP du serveur
+- `CORS_ORIGINS` inclut l'origine du front (IP:port)
+- Le volume `data/` est monté si vous êtes en Docker (pour accéder à `musique.db`)
+
 ### 3️⃣ Jouez avec !
 - Scroll ou cliquez les boutons pour naviguer
 - Regardez le minuteur compter

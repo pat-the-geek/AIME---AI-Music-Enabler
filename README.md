@@ -1,4 +1,4 @@
-# 🎵 AIME - AI Music Enabler - Version 4.6.3
+# 🎵 AIME - AI Music Enabler - Version 4.7.0
 
 Application web moderne pour tracker et analyser l'historique d'écoute musicale depuis Last.fm, avec enrichissement automatique via Spotify, Discogs et IA.
 
@@ -14,7 +14,7 @@ Cette application a été entièrement développée en exploitant les capacités
 - **Backend**: FastAPI + Python 3.10+
 - **Base de données**: SQLite / PostgreSQL
 - **APIs Intégrées**: 
-  - **Last.fm**: Agrégation multi-sources (PlexAmp, Quobuz, etc.)
+  - **Last.fm**: Agrégation multi-sources (PlexAmp, Quobuz, Apple Music, etc.)
   - **Spotify**: URLs, images, métadonnées tracks
   - **Discogs**: Collection, vinyl records
   - **EurIA** (Infomaniak AI): Descriptions automatiques
@@ -203,6 +203,37 @@ npm run dev
 - **Frontend**: http://localhost:5173
 - **API**: http://localhost:8000
 - **Documentation API**: http://localhost:8000/docs
+
+### Accès depuis un autre ordinateur du réseau local
+
+1. **Backend** : lancer Uvicorn en écoutant toutes les interfaces
+  ```bash
+  cd backend
+  source .venv/bin/activate
+  uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+  ```
+  Si vous utilisez Docker Compose, les ports 8000 et 80 sont déjà exposés sur l'hôte.
+
+2. **CORS** : autoriser le poste distant dans `backend/.env`
+  ```
+  CORS_ORIGINS=http://localhost:5173,http://192.168.1.X:5173,http://192.168.1.X
+  ```
+
+  3. **Frontend** : pointer l'URL API vers l'hôte et autoriser l'écoute réseau
+   ```bash
+   cd frontend
+   cp .env.example .env
+   # dans .env -> VITE_API_URL=http://192.168.1.X:8000/api/v1
+   npm install
+   npm run dev
+   ```
+ 
+4. **Accès** : depuis le poste distant, ouvrez `http://192.168.1.X:5173` (ou le port 80 si vous utilisez Docker).
+
+5. **Checklist rapide**
+- `VITE_API_URL` pointe bien vers l'IP de l'hôte (pas localhost) côté frontend
+- `CORS_ORIGINS` inclut l'origine du frontend (IP:port) côté backend
+- Le fichier `data/musique.db` est bien monté/accessible (Docker: volume ./data)
 
 ## 📁 Structure du Projet
 

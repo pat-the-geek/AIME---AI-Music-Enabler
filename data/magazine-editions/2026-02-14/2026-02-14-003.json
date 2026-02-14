@@ -1,0 +1,708 @@
+{
+  "id": "2026-02-14-003",
+  "edition_number": 3,
+  "generated_at": "2026-02-14T03:00:09.980466+00:00",
+  "albums": [
+    {
+      "id": 273,
+      "title": "Sad and Beautiful World",
+      "artist": "Mavis Staples",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27306f66604593294e5c831fa9c",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/07aZwFEzDfh0BALXf1o6FH",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#ab47bc",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 282,
+      "title": "A Tribute To Benny Moré and Nat King Cole",
+      "artist": "Gonzalo Rubalcaba, Yainer Horta & Joey Calveiro",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27360b945d9b545e3d640082f8a",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/6mc7lnm4NVfPYz87YVTbAT",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#ff6b35",
+        "specialEffect": "tilt"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 244,
+      "title": "If You Wait (deluxe Version)",
+      "artist": "London Grammar",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738e411f06d11a04c99df55247",
+      "year": 2013,
+      "spotify_url": "https://open.spotify.com/album/0Jxn7c5MQwqvkahOp4YiB5",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#ff6b35",
+        "specialEffect": "gradient"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 288,
+      "title": "Let God Sort Em Out",
+      "artist": "Clipse",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273ef854fe1d04279372a96f3d6",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/17ScNnJ0lSWajodZaRpHdQ",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "gradient"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 256,
+      "title": "Live From the Royal Albert Hall",
+      "artist": "Ry X & London Contemporary Orchestra",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+      "year": 2021,
+      "spotify_url": "https://open.spotify.com/album/19QnzYQMY8g44JmxHgu683",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "chaos",
+        "accentColor": "#FF00FF",
+        "specialEffect": "gradient"
+      },
+      "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+    },
+    {
+      "id": 252,
+      "title": "Lungs",
+      "artist": "Florence + the Machine",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273003f81b1f4246362638e682d",
+      "year": 2024,
+      "spotify_url": "https://open.spotify.com/album/6qaCznAyIPlFLBbbh2vHub",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#ab47bc",
+        "specialEffect": "tilt"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "count": 21
+    },
+    {
+      "id": 1283,
+      "title": "No Promises",
+      "artist": "Carla Bruni",
+      "year": 2007,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273069e7534ed77923d4da0cfb2",
+      "spotify_url": null,
+      "description": "**Album Review: *No Promises* – Carla Bruni (2007)**\n\nCarla Bruni’s *No Promises* (2007) is a mesmerizing blend of French chanson, folk, and subtle pop influences, wrapped in her signature understated elegance. With delicate acoustic guitar, soft piano, and sparse orchestration, the album exudes a wistful, intimate atmosphere—evoking themes of love, longing, and fleeting moments. Bruni’s velvety, whispered vocals glide effortlessly over the arrangements, imbuing each track with a quiet emotional resonance.\n\nProduction-wise, the sound is warm and organic, emphasizing natural textures over digital polish. Standout tracks like *\"No Promises\"* and *\"Those Days\"* showcase her ability to convey deep sentiment with minimalistic beauty, while *\"L’Amour\"* adds a touch of melodic richness. The stripped-back instrumentation—string arrangements, light percussion, and Bruni’s own guitar—creates a cocoon of intimacy. *No Promises* is a refined, emotionally evocative listen, perfect for those who appreciate poetic subtlety and timeless sophistication.",
+      "style": null
+    },
+    {
+      "id": 313,
+      "title": "Caravanserai",
+      "artist": "Santana",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273093b9bc501a6a2041809a212",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 362,
+      "title": "Morrison Hotel (50th Anniversary Deluxe Edition)",
+      "artist": "The Doors",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273de10ca4022cd5be72730cb49",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 330,
+      "title": "90125",
+      "artist": "Yes",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2739d9a49f795b4340538f43435",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 263,
+      "title": "Orbital 2 (the Brown Album Expanded)",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273eaef26541dc08b0d74a7f609",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6cni6TMOVlY9jAbEGAjOif",
+      "artist": "Orbital",
+      "description": "Orbital livre avec *Orbital 2 (the Brown Album Expanded)* (2025) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 241,
+      "title": "Liberty (original Edition)",
+      "year": 2011,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2731e393c08ddd4c0854c758400",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1bMT2UKaqEI3TF4KERmUBB",
+      "artist": "Anette Askvik",
+      "description": "La **poésie musicale** de *Liberty (original Edition)* de Anette Askvik transcende les années depuis 2011. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 302,
+      "title": "Mayhem",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b0860cf0a98e09663c82290c",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Lady Gaga",
+      "description": "**Mayhem** de *Lady Gaga* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 290,
+      "title": "Mutt",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2737fc4fb3453f841652d2e4814",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/5m3rVDTPrTRwSgkKsvSYEL",
+      "artist": "Leon Thomas",
+      "description": "Leon Thomas livre avec *Mutt* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "existing"
+    },
+    {
+      "id": 327,
+      "title": "The Complete Greatest Hits",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738ba7b9be0ea28900ee4e8f87",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Eagles",
+      "description": "La **poésie musicale** de *The Complete Greatest Hits* de Eagles transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 277,
+      "title": "Amen",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27322c5399d1120f2ef71852303",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/5Rqj746qniBVcnLT4QglB5",
+      "artist": "Shaboozey & Jelly Roll",
+      "description": "**Amen** de *Shaboozey & Jelly Roll* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 334,
+      "title": "Genesis (2007 Remaster)",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273945c366eda66495226e4a46d",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Genesis",
+      "description": "**Genesis (2007 Remaster)** de *Genesis* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "remaster_detail"
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Échos Musique",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Échos Musique",
+          "description": "*Échos Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 273,
+              "title": "Sad and Beautiful World",
+              "artist": "Mavis Staples",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27306f66604593294e5c831fa9c",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/07aZwFEzDfh0BALXf1o6FH",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 282,
+              "title": "A Tribute To Benny Moré and Nat King Cole",
+              "artist": "Gonzalo Rubalcaba, Yainer Horta & Joey Calveiro",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27360b945d9b545e3d640082f8a",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/6mc7lnm4NVfPYz87YVTbAT",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#ff6b35",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 244,
+              "title": "If You Wait (deluxe Version)",
+              "artist": "London Grammar",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2738e411f06d11a04c99df55247",
+              "year": 2013,
+              "spotify_url": "https://open.spotify.com/album/0Jxn7c5MQwqvkahOp4YiB5",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#ff6b35",
+                "specialEffect": "gradient"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 288,
+              "title": "Let God Sort Em Out",
+              "artist": "Clipse",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273ef854fe1d04279372a96f3d6",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/17ScNnJ0lSWajodZaRpHdQ",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "gradient"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 256,
+              "title": "Live From the Royal Albert Hall",
+              "artist": "Ry X & London Contemporary Orchestra",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+              "year": 2021,
+              "spotify_url": "https://open.spotify.com/album/19QnzYQMY8g44JmxHgu683",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "chaos",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 252,
+              "title": "Lungs",
+              "artist": "Florence + the Machine",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273003f81b1f4246362638e682d",
+              "year": 2024,
+              "spotify_url": "https://open.spotify.com/album/6qaCznAyIPlFLBbbh2vHub",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "minimal",
+        "image_position": "background"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "fullwidth",
+        "imageSize": "huge",
+        "textLayout": "double-column",
+        "composition": "chaos",
+        "accentColor": "#00b4d8",
+        "specialEffect": "none"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 41,
+        "unique_albums": 67,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 295,
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273819ccf19e41a22238bc99396",
+            "count": 34
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "count": 17
+          },
+          {
+            "album_id": 1151,
+            "album_title": "Live At Wembley Stadium",
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2737c48e6997b73d924f319ba62",
+            "spotify_url": null,
+            "count": 17
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "area",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "medium",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1283,
+          "title": "No Promises",
+          "artist": "Carla Bruni",
+          "year": 2007,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273069e7534ed77923d4da0cfb2",
+          "spotify_url": null,
+          "description": "**Album Review: *No Promises* – Carla Bruni (2007)**\n\nCarla Bruni’s *No Promises* (2007) is a mesmerizing blend of French chanson, folk, and subtle pop influences, wrapped in her signature understated elegance. With delicate acoustic guitar, soft piano, and sparse orchestration, the album exudes a wistful, intimate atmosphere—evoking themes of love, longing, and fleeting moments. Bruni’s velvety, whispered vocals glide effortlessly over the arrangements, imbuing each track with a quiet emotional resonance.\n\nProduction-wise, the sound is warm and organic, emphasizing natural textures over digital polish. Standout tracks like *\"No Promises\"* and *\"Those Days\"* showcase her ability to convey deep sentiment with minimalistic beauty, while *\"L’Amour\"* adds a touch of melodic richness. The stripped-back instrumentation—string arrangements, light percussion, and Bruni’s own guitar—creates a cocoon of intimacy. *No Promises* is a refined, emotionally evocative listen, perfect for those who appreciate poetic subtlety and timeless sophistication.",
+          "style": null
+        },
+        "artist_images": {
+          "Carla Bruni": "https://i.scdn.co/image/ab6761610000e5eb1d05c17e7271984b1e009d6f"
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "medium"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 313,
+            "title": "Caravanserai",
+            "artist": "Santana",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273093b9bc501a6a2041809a212",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 362,
+            "title": "Morrison Hotel (50th Anniversary Deluxe Edition)",
+            "artist": "The Doors",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273de10ca4022cd5be72730cb49",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 330,
+            "title": "90125",
+            "artist": "Yes",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2739d9a49f795b4340538f43435",
+            "genre": null,
+            "spotify_url": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 313,
+            "album_title": "Caravanserai",
+            "haiku": "**Caravanserai**\nSilhouettes dansant sous la lune\nAccordés aux étoiles lointaines",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "right",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#06b6d4",
+              "specialEffect": "zoom"
+            },
+            "description": "*Caravanserai* marque un moment dans la carrière de Santana. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          },
+          {
+            "album_id": 362,
+            "album_title": "Morrison Hotel (50th Anniversary Deluxe Edition)",
+            "haiku": "**Morrison Hotel**\nPortes ouvertes sur la nuit\nÉchos rougis par le blues",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "diagonal",
+              "imageSize": "large",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#10b981",
+              "specialEffect": "none"
+            },
+            "description": "**Morrison Hotel (50th Anniversary Deluxe Edition)** de *The Doors* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          },
+          {
+            "album_id": 330,
+            "album_title": "90125",
+            "haiku": "**90125**\nClés de synthé légères\nPorte des rêves synthétiques",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "right",
+              "imageSize": "large",
+              "textLayout": "single-column",
+              "composition": "dramatic",
+              "accentColor": "#ff6b35",
+              "specialEffect": "gradient"
+            },
+            "description": "Dans *90125*, Yes nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "large",
+        "columns": 1,
+        "spacing": "spacious"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Black Sabbath",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "corner",
+        "imageSize": "micro",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "artist": {
+          "name": "Black Sabbath",
+          "albums_count": 7,
+          "haiku": "**Orbital 2 (the Brown Album Expanded)**\nSynthés en spirale brune\nÉlectrons dansants sans fin\n\n*(Inspiré par l'univers électronique organique d'Orbital, évoquant des textures sonores tourbillonnantes et des rythmes pulsants, avec une touche de référence à Black Sabbath pour l'aspect sombre et expansif.)*",
+          "bio": "**Black Sabbath** nous offre 7 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5eb4870cd833ebe1092601820c3"
+        },
+        "albums": [
+          {
+            "id": 263,
+            "title": "Orbital 2 (the Brown Album Expanded)",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273eaef26541dc08b0d74a7f609",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6cni6TMOVlY9jAbEGAjOif",
+            "artist": "Orbital",
+            "description": "Orbital livre avec *Orbital 2 (the Brown Album Expanded)* (2025) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 241,
+            "title": "Liberty (original Edition)",
+            "year": 2011,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2731e393c08ddd4c0854c758400",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1bMT2UKaqEI3TF4KERmUBB",
+            "artist": "Anette Askvik",
+            "description": "La **poésie musicale** de *Liberty (original Edition)* de Anette Askvik transcende les années depuis 2011. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 302,
+            "title": "Mayhem",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b0860cf0a98e09663c82290c",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Lady Gaga",
+            "description": "**Mayhem** de *Lady Gaga* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 290,
+            "title": "Mutt",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2737fc4fb3453f841652d2e4814",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/5m3rVDTPrTRwSgkKsvSYEL",
+            "artist": "Leon Thomas",
+            "description": "Leon Thomas livre avec *Mutt* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 327,
+            "title": "The Complete Greatest Hits",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738ba7b9be0ea28900ee4e8f87",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Eagles",
+            "description": "La **poésie musicale** de *The Complete Greatest Hits* de Eagles transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 277,
+            "title": "Amen",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27322c5399d1120f2ef71852303",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/5Rqj746qniBVcnLT4QglB5",
+            "artist": "Shaboozey & Jelly Roll",
+            "description": "**Amen** de *Shaboozey & Jelly Roll* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 334,
+            "title": "Genesis (2007 Remaster)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273945c366eda66495226e4a46d",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Genesis",
+            "description": "**Genesis (2007 Remaster)** de *Genesis* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "remaster_detail"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 400,
+        "text_columns": 1,
+        "color_scheme": "newspaper"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

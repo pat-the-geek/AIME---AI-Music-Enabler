@@ -1,0 +1,717 @@
+{
+  "id": "2026-02-14-006",
+  "edition_number": 6,
+  "generated_at": "2026-02-14T04:30:17.021386+00:00",
+  "albums": [
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "count": 21
+    },
+    {
+      "id": 285,
+      "title": "Portrait",
+      "year": 2024,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7sH4icMotSET9zBcbR5Gz4",
+      "artist": "Samara Joy",
+      "description": "La **poésie musicale** de *Portrait* de Samara Joy transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 255,
+      "title": "Little Dark Age",
+      "year": 2018,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273872a896e7c3776d6949df476",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7GjVWG39IOj4viyWplJV4H",
+      "artist": "Mgmt",
+      "description": "*Little Dark Age* marque un moment dans la carrière de Mgmt. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 311,
+      "title": "Baroque Favourites",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273876c7eed71fdfe29697bcdcd",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Australian Brandenburg Orchestra, Paul Dyer, Capella Istropolitana, Richard Edlinger",
+      "description": "Dans *Baroque Favourites*, Australian Brandenburg Orchestra, Paul Dyer, Capella Istropolitana, Richard Edlinger nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 312,
+      "title": "The Very Best of Supertramp",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f82d2bd1097e3e60a6a049a3",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Supertramp",
+      "description": "**The Very Best of Supertramp** de *Supertramp* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 272,
+      "title": "Wild and Clear and Blue",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273e1917e26e66f38eac61be589",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2AAAjeTyO8T9juLBOKsCaV",
+      "artist": "I’m With Her",
+      "description": "Dans *Wild and Clear and Blue*, I’m With Her nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 264,
+      "title": "In Sides",
+      "year": 1996,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738582db75b4e80ca0077697bc",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1wXyzUmlgN6G1DXIY0Sh8l",
+      "artist": "Orbital",
+      "description": "*In Sides* marque un moment dans la carrière de Orbital. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 262,
+      "title": "Woman Worldwide",
+      "year": 2018,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27314a99b6cf89499f1c4ca200c",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7E3c9dmZ1KnZOQLZTgRqWx",
+      "artist": "Justice",
+      "description": "La **poésie musicale** de *Woman Worldwide* de Justice transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 283,
+      "title": "Without Further Ado, Vol 1",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+      "artist": "Christian Mcbride",
+      "description": "*Without Further Ado, Vol 1* marque un moment dans la carrière de Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 1186,
+      "title": "Led Zeppelin",
+      "artist": "Led Zeppelin",
+      "year": 2020,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273c8a11e48c91a982d086afc69",
+      "spotify_url": "https://open.spotify.com/album/3ycjBixZf7S3WpC5WZhhUK",
+      "description": "**Album Review: *Led Zeppelin* (2020 Reissue) – Led Zeppelin**\n\nThe self-titled debut album by *Led Zeppelin* (reissued in 2020) remains a cornerstone of rock history, blending blues, folk, and heavy riffs into a timeless sound. Produced with raw energy and finesse, the album’s sonic palette is rich with Robert Plant’s soaring vocals, Jimmy Page’s iconic guitar work, John Paul Jones’ versatile bass, and John Bonham’s thunderous drumming. Tracks like *\"Good Times Bad Times\"* and *\"Dazed and Confused\"* showcase the band’s dynamic range, from bluesy groove to psychedelic intensity, while *\"Babe I’m Gonna Leave You\"* adds a haunting folk undertone.\n\nThe 2020 remaster preserves the original’s grit while enhancing clarity, making Bonham’s drums and Page’s layered guitars shine. Emotionally, the album swings between exhilaration and melancholy, setting the stage for Zeppelin’s legendary career. Standout moments include the hard-hitting riffs of *\"Communication Breakdown\"* and the cinematic build of *\"Your Time Is Gonna Come.\"*",
+      "style": null
+    },
+    {
+      "id": 243,
+      "title": "Illinois",
+      "artist": "Sufjan Stevens",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273712c76b4152918fb8d37c53d",
+      "year": 2005,
+      "spotify_url": "https://open.spotify.com/album/1pOl0KEC1iQnA6F0XxV4To",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+    },
+    {
+      "id": 2,
+      "title": "Torches",
+      "artist": "Foster the People",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+      "year": 2011,
+      "spotify_url": "https://open.spotify.com/album/7Kmmw7Z5D2UD5MVwdm10sT",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 253,
+      "title": "The Universe Smiles Upon You",
+      "artist": "Khruangbin",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273e08ee206ad63148105336a19",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/45ZWDMMVK0N0Hd2p7fLTCB",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "chaos",
+        "accentColor": "#ff6b35",
+        "specialEffect": "tilt"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 248,
+      "title": "Surfer Rosa (2007 Remaster)",
+      "artist": "Pixies",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738aa545a0ea869940cce358b5",
+      "year": 1988,
+      "spotify_url": "https://open.spotify.com/album/50j4Wm1b9hLpSpPIA39Vp9",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+    },
+    {
+      "id": 258,
+      "title": "Late Night (remixes)",
+      "artist": "Foals",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27345f82f2dc0706ea44d8aa7d7",
+      "year": 2013,
+      "spotify_url": "https://open.spotify.com/album/6m6KIwj9pksPX8IJz9CYOe",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+    },
+    {
+      "id": 405,
+      "title": "We Get Requests",
+      "artist": "Oscar Peterson Trio",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273100b3c306ae748cce187ac2c",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 302,
+      "title": "Mayhem",
+      "artist": "Lady Gaga",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b0860cf0a98e09663c82290c",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 310,
+      "title": "Fear of Music (deluxe Version)",
+      "artist": "Talking Heads",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738365f74aa622b1b86962c8dd",
+      "genre": null,
+      "spotify_url": null
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "bottom",
+        "imageSize": "tiny",
+        "textLayout": "triple-column",
+        "composition": "classic",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "gradient"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 41,
+        "unique_albums": 67,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 295,
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273819ccf19e41a22238bc99396",
+            "count": 34
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "count": 17
+          },
+          {
+            "album_id": 1151,
+            "album_title": "Live At Wembley Stadium",
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2737c48e6997b73d924f319ba62",
+            "spotify_url": null,
+            "count": 17
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "bar",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Yello",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "tilt"
+      },
+      "content": {
+        "artist": {
+          "name": "Yello",
+          "albums_count": 8,
+          "haiku": "**Portrait**\nVoix de miel et jazz\nNuits de velours qui chantent",
+          "bio": "**Yello** nous offre 8 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5eb6b950048b4781d0e95bd9c2c"
+        },
+        "albums": [
+          {
+            "id": 285,
+            "title": "Portrait",
+            "year": 2024,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7sH4icMotSET9zBcbR5Gz4",
+            "artist": "Samara Joy",
+            "description": "La **poésie musicale** de *Portrait* de Samara Joy transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 255,
+            "title": "Little Dark Age",
+            "year": 2018,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273872a896e7c3776d6949df476",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7GjVWG39IOj4viyWplJV4H",
+            "artist": "Mgmt",
+            "description": "*Little Dark Age* marque un moment dans la carrière de Mgmt. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 311,
+            "title": "Baroque Favourites",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273876c7eed71fdfe29697bcdcd",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Australian Brandenburg Orchestra, Paul Dyer, Capella Istropolitana, Richard Edlinger",
+            "description": "Dans *Baroque Favourites*, Australian Brandenburg Orchestra, Paul Dyer, Capella Istropolitana, Richard Edlinger nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 312,
+            "title": "The Very Best of Supertramp",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f82d2bd1097e3e60a6a049a3",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Supertramp",
+            "description": "**The Very Best of Supertramp** de *Supertramp* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 272,
+            "title": "Wild and Clear and Blue",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273e1917e26e66f38eac61be589",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2AAAjeTyO8T9juLBOKsCaV",
+            "artist": "I’m With Her",
+            "description": "Dans *Wild and Clear and Blue*, I’m With Her nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 264,
+            "title": "In Sides",
+            "year": 1996,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738582db75b4e80ca0077697bc",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1wXyzUmlgN6G1DXIY0Sh8l",
+            "artist": "Orbital",
+            "description": "*In Sides* marque un moment dans la carrière de Orbital. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 262,
+            "title": "Woman Worldwide",
+            "year": 2018,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27314a99b6cf89499f1c4ca200c",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7E3c9dmZ1KnZOQLZTgRqWx",
+            "artist": "Justice",
+            "description": "La **poésie musicale** de *Woman Worldwide* de Justice transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 283,
+            "title": "Without Further Ado, Vol 1",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+            "artist": "Christian Mcbride",
+            "description": "*Without Further Ado, Vol 1* marque un moment dans la carrière de Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 500,
+        "text_columns": 2,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "right",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1186,
+          "title": "Led Zeppelin",
+          "artist": "Led Zeppelin",
+          "year": 2020,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273c8a11e48c91a982d086afc69",
+          "spotify_url": "https://open.spotify.com/album/3ycjBixZf7S3WpC5WZhhUK",
+          "description": "**Album Review: *Led Zeppelin* (2020 Reissue) – Led Zeppelin**\n\nThe self-titled debut album by *Led Zeppelin* (reissued in 2020) remains a cornerstone of rock history, blending blues, folk, and heavy riffs into a timeless sound. Produced with raw energy and finesse, the album’s sonic palette is rich with Robert Plant’s soaring vocals, Jimmy Page’s iconic guitar work, John Paul Jones’ versatile bass, and John Bonham’s thunderous drumming. Tracks like *\"Good Times Bad Times\"* and *\"Dazed and Confused\"* showcase the band’s dynamic range, from bluesy groove to psychedelic intensity, while *\"Babe I’m Gonna Leave You\"* adds a haunting folk undertone.\n\nThe 2020 remaster preserves the original’s grit while enhancing clarity, making Bonham’s drums and Page’s layered guitars shine. Emotionally, the album swings between exhilaration and melancholy, setting the stage for Zeppelin’s legendary career. Standout moments include the hard-hitting riffs of *\"Communication Breakdown\"* and the cinematic build of *\"Your Time Is Gonna Come.\"*",
+          "style": null
+        },
+        "artist_images": {
+          "Led Zeppelin": "https://i.scdn.co/image/207803ce008388d3427a685254f9de6a8f61dc2e"
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "medium"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Voyage Musique",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Voyage Musique",
+          "description": "*Voyage Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 243,
+              "title": "Illinois",
+              "artist": "Sufjan Stevens",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273712c76b4152918fb8d37c53d",
+              "year": 2005,
+              "spotify_url": "https://open.spotify.com/album/1pOl0KEC1iQnA6F0XxV4To",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+            },
+            {
+              "id": 2,
+              "title": "Torches",
+              "artist": "Foster the People",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+              "year": 2011,
+              "spotify_url": "https://open.spotify.com/album/7Kmmw7Z5D2UD5MVwdm10sT",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 253,
+              "title": "The Universe Smiles Upon You",
+              "artist": "Khruangbin",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273e08ee206ad63148105336a19",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/45ZWDMMVK0N0Hd2p7fLTCB",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "chaos",
+                "accentColor": "#ff6b35",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 248,
+              "title": "Surfer Rosa (2007 Remaster)",
+              "artist": "Pixies",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2738aa545a0ea869940cce358b5",
+              "year": 1988,
+              "spotify_url": "https://open.spotify.com/album/50j4Wm1b9hLpSpPIA39Vp9",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+            },
+            {
+              "id": 258,
+              "title": "Late Night (remixes)",
+              "artist": "Foals",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27345f82f2dc0706ea44d8aa7d7",
+              "year": 2013,
+              "spotify_url": "https://open.spotify.com/album/6m6KIwj9pksPX8IJz9CYOe",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "artistic",
+        "image_position": "left"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 405,
+            "title": "We Get Requests",
+            "artist": "Oscar Peterson Trio",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273100b3c306ae748cce187ac2c",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 312,
+            "title": "The Very Best of Supertramp",
+            "artist": "Supertramp",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f82d2bd1097e3e60a6a049a3",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 302,
+            "title": "Mayhem",
+            "artist": "Lady Gaga",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b0860cf0a98e09663c82290c",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 310,
+            "title": "Fear of Music (deluxe Version)",
+            "artist": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738365f74aa622b1b86962c8dd",
+            "genre": null,
+            "spotify_url": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 405,
+            "album_title": "We Get Requests",
+            "haiku": "**We Get Requests**\nDoigts sur le clavier dansant\nRythmes qui répondent aux étoiles",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "diagonal",
+              "imageSize": "small",
+              "textLayout": "single-column",
+              "composition": "dramatic",
+              "accentColor": "#ab47bc",
+              "specialEffect": "none"
+            },
+            "description": "Oscar Peterson Trio livre avec *We Get Requests* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 312,
+            "album_title": "The Very Best of Supertramp",
+            "haiku": "**The Very Best of Supertramp**\nNotes d'or s'envolent\nRêves en symphonies",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "right",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#ab47bc",
+              "specialEffect": "none"
+            },
+            "description": "**The Very Best of Supertramp** de *Supertramp* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          },
+          {
+            "album_id": 302,
+            "album_title": "Mayhem",
+            "haiku": "**Mayhem**\nChaos en harmonie brisée\nÉclats de cœur en rébellion",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "top",
+              "imageSize": "large",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#10b981",
+              "specialEffect": "none"
+            },
+            "description": "**Mayhem** de *Lady Gaga* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          },
+          {
+            "album_id": 310,
+            "album_title": "Fear of Music (deluxe Version)",
+            "haiku": "**Fear of Music**\nRythmes qui murmurent aux peurs\nNotes égarées dans la nuit",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "right",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#06b6d4",
+              "specialEffect": "gradient"
+            },
+            "description": "Talking Heads livre avec *Fear of Music (deluxe Version)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "small",
+        "columns": 1,
+        "spacing": "compact"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

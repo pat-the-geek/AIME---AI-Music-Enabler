@@ -26,6 +26,7 @@ class Album(Base):
     source = Column(String(20), nullable=False, default="manual", index=True)  # Source d'origine
     discogs_id = Column(String(100), unique=True, nullable=True)
     spotify_url = Column(String(500), nullable=True)
+    apple_music_url = Column(String(500), nullable=True)
     discogs_url = Column(String(500), nullable=True)
     genre = Column(String(200), nullable=True, index=True)  # Genre musical principal
     image_url = Column(String(1000), nullable=True)  # URL de la couverture
@@ -43,6 +44,7 @@ class Album(Base):
     __table_args__ = (
         Index('idx_albums_discogs_id', 'discogs_id'),
         Index('idx_albums_spotify_url', 'spotify_url'),
+        Index('idx_albums_apple_music_url', 'apple_music_url'),
         Index('idx_albums_discogs_url', 'discogs_url'),
         Index('idx_albums_source_created', 'source', 'created_at'),
         Index('idx_albums_title_source', 'title', 'source'),

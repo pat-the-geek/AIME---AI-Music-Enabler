@@ -1,4 +1,5 @@
 """Configuration du backend avec Pydantic Settings."""
+from pydantic import field_validator
 from pydantic_settings import BaseSettings
 from functools import lru_cache
 import json
@@ -34,6 +35,13 @@ class Settings(BaseSettings):
     host: str = "127.0.0.1"
     port: int = 8000
     cors_origins: list = ["http://localhost:5173", "http://localhost:3000"]
+
+    @field_validator("cors_origins", mode="before")
+    def split_cors_origins(cls, value):
+        """Autoriser la configuration des origines via une liste séparée par des virgules."""
+        if isinstance(value, str):
+            return [origin.strip() for origin in value.split(",") if origin.strip()]
+        return value
     
     # Database - utilise un chemin absolu construit depuis PROJECT_ROOT
     @property

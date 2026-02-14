@@ -1,0 +1,684 @@
+{
+  "id": "2026-02-14-008",
+  "edition_number": 8,
+  "generated_at": "2026-02-14T05:30:22.110122+00:00",
+  "albums": [
+    {
+      "id": 285,
+      "title": "Portrait",
+      "artist": "Samara Joy",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+      "year": 2024,
+      "spotify_url": "https://open.spotify.com/album/7sH4icMotSET9zBcbR5Gz4",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "chaos",
+        "accentColor": "#ff6b35",
+        "specialEffect": "gradient"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+    },
+    {
+      "id": 284,
+      "title": "Southern Nights",
+      "artist": "Sullivan Fortner",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273336ed72565af2eb861952e8e",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/3l8Ht8HifFqSt4jZ3nqxy3",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "asymmetric",
+        "composition": "chaos",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 242,
+      "title": "Dire Straits",
+      "artist": "Dire Straits",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b49d49cc95564aede7998bb8",
+      "year": 1978,
+      "spotify_url": "https://open.spotify.com/album/2rCS6Xwx32V27pvgFzLzlT",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "playful",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 257,
+      "title": "Dropout Boogie",
+      "artist": "The Black Keys",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2730e8e7267c0b377e5751630f3",
+      "year": 2022,
+      "spotify_url": "https://open.spotify.com/album/7LLyQJzyD56Avzk3uFzKUk",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+    },
+    {
+      "id": 245,
+      "title": "Is This It",
+      "artist": "The Strokes",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+      "year": 2001,
+      "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+    },
+    {
+      "id": 1287,
+      "title": "Negative Skills",
+      "artist": "Pogo Car Crash Control",
+      "year": 2025,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273d679a08a58f2a4986613763e",
+      "spotify_url": null,
+      "description": "**Album Review: *Negative Skills* by Pogo Car Crash Control (2025)**\n\nPogo Car Crash Control’s *Negative Skills* is a gripping fusion of post-punk revival and darkwave, delivering an atmosphere of brooding intensity and raw emotionality. The duo—comprising haunting vocals and razor-sharp guitar work—crafts a sound that oscillates between melancholic euphoria and tense, cinematic dread. The production is immaculate, with a polished yet gritty mix that amplifies the album’s moody textures, from reverb-drenched arpeggios to punchy, distorted basslines.\n\n*Negative Skills* thrives on its atmospheric depth, weaving themes of existential angst and resilience into its jagged melodies. Standout tracks like \"Static Halo\" and \"Fracture Suite\" showcase the band’s knack for dynamic contrast, blending soaring choruses with dissonant, industrial-infused instrumentals. The synth layers add an ethereal quality, while the rhythmic precision of the drum programming anchors the chaos in tight, danceable grooves.\n\nThis is an album that lingers long after the final note fades—a bold, genre-defying statement",
+      "style": null
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "count": 21
+    },
+    {
+      "id": 427,
+      "title": "Ella Fitzgerald Sings the Irving Berlin Song Book",
+      "artist": "Ella Fitzgerald",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273e9db177d36eb9f2d9099eb9b",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 318,
+      "title": "David Bowie (aka Space Oddity) (2015 Remaster)",
+      "artist": "David Bowie",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733395f3e809dfbc2b1101d464",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 429,
+      "title": "Le Zenith de Gainsbourg",
+      "artist": "Serge Gainsbourg",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273dbd73953e5912a5834419317",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 256,
+      "title": "Live From the Royal Albert Hall",
+      "year": 2021,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/19QnzYQMY8g44JmxHgu683",
+      "artist": "Ry X & London Contemporary Orchestra",
+      "description": "*Live From the Royal Albert Hall* marque un moment dans la carrière de Ry X & London Contemporary Orchestra. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 328,
+      "title": "Morrison Hotel",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f12a8a7e0b2cbe16d2bef4dc",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "The Doors",
+      "description": "*Morrison Hotel* marque un moment dans la carrière de The Doors. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 301,
+      "title": "Hit Me Hard and Soft",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Billie Eilish",
+      "description": "*Hit Me Hard and Soft* marque un moment dans la carrière de Billie Eilish. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 288,
+      "title": "Let God Sort Em Out",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273ef854fe1d04279372a96f3d6",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/17ScNnJ0lSWajodZaRpHdQ",
+      "artist": "Clipse",
+      "description": "La **poésie musicale** de *Let God Sort Em Out* de Clipse transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 336,
+      "title": "Quadrophenia (super Deluxe Edition)",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27316300219333d1cf8d8b6120e",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "The Who",
+      "description": "La **poésie musicale** de *Quadrophenia (super Deluxe Edition)* de The Who transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "remaster_detail"
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Voyage Musique",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Voyage Musique",
+          "description": "*Voyage Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 285,
+              "title": "Portrait",
+              "artist": "Samara Joy",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+              "year": 2024,
+              "spotify_url": "https://open.spotify.com/album/7sH4icMotSET9zBcbR5Gz4",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "chaos",
+                "accentColor": "#ff6b35",
+                "specialEffect": "gradient"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+            },
+            {
+              "id": 284,
+              "title": "Southern Nights",
+              "artist": "Sullivan Fortner",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273336ed72565af2eb861952e8e",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/3l8Ht8HifFqSt4jZ3nqxy3",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "chaos",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 242,
+              "title": "Dire Straits",
+              "artist": "Dire Straits",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273b49d49cc95564aede7998bb8",
+              "year": 1978,
+              "spotify_url": "https://open.spotify.com/album/2rCS6Xwx32V27pvgFzLzlT",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "playful",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 257,
+              "title": "Dropout Boogie",
+              "artist": "The Black Keys",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2730e8e7267c0b377e5751630f3",
+              "year": 2022,
+              "spotify_url": "https://open.spotify.com/album/7LLyQJzyD56Avzk3uFzKUk",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 245,
+              "title": "Is This It",
+              "artist": "The Strokes",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+              "year": 2001,
+              "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "artistic",
+        "image_position": "left"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "right",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1287,
+          "title": "Negative Skills",
+          "artist": "Pogo Car Crash Control",
+          "year": 2025,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273d679a08a58f2a4986613763e",
+          "spotify_url": null,
+          "description": "**Album Review: *Negative Skills* by Pogo Car Crash Control (2025)**\n\nPogo Car Crash Control’s *Negative Skills* is a gripping fusion of post-punk revival and darkwave, delivering an atmosphere of brooding intensity and raw emotionality. The duo—comprising haunting vocals and razor-sharp guitar work—crafts a sound that oscillates between melancholic euphoria and tense, cinematic dread. The production is immaculate, with a polished yet gritty mix that amplifies the album’s moody textures, from reverb-drenched arpeggios to punchy, distorted basslines.\n\n*Negative Skills* thrives on its atmospheric depth, weaving themes of existential angst and resilience into its jagged melodies. Standout tracks like \"Static Halo\" and \"Fracture Suite\" showcase the band’s knack for dynamic contrast, blending soaring choruses with dissonant, industrial-infused instrumentals. The synth layers add an ethereal quality, while the rhythmic precision of the drum programming anchors the chaos in tight, danceable grooves.\n\nThis is an album that lingers long after the final note fades—a bold, genre-defying statement",
+          "style": null
+        },
+        "artist_images": {
+          "Pogo Car Crash Control": "https://i.scdn.co/image/ab6761610000e5ebd7578b6e5306a351206e896d"
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "large"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 5,
+        "imagePosition": "fullwidth",
+        "imageSize": "large",
+        "textLayout": "single",
+        "composition": "minimalist",
+        "accentColor": "#f59e0b",
+        "specialEffect": "none"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 41,
+        "unique_albums": 67,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 295,
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273819ccf19e41a22238bc99396",
+            "count": 34
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "count": 17
+          },
+          {
+            "album_id": 1151,
+            "album_title": "Live At Wembley Stadium",
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2737c48e6997b73d924f319ba62",
+            "spotify_url": null,
+            "count": 17
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "bar",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 427,
+            "title": "Ella Fitzgerald Sings the Irving Berlin Song Book",
+            "artist": "Ella Fitzgerald",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273e9db177d36eb9f2d9099eb9b",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 285,
+            "title": "Portrait",
+            "artist": "Samara Joy",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7sH4icMotSET9zBcbR5Gz4"
+          },
+          {
+            "id": 318,
+            "title": "David Bowie (aka Space Oddity) (2015 Remaster)",
+            "artist": "David Bowie",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2733395f3e809dfbc2b1101d464",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 429,
+            "title": "Le Zenith de Gainsbourg",
+            "artist": "Serge Gainsbourg",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273dbd73953e5912a5834419317",
+            "genre": null,
+            "spotify_url": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 427,
+            "album_title": "Ella Fitzgerald Sings the Irving Berlin Song Book",
+            "haiku": "**Ella Fitzgerald Sings the Irving Berlin Song Book**\nVoix d'or tissant des rires\nBercée par les notes claires",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "top",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#ff6b35",
+              "specialEffect": "gradient"
+            },
+            "description": "Dans *Ella Fitzgerald Sings the Irving Berlin Song Book*, Ella Fitzgerald nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 285,
+            "album_title": "Portrait",
+            "haiku": "**Portrait**\nVoix d'or sur soie\nSilence chantant l'âme",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "diagonal",
+              "imageSize": "small",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#10b981",
+              "specialEffect": "gradient"
+            },
+            "description": "La **poésie musicale** de *Portrait* de Samara Joy transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 318,
+            "album_title": "David Bowie (aka Space Oddity) (2015 Remaster)",
+            "haiku": "**David Bowie (aka Space Oddity) (2015 Remaster)**\nÉtoiles chantant en mi\nLune en écho vibrant\n\n*(Inspiré par l'univers spatial et musical de Bowie, mélangeant cosmos et mélodie.)*",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "left",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "playful",
+              "accentColor": "#06b6d4",
+              "specialEffect": "gradient"
+            },
+            "description": "David Bowie livre avec *David Bowie (aka Space Oddity) (2015 Remaster)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 429,
+            "album_title": "Le Zenith de Gainsbourg",
+            "haiku": "**Le Zenith de Gainsbourg**\nFumée de jazz brûlant\nNuits parisiennes en la mineur",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "left",
+              "imageSize": "large",
+              "textLayout": "single-column",
+              "composition": "dramatic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "none"
+            },
+            "description": "Serge Gainsbourg livre avec *Le Zenith de Gainsbourg* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "columns": 2,
+        "spacing": "compact"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Billie Holiday",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "right",
+        "imageSize": "medium",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#06b6d4",
+        "specialEffect": "zoom"
+      },
+      "content": {
+        "artist": {
+          "name": "Billie Holiday",
+          "albums_count": 8,
+          "haiku": "**David Bowie (aka Space Oddity) (2015 Remaster)**\nÉtoiles électriques murmurantes\nRêves en apesanteur\n\n*(Inspiré par la voix de Billie Holiday et son mélange de mélancolie et de grâce, comme dans ses albums comme \"Lady in Satin\" ou \"Lovely Haze\".)*",
+          "bio": "**Billie Holiday** nous offre 8 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/4efa6b6871a0f672b78b3d16fd5a03c6cd212d58"
+        },
+        "albums": [
+          {
+            "id": 318,
+            "title": "David Bowie (aka Space Oddity) (2015 Remaster)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2733395f3e809dfbc2b1101d464",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "David Bowie",
+            "description": "*David Bowie (aka Space Oddity) (2015 Remaster)* marque un moment dans la carrière de David Bowie. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 256,
+            "title": "Live From the Royal Albert Hall",
+            "year": 2021,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/19QnzYQMY8g44JmxHgu683",
+            "artist": "Ry X & London Contemporary Orchestra",
+            "description": "*Live From the Royal Albert Hall* marque un moment dans la carrière de Ry X & London Contemporary Orchestra. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 328,
+            "title": "Morrison Hotel",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f12a8a7e0b2cbe16d2bef4dc",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "The Doors",
+            "description": "*Morrison Hotel* marque un moment dans la carrière de The Doors. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 285,
+            "title": "Portrait",
+            "year": 2024,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7sH4icMotSET9zBcbR5Gz4",
+            "artist": "Samara Joy",
+            "description": "La **poésie musicale** de *Portrait* de Samara Joy transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 301,
+            "title": "Hit Me Hard and Soft",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Billie Eilish",
+            "description": "*Hit Me Hard and Soft* marque un moment dans la carrière de Billie Eilish. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 288,
+            "title": "Let God Sort Em Out",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273ef854fe1d04279372a96f3d6",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/17ScNnJ0lSWajodZaRpHdQ",
+            "artist": "Clipse",
+            "description": "La **poésie musicale** de *Let God Sort Em Out* de Clipse transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 284,
+            "title": "Southern Nights",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273336ed72565af2eb861952e8e",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/3l8Ht8HifFqSt4jZ3nqxy3",
+            "artist": "Sullivan Fortner",
+            "description": "*Southern Nights* marque un moment dans la carrière de Sullivan Fortner. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 336,
+            "title": "Quadrophenia (super Deluxe Edition)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27316300219333d1cf8d8b6120e",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "The Who",
+            "description": "La **poésie musicale** de *Quadrophenia (super Deluxe Edition)* de The Who transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "remaster_detail"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 300,
+        "text_columns": 3,
+        "color_scheme": "newspaper"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

@@ -1,7 +1,14 @@
 import axios, { AxiosError } from 'axios'
 
+// Resolve API base URL with a safe fallback for LAN/dev setups
+const envApiUrl = (import.meta.env.VITE_API_URL || '').trim()
+const fallbackApiUrl = typeof window !== 'undefined'
+  ? `${window.location.origin}/api/v1`
+  : 'http://localhost:8000/api/v1'
+const apiBaseURL = envApiUrl || fallbackApiUrl
+
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1',
+  baseURL: apiBaseURL,
   headers: {
     'Content-Type': 'application/json',
   },

@@ -1,0 +1,730 @@
+{
+  "id": "2026-02-14-002",
+  "edition_number": 2,
+  "generated_at": "2026-02-14T02:30:05.155620+00:00",
+  "albums": [
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "count": 21
+    },
+    {
+      "id": 254,
+      "title": "Everyday Robots",
+      "artist": "Damon Albarn",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2736ed97e7df0962eb994a54bc3",
+      "year": 2014,
+      "spotify_url": "https://open.spotify.com/album/5SzhltQSSi1HUMi5cveZIZ",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "tilt"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 273,
+      "title": "Sad and Beautiful World",
+      "artist": "Mavis Staples",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27306f66604593294e5c831fa9c",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/07aZwFEzDfh0BALXf1o6FH",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "gradient"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 264,
+      "title": "In Sides",
+      "artist": "Orbital",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738582db75b4e80ca0077697bc",
+      "year": 1996,
+      "spotify_url": "https://open.spotify.com/album/1wXyzUmlgN6G1DXIY0Sh8l",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 265,
+      "title": "Monsters Exist (deluxe)",
+      "artist": "Orbital",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273bd38413ff0aae6f75333b40e",
+      "year": 2018,
+      "spotify_url": "https://open.spotify.com/album/0IAAy7IDTqdCpydFNKpulW",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Échos Musique."
+    },
+    {
+      "id": 277,
+      "title": "Amen",
+      "artist": "Shaboozey & Jelly Roll",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27322c5399d1120f2ef71852303",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/5Rqj746qniBVcnLT4QglB5",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#ff6b35",
+        "specialEffect": "tilt"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 285,
+      "title": "Portrait",
+      "artist": "Samara Joy",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+      "year": 2024,
+      "spotify_url": "https://open.spotify.com/album/7sH4icMotSET9zBcbR5Gz4",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 253,
+      "title": "The Universe Smiles Upon You",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273e08ee206ad63148105336a19",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/45ZWDMMVK0N0Hd2p7fLTCB",
+      "artist": "Khruangbin",
+      "description": "**The Universe Smiles Upon You** de *Khruangbin* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 291,
+      "title": "Folded",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273ce5bc87f637b46ad01831fc4",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0xuXSjCWQuiYDTjWiro3oX",
+      "artist": "Kehlani",
+      "description": "**Folded** de *Kehlani* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 313,
+      "title": "Caravanserai",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273093b9bc501a6a2041809a212",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Santana",
+      "description": "*Caravanserai* marque un moment dans la carrière de Santana. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 302,
+      "title": "Mayhem",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b0860cf0a98e09663c82290c",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Lady Gaga",
+      "description": "**Mayhem** de *Lady Gaga* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 284,
+      "title": "Southern Nights",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273336ed72565af2eb861952e8e",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/3l8Ht8HifFqSt4jZ3nqxy3",
+      "artist": "Sullivan Fortner",
+      "description": "*Southern Nights* marque un moment dans la carrière de Sullivan Fortner. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 292,
+      "title": "Songs of a Lost World",
+      "year": 2024,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738613a922e2b503736fb2f91f",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/4wjxmqXnSQvBZWL3IbYngX",
+      "artist": "The Cure",
+      "description": "Dans *Songs of a Lost World*, The Cure nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 279,
+      "title": "Brightside",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f3454bf8893ec60318e2b377",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2uKlHTuXAa9qacjncF1s4L",
+      "artist": "Arkai",
+      "description": "La **poésie musicale** de *Brightside* de Arkai transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 339,
+      "title": "Abraxas",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273283cccda1ee115b8f44f1c8b",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Santana",
+      "description": "Dans *Abraxas*, Santana nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 1218,
+      "title": "Happier Than Ever",
+      "artist": "Billie Eilish",
+      "year": 2021,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732a038d3bf875d23e4aeaa84e",
+      "spotify_url": null,
+      "description": "**Album Review: *Happier Than Ever* – Billie Eilish (2021)**\n\nBillie Eilish’s *Happier Than Ever* is a bold, emotionally charged evolution from her debut work, blending dark pop, moody R&B, and experimental rock into a hauntingly atmospheric soundscape. Departing slightly from her signature whispery minimalism, the album embraces lush instrumentation, punchy percussion, and dynamic shifts—most notably in the title track’s explosive finale.\n\nThe production, helmed by Eilish and brother Finneas O’Connell, is meticulously crafted, with layered synths, haunting harmonies, and raw, intimate vocal delivery. Tracks like *Happier Than Ever* and *Oxytocin* showcase Eilish’s maturity, balancing vulnerability with defiance. *Everything I Wanted* and *my future* highlight her knack for bittersweet storytelling, while *Halley’s Comet* flirts with disco-pop energy.\n\nInstrumentally, the album thrives on contrasts—ethereal pianos (*NDA*), gritty guitar distortion (*goldwing*), and thumping basslines (*blohsh*). *Happier Than Ever*",
+      "style": null
+    },
+    {
+      "id": 283,
+      "title": "Without Further Ado, Vol 1",
+      "artist": "Christian Mcbride",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy"
+    },
+    {
+      "id": 263,
+      "title": "Orbital 2 (the Brown Album Expanded)",
+      "artist": "Orbital",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273eaef26541dc08b0d74a7f609",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6cni6TMOVlY9jAbEGAjOif"
+    },
+    {
+      "id": 346,
+      "title": "Breakfast in America",
+      "artist": "Supertramp",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733032e8ae4b5939201d77277f",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1G40QqbxYWEeelWqf4hpbI"
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "small",
+        "textLayout": "single",
+        "composition": "magazine",
+        "accentColor": "#10b981",
+        "specialEffect": "shadow"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 41,
+        "unique_albums": 67,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 295,
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273819ccf19e41a22238bc99396",
+            "count": 34
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "count": 17
+          },
+          {
+            "album_id": 1151,
+            "album_title": "Live At Wembley Stadium",
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2737c48e6997b73d924f319ba62",
+            "spotify_url": null,
+            "count": 17
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "bar",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Échos Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Échos Musique",
+          "description": "*Échos Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 254,
+              "title": "Everyday Robots",
+              "artist": "Damon Albarn",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2736ed97e7df0962eb994a54bc3",
+              "year": 2014,
+              "spotify_url": "https://open.spotify.com/album/5SzhltQSSi1HUMi5cveZIZ",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "classic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 273,
+              "title": "Sad and Beautiful World",
+              "artist": "Mavis Staples",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27306f66604593294e5c831fa9c",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/07aZwFEzDfh0BALXf1o6FH",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "gradient"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 264,
+              "title": "In Sides",
+              "artist": "Orbital",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2738582db75b4e80ca0077697bc",
+              "year": 1996,
+              "spotify_url": "https://open.spotify.com/album/1wXyzUmlgN6G1DXIY0Sh8l",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 265,
+              "title": "Monsters Exist (deluxe)",
+              "artist": "Orbital",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273bd38413ff0aae6f75333b40e",
+              "year": 2018,
+              "spotify_url": "https://open.spotify.com/album/0IAAy7IDTqdCpydFNKpulW",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "none"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Échos Musique."
+            },
+            {
+              "id": 277,
+              "title": "Amen",
+              "artist": "Shaboozey & Jelly Roll",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27322c5399d1120f2ef71852303",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/5Rqj746qniBVcnLT4QglB5",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#ff6b35",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 285,
+              "title": "Portrait",
+              "artist": "Samara Joy",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+              "year": 2024,
+              "spotify_url": "https://open.spotify.com/album/7sH4icMotSET9zBcbR5Gz4",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "artistic",
+        "image_position": "left"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Leon Thomas",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "left",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#ec4899",
+        "specialEffect": "zoom"
+      },
+      "content": {
+        "artist": {
+          "name": "Leon Thomas",
+          "albums_count": 8,
+          "haiku": "**The Universe Smiles Upon You**\nCordes qui murmurent aux étoiles\nRythmes dorés du cosmos",
+          "bio": "**Leon Thomas** nous offre 8 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5ebc6c4f4aaf40ebee92b8a8228"
+        },
+        "albums": [
+          {
+            "id": 253,
+            "title": "The Universe Smiles Upon You",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273e08ee206ad63148105336a19",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/45ZWDMMVK0N0Hd2p7fLTCB",
+            "artist": "Khruangbin",
+            "description": "**The Universe Smiles Upon You** de *Khruangbin* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 291,
+            "title": "Folded",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273ce5bc87f637b46ad01831fc4",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0xuXSjCWQuiYDTjWiro3oX",
+            "artist": "Kehlani",
+            "description": "**Folded** de *Kehlani* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 313,
+            "title": "Caravanserai",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273093b9bc501a6a2041809a212",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Santana",
+            "description": "*Caravanserai* marque un moment dans la carrière de Santana. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 302,
+            "title": "Mayhem",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b0860cf0a98e09663c82290c",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Lady Gaga",
+            "description": "**Mayhem** de *Lady Gaga* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 284,
+            "title": "Southern Nights",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273336ed72565af2eb861952e8e",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/3l8Ht8HifFqSt4jZ3nqxy3",
+            "artist": "Sullivan Fortner",
+            "description": "*Southern Nights* marque un moment dans la carrière de Sullivan Fortner. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 292,
+            "title": "Songs of a Lost World",
+            "year": 2024,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738613a922e2b503736fb2f91f",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/4wjxmqXnSQvBZWL3IbYngX",
+            "artist": "The Cure",
+            "description": "Dans *Songs of a Lost World*, The Cure nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 279,
+            "title": "Brightside",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f3454bf8893ec60318e2b377",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2uKlHTuXAa9qacjncF1s4L",
+            "artist": "Arkai",
+            "description": "La **poésie musicale** de *Brightside* de Arkai transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 339,
+            "title": "Abraxas",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273283cccda1ee115b8f44f1c8b",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Santana",
+            "description": "Dans *Abraxas*, Santana nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 300,
+        "text_columns": 3,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "right",
+        "imageSize": "medium",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1218,
+          "title": "Happier Than Ever",
+          "artist": "Billie Eilish",
+          "year": 2021,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b2732a038d3bf875d23e4aeaa84e",
+          "spotify_url": null,
+          "description": "**Album Review: *Happier Than Ever* – Billie Eilish (2021)**\n\nBillie Eilish’s *Happier Than Ever* is a bold, emotionally charged evolution from her debut work, blending dark pop, moody R&B, and experimental rock into a hauntingly atmospheric soundscape. Departing slightly from her signature whispery minimalism, the album embraces lush instrumentation, punchy percussion, and dynamic shifts—most notably in the title track’s explosive finale.\n\nThe production, helmed by Eilish and brother Finneas O’Connell, is meticulously crafted, with layered synths, haunting harmonies, and raw, intimate vocal delivery. Tracks like *Happier Than Ever* and *Oxytocin* showcase Eilish’s maturity, balancing vulnerability with defiance. *Everything I Wanted* and *my future* highlight her knack for bittersweet storytelling, while *Halley’s Comet* flirts with disco-pop energy.\n\nInstrumentally, the album thrives on contrasts—ethereal pianos (*NDA*), gritty guitar distortion (*goldwing*), and thumping basslines (*blohsh*). *Happier Than Ever*",
+          "style": null
+        },
+        "artist_images": {
+          "Billie Eilish": "https://i.scdn.co/image/ab6761610000e5eb4a21b4760d2ecb7b0dcdc8da"
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "medium"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 283,
+            "title": "Without Further Ado, Vol 1",
+            "artist": "Christian Mcbride",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy"
+          },
+          {
+            "id": 263,
+            "title": "Orbital 2 (the Brown Album Expanded)",
+            "artist": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273eaef26541dc08b0d74a7f609",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6cni6TMOVlY9jAbEGAjOif"
+          },
+          {
+            "id": 346,
+            "title": "Breakfast in America",
+            "artist": "Supertramp",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2733032e8ae4b5939201d77277f",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1G40QqbxYWEeelWqf4hpbI"
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 283,
+            "album_title": "Without Further Ado, Vol 1",
+            "haiku": "**Without Further Ado, Vol 1**\nBasses qui sculptent l'air\nNotes en cascade d'or",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "right",
+              "imageSize": "large",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "none"
+            },
+            "description": "*Without Further Ado, Vol 1* marque un moment dans la carrière de Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          },
+          {
+            "album_id": 263,
+            "album_title": "Orbital 2 (the Brown Album Expanded)",
+            "haiku": "**Orbital 2 (the Brown Album Expanded)**\nÉchos stellaires bourdonnant\nRythmes sauvages, libres\n\n*(Inspiré par l'énergie électronique organique et l'espace sonore d'Orbital)*",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "right",
+              "imageSize": "large",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#10b981",
+              "specialEffect": "none"
+            },
+            "description": "Orbital livre avec *Orbital 2 (the Brown Album Expanded)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 346,
+            "album_title": "Breakfast in America",
+            "haiku": "**Breakfast in America**\nGuitares dorées au soleil\nMatin chantant en rythme",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "left",
+              "imageSize": "large",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#10b981",
+              "specialEffect": "gradient"
+            },
+            "description": "**Breakfast in America** de *Supertramp* (1979) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "small",
+        "columns": 3,
+        "spacing": "compact"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

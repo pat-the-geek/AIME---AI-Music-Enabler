@@ -1,0 +1,724 @@
+{
+  "id": "2026-02-14-010",
+  "edition_number": 10,
+  "generated_at": "2026-02-14T06:30:27.544864+00:00",
+  "albums": [
+    {
+      "id": 325,
+      "title": "Hydra",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273801ed6b1316f1bbbc41ac3f5",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Toto",
+      "description": "La **poésie musicale** de *Hydra* de Toto transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 301,
+      "title": "Hit Me Hard and Soft",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Billie Eilish",
+      "description": "*Hit Me Hard and Soft* marque un moment dans la carrière de Billie Eilish. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 332,
+      "title": "The Kick Inside (2018 Remaster)",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2730ac530fa01d68e1b89169e01",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Kate Bush",
+      "description": "Kate Bush livre avec *The Kick Inside (2018 Remaster)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 293,
+      "title": "As Alive As You Need Me To Be",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27317ff2581a6b924fb3a704395",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6KWRGQeL4dzohXRiSwJHK0",
+      "artist": "Nine Inch Nails",
+      "description": "**As Alive As You Need Me To Be** de *Nine Inch Nails* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 241,
+      "title": "Liberty (original Edition)",
+      "year": 2011,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2731e393c08ddd4c0854c758400",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1bMT2UKaqEI3TF4KERmUBB",
+      "artist": "Anette Askvik",
+      "description": "La **poésie musicale** de *Liberty (original Edition)* de Anette Askvik transcende les années depuis 2011. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 331,
+      "title": "Peter Gabriel 3: Melt (remastered)",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273c3e9ebd5e1999ae3ab639023",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Peter Gabriel",
+      "description": "Peter Gabriel livre avec *Peter Gabriel 3: Melt (remastered)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 285,
+      "title": "Portrait",
+      "year": 2024,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7sH4icMotSET9zBcbR5Gz4",
+      "artist": "Samara Joy",
+      "description": "La **poésie musicale** de *Portrait* de Samara Joy transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 303,
+      "title": "Debí Tirar Más Fotos",
+      "artist": "Bad Bunny",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273bbd45c8d36e0e045ef640411",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 400,
+      "title": "A Night In Tunisia",
+      "artist": "Art Blakey & the Jazz Messengers",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b571e015d3fafa30b50b5a3f",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 320,
+      "title": "Peter Gabriel 1: Car (remastered)",
+      "artist": "Peter Gabriel",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2736b141e77892ab2ccb60cf3cf",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 260,
+      "title": "The Slow Rush B-sides & Remixes",
+      "artist": "Tame Impala",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27322b9cdd0c4ce8cee5857f6a4",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0PUdc9WBtlyjG9Ba9DPmKa"
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "count": 21
+    },
+    {
+      "id": 254,
+      "title": "Everyday Robots",
+      "artist": "Damon Albarn",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2736ed97e7df0962eb994a54bc3",
+      "year": 2014,
+      "spotify_url": "https://open.spotify.com/album/5SzhltQSSi1HUMi5cveZIZ",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#FF00FF",
+        "specialEffect": "gradient"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Échos Musique*."
+    },
+    {
+      "id": 280,
+      "title": "A Matter of Time",
+      "artist": "Laufey",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738f68f6e65c1cfd36bb21561c",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/5rMOCuiWWbEBcHaKM69Hmv",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "asymmetric",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "tilt"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Échos Musique."
+    },
+    {
+      "id": 275,
+      "title": "Cold Beer & Country Music",
+      "artist": "Zach Top",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273eff0aba5b84f925e09f70b29",
+      "year": 2024,
+      "spotify_url": "https://open.spotify.com/album/2liHjGjIgWvjrfBgKGBYuF",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#ab47bc",
+        "specialEffect": "gradient"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 286,
+      "title": "Trilogy 3 (live)",
+      "artist": "Chick Corea, Brian Blade & Christian Mcbride",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273636688536fdadbf58c806e9a",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/1TfKOn7USTqlVKw00xSGiy",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "chaos",
+        "accentColor": "#FF00FF",
+        "specialEffect": "gradient"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 243,
+      "title": "Illinois",
+      "artist": "Sufjan Stevens",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273712c76b4152918fb8d37c53d",
+      "year": 2005,
+      "spotify_url": "https://open.spotify.com/album/1pOl0KEC1iQnA6F0XxV4To",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "asymmetric",
+        "composition": "playful",
+        "accentColor": "#FF00FF",
+        "specialEffect": "gradient"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 1205,
+      "title": "Rhapsody In Blue • Concerto In F",
+      "artist": "George Gershwin, Philippe Entremont, Eugene Ormandy, The Philadelphia Orchestra",
+      "year": 1971,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b64f59856eea8a8f6c584910",
+      "spotify_url": null,
+      "description": "**Album Review: *Rhapsody in Blue • Concerto in F* – George Gershwin, Philippe Entremont, Eugene Ormandy (1971)**\n\nThis 1971 recording captures two of George Gershwin’s most iconic works, performed with brilliant artistry by pianist Philippe Entremont and the Philadelphia Orchestra under Eugene Ormandy. Blending jazz-infused orchestration with classical sophistication, Gershwin’s *Rhapsody in Blue* and *Concerto in F* redefine the boundaries of American music. The former pulses with vibrant energy, its iconic clarinet glissando setting the stage for a richly layered, cinematic journey, while the latter shines with lyrical elegance and rhythmic drive.\n\nOrmandy’s conducting brings out the music’s warmth and dynamism, with Entremont’s virtuosic pianism adding precision and emotional depth. The production quality is impeccable, with a warm, resonant orchestral sound that highlights Gershwin’s lush harmonies and rhythmic ingenuity. Standout moments include the sweeping crescendos of *Rhapsody in Blue* and the playful interplay in *Concerto in F*’s second movement",
+      "style": null
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "The Police",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "center",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#f7931e",
+        "specialEffect": "gradient"
+      },
+      "content": {
+        "artist": {
+          "name": "The Police",
+          "albums_count": 7,
+          "haiku": "**Hydra**\nCordes serpentines dans l'ombre\nÉchos ondulants, fluides\n\n*(Inspiré par l'album \"Hydra\" de Toto, mêlant métaphores aquatiques et musicales.)*\n\n*(Note : L'artiste mentionné dans la consigne, The Police, n'est pas lié à Toto. J'ai ignoré cette information pour rester fidèle à la demande initiale.)*",
+          "bio": "**The Police** nous offre 7 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/1f73a61faca2942cd5ea29c2143184db8645f0b3"
+        },
+        "albums": [
+          {
+            "id": 325,
+            "title": "Hydra",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273801ed6b1316f1bbbc41ac3f5",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Toto",
+            "description": "La **poésie musicale** de *Hydra* de Toto transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 301,
+            "title": "Hit Me Hard and Soft",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Billie Eilish",
+            "description": "*Hit Me Hard and Soft* marque un moment dans la carrière de Billie Eilish. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 332,
+            "title": "The Kick Inside (2018 Remaster)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2730ac530fa01d68e1b89169e01",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Kate Bush",
+            "description": "Kate Bush livre avec *The Kick Inside (2018 Remaster)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 293,
+            "title": "As Alive As You Need Me To Be",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27317ff2581a6b924fb3a704395",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6KWRGQeL4dzohXRiSwJHK0",
+            "artist": "Nine Inch Nails",
+            "description": "**As Alive As You Need Me To Be** de *Nine Inch Nails* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 241,
+            "title": "Liberty (original Edition)",
+            "year": 2011,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2731e393c08ddd4c0854c758400",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1bMT2UKaqEI3TF4KERmUBB",
+            "artist": "Anette Askvik",
+            "description": "La **poésie musicale** de *Liberty (original Edition)* de Anette Askvik transcende les années depuis 2011. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 331,
+            "title": "Peter Gabriel 3: Melt (remastered)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273c3e9ebd5e1999ae3ab639023",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Peter Gabriel",
+            "description": "Peter Gabriel livre avec *Peter Gabriel 3: Melt (remastered)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 285,
+            "title": "Portrait",
+            "year": 2024,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732dd54d331a2f25be00e87920",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7sH4icMotSET9zBcbR5Gz4",
+            "artist": "Samara Joy",
+            "description": "La **poésie musicale** de *Portrait* de Samara Joy transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 300,
+        "text_columns": 2,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 303,
+            "title": "Debí Tirar Más Fotos",
+            "artist": "Bad Bunny",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273bbd45c8d36e0e045ef640411",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 400,
+            "title": "A Night In Tunisia",
+            "artist": "Art Blakey & the Jazz Messengers",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b571e015d3fafa30b50b5a3f",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 320,
+            "title": "Peter Gabriel 1: Car (remastered)",
+            "artist": "Peter Gabriel",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2736b141e77892ab2ccb60cf3cf",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 260,
+            "title": "The Slow Rush B-sides & Remixes",
+            "artist": "Tame Impala",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27322b9cdd0c4ce8cee5857f6a4",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0PUdc9WBtlyjG9Ba9DPmKa"
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 303,
+            "album_title": "Debí Tirar Más Fotos",
+            "haiku": "**Debí Tirar Más Fotos**\nClichés perdus en rythme\nMélodies volées au vent",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "right",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#06b6d4",
+              "specialEffect": "gradient"
+            },
+            "description": "**Debí Tirar Más Fotos** de *Bad Bunny* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          },
+          {
+            "album_id": 400,
+            "album_title": "A Night In Tunisia",
+            "haiku": "**A Night In Tunisia**\nSable doré sous les cymbales\nRêves fous en contrepoint",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "diagonal",
+              "imageSize": "large",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "zoom"
+            },
+            "description": "Dans *A Night In Tunisia*, Art Blakey & the Jazz Messengers nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 320,
+            "album_title": "Peter Gabriel 1: Car (remastered)",
+            "haiku": "**Peter Gabriel 1: Car (remastered)**\nVoix brisant la nuit\nÉchos d’un cœur électrique",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "left",
+              "imageSize": "medium",
+              "textLayout": "single-column",
+              "composition": "dramatic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "none"
+            },
+            "description": "La **poésie musicale** de *Peter Gabriel 1: Car (remastered)* de Peter Gabriel transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 260,
+            "album_title": "The Slow Rush B-sides & Remixes",
+            "haiku": "**The Slow Rush B-sides & Remixes**\nÉchos perdus dans le flux\nRythmes égarés, retrouvés",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "right",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "playful",
+              "accentColor": "#06b6d4",
+              "specialEffect": "zoom"
+            },
+            "description": "**The Slow Rush B-sides & Remixes** de *Tame Impala* (2022) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "small",
+        "columns": 1,
+        "spacing": "normal"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "left",
+        "imageSize": "medium",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#667eea",
+        "specialEffect": "frame"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 41,
+        "unique_albums": 67,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 295,
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273819ccf19e41a22238bc99396",
+            "count": 34
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "count": 17
+          },
+          {
+            "album_id": 1151,
+            "album_title": "Live At Wembley Stadium",
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2737c48e6997b73d924f319ba62",
+            "spotify_url": null,
+            "count": 17
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "donut",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Échos Musique",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Échos Musique",
+          "description": "*Échos Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 254,
+              "title": "Everyday Robots",
+              "artist": "Damon Albarn",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2736ed97e7df0962eb994a54bc3",
+              "year": 2014,
+              "spotify_url": "https://open.spotify.com/album/5SzhltQSSi1HUMi5cveZIZ",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Échos Musique*."
+            },
+            {
+              "id": 280,
+              "title": "A Matter of Time",
+              "artist": "Laufey",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2738f68f6e65c1cfd36bb21561c",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/5rMOCuiWWbEBcHaKM69Hmv",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "tilt"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Échos Musique."
+            },
+            {
+              "id": 275,
+              "title": "Cold Beer & Country Music",
+              "artist": "Zach Top",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273eff0aba5b84f925e09f70b29",
+              "year": 2024,
+              "spotify_url": "https://open.spotify.com/album/2liHjGjIgWvjrfBgKGBYuF",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "gradient"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 286,
+              "title": "Trilogy 3 (live)",
+              "artist": "Chick Corea, Brian Blade & Christian Mcbride",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273636688536fdadbf58c806e9a",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/1TfKOn7USTqlVKw00xSGiy",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "chaos",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 260,
+              "title": "The Slow Rush B-sides & Remixes",
+              "artist": "Tame Impala",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27322b9cdd0c4ce8cee5857f6a4",
+              "year": 2022,
+              "spotify_url": "https://open.spotify.com/album/0PUdc9WBtlyjG9Ba9DPmKa",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "playful",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 243,
+              "title": "Illinois",
+              "artist": "Sufjan Stevens",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273712c76b4152918fb8d37c53d",
+              "year": 2005,
+              "spotify_url": "https://open.spotify.com/album/1pOl0KEC1iQnA6F0XxV4To",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "playful",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "detailed",
+        "image_position": "left"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1205,
+          "title": "Rhapsody In Blue • Concerto In F",
+          "artist": "George Gershwin, Philippe Entremont, Eugene Ormandy, The Philadelphia Orchestra",
+          "year": 1971,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273b64f59856eea8a8f6c584910",
+          "spotify_url": null,
+          "description": "**Album Review: *Rhapsody in Blue • Concerto in F* – George Gershwin, Philippe Entremont, Eugene Ormandy (1971)**\n\nThis 1971 recording captures two of George Gershwin’s most iconic works, performed with brilliant artistry by pianist Philippe Entremont and the Philadelphia Orchestra under Eugene Ormandy. Blending jazz-infused orchestration with classical sophistication, Gershwin’s *Rhapsody in Blue* and *Concerto in F* redefine the boundaries of American music. The former pulses with vibrant energy, its iconic clarinet glissando setting the stage for a richly layered, cinematic journey, while the latter shines with lyrical elegance and rhythmic drive.\n\nOrmandy’s conducting brings out the music’s warmth and dynamism, with Entremont’s virtuosic pianism adding precision and emotional depth. The production quality is impeccable, with a warm, resonant orchestral sound that highlights Gershwin’s lush harmonies and rhythmic ingenuity. Standout moments include the sweeping crescendos of *Rhapsody in Blue* and the playful interplay in *Concerto in F*’s second movement",
+          "style": null
+        },
+        "artist_images": {
+          "George Gershwin": "https://i.scdn.co/image/0031f27d5c6ee70820cb6e115b19f846d2fab31b",
+          "Philippe Entremont": "https://i.scdn.co/image/8db7814a886461b6097e359f6488533d230086e3",
+          "Eugene Ormandy": "https://i.scdn.co/image/95d899a772ee7b2da28479a980bced44f8c98811",
+          "The Philadelphia Orchestra": "https://i.scdn.co/image/ab67616d0000b27300211472a7a8d60a471f24c7"
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "large"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

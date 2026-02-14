@@ -84,6 +84,13 @@ class HealthMonitor:
         Performance:
             O(1) - pure initialization, no database access
         """
+        self.start_time = datetime.now()
+        self.request_count = 0
+        self.error_count = 0
+        self.last_db_check = None
+        self.db_healthy = False
+        self.last_error_message = None
+        self.max_error_rate = 10.0
     
     def record_request(self, success: bool = True):
         """Record API request outcome for error rate tracking.

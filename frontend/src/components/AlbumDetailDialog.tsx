@@ -312,7 +312,7 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
                               target="_blank"
                               color="success"
                             >
-                              🎵 Écouter sur Spotify
+                              ▶️ Jouer sur Spotify
                             </Button>
                           )}
                           {roon?.enabled && (

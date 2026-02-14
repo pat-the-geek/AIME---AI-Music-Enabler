@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Box, Typography, Grid, Card, CardContent, CardMedia, Stack, Paper, Avatar, Chip, Button } from '@mui/material'
-import { Article as ArticleIcon } from '@mui/icons-material'
+import { Article as ArticleIcon, PlayArrow as PlayArrowIcon } from '@mui/icons-material'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import apiClient from '@/api/client'
@@ -52,6 +52,30 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
   
   // State pour la couleur dynamique du fond
   const [dominantColor, setDominantColor] = useState<string>('#ffffff')
+
+  const handleOpenSpotify = (url?: string | null) => {
+    if (!url) return
+    window.open(url, '_blank')
+  }
+
+  const handleOpenAppleMusic = (albumTitle?: string, artistName?: string, appleMusicUrl?: string | null) => {
+    // Si une URL Apple Music existe, utiliser celle-ci (générée par Euria)
+    if (appleMusicUrl) {
+      const w = window.open(appleMusicUrl, '_blank')
+      if (w) setTimeout(() => w.close(), 1000)
+      return
+    }
+    
+    // Sinon, construire une URL de recherche Apple Music
+    if (!albumTitle || !artistName) return
+    
+    const searchQuery = `${albumTitle} ${artistName}`.trim()
+    const encodedQuery = encodeURIComponent(searchQuery)
+    // Format de recherche Apple Music: ouvre l'album dans l'app
+    const appleMusicSearchUrl = `https://music.apple.com/search?term=${encodedQuery}`
+    const w = window.open(appleMusicSearchUrl, '_blank')
+    if (w) setTimeout(() => w.close(), 1000)
+  }
 
   // Fonction pour extraire la couleur la plus claire d'une image
   const extractBrightestColor = async (imageUrl: string): Promise<string> => {
@@ -534,7 +558,41 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                             }}
                           />
                         )}
-                        <Box sx={{ display: 'flex', gap: '8px', marginTop: '12px', alignItems: 'center', justifyContent: 'flex-end' }}>
+                        <Box sx={{ display: 'flex', gap: '8px', marginTop: '12px', alignItems: 'center', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+                          <Button
+                            size="small"
+                            variant="contained"
+                            color="success"
+                            startIcon={<PlayArrowIcon />}
+                            disabled={!album.spotify_url}
+                            onClick={() => album.spotify_url && handleOpenSpotify(album.spotify_url)}
+                            sx={{
+                              fontFamily: '"Roboto Condensed", sans-serif',
+                              fontWeight: 700,
+                              fontSize: '10px',
+                              textTransform: 'uppercase'
+                            }}
+                          >
+                            Jouer sur Spotify
+                          </Button>
+                          <Button
+                            size="small"
+                            variant="contained"
+                            sx={{
+                              backgroundColor: '#FA243C',
+                              color: '#ffffff',
+                              fontFamily: '"Roboto Condensed", sans-serif',
+                              fontWeight: 700,
+                              fontSize: '10px',
+                              textTransform: 'uppercase',
+                              '&:hover': {
+                                backgroundColor: '#E01B2F'
+                              }
+                            }}
+                            onClick={() => handleOpenAppleMusic(album.title, album.artist_name || album.artist, album.apple_music_url)}
+                          >
+                            🎵
+                          </Button>
                           <Button
                             size="small"
                             variant="outlined"
@@ -781,7 +839,45 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                     {album.artist}
                     {album.year && ` • ${album.year}`}
                   </Typography>
-                  <Box sx={{ display: 'flex', gap: '8px', marginLeft: 'auto' }}>
+                  <Box sx={{ display: 'flex', gap: '8px', marginLeft: 'auto', flexWrap: 'wrap' }}>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      color="success"
+                      startIcon={<PlayArrowIcon />}
+                      disabled={!album.spotify_url}
+                      onClick={() => album.spotify_url && handleOpenSpotify(album.spotify_url)}
+                      sx={{
+                        fontFamily: '"Roboto Condensed", sans-serif',
+                        fontWeight: 700,
+                        fontSize: '11px',
+                        padding: '4px 8px',
+                        height: '24px',
+                        textTransform: 'uppercase'
+                      }}
+                    >
+                      Jouer sur Spotify
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      sx={{
+                        backgroundColor: '#FA243C',
+                        color: '#ffffff',
+                        fontFamily: '"Roboto Condensed", sans-serif',
+                        fontWeight: 700,
+                        fontSize: '11px',
+                        padding: '4px 8px',
+                        height: '24px',
+                        textTransform: 'uppercase',
+                        '&:hover': {
+                          backgroundColor: '#E01B2F'
+                        }
+                      }}
+                      onClick={() => handleOpenAppleMusic(album.title, album.artist, album.apple_music_url)}
+                    >
+                      🎵 Apple Music
+                    </Button>
                     <Button
                       size="small"
                       variant="outlined"
@@ -984,7 +1080,45 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                         <ReactMarkdown>{haiku.haiku}</ReactMarkdown>
                       </Box>
                     )}
-                    <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="success"
+                        startIcon={<PlayArrowIcon />}
+                        disabled={!album.spotify_url}
+                        onClick={() => album.spotify_url && handleOpenSpotify(album.spotify_url)}
+                        sx={{
+                          fontFamily: '"Roboto Condensed", sans-serif',
+                          fontWeight: 700,
+                          fontSize: '10px',
+                          padding: '2px 8px',
+                          height: '22px',
+                          textTransform: 'uppercase'
+                        }}
+                      >
+                        Jouer sur Spotify
+                      </Button>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        sx={{
+                          backgroundColor: '#FA243C',
+                          color: '#ffffff',
+                          fontFamily: '"Roboto Condensed", sans-serif',
+                          fontWeight: 700,
+                          fontSize: '10px',
+                          padding: '2px 8px',
+                          height: '22px',
+                          textTransform: 'uppercase',
+                          '&:hover': {
+                            backgroundColor: '#E01B2F'
+                          }
+                        }}
+                        onClick={() => handleOpenAppleMusic(album.title, album.artist, album.apple_music_url)}
+                      >
+                        🎵
+                      </Button>
                       <Button
                         size="small"
                         variant="outlined"
@@ -1177,7 +1311,49 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                   <Typography sx={{ flex: 1, fontWeight: 600, color: '#ffffff' }}>
                     {item.artist_name || `Artiste #${item.artist_id}`}
                   </Typography>
-                  <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-end' }}>
+                    <Box sx={{ display: 'flex', gap: '4px' }}>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="success"
+                        startIcon={<PlayArrowIcon />}
+                        disabled={!item.spotify_url}
+                        onClick={() => item.spotify_url && handleOpenSpotify(item.spotify_url)}
+                        sx={{
+                          fontFamily: '"Roboto Condensed", sans-serif',
+                          fontWeight: 700,
+                          fontSize: '8px',
+                          padding: '2px 6px',
+                          height: '18px',
+                          minWidth: '30px',
+                          textTransform: 'uppercase'
+                        }}
+                      >
+                        Jouer sur Spotify
+                      </Button>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        sx={{
+                          backgroundColor: '#FA243C',
+                          color: '#ffffff',
+                          fontFamily: '"Roboto Condensed", sans-serif',
+                          fontWeight: 700,
+                          fontSize: '8px',
+                          padding: '2px 6px',
+                          height: '18px',
+                          minWidth: '25px',
+                          textTransform: 'uppercase',
+                          '&:hover': {
+                            backgroundColor: '#E01B2F'
+                          }
+                        }}
+                        onClick={() => handleOpenAppleMusic(undefined, item.artist_name, item.apple_music_url)}
+                      >
+                        🎵
+                      </Button>
+                    </Box>
                     {item.artist_name && (
                       <Button
                         size="small"
@@ -1290,7 +1466,53 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                       {item.artist_name}
                     </Typography>
                   </Box>
-                  <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-end' }}>
+                    <Box sx={{ display: 'flex', gap: '4px' }}>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="success"
+                        startIcon={<PlayArrowIcon />}
+                        disabled={!item.spotify_url}
+                        onClick={() => item.spotify_url && handleOpenSpotify(item.spotify_url)}
+                        sx={{
+                          fontFamily: '"Roboto Condensed", sans-serif',
+                          fontWeight: 700,
+                          fontSize: '8px',
+                          padding: '2px 6px',
+                          height: '18px',
+                          minWidth: '30px',
+                          textTransform: 'uppercase'
+                        }}
+                      >
+                        Jouer sur Spotify
+                      </Button>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        sx={{
+                          backgroundColor: '#FA243C',
+                          color: '#ffffff',
+                          fontFamily: '"Roboto Condensed", sans-serif',
+                          fontWeight: 700,
+                          fontSize: '8px',
+                          padding: '2px 6px',
+                          height: '18px',
+                          minWidth: '25px',
+                          textTransform: 'uppercase',
+                          '&:hover': {
+                            backgroundColor: '#E01B2F'
+                          },
+                          '&:disabled': {
+                            backgroundColor: '#999',
+                            color: '#ccc'
+                          }
+                        }}
+                        onClick={() => handleOpenAppleMusic(item.album_title, item.artist_name, item.apple_music_url)}
+                      >
+                        🎵
+                      </Button>
+                    </Box>
                     {item.artist_name && (
                       <Button
                         size="small"
@@ -1460,7 +1682,47 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                       }}
                     />
                   )}
-                  <Box sx={{ display: 'flex', gap: '8px', marginTop: '12px', alignItems: 'center', justifyContent: 'flex-end' }}>
+                  <Box sx={{ display: 'flex', gap: '8px', marginTop: '12px', alignItems: 'center', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      color="success"
+                      startIcon={<PlayArrowIcon />}
+                      disabled={!album.spotify_url}
+                      onClick={() => album.spotify_url && handleOpenSpotify(album.spotify_url)}
+                      sx={{
+                        fontFamily: '"Roboto Condensed", sans-serif',
+                        fontWeight: 700,
+                        fontSize: '9px',
+                        padding: '2px 6px',
+                        height: '18px',
+                        minWidth: '40px',
+                        textTransform: 'uppercase'
+                      }}
+                    >
+                      Jouer sur Spotify
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      sx={{
+                        backgroundColor: '#FA243C',
+                        color: '#ffffff',
+                        fontFamily: '"Roboto Condensed", sans-serif',
+                        fontWeight: 700,
+                        fontSize: '9px',
+                        padding: '2px 6px',
+                        height: '18px',
+                        minWidth: '35px',
+                        textTransform: 'uppercase',
+                        '&:hover': {
+                          backgroundColor: '#E01B2F'
+                        }
+                      }}
+                      onClick={() => handleOpenAppleMusic(album.title, album.artist, album.apple_music_url)}
+                    >
+                      🎵
+                    </Button>
                     <Button
                       size="small"
                       variant="outlined"

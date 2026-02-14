@@ -1,0 +1,671 @@
+{
+  "id": "2026-02-14-004",
+  "edition_number": 4,
+  "generated_at": "2026-02-14T03:30:12.322699+00:00",
+  "albums": [
+    {
+      "id": 245,
+      "title": "Is This It",
+      "year": 2001,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+      "artist": "The Strokes",
+      "description": "The Strokes livre avec *Is This It* (2001) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "existing"
+    },
+    {
+      "id": 281,
+      "title": "Live-action",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6KpA380vLBVA6d6lYebIk3",
+      "artist": "Nate Smith",
+      "description": "La **poésie musicale** de *Live-action* de Nate Smith transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 284,
+      "title": "Southern Nights",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273336ed72565af2eb861952e8e",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/3l8Ht8HifFqSt4jZ3nqxy3",
+      "artist": "Sullivan Fortner",
+      "description": "*Southern Nights* marque un moment dans la carrière de Sullivan Fortner. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 255,
+      "title": "Little Dark Age",
+      "year": 2018,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273872a896e7c3776d6949df476",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7GjVWG39IOj4viyWplJV4H",
+      "artist": "Mgmt",
+      "description": "*Little Dark Age* marque un moment dans la carrière de Mgmt. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 257,
+      "title": "Dropout Boogie",
+      "year": 2022,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2730e8e7267c0b377e5751630f3",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7LLyQJzyD56Avzk3uFzKUk",
+      "artist": "The Black Keys",
+      "description": "Dans *Dropout Boogie*, The Black Keys nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 242,
+      "title": "Dire Straits",
+      "year": 1978,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b49d49cc95564aede7998bb8",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2rCS6Xwx32V27pvgFzLzlT",
+      "artist": "Dire Straits",
+      "description": "Dans *Dire Straits*, Dire Straits nous offre un **voyage sonore** particulier. Sorti en 1978, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 324,
+      "title": "Even In the Quietest Moments...",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273bddcc30c6a3288e725aec2df",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Supertramp",
+      "description": "Supertramp livre avec *Even In the Quietest Moments...* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "existing"
+    },
+    {
+      "id": 300,
+      "title": "The Art of Loving",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2739a336bfb6d40bbd90a507417",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Olivia Dean",
+      "description": "Dans *The Art of Loving*, Olivia Dean nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "count": 21
+    },
+    {
+      "id": 1293,
+      "title": "The Now Now",
+      "artist": "Gorillaz",
+      "year": 2018,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2734d9f7b88e82db31d13ac6668",
+      "spotify_url": null,
+      "description": "**Album Review: Gorillaz – *The Now Now* (2018)**\n\nGorillaz’s *The Now Now* (2018) marks a bold departure from the band’s signature hip-hop and alternative rock fusion, embracing a sleek, synth-driven pop aesthetic. Blending elements of funk, electronic, and art-pop, the album delivers a polished, futuristic sound that feels both playful and introspective. The production, helmed by longtime collaborators The Twilite Tone and Gorillaz’s own Damon Albarn, is immaculate—crisp percussions, lush synths, and playful basslines create a vibrant yet dreamy atmosphere.\n\nEmotionally, *The Now Now* oscillates between whimsy and melancholy, with lyrics that touch on nostalgia, solitude, and escapism. Standout tracks like the funky opener *\"Humility\"* (featuring George Clinton) and the hypnotic *\"Fire Flies\"* showcase Gorillaz’s knack for infectious melodies. The album’s instrumentation is inventive, from the glitchy beats of *\"Hollywood\"* to the soulful groove of *\"Lake Zurich\"*, proving that the virtual band remains a boundary-p",
+      "style": null
+    },
+    {
+      "id": 434,
+      "title": "Trilogy: Past, Present & Future",
+      "artist": "Frank Sinatra",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273525feb64b8c90fa8fff368ef",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 265,
+      "title": "Monsters Exist (deluxe)",
+      "artist": "Orbital",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273bd38413ff0aae6f75333b40e",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0IAAy7IDTqdCpydFNKpulW"
+    },
+    {
+      "id": 364,
+      "title": "A Kind of Magic (deluxe Edition 2011 Remaster)",
+      "artist": "Queen",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b6891188d64a11174e2dca5c",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 381,
+      "title": "Requiem For a Dream / Ost (nonesuch Store Edition)",
+      "artist": "Clint Mansell",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2737f519ee9bbb3e6d1d6aba171",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 250,
+      "title": "L.a. Woman",
+      "artist": "The Doors",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+      "year": 1971,
+      "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 276,
+      "title": "Snipe Hunter",
+      "artist": "Tyler Childers",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273e47f3451435776271b3d43da",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/00rssxYxFqqdbuO1lz1Gxa",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "gradient"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Headache",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "left",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#f7931e",
+        "specialEffect": "blur"
+      },
+      "content": {
+        "artist": {
+          "name": "Headache",
+          "albums_count": 8,
+          "haiku": "**Is This It**\nÉcho d'une guitare en feu\nNuit électrique, nue",
+          "bio": "**Headache** nous offre 8 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5eb65f233b0d88ce3616f7a2275"
+        },
+        "albums": [
+          {
+            "id": 245,
+            "title": "Is This It",
+            "year": 2001,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+            "artist": "The Strokes",
+            "description": "The Strokes livre avec *Is This It* (2001) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 281,
+            "title": "Live-action",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6KpA380vLBVA6d6lYebIk3",
+            "artist": "Nate Smith",
+            "description": "La **poésie musicale** de *Live-action* de Nate Smith transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 284,
+            "title": "Southern Nights",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273336ed72565af2eb861952e8e",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/3l8Ht8HifFqSt4jZ3nqxy3",
+            "artist": "Sullivan Fortner",
+            "description": "*Southern Nights* marque un moment dans la carrière de Sullivan Fortner. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 255,
+            "title": "Little Dark Age",
+            "year": 2018,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273872a896e7c3776d6949df476",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7GjVWG39IOj4viyWplJV4H",
+            "artist": "Mgmt",
+            "description": "*Little Dark Age* marque un moment dans la carrière de Mgmt. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 257,
+            "title": "Dropout Boogie",
+            "year": 2022,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2730e8e7267c0b377e5751630f3",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7LLyQJzyD56Avzk3uFzKUk",
+            "artist": "The Black Keys",
+            "description": "Dans *Dropout Boogie*, The Black Keys nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 242,
+            "title": "Dire Straits",
+            "year": 1978,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b49d49cc95564aede7998bb8",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2rCS6Xwx32V27pvgFzLzlT",
+            "artist": "Dire Straits",
+            "description": "Dans *Dire Straits*, Dire Straits nous offre un **voyage sonore** particulier. Sorti en 1978, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 324,
+            "title": "Even In the Quietest Moments...",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273bddcc30c6a3288e725aec2df",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Supertramp",
+            "description": "Supertramp livre avec *Even In the Quietest Moments...* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 300,
+            "title": "The Art of Loving",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2739a336bfb6d40bbd90a507417",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Olivia Dean",
+            "description": "Dans *The Art of Loving*, Olivia Dean nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 600,
+        "text_columns": 3,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 5,
+        "imagePosition": "split",
+        "imageSize": "medium",
+        "textLayout": "vertical",
+        "composition": "zen",
+        "accentColor": "#764ba2",
+        "specialEffect": "blur"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 41,
+        "unique_albums": 67,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 295,
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273819ccf19e41a22238bc99396",
+            "count": 34
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "count": 17
+          },
+          {
+            "album_id": 1151,
+            "album_title": "Live At Wembley Stadium",
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2737c48e6997b73d924f319ba62",
+            "spotify_url": null,
+            "count": 17
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "donut",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1293,
+          "title": "The Now Now",
+          "artist": "Gorillaz",
+          "year": 2018,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b2734d9f7b88e82db31d13ac6668",
+          "spotify_url": null,
+          "description": "**Album Review: Gorillaz – *The Now Now* (2018)**\n\nGorillaz’s *The Now Now* (2018) marks a bold departure from the band’s signature hip-hop and alternative rock fusion, embracing a sleek, synth-driven pop aesthetic. Blending elements of funk, electronic, and art-pop, the album delivers a polished, futuristic sound that feels both playful and introspective. The production, helmed by longtime collaborators The Twilite Tone and Gorillaz’s own Damon Albarn, is immaculate—crisp percussions, lush synths, and playful basslines create a vibrant yet dreamy atmosphere.\n\nEmotionally, *The Now Now* oscillates between whimsy and melancholy, with lyrics that touch on nostalgia, solitude, and escapism. Standout tracks like the funky opener *\"Humility\"* (featuring George Clinton) and the hypnotic *\"Fire Flies\"* showcase Gorillaz’s knack for infectious melodies. The album’s instrumentation is inventive, from the glitchy beats of *\"Hollywood\"* to the soulful groove of *\"Lake Zurich\"*, proving that the virtual band remains a boundary-p",
+          "style": null
+        },
+        "artist_images": {
+          "Gorillaz": "https://i.scdn.co/image/ab6761610000e5ebdd5b57b40cf2aaeccd07835e"
+        }
+      },
+      "dimensions": {
+        "image_size": "large",
+        "description_length": "full",
+        "font_size": "large"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 4,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 434,
+            "title": "Trilogy: Past, Present & Future",
+            "artist": "Frank Sinatra",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273525feb64b8c90fa8fff368ef",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 265,
+            "title": "Monsters Exist (deluxe)",
+            "artist": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273bd38413ff0aae6f75333b40e",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0IAAy7IDTqdCpydFNKpulW"
+          },
+          {
+            "id": 364,
+            "title": "A Kind of Magic (deluxe Edition 2011 Remaster)",
+            "artist": "Queen",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b6891188d64a11174e2dca5c",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 381,
+            "title": "Requiem For a Dream / Ost (nonesuch Store Edition)",
+            "artist": "Clint Mansell",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2737f519ee9bbb3e6d1d6aba171",
+            "genre": null,
+            "spotify_url": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 434,
+            "album_title": "Trilogy: Past, Present & Future",
+            "haiku": "**Trilogy: Past, Present & Future**\nNotes d'or en spirale\nTemps chantant en trio",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "right",
+              "imageSize": "large",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#10b981",
+              "specialEffect": "none"
+            },
+            "description": "Frank Sinatra livre avec *Trilogy: Past, Present & Future* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 265,
+            "album_title": "Monsters Exist (deluxe)",
+            "haiku": "**Monsters Exist (deluxe)**\nSynthés en fuite rapide\nÉcho des monstres électriques",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "right",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#ff6b35",
+              "specialEffect": "zoom"
+            },
+            "description": "Orbital livre avec *Monsters Exist (deluxe)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 364,
+            "album_title": "A Kind of Magic (deluxe Edition 2011 Remaster)",
+            "haiku": "**A Kind of Magic**\nÉclairs d'or envolés\nHarmonies célestes\n\n*(Inspiré par la magie et l'énergie du rock de Queen, mêlant lumière, émotion et envolée musicale.)*",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "right",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#06b6d4",
+              "specialEffect": "none"
+            },
+            "description": "Queen livre avec *A Kind of Magic (deluxe Edition 2011 Remaster)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 381,
+            "album_title": "Requiem For a Dream / Ost (nonesuch Store Edition)",
+            "haiku": "**Requiem For a Dream / Ost**\nCordes déchirant l'âme\nSilence hurle en écho",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "left",
+              "imageSize": "small",
+              "textLayout": "single-column",
+              "composition": "dramatic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "gradient"
+            },
+            "description": "**Requiem For a Dream / Ost (nonesuch Store Edition)** de *Clint Mansell* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "large",
+        "columns": 2,
+        "spacing": "normal"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Nuits Musique",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Nuits Musique",
+          "description": "*Nuits Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 284,
+              "title": "Southern Nights",
+              "artist": "Sullivan Fortner",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273336ed72565af2eb861952e8e",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/3l8Ht8HifFqSt4jZ3nqxy3",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "gradient"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 250,
+              "title": "L.a. Woman",
+              "artist": "The Doors",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+              "year": 1971,
+              "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 265,
+              "title": "Monsters Exist (deluxe)",
+              "artist": "Orbital",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273bd38413ff0aae6f75333b40e",
+              "year": 2018,
+              "spotify_url": "https://open.spotify.com/album/0IAAy7IDTqdCpydFNKpulW",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 281,
+              "title": "Live-action",
+              "artist": "Nate Smith",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/6KpA380vLBVA6d6lYebIk3",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Nuits Musique*."
+            },
+            {
+              "id": 276,
+              "title": "Snipe Hunter",
+              "artist": "Tyler Childers",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273e47f3451435776271b3d43da",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/00rssxYxFqqdbuO1lz1Gxa",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "gradient"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "artistic",
+        "image_position": "background"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

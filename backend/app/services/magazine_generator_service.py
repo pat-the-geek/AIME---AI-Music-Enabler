@@ -1577,6 +1577,8 @@ Format strict :
                 "year": album.year,
                 "image_url": album.image_url,
                 "genre": album.genre,
+                "spotify_url": album.spotify_url,
+                "apple_music_url": album.apple_music_url,
                 "artist": self._get_artist_name(album),
                 "description": ai_content,
                 "content_type": content_type
@@ -1742,6 +1744,8 @@ Format strict :
                     "year": album.year,
                     "genre": album.genre,
                     "image_url": album.image_url,
+                    "spotify_url": album.spotify_url,
+                    "apple_music_url": album.apple_music_url,
                     "description": description,
                     "style": album.ai_style
                 },
@@ -1836,7 +1840,9 @@ Format strict :
                         "title": album.title,
                         "artist": ", ".join([a.name for a in album.artists]) if album.artists else "?",
                         "image_url": album.image_url,
-                        "genre": album.genre
+                        "genre": album.genre,
+                        "spotify_url": album.spotify_url,
+                        "apple_music_url": album.apple_music_url
                     }
                     for album in selected_albums
                 ],
@@ -1926,6 +1932,8 @@ Format strict :
                         "album_title": album.title,
                         "artist_name": self._get_artist_name(album),
                         "image_url": image_url,
+                        "spotify_url": album.spotify_url,
+                        "apple_music_url": album.apple_music_url,
                         "count": count
                     })
         else:
@@ -2028,6 +2036,8 @@ Format strict :
                 "artist": ", ".join([a.name for a in album.artists]) if album.artists else "?",
                 "image_url": album.image_url,
                 "year": album.year,
+                "spotify_url": album.spotify_url,
+                "apple_music_url": album.apple_music_url,
                 "layout": album_layout,
                 "reason": album_reason
             })
@@ -2073,6 +2083,8 @@ Format strict :
                 "year": 2024 - i,
                 "image_url": f"https://via.placeholder.com/300?text=Album+{i+1}",
                 "genre": "Musique",
+                "spotify_url": None,
+                "apple_music_url": None,
                 "artist": f"Artiste {i+1}",
                 "description": "**Une création musicale** qui mérite l'attention. Cet album *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée.",
                 "content_type": "fallback"
@@ -2168,7 +2180,8 @@ Format strict :
                         "title": h["album_title"],
                         "artist": "Artiste Haïku",
                         "image_url": "https://via.placeholder.com/300?text=Haiku",
-                        "genre": "Musique"
+                        "genre": "Musique",
+                        "spotify_url": None
                     }
                     for h in fallback_haikus
                 ],
@@ -2192,6 +2205,7 @@ Format strict :
                 "artist": f"Artiste {i+1}",
                 "image_url": f"https://via.placeholder.com/300?text=Playlist+{i+1}",
                 "year": 2024 - (i % 3),
+                "spotify_url": None,
                 "layout": {
                     "columns": 2,
                     "imagePosition": "top",

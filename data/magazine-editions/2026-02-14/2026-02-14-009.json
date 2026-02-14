@@ -1,0 +1,699 @@
+{
+  "id": "2026-02-14-009",
+  "edition_number": 9,
+  "generated_at": "2026-02-14T06:00:24.619889+00:00",
+  "albums": [
+    {
+      "id": 430,
+      "title": "Esprit de Famille",
+      "artist": "Dalida",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273cfe9ad11054bedeec66cb295",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 395,
+      "title": "Automatic For the People",
+      "artist": "R.e.m.",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273ace3e7aae0b7c78bbe1c4f35",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 260,
+      "title": "The Slow Rush B-sides & Remixes",
+      "artist": "Tame Impala",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27322b9cdd0c4ce8cee5857f6a4",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0PUdc9WBtlyjG9Ba9DPmKa"
+    },
+    {
+      "id": 342,
+      "title": "Hounds of Love",
+      "artist": "Kate Bush",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273ad08f4b38efbff0c0da0f252",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "count": 21
+    },
+    {
+      "id": 265,
+      "title": "Monsters Exist (deluxe)",
+      "year": 2018,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273bd38413ff0aae6f75333b40e",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0IAAy7IDTqdCpydFNKpulW",
+      "artist": "Orbital",
+      "description": "Orbital livre avec *Monsters Exist (deluxe)* (2018) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 323,
+      "title": "Invisible Touch (2007 Remaster)",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b917174eb6069392e8a3cc7f",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Genesis",
+      "description": "Genesis livre avec *Invisible Touch (2007 Remaster)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 330,
+      "title": "90125",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2739d9a49f795b4340538f43435",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Yes",
+      "description": "Dans *90125*, Yes nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 293,
+      "title": "As Alive As You Need Me To Be",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27317ff2581a6b924fb3a704395",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6KWRGQeL4dzohXRiSwJHK0",
+      "artist": "Nine Inch Nails",
+      "description": "**As Alive As You Need Me To Be** de *Nine Inch Nails* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 258,
+      "title": "Late Night (remixes)",
+      "year": 2013,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27345f82f2dc0706ea44d8aa7d7",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6m6KIwj9pksPX8IJz9CYOe",
+      "artist": "Foals",
+      "description": "**Late Night (remixes)** de *Foals* (2013) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 312,
+      "title": "The Very Best of Supertramp",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f82d2bd1097e3e60a6a049a3",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Supertramp",
+      "description": "**The Very Best of Supertramp** de *Supertramp* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 1274,
+      "title": "Histoire de Melody Nelson",
+      "artist": "Serge Gainsbourg",
+      "year": 2016,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b37678d22d4b0b157354412c",
+      "spotify_url": null,
+      "description": "**Serge Gainsbourg – *Histoire de Melody Nelson* (2016 Reissue)**\n\nSerge Gainsbourg’s *Histoire de Melody Nelson* (1971) is a masterpiece of cinematic pop, blending baroque orchestration, psychedelic rock, and French chanson into a hauntingly beautiful narrative. The 2016 reissue, remastered for clarity, preserves the album’s lush production—the swirling strings, moody jazz piano, and Gainsbourg’s smoky vocals creating an atmosphere of tragic romance and dark allure.\n\nAt its core, *Melody Nelson* is a tragic love story, its emotional weight carried by the interplay of tender melodies and ominous undercurrents. Tracks like the eponymous opener and *Ballade de Melody Nelson* showcase Gainsbourg’s genius, weaving lush arrangements with biting lyrics. The instrumental crescendo of *Variation sur Marathon* is a standout, while *L’Hôtel Particulier* delivers a seductive, jazz-infused slow burn. The production remains impeccable, with each element—from the mournful French horns to the stark electric guitar solos—crafting a",
+      "style": null
+    },
+    {
+      "id": 245,
+      "title": "Is This It",
+      "artist": "The Strokes",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+      "year": 2001,
+      "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "dramatic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 2,
+      "title": "Torches",
+      "artist": "Foster the People",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+      "year": 2011,
+      "spotify_url": "https://open.spotify.com/album/7Kmmw7Z5D2UD5MVwdm10sT",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "tilt"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+    },
+    {
+      "id": 282,
+      "title": "A Tribute To Benny Moré and Nat King Cole",
+      "artist": "Gonzalo Rubalcaba, Yainer Horta & Joey Calveiro",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27360b945d9b545e3d640082f8a",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/6mc7lnm4NVfPYz87YVTbAT",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "gradient"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 275,
+      "title": "Cold Beer & Country Music",
+      "artist": "Zach Top",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273eff0aba5b84f925e09f70b29",
+      "year": 2024,
+      "spotify_url": "https://open.spotify.com/album/2liHjGjIgWvjrfBgKGBYuF",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "playful",
+        "accentColor": "#ab47bc",
+        "specialEffect": "none"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+    },
+    {
+      "id": 252,
+      "title": "Lungs",
+      "artist": "Florence + the Machine",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273003f81b1f4246362638e682d",
+      "year": 2024,
+      "spotify_url": "https://open.spotify.com/album/6qaCznAyIPlFLBbbh2vHub",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 4,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 430,
+            "title": "Esprit de Famille",
+            "artist": "Dalida",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273cfe9ad11054bedeec66cb295",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 395,
+            "title": "Automatic For the People",
+            "artist": "R.e.m.",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273ace3e7aae0b7c78bbe1c4f35",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 260,
+            "title": "The Slow Rush B-sides & Remixes",
+            "artist": "Tame Impala",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27322b9cdd0c4ce8cee5857f6a4",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0PUdc9WBtlyjG9Ba9DPmKa"
+          },
+          {
+            "id": 342,
+            "title": "Hounds of Love",
+            "artist": "Kate Bush",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273ad08f4b38efbff0c0da0f252",
+            "genre": null,
+            "spotify_url": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 430,
+            "album_title": "Esprit de Famille",
+            "haiku": "**Esprit de Famille**\nÉchos d'amour en notes tendres\nMelodies tissant les liens",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "right",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#ab47bc",
+              "specialEffect": "gradient"
+            },
+            "description": "Dans *Esprit de Famille*, Dalida nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 395,
+            "album_title": "Automatic For the People",
+            "haiku": "**Automatic For the People**\nHorloge qui bat aux rythmes fêlés\nÉchos qui murmurent l'invisible",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "diagonal",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#06b6d4",
+              "specialEffect": "gradient"
+            },
+            "description": "**Automatic For the People** de *R.e.m.* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          },
+          {
+            "album_id": 260,
+            "album_title": "The Slow Rush B-sides & Remixes",
+            "haiku": "**The Slow Rush B-sides & Remixes**\nÉchos perdus dans l'aube\nRêves synthétiques flottent",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "top",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#ab47bc",
+              "specialEffect": "gradient"
+            },
+            "description": "*The Slow Rush B-sides & Remixes* marque un moment dans la carrière de Tame Impala. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          },
+          {
+            "album_id": 342,
+            "album_title": "Hounds of Love",
+            "haiku": "**Hounds of Love**\nÉcho de chants sauvages\nLunes en corsets d'argent",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "diagonal",
+              "imageSize": "small",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#ab47bc",
+              "specialEffect": "gradient"
+            },
+            "description": "Dans *Hounds of Love*, Kate Bush nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "small",
+        "columns": 1,
+        "spacing": "compact"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "floating",
+        "imageSize": "huge",
+        "textLayout": "double-column",
+        "composition": "dramatic",
+        "accentColor": "#00b4d8",
+        "specialEffect": "none"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 41,
+        "unique_albums": 67,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 295,
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273819ccf19e41a22238bc99396",
+            "count": 34
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "count": 17
+          },
+          {
+            "album_id": 1151,
+            "album_title": "Live At Wembley Stadium",
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2737c48e6997b73d924f319ba62",
+            "spotify_url": null,
+            "count": 17
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "donut",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "La Femme (4)",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "small",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#10b981",
+        "specialEffect": "blur"
+      },
+      "content": {
+        "artist": {
+          "name": "La Femme (4)",
+          "albums_count": 6,
+          "haiku": "**Monsters Exist (deluxe)**\nÉchos de synthés sauvages\nNuit électrique sans fin\n\n*(Inspiré par l'énergie hypnotique et darkwave d'Orbital, avec une touche à la La Femme : mélange de brutalité et de mélancolie électronique.)*",
+          "bio": "**La Femme (4)** nous offre 6 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5ebc4136c1541aaaaccbd9d6692"
+        },
+        "albums": [
+          {
+            "id": 265,
+            "title": "Monsters Exist (deluxe)",
+            "year": 2018,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273bd38413ff0aae6f75333b40e",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0IAAy7IDTqdCpydFNKpulW",
+            "artist": "Orbital",
+            "description": "Orbital livre avec *Monsters Exist (deluxe)* (2018) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 323,
+            "title": "Invisible Touch (2007 Remaster)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b917174eb6069392e8a3cc7f",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Genesis",
+            "description": "Genesis livre avec *Invisible Touch (2007 Remaster)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 330,
+            "title": "90125",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2739d9a49f795b4340538f43435",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Yes",
+            "description": "Dans *90125*, Yes nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 293,
+            "title": "As Alive As You Need Me To Be",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27317ff2581a6b924fb3a704395",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6KWRGQeL4dzohXRiSwJHK0",
+            "artist": "Nine Inch Nails",
+            "description": "**As Alive As You Need Me To Be** de *Nine Inch Nails* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 258,
+            "title": "Late Night (remixes)",
+            "year": 2013,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27345f82f2dc0706ea44d8aa7d7",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6m6KIwj9pksPX8IJz9CYOe",
+            "artist": "Foals",
+            "description": "**Late Night (remixes)** de *Foals* (2013) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 312,
+            "title": "The Very Best of Supertramp",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f82d2bd1097e3e60a6a049a3",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Supertramp",
+            "description": "**The Very Best of Supertramp** de *Supertramp* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 500,
+        "text_columns": 2,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "right",
+        "imageSize": "large",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1274,
+          "title": "Histoire de Melody Nelson",
+          "artist": "Serge Gainsbourg",
+          "year": 2016,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273b37678d22d4b0b157354412c",
+          "spotify_url": null,
+          "description": "**Serge Gainsbourg – *Histoire de Melody Nelson* (2016 Reissue)**\n\nSerge Gainsbourg’s *Histoire de Melody Nelson* (1971) is a masterpiece of cinematic pop, blending baroque orchestration, psychedelic rock, and French chanson into a hauntingly beautiful narrative. The 2016 reissue, remastered for clarity, preserves the album’s lush production—the swirling strings, moody jazz piano, and Gainsbourg’s smoky vocals creating an atmosphere of tragic romance and dark allure.\n\nAt its core, *Melody Nelson* is a tragic love story, its emotional weight carried by the interplay of tender melodies and ominous undercurrents. Tracks like the eponymous opener and *Ballade de Melody Nelson* showcase Gainsbourg’s genius, weaving lush arrangements with biting lyrics. The instrumental crescendo of *Variation sur Marathon* is a standout, while *L’Hôtel Particulier* delivers a seductive, jazz-infused slow burn. The production remains impeccable, with each element—from the mournful French horns to the stark electric guitar solos—crafting a",
+          "style": null
+        },
+        "artist_images": {
+          "Serge Gainsbourg": "https://i.scdn.co/image/ab6761610000e5ebac7fa567b8c84f04cb5d4cbc"
+        }
+      },
+      "dimensions": {
+        "image_size": "small",
+        "description_length": "full",
+        "font_size": "small"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Voyage Musique",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Voyage Musique",
+          "description": "*Voyage Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 245,
+              "title": "Is This It",
+              "artist": "The Strokes",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+              "year": 2001,
+              "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 258,
+              "title": "Late Night (remixes)",
+              "artist": "Foals",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27345f82f2dc0706ea44d8aa7d7",
+              "year": 2013,
+              "spotify_url": "https://open.spotify.com/album/6m6KIwj9pksPX8IJz9CYOe",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "none"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 2,
+              "title": "Torches",
+              "artist": "Foster the People",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+              "year": 2011,
+              "spotify_url": "https://open.spotify.com/album/7Kmmw7Z5D2UD5MVwdm10sT",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+            },
+            {
+              "id": 282,
+              "title": "A Tribute To Benny Moré and Nat King Cole",
+              "artist": "Gonzalo Rubalcaba, Yainer Horta & Joey Calveiro",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27360b945d9b545e3d640082f8a",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/6mc7lnm4NVfPYz87YVTbAT",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "classic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 275,
+              "title": "Cold Beer & Country Music",
+              "artist": "Zach Top",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273eff0aba5b84f925e09f70b29",
+              "year": 2024,
+              "spotify_url": "https://open.spotify.com/album/2liHjGjIgWvjrfBgKGBYuF",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+            },
+            {
+              "id": 252,
+              "title": "Lungs",
+              "artist": "Florence + the Machine",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273003f81b1f4246362638e682d",
+              "year": 2024,
+              "spotify_url": "https://open.spotify.com/album/6qaCznAyIPlFLBbbh2vHub",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "artistic",
+        "image_position": "left"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

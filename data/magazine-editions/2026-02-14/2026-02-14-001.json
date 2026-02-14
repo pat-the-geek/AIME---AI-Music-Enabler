@@ -1,0 +1,717 @@
+{
+  "id": "2026-02-14-001",
+  "edition_number": 1,
+  "generated_at": "2026-02-14T02:00:03.243585+00:00",
+  "albums": [
+    {
+      "id": 245,
+      "title": "Is This It",
+      "artist": "The Strokes",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+      "year": 2001,
+      "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#ab47bc",
+        "specialEffect": "tilt"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 266,
+      "title": "A Tribute To the King of Zydeco",
+      "artist": "Lucinda Williams, Tommy Mclain, Keith Frank",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273146a4587303793c56ba0749b",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/5rHi2X55kKOr3yvfMsFaIz",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#ff6b35",
+        "specialEffect": "tilt"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 268,
+      "title": "Ain't Done With the Blues",
+      "artist": "Buddy Guy",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273c6336d29c7f3c2dce8d98aa3",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/2MIp3zMbggiFAgOOLUgU50",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 250,
+      "title": "L.a. Woman",
+      "artist": "The Doors",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+      "year": 1971,
+      "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "gradient"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 258,
+      "title": "Late Night (remixes)",
+      "artist": "Foals",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27345f82f2dc0706ea44d8aa7d7",
+      "year": 2013,
+      "spotify_url": "https://open.spotify.com/album/6m6KIwj9pksPX8IJz9CYOe",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 276,
+      "title": "Snipe Hunter",
+      "artist": "Tyler Childers",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273e47f3451435776271b3d43da",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/00rssxYxFqqdbuO1lz1Gxa",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "dramatic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 1,
+      "title": "Nevermind",
+      "year": 1991,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+      "artist": "Nirvana",
+      "description": "**Nevermind** de *Nirvana* (1991) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 334,
+      "title": "Genesis (2007 Remaster)",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273945c366eda66495226e4a46d",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Genesis",
+      "description": "Genesis livre avec *Genesis (2007 Remaster)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 248,
+      "title": "Surfer Rosa (2007 Remaster)",
+      "year": 1988,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738aa545a0ea869940cce358b5",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/50j4Wm1b9hLpSpPIA39Vp9",
+      "artist": "Pixies",
+      "description": "*Surfer Rosa (2007 Remaster)* marque un moment dans la carrière de Pixies. Ce disque de 1988 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 331,
+      "title": "Peter Gabriel 3: Melt (remastered)",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273c3e9ebd5e1999ae3ab639023",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Peter Gabriel",
+      "description": "**Peter Gabriel 3: Melt (remastered)** de *Peter Gabriel* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 283,
+      "title": "Without Further Ado, Vol 1",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+      "artist": "Christian Mcbride",
+      "description": "*Without Further Ado, Vol 1* marque un moment dans la carrière de Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 328,
+      "title": "Morrison Hotel",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f12a8a7e0b2cbe16d2bef4dc",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "The Doors",
+      "description": "*Morrison Hotel* marque un moment dans la carrière de The Doors. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 394,
+      "title": "Parachutes",
+      "artist": "Coldplay",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2739164bafe9aaa168d93f4816a",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 292,
+      "title": "Songs of a Lost World",
+      "artist": "The Cure",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738613a922e2b503736fb2f91f",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/4wjxmqXnSQvBZWL3IbYngX"
+    },
+    {
+      "id": 362,
+      "title": "Morrison Hotel (50th Anniversary Deluxe Edition)",
+      "artist": "The Doors",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273de10ca4022cd5be72730cb49",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 318,
+      "title": "David Bowie (aka Space Oddity) (2015 Remaster)",
+      "artist": "David Bowie",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733395f3e809dfbc2b1101d464",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "count": 21
+    },
+    {
+      "id": 1253,
+      "title": "Kiss Me Kiss Me Kiss Me",
+      "artist": "The Cure",
+      "year": 2012,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2734500e13175a66153e053eacc",
+      "spotify_url": null,
+      "description": "**Album Review: *Kiss Me Kiss Me Kiss Me* – The Cure (2012)**\n\n*The Cure’s 13th studio album, *Kiss Me Kiss Me Kiss Me*, is a sprawling, emotionally charged journey that blends the band’s signature gothic rock roots with lush, atmospheric experimentation. Released in 2012, the double album spans 36 tracks, weaving together moody synths, jagged guitar riffs, and Robert Smith’s haunting vocals to create a hypnotic, dreamlike listen.*\n\nMusically, the album transcends traditional genre boundaries, merging post-punk, alternative rock, and ambient textures. Tracks like *The Only One* and *Splinter* showcase The Cure’s knack for melancholic hooks, while *The Ghost of Love* and *Strange Day* embrace a more ethereal, synth-driven sound. The production is immaculate, with a polished yet raw quality that highlights Smith’s introspective lyrics and the band’s intricate layering of instruments.\n\nStandout tracks include the euphoric *All I Want*, the darkly pulsating *The Hungry Ghost*, and the hauntingly beautiful *Lullaby*. The album",
+      "style": null
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Nuits Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Nuits Musique",
+          "description": "*Nuits Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 245,
+              "title": "Is This It",
+              "artist": "The Strokes",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+              "year": 2001,
+              "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 266,
+              "title": "A Tribute To the King of Zydeco",
+              "artist": "Lucinda Williams, Tommy Mclain, Keith Frank",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273146a4587303793c56ba0749b",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/5rHi2X55kKOr3yvfMsFaIz",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#ff6b35",
+                "specialEffect": "tilt"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 268,
+              "title": "Ain't Done With the Blues",
+              "artist": "Buddy Guy",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273c6336d29c7f3c2dce8d98aa3",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/2MIp3zMbggiFAgOOLUgU50",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "scattered",
+                "composition": "playful",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 250,
+              "title": "L.a. Woman",
+              "artist": "The Doors",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+              "year": 1971,
+              "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 258,
+              "title": "Late Night (remixes)",
+              "artist": "Foals",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27345f82f2dc0706ea44d8aa7d7",
+              "year": 2013,
+              "spotify_url": "https://open.spotify.com/album/6m6KIwj9pksPX8IJz9CYOe",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 276,
+              "title": "Snipe Hunter",
+              "artist": "Tyler Childers",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273e47f3451435776271b3d43da",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/00rssxYxFqqdbuO1lz1Gxa",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "detailed",
+        "image_position": "top"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Creedence Clearwater Revival",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "double-column",
+        "composition": "dramatic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "blur"
+      },
+      "content": {
+        "artist": {
+          "name": "Creedence Clearwater Revival",
+          "albums_count": 6,
+          "haiku": "**Nevermind**\nGuitares plongeant dans l'abîme\nÉchos de storm silencieux\n\n*(Inspiré par l'énergie brute et mélancolique de l'album, avec une touche de métaphore aquatique évoquant le titre et l'univers de Nirvana.)*",
+          "bio": "**Creedence Clearwater Revival** nous offre 6 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5ebd2e2b04b7ba5d60b72f54506"
+        },
+        "albums": [
+          {
+            "id": 1,
+            "title": "Nevermind",
+            "year": 1991,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+            "artist": "Nirvana",
+            "description": "**Nevermind** de *Nirvana* (1991) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 334,
+            "title": "Genesis (2007 Remaster)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273945c366eda66495226e4a46d",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Genesis",
+            "description": "Genesis livre avec *Genesis (2007 Remaster)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 248,
+            "title": "Surfer Rosa (2007 Remaster)",
+            "year": 1988,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738aa545a0ea869940cce358b5",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/50j4Wm1b9hLpSpPIA39Vp9",
+            "artist": "Pixies",
+            "description": "*Surfer Rosa (2007 Remaster)* marque un moment dans la carrière de Pixies. Ce disque de 1988 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 331,
+            "title": "Peter Gabriel 3: Melt (remastered)",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273c3e9ebd5e1999ae3ab639023",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Peter Gabriel",
+            "description": "**Peter Gabriel 3: Melt (remastered)** de *Peter Gabriel* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 283,
+            "title": "Without Further Ado, Vol 1",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+            "artist": "Christian Mcbride",
+            "description": "*Without Further Ado, Vol 1* marque un moment dans la carrière de Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 328,
+            "title": "Morrison Hotel",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f12a8a7e0b2cbe16d2bef4dc",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "The Doors",
+            "description": "*Morrison Hotel* marque un moment dans la carrière de The Doors. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 300,
+        "text_columns": 3,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 394,
+            "title": "Parachutes",
+            "artist": "Coldplay",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2739164bafe9aaa168d93f4816a",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 292,
+            "title": "Songs of a Lost World",
+            "artist": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738613a922e2b503736fb2f91f",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/4wjxmqXnSQvBZWL3IbYngX"
+          },
+          {
+            "id": 362,
+            "title": "Morrison Hotel (50th Anniversary Deluxe Edition)",
+            "artist": "The Doors",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273de10ca4022cd5be72730cb49",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 318,
+            "title": "David Bowie (aka Space Oddity) (2015 Remaster)",
+            "artist": "David Bowie",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2733395f3e809dfbc2b1101d464",
+            "genre": null,
+            "spotify_url": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 394,
+            "album_title": "Parachutes",
+            "haiku": "**Parachutes**\nNuages de notes légères\nChute lente en harmonie\n\n*(Hommage à l'album éponyme de Coldplay, évoquant la douceur mélodique et l'envolée émotionnelle du groupe.)*",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "diagonal",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#ab47bc",
+              "specialEffect": "zoom"
+            },
+            "description": "La **poésie musicale** de *Parachutes* de Coldplay transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 292,
+            "album_title": "Songs of a Lost World",
+            "haiku": "**Songs of a Lost World**\nÉchos fuyant les silences\nMelodies en exil\n\n*(Inspiré par la mélancolie et l'atmosphère onirique de l'album, avec des images de sons perdus et de paysages sonores fantomatiques.)*",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "right",
+              "imageSize": "small",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#10b981",
+              "specialEffect": "zoom"
+            },
+            "description": "Dans *Songs of a Lost World*, The Cure nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 362,
+            "album_title": "Morrison Hotel (50th Anniversary Deluxe Edition)",
+            "haiku": "**Morrison Hotel**\nHarmonies brûlant sous les néons\nChambres secrètes de blues",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "right",
+              "imageSize": "small",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#ab47bc",
+              "specialEffect": "gradient"
+            },
+            "description": "**Morrison Hotel (50th Anniversary Deluxe Edition)** de *The Doors* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          },
+          {
+            "album_id": 318,
+            "album_title": "David Bowie (aka Space Oddity) (2015 Remaster)",
+            "haiku": "**David Bowie (aka Space Oddity) (2015 Remaster)**\nÉchos stellaires en spirale\nMélodies flottant vers l'infini",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "top",
+              "imageSize": "small",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#ff6b35",
+              "specialEffect": "none"
+            },
+            "description": "**David Bowie (aka Space Oddity) (2015 Remaster)** de *David Bowie* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "large",
+        "columns": 3,
+        "spacing": "normal"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "bottom",
+        "imageSize": "large",
+        "textLayout": "single",
+        "composition": "modern",
+        "accentColor": "#ff006e",
+        "specialEffect": "tilt"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 41,
+        "unique_albums": 67,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 295,
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273819ccf19e41a22238bc99396",
+            "count": 34
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "count": 17
+          },
+          {
+            "album_id": 1151,
+            "album_title": "Live At Wembley Stadium",
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2737c48e6997b73d924f319ba62",
+            "spotify_url": null,
+            "count": 17
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "area",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "right",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1253,
+          "title": "Kiss Me Kiss Me Kiss Me",
+          "artist": "The Cure",
+          "year": 2012,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b2734500e13175a66153e053eacc",
+          "spotify_url": null,
+          "description": "**Album Review: *Kiss Me Kiss Me Kiss Me* – The Cure (2012)**\n\n*The Cure’s 13th studio album, *Kiss Me Kiss Me Kiss Me*, is a sprawling, emotionally charged journey that blends the band’s signature gothic rock roots with lush, atmospheric experimentation. Released in 2012, the double album spans 36 tracks, weaving together moody synths, jagged guitar riffs, and Robert Smith’s haunting vocals to create a hypnotic, dreamlike listen.*\n\nMusically, the album transcends traditional genre boundaries, merging post-punk, alternative rock, and ambient textures. Tracks like *The Only One* and *Splinter* showcase The Cure’s knack for melancholic hooks, while *The Ghost of Love* and *Strange Day* embrace a more ethereal, synth-driven sound. The production is immaculate, with a polished yet raw quality that highlights Smith’s introspective lyrics and the band’s intricate layering of instruments.\n\nStandout tracks include the euphoric *All I Want*, the darkly pulsating *The Hungry Ghost*, and the hauntingly beautiful *Lullaby*. The album",
+          "style": null
+        },
+        "artist_images": {
+          "The Cure": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868"
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "medium"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

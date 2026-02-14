@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import type { MouseEvent } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import {
   Box,
@@ -28,6 +29,7 @@ import {
   FileDownload as FileDownloadIcon,
   Description as DescriptionIcon,
   Album as AlbumIcon,
+  PlayArrow as PlayArrowIcon,
 } from '@mui/icons-material'
 import apiClient from '@/api/client'
 import type { Album, PaginatedResponse } from '@/types/models'
@@ -109,6 +111,27 @@ export default function Collection() {
   const handleCloseDetail = () => {
     setDetailOpen(false)
     setSelectedAlbum(null)
+  }
+
+  const handleOpenSpotify = (event: MouseEvent, url?: string | null) => {
+    event.stopPropagation()
+    if (!url) return
+    window.open(url, '_blank')
+  }
+
+  const handleOpenAppleMusic = (event: MouseEvent, albumTitle?: string, artistName?: string, appleMusicUrl?: string | null) => {
+    event.stopPropagation()
+    if (appleMusicUrl) {
+      const w = window.open(appleMusicUrl, '_blank')
+      if (w) setTimeout(() => w.close(), 1000)
+      return
+    }
+    if (!albumTitle || !artistName) return
+    const searchQuery = `${albumTitle} ${artistName}`.trim()
+    const encodedQuery = encodeURIComponent(searchQuery)
+    const appleMusicSearchUrl = `https://music.apple.com/search?term=${encodedQuery}`
+    const w = window.open(appleMusicSearchUrl, '_blank')
+    if (w) setTimeout(() => w.close(), 1000)
   }
 
   const handleRandomAlbums = () => {
@@ -539,6 +562,32 @@ export default function Collection() {
                       )}
                       <Chip label={album.support} size="small" variant="outlined" />
                     </Box>
+                    {(album.spotify_url || album.apple_music_url) && (
+                      <Box sx={{ mt: 1, display: 'flex', gap: 1 }}>
+                        {album.spotify_url && (
+                          <Button
+                            size="small"
+                            startIcon={<PlayArrowIcon />}
+                            onClick={(e) => handleOpenSpotify(e, album.spotify_url)}
+                            variant="text"
+                            color="success"
+                          >
+                            Spotify
+                          </Button>
+                        )}
+                        <Button
+                          size="small"
+                          onClick={(e) => handleOpenAppleMusic(e, album.title, album.artists?.join(', '), album.apple_music_url)}
+                          variant="text"
+                          sx={{
+                            color: '#FA243C',
+                            '&:hover': { color: '#E01B2F', backgroundColor: 'rgba(250, 36, 60, 0.1)' }
+                          }}
+                        >
+                          🎵 Apple
+                        </Button>
+                      </Box>
+                    )}
                   </CardContent>
                 </Card>
               </Grid>
@@ -585,6 +634,32 @@ export default function Collection() {
                   <Typography variant="caption" color="text.secondary">•</Typography>
                   <Chip label={album.support || 'Unknown'} size="small" />
                 </Box>
+                {(album.spotify_url || album.apple_music_url) && (
+                  <Box sx={{ mt: 1, display: 'flex', gap: 1 }}>
+                    {album.spotify_url && (
+                      <Button
+                        size="small"
+                        startIcon={<PlayArrowIcon />}
+                        onClick={(e) => handleOpenSpotify(e, album.spotify_url)}
+                        variant="text"
+                        color="success"
+                      >
+                        Spotify
+                      </Button>
+                    )}
+                    <Button
+                      size="small"
+                      onClick={(e) => handleOpenAppleMusic(e, album.title, album.artists.join(', '), album.apple_music_url)}
+                      variant="text"
+                      sx={{
+                        color: '#FA243C',
+                        '&:hover': { color: '#E01B2F', backgroundColor: 'rgba(250, 36, 60, 0.1)' }
+                      }}
+                    >
+                      🎵 Apple
+                    </Button>
+                  </Box>
+                )}
               </CardContent>
             </Card>
           </Grid>

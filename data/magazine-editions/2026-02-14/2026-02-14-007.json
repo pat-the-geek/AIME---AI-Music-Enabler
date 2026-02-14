@@ -1,0 +1,725 @@
+{
+  "id": "2026-02-14-007",
+  "edition_number": 7,
+  "generated_at": "2026-02-14T05:00:19.144750+00:00",
+  "albums": [
+    {
+      "id": 445,
+      "title": "The Essential Louis Armstrong",
+      "artist": "Louis Armstrong",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273edee2ddbcd5853a01f8ee696",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 389,
+      "title": "The Best of Roxy Music",
+      "artist": "Roxy Music",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273cdd6f71f3d22476a9a1319cd",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 323,
+      "title": "Invisible Touch (2007 Remaster)",
+      "artist": "Genesis",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b917174eb6069392e8a3cc7f",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 312,
+      "title": "The Very Best of Supertramp",
+      "artist": "Supertramp",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f82d2bd1097e3e60a6a049a3",
+      "genre": null,
+      "spotify_url": null
+    },
+    {
+      "id": 301,
+      "title": "Hit Me Hard and Soft",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Billie Eilish",
+      "description": "*Hit Me Hard and Soft* marque un moment dans la carrière de Billie Eilish. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 299,
+      "title": "This Wasn't Meant For You Anyway",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2736aa2a180c7b009ca8454ef89",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Lola Young",
+      "description": "Dans *This Wasn't Meant For You Anyway*, Lola Young nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 316,
+      "title": "Communiqué",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b1f7f1d5898b28c1ce3f4947",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Dire Straits",
+      "description": "La **poésie musicale** de *Communiqué* de Dire Straits transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 324,
+      "title": "Even In the Quietest Moments...",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273bddcc30c6a3288e725aec2df",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Supertramp",
+      "description": "Supertramp livre avec *Even In the Quietest Moments...* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "existing"
+    },
+    {
+      "id": 303,
+      "title": "Debí Tirar Más Fotos",
+      "year": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273bbd45c8d36e0e045ef640411",
+      "genre": null,
+      "spotify_url": null,
+      "artist": "Bad Bunny",
+      "description": "**Debí Tirar Más Fotos** de *Bad Bunny* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 296,
+      "title": "Abracadabra (gesaffelstein Remix)",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273d2eac78fe700b81886caacc6",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/313T8fnlDeKWEtoq9vwWAO",
+      "artist": "Lady Gaga",
+      "description": "**Abracadabra (gesaffelstein Remix)** de *Lady Gaga* (2025) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 274,
+      "title": "Beautifully Broken (pickin’ Up the Pieces)",
+      "year": 2024,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273d48a214080d6d848654c5a41",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2NqI5Hd3wWXNWUrZNuZvO9",
+      "artist": "Jelly Roll",
+      "description": "**Beautifully Broken (pickin’ Up the Pieces)** de *Jelly Roll* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 255,
+      "title": "Little Dark Age",
+      "year": 2018,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273872a896e7c3776d6949df476",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7GjVWG39IOj4viyWplJV4H",
+      "artist": "Mgmt",
+      "description": "*Little Dark Age* marque un moment dans la carrière de Mgmt. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 1221,
+      "title": "House of Gucci (music From the Motion Picture)",
+      "artist": "Various",
+      "year": 2022,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27342ea4917d8e3aa442614b072",
+      "spotify_url": null,
+      "description": "**Album Review: *House of Gucci (Music From the Motion Picture)* – Various Artists (2022)**\n\n*House of Gucci (Music From the Motion Picture)* is a lush, cinematic soundtrack that seamlessly blends orchestral grandeur with modern electronic and vocal textures, perfectly mirroring the opulence and intrigue of Ridley Scott’s fashion drama. The score, primarily composed by Alexandre Desplat, leans into sweeping classical arrangements—rich strings, dramatic horns, and haunting woodwinds—while incorporating moody synths and Italian-inspired melodies to evoke both glamour and tension.\n\nThe album’s emotional impact is profound, shifting from lavish, romantic swells (\"The Gucci Family\") to eerie, suspenseful undertones (\"The Betrayal\"). Desplat’s production is pristine, with impeccable sound design that immerses listeners in the film’s lavish yet treacherous world. Standout tracks include the hauntingly beautiful \"Gucci Bells,\" driven by ethereal vocals and delicate piano, and the intense \"A Game of Power,\" where pulsating synths and driving percussion heighten the drama.\n\nFeaturing contributions from artists like Lady Gaga (who delivers a",
+      "style": null
+    },
+    {
+      "id": 2,
+      "title": "Torches",
+      "artist": "Foster the People",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+      "year": 2011,
+      "spotify_url": "https://open.spotify.com/album/7Kmmw7Z5D2UD5MVwdm10sT",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "chaos",
+        "accentColor": "#ff6b35",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 278,
+      "title": "Bad As I Used To Be (from F1® the Movie)",
+      "artist": "Chris Stapleton",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27339e6d052ab967e46e022b851",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/7sax23n4Dim8d6MPcyEi8b",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#ab47bc",
+        "specialEffect": "none"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Âmes de Musique*."
+    },
+    {
+      "id": 277,
+      "title": "Amen",
+      "artist": "Shaboozey & Jelly Roll",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27322c5399d1120f2ef71852303",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/5Rqj746qniBVcnLT4QglB5",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Âmes de Musique*."
+    },
+    {
+      "id": 264,
+      "title": "In Sides",
+      "artist": "Orbital",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738582db75b4e80ca0077697bc",
+      "year": 1996,
+      "spotify_url": "https://open.spotify.com/album/1wXyzUmlgN6G1DXIY0Sh8l",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 271,
+      "title": "Big Money",
+      "artist": "Jon Batiste",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2734788bd968a2f7368e16418f0",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/7qYbLlvM7qPAz4XAWnXDC3",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Âmes de Musique*."
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "count": 21
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 445,
+            "title": "The Essential Louis Armstrong",
+            "artist": "Louis Armstrong",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273edee2ddbcd5853a01f8ee696",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 389,
+            "title": "The Best of Roxy Music",
+            "artist": "Roxy Music",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273cdd6f71f3d22476a9a1319cd",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 323,
+            "title": "Invisible Touch (2007 Remaster)",
+            "artist": "Genesis",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b917174eb6069392e8a3cc7f",
+            "genre": null,
+            "spotify_url": null
+          },
+          {
+            "id": 312,
+            "title": "The Very Best of Supertramp",
+            "artist": "Supertramp",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f82d2bd1097e3e60a6a049a3",
+            "genre": null,
+            "spotify_url": null
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 445,
+            "album_title": "The Essential Louis Armstrong",
+            "haiku": "**The Essential Louis Armstrong**\nSaxophone en feu dansant\nNotes dorées chantent l'âme",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "diagonal",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#06b6d4",
+              "specialEffect": "zoom"
+            },
+            "description": "Dans *The Essential Louis Armstrong*, Louis Armstrong nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 389,
+            "album_title": "The Best of Roxy Music",
+            "haiku": "**The Best of Roxy Music**\nMiroir d'argent scintillant\nGlamour et mélodies volantes",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "top",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "dramatic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "zoom"
+            },
+            "description": "La **poésie musicale** de *The Best of Roxy Music* de Roxy Music transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 323,
+            "album_title": "Invisible Touch (2007 Remaster)",
+            "haiku": "**Invisible Touch (2007 Remaster)**\nDoigts d'or effleurant l'air\nNotes qui dansent sans traces",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "diagonal",
+              "imageSize": "large",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#10b981",
+              "specialEffect": "none"
+            },
+            "description": "Genesis livre avec *Invisible Touch (2007 Remaster)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 312,
+            "album_title": "The Very Best of Supertramp",
+            "haiku": "**The Very Best of Supertramp**\nMélodies en éclats de verre\nLarmes de piano bleu",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "top",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#ab47bc",
+              "specialEffect": "zoom"
+            },
+            "description": "**The Very Best of Supertramp** de *Supertramp* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "large",
+        "columns": 3,
+        "spacing": "compact"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "The Chordettes",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "fullwidth",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#ec4899",
+        "specialEffect": "tilt"
+      },
+      "content": {
+        "artist": {
+          "name": "The Chordettes",
+          "albums_count": 8,
+          "haiku": "**Hit Me Hard and Soft**\nÉcho d'or entre silences\nBattements d'âme en duo",
+          "bio": "**The Chordettes** nous offre 8 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab67616d0000b2739982ca6766d2f5800a47605f"
+        },
+        "albums": [
+          {
+            "id": 301,
+            "title": "Hit Me Hard and Soft",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Billie Eilish",
+            "description": "*Hit Me Hard and Soft* marque un moment dans la carrière de Billie Eilish. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 299,
+            "title": "This Wasn't Meant For You Anyway",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2736aa2a180c7b009ca8454ef89",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Lola Young",
+            "description": "Dans *This Wasn't Meant For You Anyway*, Lola Young nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 316,
+            "title": "Communiqué",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b1f7f1d5898b28c1ce3f4947",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Dire Straits",
+            "description": "La **poésie musicale** de *Communiqué* de Dire Straits transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 324,
+            "title": "Even In the Quietest Moments...",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273bddcc30c6a3288e725aec2df",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Supertramp",
+            "description": "Supertramp livre avec *Even In the Quietest Moments...* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 303,
+            "title": "Debí Tirar Más Fotos",
+            "year": null,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273bbd45c8d36e0e045ef640411",
+            "genre": null,
+            "spotify_url": null,
+            "artist": "Bad Bunny",
+            "description": "**Debí Tirar Más Fotos** de *Bad Bunny* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 296,
+            "title": "Abracadabra (gesaffelstein Remix)",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273d2eac78fe700b81886caacc6",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/313T8fnlDeKWEtoq9vwWAO",
+            "artist": "Lady Gaga",
+            "description": "**Abracadabra (gesaffelstein Remix)** de *Lady Gaga* (2025) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 274,
+            "title": "Beautifully Broken (pickin’ Up the Pieces)",
+            "year": 2024,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273d48a214080d6d848654c5a41",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2NqI5Hd3wWXNWUrZNuZvO9",
+            "artist": "Jelly Roll",
+            "description": "**Beautifully Broken (pickin’ Up the Pieces)** de *Jelly Roll* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 255,
+            "title": "Little Dark Age",
+            "year": 2018,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273872a896e7c3776d6949df476",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7GjVWG39IOj4viyWplJV4H",
+            "artist": "Mgmt",
+            "description": "*Little Dark Age* marque un moment dans la carrière de Mgmt. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 300,
+        "text_columns": 2,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "large",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1221,
+          "title": "House of Gucci (music From the Motion Picture)",
+          "artist": "Various",
+          "year": 2022,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b27342ea4917d8e3aa442614b072",
+          "spotify_url": null,
+          "description": "**Album Review: *House of Gucci (Music From the Motion Picture)* – Various Artists (2022)**\n\n*House of Gucci (Music From the Motion Picture)* is a lush, cinematic soundtrack that seamlessly blends orchestral grandeur with modern electronic and vocal textures, perfectly mirroring the opulence and intrigue of Ridley Scott’s fashion drama. The score, primarily composed by Alexandre Desplat, leans into sweeping classical arrangements—rich strings, dramatic horns, and haunting woodwinds—while incorporating moody synths and Italian-inspired melodies to evoke both glamour and tension.\n\nThe album’s emotional impact is profound, shifting from lavish, romantic swells (\"The Gucci Family\") to eerie, suspenseful undertones (\"The Betrayal\"). Desplat’s production is pristine, with impeccable sound design that immerses listeners in the film’s lavish yet treacherous world. Standout tracks include the hauntingly beautiful \"Gucci Bells,\" driven by ethereal vocals and delicate piano, and the intense \"A Game of Power,\" where pulsating synths and driving percussion heighten the drama.\n\nFeaturing contributions from artists like Lady Gaga (who delivers a",
+          "style": null
+        },
+        "artist_images": {
+          "Various": "https://i.scdn.co/image/ab67616d0000b2735b18da1b6db845c4ff67cbf7"
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "small"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Âmes de Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Âmes de Musique",
+          "description": "*Âmes de Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 2,
+              "title": "Torches",
+              "artist": "Foster the People",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+              "year": 2011,
+              "spotify_url": "https://open.spotify.com/album/7Kmmw7Z5D2UD5MVwdm10sT",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "chaos",
+                "accentColor": "#ff6b35",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 278,
+              "title": "Bad As I Used To Be (from F1® the Movie)",
+              "artist": "Chris Stapleton",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27339e6d052ab967e46e022b851",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/7sax23n4Dim8d6MPcyEi8b",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Âmes de Musique*."
+            },
+            {
+              "id": 277,
+              "title": "Amen",
+              "artist": "Shaboozey & Jelly Roll",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27322c5399d1120f2ef71852303",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/5Rqj746qniBVcnLT4QglB5",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Âmes de Musique*."
+            },
+            {
+              "id": 264,
+              "title": "In Sides",
+              "artist": "Orbital",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2738582db75b4e80ca0077697bc",
+              "year": 1996,
+              "spotify_url": "https://open.spotify.com/album/1wXyzUmlgN6G1DXIY0Sh8l",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 271,
+              "title": "Big Money",
+              "artist": "Jon Batiste",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2734788bd968a2f7368e16418f0",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/7qYbLlvM7qPAz4XAWnXDC3",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Âmes de Musique*."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "minimal",
+        "image_position": "background"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 5,
+        "imagePosition": "fullwidth",
+        "imageSize": "medium",
+        "textLayout": "single",
+        "composition": "modern",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "overlay"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 41,
+        "unique_albums": 67,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 295,
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273819ccf19e41a22238bc99396",
+            "count": 34
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "count": 17
+          },
+          {
+            "album_id": 1151,
+            "album_title": "Live At Wembley Stadium",
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2737c48e6997b73d924f319ba62",
+            "spotify_url": null,
+            "count": 17
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "bar",
+        "color_scheme": "newspaper"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

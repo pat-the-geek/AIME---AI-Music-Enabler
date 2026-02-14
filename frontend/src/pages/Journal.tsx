@@ -150,6 +150,27 @@ export default function Journal() {
     }
   }
 
+  const handleOpenSpotify = (event: React.MouseEvent<HTMLDivElement>, url?: string | null) => {
+    event.stopPropagation()
+    if (!url) return
+    window.open(url, '_blank')
+  }
+
+  const handleOpenAppleMusic = (event: React.MouseEvent<HTMLDivElement>, albumTitle?: string, artistName?: string, appleMusicUrl?: string | null) => {
+    event.stopPropagation()
+    if (appleMusicUrl) {
+      const w = window.open(appleMusicUrl, '_blank')
+      if (w) setTimeout(() => w.close(), 1000)
+      return
+    }
+    if (!albumTitle || !artistName) return
+    const searchQuery = `${albumTitle} ${artistName}`.trim()
+    const encodedQuery = encodeURIComponent(searchQuery)
+    const appleMusicSearchUrl = `https://music.apple.com/search?term=${encodedQuery}`
+    const w = window.open(appleMusicSearchUrl, '_blank')
+    if (w) setTimeout(() => w.close(), 1000)
+  }
+
   const handleCloseAlbumDetail = () => {
     setAlbumDialogOpen(false)
     setSelectedAlbumId(null)
@@ -397,13 +418,33 @@ export default function Journal() {
                         />
                       )}
                       {viewMode === 'detailed' && entry.spotify_url && (
-                        <Chip
-                          label="🎵 Spotify"
+                        <Button
                           size="small"
-                          color="success"
                           variant="outlined"
+                          color="success"
+                          onClick={(e) => handleOpenSpotify(e as any, entry.spotify_url)}
                           sx={{ ml: 1 }}
-                        />
+                        >
+                          🎵 Spotify
+                        </Button>
+                      )}
+                      {viewMode === 'detailed' && (entry.apple_music_url || (entry.album && entry.artist)) && (
+                        <Button
+                          size="small"
+                          variant="outlined"
+                          onClick={(e) => handleOpenAppleMusic(e as any, entry.album, entry.artist, entry.apple_music_url)}
+                          sx={{ 
+                            ml: 1,
+                            borderColor: '#FA243C',
+                            color: '#FA243C',
+                            '&:hover': { 
+                              backgroundColor: 'rgba(250, 36, 60, 0.1)',
+                              borderColor: '#E01B2F'
+                            }
+                          }}
+                        >
+                          🎵 Apple
+                        </Button>
                       )}
                       {viewMode === 'detailed' && entry.discogs_url && (
                         <Chip

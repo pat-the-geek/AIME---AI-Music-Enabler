@@ -56,6 +56,7 @@ interface Album {
   image_url: string | null
   ai_description: string | null
   spotify_url?: string | null
+  apple_music_url?: string | null
 }
 
 // Nettoyer le nom de l'artiste en supprimant les parenthèses et tout ce qui suit
@@ -411,6 +412,27 @@ export default function Collections() {
     }
   }
 
+  const handleOpenSpotify = (event: React.MouseEvent, url?: string | null) => {
+    event.stopPropagation()
+    if (!url) return
+    window.open(url, '_blank')
+  }
+
+  const handleOpenAppleMusic = (event: React.MouseEvent, albumTitle?: string, artistName?: string, appleMusicUrl?: string | null) => {
+    event.stopPropagation()
+    if (appleMusicUrl) {
+      const w = window.open(appleMusicUrl, '_blank')
+      if (w) setTimeout(() => w.close(), 1000)
+      return
+    }
+    if (!albumTitle || !artistName) return
+    const searchQuery = `${albumTitle} ${artistName}`.trim()
+    const encodedQuery = encodeURIComponent(searchQuery)
+    const appleMusicSearchUrl = `https://music.apple.com/search?term=${encodedQuery}`
+    const w = window.open(appleMusicSearchUrl, '_blank')
+    if (w) setTimeout(() => w.close(), 1000)
+  }
+
   const handleViewDetails = (collectionId: number) => {
     setSelectedCollectionId(collectionId)
     setSelectedAlbumId(null)
@@ -621,6 +643,30 @@ export default function Collections() {
                           Année: {selectedAlbum.year}
                         </Typography>
                       )}
+                      {(selectedAlbum.spotify_url || selectedAlbum.apple_music_url) && (
+                        <Box mt={2} sx={{ display: 'flex', gap: 1 }}>
+                          {selectedAlbum.spotify_url && (
+                            <Button
+                              variant="contained"
+                              color="success"
+                              startIcon={<PlayArrow />}
+                              onClick={(e) => handleOpenSpotify(e, selectedAlbum.spotify_url)}
+                            >
+                              Spotify
+                            </Button>
+                          )}
+                          <Button
+                            variant="contained"
+                            sx={{
+                              backgroundColor: '#FA243C',
+                              '&:hover': { backgroundColor: '#E01B2F' }
+                            }}
+                            onClick={(e) => handleOpenAppleMusic(e, selectedAlbum.title, selectedAlbum.artist_name, selectedAlbum.apple_music_url)}
+                          >
+                            🎵 Apple
+                          </Button>
+                        </Box>
+                      )}
                     </Box>
                   </Box>
                   {selectedAlbum.ai_description && (
@@ -679,24 +725,45 @@ export default function Collections() {
                           </Typography>
                         )}
                       </CardContent>
-                      {roon?.enabled && (
-                        <CardActions>
+                      <CardActions>
+                        <Box sx={{ display: 'flex', gap: 1, width: '100%' }}>
                           {album.spotify_url && (
-                            <Tooltip title="Ouvrir sur Spotify">
+                            <Tooltip title="Jouer sur Spotify">
                               <Button
                                 size="small"
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  if (album.spotify_url) {
-                                    window.open(album.spotify_url, '_blank')
-                                  }
-                                }}
+                                onClick={handleOpenSpotify}
                                 startIcon={<MusicNote />}
                               >
                                 Spotify
                               </Button>
                             </Tooltip>
                           )}
+                          {(album.apple_music_url || album.title) && (
+                            <Tooltip title="Ouvrir sur Apple Music">
+                              <Button
+                                size="small"
+                                onClick={(e) =>
+                                  handleOpenAppleMusic(
+                                    e,
+                                    album.title,
+                                    album.artist_name,
+                                    album.apple_music_url
+                                  )
+                                }
+                                sx={{
+                                  color: '#FA243C',
+                                  '&:hover': {
+                                    backgroundColor: '#FA243C',
+                                    color: 'white'
+                                  }
+                                }}
+                              >
+                                Apple
+                              </Button>
+                            </Tooltip>
+                          )}
+                        </Box>
+                        {roon?.enabled && (
                           <Tooltip title="Lancer la lecture sur Roon">
                             <Button
                               size="small"
@@ -709,8 +776,8 @@ export default function Collections() {
                               Lecture Roon
                             </Button>
                           </Tooltip>
-                        </CardActions>
-                      )}
+                        )}
+                      </CardActions>
                     </Box>
                   </Card>
                 </Grid>
