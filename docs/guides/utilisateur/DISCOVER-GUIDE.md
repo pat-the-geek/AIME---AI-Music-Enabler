@@ -43,6 +43,13 @@ Quatre modes de recherche disponibles:
 
 ## Fonctionnalités
 
+### 🖼️ Aperçu Visuel des Collections
+Chaque collection affiche un aperçu visuel avec jusqu'à 5 images d'albums:
+- **Illustration automatique**: Les 5 premières couvertures d'albums de la collection
+- **Présentation en grille**: Affichées horizontalement en haut de la carte
+- **Interactivité**: Survolez pour voir les détails
+- **Visibilité**: Permet d'identifier rapidement le contenu de la collection
+
 ### ➕ Créer une Collection
 1. Cliquez "Nouvelle Collection"
 2. Remplissez le nom (ex: "Rock des années 90")
@@ -87,7 +94,14 @@ curl http://localhost:8000/api/v1/collections/
     "search_criteria": {"genre": "Jazz"},
     "ai_query": null,
     "album_count": 20,
-    "created_at": "2026-02-01T20:51:22"
+    "created_at": "2026-02-01T20:51:22",
+    "sample_album_images": [
+      "https://example.com/album1.jpg",
+      "https://example.com/album2.jpg",
+      "https://example.com/album3.jpg",
+      "https://example.com/album4.jpg",
+      "https://example.com/album5.jpg"
+    ]
   }
 ]
 ```
@@ -144,7 +158,7 @@ Pour que Discover fonctionne pleinement, les albums doivent avoir:
 - ✅ `genre` - Type de musique
 - ✅ `ai_description` - Description générée par IA
 - ✅ `ai_style` - Style/ambiance
-- ✅ `image_url` - URL de la couverture (optionnel)
+- ✅ `image_url` - URL de la couverture (requis pour l'aperçu visuel des collections)
 
 > **Disponible**: 200+ albums ont été peuplés avec ces données lors du déploiement initial.
 

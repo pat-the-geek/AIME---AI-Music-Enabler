@@ -49,6 +49,7 @@ interface Collection {
   ai_query: string | null
   album_count: number
   created_at: string
+  sample_album_images: string[]  // Images d'albums pour illustrer la collection
 }
 
 interface Album {
@@ -566,6 +567,35 @@ export default function Collections() {
         {collections?.map((collection) => (
           <Grid item xs={12} sm={6} md={4} key={collection.id}>
             <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+              {/* Images d'albums en grille avec transparence */}
+              {collection.sample_album_images && collection.sample_album_images.length > 0 && (
+                <Box 
+                  sx={{ 
+                    position: 'relative',
+                    height: 120,
+                    overflow: 'hidden',
+                    display: 'flex',
+                    gap: 0.5,
+                    p: 1,
+                    backgroundColor: 'action.hover'
+                  }}
+                >
+                  {collection.sample_album_images.slice(0, 5).map((imageUrl, index) => (
+                    <Box
+                      key={index}
+                      component="img"
+                      src={imageUrl}
+                      alt={`Album ${index + 1}`}
+                      sx={{
+                        width: `${100 / Math.min(collection.sample_album_images.length, 5)}%`,
+                        height: '100%',
+                        objectFit: 'cover',
+                        borderRadius: 1
+                      }}
+                    />
+                  ))}
+                </Box>
+              )}
               <CardContent sx={{ flexGrow: 1 }}>
                 <Typography variant="h6" gutterBottom>
                   {collection.name}

@@ -5,10 +5,11 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
+from sqlalchemy import select
 
 from app.database import get_db
 from app.services.album_collection_service import AlbumCollectionService
-from app.models import Album
+from app.models import Album, CollectionAlbum
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/collections", tags=["collections"])
@@ -30,9 +31,10 @@ class CollectionResponse(BaseModel):
     ai_query: Optional[str]
     album_count: int
     created_at: str
+    sample_album_images: List[str] = []  # Images d'albums pour illustrer la collection
     
     @classmethod
-    def from_orm(cls, collection):
+    def from_orm(cls, collection, sample_album_images: Optional[List[str]] = None):
         """Convertir un objet AlbumCollection en CollectionResponse."""
         # Parser le JSON si search_criteria est une string
         criteria = collection.search_criteria
@@ -49,7 +51,8 @@ class CollectionResponse(BaseModel):
             search_criteria=criteria,
             ai_query=collection.ai_query,
             album_count=collection.album_count,
-            created_at=collection.created_at.isoformat()
+            created_at=collection.created_at.isoformat(),
+            sample_album_images=sample_album_images or []
         )
 
 
@@ -375,7 +378,22 @@ def list_collections(
     service = AlbumCollectionService(db)
     collections = service.list_collections(limit=limit, offset=offset)
     
-    return [CollectionResponse.from_orm(c) for c in collections]
+    # Pour chaque collection, récupérer 5 images d'albums pour illustration
+    result = []
+    for collection in collections:
+        # Requête pour obtenir jusqu'à 5 images d'albums de la collection
+        sample_images = db.execute(
+            select(Album.image_url)
+            .join(CollectionAlbum, CollectionAlbum.album_id == Album.id)
+            .where(CollectionAlbum.collection_id == collection.id)
+            .where(Album.image_url.isnot(None))
+            .where(Album.image_url != '')
+            .limit(5)
+        ).scalars().all()
+        
+        result.append(CollectionResponse.from_orm(collection, list(sample_images)))
+    
+    return result
 
 
 @router.get("/{collection_id}", response_model=CollectionResponse)

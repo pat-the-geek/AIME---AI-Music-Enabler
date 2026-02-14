@@ -40,6 +40,23 @@ Tous les changements notables de ce projet sont documentés dans ce fichier.
 - Smart matching (exact, partial, format variations)
 - Support multi-sources (Last.fm, Roon)
 
+### 🖼️ Collections Visual Preview
+
+#### ✨ Nouvelles Fonctionnalités
+- 🎨 **Aperçu visuel des collections**: Affichage automatique des 5 premières couvertures d'albums
+- 📸 **Illustration automatique**: Grille horizontale d'images en haut de chaque carte de collection
+- 🔍 **Identification rapide**: Permet de visualiser le contenu d'une collection en un coup d'œil
+
+#### 🔌 Backend
+- Nouveau champ: `CollectionResponse.sample_album_images` (List[str])
+- Endpoint GET `/api/v1/collections/` enrichi avec images d'albums
+- Requête optimisée: 5 images maximum par collection
+
+#### 🎨 Frontend
+- Interface `Collection` étendue avec `sample_album_images`
+- Composant visuel en grille responsive
+- Images affichées dans les cartes de collections (page Discover)
+
 ---
 
 ## [4.0.1] - 2026-01-30

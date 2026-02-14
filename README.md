@@ -57,6 +57,7 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
    - Recherche intelligente d'albums via EurIA
    - Création de playlists thématiques personnalisées
    - Suggestions d'albums basées sur le contexte musicale
+   - **Aperçu visuel**: Affichage automatique des 5 premières couvertures d'albums de chaque collection
    
    ![Collection Créée par IA](docs/screenshots/Screen%20captures/Collection%20-%20Cr%C3%A9er%20par%20IA.png)
 
