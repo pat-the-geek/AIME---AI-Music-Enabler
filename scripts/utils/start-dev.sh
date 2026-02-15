@@ -15,8 +15,11 @@ NC='\033[0m'
 # Variables
 BACKEND_PORT=8000
 FRONTEND_PORT=5173
-MAX_RETRIES=3
-RETRY_DELAY=2
+MAX_RETRIES=5
+RETRY_DELAY=3
+READY_ENDPOINT="/ready"
+HEALTH_ENDPOINT="/health"
+BACKEND_LOG_FILE="../logs/backend-dev.log"
 
 # Fonction pour tuer les processus au Ctrl+C
 cleanup() {
@@ -65,6 +68,10 @@ echo -e "${BLUE}🚀 Démarrage Backend (Port $BACKEND_PORT)...${NC}"
 export PROJECT_ROOT="$(pwd)"
 cd backend
 
+# Préparer le fichier de log
+mkdir -p ../logs
+: > "$BACKEND_LOG_FILE"
+
 BACKEND_STARTED=0
 for i in $(seq 1 $MAX_RETRIES); do
     source .venv/bin/activate 2>/dev/null || {
@@ -72,18 +79,18 @@ for i in $(seq 1 $MAX_RETRIES); do
         exit 1
     }
     
-    uvicorn app.main:app --reload --reload-dir app --host 0.0.0.0 --port $BACKEND_PORT >/dev/null 2>&1 &
+    uvicorn app.main:app --reload --reload-dir app --host 0.0.0.0 --port $BACKEND_PORT >> "$BACKEND_LOG_FILE" 2>&1 &
     BACKEND_PID=$!
     
     # Attendre que le backend se lance
-    sleep 2
+    sleep 3
     
     # Vérifier si le backend est prêt
-    if curl -s http://localhost:$BACKEND_PORT/health >/dev/null 2>&1; then
+    if curl -s http://localhost:$BACKEND_PORT$READY_ENDPOINT >/dev/null 2>&1; then
         BACKEND_STARTED=1
         break
     else
-        echo -e "${YELLOW}Tentative $i/$MAX_RETRIES échouée, nouvelle tentative...${NC}"
+        echo -e "${YELLOW}Tentative $i/$MAX_RETRIES échouée (check $READY_ENDPOINT), nouvelle tentative...${NC}"
         kill $BACKEND_PID 2>/dev/null || true
         sleep $RETRY_DELAY
     fi
@@ -93,10 +100,12 @@ cd ..
 
 if [ $BACKEND_STARTED -eq 0 ]; then
     echo -e "${RED}❌ Impossible de démarrer le backend après $MAX_RETRIES tentatives${NC}"
+    echo -e "${YELLOW}📄 Logs backend: $BACKEND_LOG_FILE${NC}"
     exit 1
 fi
 
 echo -e "${GREEN}✅ Backend démarré (PID: $BACKEND_PID)${NC}"
+echo -e "${YELLOW}📄 Logs backend: $BACKEND_LOG_FILE${NC}"
 
 # Attendre que le backend soit complètement prêt
 sleep 1

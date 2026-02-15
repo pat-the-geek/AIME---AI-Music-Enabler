@@ -828,12 +828,12 @@ async def trigger_scheduler_task(task_name: str):
         const progress = await fetch('/services/discogs/enrich/progress')
           .then(r => r.json());
         
-        console.log(\`Progress: \${progress.percent_complete}%\`);
+        console.log(`Progress: ${progress.percent_complete}%`);
         updateProgressBar(progress.percent_complete);
         
         if (progress.status === 'complete') {
           done = true;
-          showSuccess(\`Enriched \${progress.descriptions_added} albums\`);
+          showSuccess(`Enriched ${progress.descriptions_added} albums`);
         } else if (progress.status === 'error') {
           done = true;
           showError(progress.error);
@@ -3375,17 +3375,17 @@ async def _enrich_euria_spotify_task(limit: int = None):
     global _last_executions, _enrich_progress
     import logging
     import os
-  from pathlib import Path
+    from pathlib import Path
     
     try:
         from dotenv import load_dotenv
-      project_root = Path(__file__).resolve().parents[5]
-      env_path = project_root / 'config' / '.env'
-      fallback_env_path = project_root / '.env'
-      if env_path.exists():
-        load_dotenv(env_path)
-      elif fallback_env_path.exists():
-        load_dotenv(fallback_env_path)
+        project_root = Path(__file__).resolve().parents[5]
+        env_path = project_root / 'config' / '.env'
+        fallback_env_path = project_root / '.env'
+        if env_path.exists():
+            load_dotenv(env_path)
+        elif fallback_env_path.exists():
+            load_dotenv(fallback_env_path)
     except ImportError:
         pass
     
