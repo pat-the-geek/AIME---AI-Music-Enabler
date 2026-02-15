@@ -120,17 +120,20 @@ async def list_artists(
         
         artists = query.order_by(Artist.name).limit(limit).all()
         
+        result_artists = []
+        for artist in artists:
+            # Récupérer l'image de type 'artist' uniquement
+            artist_image = next((img for img in artist.images if img.image_type == 'artist'), None)
+            result_artists.append({
+                "id": artist.id,
+                "name": artist.name,
+                "spotify_id": artist.spotify_id,
+                "image_url": artist_image.url if artist_image else None
+            })
+        
         return {
-            "count": len(artists),
-            "artists": [
-                {
-                    "id": artist.id,
-                    "name": artist.name,
-                    "spotify_id": artist.spotify_id,
-                    "image_url": artist.images[0].url if artist.images else None
-                }
-                for artist in artists
-            ]
+            "count": len(result_artists),
+            "artists": result_artists
         }
         
     except Exception as e:
@@ -440,12 +443,19 @@ async def stream_artist_article(
                 Artist.id == artist_id
             ).order_by(Album.year.desc().nullslast()).limit(20).all()
             
+            # Récupérer l'image de l'artiste (filtrer par type 'artist')
+            from app.models import Image
+            artist_image = db.query(Image).filter(
+                Image.artist_id == artist_id,
+                Image.image_type == 'artist'
+            ).first()
+            
             # Envoyer les métadonnées
             import json
             metadata = {
                 "type": "metadata",
                 "artist_name": artist.name,
-                "artist_image_url": artist.images[0].url if artist.images else None,
+                "artist_image_url": artist_image.url if artist_image else None,
                 "albums_count": len(albums)
             }
             yield f"data: {json.dumps(metadata)}\n\n"

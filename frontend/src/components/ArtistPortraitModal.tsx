@@ -33,17 +33,23 @@ export default function ArtistPortraitModal({
   const [streamedContent, setStreamedContent] = useState('')
   const [streamMetadata, setStreamMetadata] = useState<any>({})
   const [streamError, setStreamError] = useState<string | null>(null)
+  const [imageError, setImageError] = useState(false)
 
   useEffect(() => {
     if (!open || !artistId) return
+
+    let abortController: AbortController | null = null
+    let reader: ReadableStreamDefaultReader<Uint8Array> | null = null
 
     const generatePortrait = async () => {
       setIsStreaming(true)
       setStreamedContent('')
       setStreamMetadata({})
+      setImageError(false)
       setStreamError(null)
 
       try {
+        abortController = new AbortController()
         const baseURL = apiClient.defaults.baseURL
         const response = await fetch(
           `${baseURL}/collection/artists/${artistId}/article/stream`,
@@ -51,6 +57,7 @@ export default function ArtistPortraitModal({
             headers: {
               Accept: 'text/event-stream',
             },
+            signal: abortController.signal,
           }
         )
 
@@ -58,7 +65,7 @@ export default function ArtistPortraitModal({
           throw new Error(`Erreur HTTP ${response.status}`)
         }
 
-        const reader = response.body?.getReader()
+        reader = response.body?.getReader()
         const decoder = new TextDecoder()
 
         if (!reader) {
@@ -98,7 +105,6 @@ export default function ArtistPortraitModal({
                   // Accumulate markdown content while preserving formatting
                   setStreamedContent((prev) => {
                     const newContent = prev + parsed.content
-                    console.log('📄 Portrait chunk received, size:', parsed.content.length)
                     return newContent
                   })
                 } else if (parsed.type === 'error') {
@@ -114,6 +120,11 @@ export default function ArtistPortraitModal({
           }
         }
       } catch (error) {
+        // Ignorer les erreurs d'annulation (quand l'utilisateur ferme le modal)
+        if (error instanceof Error && error.name === 'AbortError') {
+          console.log('🛑 Streaming annulé par l\'utilisateur')
+          return
+        }
         console.error('Erreur streaming:', error)
         setStreamError(
           error instanceof Error ? error.message : 'Erreur inconnue'
@@ -123,6 +134,18 @@ export default function ArtistPortraitModal({
     }
 
     generatePortrait()
+
+    // Cleanup: annuler le streaming si le modal se ferme
+    return () => {
+      if (abortController) {
+        console.log('🛑 Annulation du streaming en cours...')
+        abortController.abort()
+      }
+      if (reader) {
+        reader.cancel()
+      }
+      setIsStreaming(false)
+    }
   }, [open, artistId])
 
   return (
@@ -169,12 +192,16 @@ export default function ArtistPortraitModal({
           </Alert>
         )}
 
-        {streamMetadata.artist_image_url && (
+        {streamMetadata.artist_image_url && !imageError && (
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
             <Box
               component="img"
               src={streamMetadata.artist_image_url}
               alt={streamMetadata.artist_name || artistName}
+              onError={() => {
+                console.warn('⚠️ Erreur chargement image artiste')
+                setImageError(true)
+              }}
               sx={{
                 maxWidth: '300px',
                 width: '100%',
@@ -218,6 +245,7 @@ export default function ArtistPortraitModal({
                 mb: 1.5,
                 textAlign: 'justify',
                 color: 'text.primary',
+                whiteSpace: 'pre-wrap',
               },
               '& ul, & ol': {
                 fontSize: '1rem',
@@ -257,6 +285,7 @@ export default function ArtistPortraitModal({
                 borderRadius: '4px',
                 overflow: 'auto',
                 mb: 1.5,
+                whiteSpace: 'pre-wrap',
                 '& code': {
                   backgroundColor: 'transparent',
                   padding: 0,

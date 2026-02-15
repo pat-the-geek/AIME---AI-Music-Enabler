@@ -244,7 +244,8 @@ class AlbumService:
                 logger.warning(f"⚠️ Pas d'image artiste trouvée pour '{artist.name}' (ID: {artist.id})")
         
         # Récupérer les métadonnées
-        ai_info = album.ai_description  # Colonne principale
+        # Prioriser metadata.ai_info (source la plus récente) sur albums.ai_description (legacy)
+        ai_info = None
         resume = None
         labels = None
         film_title = None
@@ -252,13 +253,16 @@ class AlbumService:
         film_director = None
         
         if album.album_metadata:
-            if not ai_info:
-                ai_info = album.album_metadata.ai_info
+            ai_info = album.album_metadata.ai_info  # Source principale (descriptions longues EurIA)
             resume = album.album_metadata.resume
             labels = album.album_metadata.labels.split(',') if album.album_metadata.labels else None
             film_title = album.album_metadata.film_title
             film_year = album.album_metadata.film_year
             film_director = album.album_metadata.film_director
+        
+        # Fallback sur la colonne legacy seulement si metadata.ai_info n'existe pas
+        if not ai_info:
+            ai_info = album.ai_description
         
         logger.info(f"📤 Retour pour album {album_id}: {album.title}")
         

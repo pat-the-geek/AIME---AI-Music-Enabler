@@ -28,11 +28,13 @@ import {
   PlayArrow,
   Code as CodeIcon,
   Preview as PreviewIcon,
+  Person as PersonIcon,
 } from '@mui/icons-material'
 import ReactMarkdown from 'react-markdown'
 import apiClient from '@/api/client'
 import { useRoon } from '@/contexts/RoonContext'
 import { getHiddenContentSx, isEmptyContent } from '@/utils/hideEmptyContent'
+import ArtistPortraitModal from '@/components/ArtistPortraitModal'
 import type { AlbumDetail } from '@/types/models'
 
 interface AlbumDetailDialogProps {
@@ -53,6 +55,9 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
     severity: 'success' as 'success' | 'error' 
   })
   const [refreshKey, setRefreshKey] = useState(0)
+  const [portraitOpen, setPortraitOpen] = useState(false)
+  const [portraitArtistId, setPortraitArtistId] = useState<number | null>(null)
+  const [portraitArtistName, setPortraitArtistName] = useState('')
   
   const queryClient = useQueryClient()
   const roon = useRoon()
@@ -102,10 +107,12 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
       return response.data
     },
     onSuccess: async () => {
-      // Forcer un refresh en incrémentant la clé
-      setRefreshKey(prev => prev + 1)
-      queryClient.removeQueries({ queryKey: ['albums'] })
-      setSnackbar({ open: true, message: 'Album enrichi avec succès (images, Spotify, descriptions) !', severity: 'success' })
+      // Invalider toutes les queries liées aux albums pour forcer un refresh complet
+      await queryClient.invalidateQueries({ queryKey: ['album', albumId] })
+      queryClient.invalidateQueries({ queryKey: ['albums'] })
+      // Forcer un refresh immédiat
+      await refetch()
+      setSnackbar({ open: true, message: '✅ Album enrichi avec succès ! Description IA régénérée avec EurIA (1800-2000 caractères)', severity: 'success' })
     },
     onError: (error: any) => {
       setSnackbar({ open: true, message: `Erreur: ${error.message}`, severity: 'error' })
@@ -178,6 +185,43 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
     }
   }
 
+  const handleOpenAppleMusic = () => {
+    if (!albumDetail) return
+    
+    if (albumDetail.apple_music_url) {
+      const w = window.open(albumDetail.apple_music_url, '_blank')
+      if (w) setTimeout(() => w.close(), 1000)
+      return
+    }
+    
+    const albumTitle = albumDetail.title
+    const artistName = albumDetail.artists?.[0]
+    if (!albumTitle || !artistName) return
+    
+    const searchQuery = `${albumTitle} ${artistName}`.trim()
+    const encodedQuery = encodeURIComponent(searchQuery)
+    const appleMusicSearchUrl = `https://music.apple.com/search?term=${encodedQuery}`
+    const w = window.open(appleMusicSearchUrl, '_blank')
+    if (w) setTimeout(() => w.close(), 1000)
+  }
+
+  const handleOpenArtistPortrait = async () => {
+    if (!albumDetail?.artists?.[0]) return
+    const artistName = albumDetail.artists[0]
+    try {
+      const response = await apiClient.get('/collection/artists/list', {
+        params: { search: artistName, limit: 1 }
+      })
+      if (response.data?.artists?.[0]) {
+        setPortraitArtistId(response.data.artists[0].id)
+        setPortraitArtistName(response.data.artists[0].name)
+        setPortraitOpen(true)
+      }
+    } catch (error) {
+      console.error('Erreur recherche artiste:', error)
+    }
+  }
+
   return (
     <>
       <Dialog 
@@ -186,36 +230,10 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle sx={{ position: 'relative', paddingRight: '120px' }}>
+        <DialogTitle sx={{ position: 'relative' }}>
           <Typography variant="h5">
             {albumDetail?.title || 'Chargement...'}
           </Typography>
-          
-          {/* Vignette de l'artiste - coin supérieur droit */}
-          {albumDetail?.artist_images && 
-            Object.keys(albumDetail.artist_images).length > 0 && 
-            albumDetail.artist_images[Object.keys(albumDetail.artist_images)[0]] && (
-              <Tooltip title={albumDetail.artists?.[0] || 'Artiste'}>
-                <Box
-                  component="img"
-                  src={albumDetail.artist_images[Object.keys(albumDetail.artist_images)[0]]}
-                  alt={albumDetail.artists?.[0] || 'Artiste'}
-                  sx={{
-                    position: 'absolute',
-                    top: 95,
-                    right: 42,
-                    width: 70,
-                    height: 70,
-                    borderRadius: 1.5,
-                    objectFit: 'cover',
-                    boxShadow: 2,
-                    border: '2px solid',
-                    borderColor: 'primary.main',
-                    cursor: 'pointer'
-                  }}
-                />
-              </Tooltip>
-            )}
           
           {/* Bouton fermer */}
           <IconButton 
@@ -250,13 +268,39 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
                 
                 <Grid item xs={12} md={7}>
                   <Stack spacing={2}>
-                    <Box sx={{ paddingRight: '95px' }}>
-                      <Typography variant="overline" color="text.secondary">
-                        Artiste(s)
-                      </Typography>
-                      <Typography variant="h6">
-                        {albumDetail.artists.join(', ')}
-                      </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+                      <Box sx={{ flex: 1 }}>
+                        <Typography variant="overline" color="text.secondary">
+                          Artiste(s)
+                        </Typography>
+                        <Typography variant="h6">
+                          {albumDetail.artists.join(', ')}
+                        </Typography>
+                      </Box>
+                      
+                      {/* Vignette de l'artiste */}
+                      {albumDetail.artist_images && 
+                        Object.keys(albumDetail.artist_images).length > 0 && 
+                        albumDetail.artist_images[Object.keys(albumDetail.artist_images)[0]] && (
+                          <Tooltip title={albumDetail.artists?.[0] || 'Artiste'}>
+                            <Box
+                              component="img"
+                              src={albumDetail.artist_images[Object.keys(albumDetail.artist_images)[0]]}
+                              alt={albumDetail.artists?.[0] || 'Artiste'}
+                              sx={{
+                                width: 70,
+                                height: 70,
+                                borderRadius: 1.5,
+                                objectFit: 'cover',
+                                boxShadow: 2,
+                                border: '2px solid',
+                                borderColor: 'primary.main',
+                                cursor: 'pointer',
+                                flexShrink: 0
+                              }}
+                            />
+                          </Tooltip>
+                        )}
                     </Box>
 
                     <Box>
@@ -315,6 +359,31 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
                               ▶️ Jouer sur Spotify
                             </Button>
                           )}
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            onClick={handleOpenAppleMusic}
+                            sx={{
+                              color: '#FA243C',
+                              borderColor: '#FA243C',
+                              '&:hover': { 
+                                color: '#E01B2F', 
+                                borderColor: '#E01B2F',
+                                backgroundColor: 'rgba(250, 36, 60, 0.1)' 
+                              }
+                            }}
+                          >
+                            🎵 Apple Music
+                          </Button>
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            onClick={handleOpenArtistPortrait}
+                            startIcon={<PersonIcon />}
+                            color="primary"
+                          >
+                            Portrait
+                          </Button>
                           {roon?.enabled && (
                             <Button 
                               variant="contained" 
@@ -402,7 +471,7 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
                     onClick={handleRefreshEnrichment}
                     disabled={enrichAlbumMutation.isPending}
                     startIcon={enrichAlbumMutation.isPending ? <CircularProgress size={16} /> : <RefreshIcon />}
-                    title="Rafraîchir: images, Spotify, descriptions"
+                    title="Régénérer la description IA avec EurIA (description longue 1800-2000 caractères)"
                   >
                     Rafraîchir
                   </Button>
@@ -591,6 +660,14 @@ export default function AlbumDetailDialog({ albumId, open, onClose }: AlbumDetai
           {snackbar.message}
         </Alert>
       </Snackbar>
+
+      {/* Modal Portrait de l'artiste */}
+      <ArtistPortraitModal
+        open={portraitOpen}
+        artistId={portraitArtistId}
+        artistName={portraitArtistName}
+        onClose={() => setPortraitOpen(false)}
+      />
     </>
   )
 }

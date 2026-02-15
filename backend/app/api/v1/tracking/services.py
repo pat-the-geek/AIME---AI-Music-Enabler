@@ -2479,7 +2479,7 @@ async def enrich_single_album(
         except Exception as e:
             logger.warning(f"⚠️ Erreur Spotify pour {album.title}: {e}")
         
-        # 2. Enrichir avec IA (descriptions) - de façon optionnelle sans bloquer
+        # 2. Enrichir avec IA (descriptions) - TOUJOURS régénérer la description
         try:
             from app.services.external.ai_service import AIService
             ai_service = AIService(
@@ -2489,23 +2489,27 @@ async def enrich_single_album(
             
             artist_name = album.artists[0].name if album.artists else 'Unknown'
             try:
-                # Ajouter un timeout pour l'IA pour ne pas bloquer
+                # TOUJOURS générer une nouvelle description (rafraîchissement forcé)
+                logger.info(f"🤖 Génération de la description IA pour {album.title}...")
                 ai_info = await asyncio.wait_for(
                     ai_service.generate_album_info(artist_name, album.title),
-                    timeout=10
+                    timeout=45  # Timeout augmenté pour description longue (1800-2000 chars)
                 )
                 
                 if ai_info:
                     if not album.album_metadata:
                         metadata = Metadata(album_id=album.id, ai_info=ai_info)
                         db.add(metadata)
+                        logger.info(f"🤖 Description IA créée ({len(ai_info)} caractères)")
                     else:
+                        # Mettre à jour la description existante
+                        old_length = len(album.album_metadata.ai_info) if album.album_metadata.ai_info else 0
                         album.album_metadata.ai_info = ai_info
+                        logger.info(f"🤖 Description IA mise à jour: {old_length} → {len(ai_info)} caractères")
                     enrichment_details["ai_description"] = True
                     updated = True
-                    logger.info(f"🤖 Description IA ajoutée")
             except asyncio.TimeoutError:
-                logger.warning(f"⚠️ Timeout IA pour {album.title}")
+                logger.warning(f"⚠️ Timeout IA pour {album.title} (45 secondes)")
         except Exception as e:
             logger.warning(f"⚠️ Erreur IA pour {album.title}: {e}")
         

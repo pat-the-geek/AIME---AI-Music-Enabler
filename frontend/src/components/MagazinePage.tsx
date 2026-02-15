@@ -787,30 +787,7 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
             {/* Content - Masqué si image massive (texte superposé sur image) */}
             {!isMassive && (
               <Grid item xs={12} md={album.image_url && !isImageTop ? (isFullWidth || imageSize === 'large' ? 12 : 8) : 12} order={isImageLeft ? 2 : 1}>
-              <Box sx={{ position: 'relative' }}>
-                {/* Image de l'artiste - coin supérieur droit */}
-                {page.content.artist_images && 
-                  Object.keys(page.content.artist_images).length > 0 && 
-                  page.content.artist_images[Object.keys(page.content.artist_images)[0]] && (
-                    <Box
-                      component="img"
-                      src={page.content.artist_images[Object.keys(page.content.artist_images)[0]]}
-                      alt={album.artist}
-                      sx={{
-                        position: 'absolute',
-                        top: 0,
-                        right: 0,
-                        width: 100,
-                        height: 100,
-                        borderRadius: 1.5,
-                        objectFit: 'cover',
-                        boxShadow: 2,
-                        border: '2px solid',
-                        borderColor: '#23a7dd',
-                        zIndex: 10
-                      }}
-                    />
-                  )}
+              <Box>
                 <Typography variant="h2" sx={{
                   fontFamily: '"Playfair Display", "Georgia", serif',
                   fontWeight: 900,
@@ -834,11 +811,33 @@ export default function MagazinePage({ page, index, totalPages }: PageProps) {
                     fontFamily: '"Merriweather", "Georgia", serif',
                     color: '#2c3e50',
                     fontWeight: 400,
-                    fontStyle: 'italic'
+                    fontStyle: 'italic',
+                    flex: 1
                   }}>
                     {album.artist}
                     {album.year && ` • ${album.year}`}
                   </Typography>
+                  
+                  {/* Image de l'artiste */}
+                  {page.content.artist_images && 
+                    Object.keys(page.content.artist_images).length > 0 && 
+                    page.content.artist_images[Object.keys(page.content.artist_images)[0]] && (
+                      <Box
+                        component="img"
+                        src={page.content.artist_images[Object.keys(page.content.artist_images)[0]]}
+                        alt={album.artist}
+                        sx={{
+                          width: 100,
+                          height: 100,
+                          borderRadius: 1.5,
+                          objectFit: 'cover',
+                          boxShadow: 2,
+                          border: '2px solid',
+                          borderColor: '#23a7dd',
+                          flexShrink: 0
+                        }}
+                      />
+                    )}
                   <Box sx={{ display: 'flex', gap: '8px', marginLeft: 'auto', flexWrap: 'wrap' }}>
                     <Button
                       size="small"
