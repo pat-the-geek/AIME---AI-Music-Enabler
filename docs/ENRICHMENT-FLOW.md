@@ -132,6 +132,23 @@ python3 ../scripts/enrichment/enrich_apple_music_urls.py
 - 474 URLs directes trouvées via Euria
 - 1216 URLs de recherche générées
 
+### update_all_album_descriptions.py
+**Localisation** : `backend/update_all_album_descriptions.py`
+
+Script pour regénérer les descriptions longues d'albums via EurIA.
+
+```bash
+cd backend
+python3 update_all_album_descriptions.py
+```
+
+**Options utiles** :
+- `--only-missing` : ne traite que les albums sans `metadata.ai_info`
+- `--only-discogs` : ne traite que les albums importés depuis Discogs
+- `--limit 50` : limite le nombre d'albums traités
+- `--delay 1.0` : pause entre les appels IA (secondes)
+- `--dry-run` : exécution sans écriture en base
+
 ### Enrichissement Spotify
 **Endpoint API** : POST `/api/v1/tracking/enrich-spotify`
 
