@@ -146,6 +146,15 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
 - Node.js 18+
 - Git
 
+### 🎧 Scrobbling Apple Music (Last.fm)
+
+Pour scrobbler vos écoutes Apple Music sur Last.fm, deux solutions recommandées :
+
+- **Sur iOS** : [Marvis Pro](https://apps.apple.com/ch/app/marvis-pro/id1447768809?l=fr-FR) — Application puissante permettant de scrobbler automatiquement vos lectures Apple Music vers Last.fm.
+- **Sur Mac OS X** : [NepTunes for Last.fm](https://apps.apple.com/ch/app/neptunes-for-last-fm/id1006739057?l=fr-FR&mt=12) — Utilitaire léger pour scrobbler Apple Music (et d'autres lecteurs) directement sur votre Mac.
+
+Ces outils permettent d'assurer que toutes vos écoutes Apple Music sont bien prises en compte dans l'historique Last.fm, et donc agrégées dans AIME.
+
 ### Installation Rapide
 
 ```bash
@@ -158,10 +167,6 @@ chmod +x scripts/*.sh
 # Exécuter l'installation
 ./scripts/setup.sh
 ```
-
-### Installation Manuelle
-
-#### Backend
 
 ```bash
 cd backend

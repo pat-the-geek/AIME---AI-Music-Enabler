@@ -11,6 +11,17 @@ Nouvelle fonctionnalité majeure permettant :
 2. **Tracker en temps réel** pour les nouvelles écoutes
 3. **Interface de contrôle** dans les Paramètres
 
+---
+
+## 🎧 Scrobbling Apple Music (Last.fm)
+
+Pour scrobbler vos écoutes Apple Music sur Last.fm, deux solutions recommandées :
+
+- **Sur iOS** : [Marvis Pro](https://apps.apple.com/ch/app/marvis-pro/id1447768809?l=fr-FR) — Application puissante permettant de scrobbler automatiquement vos lectures Apple Music vers Last.fm.
+- **Sur Mac OS X** : [NepTunes for Last.fm](https://apps.apple.com/ch/app/neptunes-for-last-fm/id1006739057?l=fr-FR&mt=12) — Utilitaire léger pour scrobbler Apple Music (et d'autres lecteurs) directement sur votre Mac.
+
+Ces outils assurent que toutes vos écoutes Apple Music sont bien envoyées à Last.fm, et donc agrégées dans AIME.
+
 Cette fonctionnalité complète le système en permettant de récupérer tout l'historique d'écoute et de continuer le tracking en temps réel.
 
 ---
