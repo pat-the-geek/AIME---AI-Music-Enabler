@@ -1,0 +1,805 @@
+{
+  "id": "2026-02-15-005",
+  "edition_number": 5,
+  "generated_at": "2026-02-15T04:00:15.293547+00:00",
+  "albums": [
+    {
+      "id": 384,
+      "title": "Le Cinquième Élément (original Motion Picture Soundtrack)",
+      "artist": "Éric Serra",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b2cf19034c2a6f7582cae8b8",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/78mlMK2LrKtwk5TSCfU4db",
+      "apple_music_url": "https://music.apple.com/search?term=Le%20Cinqui%C3%A8me%20%C3%89l%C3%A9ment%20%28original%20Motion%20Picture%20Soundtrack%29%20%C3%89ric%20Serra"
+    },
+    {
+      "id": 424,
+      "title": "Bonnie and Clyde",
+      "artist": "Brigitte Bardot & Serge Gainsbourg",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2739f5e8811728ab69bf7843412",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7ycZKm3bJBxkPFPAzOk5JU",
+      "apple_music_url": "https://music.apple.com/search?term=Brigitte%20Bardot%20%26%20Serge%20Gainsbourg%20Bonnie%20and%20Clyde"
+    },
+    {
+      "id": 425,
+      "title": "Bobby Mcferrin",
+      "artist": "Bobby Mcferrin",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733acaa2c0153e211f18031215",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0L2VM5iuoVRAQXvw2lyRzV",
+      "apple_music_url": "https://music.apple.com/search?term=Bobby%20Mcferrin%20Bobby%20Mcferrin"
+    },
+    {
+      "id": 421,
+      "title": "Renee Olstead",
+      "artist": "Renee Olstead",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f0e84dcdccab6f4743e2e3bd",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0xBTBaqqZd6Vnmp0tJ3g42",
+      "apple_music_url": "https://music.apple.com/search?term=Renee%20Olstead%20Renee%20Olstead"
+    },
+    {
+      "id": 1,
+      "title": "Nevermind",
+      "year": 1991,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+      "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+      "artist": "Nirvana",
+      "description": "**Nevermind** de *Nirvana* (1991) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 320,
+      "title": "Peter Gabriel 1: Car (remastered)",
+      "year": 1977,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2736b141e77892ab2ccb60cf3cf",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0kDFjyfGFtiIMXlxJ120Ok",
+      "apple_music_url": "https://music.apple.com/search?term=Peter%20Gabriel%20Peter%20Gabriel%201%3A%20Car%20%28remastered%29",
+      "artist": "Peter Gabriel",
+      "description": "Peter Gabriel livre avec *Peter Gabriel 1: Car (remastered)* (1977) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 334,
+      "title": "Genesis (2007 Remaster)",
+      "year": 1983,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273945c366eda66495226e4a46d",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6BX8AS7J97PSQNrteX325Z",
+      "apple_music_url": "https://music.apple.com/search?term=Genesis%20Genesis%20%282007%20Remaster%29",
+      "artist": "Genesis",
+      "description": "**Genesis (2007 Remaster)** de *Genesis* (1983) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 299,
+      "title": "This Wasn't Meant For You Anyway",
+      "year": 2024,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2736aa2a180c7b009ca8454ef89",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/3uTpTaMOynCYKV5AtgeO2U",
+      "apple_music_url": "https://music.apple.com/search?term=This%20Wasn%27t%20Meant%20For%20You%20Anyway%20Lola%20Young",
+      "artist": "Lola Young",
+      "description": "Dans *This Wasn't Meant For You Anyway*, Lola Young nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 317,
+      "title": "Strange Days (50th Anniversary Expanded Edition; 2017 Remaster)",
+      "year": 2017,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27304521a139cc9b956a83dace6",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6bGa4Ox4GI6WAdsLbrR0bw",
+      "apple_music_url": "https://music.apple.com/search?term=Strange%20Days%20%2850th%20Anniversary%20Expanded%20Edition%3B%202017%20Remaster%29%20The%20Doors",
+      "artist": "The Doors",
+      "description": "The Doors livre avec *Strange Days (50th Anniversary Expanded Edition; 2017 Remaster)* (2017) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 286,
+      "title": "Trilogy 3 (live)",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273636688536fdadbf58c806e9a",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1TfKOn7USTqlVKw00xSGiy",
+      "apple_music_url": "https://music.apple.com/search?term=Trilogy%203%20%28live%29%20Chick%20Corea%2C%20Brian%20Blade%20%26%20Christian%20Mcbride",
+      "artist": "Chick Corea, Brian Blade & Christian Mcbride",
+      "description": "*Trilogy 3 (live)* marque un moment dans la carrière de Chick Corea, Brian Blade & Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 325,
+      "title": "Hydra",
+      "year": 1979,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273801ed6b1316f1bbbc41ac3f5",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/3dPZH0a4kjtjq6Hm53BS9S",
+      "apple_music_url": "https://music.apple.com/search?term=Toto%20Hydra",
+      "artist": "Toto",
+      "description": "La **poésie musicale** de *Hydra* de Toto transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 292,
+      "title": "Songs of a Lost World",
+      "year": 2024,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738613a922e2b503736fb2f91f",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/4wjxmqXnSQvBZWL3IbYngX",
+      "apple_music_url": "https://music.apple.com/search?term=Songs%20of%20a%20Lost%20World%20The%20Cure",
+      "artist": "The Cure",
+      "description": "Dans *Songs of a Lost World*, The Cure nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+      "count": 21
+    },
+    {
+      "id": 1239,
+      "title": "La Môme (original Soundtrack)",
+      "artist": "Various",
+      "year": 2007,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738cff31905f12bd67c915f4aa",
+      "spotify_url": "https://open.spotify.com/album/1xJ3zySII5r4a6nU2txbDk",
+      "apple_music_url": "https://music.apple.com/search?term=La%20M%C3%B4me%20%28original%20Soundtrack%29%20Various",
+      "description": "**Album Review: *La Môme (Original Soundtrack)* (2007) – Various Artists**\n\n*La Môme*, the original soundtrack to Olivier Dahan’s biographical film *La Vie en Rose*, is a hauntingly beautiful tribute to the life of Édith Piaf. The album masterfully blends traditional French chanson with orchestral arrangements, evoking Piaf’s signature emotive power. The musical style leans heavily into classic French cabaret and romantic ballads, with lush strings, piano, and piano-driven melodies creating an atmosphere of nostalgia and melancholy.\n\nProduction quality is impeccable, with meticulous sound design that enhances the intimacy of Piaf’s performances. Standout tracks include the poignant *\"Non, Je Ne Regrette Rien\"* and *\"Hymne à l’Amour\"*, both reimagined with rich orchestration. Marion Cotillard’s raw, unvarnished vocal delivery in *\"La Vie en Rose\"* is particularly striking, capturing Piaf’s vulnerability.\n\nOverall, *La Môme* is a sonic journey through heartache and resilience, a testament to Piaf’s enduring legacy. The album’s seamless fusion of period-appropriate instrumentation and modern production makes it a",
+      "style": null
+    },
+    {
+      "id": 264,
+      "title": "In Sides",
+      "artist": "Orbital",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738582db75b4e80ca0077697bc",
+      "year": 1996,
+      "spotify_url": "https://open.spotify.com/album/1wXyzUmlgN6G1DXIY0Sh8l",
+      "apple_music_url": "https://music.apple.com/search?term=In%20Sides%20Orbital",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "chaos",
+        "accentColor": "#FF00FF",
+        "specialEffect": "gradient"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 287,
+      "title": "Gnx",
+      "artist": "Kendrick Lamar",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58",
+      "year": 2024,
+      "spotify_url": "https://open.spotify.com/album/1Ss0ArMRr91m83mOgRBjSZ",
+      "apple_music_url": "https://music.apple.com/search?term=Gnx%20Kendrick%20Lamar",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "dramatic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "gradient"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Horizons Musique."
+    },
+    {
+      "id": 242,
+      "title": "Dire Straits",
+      "artist": "Dire Straits",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b49d49cc95564aede7998bb8",
+      "year": 1978,
+      "spotify_url": "https://open.spotify.com/album/2rCS6Xwx32V27pvgFzLzlT",
+      "apple_music_url": "https://music.apple.com/search?term=Dire%20Straits%20Dire%20Straits",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "chaos",
+        "accentColor": "#ab47bc",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 268,
+      "title": "Ain't Done With the Blues",
+      "artist": "Buddy Guy",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273c6336d29c7f3c2dce8d98aa3",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/2MIp3zMbggiFAgOOLUgU50",
+      "apple_music_url": "https://music.apple.com/search?term=Ain%27t%20Done%20With%20the%20Blues%20Buddy%20Guy",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 283,
+      "title": "Without Further Ado, Vol 1",
+      "artist": "Christian Mcbride",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+      "apple_music_url": "https://music.apple.com/search?term=Without%20Further%20Ado%2C%20Vol%201%20Christian%20Mcbride",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "gradient"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Horizons Musique*."
+    },
+    {
+      "id": 281,
+      "title": "Live-action",
+      "artist": "Nate Smith",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/6KpA380vLBVA6d6lYebIk3",
+      "apple_music_url": "https://music.apple.com/search?term=Live-action%20Nate%20Smith",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "gradient"
+      },
+      "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 384,
+            "title": "Le Cinquième Élément (original Motion Picture Soundtrack)",
+            "artist": "Éric Serra",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b2cf19034c2a6f7582cae8b8",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/78mlMK2LrKtwk5TSCfU4db",
+            "apple_music_url": "https://music.apple.com/search?term=Le%20Cinqui%C3%A8me%20%C3%89l%C3%A9ment%20%28original%20Motion%20Picture%20Soundtrack%29%20%C3%89ric%20Serra"
+          },
+          {
+            "id": 424,
+            "title": "Bonnie and Clyde",
+            "artist": "Brigitte Bardot & Serge Gainsbourg",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2739f5e8811728ab69bf7843412",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7ycZKm3bJBxkPFPAzOk5JU",
+            "apple_music_url": "https://music.apple.com/search?term=Brigitte%20Bardot%20%26%20Serge%20Gainsbourg%20Bonnie%20and%20Clyde"
+          },
+          {
+            "id": 425,
+            "title": "Bobby Mcferrin",
+            "artist": "Bobby Mcferrin",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2733acaa2c0153e211f18031215",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0L2VM5iuoVRAQXvw2lyRzV",
+            "apple_music_url": "https://music.apple.com/search?term=Bobby%20Mcferrin%20Bobby%20Mcferrin"
+          },
+          {
+            "id": 421,
+            "title": "Renee Olstead",
+            "artist": "Renee Olstead",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f0e84dcdccab6f4743e2e3bd",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0xBTBaqqZd6Vnmp0tJ3g42",
+            "apple_music_url": "https://music.apple.com/search?term=Renee%20Olstead%20Renee%20Olstead"
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 384,
+            "album_title": "Le Cinquième Élément (original Motion Picture Soundtrack)",
+            "haiku": "**Le Cinquième Élément**\nÉchos d'étoiles dansantes\nRythmes d'or et de vent",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "top",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#10b981",
+              "specialEffect": "gradient"
+            },
+            "description": "La **poésie musicale** de *Le Cinquième Élément (original Motion Picture Soundtrack)* de Éric Serra transcende les années depuis 1997. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 424,
+            "album_title": "Bonnie and Clyde",
+            "haiku": "**Bonnie and Clyde**\nClair-obscur en notes folles\nAmour et mitraille en jazz",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "left",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "gradient"
+            },
+            "description": "Brigitte Bardot & Serge Gainsbourg livre avec *Bonnie and Clyde* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 425,
+            "album_title": "Bobby Mcferrin",
+            "haiku": "**Bobby Mcferrin**\nVoix tissant l'air\nRythmes d'or liquide",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "right",
+              "imageSize": "small",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#06b6d4",
+              "specialEffect": "zoom"
+            },
+            "description": "La **poésie musicale** de *Bobby Mcferrin* de Bobby Mcferrin transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 421,
+            "album_title": "Renee Olstead",
+            "haiku": "**Renee Olstead**\nVoix d'or sous la lune\nLoops de rêves légers",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "left",
+              "imageSize": "medium",
+              "textLayout": "single-column",
+              "composition": "playful",
+              "accentColor": "#10b981",
+              "specialEffect": "zoom"
+            },
+            "description": "*Renee Olstead* marque un moment dans la carrière de Renee Olstead. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "columns": 1,
+        "spacing": "compact"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Pale Saints",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "left",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "chaos",
+        "accentColor": "#f7931e",
+        "specialEffect": "tilt"
+      },
+      "content": {
+        "artist": {
+          "name": "Pale Saints",
+          "albums_count": 8,
+          "haiku": "**Nevermind**\nGuitares rugissantes, vagues de fureur\nSilence brisé par un cri pur\n\n*(Inspiré par l'énergie brute de Nirvana, mêlant la puissance du son à une vulnérabilité émouvante, comme les albums atmosphériques de Pale Saints.)*",
+          "bio": "**Pale Saints** nous offre 8 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6772690000c46ccbc856491064a6f7ae48078c"
+        },
+        "albums": [
+          {
+            "id": 1,
+            "title": "Nevermind",
+            "year": 1991,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+            "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+            "artist": "Nirvana",
+            "description": "**Nevermind** de *Nirvana* (1991) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 320,
+            "title": "Peter Gabriel 1: Car (remastered)",
+            "year": 1977,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2736b141e77892ab2ccb60cf3cf",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0kDFjyfGFtiIMXlxJ120Ok",
+            "apple_music_url": "https://music.apple.com/search?term=Peter%20Gabriel%20Peter%20Gabriel%201%3A%20Car%20%28remastered%29",
+            "artist": "Peter Gabriel",
+            "description": "Peter Gabriel livre avec *Peter Gabriel 1: Car (remastered)* (1977) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 334,
+            "title": "Genesis (2007 Remaster)",
+            "year": 1983,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273945c366eda66495226e4a46d",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6BX8AS7J97PSQNrteX325Z",
+            "apple_music_url": "https://music.apple.com/search?term=Genesis%20Genesis%20%282007%20Remaster%29",
+            "artist": "Genesis",
+            "description": "**Genesis (2007 Remaster)** de *Genesis* (1983) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 299,
+            "title": "This Wasn't Meant For You Anyway",
+            "year": 2024,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2736aa2a180c7b009ca8454ef89",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/3uTpTaMOynCYKV5AtgeO2U",
+            "apple_music_url": "https://music.apple.com/search?term=This%20Wasn%27t%20Meant%20For%20You%20Anyway%20Lola%20Young",
+            "artist": "Lola Young",
+            "description": "Dans *This Wasn't Meant For You Anyway*, Lola Young nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 317,
+            "title": "Strange Days (50th Anniversary Expanded Edition; 2017 Remaster)",
+            "year": 2017,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27304521a139cc9b956a83dace6",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6bGa4Ox4GI6WAdsLbrR0bw",
+            "apple_music_url": "https://music.apple.com/search?term=Strange%20Days%20%2850th%20Anniversary%20Expanded%20Edition%3B%202017%20Remaster%29%20The%20Doors",
+            "artist": "The Doors",
+            "description": "The Doors livre avec *Strange Days (50th Anniversary Expanded Edition; 2017 Remaster)* (2017) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 286,
+            "title": "Trilogy 3 (live)",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273636688536fdadbf58c806e9a",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1TfKOn7USTqlVKw00xSGiy",
+            "apple_music_url": "https://music.apple.com/search?term=Trilogy%203%20%28live%29%20Chick%20Corea%2C%20Brian%20Blade%20%26%20Christian%20Mcbride",
+            "artist": "Chick Corea, Brian Blade & Christian Mcbride",
+            "description": "*Trilogy 3 (live)* marque un moment dans la carrière de Chick Corea, Brian Blade & Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 325,
+            "title": "Hydra",
+            "year": 1979,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273801ed6b1316f1bbbc41ac3f5",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/3dPZH0a4kjtjq6Hm53BS9S",
+            "apple_music_url": "https://music.apple.com/search?term=Toto%20Hydra",
+            "artist": "Toto",
+            "description": "La **poésie musicale** de *Hydra* de Toto transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 292,
+            "title": "Songs of a Lost World",
+            "year": 2024,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738613a922e2b503736fb2f91f",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/4wjxmqXnSQvBZWL3IbYngX",
+            "apple_music_url": "https://music.apple.com/search?term=Songs%20of%20a%20Lost%20World%20The%20Cure",
+            "artist": "The Cure",
+            "description": "Dans *Songs of a Lost World*, The Cure nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 300,
+        "text_columns": 2,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "corner",
+        "imageSize": "large",
+        "textLayout": "double-column",
+        "composition": "modern",
+        "accentColor": "#10b981",
+        "specialEffect": "gradient"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 41,
+        "unique_albums": 68,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 295,
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273819ccf19e41a22238bc99396",
+            "count": 28
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "apple_music_url": "https://music.apple.com/search?term=Mixes%20Of%20A%20Lost%20World%20The%20Cure%2C%20The%20Cure%20%26%20Daniel%20Avery%2C%20The%20Cure%20%26%20Orbital",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "apple_music_url": "https://music.apple.com/search?term=Speaking%20in%20Tongues%20Talking%20Heads",
+            "count": 17
+          },
+          {
+            "album_id": 269,
+            "album_title": "More Songs About Buildings and Food",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27391237668384c4d646b30c05c",
+            "spotify_url": "https://open.spotify.com/album/39jsLMRmrTpfdq2vE4TCUe",
+            "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20More%20Songs%20About%20Buildings%20and%20Food",
+            "count": 16
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "donut",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1239,
+          "title": "La Môme (original Soundtrack)",
+          "artist": "Various",
+          "year": 2007,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b2738cff31905f12bd67c915f4aa",
+          "spotify_url": "https://open.spotify.com/album/1xJ3zySII5r4a6nU2txbDk",
+          "apple_music_url": "https://music.apple.com/search?term=La%20M%C3%B4me%20%28original%20Soundtrack%29%20Various",
+          "description": "**Album Review: *La Môme (Original Soundtrack)* (2007) – Various Artists**\n\n*La Môme*, the original soundtrack to Olivier Dahan’s biographical film *La Vie en Rose*, is a hauntingly beautiful tribute to the life of Édith Piaf. The album masterfully blends traditional French chanson with orchestral arrangements, evoking Piaf’s signature emotive power. The musical style leans heavily into classic French cabaret and romantic ballads, with lush strings, piano, and piano-driven melodies creating an atmosphere of nostalgia and melancholy.\n\nProduction quality is impeccable, with meticulous sound design that enhances the intimacy of Piaf’s performances. Standout tracks include the poignant *\"Non, Je Ne Regrette Rien\"* and *\"Hymne à l’Amour\"*, both reimagined with rich orchestration. Marion Cotillard’s raw, unvarnished vocal delivery in *\"La Vie en Rose\"* is particularly striking, capturing Piaf’s vulnerability.\n\nOverall, *La Môme* is a sonic journey through heartache and resilience, a testament to Piaf’s enduring legacy. The album’s seamless fusion of period-appropriate instrumentation and modern production makes it a",
+          "style": null
+        },
+        "artist_images": {
+          "Various": "https://i.scdn.co/image/ab67616d0000b2735b18da1b6db845c4ff67cbf7"
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "medium"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Horizons Musique",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Horizons Musique",
+          "description": "*Horizons Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 264,
+              "title": "In Sides",
+              "artist": "Orbital",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2738582db75b4e80ca0077697bc",
+              "year": 1996,
+              "spotify_url": "https://open.spotify.com/album/1wXyzUmlgN6G1DXIY0Sh8l",
+              "apple_music_url": "https://music.apple.com/search?term=In%20Sides%20Orbital",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "chaos",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 287,
+              "title": "Gnx",
+              "artist": "Kendrick Lamar",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58",
+              "year": 2024,
+              "spotify_url": "https://open.spotify.com/album/1Ss0ArMRr91m83mOgRBjSZ",
+              "apple_music_url": "https://music.apple.com/search?term=Gnx%20Kendrick%20Lamar",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Horizons Musique."
+            },
+            {
+              "id": 242,
+              "title": "Dire Straits",
+              "artist": "Dire Straits",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273b49d49cc95564aede7998bb8",
+              "year": 1978,
+              "spotify_url": "https://open.spotify.com/album/2rCS6Xwx32V27pvgFzLzlT",
+              "apple_music_url": "https://music.apple.com/search?term=Dire%20Straits%20Dire%20Straits",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "chaos",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 268,
+              "title": "Ain't Done With the Blues",
+              "artist": "Buddy Guy",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273c6336d29c7f3c2dce8d98aa3",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/2MIp3zMbggiFAgOOLUgU50",
+              "apple_music_url": "https://music.apple.com/search?term=Ain%27t%20Done%20With%20the%20Blues%20Buddy%20Guy",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 283,
+              "title": "Without Further Ado, Vol 1",
+              "artist": "Christian Mcbride",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+              "apple_music_url": "https://music.apple.com/search?term=Without%20Further%20Ado%2C%20Vol%201%20Christian%20Mcbride",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Horizons Musique*."
+            },
+            {
+              "id": 281,
+              "title": "Live-action",
+              "artist": "Nate Smith",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/6KpA380vLBVA6d6lYebIk3",
+              "apple_music_url": "https://music.apple.com/search?term=Live-action%20Nate%20Smith",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "minimal",
+        "image_position": "background"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

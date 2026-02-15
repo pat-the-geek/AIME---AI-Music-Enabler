@@ -1,0 +1,710 @@
+{
+  "id": "2026-02-15-006",
+  "edition_number": 6,
+  "generated_at": "2026-02-15T04:30:18.404946+00:00",
+  "albums": [
+    {
+      "id": 401,
+      "title": "Ballads (deluxe Edition; Deluxe Edition - Rudy Van Gelder Remaster)",
+      "artist": "John Coltrane Quartet",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a3d4884d3433efed2c4a0563",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0Ydakb7npXmyTwFLvKc5qt",
+      "apple_music_url": "https://music.apple.com/search?term=Ballads%20%28deluxe%20Edition%3B%20Deluxe%20Edition%20-%20Rudy%20Van%20Gelder%20Remaster%29%20John%20Coltrane%20Quartet"
+    },
+    {
+      "id": 389,
+      "title": "The Best of Roxy Music",
+      "artist": "Roxy Music",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273cdd6f71f3d22476a9a1319cd",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6yui99cp2Q3dosoHtiPJk7",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Best%20of%20Roxy%20Music%20Roxy%20Music"
+    },
+    {
+      "id": 361,
+      "title": "In the Flesh (live)",
+      "artist": "Roger Waters",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a282645d8ffe5d956875d5ba",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/07dIB9ue3bGed1vL67dbBY",
+      "apple_music_url": "https://music.apple.com/search?term=In%20the%20Flesh%20%28live%29%20Roger%20Waters"
+    },
+    {
+      "id": 1297,
+      "title": "Moon Safari",
+      "artist": "AIR",
+      "year": 2023,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2731216e4f7e84af70ef18146ed",
+      "spotify_url": "https://open.spotify.com/album/5dmYtZVJ1bG9RyrZBRrkOA",
+      "apple_music_url": "https://music.apple.com/search?term=Moon%20Safari%20AIR",
+      "description": "**Album Review: *Moon Safari* by AIR (2023)**\n\nReturning with *Moon Safari*, French electronic duo AIR delivers a dreamy, nostalgic journey that seamlessly blends lounge, ambient, and downtempo influences. The 2023 reimagining of their 1998 classic retains the original’s ethereal charm while refining its production with modern polish. The album unfolds like a cinematic odyssey, weaving soft synths, warm basslines, and delicate percussion into a hypnotic soundscape that feels both timeless and fresh.\n\nEmotionally, *Moon Safari* exudes warmth and melancholy, evoking lazy summer nights and introspective daydreams. Tracks like the title cut and *Sexy Boy* shimmer with playful sensuality, while *La Femme d’Argent* and *Kelly Watch the Stars* glide on a tide of soothing melodies and lush instrumentation. The production is immaculate, with crisp, spacious sound design that highlights every layered detail—whether it’s the twinkling Rhodes piano or the hypnotic groove of *The Visions*.\n\nAIR’s *Moon Safari* remains a",
+      "style": null
+    },
+    {
+      "id": 243,
+      "title": "Illinois",
+      "artist": "Sufjan Stevens",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273712c76b4152918fb8d37c53d",
+      "year": 2005,
+      "spotify_url": "https://open.spotify.com/album/1pOl0KEC1iQnA6F0XxV4To",
+      "apple_music_url": "https://music.apple.com/search?term=Sufjan%20Stevens%20Illinois",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "none"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+    },
+    {
+      "id": 248,
+      "title": "Surfer Rosa (2007 Remaster)",
+      "artist": "Pixies",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738aa545a0ea869940cce358b5",
+      "year": 1988,
+      "spotify_url": "https://open.spotify.com/album/50j4Wm1b9hLpSpPIA39Vp9",
+      "apple_music_url": "https://music.apple.com/search?term=Pixies%20Surfer%20Rosa%20%282007%20Remaster%29",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "gradient"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 251,
+      "title": "Naked",
+      "artist": "Talking Heads",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273569adf0916825b184451a8e9",
+      "year": 1988,
+      "spotify_url": "https://open.spotify.com/album/6iOPhFscLxdpzGug0qxpcZ",
+      "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20Naked",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "tilt"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 247,
+      "title": "Who's Next",
+      "artist": "The Who",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b738367ec6cdbd3e29d7efdf",
+      "year": 2023,
+      "spotify_url": "https://open.spotify.com/album/4uehIELOvaBf8ZbhQGrhkd",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Who%20Who%27s%20Next",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "chaos",
+        "accentColor": "#ab47bc",
+        "specialEffect": "gradient"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+    },
+    {
+      "id": 254,
+      "title": "Everyday Robots",
+      "artist": "Damon Albarn",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2736ed97e7df0962eb994a54bc3",
+      "year": 2014,
+      "spotify_url": "https://open.spotify.com/album/5SzhltQSSi1HUMi5cveZIZ",
+      "apple_music_url": "https://music.apple.com/search?term=Everyday%20Robots%20Damon%20Albarn",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+    },
+    {
+      "id": 289,
+      "title": "Bloom",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2739ea37a683bcf3f56b9f42a9f",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/756LreEk5nDrKn0FyiVJNH",
+      "apple_music_url": "https://music.apple.com/search?term=Bloom%20Durand%20Bernarr",
+      "artist": "Durand Bernarr",
+      "description": "Durand Bernarr livre avec *Bloom* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "existing"
+    },
+    {
+      "id": 1,
+      "title": "Nevermind",
+      "year": 1991,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+      "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+      "artist": "Nirvana",
+      "description": "**Nevermind** de *Nirvana* (1991) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 331,
+      "title": "Peter Gabriel 3: Melt (remastered)",
+      "year": 1980,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273c3e9ebd5e1999ae3ab639023",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0KLyPao7XpXHSAMmbkxCoz",
+      "apple_music_url": "https://music.apple.com/search?term=Peter%20Gabriel%20Peter%20Gabriel%203%3A%20Melt%20%28remastered%29",
+      "artist": "Peter Gabriel",
+      "description": "Dans *Peter Gabriel 3: Melt (remastered)*, Peter Gabriel nous offre un **voyage sonore** particulier. Sorti en 1980, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 322,
+      "title": "The Wall (remastered 2011 Version)",
+      "year": 2020,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273394a5add67c488985d470fac",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/4XJwNchONBIImInCbhBuTI",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Wall%20%28remastered%202011%20Version%29%20Pink%20Floyd",
+      "artist": "Pink Floyd",
+      "description": "*The Wall (remastered 2011 Version)* marque un moment dans la carrière de Pink Floyd. Ce disque de 2020 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 341,
+      "title": "So (remastered)",
+      "year": 1986,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27311bb04f55be562c76d8e8ecf",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0hQb1KT6L3iEYRkS5u8cjm",
+      "apple_music_url": "https://music.apple.com/search?term=So%20%28remastered%29%20Peter%20Gabriel",
+      "artist": "Peter Gabriel",
+      "description": "*So (remastered)* marque un moment dans la carrière de Peter Gabriel. Ce disque de 1986 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 294,
+      "title": "Never Enough",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738386e4a4fb9d20e5008f4d71",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/52yD51X7yDinwlg6tbCtpP",
+      "apple_music_url": "https://music.apple.com/search?term=Never%20Enough%20Turnstile",
+      "artist": "Turnstile",
+      "description": "**Never Enough** de *Turnstile* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+      "count": 21
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 401,
+            "title": "Ballads (deluxe Edition; Deluxe Edition - Rudy Van Gelder Remaster)",
+            "artist": "John Coltrane Quartet",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273a3d4884d3433efed2c4a0563",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0Ydakb7npXmyTwFLvKc5qt",
+            "apple_music_url": "https://music.apple.com/search?term=Ballads%20%28deluxe%20Edition%3B%20Deluxe%20Edition%20-%20Rudy%20Van%20Gelder%20Remaster%29%20John%20Coltrane%20Quartet"
+          },
+          {
+            "id": 389,
+            "title": "The Best of Roxy Music",
+            "artist": "Roxy Music",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273cdd6f71f3d22476a9a1319cd",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6yui99cp2Q3dosoHtiPJk7",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Best%20of%20Roxy%20Music%20Roxy%20Music"
+          },
+          {
+            "id": 361,
+            "title": "In the Flesh (live)",
+            "artist": "Roger Waters",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273a282645d8ffe5d956875d5ba",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/07dIB9ue3bGed1vL67dbBY",
+            "apple_music_url": "https://music.apple.com/search?term=In%20the%20Flesh%20%28live%29%20Roger%20Waters"
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 401,
+            "album_title": "Ballads (deluxe Edition; Deluxe Edition - Rudy Van Gelder Remaster)",
+            "haiku": "**Ballads (Deluxe Edition)**\nNotes flottant dans l'aube\nSouffle doré du jazz\n\n*(Ce haïku évoque la douceur mélodique des \"Ballads\" de Coltrane, où chaque note semble suspendue comme une aube naissante, tandis que le saxophone de Coltrane s'exprime avec une grâce presque tangible, comme un souffle doré.)*",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "top",
+              "imageSize": "large",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#ff6b35",
+              "specialEffect": "none"
+            },
+            "description": "Dans *Ballads (deluxe Edition; Deluxe Edition - Rudy Van Gelder Remaster)*, John Coltrane Quartet nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 389,
+            "album_title": "The Best of Roxy Music",
+            "haiku": "**The Best of Roxy Music**\nGlissando d'or et de velours\nÉchos d'un rêve électrique",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "left",
+              "imageSize": "large",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#ff6b35",
+              "specialEffect": "gradient"
+            },
+            "description": "La **poésie musicale** de *The Best of Roxy Music* de Roxy Music transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 361,
+            "album_title": "In the Flesh (live)",
+            "haiku": "**In the Flesh (live)**\nÉchos de chair et d'âme\nGuitares pleurant la nuit",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "left",
+              "imageSize": "small",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#ab47bc",
+              "specialEffect": "zoom"
+            },
+            "description": "Roger Waters livre avec *In the Flesh (live)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "columns": 2,
+        "spacing": "normal"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "large",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1297,
+          "title": "Moon Safari",
+          "artist": "AIR",
+          "year": 2023,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b2731216e4f7e84af70ef18146ed",
+          "spotify_url": "https://open.spotify.com/album/5dmYtZVJ1bG9RyrZBRrkOA",
+          "apple_music_url": "https://music.apple.com/search?term=Moon%20Safari%20AIR",
+          "description": "**Album Review: *Moon Safari* by AIR (2023)**\n\nReturning with *Moon Safari*, French electronic duo AIR delivers a dreamy, nostalgic journey that seamlessly blends lounge, ambient, and downtempo influences. The 2023 reimagining of their 1998 classic retains the original’s ethereal charm while refining its production with modern polish. The album unfolds like a cinematic odyssey, weaving soft synths, warm basslines, and delicate percussion into a hypnotic soundscape that feels both timeless and fresh.\n\nEmotionally, *Moon Safari* exudes warmth and melancholy, evoking lazy summer nights and introspective daydreams. Tracks like the title cut and *Sexy Boy* shimmer with playful sensuality, while *La Femme d’Argent* and *Kelly Watch the Stars* glide on a tide of soothing melodies and lush instrumentation. The production is immaculate, with crisp, spacious sound design that highlights every layered detail—whether it’s the twinkling Rhodes piano or the hypnotic groove of *The Visions*.\n\nAIR’s *Moon Safari* remains a",
+          "style": null
+        },
+        "artist_images": {
+          "AIR": "https://i.scdn.co/image/ab6761610000e5eb8f589e566a46ad9da669dbe3"
+        }
+      },
+      "dimensions": {
+        "image_size": "small",
+        "description_length": "full",
+        "font_size": "medium"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Voyage Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Voyage Musique",
+          "description": "*Voyage Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 243,
+              "title": "Illinois",
+              "artist": "Sufjan Stevens",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273712c76b4152918fb8d37c53d",
+              "year": 2005,
+              "spotify_url": "https://open.spotify.com/album/1pOl0KEC1iQnA6F0XxV4To",
+              "apple_music_url": "https://music.apple.com/search?term=Sufjan%20Stevens%20Illinois",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+            },
+            {
+              "id": 248,
+              "title": "Surfer Rosa (2007 Remaster)",
+              "artist": "Pixies",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2738aa545a0ea869940cce358b5",
+              "year": 1988,
+              "spotify_url": "https://open.spotify.com/album/50j4Wm1b9hLpSpPIA39Vp9",
+              "apple_music_url": "https://music.apple.com/search?term=Pixies%20Surfer%20Rosa%20%282007%20Remaster%29",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 251,
+              "title": "Naked",
+              "artist": "Talking Heads",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273569adf0916825b184451a8e9",
+              "year": 1988,
+              "spotify_url": "https://open.spotify.com/album/6iOPhFscLxdpzGug0qxpcZ",
+              "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20Naked",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 247,
+              "title": "Who's Next",
+              "artist": "The Who",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273b738367ec6cdbd3e29d7efdf",
+              "year": 2023,
+              "spotify_url": "https://open.spotify.com/album/4uehIELOvaBf8ZbhQGrhkd",
+              "apple_music_url": "https://music.apple.com/search?term=The%20Who%20Who%27s%20Next",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "chaos",
+                "accentColor": "#ab47bc",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+            },
+            {
+              "id": 254,
+              "title": "Everyday Robots",
+              "artist": "Damon Albarn",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2736ed97e7df0962eb994a54bc3",
+              "year": 2014,
+              "spotify_url": "https://open.spotify.com/album/5SzhltQSSi1HUMi5cveZIZ",
+              "apple_music_url": "https://music.apple.com/search?term=Everyday%20Robots%20Damon%20Albarn",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "minimal",
+        "image_position": "top"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "The Black Keys",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "center",
+        "imageSize": "medium",
+        "textLayout": "scattered",
+        "composition": "chaos",
+        "accentColor": "#06b6d4",
+        "specialEffect": "zoom"
+      },
+      "content": {
+        "artist": {
+          "name": "The Black Keys",
+          "albums_count": 8,
+          "haiku": "Voici un haïku poétique pour l'album *Naked* de Talking Heads, inspiré par votre style et demande :\n\n---\n\n**Naked**\nRythmes dénudés tremblent\nÉchos chauds sous la lune\n\n---\n\n*(Inspiré par l'atmosphère minimaliste et organique de l'album, avec des références à la sensualité et à la chaleur des instruments acoustiques.)*\n\nSi vous souhaitez une autre version ou des ajustements, n'hés",
+          "bio": "**The Black Keys** nous offre 8 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5eb68a2a81ddb9d084ed14bfa8d"
+        },
+        "albums": [
+          {
+            "id": 251,
+            "title": "Naked",
+            "year": 1988,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273569adf0916825b184451a8e9",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6iOPhFscLxdpzGug0qxpcZ",
+            "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20Naked",
+            "artist": "Talking Heads",
+            "description": "**Naked** de *Talking Heads* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 289,
+            "title": "Bloom",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2739ea37a683bcf3f56b9f42a9f",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/756LreEk5nDrKn0FyiVJNH",
+            "apple_music_url": "https://music.apple.com/search?term=Bloom%20Durand%20Bernarr",
+            "artist": "Durand Bernarr",
+            "description": "Durand Bernarr livre avec *Bloom* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 1,
+            "title": "Nevermind",
+            "year": 1991,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+            "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+            "artist": "Nirvana",
+            "description": "**Nevermind** de *Nirvana* (1991) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 331,
+            "title": "Peter Gabriel 3: Melt (remastered)",
+            "year": 1980,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273c3e9ebd5e1999ae3ab639023",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0KLyPao7XpXHSAMmbkxCoz",
+            "apple_music_url": "https://music.apple.com/search?term=Peter%20Gabriel%20Peter%20Gabriel%203%3A%20Melt%20%28remastered%29",
+            "artist": "Peter Gabriel",
+            "description": "Dans *Peter Gabriel 3: Melt (remastered)*, Peter Gabriel nous offre un **voyage sonore** particulier. Sorti en 1980, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 322,
+            "title": "The Wall (remastered 2011 Version)",
+            "year": 2020,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273394a5add67c488985d470fac",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/4XJwNchONBIImInCbhBuTI",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Wall%20%28remastered%202011%20Version%29%20Pink%20Floyd",
+            "artist": "Pink Floyd",
+            "description": "*The Wall (remastered 2011 Version)* marque un moment dans la carrière de Pink Floyd. Ce disque de 2020 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 254,
+            "title": "Everyday Robots",
+            "year": 2014,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2736ed97e7df0962eb994a54bc3",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/5SzhltQSSi1HUMi5cveZIZ",
+            "apple_music_url": "https://music.apple.com/search?term=Everyday%20Robots%20Damon%20Albarn",
+            "artist": "Damon Albarn",
+            "description": "*Everyday Robots* marque un moment dans la carrière de Damon Albarn. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 341,
+            "title": "So (remastered)",
+            "year": 1986,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27311bb04f55be562c76d8e8ecf",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0hQb1KT6L3iEYRkS5u8cjm",
+            "apple_music_url": "https://music.apple.com/search?term=So%20%28remastered%29%20Peter%20Gabriel",
+            "artist": "Peter Gabriel",
+            "description": "*So (remastered)* marque un moment dans la carrière de Peter Gabriel. Ce disque de 1986 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 294,
+            "title": "Never Enough",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738386e4a4fb9d20e5008f4d71",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/52yD51X7yDinwlg6tbCtpP",
+            "apple_music_url": "https://music.apple.com/search?term=Never%20Enough%20Turnstile",
+            "artist": "Turnstile",
+            "description": "**Never Enough** de *Turnstile* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 400,
+        "text_columns": 1,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "bottom",
+        "imageSize": "fullscreen",
+        "textLayout": "masonry",
+        "composition": "classic",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "overlay"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 41,
+        "unique_albums": 68,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 295,
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273819ccf19e41a22238bc99396",
+            "count": 28
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "apple_music_url": "https://music.apple.com/search?term=Mixes%20Of%20A%20Lost%20World%20The%20Cure%2C%20The%20Cure%20%26%20Daniel%20Avery%2C%20The%20Cure%20%26%20Orbital",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "apple_music_url": "https://music.apple.com/search?term=Speaking%20in%20Tongues%20Talking%20Heads",
+            "count": 17
+          },
+          {
+            "album_id": 269,
+            "album_title": "More Songs About Buildings and Food",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27391237668384c4d646b30c05c",
+            "spotify_url": "https://open.spotify.com/album/39jsLMRmrTpfdq2vE4TCUe",
+            "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20More%20Songs%20About%20Buildings%20and%20Food",
+            "count": 16
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "donut",
+        "color_scheme": "newspaper"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

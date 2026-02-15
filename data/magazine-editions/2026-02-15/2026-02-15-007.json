@@ -1,0 +1,772 @@
+{
+  "id": "2026-02-15-007",
+  "edition_number": 7,
+  "generated_at": "2026-02-15T05:00:20.300566+00:00",
+  "albums": [
+    {
+      "id": 269,
+      "title": "More Songs About Buildings and Food",
+      "artist": "Talking Heads",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27391237668384c4d646b30c05c",
+      "year": 1978,
+      "spotify_url": "https://open.spotify.com/album/39jsLMRmrTpfdq2vE4TCUe",
+      "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20More%20Songs%20About%20Buildings%20and%20Food",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#FF00FF",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 256,
+      "title": "Live From the Royal Albert Hall",
+      "artist": "Ry X & London Contemporary Orchestra",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+      "year": 2021,
+      "spotify_url": "https://open.spotify.com/album/19QnzYQMY8g44JmxHgu683",
+      "apple_music_url": "https://music.apple.com/search?term=Live%20From%20the%20Royal%20Albert%20Hall%20Ry%20X%20%26%20London%20Contemporary%20Orchestra",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "dramatic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "gradient"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Échos Musique."
+    },
+    {
+      "id": 284,
+      "title": "Southern Nights",
+      "artist": "Sullivan Fortner",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273336ed72565af2eb861952e8e",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/3l8Ht8HifFqSt4jZ3nqxy3",
+      "apple_music_url": "https://music.apple.com/search?term=Southern%20Nights%20Sullivan%20Fortner",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Échos Musique*."
+    },
+    {
+      "id": 265,
+      "title": "Monsters Exist (deluxe)",
+      "artist": "Orbital",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273bd38413ff0aae6f75333b40e",
+      "year": 2018,
+      "spotify_url": "https://open.spotify.com/album/0IAAy7IDTqdCpydFNKpulW",
+      "apple_music_url": "https://music.apple.com/search?term=Orbital%20Monsters%20Exist%20%28deluxe%29",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#ab47bc",
+        "specialEffect": "none"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 271,
+      "title": "Big Money",
+      "artist": "Jon Batiste",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2734788bd968a2f7368e16418f0",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/7qYbLlvM7qPAz4XAWnXDC3",
+      "apple_music_url": "https://music.apple.com/search?term=Big%20Money%20Jon%20Batiste",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "none"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 281,
+      "title": "Live-action",
+      "artist": "Nate Smith",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/6KpA380vLBVA6d6lYebIk3",
+      "apple_music_url": "https://music.apple.com/search?term=Live-action%20Nate%20Smith",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 1178,
+      "title": "Let It Be",
+      "artist": "The Beatles",
+      "year": 2021,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27384243a01af3c77b56fe01ab1",
+      "spotify_url": "https://open.spotify.com/album/0jTGHV5xqHPvEcwL8f6YU5",
+      "apple_music_url": "https://music.apple.com/search?term=Let%20It%20Be%20The%20Beatles",
+      "description": "**Album Review: *Let It Be* – The Beatles (2021 Remastered Edition)**\n\nThe Beatles’ *Let It Be* (2021) stands as a timeless masterpiece, blending rock, folk, and blues with unparalleled warmth and emotional depth. Originally recorded in 1969 but released posthumously, this remastered edition preserves the album’s raw, intimate feel while enhancing its production clarity. The stripped-down arrangements—highlighted by acoustic guitars, piano, and soulful harmonies—create a nostalgic, almost spiritual atmosphere, especially in tracks like the title cut, *Let It Be*, and *The Long and Winding Road*, which exude melancholic beauty.\n\nProduction-wise, the 2021 remaster breathes new life into the mix, balancing George Martin’s orchestral touches (*I Me Mine*) with the band’s organic chemistry. Paul McCartney’s heartfelt vocals shine in *Maybe I’m Amazed*, while John Lennon’s biting wit in *Dig It* adds grit. The standout instrumental *Maggie Mae* showcases the band’s bluesy roots, proving their versatility. A must-listen for fans and",
+      "style": null
+    },
+    {
+      "id": 1,
+      "title": "Nevermind",
+      "artist": "Nirvana",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+      "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind"
+    },
+    {
+      "id": 267,
+      "title": "Preacher Kids",
+      "artist": "Robert Randolph",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f9560cf7664563dd6da1454d",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1fr0maIiPbbXdPyI5hLxnV",
+      "apple_music_url": "https://music.apple.com/search?term=Preacher%20Kids%20Robert%20Randolph"
+    },
+    {
+      "id": 242,
+      "title": "Dire Straits",
+      "artist": "Dire Straits",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b49d49cc95564aede7998bb8",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2rCS6Xwx32V27pvgFzLzlT",
+      "apple_music_url": "https://music.apple.com/search?term=Dire%20Straits%20Dire%20Straits"
+    },
+    {
+      "id": 331,
+      "title": "Peter Gabriel 3: Melt (remastered)",
+      "year": 1980,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273c3e9ebd5e1999ae3ab639023",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0KLyPao7XpXHSAMmbkxCoz",
+      "apple_music_url": "https://music.apple.com/search?term=Peter%20Gabriel%20Peter%20Gabriel%203%3A%20Melt%20%28remastered%29",
+      "artist": "Peter Gabriel",
+      "description": "**Peter Gabriel 3: Melt (remastered)** de *Peter Gabriel* (1980) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 260,
+      "title": "The Slow Rush B-sides & Remixes",
+      "year": 2022,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27322b9cdd0c4ce8cee5857f6a4",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0PUdc9WBtlyjG9Ba9DPmKa",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Slow%20Rush%20B-sides%20%26%20Remixes%20Tame%20Impala",
+      "artist": "Tame Impala",
+      "description": "*The Slow Rush B-sides & Remixes* marque un moment dans la carrière de Tame Impala. Ce disque de 2022 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 2,
+      "title": "Torches",
+      "year": 2011,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7Kmmw7Z5D2UD5MVwdm10sT",
+      "apple_music_url": "https://music.apple.com/search?term=Torches%20Foster%20the%20People",
+      "artist": "Foster the People",
+      "description": "La **poésie musicale** de *Torches* de Foster the People transcende les années depuis 2011. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 304,
+      "title": "Remain In Light",
+      "year": 1980,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273e56fa8c916dc6ce419dcf557",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1JvXxLsm0PxlGH4LXzqMGq",
+      "apple_music_url": "https://music.apple.com/search?term=Remain%20In%20Light%20Talking%20Heads",
+      "artist": "Talking Heads",
+      "description": "*Remain In Light* marque un moment dans la carrière de Talking Heads. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 319,
+      "title": "Close To the Edge",
+      "year": 1972,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2730b4444fe9bc1a73ccbb949db",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1uXol4dKqzMsUiqvHpwhZh",
+      "apple_music_url": "https://music.apple.com/search?term=Yes%20Close%20To%20the%20Edge",
+      "artist": "Yes",
+      "description": "Yes livre avec *Close To the Edge* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "existing"
+    },
+    {
+      "id": 263,
+      "title": "Orbital 2 (the Brown Album Expanded)",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273eaef26541dc08b0d74a7f609",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6cni6TMOVlY9jAbEGAjOif",
+      "apple_music_url": "https://music.apple.com/search?term=Orbital%202%20%28the%20Brown%20Album%20Expanded%29%20Orbital",
+      "artist": "Orbital",
+      "description": "*Orbital 2 (the Brown Album Expanded)* marque un moment dans la carrière de Orbital. Ce disque de 2025 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 241,
+      "title": "Liberty (original Edition)",
+      "year": 2011,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2731e393c08ddd4c0854c758400",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1bMT2UKaqEI3TF4KERmUBB",
+      "apple_music_url": "https://music.apple.com/search?term=Liberty%20%28original%20Edition%29%20Anette%20Askvik",
+      "artist": "Anette Askvik",
+      "description": "Dans *Liberty (original Edition)*, Anette Askvik nous offre un **voyage sonore** particulier. Sorti en 2011, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 264,
+      "title": "In Sides",
+      "year": 1996,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738582db75b4e80ca0077697bc",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1wXyzUmlgN6G1DXIY0Sh8l",
+      "apple_music_url": "https://music.apple.com/search?term=In%20Sides%20Orbital",
+      "artist": "Orbital",
+      "description": "*In Sides* marque un moment dans la carrière de Orbital. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+      "count": 21
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Échos Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Échos Musique",
+          "description": "*Échos Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 269,
+              "title": "More Songs About Buildings and Food",
+              "artist": "Talking Heads",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27391237668384c4d646b30c05c",
+              "year": 1978,
+              "spotify_url": "https://open.spotify.com/album/39jsLMRmrTpfdq2vE4TCUe",
+              "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20More%20Songs%20About%20Buildings%20and%20Food",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#FF00FF",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 256,
+              "title": "Live From the Royal Albert Hall",
+              "artist": "Ry X & London Contemporary Orchestra",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+              "year": 2021,
+              "spotify_url": "https://open.spotify.com/album/19QnzYQMY8g44JmxHgu683",
+              "apple_music_url": "https://music.apple.com/search?term=Live%20From%20the%20Royal%20Albert%20Hall%20Ry%20X%20%26%20London%20Contemporary%20Orchestra",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "dramatic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "gradient"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Échos Musique."
+            },
+            {
+              "id": 284,
+              "title": "Southern Nights",
+              "artist": "Sullivan Fortner",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273336ed72565af2eb861952e8e",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/3l8Ht8HifFqSt4jZ3nqxy3",
+              "apple_music_url": "https://music.apple.com/search?term=Southern%20Nights%20Sullivan%20Fortner",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "none"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Échos Musique*."
+            },
+            {
+              "id": 265,
+              "title": "Monsters Exist (deluxe)",
+              "artist": "Orbital",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273bd38413ff0aae6f75333b40e",
+              "year": 2018,
+              "spotify_url": "https://open.spotify.com/album/0IAAy7IDTqdCpydFNKpulW",
+              "apple_music_url": "https://music.apple.com/search?term=Orbital%20Monsters%20Exist%20%28deluxe%29",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 271,
+              "title": "Big Money",
+              "artist": "Jon Batiste",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2734788bd968a2f7368e16418f0",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/7qYbLlvM7qPAz4XAWnXDC3",
+              "apple_music_url": "https://music.apple.com/search?term=Big%20Money%20Jon%20Batiste",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 281,
+              "title": "Live-action",
+              "artist": "Nate Smith",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/6KpA380vLBVA6d6lYebIk3",
+              "apple_music_url": "https://music.apple.com/search?term=Live-action%20Nate%20Smith",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "artistic",
+        "image_position": "top"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1178,
+          "title": "Let It Be",
+          "artist": "The Beatles",
+          "year": 2021,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b27384243a01af3c77b56fe01ab1",
+          "spotify_url": "https://open.spotify.com/album/0jTGHV5xqHPvEcwL8f6YU5",
+          "apple_music_url": "https://music.apple.com/search?term=Let%20It%20Be%20The%20Beatles",
+          "description": "**Album Review: *Let It Be* – The Beatles (2021 Remastered Edition)**\n\nThe Beatles’ *Let It Be* (2021) stands as a timeless masterpiece, blending rock, folk, and blues with unparalleled warmth and emotional depth. Originally recorded in 1969 but released posthumously, this remastered edition preserves the album’s raw, intimate feel while enhancing its production clarity. The stripped-down arrangements—highlighted by acoustic guitars, piano, and soulful harmonies—create a nostalgic, almost spiritual atmosphere, especially in tracks like the title cut, *Let It Be*, and *The Long and Winding Road*, which exude melancholic beauty.\n\nProduction-wise, the 2021 remaster breathes new life into the mix, balancing George Martin’s orchestral touches (*I Me Mine*) with the band’s organic chemistry. Paul McCartney’s heartfelt vocals shine in *Maybe I’m Amazed*, while John Lennon’s biting wit in *Dig It* adds grit. The standout instrumental *Maggie Mae* showcases the band’s bluesy roots, proving their versatility. A must-listen for fans and",
+          "style": null
+        },
+        "artist_images": {
+          "The Beatles": "https://i.scdn.co/image/ab6761610000e5ebe9348cc01ff5d55971b22433"
+        }
+      },
+      "dimensions": {
+        "image_size": "large",
+        "description_length": "full",
+        "font_size": "large"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 4,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 1,
+            "title": "Nevermind",
+            "artist": "Nirvana",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+            "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind"
+          },
+          {
+            "id": 267,
+            "title": "Preacher Kids",
+            "artist": "Robert Randolph",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f9560cf7664563dd6da1454d",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1fr0maIiPbbXdPyI5hLxnV",
+            "apple_music_url": "https://music.apple.com/search?term=Preacher%20Kids%20Robert%20Randolph"
+          },
+          {
+            "id": 242,
+            "title": "Dire Straits",
+            "artist": "Dire Straits",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b49d49cc95564aede7998bb8",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2rCS6Xwx32V27pvgFzLzlT",
+            "apple_music_url": "https://music.apple.com/search?term=Dire%20Straits%20Dire%20Straits"
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 1,
+            "album_title": "Nevermind",
+            "haiku": "**Nevermind**\nÉcho perdu dans l'abîme\nGuitare qui hurle l'infini",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "right",
+              "imageSize": "small",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#10b981",
+              "specialEffect": "none"
+            },
+            "description": "**Nevermind** de *Nirvana* (1991) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          },
+          {
+            "album_id": 267,
+            "album_title": "Preacher Kids",
+            "haiku": "**Preacher Kids**\nCordes sacrées en flammes\nL'âme danse en spirale\n\n(Inspiré par les vibes gospel et blues de Robert Randolph, mêlant spiritualité et énergie électrique.)",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "top",
+              "imageSize": "large",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#ab47bc",
+              "specialEffect": "gradient"
+            },
+            "description": "Dans *Preacher Kids*, Robert Randolph nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 242,
+            "album_title": "Dire Straits",
+            "haiku": "**Dire Straits**\nNotes filant sur l'horizon\nGuitares pleurent le blues",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "left",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#06b6d4",
+              "specialEffect": "zoom"
+            },
+            "description": "Dans *Dire Straits*, Dire Straits nous offre un **voyage sonore** particulier. Sorti en 1978, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "columns": 2,
+        "spacing": "normal"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Cowboy Junkies",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "corner",
+        "imageSize": "massive",
+        "textLayout": "double-column",
+        "composition": "playful",
+        "accentColor": "#764ba2",
+        "specialEffect": "tilt"
+      },
+      "content": {
+        "artist": {
+          "name": "Cowboy Junkies",
+          "albums_count": 8,
+          "haiku": "**Peter Gabriel 3: Melt (remastered)**\nRivière de notes en feu\nSilence qui fond en or",
+          "bio": "**Cowboy Junkies** nous offre 8 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5eb2e227f737b1ec8fbfc39b4f7"
+        },
+        "albums": [
+          {
+            "id": 331,
+            "title": "Peter Gabriel 3: Melt (remastered)",
+            "year": 1980,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273c3e9ebd5e1999ae3ab639023",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0KLyPao7XpXHSAMmbkxCoz",
+            "apple_music_url": "https://music.apple.com/search?term=Peter%20Gabriel%20Peter%20Gabriel%203%3A%20Melt%20%28remastered%29",
+            "artist": "Peter Gabriel",
+            "description": "**Peter Gabriel 3: Melt (remastered)** de *Peter Gabriel* (1980) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 260,
+            "title": "The Slow Rush B-sides & Remixes",
+            "year": 2022,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27322b9cdd0c4ce8cee5857f6a4",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0PUdc9WBtlyjG9Ba9DPmKa",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Slow%20Rush%20B-sides%20%26%20Remixes%20Tame%20Impala",
+            "artist": "Tame Impala",
+            "description": "*The Slow Rush B-sides & Remixes* marque un moment dans la carrière de Tame Impala. Ce disque de 2022 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 2,
+            "title": "Torches",
+            "year": 2011,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7Kmmw7Z5D2UD5MVwdm10sT",
+            "apple_music_url": "https://music.apple.com/search?term=Torches%20Foster%20the%20People",
+            "artist": "Foster the People",
+            "description": "La **poésie musicale** de *Torches* de Foster the People transcende les années depuis 2011. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 304,
+            "title": "Remain In Light",
+            "year": 1980,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273e56fa8c916dc6ce419dcf557",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1JvXxLsm0PxlGH4LXzqMGq",
+            "apple_music_url": "https://music.apple.com/search?term=Remain%20In%20Light%20Talking%20Heads",
+            "artist": "Talking Heads",
+            "description": "*Remain In Light* marque un moment dans la carrière de Talking Heads. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 319,
+            "title": "Close To the Edge",
+            "year": 1972,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2730b4444fe9bc1a73ccbb949db",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1uXol4dKqzMsUiqvHpwhZh",
+            "apple_music_url": "https://music.apple.com/search?term=Yes%20Close%20To%20the%20Edge",
+            "artist": "Yes",
+            "description": "Yes livre avec *Close To the Edge* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 263,
+            "title": "Orbital 2 (the Brown Album Expanded)",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273eaef26541dc08b0d74a7f609",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6cni6TMOVlY9jAbEGAjOif",
+            "apple_music_url": "https://music.apple.com/search?term=Orbital%202%20%28the%20Brown%20Album%20Expanded%29%20Orbital",
+            "artist": "Orbital",
+            "description": "*Orbital 2 (the Brown Album Expanded)* marque un moment dans la carrière de Orbital. Ce disque de 2025 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 241,
+            "title": "Liberty (original Edition)",
+            "year": 2011,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2731e393c08ddd4c0854c758400",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1bMT2UKaqEI3TF4KERmUBB",
+            "apple_music_url": "https://music.apple.com/search?term=Liberty%20%28original%20Edition%29%20Anette%20Askvik",
+            "artist": "Anette Askvik",
+            "description": "Dans *Liberty (original Edition)*, Anette Askvik nous offre un **voyage sonore** particulier. Sorti en 2011, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 264,
+            "title": "In Sides",
+            "year": 1996,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738582db75b4e80ca0077697bc",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1wXyzUmlgN6G1DXIY0Sh8l",
+            "apple_music_url": "https://music.apple.com/search?term=In%20Sides%20Orbital",
+            "artist": "Orbital",
+            "description": "*In Sides* marque un moment dans la carrière de Orbital. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 500,
+        "text_columns": 3,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 5,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single",
+        "composition": "chaos",
+        "accentColor": "#764ba2",
+        "specialEffect": "zoom"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 41,
+        "unique_albums": 68,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 295,
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273819ccf19e41a22238bc99396",
+            "count": 28
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "apple_music_url": "https://music.apple.com/search?term=Mixes%20Of%20A%20Lost%20World%20The%20Cure%2C%20The%20Cure%20%26%20Daniel%20Avery%2C%20The%20Cure%20%26%20Orbital",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "apple_music_url": "https://music.apple.com/search?term=Speaking%20in%20Tongues%20Talking%20Heads",
+            "count": 17
+          },
+          {
+            "album_id": 269,
+            "album_title": "More Songs About Buildings and Food",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27391237668384c4d646b30c05c",
+            "spotify_url": "https://open.spotify.com/album/39jsLMRmrTpfdq2vE4TCUe",
+            "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20More%20Songs%20About%20Buildings%20and%20Food",
+            "count": 16
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "area",
+        "color_scheme": "newspaper"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

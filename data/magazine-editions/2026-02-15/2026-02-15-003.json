@@ -1,0 +1,795 @@
+{
+  "id": "2026-02-15-003",
+  "edition_number": 3,
+  "generated_at": "2026-02-15T03:00:11.095791+00:00",
+  "albums": [
+    {
+      "id": 257,
+      "title": "Dropout Boogie",
+      "artist": "The Black Keys",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2730e8e7267c0b377e5751630f3",
+      "year": 2022,
+      "spotify_url": "https://open.spotify.com/album/7LLyQJzyD56Avzk3uFzKUk",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Black%20Keys%20Dropout%20Boogie",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+    },
+    {
+      "id": 1,
+      "title": "Nevermind",
+      "artist": "Nirvana",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+      "year": 1991,
+      "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+      "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#ab47bc",
+        "specialEffect": "gradient"
+      },
+      "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+    },
+    {
+      "id": 282,
+      "title": "A Tribute To Benny Moré and Nat King Cole",
+      "artist": "Gonzalo Rubalcaba, Yainer Horta & Joey Calveiro",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27360b945d9b545e3d640082f8a",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/6mc7lnm4NVfPYz87YVTbAT",
+      "apple_music_url": "https://music.apple.com/search?term=A%20Tribute%20To%20Benny%20Mor%C3%A9%20and%20Nat%20King%20Cole%20Gonzalo%20Rubalcaba%2C%20Yainer%20Horta%20%26%20Joey%20Calveiro",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 243,
+      "title": "Illinois",
+      "artist": "Sufjan Stevens",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273712c76b4152918fb8d37c53d",
+      "year": 2005,
+      "spotify_url": "https://open.spotify.com/album/1pOl0KEC1iQnA6F0XxV4To",
+      "apple_music_url": "https://music.apple.com/search?term=Sufjan%20Stevens%20Illinois",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "scattered",
+        "composition": "dramatic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "none"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 249,
+      "title": "The Dark Side of the Moon",
+      "artist": "Pink Floyd",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273db216ca805faf5fe35df4ee6",
+      "year": 2023,
+      "spotify_url": "https://open.spotify.com/album/6SDPwUC74HcxwB84kPs4pM",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Dark%20Side%20of%20the%20Moon%20Pink%20Floyd",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "asymmetric",
+        "composition": "classic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "gradient"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 248,
+      "title": "Surfer Rosa (2007 Remaster)",
+      "artist": "Pixies",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738aa545a0ea869940cce358b5",
+      "year": 1988,
+      "spotify_url": "https://open.spotify.com/album/50j4Wm1b9hLpSpPIA39Vp9",
+      "apple_music_url": "https://music.apple.com/search?term=Pixies%20Surfer%20Rosa%20%282007%20Remaster%29",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "tilt"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 252,
+      "title": "Lungs",
+      "artist": "Florence + the Machine",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273003f81b1f4246362638e682d",
+      "year": 2024,
+      "spotify_url": "https://open.spotify.com/album/6qaCznAyIPlFLBbbh2vHub",
+      "apple_music_url": "https://music.apple.com/search?term=Lungs%20Florence%20%2B%20the%20Machine",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 258,
+      "title": "Late Night (remixes)",
+      "year": 2013,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27345f82f2dc0706ea44d8aa7d7",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6m6KIwj9pksPX8IJz9CYOe",
+      "apple_music_url": "https://music.apple.com/search?term=Late%20Night%20%28remixes%29%20Foals",
+      "artist": "Foals",
+      "description": "**Late Night (remixes)** de *Foals* (2013) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 250,
+      "title": "L.a. Woman",
+      "year": 1971,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20L.a.%20Woman",
+      "artist": "The Doors",
+      "description": "La **poésie musicale** de *L.a. Woman* de The Doors transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 291,
+      "title": "Folded",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273ce5bc87f637b46ad01831fc4",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0xuXSjCWQuiYDTjWiro3oX",
+      "apple_music_url": "https://music.apple.com/search?term=Folded%20Kehlani",
+      "artist": "Kehlani",
+      "description": "**Folded** de *Kehlani* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 266,
+      "title": "A Tribute To the King of Zydeco",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273146a4587303793c56ba0749b",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/5rHi2X55kKOr3yvfMsFaIz",
+      "apple_music_url": "https://music.apple.com/search?term=A%20Tribute%20To%20the%20King%20of%20Zydeco%20Lucinda%20Williams%2C%20Tommy%20Mclain%2C%20Keith%20Frank",
+      "artist": "Lucinda Williams, Tommy Mclain, Keith Frank",
+      "description": "Dans *A Tribute To the King of Zydeco*, Lucinda Williams, Tommy Mclain, Keith Frank nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 338,
+      "title": "L.a. Woman (50th Anniversary Deluxe Edition)",
+      "year": 2021,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273bf14f5f357caf85f221dbbe7",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/5zJ5Hz4a5OACoowuL3x86m",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20L.a.%20Woman%20%2850th%20Anniversary%20Deluxe%20Edition%29",
+      "artist": "The Doors",
+      "description": "The Doors livre avec *L.a. Woman (50th Anniversary Deluxe Edition)* (2021) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 330,
+      "title": "90125",
+      "year": 1983,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2739d9a49f795b4340538f43435",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6nNlTIiFd3J06W0rJiiwlz",
+      "apple_music_url": "https://music.apple.com/search?term=Yes%2090125",
+      "artist": "Yes",
+      "description": "Dans *90125*, Yes nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 411,
+      "title": "Lost and Found",
+      "artist": "Judith Owen",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2736f7bb9f4b184aaf4b647ffc9",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/5J6tilmlo6EQGRmiQkDcPh",
+      "apple_music_url": "https://music.apple.com/search?term=Judith%20Owen%20Lost%20and%20Found"
+    },
+    {
+      "id": 424,
+      "title": "Bonnie and Clyde",
+      "artist": "Brigitte Bardot & Serge Gainsbourg",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2739f5e8811728ab69bf7843412",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7ycZKm3bJBxkPFPAzOk5JU",
+      "apple_music_url": "https://music.apple.com/search?term=Brigitte%20Bardot%20%26%20Serge%20Gainsbourg%20Bonnie%20and%20Clyde"
+    },
+    {
+      "id": 349,
+      "title": "A Kind of Magic",
+      "artist": "Queen",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273e98d08fbea1a2f03229abc20",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0pEfDPZko6TnNOgrZMe5nn",
+      "apple_music_url": "https://music.apple.com/search?term=A%20Kind%20of%20Magic%20Queen"
+    },
+    {
+      "id": 387,
+      "title": "Little Creatures",
+      "artist": "Talking Heads",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+      "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads"
+    },
+    {
+      "id": 1181,
+      "title": "Led Zeppelin IV",
+      "artist": "Led Zeppelin",
+      "year": 1971,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27341fd5556341fde3318ba0ee1",
+      "spotify_url": "https://open.spotify.com/album/5EyIDBAqhnlkAHqvPRwdbX",
+      "apple_music_url": "https://music.apple.com/search?term=Led%20Zeppelin%20IV%20Led%20Zeppelin",
+      "description": "**Album Review: *Untitled* by Led Zeppelin (2020)**\n\nLed Zeppelin’s *Untitled* (2020) is a bold, reimagined journey through the band’s iconic sound, blending their signature hard rock and blues roots with modern production techniques. The album retains the raw energy of their classic work while infusing it with a fresh, atmospheric edge, making it both nostalgic and innovative.\n\nMusically, *Untitled* spans hard rock, blues, and psychedelic rock, with Robert Plant’s soaring vocals and Jimmy Page’s legendary guitar work at the forefront. Tracks like *\"Whole Lotta Love (Revisited)\"* and *\"Kashmir Reborn\"* showcase the band’s ability to evolve while staying true to their roots. The production is impeccable—crisp, dynamic, and immersive, with layered instrumentation that highlights Page’s riffs and John Bonham’s thunderous drumming.\n\nEmotionally, the album swings between triumphant rock anthems and introspective moments, creating a powerful, cinematic atmosphere. *Untitled* isn’t just a tribute to Led Zeppelin’s legacy—it’s a testament to their enduring influence. Essential listening for",
+      "style": null
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+      "count": 21
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Échos Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Échos Musique",
+          "description": "*Échos Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 257,
+              "title": "Dropout Boogie",
+              "artist": "The Black Keys",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2730e8e7267c0b377e5751630f3",
+              "year": 2022,
+              "spotify_url": "https://open.spotify.com/album/7LLyQJzyD56Avzk3uFzKUk",
+              "apple_music_url": "https://music.apple.com/search?term=The%20Black%20Keys%20Dropout%20Boogie",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 1,
+              "title": "Nevermind",
+              "artist": "Nirvana",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+              "year": 1991,
+              "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+              "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#ab47bc",
+                "specialEffect": "gradient"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 282,
+              "title": "A Tribute To Benny Moré and Nat King Cole",
+              "artist": "Gonzalo Rubalcaba, Yainer Horta & Joey Calveiro",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27360b945d9b545e3d640082f8a",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/6mc7lnm4NVfPYz87YVTbAT",
+              "apple_music_url": "https://music.apple.com/search?term=A%20Tribute%20To%20Benny%20Mor%C3%A9%20and%20Nat%20King%20Cole%20Gonzalo%20Rubalcaba%2C%20Yainer%20Horta%20%26%20Joey%20Calveiro",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 243,
+              "title": "Illinois",
+              "artist": "Sufjan Stevens",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273712c76b4152918fb8d37c53d",
+              "year": 2005,
+              "spotify_url": "https://open.spotify.com/album/1pOl0KEC1iQnA6F0XxV4To",
+              "apple_music_url": "https://music.apple.com/search?term=Sufjan%20Stevens%20Illinois",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "scattered",
+                "composition": "dramatic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 249,
+              "title": "The Dark Side of the Moon",
+              "artist": "Pink Floyd",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273db216ca805faf5fe35df4ee6",
+              "year": 2023,
+              "spotify_url": "https://open.spotify.com/album/6SDPwUC74HcxwB84kPs4pM",
+              "apple_music_url": "https://music.apple.com/search?term=The%20Dark%20Side%20of%20the%20Moon%20Pink%20Floyd",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "gradient"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 248,
+              "title": "Surfer Rosa (2007 Remaster)",
+              "artist": "Pixies",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2738aa545a0ea869940cce358b5",
+              "year": 1988,
+              "spotify_url": "https://open.spotify.com/album/50j4Wm1b9hLpSpPIA39Vp9",
+              "apple_music_url": "https://music.apple.com/search?term=Pixies%20Surfer%20Rosa%20%282007%20Remaster%29",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "classic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "tilt"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 252,
+              "title": "Lungs",
+              "artist": "Florence + the Machine",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273003f81b1f4246362638e682d",
+              "year": 2024,
+              "spotify_url": "https://open.spotify.com/album/6qaCznAyIPlFLBbbh2vHub",
+              "apple_music_url": "https://music.apple.com/search?term=Lungs%20Florence%20%2B%20the%20Machine",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "artistic",
+        "image_position": "top"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Wojciech Kilar",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "bottom",
+        "imageSize": "small",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "artist": {
+          "name": "Wojciech Kilar",
+          "albums_count": 6,
+          "haiku": "**Late Night (remixes)**\nÉchos nocturnes filés\nCordes déchirant l'ombre\n\n(Inspiré par l'atmosphère cinématographique et mélancolique de Wojciech Kilar, avec des références à sa musique enveloppante et ses six albums emblématiques, comme *Bryant Gumbel Presents: The Wide World of Sports* ou *The Portrait of a Lady on Fire* (OST).)",
+          "bio": "**Wojciech Kilar** nous offre 6 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273e6de580c0e59f199c7504abd"
+        },
+        "albums": [
+          {
+            "id": 258,
+            "title": "Late Night (remixes)",
+            "year": 2013,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27345f82f2dc0706ea44d8aa7d7",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6m6KIwj9pksPX8IJz9CYOe",
+            "apple_music_url": "https://music.apple.com/search?term=Late%20Night%20%28remixes%29%20Foals",
+            "artist": "Foals",
+            "description": "**Late Night (remixes)** de *Foals* (2013) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 250,
+            "title": "L.a. Woman",
+            "year": 1971,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20L.a.%20Woman",
+            "artist": "The Doors",
+            "description": "La **poésie musicale** de *L.a. Woman* de The Doors transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 291,
+            "title": "Folded",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273ce5bc87f637b46ad01831fc4",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0xuXSjCWQuiYDTjWiro3oX",
+            "apple_music_url": "https://music.apple.com/search?term=Folded%20Kehlani",
+            "artist": "Kehlani",
+            "description": "**Folded** de *Kehlani* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 266,
+            "title": "A Tribute To the King of Zydeco",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273146a4587303793c56ba0749b",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/5rHi2X55kKOr3yvfMsFaIz",
+            "apple_music_url": "https://music.apple.com/search?term=A%20Tribute%20To%20the%20King%20of%20Zydeco%20Lucinda%20Williams%2C%20Tommy%20Mclain%2C%20Keith%20Frank",
+            "artist": "Lucinda Williams, Tommy Mclain, Keith Frank",
+            "description": "Dans *A Tribute To the King of Zydeco*, Lucinda Williams, Tommy Mclain, Keith Frank nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 338,
+            "title": "L.a. Woman (50th Anniversary Deluxe Edition)",
+            "year": 2021,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273bf14f5f357caf85f221dbbe7",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/5zJ5Hz4a5OACoowuL3x86m",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20L.a.%20Woman%20%2850th%20Anniversary%20Deluxe%20Edition%29",
+            "artist": "The Doors",
+            "description": "The Doors livre avec *L.a. Woman (50th Anniversary Deluxe Edition)* (2021) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 330,
+            "title": "90125",
+            "year": 1983,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2739d9a49f795b4340538f43435",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6nNlTIiFd3J06W0rJiiwlz",
+            "apple_music_url": "https://music.apple.com/search?term=Yes%2090125",
+            "artist": "Yes",
+            "description": "Dans *90125*, Yes nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 400,
+        "text_columns": 2,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 411,
+            "title": "Lost and Found",
+            "artist": "Judith Owen",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2736f7bb9f4b184aaf4b647ffc9",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/5J6tilmlo6EQGRmiQkDcPh",
+            "apple_music_url": "https://music.apple.com/search?term=Judith%20Owen%20Lost%20and%20Found"
+          },
+          {
+            "id": 424,
+            "title": "Bonnie and Clyde",
+            "artist": "Brigitte Bardot & Serge Gainsbourg",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2739f5e8811728ab69bf7843412",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7ycZKm3bJBxkPFPAzOk5JU",
+            "apple_music_url": "https://music.apple.com/search?term=Brigitte%20Bardot%20%26%20Serge%20Gainsbourg%20Bonnie%20and%20Clyde"
+          },
+          {
+            "id": 349,
+            "title": "A Kind of Magic",
+            "artist": "Queen",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273e98d08fbea1a2f03229abc20",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0pEfDPZko6TnNOgrZMe5nn",
+            "apple_music_url": "https://music.apple.com/search?term=A%20Kind%20of%20Magic%20Queen"
+          },
+          {
+            "id": 387,
+            "title": "Little Creatures",
+            "artist": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads"
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 411,
+            "album_title": "Lost and Found",
+            "haiku": "Voici un haïku poétique pour l'album *Lost and Found* de Judith Owen :\n\n**Lost and Found**\nÉchos erreurs en miettes\nMélodies renaissent\n\n(Je joue avec l'idée de morceaux \"perdus\" qui se reconnectent comme des puzzle musicaux, avec une touche de résilience.)",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "diagonal",
+              "imageSize": "large",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#10b981",
+              "specialEffect": "none"
+            },
+            "description": "Judith Owen livre avec *Lost and Found* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 424,
+            "album_title": "Bonnie and Clyde",
+            "haiku": "**Bonnie and Clyde**\nBallade en noir et sang\nRiffs fugitives dans la nuit",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "top",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#ff6b35",
+              "specialEffect": "none"
+            },
+            "description": "Brigitte Bardot & Serge Gainsbourg livre avec *Bonnie and Clyde* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 349,
+            "album_title": "A Kind of Magic",
+            "haiku": "**A Kind of Magic**\nLumières dansant en harmonie\nAccords tissant des rêves\n\n(Je joue sur l'idée de magie musicale et d'unité, avec des images de lumière et de tissage pour évoquer l'alchimie des chansons de l'album.)",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "diagonal",
+              "imageSize": "small",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "none"
+            },
+            "description": "**A Kind of Magic** de *Queen* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "haiku": "**Little Creatures**\nRythmes rampants comme fourmis\nChuchotements électriques dans la nuit",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "diagonal",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "dramatic",
+              "accentColor": "#ab47bc",
+              "specialEffect": "gradient"
+            },
+            "description": "La **poésie musicale** de *Little Creatures* de Talking Heads transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "columns": 1,
+        "spacing": "compact"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1181,
+          "title": "Led Zeppelin IV",
+          "artist": "Led Zeppelin",
+          "year": 1971,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b27341fd5556341fde3318ba0ee1",
+          "spotify_url": "https://open.spotify.com/album/5EyIDBAqhnlkAHqvPRwdbX",
+          "apple_music_url": "https://music.apple.com/search?term=Led%20Zeppelin%20IV%20Led%20Zeppelin",
+          "description": "**Album Review: *Untitled* by Led Zeppelin (2020)**\n\nLed Zeppelin’s *Untitled* (2020) is a bold, reimagined journey through the band’s iconic sound, blending their signature hard rock and blues roots with modern production techniques. The album retains the raw energy of their classic work while infusing it with a fresh, atmospheric edge, making it both nostalgic and innovative.\n\nMusically, *Untitled* spans hard rock, blues, and psychedelic rock, with Robert Plant’s soaring vocals and Jimmy Page’s legendary guitar work at the forefront. Tracks like *\"Whole Lotta Love (Revisited)\"* and *\"Kashmir Reborn\"* showcase the band’s ability to evolve while staying true to their roots. The production is impeccable—crisp, dynamic, and immersive, with layered instrumentation that highlights Page’s riffs and John Bonham’s thunderous drumming.\n\nEmotionally, the album swings between triumphant rock anthems and introspective moments, creating a powerful, cinematic atmosphere. *Untitled* isn’t just a tribute to Led Zeppelin’s legacy—it’s a testament to their enduring influence. Essential listening for",
+          "style": null
+        },
+        "artist_images": {
+          "Led Zeppelin": "https://i.scdn.co/image/207803ce008388d3427a685254f9de6a8f61dc2e"
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "medium"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "corner",
+        "imageSize": "small",
+        "textLayout": "asymmetric",
+        "composition": "minimalist",
+        "accentColor": "#ff6b35",
+        "specialEffect": "overlay"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 41,
+        "unique_albums": 68,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 295,
+            "artist_name": "Blur",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273819ccf19e41a22238bc99396",
+            "count": 28
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "apple_music_url": "https://music.apple.com/search?term=Mixes%20Of%20A%20Lost%20World%20The%20Cure%2C%20The%20Cure%20%26%20Daniel%20Avery%2C%20The%20Cure%20%26%20Orbital",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "apple_music_url": "https://music.apple.com/search?term=Speaking%20in%20Tongues%20Talking%20Heads",
+            "count": 17
+          },
+          {
+            "album_id": 269,
+            "album_title": "More Songs About Buildings and Food",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27391237668384c4d646b30c05c",
+            "spotify_url": "https://open.spotify.com/album/39jsLMRmrTpfdq2vE4TCUe",
+            "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20More%20Songs%20About%20Buildings%20and%20Food",
+            "count": 16
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "donut",
+        "color_scheme": "newspaper"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}
