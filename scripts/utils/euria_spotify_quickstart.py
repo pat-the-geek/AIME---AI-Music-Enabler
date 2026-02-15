@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 🚀 EURIA + SPOTIFY ENRICHMENT - CONFIGURATION CHECK
-Vérifie que les clés .env sont présentes et prêtes
+Vérifie que les clés config/.env sont présentes et prêtes
 """
 
 import os
@@ -9,8 +9,14 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Charger .env
-load_dotenv()
+# Charger config/.env (fallback .env)
+project_root = Path(__file__).resolve().parents[2]
+env_path = project_root / 'config' / '.env'
+fallback_env_path = project_root / '.env'
+if env_path.exists():
+    load_dotenv(env_path)
+elif fallback_env_path.exists():
+    load_dotenv(fallback_env_path)
 
 print("""
 ╔════════════════════════════════════════════════════════════════╗
@@ -19,10 +25,9 @@ print("""
 """)
 
 # Vérifier que .env existe
-env_path = Path('.env')
-if not env_path.exists():
+if not env_path.exists() and not fallback_env_path.exists():
     print("❌ ERREUR: Fichier .env non trouvé!")
-    print("   Le fichier .env doit être à la racine du projet")
+    print("   Attendu: config/.env (ou .env à la racine)")
     sys.exit(1)
 
 print("✅ Fichier .env trouvé\n")
@@ -35,12 +40,12 @@ euria_bearer = os.getenv('bearer')
 if euria_url:
     print(f"   ✅ URL: {euria_url[:60]}...")
 else:
-    print(f"   ❌ URL manquante dans .env")
+    print(f"   ❌ URL manquante dans config/.env")
 
 if euria_bearer:
     print(f"   ✅ Bearer Token: {euria_bearer[:20]}...")
 else:
-    print(f"   ❌ Bearer Token manquant dans .env")
+    print(f"   ❌ Bearer Token manquant dans config/.env")
 
 # Vérifier les clés Spotify
 print("\n🎵 Configuration Spotify:")
@@ -50,12 +55,12 @@ spotify_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
 if spotify_id:
     print(f"   ✅ Client ID: {spotify_id[:20]}...")
 else:
-    print(f"   ❌ Client ID manquant dans .env")
+    print(f"   ❌ Client ID manquant dans config/.env")
 
 if spotify_secret:
     print(f"   ✅ Client Secret: {spotify_secret[:20]}...")
 else:
-    print(f"   ❌ Client Secret manquant dans .env")
+    print(f"   ❌ Client Secret manquant dans config/.env")
 
 # Résumé
 print("\n" + "=" * 60)
@@ -121,7 +126,7 @@ else:
     if not spotify_secret:
         print("   Manquant: SPOTIFY_CLIENT_SECRET")
     
-    print("\n📝 Mettez à jour .env avec les clés manquantes")
+    print("\n📝 Mettez à jour config/.env avec les clés manquantes")
     print("   Créer app Spotify: https://developer.spotify.com/dashboard\n")
     
     sys.exit(1)

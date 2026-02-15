@@ -43,19 +43,19 @@ Vous avez maintenant intégré un **bouton "Enrichissement Euria + Spotify"** da
 
 ### ✅ Configuration Automatique
 
-Les credentials sont **automatiquement lus** depuis le fichier `.env` à la racine du projet:
+Les credentials sont **automatiquement lus** depuis le fichier `config/.env`:
 
 ```env
-# Euria via Infomaniak (déjà présent dans votre .env)
+# Euria via Infomaniak (déjà présent dans votre config/.env)
 URL=https://api.infomaniak.com/2/ai/106561/openai/v1/chat/completions
 bearer=votre_token_bearer_ici
 
-# Spotify (déjà présent dans votre .env)
+# Spotify (déjà présent dans votre config/.env)
 SPOTIFY_CLIENT_ID=votre_client_id_ici
 SPOTIFY_CLIENT_SECRET=votre_client_secret_ici
 ```
 
-**Bonne nouvelle**: Les clés sont **déjà configurées** dans votre `.env` existant !
+**Bonne nouvelle**: Les clés sont **déjà configurées** dans votre `config/.env` existant !
 
 ### Vérifier la Configuration
 
@@ -69,7 +69,7 @@ python3 enrich_euria_spotify.py
 Settings → Enrichissement Euria + Spotify → Clic sur le bouton
 ```
 
-Les clés présentes dans `.env` sont utilisées automatiquement.
+Les clés présentes dans `config/.env` sont utilisées automatiquement.
 
 ```json
 {

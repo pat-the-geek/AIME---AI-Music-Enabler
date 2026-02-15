@@ -22,12 +22,15 @@ from typing import Optional, Dict
 from datetime import datetime
 from urllib.parse import quote
 
-# Charger les variables d'environnement depuis .env
+# Charger les variables d'environnement depuis config/.env (fallback .env)
 try:
     from dotenv import load_dotenv
-    env_path = root_dir / '.env'
+    env_path = root_dir / 'config' / '.env'
+    fallback_env_path = root_dir / '.env'
     if env_path.exists():
         load_dotenv(env_path)
+    elif fallback_env_path.exists():
+        load_dotenv(fallback_env_path)
 except ImportError:
     pass
 
@@ -39,7 +42,7 @@ print("🍎 ENRICHISSEMENT APPLE MUSIC URLs - Génération via Euria API")
 print("=" * 90)
 
 # ============================================================================
-# CONFIGURATION - Chargée depuis .env
+# CONFIGURATION - Chargée depuis config/.env
 # ============================================================================
 
 EURIA_API_URL = os.getenv('URL', 'https://api.infomaniak.com/2/ai/106561/openai/v1/chat/completions')
@@ -84,7 +87,7 @@ Respond with ONLY the URL or the word SEARCH, no other text."""
                 ],
                 "max_tokens": 100,
                 "temperature": 0.3
-            }
+                        print("   Pour obtenir des URLs directes, configurez le bearer token dans config/.env\n")
             
             response = requests.post(
                 EURIA_API_URL,
@@ -255,9 +258,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     if not EURIA_BEARER_TOKEN:
-        print("\n⚠️  ATTENTION: Bearer token Euria non configuré dans .env")
+        print("\n⚠️  ATTENTION: Bearer token Euria non configuré dans config/.env")
         print("   Le script va générer uniquement des URLs de recherche (fallback)")
-        print("   Pour obtenir des URLs directes, configurez le bearer token dans .env\n")
+        print("   Pour obtenir des URLs directes, configurez le bearer token dans config/.env\n")
     
     try:
         stats = enrich_apple_music_urls(limit=args.limit, force_update=args.force)

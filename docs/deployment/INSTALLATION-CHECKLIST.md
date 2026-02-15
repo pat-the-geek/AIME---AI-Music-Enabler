@@ -13,7 +13,7 @@
 - [ ] Dépendances frontend: `cd frontend && npm install`
 
 ### 3. Configuration ✅
-- [ ] `.env.example` copié en `.env` (si nécessaire)
+- [ ] `config/.env.example` copié en `config/.env` (si nécessaire)
 - [ ] Clés API configurées (facultatif pour démarrage)
 - [ ] Base de données disponible: `data/music_tracker.db`
 

@@ -228,7 +228,7 @@ nano config/app.json
 nano config/secrets.json
 
 # Variables d'environnement
-nano .env
+nano config/.env
 ```
 
 ### Activer les logs détaillés

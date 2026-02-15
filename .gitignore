@@ -1,5 +1,6 @@
 # Secrets
 config/secrets.json
+config/.env
 backend/.env
 frontend/.env
 .env

@@ -249,8 +249,8 @@ print(f'Albums: {db.query(Album).count()}')
 
 **Copier le fichier d'exemple**:
 ```bash
-cp .env.example .env
-# Éditer .env avec vos clés API
+cp config/.env.example config/.env
+# Éditer config/.env avec vos clés API
 ```
 
 **Variables essentielles pour développement**:

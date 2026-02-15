@@ -28,7 +28,7 @@
 ## 🚀 Démarrage rapide
 
 ### Étape 1 : Configuration ✅ Déjà faite !
-Les clés sont **automatiquement lues** depuis `.env`:
+Les clés sont **automatiquement lues** depuis `config/.env`:
 ```
 • bearer (Euria) ✅
 • SPOTIFY_CLIENT_ID ✅

@@ -181,13 +181,13 @@ ls -lh data/musique.db
 L'application démarre mais les services externes (Last.fm, Spotify, etc.) ne fonctionnent pas.
 
 **Cause:**
-Le fichier `.env` contenant les clés API n'existe pas ou est mal configuré.
+Le fichier `config/.env` contenant les clés API n'existe pas ou est mal configuré.
 
 **Solution:**
-Créer un fichier `.env` à la racine du projet:
+Créer un fichier `config/.env`:
 
 ```bash
-# .env
+# config/.env
 
 # Last.fm API
 LASTFM_API_KEY=votre_clé_api

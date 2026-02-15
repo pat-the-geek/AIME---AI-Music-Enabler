@@ -22,10 +22,16 @@ from pathlib import Path
 from typing import Optional, Dict, Tuple
 from datetime import datetime
 
-# Charger les variables d'environnement depuis .env
+# Charger les variables d'environnement depuis config/.env (fallback .env)
 try:
     from dotenv import load_dotenv
-    load_dotenv()
+    project_root = Path(__file__).resolve().parents[2]
+    env_path = project_root / 'config' / '.env'
+    fallback_env_path = project_root / '.env'
+    if env_path.exists():
+        load_dotenv(env_path)
+    elif fallback_env_path.exists():
+        load_dotenv(fallback_env_path)
 except ImportError:
     # dotenv non disponible, continuer sans charger .env
     pass
@@ -38,10 +44,10 @@ print("🤖 ENRICHISSEMENT EURIA + SPOTIFY - DESCRIPTIONS IA + IMAGES HD")
 print("=" * 90)
 
 # ============================================================================
-# CONFIGURATION - Chargée depuis .env
+# CONFIGURATION - Chargée depuis config/.env
 # ============================================================================
 
-# Euria via Infomaniak avec modèle Mistral (utilise bearer token du .env)
+# Euria via Infomaniak avec modèle Mistral (utilise bearer token du config/.env)
 EURIA_API_URL = os.getenv('URL', 'https://api.infomaniak.com/2/ai/106561/openai/v1/chat/completions')
 EURIA_BEARER_TOKEN = os.getenv('bearer', '')
 
@@ -52,11 +58,11 @@ SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET', '')
 def load_config():
     """Vérifie que les credentials sont disponibles."""
     if not EURIA_BEARER_TOKEN:
-        print("❌ ERREUR: Variable 'bearer' manquante dans .env")
+        print("❌ ERREUR: Variable 'bearer' manquante dans config/.env")
         return False
     
     if not SPOTIFY_CLIENT_ID or not SPOTIFY_CLIENT_SECRET:
-        print("❌ ERREUR: Variables Spotify manquantes dans .env")
+        print("❌ ERREUR: Variables Spotify manquantes dans config/.env")
         return False
     
     return True
@@ -461,18 +467,18 @@ if __name__ == "__main__":
     else:
         print("✗ Euria API: À configurer")
         print("  → Obtenir les credentials: Infomaniak dashboard")
-        print("  → Ajouter à: .env (bearer=... et URL=...)")
+        print("  → Ajouter à: config/.env (bearer=... et URL=...)")
     
     if SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET:
         print("✓ Spotify API: Configurée")
     else:
         print("✗ Spotify API: À configurer")
         print("  → Créer une app: https://developer.spotify.com/dashboard")
-        print("  → Ajouter à: .env (SPOTIFY_CLIENT_ID et SPOTIFY_CLIENT_SECRET)")
+        print("  → Ajouter à: config/.env (SPOTIFY_CLIENT_ID et SPOTIFY_CLIENT_SECRET)")
     
     if not has_config:
         print("\n⚠️  Configuration incomplète!")
-        print("   Veuillez configurer les API dans .env")
+        print("   Veuillez configurer les API dans config/.env")
         print("   Ou utiliser: python3 setup_automation.py")
         sys.exit(1)
     

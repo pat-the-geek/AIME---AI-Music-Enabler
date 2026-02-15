@@ -27,7 +27,7 @@ L'API Euria est fournie par **Infomaniak** avec OpenAI compatible endpoint.
 
 #### Variables d'environnement requises
 ```env
-# .env à la racine du projet
+# config/.env
 EURIA_API_URL=https://api.infomaniak.com/2/ai/[MODEL_ID]/openai/v1/chat/completions
 EURIA_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxx
 EURIA_MODEL=gpt-4o  # ou autres modèles disponibles
