@@ -15,12 +15,19 @@ import warnings
 import asyncio
 import logging
 import os
+from pathlib import Path
 from contextlib import asynccontextmanager
 
-# Charger les variables d'environnement depuis .env
+# Charger les variables d'environnement depuis config/.env (fallback .env)
 try:
     from dotenv import load_dotenv
-    load_dotenv()
+    project_root = Path(__file__).resolve().parents[2]
+    env_path = project_root / 'config' / '.env'
+    fallback_env_path = project_root / '.env'
+    if env_path.exists():
+        load_dotenv(env_path)
+    elif fallback_env_path.exists():
+        load_dotenv(fallback_env_path)
 except ImportError:
     pass  # python-dotenv non disponible
 

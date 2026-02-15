@@ -14,7 +14,7 @@ cat << 'EOF'
 📁 Fichiers créés:
    • Structure pytest:           13 fichiers
    • Type markers (PEP 561):     1 fichier (app/py.typed)
-   • Configuration:              3 fichiers (pytest.ini, requirements-test.txt, run_tests.sh)
+   • Configuration:              3 fichiers (config/pytest.ini, config/requirements-test.txt, run_tests.sh)
    • Documentation:              4 fichiers (PHASE4-*.md)
    
 📝 Tests créés:
@@ -71,8 +71,8 @@ cat << 'EOF'
 📦 CONFIGURATION FILES
 ═════════════════════════════════════════════════════════════════════
 
-✅ pytest.ini                (Configuration pytest complète)
-✅ requirements-test.txt      (Dépendances pytest + plugins)
+✅ config/pytest.ini          (Configuration pytest complète)
+✅ config/requirements-test.txt (Dépendances pytest + plugins)
 ✅ backend/run_tests.sh       (Script d'exécution complet)
 ✅ app/py.typed             (PEP 561 type marker)
 
@@ -114,7 +114,7 @@ cat << 'EOF'
 ═════════════════════════════════════════════════════════════════════
 
 # 1. Installer dépendances
-pip install -r requirements-test.txt
+pip install -r config/requirements-test.txt
 
 # 2. Lancer les tests
 pytest tests/ -v

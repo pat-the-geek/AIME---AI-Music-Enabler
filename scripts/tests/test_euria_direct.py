@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
 import os
 import sys
+from pathlib import Path
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()
+project_root = Path(__file__).resolve().parents[2]
+env_path = project_root / 'config' / '.env'
+fallback_env_path = project_root / '.env'
+if env_path.exists():
+    load_dotenv(env_path)
+elif fallback_env_path.exists():
+    load_dotenv(fallback_env_path)
 
 # Test Euria API
 EURIA_URL = os.getenv('URL', 'https://api.infomaniak.com/2/ai/106561/openai/v1/chat/completions')

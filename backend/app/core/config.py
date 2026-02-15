@@ -6,6 +6,8 @@ import json
 import os
 from pathlib import Path
 
+PROJECT_ROOT = Path(__file__).parent.parent.parent.parent
+
 
 class Settings(BaseSettings):
     """Configuration de l'application."""
@@ -98,7 +100,10 @@ class Settings(BaseSettings):
         return self._secrets_cache
     
     class Config:
-        env_file = ".env"
+        env_file = (
+            str(PROJECT_ROOT / "config" / ".env"),
+            str(PROJECT_ROOT / ".env"),
+        )
         case_sensitive = False
         extra = "allow"  # Allow extra fields from env vars
 

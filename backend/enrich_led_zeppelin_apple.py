@@ -22,7 +22,7 @@ def generate_apple_music_url_via_euria(artist_name: str, album_title: str) -> st
     """Génère une URL Apple Music via l'API Euria."""
     
     if not EURIA_BEARER_TOKEN:
-        print("⚠️ EURIA_BEARER_TOKEN non trouvé dans .env")
+        print("⚠️ EURIA_BEARER_TOKEN non trouvé dans config/secrets.json")
         return None
     
     prompt = f"""Tu es un assistant spécialisé dans la recherche d'URLs Apple Music.

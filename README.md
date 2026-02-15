@@ -224,7 +224,7 @@ npm run dev
   ```
   Si vous utilisez Docker Compose, les ports 8000 et 80 sont déjà exposés sur l'hôte.
 
-2. **CORS** : autoriser le poste distant dans `backend/.env`
+2. **CORS** : autoriser le poste distant dans `config/.env`
   ```
   CORS_ORIGINS=http://localhost:5173,http://192.168.1.X:5173,http://192.168.1.X
   ```
@@ -232,8 +232,8 @@ npm run dev
   3. **Frontend** : pointer l'URL API vers l'hôte et autoriser l'écoute réseau
    ```bash
    cd frontend
-   cp .env.example .env
-   # dans .env -> VITE_API_URL=http://192.168.1.X:8000/api/v1
+  cp .env.example .env
+  # dans .env -> VITE_API_URL=http://192.168.1.X:8000/api/v1
    npm install
    npm run dev
    ```

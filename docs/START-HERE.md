@@ -24,7 +24,7 @@ http://localhost:5173/magazine
 
 ### 🌐 Accès depuis un autre poste du réseau
 
-1) Côté backend (`backend/.env`) : ajoute l'origine du frontend dans `CORS_ORIGINS` (séparée par des virgules)
+1) Côté backend (`config/.env`) : ajoute l'origine du frontend dans `CORS_ORIGINS` (séparée par des virgules)
 ```
 CORS_ORIGINS=http://localhost:5173,http://192.168.1.X:5173,http://192.168.1.X
 ```

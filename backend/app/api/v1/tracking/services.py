@@ -3375,10 +3375,17 @@ async def _enrich_euria_spotify_task(limit: int = None):
     global _last_executions, _enrich_progress
     import logging
     import os
+  from pathlib import Path
     
     try:
         from dotenv import load_dotenv
-        load_dotenv()
+      project_root = Path(__file__).resolve().parents[5]
+      env_path = project_root / 'config' / '.env'
+      fallback_env_path = project_root / '.env'
+      if env_path.exists():
+        load_dotenv(env_path)
+      elif fallback_env_path.exists():
+        load_dotenv(fallback_env_path)
     except ImportError:
         pass
     
@@ -3413,7 +3420,7 @@ async def _enrich_euria_spotify_task(limit: int = None):
         spec = importlib.util.spec_from_file_location("enrich_euria_spotify", script_path)
         enrich_module = importlib.util.module_from_spec(spec)
         
-        # Configurer les variables globales du module avec les credentials .env
+        # Configurer les variables globales du module avec les credentials config/.env
         enrich_module.EURIA_BEARER_TOKEN = euria_bearer
         enrich_module.EURIA_API_URL = euria_url
         enrich_module.SPOTIFY_CLIENT_ID = spotify_id
@@ -3430,10 +3437,10 @@ async def _enrich_euria_spotify_task(limit: int = None):
         
         # Vérifier que les APIs sont configurées
         if not euria_bearer:
-            logger.warning("⚠️  Euria API (bearer token) non configurée dans .env")
+          logger.warning("⚠️  Euria API (bearer token) non configurée dans config/.env")
         
         if not spotify_id or not spotify_secret:
-            logger.warning("⚠️  Spotify API non configurée dans .env - Aucune image ne sera récupérée")
+          logger.warning("⚠️  Spotify API non configurée dans config/.env - Aucune image ne sera récupérée")
         
         # Lancer l'enrichissement
         _enrich_progress["phase"] = "descriptions"

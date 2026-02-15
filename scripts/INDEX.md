@@ -194,7 +194,7 @@ grep -r "FastAPI\|starlette" scripts/*/  # Web
 ## ⚙️ Configuration
 
 Chaque catégorie de scripts peut avoir une configuration spécifique:
-- Variables d'environnement: voir `.env.example`
+- Variables d'environnement: voir `config/.env.example`
 - Clés API: voir `config/api_keys.json`
 - Config BD: voir `config/database.yml`
 
