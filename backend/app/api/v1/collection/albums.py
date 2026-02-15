@@ -40,9 +40,11 @@ async def list_albums(
     support: Optional[str] = Query(None, description="Filter by support (Vinyle, CD, Digital)"),
     year: Optional[int] = Query(None, description="Filter by year"),
     is_soundtrack: Optional[bool] = Query(None, description="Filter soundtracks"),
+    sort_by: str = Query('title', description="Sort field: title, artists, year, support, created_at"),
+    sort_order: str = Query('asc', description="Sort order: asc or desc"),
     db: Session = Depends(get_db)
 ):
-    """Liste des albums Discogs avec pagination et filtres."""
+    """Liste des albums Discogs avec pagination, filtres et tri."""
     try:
         items, total, pages = AlbumService.list_albums(
             db,
@@ -52,7 +54,9 @@ async def list_albums(
             support=support,
             year=year,
             is_soundtrack=is_soundtrack,
-            source='discogs'
+            source='discogs',
+            sort_by=sort_by,
+            sort_order=sort_order
         )
         
         return AlbumListResponse(

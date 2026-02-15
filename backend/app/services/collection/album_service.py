@@ -24,14 +24,17 @@ class AlbumService:
         support: Optional[str] = None,
         year: Optional[int] = None,
         is_soundtrack: Optional[bool] = None,
-        source: Optional[str] = None
+        source: Optional[str] = None,
+        sort_by: str = 'title',
+        sort_order: str = 'asc'
     ) -> tuple[List[AlbumResponse], int, int]:
         """
-        List albums with pagination, filtering, and search capabilities.
+        List albums with pagination, filtering, sorting, and search capabilities.
 
         Retrieves a paginated list of albums from the collection with optional
         filters for media type, year, soundtrack status, and source. Supports
-        full-text search across album titles and artist names.
+        full-text search across album titles and artist names, and sorting by
+        various fields.
 
         Args:
             db: SQLAlchemy database session for query execution.
@@ -46,6 +49,10 @@ class AlbumService:
                 albums with associated film metadata. If False, excludes soundtracks.
             source: Optional data source filter. Defaults to 'discogs' if not specified.
                 Valid values: 'discogs', 'lastfm', 'spotify', 'manual'.
+            sort_by: Field to sort by. Defaults to 'title'.
+                Valid values: 'title', 'artists', 'year', 'support', 'created_at'.
+            sort_order: Sort order. Defaults to 'asc'.
+                Valid values: 'asc' (ascending), 'desc' (descending).
 
         Returns:
             A tuple containing:
@@ -64,7 +71,9 @@ class AlbumService:
             ...     page_size=20,
             ...     search="Pink Floyd",
             ...     year=1973,
-            ...     support="Vinyle"
+            ...     support="Vinyle",
+            ...     sort_by='year',
+            ...     sort_order='desc'
             ... )
             >>> print(f"Found {total} albums, page 1 of {pages}")
             Found 3 albums, page 1 of 1
@@ -79,9 +88,11 @@ class AlbumService:
               full-text search indexes for production deployments.
             - Results are limited to page_size items; use pagination for large
               result sets to minimize memory usage.
+            - Sorting by 'artists' uses a join with the Artist table; ensure indexes
+              on artist.name are optimized.
         """
         # Requête de base
-        query = db.query(Album)
+        query = db.query(Album).distinct()
         
         # Filtre source par défaut si pas spécifié
         if source is None:
@@ -91,7 +102,7 @@ class AlbumService:
         
         # Recherche
         if search:
-            query = query.join(Album.artists).filter(
+            query = query.outerjoin(Album.artists).filter(
                 (Album.title.ilike(f"%{search}%")) | (Artist.name.ilike(f"%{search}%"))
             )
         
@@ -107,7 +118,49 @@ class AlbumService:
                 Metadata.film_title.isnot(None) if is_soundtrack else Metadata.film_title.is_(None)
             )
         
-        # Total
+        # Tri - AVANT la pagination
+        # Normaliser sort_by et sort_order
+        sort_by = sort_by.lower() if sort_by else 'title'
+        sort_order = sort_order.lower() if sort_order else 'asc'
+        
+        # Valider les valeurs
+        valid_sort_fields = ['title', 'artists', 'year', 'support', 'created_at']
+        if sort_by not in valid_sort_fields:
+            sort_by = 'title'
+        
+        if sort_order not in ['asc', 'desc']:
+            sort_order = 'asc'
+        
+        # Appliquer le tri
+        if sort_by == 'artists':
+            # Trier par nom du premier artiste
+            query = query.outerjoin(Album.artists)
+            if sort_order == 'asc':
+                query = query.order_by(Artist.name.asc(), Album.title.asc())
+            else:
+                query = query.order_by(Artist.name.desc(), Album.title.desc())
+        elif sort_by == 'title':
+            if sort_order == 'asc':
+                query = query.order_by(Album.title.asc())
+            else:
+                query = query.order_by(Album.title.desc())
+        elif sort_by == 'year':
+            if sort_order == 'asc':
+                query = query.order_by(Album.year.asc(), Album.title.asc())
+            else:
+                query = query.order_by(Album.year.desc(), Album.title.asc())
+        elif sort_by == 'support':
+            if sort_order == 'asc':
+                query = query.order_by(Album.support.asc(), Album.title.asc())
+            else:
+                query = query.order_by(Album.support.desc(), Album.title.asc())
+        elif sort_by == 'created_at':
+            if sort_order == 'asc':
+                query = query.order_by(Album.created_at.asc())
+            else:
+                query = query.order_by(Album.created_at.desc())
+        
+        # Total APRÈS les filtres mais AVANT la pagination
         total = query.count()
         pages = math.ceil(total / page_size) if total > 0 else 0
         

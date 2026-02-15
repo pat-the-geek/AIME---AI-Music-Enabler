@@ -61,15 +61,15 @@
 
 **Paramètres de pagination:**
 - `page` (int): Numéro de page (défaut: 1)
-- `per_page` (int): Résultats par page (défaut: 50, max: 100)
+- `page_size` (int): Résultats par page (défaut: 30, max: 100)
 - `search` (string): Recherche textuelle
-- `support` (string): Filtrage (CD, Vinyl, Digital)
-- `sort` (string): Tri (title, artist, year)
-- `order` (string): asc / desc
+- `support` (string): Filtrage (Vinyle, CD, Digital)
+- `sort_by` (string): Champ de tri (title, artists, year, support, created_at)
+- `sort_order` (string): Ordre de tri (asc / desc)
 
 **Exemple de requête:**
 ```swift
-let url = "\(baseURL)/collection/albums?page=1&per_page=50&search=Beatles&support=CD&sort=year&order=desc"
+let url = "\(baseURL)/collection/albums?page=1&page_size=50&search=Beatles&support=CD&sort_by=year&sort_order=desc"
 ```
 
 ---

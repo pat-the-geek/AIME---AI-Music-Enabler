@@ -27,6 +27,18 @@ GET /collection/albums
 - `support` (string, optional): Filtrer par support (Vinyle, CD, Digital)
 - `year` (int, optional): Filtrer par année
 - `is_soundtrack` (boolean, optional): Filtrer les BOF
+- `sort_by` (string, default: 'title'): Champ de tri
+  - Valeurs acceptées: `title`, `artists`, `year`, `support`, `created_at`
+- `sort_order` (string, default: 'asc'): Ordre de tri
+  - Valeurs acceptées: `asc` (croissant), `desc` (décroissant)
+
+**Exemples:**
+```
+GET /collection/albums?sort_by=artists&sort_order=asc         # Trier par artiste (A→Z)
+GET /collection/albums?sort_by=year&sort_order=desc           # Trier par année (plus récent)
+GET /collection/albums?search=Pink%20Floyd&sort_by=title      # Recherche + tri par titre
+GET /collection/albums?support=CD&sort_by=created_at          # Filtrer CDs, tri par date
+```
 
 **Response:**
 ```json

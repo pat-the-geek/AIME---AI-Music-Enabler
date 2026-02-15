@@ -69,37 +69,14 @@ export default function Collection() {
       const params = new URLSearchParams({
         page: page.toString(),
         page_size: '30',
+        sort_by: sortBy,
+        sort_order: sortOrder,
       })
       if (search) params.append('search', search)
       if (support) params.append('support', support)
       
       const response = await apiClient.get(`/collection/albums?${params}`)
-      
-      // Tri côté client (en attendant l'implémentation backend)
-      const sortedItems = [...response.data.items].sort((a, b) => {
-        let aVal: any = a[sortBy as keyof Album]
-        let bVal: any = b[sortBy as keyof Album]
-        
-        // Gestion spéciale pour les artistes (tableau)
-        if (sortBy === 'artists') {
-          aVal = a.artists[0] || ''
-          bVal = b.artists[0] || ''
-        }
-        
-        if (typeof aVal === 'string' && typeof bVal === 'string') {
-          return sortOrder === 'asc' 
-            ? aVal.localeCompare(bVal)
-            : bVal.localeCompare(aVal)
-        }
-        
-        if (typeof aVal === 'number' && typeof bVal === 'number') {
-          return sortOrder === 'asc' ? aVal - bVal : bVal - aVal
-        }
-        
-        return 0
-      })
-      
-      return { ...response.data, items: sortedItems }
+      return response.data
     },
   })
 
@@ -473,7 +450,10 @@ export default function Collection() {
             <Select
               value={sortBy}
               label="Champ"
-              onChange={(e) => setSortBy(e.target.value)}
+              onChange={(e) => {
+                setSortBy(e.target.value)
+                setPage(1)
+              }}
             >
               <MenuItem value="title">Titre</MenuItem>
               <MenuItem value="artists">Artiste</MenuItem>
@@ -488,7 +468,10 @@ export default function Collection() {
             <Select
               value={sortOrder}
               label="Ordre"
-              onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
+              onChange={(e) => {
+                setSortOrder(e.target.value as 'asc' | 'desc')
+                setPage(1)
+              }}
             >
               <MenuItem value="asc">Croissant</MenuItem>
               <MenuItem value="desc">Décroissant</MenuItem>

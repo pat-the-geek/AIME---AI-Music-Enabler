@@ -1,7 +1,7 @@
 """Add scheduled_task_executions table for scheduler persistence.
 
 Revision ID: 004_add_scheduled_task_executions
-Revises: 003_add_service_states
+Revises: 003b_replace_playlists_with_album_collections
 Create Date: 2026-02-06 14:00:00.000000
 """
 from alembic import op
@@ -9,7 +9,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = '004_add_scheduled_task_executions'
-down_revision = '003_add_service_states'
+down_revision = '003b_replace_playlists_with_album_collections'
 branch_labels = None
 depends_on = None
 
