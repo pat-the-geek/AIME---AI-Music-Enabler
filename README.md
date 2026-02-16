@@ -2,7 +2,7 @@
 
 Application web moderne pour tracker et analyser l'historique d'écoute musicale depuis Last.fm, avec enrichissement automatique via Spotify, Discogs et IA.
 
-## � Développement
+## 🚀 Développement
 
 **Développé avec Vibe Coding** en utilisant **VS Code** et **GitHub Copilot**
 
@@ -44,7 +44,7 @@ Cette application est empaquetée et prête pour un déploiement via Docker Comp
 
 Voir `deploy/FINAL-README.md` pour la checklist complète et les commandes.
 
-## �️ Développement & Release — Workflow Sûr
+## 🚦 Développement & Release — Workflow Sûr
 
 Maintenant que l'application tourne en production via Docker, vous pouvez développer de nouvelles fonctionnalités **sans risquer de casser la production**. Voici le workflow recommandé :
 
@@ -89,9 +89,9 @@ docker push mon-username/aime-frontend:v4.8.0
 ./deploy/deploy.sh --host user@prod-server --copy-secrets
 ```
 
-📖 **Pour toutes les étapes détaillées** : consultez [deploy/RELEASE.md](deploy/RELEASE.md).
+📖 **Pour toutes les étapes détaillées** : consultez [deploy/FINAL-README.md](deploy/FINAL-README.md).
 
-## �📋 Fonctionnalités
+## 📋 Fonctionnalités
 
 ### ✅ Implémentées
 
@@ -511,7 +511,7 @@ cd frontend
 npm run test
 ```
 
-## � Documentation
+## 📚 Documentation
 
 - **[Guide de Démarrage Rapide](docs/START-HERE.md)** - Point de départ (COMMENCER ICI)
 - **[Documentation Complète](docs/)** - Guide complet avec index
