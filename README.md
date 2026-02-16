@@ -353,6 +353,56 @@ Les API keys sont déjà configurées dans `config/secrets.json`:
 
 ## 🐳 Docker
 
+
+### 🔗 Adhérences entre Docker et l’hôte
+
+Voici comment les containers interagissent avec le système hôte (volumes, ports, variables, réseau) :
+
+#### **Ports exposés**
+
+| Container  | Host | Usage |
+|------------|------|-------|
+| backend:8000   | 8000 | API FastAPI |
+| frontend:80    | 80   | Web HTTP    |
+
+#### **Volumes montés** (partage de fichiers/dossiers)
+
+**Backend :**
+```
+Host                    →  Container
+./data                  →  /app/data
+./config                →  /app/config
+./backend               →  /app/backend
+/etc/localtime          →  /etc/localtime (ro)
+/etc/timezone           →  /etc/timezone (ro)
+```
+**Init-DB :**
+```
+Host                    →  Container
+./data                  →  /app/data
+./config                →  /app/config
+/etc/localtime          →  /etc/localtime (ro)
+/etc/timezone           →  /etc/timezone (ro)
+```
+**Frontend :**
+```
+Host                    →  Container
+/etc/localtime          →  /etc/localtime (ro)
+/etc/timezone           →  /etc/timezone (ro)
+```
+
+#### **Variables d’environnement synchronisées**
+- `TZ=Europe/Paris` : timezone identique à l’hôte
+- `PYTHONUNBUFFERED=1` : logs Python immédiats
+- `ENVIRONMENT=production`, `PROJECT_ROOT=/app`
+
+#### **Réseau**
+- Réseau bridge `music-tracker-network` (172.20.0.0/16)
+- Communication interne entre containers
+- Backend attend que Frontend soit prêt (`depends_on` + healthcheck)
+
+**Résumé :** Les dossiers `./data`, `./config` et le code source `./backend` sont partagés en temps réel. Les modifications locales sont visibles instantanément dans le container.
+
 ```bash
 # Construire et lancer avec Docker Compose
 docker-compose up -d
