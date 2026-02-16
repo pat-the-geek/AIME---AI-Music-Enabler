@@ -49,7 +49,7 @@ class Settings(BaseSettings):
     @property
     def database_url(self) -> str:
         """URL de la base de données avec chemin absolu."""
-        db_path = self.data_dir / "musique.db"
+        db_path = self.data_dir / "db" / "musique.db"
         return f"sqlite:///{db_path}"
     
     database_echo: bool = False

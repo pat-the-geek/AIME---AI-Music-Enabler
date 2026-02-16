@@ -14,7 +14,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 import json
 
-DATABASE_PATH = Path(__file__).parent.parent / "data" / "musique.db"
+DATABASE_PATH = Path(__file__).parent.parent / "data" / "db" / "musique.db"
 EXPECTED_INDEXES = {
     'tracks': [
         'idx_tracks_album_id',

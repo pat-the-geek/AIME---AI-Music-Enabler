@@ -1014,7 +1014,7 @@ Réponds uniquement en français."""
             for _ in range(4):
                 current_dir = os.path.dirname(current_dir)
             project_root = current_dir
-            output_dir = os.path.join(project_root, self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output'))
+            output_dir = os.path.join(project_root, self.config.get('scheduler', {}).get('output_dir', 'scheduler'))
             
             os.makedirs(output_dir, exist_ok=True)
             
@@ -1125,7 +1125,7 @@ Réponds uniquement en français."""
             for _ in range(4):
                 current_dir = os.path.dirname(current_dir)
             project_root = current_dir
-            output_dir = os.path.join(project_root, self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output'))
+            output_dir = os.path.join(project_root, self.config.get('scheduler', {}).get('output_dir', 'scheduler'))
             
             os.makedirs(output_dir, exist_ok=True)
             
@@ -1315,7 +1315,7 @@ Réponds uniquement en français."""
             for _ in range(4):
                 current_dir = os.path.dirname(current_dir)
             project_root = current_dir
-            output_dir = os.path.join(project_root, self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output'))
+            output_dir = os.path.join(project_root, self.config.get('scheduler', {}).get('output_dir', 'scheduler'))
             
             os.makedirs(output_dir, exist_ok=True)
             
@@ -1410,7 +1410,7 @@ Réponds uniquement en français."""
         for _ in range(4):
             current_dir = os.path.dirname(current_dir)
         project_root = current_dir
-        output_dir = os.path.join(project_root, self.config.get('scheduler', {}).get('output_dir', 'Scheduled Output'))
+        output_dir = os.path.join(project_root, self.config.get('scheduler', {}).get('output_dir', 'scheduler'))
         
         if not os.path.exists(output_dir):
             return

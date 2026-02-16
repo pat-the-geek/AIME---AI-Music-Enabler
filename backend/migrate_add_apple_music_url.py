@@ -7,11 +7,11 @@ from pathlib import Path
 
 # Chercher le chemin correct de la BD
 project_root = Path(__file__).parent.parent
-db_path = project_root / "data" / "musique.db"
+db_path = project_root / "data" / "db" / "musique.db"
 
 # Essai du chemin alternatif
 if not db_path.exists():
-    db_path = Path(__file__).parent / "data" / "musique.db"
+    db_path = Path(__file__).parent / "data" / "db" / "musique.db"
 
 print(f"📍 Chemin de la BD: {db_path}")
 print(f"✅ BD existe: {db_path.exists()}")

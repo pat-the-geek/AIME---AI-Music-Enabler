@@ -1,7 +1,7 @@
 #!/bin/bash
 # Clean up radio station data from listening history
 
-DB_PATH="data/musique.db"
+DB_PATH="data/db/musique.db"
 
 echo "🧹 Nettoyage des stations de radio dans la base de données..."
 echo ""

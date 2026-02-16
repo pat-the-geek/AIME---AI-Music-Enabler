@@ -178,8 +178,8 @@ if __name__ == "__main__":
         print("Usage:")
         print("  python validate_correction.py <db_path> [check|move <album_id> <source> [support]]")
         print("\nExemples:")
-        print("  python validate_correction.py ../data/musique.db check")
-        print("  python validate_correction.py ../data/musique.db move 123 lastfm")
+        print("  python validate_correction.py ../data/db/musique.db check")
+        print("  python validate_correction.py ../data/db/musique.db move 123 lastfm")
         sys.exit(1)
     
     db_path = sys.argv[1]
