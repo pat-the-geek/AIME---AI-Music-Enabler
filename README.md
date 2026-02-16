@@ -29,7 +29,7 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
 | [**ARCHITECTURE-INDEX.md**](docs/architecture/ARCHITECTURE-INDEX.md) | 🗺️ Guide de navigation (COMMENCER ICI) |
 | [**ARCHITECTURE-GUI-AND-APIS.md**](docs/architecture/ARCHITECTURE-GUI-AND-APIS.md) | 🎨 Interface graphique + tous les API externes détaillés |
 | [**ARCHITECTURE-DIAGRAMS.md**](docs/architecture/ARCHITECTURE-DIAGRAMS.md) | 🎨 Diagrammes Mermaid des flux et dépendances |
-| [**CODE-ORGANIZATION-SUMMARY.md**](docs/architecture/CODE-ORGANIZATION-SUMMARY.md) | 🔧 Refactoring plan et organisation du code |
+| [**CODE-ORGANIZATION-SUMMARY.md**](docs/CODE-ORGANIZATION-SUMMARY.md) | 🔧 Refactoring plan et organisation du code |
 | [**AI-PROMPTS.md**](docs/features/ai/AI-PROMPTS.md) | 🤖 Catalogue complet des prompts EurIA |
 
 👉 **Pour les développeurs:** Commencez par [ARCHITECTURE-INDEX.md](docs/architecture/ARCHITECTURE-INDEX.md) pour naviguer efficacement
