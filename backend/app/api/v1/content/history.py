@@ -127,7 +127,7 @@ async def list_history(
                 Image.image_type == 'artist'
             ).first()
             if artist_images:
-                artist_image = artist_images.url
+                artist_image = f"{artist_images.url}?t={int(artist_images.updated_at.timestamp())}"
         
         album_image = None
         album_lastfm_image = None
@@ -138,9 +138,9 @@ async def list_history(
             ).all()
             for img in album_images:
                 if img.source == 'spotify':
-                    album_image = img.url
+                    album_image = f"{img.url}?t={int(img.updated_at.timestamp())}"
                 elif img.source == 'lastfm':
-                    album_lastfm_image = img.url
+                    album_lastfm_image = f"{img.url}?t={int(img.updated_at.timestamp())}"
         
         # Info IA
         ai_info = None

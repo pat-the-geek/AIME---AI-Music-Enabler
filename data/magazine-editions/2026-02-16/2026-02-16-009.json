@@ -1,0 +1,762 @@
+{
+  "id": "2026-02-16-009",
+  "edition_number": 9,
+  "generated_at": "2026-02-16T06:00:24.439327+00:00",
+  "albums": [
+    {
+      "id": 270,
+      "title": "Highway Prayers",
+      "year": 2024,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2730483773240c11877177e48f1",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6ARzD9YEt9vx2rz7X3NDlo",
+      "apple_music_url": "https://music.apple.com/search?term=Highway%20Prayers%20Billy%20Strings",
+      "artist": "Billy Strings",
+      "description": "*Highway Prayers* marque un moment dans la carrière de Billy Strings. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 316,
+      "title": "Communiqué",
+      "year": 1979,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b1f7f1d5898b28c1ce3f4947",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2xQBCPq2gQ7l8thLUUZSKu",
+      "apple_music_url": "https://music.apple.com/search?term=Dire%20Straits%20Communiqu%C3%A9",
+      "artist": "Dire Straits",
+      "description": "La **poésie musicale** de *Communiqué* de Dire Straits transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 246,
+      "title": "Diamonds",
+      "year": 2017,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273904e306cf32fa5dc93dd927a",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/45F4Pmp3EJi3T6qYonm4Ml",
+      "apple_music_url": "https://music.apple.com/search?term=Elton%20John%20Diamonds",
+      "artist": "Elton John",
+      "description": "La **poésie musicale** de *Diamonds* de Elton John transcende les années depuis 2017. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 334,
+      "title": "Genesis (2007 Remaster)",
+      "year": 1983,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273945c366eda66495226e4a46d",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6BX8AS7J97PSQNrteX325Z",
+      "apple_music_url": "https://music.apple.com/search?term=Genesis%20Genesis%20%282007%20Remaster%29",
+      "artist": "Genesis",
+      "description": "La **poésie musicale** de *Genesis (2007 Remaster)* de Genesis transcende les années depuis 1983. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 343,
+      "title": "Rumours (super Deluxe)",
+      "year": 1977,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273e52a59a28efa4773dd2bfe1b",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0BwWUstDMUbgq2NYONRqlu",
+      "apple_music_url": "https://music.apple.com/search?term=Rumours%20%28super%20Deluxe%29%20Fleetwood%20Mac",
+      "artist": "Fleetwood Mac",
+      "description": "**Rumours (super Deluxe)** de *Fleetwood Mac* (1977) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 303,
+      "title": "Debí Tirar Más Fotos",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273bbd45c8d36e0e045ef640411",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+      "apple_music_url": "https://music.apple.com/search?term=Deb%C3%AD%20Tirar%20M%C3%A1s%20Fotos%20Bad%20Bunny",
+      "artist": "Bad Bunny",
+      "description": "**Debí Tirar Más Fotos** de *Bad Bunny* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 240,
+      "title": "A Moon Shaped Pool (radiohead)",
+      "artist": "Radiohead",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27345643f5cf119cbc9d2811c22",
+      "year": 2016,
+      "spotify_url": "https://open.spotify.com/album/2ix8vWvvSp2Yo7rKMiWpkg",
+      "apple_music_url": "https://music.apple.com/search?term=Radiohead%20A%20Moon%20Shaped%20Pool%20%28radiohead%29",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "asymmetric",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 251,
+      "title": "Naked",
+      "artist": "Talking Heads",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273569adf0916825b184451a8e9",
+      "year": 1988,
+      "spotify_url": "https://open.spotify.com/album/6iOPhFscLxdpzGug0qxpcZ",
+      "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20Naked",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "playful",
+        "accentColor": "#06b6d4",
+        "specialEffect": "gradient"
+      },
+      "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+    },
+    {
+      "id": 261,
+      "title": "Clouds Taste Metallic",
+      "artist": "The Flaming Lips",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27380f1543dba9c40d32c21f01b",
+      "year": 1995,
+      "spotify_url": "https://open.spotify.com/album/2L4xduAFQeVbHLRiKUH7rD",
+      "apple_music_url": "https://music.apple.com/search?term=Clouds%20Taste%20Metallic%20The%20Flaming%20Lips",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 281,
+      "title": "Live-action",
+      "artist": "Nate Smith",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/6KpA380vLBVA6d6lYebIk3",
+      "apple_music_url": "https://music.apple.com/search?term=Live-action%20Nate%20Smith",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#ab47bc",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Horizons Musique*."
+    },
+    {
+      "id": 1,
+      "title": "Nevermind",
+      "artist": "Nirvana",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+      "year": 1991,
+      "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+      "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Horizons Musique."
+    },
+    {
+      "id": 257,
+      "title": "Dropout Boogie",
+      "artist": "The Black Keys",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2730e8e7267c0b377e5751630f3",
+      "year": 2022,
+      "spotify_url": "https://open.spotify.com/album/7LLyQJzyD56Avzk3uFzKUk",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Black%20Keys%20Dropout%20Boogie",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "dramatic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "gradient"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 250,
+      "title": "L.a. Woman",
+      "artist": "The Doors",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+      "year": 1971,
+      "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20L.a.%20Woman",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "none"
+      },
+      "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+    },
+    {
+      "id": 264,
+      "title": "In Sides",
+      "artist": "Orbital",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738582db75b4e80ca0077697bc",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1wXyzUmlgN6G1DXIY0Sh8l",
+      "apple_music_url": "https://music.apple.com/search?term=In%20Sides%20Orbital"
+    },
+    {
+      "id": 377,
+      "title": "Crosby, Stills & Nash",
+      "artist": "Crosby, Stills & Nash",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a32339b8818323380682a889",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6vUWpE8qciYHOhf7mgaGny",
+      "apple_music_url": "https://music.apple.com/search?term=Crosby%2C%20Stills%20%26%20Nash%20Crosby%2C%20Stills%20%26%20Nash"
+    },
+    {
+      "id": 381,
+      "title": "Requiem For a Dream / Ost (nonesuch Store Edition)",
+      "artist": "Clint Mansell",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2737f519ee9bbb3e6d1d6aba171",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6tP6p3IVTQpisKZ6kd4cnW",
+      "apple_music_url": "https://music.apple.com/search?term=Requiem%20For%20a%20Dream%20/%20Ost%20%28nonesuch%20Store%20Edition%29%20Clint%20Mansell"
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+      "count": 21
+    },
+    {
+      "id": 1164,
+      "title": "In the Flat Field",
+      "artist": "Bauhaus",
+      "year": 1980,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273752a1573f8cb8f700a98f405",
+      "spotify_url": "https://open.spotify.com/album/4hPJRedKOmbvKnLdzV9w1w",
+      "apple_music_url": "https://music.apple.com/search?term=In%20the%20Flat%20Field%20Bauhaus",
+      "description": "**Album Review: *In the Flat Field* – Bauhaus**\n\nBauhaus’s *In the Flat Field* (1980) is a cornerstone of post-punk, blending gothic melancholy with raw, experimental energy. The album eschews the raw aggression of their debut, *Bela Lugosi’s Dead*, for a more refined yet haunting sound, merging dark wave atmospherics with jagged guitar work and Peter Murphy’s haunting baritone.\n\nThe production is striking, with crisp, reverb-drenched instrumentation that amplifies the album’s eerie, cinematic quality. Tracks like *\"Double Dare\"* and *\"A God in an Alcove\"* showcase Murphy’s theatrical vocals, while the brooding basslines and driving percussion create a sense of foreboding. The standout *\"Hollow Hills\"* exemplifies the band’s ability to craft mood-driven narratives, its slow-burning intensity and hypnotic rhythm staying with the listener long after.\n\n*In the Flat Field* remains a defining work of early gothic rock, its emotional weight and sonic sophistication setting a blueprint for the genre. A masterful fusion of style and substance.",
+      "style": null
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Giorgio Conte",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "corner",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#f7931e",
+        "specialEffect": "zoom"
+      },
+      "content": {
+        "artist": {
+          "name": "Giorgio Conte",
+          "albums_count": 6,
+          "haiku": "**Highway Prayers**\nMélodies filant sous la lune\nAccords bleus, cœur en voyage",
+          "bio": "**Giorgio Conte** nous offre 6 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab67616d0000b2735bf531e7f2ab0f15db379d0b"
+        },
+        "albums": [
+          {
+            "id": 270,
+            "title": "Highway Prayers",
+            "year": 2024,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2730483773240c11877177e48f1",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6ARzD9YEt9vx2rz7X3NDlo",
+            "apple_music_url": "https://music.apple.com/search?term=Highway%20Prayers%20Billy%20Strings",
+            "artist": "Billy Strings",
+            "description": "*Highway Prayers* marque un moment dans la carrière de Billy Strings. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 316,
+            "title": "Communiqué",
+            "year": 1979,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b1f7f1d5898b28c1ce3f4947",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2xQBCPq2gQ7l8thLUUZSKu",
+            "apple_music_url": "https://music.apple.com/search?term=Dire%20Straits%20Communiqu%C3%A9",
+            "artist": "Dire Straits",
+            "description": "La **poésie musicale** de *Communiqué* de Dire Straits transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 246,
+            "title": "Diamonds",
+            "year": 2017,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273904e306cf32fa5dc93dd927a",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/45F4Pmp3EJi3T6qYonm4Ml",
+            "apple_music_url": "https://music.apple.com/search?term=Elton%20John%20Diamonds",
+            "artist": "Elton John",
+            "description": "La **poésie musicale** de *Diamonds* de Elton John transcende les années depuis 2017. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 334,
+            "title": "Genesis (2007 Remaster)",
+            "year": 1983,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273945c366eda66495226e4a46d",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6BX8AS7J97PSQNrteX325Z",
+            "apple_music_url": "https://music.apple.com/search?term=Genesis%20Genesis%20%282007%20Remaster%29",
+            "artist": "Genesis",
+            "description": "La **poésie musicale** de *Genesis (2007 Remaster)* de Genesis transcende les années depuis 1983. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 343,
+            "title": "Rumours (super Deluxe)",
+            "year": 1977,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273e52a59a28efa4773dd2bfe1b",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0BwWUstDMUbgq2NYONRqlu",
+            "apple_music_url": "https://music.apple.com/search?term=Rumours%20%28super%20Deluxe%29%20Fleetwood%20Mac",
+            "artist": "Fleetwood Mac",
+            "description": "**Rumours (super Deluxe)** de *Fleetwood Mac* (1977) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 303,
+            "title": "Debí Tirar Más Fotos",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273bbd45c8d36e0e045ef640411",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+            "apple_music_url": "https://music.apple.com/search?term=Deb%C3%AD%20Tirar%20M%C3%A1s%20Fotos%20Bad%20Bunny",
+            "artist": "Bad Bunny",
+            "description": "**Debí Tirar Más Fotos** de *Bad Bunny* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 300,
+        "text_columns": 1,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Horizons Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Horizons Musique",
+          "description": "*Horizons Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 240,
+              "title": "A Moon Shaped Pool (radiohead)",
+              "artist": "Radiohead",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27345643f5cf119cbc9d2811c22",
+              "year": 2016,
+              "spotify_url": "https://open.spotify.com/album/2ix8vWvvSp2Yo7rKMiWpkg",
+              "apple_music_url": "https://music.apple.com/search?term=Radiohead%20A%20Moon%20Shaped%20Pool%20%28radiohead%29",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 251,
+              "title": "Naked",
+              "artist": "Talking Heads",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273569adf0916825b184451a8e9",
+              "year": 1988,
+              "spotify_url": "https://open.spotify.com/album/6iOPhFscLxdpzGug0qxpcZ",
+              "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20Naked",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "playful",
+                "accentColor": "#06b6d4",
+                "specialEffect": "gradient"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 261,
+              "title": "Clouds Taste Metallic",
+              "artist": "The Flaming Lips",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27380f1543dba9c40d32c21f01b",
+              "year": 1995,
+              "spotify_url": "https://open.spotify.com/album/2L4xduAFQeVbHLRiKUH7rD",
+              "apple_music_url": "https://music.apple.com/search?term=Clouds%20Taste%20Metallic%20The%20Flaming%20Lips",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 281,
+              "title": "Live-action",
+              "artist": "Nate Smith",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/6KpA380vLBVA6d6lYebIk3",
+              "apple_music_url": "https://music.apple.com/search?term=Live-action%20Nate%20Smith",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Horizons Musique*."
+            },
+            {
+              "id": 1,
+              "title": "Nevermind",
+              "artist": "Nirvana",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+              "year": 1991,
+              "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+              "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Horizons Musique."
+            },
+            {
+              "id": 257,
+              "title": "Dropout Boogie",
+              "artist": "The Black Keys",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2730e8e7267c0b377e5751630f3",
+              "year": 2022,
+              "spotify_url": "https://open.spotify.com/album/7LLyQJzyD56Avzk3uFzKUk",
+              "apple_music_url": "https://music.apple.com/search?term=The%20Black%20Keys%20Dropout%20Boogie",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "dramatic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "gradient"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 250,
+              "title": "L.a. Woman",
+              "artist": "The Doors",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+              "year": 1971,
+              "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+              "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20L.a.%20Woman",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "artistic",
+        "image_position": "left"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 264,
+            "title": "In Sides",
+            "artist": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738582db75b4e80ca0077697bc",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1wXyzUmlgN6G1DXIY0Sh8l",
+            "apple_music_url": "https://music.apple.com/search?term=In%20Sides%20Orbital"
+          },
+          {
+            "id": 377,
+            "title": "Crosby, Stills & Nash",
+            "artist": "Crosby, Stills & Nash",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273a32339b8818323380682a889",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6vUWpE8qciYHOhf7mgaGny",
+            "apple_music_url": "https://music.apple.com/search?term=Crosby%2C%20Stills%20%26%20Nash%20Crosby%2C%20Stills%20%26%20Nash"
+          },
+          {
+            "id": 381,
+            "title": "Requiem For a Dream / Ost (nonesuch Store Edition)",
+            "artist": "Clint Mansell",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2737f519ee9bbb3e6d1d6aba171",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6tP6p3IVTQpisKZ6kd4cnW",
+            "apple_music_url": "https://music.apple.com/search?term=Requiem%20For%20a%20Dream%20/%20Ost%20%28nonesuch%20Store%20Edition%29%20Clint%20Mansell"
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 264,
+            "album_title": "In Sides",
+            "haiku": "**In Sides**\nRythmes en spirale fractale\nNuits électriques brillent",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "right",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#06b6d4",
+              "specialEffect": "none"
+            },
+            "description": "*In Sides* marque un moment dans la carrière de Orbital. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          },
+          {
+            "album_id": 377,
+            "album_title": "Crosby, Stills & Nash",
+            "haiku": "**Crosby, Stills & Nash**\nVoix en harmonie claire\nÉcho d'un ciel d'été\n\n*(Ou alternativement, pour plus de musicalité :)*\n**Crosby, Stills & Nash**\nCordes tissant l'aube\nChant sous la lune pleine",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "top",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "dramatic",
+              "accentColor": "#10b981",
+              "specialEffect": "zoom"
+            },
+            "description": "**Crosby, Stills & Nash** de *Crosby, Stills & Nash* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          },
+          {
+            "album_id": 381,
+            "album_title": "Requiem For a Dream / Ost (nonesuch Store Edition)",
+            "haiku": "**Requiem For a Dream / Ost**\nCordes déchirant la nuit\nLarmes noires en écho",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "right",
+              "imageSize": "small",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#ff6b35",
+              "specialEffect": "none"
+            },
+            "description": "Clint Mansell livre avec *Requiem For a Dream / Ost (nonesuch Store Edition)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "columns": 3,
+        "spacing": "compact"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 4,
+        "imagePosition": "split",
+        "imageSize": "fullscreen",
+        "textLayout": "vertical",
+        "composition": "classic",
+        "accentColor": "#00b4d8",
+        "specialEffect": "overlay"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 44,
+        "unique_albums": 70,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          },
+          {
+            "artist_id": 955,
+            "artist_name": "The Cure & Daniel Avery",
+            "image_url": null,
+            "count": 18
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "apple_music_url": "https://music.apple.com/search?term=Mixes%20Of%20A%20Lost%20World%20The%20Cure%2C%20The%20Cure%20%26%20Daniel%20Avery%2C%20The%20Cure%20%26%20Orbital",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "apple_music_url": "https://music.apple.com/search?term=Speaking%20in%20Tongues%20Talking%20Heads",
+            "count": 17
+          },
+          {
+            "album_id": 269,
+            "album_title": "More Songs About Buildings and Food",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27391237668384c4d646b30c05c",
+            "spotify_url": "https://open.spotify.com/album/39jsLMRmrTpfdq2vE4TCUe",
+            "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20More%20Songs%20About%20Buildings%20and%20Food",
+            "count": 16
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "area",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "medium",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1164,
+          "title": "In the Flat Field",
+          "artist": "Bauhaus",
+          "year": 1980,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273752a1573f8cb8f700a98f405",
+          "spotify_url": "https://open.spotify.com/album/4hPJRedKOmbvKnLdzV9w1w",
+          "apple_music_url": "https://music.apple.com/search?term=In%20the%20Flat%20Field%20Bauhaus",
+          "description": "**Album Review: *In the Flat Field* – Bauhaus**\n\nBauhaus’s *In the Flat Field* (1980) is a cornerstone of post-punk, blending gothic melancholy with raw, experimental energy. The album eschews the raw aggression of their debut, *Bela Lugosi’s Dead*, for a more refined yet haunting sound, merging dark wave atmospherics with jagged guitar work and Peter Murphy’s haunting baritone.\n\nThe production is striking, with crisp, reverb-drenched instrumentation that amplifies the album’s eerie, cinematic quality. Tracks like *\"Double Dare\"* and *\"A God in an Alcove\"* showcase Murphy’s theatrical vocals, while the brooding basslines and driving percussion create a sense of foreboding. The standout *\"Hollow Hills\"* exemplifies the band’s ability to craft mood-driven narratives, its slow-burning intensity and hypnotic rhythm staying with the listener long after.\n\n*In the Flat Field* remains a defining work of early gothic rock, its emotional weight and sonic sophistication setting a blueprint for the genre. A masterful fusion of style and substance.",
+          "style": null
+        },
+        "artist_images": {
+          "Bauhaus": "https://i.scdn.co/image/9676688ae196b8abf4ed89ce6620a7ad04027095"
+        }
+      },
+      "dimensions": {
+        "image_size": "small",
+        "description_length": "full",
+        "font_size": "medium"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

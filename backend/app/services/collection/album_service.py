@@ -238,7 +238,7 @@ class AlbumService:
             ).first()
             
             if artist_image and artist_image.url:
-                artist_images[artist.name] = artist_image.url
+                artist_images[artist.name] = f"{artist_image.url}?t={int(artist_image.updated_at.timestamp())}"
                 logger.info(f"✅ Image trouvée pour {artist.name}: {artist_image.url[:60]}...")
             else:
                 logger.warning(f"⚠️ Pas d'image artiste trouvée pour '{artist.name}' (ID: {artist.id})")
@@ -276,7 +276,7 @@ class AlbumService:
             apple_music_url=album.apple_music_url,
             discogs_url=album.discogs_url,
             artists=[a.name for a in album.artists],
-            images=[img.url for img in album.images],
+            images=[f"{img.url}?t={int(img.updated_at.timestamp())}" for img in album.images],
             ai_info=ai_info,
             resume=resume,
             labels=labels,
@@ -713,7 +713,7 @@ class AlbumService:
         for album in albums:
             try:
                 artists = [a.name for a in album.artists] if album.artists else []
-                images = [img.url for img in album.images] if album.images else []
+                images = [f"{img.url}?t={int(img.updated_at.timestamp())}" for img in album.images] if album.images else []
                 ai_info = None
                 if album.album_metadata:
                     ai_info = album.album_metadata.ai_info

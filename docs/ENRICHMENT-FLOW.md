@@ -46,21 +46,79 @@ Génère des descriptions AI complètes pour les albums via l'API Euria (Infoman
 ## Points d'entrée de création d'albums
 
 ### 1. TrackerService - Détection automatique Last.fm
-**Localisation** : `backend/app/services/tracker_service.py` ligne 553-595
+**Localisation** : `backend/app/services/tracker_service.py` ligne 553-625
 
 **Déclenchement** : Polling automatique Last.fm détecte un nouvel album
 
 **Enrichissement effectué** :
-- ✅ URL Spotify + année + image Spotify
-- ✅ URL Apple Music
-- ✅ Image Last.fm
-- ✅ Informations IA
+- ✅ URL Spotify + année (via SpotifyService)
+- ✅ URL Apple Music (via AppleMusicService)
+- ✅ Priorité Last.fm pour les images (Last.fm > Spotify > Discogs)
+- ✅ Informations IA (via Euria)
+- ✅ Support='Lastfm' pour les détections Last.fm (non-Discogs)
 
 **Pour les albums existants** (lignes 605-625) :
 - ✅ Vérifie et ajoute URL Spotify si manquante
 - ✅ Vérifie et ajoute année si manquante
 - ✅ Vérifie et ajoute URL Apple Music si manquante
-- ✅ Vérifie et ajoute images Spotify/LastFM si manquantes
+- ✅ Vérifie et ajoute images (Last.fm prioritaire)
+
+**Nettoyage des images** :
+- Supprime automatiquement les images Spotify quand une image Last.fm est définie
+- Évite les doublons et la priorité incorrecte
+
+## Gestion des images - Priorité et Cache-busting
+
+### Priorité des sources d'images
+
+L'enrichissement respecte cette hiérarchie pour les images d'album :
+
+1. **Last.fm** - Images depuis Last.fm (priorité maximale pour détections Last.fm)
+2. **Spotify** - Images depuis l'API Spotify (fallback)
+3. **Discogs** - Images depuis Discogs (fallback)
+
+### Cache-busting des images
+
+Pour forcer le navigateur à recharger les images lors de mises à jour, tous les URLs d'images incluent un paramètre timestamp :
+
+```
+https://example.com/cover.jpg?t=1707900000
+```
+
+**Fichiers concernés** :
+- `backend/app/services/collection/album_service.py` (lignes 241, 279, 716) - Albums et artistes
+- `backend/app/api/v1/content/history.py` (lignes 130, 139, 143) - Timeline et Journal
+
+Le timestamp est généré à partir de l'`updated_at` de l'image dans la base de données. Lors de chaque modification d'image, le timestamp change automatiquement, invalidant le cache du navigateur.
+
+## Scripts d'enrichissement rétroactif
+
+### enrich_lastfm_latest_detection.py
+**Localisation** : `backend/enrich_lastfm_latest_detection.py`
+
+Script pour enrichir rétroactivement les N détections Last.fm les plus récentes avec les images et métadonnées correctes.
+
+```bash
+cd backend
+python3 enrich_lastfm_latest_detection.py
+```
+
+**Fonctionnalités** :
+- Recherche les 2 dernières détections Last.fm
+- Appelle l'API Spotify pour valider l'album et obtenir l'image
+- Appelle l'API Last.fm pour obtenir l'image Last.fm
+- Priorité Last.fm > Spotify
+- Supprime les images Spotify quand une image Last.fm est trouvée
+- Génère les métadonnées IA (description)
+- Définit support='Lastfm' pour les albums non-Discogs
+
+**Configuration requise** :
+- Secrets dans `config/secrets.json`
+- Services API : Spotify, Last.fm, Euria
+
+**Actions possibles** :
+- Modifier la limite de détections : modifier `limit=2` ligne 58
+- Ajouter un filtre d'artiste : modifier la clause `filter_by()`
 
 ### 2. AlbumService - Création manuelle via API
 **Localisation** : `backend/app/services/collection/album_service.py` ligne 298-320

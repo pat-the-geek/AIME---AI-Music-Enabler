@@ -70,6 +70,8 @@ class StatsResponse(BaseModel):
     unique_albums: int
     peak_hour: Optional[int] = None
     total_duration_seconds: Optional[int] = None
+    top_artists: Optional[list] = None
+    top_albums: Optional[list] = None
     
     class Config:
         from_attributes = True

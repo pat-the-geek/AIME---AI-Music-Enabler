@@ -516,7 +516,6 @@ export default function Journal() {
                 {stats.total_tracks || 0}
               </Typography>
             </Box>
-            
             <Box>
               <Typography variant="caption" color="text.secondary">
                 Artistes uniques
@@ -525,7 +524,6 @@ export default function Journal() {
                 {stats.unique_artists || 0}
               </Typography>
             </Box>
-            
             <Box>
               <Typography variant="caption" color="text.secondary">
                 Albums uniques
@@ -534,7 +532,6 @@ export default function Journal() {
                 {stats.unique_albums || 0}
               </Typography>
             </Box>
-            
             {stats.peak_hour !== null && (
               <Box>
                 <Typography variant="caption" color="text.secondary">
@@ -545,7 +542,6 @@ export default function Journal() {
                 </Typography>
               </Box>
             )}
-            
             {stats.total_duration_seconds && (
               <Box>
                 <Typography variant="caption" color="text.secondary">
@@ -554,6 +550,36 @@ export default function Journal() {
                 <Typography variant="body1">
                   {Math.floor(stats.total_duration_seconds / 3600)}h {Math.floor((stats.total_duration_seconds % 3600) / 60)}min
                 </Typography>
+              </Box>
+            )}
+            {/* Top 10 Artists */}
+            {stats.top_artists && stats.top_artists.length > 0 && (
+              <Box>
+                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 'bold' }}>
+                  Top 10 artistes
+                </Typography>
+                <Stack spacing={0.5} sx={{ mt: 1 }}>
+                  {stats.top_artists.map((artist, idx) => (
+                    <Typography key={artist.name} variant="body2">
+                      {idx + 1}. {artist.name} <span style={{ color: '#888' }}>({artist.play_count})</span>
+                    </Typography>
+                  ))}
+                </Stack>
+              </Box>
+            )}
+            {/* Top 10 Albums */}
+            {stats.top_albums && stats.top_albums.length > 0 && (
+              <Box>
+                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 'bold' }}>
+                  Top 10 albums
+                </Typography>
+                <Stack spacing={0.5} sx={{ mt: 1 }}>
+                  {stats.top_albums.map((album, idx) => (
+                    <Typography key={album.title} variant="body2">
+                      {idx + 1}. {album.title} <span style={{ color: '#888' }}>({album.play_count})</span>
+                    </Typography>
+                  ))}
+                </Stack>
               </Box>
             )}
           </Stack>

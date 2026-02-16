@@ -1,0 +1,843 @@
+{
+  "id": "2026-02-16-007",
+  "edition_number": 7,
+  "generated_at": "2026-02-16T05:00:18.206086+00:00",
+  "albums": [
+    {
+      "id": 287,
+      "title": "Gnx",
+      "artist": "Kendrick Lamar",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58",
+      "year": 2024,
+      "spotify_url": "https://open.spotify.com/album/1Ss0ArMRr91m83mOgRBjSZ",
+      "apple_music_url": "https://music.apple.com/search?term=Gnx%20Kendrick%20Lamar",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "classic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "none"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+    },
+    {
+      "id": 251,
+      "title": "Naked",
+      "artist": "Talking Heads",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273569adf0916825b184451a8e9",
+      "year": 1988,
+      "spotify_url": "https://open.spotify.com/album/6iOPhFscLxdpzGug0qxpcZ",
+      "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20Naked",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "playful",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+    },
+    {
+      "id": 254,
+      "title": "Everyday Robots",
+      "artist": "Damon Albarn",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2736ed97e7df0962eb994a54bc3",
+      "year": 2014,
+      "spotify_url": "https://open.spotify.com/album/5SzhltQSSi1HUMi5cveZIZ",
+      "apple_music_url": "https://music.apple.com/search?term=Everyday%20Robots%20Damon%20Albarn",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#ab47bc",
+        "specialEffect": "none"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 283,
+      "title": "Without Further Ado, Vol 1",
+      "artist": "Christian Mcbride",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+      "apple_music_url": "https://music.apple.com/search?term=Without%20Further%20Ado%2C%20Vol%201%20Christian%20Mcbride",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+    },
+    {
+      "id": 273,
+      "title": "Sad and Beautiful World",
+      "artist": "Mavis Staples",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27306f66604593294e5c831fa9c",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/07aZwFEzDfh0BALXf1o6FH",
+      "apple_music_url": "https://music.apple.com/search?term=Sad%20and%20Beautiful%20World%20Mavis%20Staples",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#ab47bc",
+        "specialEffect": "none"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 245,
+      "title": "Is This It",
+      "artist": "The Strokes",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+      "year": 2001,
+      "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Strokes%20Is%20This%20It",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 253,
+      "title": "The Universe Smiles Upon You",
+      "artist": "Khruangbin",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273e08ee206ad63148105336a19",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/45ZWDMMVK0N0Hd2p7fLTCB",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Universe%20Smiles%20Upon%20You%20Khruangbin",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "playful",
+        "accentColor": "#FF00FF",
+        "specialEffect": "gradient"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 294,
+      "title": "Never Enough",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738386e4a4fb9d20e5008f4d71",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/52yD51X7yDinwlg6tbCtpP",
+      "apple_music_url": "https://music.apple.com/search?term=Never%20Enough%20Turnstile",
+      "artist": "Turnstile",
+      "description": "**Never Enough** de *Turnstile* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 267,
+      "title": "Preacher Kids",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f9560cf7664563dd6da1454d",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1fr0maIiPbbXdPyI5hLxnV",
+      "apple_music_url": "https://music.apple.com/search?term=Preacher%20Kids%20Robert%20Randolph",
+      "artist": "Robert Randolph",
+      "description": "Dans *Preacher Kids*, Robert Randolph nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 255,
+      "title": "Little Dark Age",
+      "year": 2018,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273872a896e7c3776d6949df476",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7GjVWG39IOj4viyWplJV4H",
+      "apple_music_url": "https://music.apple.com/search?term=Mgmt%20Little%20Dark%20Age",
+      "artist": "Mgmt",
+      "description": "*Little Dark Age* marque un moment dans la carrière de Mgmt. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 247,
+      "title": "Who's Next",
+      "year": 2023,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b738367ec6cdbd3e29d7efdf",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/4uehIELOvaBf8ZbhQGrhkd",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Who%20Who%27s%20Next",
+      "artist": "The Who",
+      "description": "*Who's Next* marque un moment dans la carrière de The Who. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 256,
+      "title": "Live From the Royal Albert Hall",
+      "year": 2021,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/19QnzYQMY8g44JmxHgu683",
+      "apple_music_url": "https://music.apple.com/search?term=Live%20From%20the%20Royal%20Albert%20Hall%20Ry%20X%20%26%20London%20Contemporary%20Orchestra",
+      "artist": "Ry X & London Contemporary Orchestra",
+      "description": "*Live From the Royal Albert Hall* marque un moment dans la carrière de Ry X & London Contemporary Orchestra. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 335,
+      "title": "Crime of the Century",
+      "year": 1974,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27389d7032603b62e9aedb03fa2",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2wrHaulTgqqkVKx0k7Kq4r",
+      "apple_music_url": "https://music.apple.com/search?term=Supertramp%20Crime%20of%20the%20Century",
+      "artist": "Supertramp",
+      "description": "La **poésie musicale** de *Crime of the Century* de Supertramp transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 305,
+      "title": "Street Lady",
+      "year": 1973,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273bdda6a4e9793de67f7598c91",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7Iw2Tx6Jh0Y8iKEVfx7Sua",
+      "apple_music_url": "https://music.apple.com/search?term=Street%20Lady%20Donald%20Byrd",
+      "artist": "Donald Byrd",
+      "description": "Donald Byrd livre avec *Street Lady* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "existing"
+    },
+    {
+      "id": 244,
+      "title": "If You Wait (deluxe Version)",
+      "year": 2013,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738e411f06d11a04c99df55247",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0Jxn7c5MQwqvkahOp4YiB5",
+      "apple_music_url": "https://music.apple.com/search?term=London%20Grammar%20If%20You%20Wait%20%28deluxe%20Version%29",
+      "artist": "London Grammar",
+      "description": "*If You Wait (deluxe Version)* marque un moment dans la carrière de London Grammar. Ce disque de 2013 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 361,
+      "title": "In the Flesh (live)",
+      "artist": "Roger Waters",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a282645d8ffe5d956875d5ba",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/07dIB9ue3bGed1vL67dbBY",
+      "apple_music_url": "https://music.apple.com/search?term=In%20the%20Flesh%20%28live%29%20Roger%20Waters"
+    },
+    {
+      "id": 302,
+      "title": "Mayhem",
+      "artist": "Lady Gaga",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b0860cf0a98e09663c82290c",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/3ARwSvDQv2OHYnLeDC3Lxi",
+      "apple_music_url": "https://music.apple.com/search?term=Mayhem%20Lady%20Gaga"
+    },
+    {
+      "id": 369,
+      "title": "The Lamb Lies Down On Broadway",
+      "artist": "Genesis",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27302cb21292aeb764d270b85c0",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/49BxISwAbZZfmlhqD6Vh88",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Lamb%20Lies%20Down%20On%20Broadway%20Genesis"
+    },
+    {
+      "id": 309,
+      "title": "Trio of Doom",
+      "artist": "John Mclaughlin, Jaco Pastorius, Tony Williams",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27352fa6cf02bdb8346b2443e31",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0e9BVNBXpBDbkYQ6UJ97tL",
+      "apple_music_url": "https://music.apple.com/search?term=Trio%20of%20Doom%20John%20Mclaughlin%2C%20Jaco%20Pastorius%2C%20Tony%20Williams"
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+      "count": 21
+    },
+    {
+      "id": 1164,
+      "title": "In the Flat Field",
+      "artist": "Bauhaus",
+      "year": 1980,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273752a1573f8cb8f700a98f405",
+      "spotify_url": "https://open.spotify.com/album/4hPJRedKOmbvKnLdzV9w1w",
+      "apple_music_url": "https://music.apple.com/search?term=In%20the%20Flat%20Field%20Bauhaus",
+      "description": "**Album Review: *In the Flat Field* – Bauhaus**\n\nBauhaus’s *In the Flat Field* (1980) is a cornerstone of post-punk, blending gothic melancholy with raw, experimental energy. The album eschews the raw aggression of their debut, *Bela Lugosi’s Dead*, for a more refined yet haunting sound, merging dark wave atmospherics with jagged guitar work and Peter Murphy’s haunting baritone.\n\nThe production is striking, with crisp, reverb-drenched instrumentation that amplifies the album’s eerie, cinematic quality. Tracks like *\"Double Dare\"* and *\"A God in an Alcove\"* showcase Murphy’s theatrical vocals, while the brooding basslines and driving percussion create a sense of foreboding. The standout *\"Hollow Hills\"* exemplifies the band’s ability to craft mood-driven narratives, its slow-burning intensity and hypnotic rhythm staying with the listener long after.\n\n*In the Flat Field* remains a defining work of early gothic rock, its emotional weight and sonic sophistication setting a blueprint for the genre. A masterful fusion of style and substance.",
+      "style": null
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Voyage Musique",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Voyage Musique",
+          "description": "*Voyage Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 287,
+              "title": "Gnx",
+              "artist": "Kendrick Lamar",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58",
+              "year": 2024,
+              "spotify_url": "https://open.spotify.com/album/1Ss0ArMRr91m83mOgRBjSZ",
+              "apple_music_url": "https://music.apple.com/search?term=Gnx%20Kendrick%20Lamar",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+            },
+            {
+              "id": 251,
+              "title": "Naked",
+              "artist": "Talking Heads",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273569adf0916825b184451a8e9",
+              "year": 1988,
+              "spotify_url": "https://open.spotify.com/album/6iOPhFscLxdpzGug0qxpcZ",
+              "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20Naked",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "playful",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Voyage Musique*."
+            },
+            {
+              "id": 254,
+              "title": "Everyday Robots",
+              "artist": "Damon Albarn",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2736ed97e7df0962eb994a54bc3",
+              "year": 2014,
+              "spotify_url": "https://open.spotify.com/album/5SzhltQSSi1HUMi5cveZIZ",
+              "apple_music_url": "https://music.apple.com/search?term=Everyday%20Robots%20Damon%20Albarn",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 283,
+              "title": "Without Further Ado, Vol 1",
+              "artist": "Christian Mcbride",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+              "apple_music_url": "https://music.apple.com/search?term=Without%20Further%20Ado%2C%20Vol%201%20Christian%20Mcbride",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Voyage Musique."
+            },
+            {
+              "id": 273,
+              "title": "Sad and Beautiful World",
+              "artist": "Mavis Staples",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27306f66604593294e5c831fa9c",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/07aZwFEzDfh0BALXf1o6FH",
+              "apple_music_url": "https://music.apple.com/search?term=Sad%20and%20Beautiful%20World%20Mavis%20Staples",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 245,
+              "title": "Is This It",
+              "artist": "The Strokes",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+              "year": 2001,
+              "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+              "apple_music_url": "https://music.apple.com/search?term=The%20Strokes%20Is%20This%20It",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 253,
+              "title": "The Universe Smiles Upon You",
+              "artist": "Khruangbin",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273e08ee206ad63148105336a19",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/45ZWDMMVK0N0Hd2p7fLTCB",
+              "apple_music_url": "https://music.apple.com/search?term=The%20Universe%20Smiles%20Upon%20You%20Khruangbin",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "playful",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "minimal",
+        "image_position": "left"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Kid Loco",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "center",
+        "imageSize": "micro",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "zoom"
+      },
+      "content": {
+        "artist": {
+          "name": "Kid Loco",
+          "albums_count": 8,
+          "haiku": "**Never Enough**\nRiffs comme des vagues brisées\nL'écho ne s'éteint jamais",
+          "bio": "**Kid Loco** nous offre 8 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5ebb4cd8c63d6d6ef3b3e7f86b5"
+        },
+        "albums": [
+          {
+            "id": 294,
+            "title": "Never Enough",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738386e4a4fb9d20e5008f4d71",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/52yD51X7yDinwlg6tbCtpP",
+            "apple_music_url": "https://music.apple.com/search?term=Never%20Enough%20Turnstile",
+            "artist": "Turnstile",
+            "description": "**Never Enough** de *Turnstile* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 267,
+            "title": "Preacher Kids",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f9560cf7664563dd6da1454d",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1fr0maIiPbbXdPyI5hLxnV",
+            "apple_music_url": "https://music.apple.com/search?term=Preacher%20Kids%20Robert%20Randolph",
+            "artist": "Robert Randolph",
+            "description": "Dans *Preacher Kids*, Robert Randolph nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 255,
+            "title": "Little Dark Age",
+            "year": 2018,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273872a896e7c3776d6949df476",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7GjVWG39IOj4viyWplJV4H",
+            "apple_music_url": "https://music.apple.com/search?term=Mgmt%20Little%20Dark%20Age",
+            "artist": "Mgmt",
+            "description": "*Little Dark Age* marque un moment dans la carrière de Mgmt. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 247,
+            "title": "Who's Next",
+            "year": 2023,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b738367ec6cdbd3e29d7efdf",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/4uehIELOvaBf8ZbhQGrhkd",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Who%20Who%27s%20Next",
+            "artist": "The Who",
+            "description": "*Who's Next* marque un moment dans la carrière de The Who. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 256,
+            "title": "Live From the Royal Albert Hall",
+            "year": 2021,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/19QnzYQMY8g44JmxHgu683",
+            "apple_music_url": "https://music.apple.com/search?term=Live%20From%20the%20Royal%20Albert%20Hall%20Ry%20X%20%26%20London%20Contemporary%20Orchestra",
+            "artist": "Ry X & London Contemporary Orchestra",
+            "description": "*Live From the Royal Albert Hall* marque un moment dans la carrière de Ry X & London Contemporary Orchestra. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 335,
+            "title": "Crime of the Century",
+            "year": 1974,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27389d7032603b62e9aedb03fa2",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2wrHaulTgqqkVKx0k7Kq4r",
+            "apple_music_url": "https://music.apple.com/search?term=Supertramp%20Crime%20of%20the%20Century",
+            "artist": "Supertramp",
+            "description": "La **poésie musicale** de *Crime of the Century* de Supertramp transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 305,
+            "title": "Street Lady",
+            "year": 1973,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273bdda6a4e9793de67f7598c91",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7Iw2Tx6Jh0Y8iKEVfx7Sua",
+            "apple_music_url": "https://music.apple.com/search?term=Street%20Lady%20Donald%20Byrd",
+            "artist": "Donald Byrd",
+            "description": "Donald Byrd livre avec *Street Lady* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 244,
+            "title": "If You Wait (deluxe Version)",
+            "year": 2013,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738e411f06d11a04c99df55247",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0Jxn7c5MQwqvkahOp4YiB5",
+            "apple_music_url": "https://music.apple.com/search?term=London%20Grammar%20If%20You%20Wait%20%28deluxe%20Version%29",
+            "artist": "London Grammar",
+            "description": "*If You Wait (deluxe Version)* marque un moment dans la carrière de London Grammar. Ce disque de 2013 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "remaster_detail"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 300,
+        "text_columns": 2,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 361,
+            "title": "In the Flesh (live)",
+            "artist": "Roger Waters",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273a282645d8ffe5d956875d5ba",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/07dIB9ue3bGed1vL67dbBY",
+            "apple_music_url": "https://music.apple.com/search?term=In%20the%20Flesh%20%28live%29%20Roger%20Waters"
+          },
+          {
+            "id": 302,
+            "title": "Mayhem",
+            "artist": "Lady Gaga",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b0860cf0a98e09663c82290c",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/3ARwSvDQv2OHYnLeDC3Lxi",
+            "apple_music_url": "https://music.apple.com/search?term=Mayhem%20Lady%20Gaga"
+          },
+          {
+            "id": 369,
+            "title": "The Lamb Lies Down On Broadway",
+            "artist": "Genesis",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27302cb21292aeb764d270b85c0",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/49BxISwAbZZfmlhqD6Vh88",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Lamb%20Lies%20Down%20On%20Broadway%20Genesis"
+          },
+          {
+            "id": 309,
+            "title": "Trio of Doom",
+            "artist": "John Mclaughlin, Jaco Pastorius, Tony Williams",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27352fa6cf02bdb8346b2443e31",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0e9BVNBXpBDbkYQ6UJ97tL",
+            "apple_music_url": "https://music.apple.com/search?term=Trio%20of%20Doom%20John%20Mclaughlin%2C%20Jaco%20Pastorius%2C%20Tony%20Williams"
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 361,
+            "album_title": "In the Flesh (live)",
+            "haiku": "**In the Flesh (live)**\nChairs vibrent sous l'écho\nGuitares en flammes noires",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "left",
+              "imageSize": "small",
+              "textLayout": "single-column",
+              "composition": "dramatic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "gradient"
+            },
+            "description": "Roger Waters livre avec *In the Flesh (live)* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 302,
+            "album_title": "Mayhem",
+            "haiku": "**Mayhem**\nFuria d'orchestres brisés\nNotes déchirant la nuit\n\n(Variante alternative si vous préférez une ambiance plus mystique :\n**Mayhem**\nÉclats d'étoiles en folie\nLarmes de cristal noir)",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "right",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#06b6d4",
+              "specialEffect": "zoom"
+            },
+            "description": "**Mayhem** de *Lady Gaga* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          },
+          {
+            "album_id": 369,
+            "album_title": "The Lamb Lies Down On Broadway",
+            "haiku": "**The Lamb Lies Down On Broadway**\nRêve urbain qui s'effrite\nNotes en lambeaux de soie",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "top",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "none"
+            },
+            "description": "*The Lamb Lies Down On Broadway* marque un moment dans la carrière de Genesis. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          },
+          {
+            "album_id": 309,
+            "album_title": "Trio of Doom",
+            "haiku": "**Trio of Doom**\nCordes enflammant la nuit\nBatterie foudroyant l'aube",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "right",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "zoom"
+            },
+            "description": "John Mclaughlin, Jaco Pastorius, Tony Williams livre avec *Trio of Doom* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "large",
+        "columns": 3,
+        "spacing": "compact"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "single",
+        "composition": "chaos",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "overlay"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 44,
+        "unique_albums": 70,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 78
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 22
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 21
+          },
+          {
+            "artist_id": 955,
+            "artist_name": "The Cure & Daniel Avery",
+            "image_url": null,
+            "count": 18
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+            "count": 21
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "apple_music_url": "https://music.apple.com/search?term=Mixes%20Of%20A%20Lost%20World%20The%20Cure%2C%20The%20Cure%20%26%20Daniel%20Avery%2C%20The%20Cure%20%26%20Orbital",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "apple_music_url": "https://music.apple.com/search?term=Speaking%20in%20Tongues%20Talking%20Heads",
+            "count": 17
+          },
+          {
+            "album_id": 269,
+            "album_title": "More Songs About Buildings and Food",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27391237668384c4d646b30c05c",
+            "spotify_url": "https://open.spotify.com/album/39jsLMRmrTpfdq2vE4TCUe",
+            "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20More%20Songs%20About%20Buildings%20and%20Food",
+            "count": 16
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "bar",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "medium",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1164,
+          "title": "In the Flat Field",
+          "artist": "Bauhaus",
+          "year": 1980,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273752a1573f8cb8f700a98f405",
+          "spotify_url": "https://open.spotify.com/album/4hPJRedKOmbvKnLdzV9w1w",
+          "apple_music_url": "https://music.apple.com/search?term=In%20the%20Flat%20Field%20Bauhaus",
+          "description": "**Album Review: *In the Flat Field* – Bauhaus**\n\nBauhaus’s *In the Flat Field* (1980) is a cornerstone of post-punk, blending gothic melancholy with raw, experimental energy. The album eschews the raw aggression of their debut, *Bela Lugosi’s Dead*, for a more refined yet haunting sound, merging dark wave atmospherics with jagged guitar work and Peter Murphy’s haunting baritone.\n\nThe production is striking, with crisp, reverb-drenched instrumentation that amplifies the album’s eerie, cinematic quality. Tracks like *\"Double Dare\"* and *\"A God in an Alcove\"* showcase Murphy’s theatrical vocals, while the brooding basslines and driving percussion create a sense of foreboding. The standout *\"Hollow Hills\"* exemplifies the band’s ability to craft mood-driven narratives, its slow-burning intensity and hypnotic rhythm staying with the listener long after.\n\n*In the Flat Field* remains a defining work of early gothic rock, its emotional weight and sonic sophistication setting a blueprint for the genre. A masterful fusion of style and substance.",
+          "style": null
+        },
+        "artist_images": {
+          "Bauhaus": "https://i.scdn.co/image/9676688ae196b8abf4ed89ce6620a7ad04027095"
+        }
+      },
+      "dimensions": {
+        "image_size": "small",
+        "description_length": "full",
+        "font_size": "small"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

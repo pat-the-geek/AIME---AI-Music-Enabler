@@ -500,22 +500,26 @@ class TrackerService:
             artist_name = track_data['artist']
             track_title = track_data['title']
             album_title = track_data['album']
-            
+
+            # Amélioration : obtenir les vrais artistes de l'album via Last.fm
+            album_artists = await self.lastfm.get_album_artists(artist_name, album_title)
+            # Utiliser le premier artiste pour la logique principale
+            main_artist_name = album_artists[0] if album_artists else artist_name
+
             # Vérifier les doublons avant d'enregistrer
-            if self._check_duplicate(db, artist_name, track_title, album_title, 'lastfm'):
-                logger.debug(f"Skip enregistrement doublon: {artist_name} - {track_title}")
+            if self._check_duplicate(db, main_artist_name, track_title, album_title, 'lastfm'):
+                logger.debug(f"Skip enregistrement doublon: {main_artist_name} - {track_title}")
                 db.close()
                 return
-            
+
             # Créer/récupérer artiste
-            artist = db.query(Artist).filter_by(name=artist_name).first()
+            artist = db.query(Artist).filter_by(name=main_artist_name).first()
             if not artist:
-                artist = Artist(name=artist_name)
+                artist = Artist(name=main_artist_name)
                 db.add(artist)
                 db.flush()
-                
                 # Récupérer image artiste depuis Spotify
-                artist_image = await self.spotify.search_artist_image(artist_name)
+                artist_image = await self.spotify.search_artist_image(main_artist_name)
                 if artist_image:
                     img = Image(
                         url=artist_image,
@@ -524,16 +528,15 @@ class TrackerService:
                         artist_id=artist.id
                     )
                     db.add(img)
-                    logger.info(f"🎤 Image artiste créée pour nouveau artiste: {artist_name}")
+                    logger.info(f"🎤 Image artiste créée pour nouveau artiste: {main_artist_name}")
             else:
                 # Artiste existant : vérifier si l'image manque
                 has_artist_image = db.query(Image).filter_by(
                     artist_id=artist.id,
                     image_type='artist'
                 ).first() is not None
-                
                 if not has_artist_image:
-                    artist_image = await self.spotify.search_artist_image(artist_name)
+                    artist_image = await self.spotify.search_artist_image(main_artist_name)
                     if artist_image:
                         img = Image(
                             url=artist_image,
@@ -542,8 +545,8 @@ class TrackerService:
                             artist_id=artist.id
                         )
                         db.add(img)
-                        logger.info(f"🎤 Image artiste ajoutée pour artiste existant: {artist_name}")
-            
+                        logger.info(f"🎤 Image artiste ajoutée pour artiste existant: {main_artist_name}")
+
             # Créer/récupérer album - AVEC FILTRE ARTISTE pour éviter les doublons
             album = db.query(Album).filter(
                 Album.title == album_title,
@@ -555,9 +558,8 @@ class TrackerService:
                     album.artists.append(artist)
                 db.add(album)
                 db.flush()
-                
                 # Récupérer détails Spotify (URL + année + image)
-                spotify_details = await self.spotify.search_album_details(artist_name, album_title)
+                spotify_details = await self.spotify.search_album_details(main_artist_name, album_title)
                 if spotify_details:
                     if spotify_details.get("spotify_url"):
                         album.spotify_url = spotify_details["spotify_url"]
@@ -565,7 +567,6 @@ class TrackerService:
                     if spotify_details.get("year"):
                         album.year = spotify_details["year"]
                         logger.info(f"📅 Année ajoutée: {spotify_details['year']}")
-                    
                     # Image Spotify depuis les détails
                     if spotify_details.get("image_url"):
                         img_spotify = Image(
@@ -575,15 +576,14 @@ class TrackerService:
                             album_id=album.id
                         )
                         db.add(img_spotify)
-                
                 # Récupérer URL Apple Music
                 if not album.apple_music_url:
-                    apple_music_url = self.apple_music.generate_url_for_album(artist_name, album_title)
+                    apple_music_url = self.apple_music.generate_url_for_album(main_artist_name, album_title)
                     if apple_music_url:
                         album.apple_music_url = apple_music_url
                         logger.info(f"🍎 URL Apple Music ajoutée: {apple_music_url}")
-                
-                album_image_lastfm = await self.lastfm.get_album_image(artist_name, album_title)
+                # Correction : vérifier/corriger image album Last.fm
+                album_image_lastfm = await self.lastfm.get_album_image(main_artist_name, album_title)
                 if album_image_lastfm:
                     img_lastfm = Image(
                         url=album_image_lastfm,
@@ -592,9 +592,8 @@ class TrackerService:
                         album_id=album.id
                     )
                     db.add(img_lastfm)
-                
                 # Générer info IA
-                ai_info = await self.ai.generate_album_info(artist_name, album_title)
+                ai_info = await self.ai.generate_album_info(main_artist_name, album_title)
                 if ai_info:
                     metadata = Metadata(
                         album_id=album.id,
@@ -605,7 +604,7 @@ class TrackerService:
                 # Album existant : vérifier si les enrichissements manquent
                 # Vérifier URL Spotify et année
                 if not album.spotify_url or not album.year:
-                    spotify_details = await self.spotify.search_album_details(artist_name, album_title)
+                    spotify_details = await self.spotify.search_album_details(main_artist_name, album_title)
                     if spotify_details:
                         if not album.spotify_url and spotify_details.get("spotify_url"):
                             album.spotify_url = spotify_details["spotify_url"]
@@ -613,23 +612,20 @@ class TrackerService:
                         if not album.year and spotify_details.get("year"):
                             album.year = spotify_details["year"]
                             logger.info(f"📅 Année ajoutée: {spotify_details['year']}")
-                
                 # Vérifier URL Apple Music
                 if not album.apple_music_url:
-                    apple_music_url = self.apple_music.generate_url_for_album(artist_name, album_title)
+                    apple_music_url = self.apple_music.generate_url_for_album(main_artist_name, album_title)
                     if apple_music_url:
                         album.apple_music_url = apple_music_url
                         logger.info(f"🍎 URL Apple Music ajoutée: {apple_music_url}")
-                
                 # Vérifier images Spotify
                 has_spotify_image = db.query(Image).filter_by(
                     album_id=album.id,
                     image_type='album',
                     source='spotify'
                 ).first() is not None
-                
                 if not has_spotify_image:
-                    album_image_spotify = await self.spotify.search_album_image(artist_name, album_title)
+                    album_image_spotify = await self.spotify.search_album_image(main_artist_name, album_title)
                     if album_image_spotify:
                         img_spotify = Image(
                             url=album_image_spotify,
@@ -639,16 +635,14 @@ class TrackerService:
                         )
                         db.add(img_spotify)
                         logger.info(f"🎵 Image Spotify ajoutée pour {album_title}")
-                
                 # Vérifier images Last.fm
                 has_lastfm_image = db.query(Image).filter_by(
                     album_id=album.id,
                     image_type='album',
                     source='lastfm'
                 ).first() is not None
-                
                 if not has_lastfm_image:
-                    album_image_lastfm = await self.lastfm.get_album_image(artist_name, album_title)
+                    album_image_lastfm = await self.lastfm.get_album_image(main_artist_name, album_title)
                     if album_image_lastfm:
                         img_lastfm = Image(
                             url=album_image_lastfm,
@@ -658,12 +652,10 @@ class TrackerService:
                         )
                         db.add(img_lastfm)
                         logger.info(f"🎵 Image Last.fm ajoutée pour {album_title}")
-                
                 # Vérifier info IA
                 has_ai_info = db.query(Metadata).filter_by(album_id=album.id).first() is not None
-                
                 if not has_ai_info:
-                    ai_info = await self.ai.generate_album_info(artist_name, album_title)
+                    ai_info = await self.ai.generate_album_info(main_artist_name, album_title)
                     if ai_info:
                         metadata = Metadata(
                             album_id=album.id,
@@ -671,13 +663,12 @@ class TrackerService:
                         )
                         db.add(metadata)
                         logger.info(f"🤖 Info IA ajoutée pour {album_title}")
-            
+
             # Créer track
             track = db.query(Track).filter_by(
                 album_id=album.id,
                 title=track_title
             ).first()
-            
             if not track:
                 track = Track(
                     album_id=album.id,
@@ -685,12 +676,12 @@ class TrackerService:
                 )
                 db.add(track)
                 db.flush()
-            
+
             # Créer entrée historique avec timestamp correct
             now = datetime.now(timezone.utc)
             timestamp = int(now.timestamp())
             date_str = now.strftime("%Y-%m-%d %H:%M")
-            
+
             history = ListeningHistory(
                 track_id=track.id,
                 timestamp=timestamp,
@@ -699,10 +690,10 @@ class TrackerService:
                 loved=False
             )
             db.add(history)
-            
+
             db.commit()
-            logger.info(f"✅ Track enregistré: {artist_name} - {track_title} (timestamp={timestamp}, date={date_str})")
-            
+            logger.info(f"✅ Track enregistré: {main_artist_name} - {track_title} (timestamp={timestamp}, date={date_str})")
+
         except Exception as e:
             db.rollback()
             logger.error(f"❌ Erreur sauvegarde track: {e}")
