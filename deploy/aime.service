@@ -1,0 +1,16 @@
+[Unit]
+Description=AIME (AI Music Enabler) - Docker Compose service
+After=network-online.target docker.service
+Wants=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/aime
+# Use the docker compose plugin; adjust path if different on your system
+ExecStart=/usr/bin/docker compose up -d --remove-orphans
+ExecStop=/usr/bin/docker compose down
+TimeoutStartSec=600
+
+[Install]
+WantedBy=multi-user.target

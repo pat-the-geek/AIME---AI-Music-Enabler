@@ -15,9 +15,11 @@ Nouvelle fonctionnalité majeure permettant :
 
 ## 🎧 Scrobbling Apple Music (Last.fm)
 
-Pour scrobbler vos écoutes Apple Music sur Last.fm, deux solutions recommandées :
+Pour scrobbler vos écoutes Apple Music sur Last.fm, plusieurs solutions recommandées :
 
+- **Sur iOS** : [Last.fm (app officielle)](https://apps.apple.com/ch/app/last-fm/id1188681944?l=fr-FR) — Application officielle de Last.fm pour iOS, permettant de scrobbler vos écoutes et de suivre votre historique musical en temps réel.
 - **Sur iOS** : [Marvis Pro](https://apps.apple.com/ch/app/marvis-pro/id1447768809?l=fr-FR) — Application puissante permettant de scrobbler automatiquement vos lectures Apple Music vers Last.fm.
+- **Sur iOS** : [QuietScrob - Last.fm Scrobbler](https://apps.apple.com/ch/app/quietscrob-last-fm-scrobbler/id741599377?l=fr-FR) — Alternative légère et discrète pour scrobbler automatiquement vos écoutes vers Last.fm avec une interface minimaliste.
 - **Sur Mac OS X** : [NepTunes for Last.fm](https://apps.apple.com/ch/app/neptunes-for-last-fm/id1006739057?l=fr-FR&mt=12) — Utilitaire léger pour scrobbler Apple Music (et d'autres lecteurs) directement sur votre Mac.
 
 Ces outils assurent que toutes vos écoutes Apple Music sont bien envoyées à Last.fm, et donc agrégées dans AIME.

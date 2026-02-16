@@ -1,0 +1,22 @@
+example.com {
+    # API paths proxied to backend
+    handle_path /api/* {
+        reverse_proxy 127.0.0.1:8000
+    }
+
+    # All other requests -> frontend (Nginx serving built app)
+    handle {
+        reverse_proxy 127.0.0.1:80
+    }
+
+    encode gzip
+    log {
+        output file /var/log/caddy/aime.access.log
+        format single_field common_log
+    }
+}
+
+# Notes:
+# - Replace `example.com` with your real domain.
+# - Caddy will automatically obtain TLS certificates for the domain if DNS points to this host.
+# - Ensure ports 80/443 are reachable and Caddy is installed (see https://caddyserver.com/docs/install).

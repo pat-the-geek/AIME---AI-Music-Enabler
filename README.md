@@ -34,6 +34,16 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
 
 👉 **Pour les développeurs:** Commencez par [ARCHITECTURE-INDEX.md](docs/architecture/ARCHITECTURE-INDEX.md) pour naviguer efficacement
 
+## 🐳 Docker — Prêt pour le déploiement
+
+Cette application est empaquetée et prête pour un déploiement via Docker Compose. Vous trouverez un script d'automatisation et une checklist dans le dossier `deploy/` :
+
+- `deploy/deploy.sh` — script SSH pour cloner, builder et démarrer l'application sur un serveur distant.
+- `deploy/aime.service` — unité systemd pour démarrer le stack via `docker compose`.
+- `deploy/Caddyfile` — exemple de configuration Caddy (remplacez `example.com`).
+
+Voir `deploy/FINAL-README.md` pour la checklist complète et les commandes.
+
 ## 📋 Fonctionnalités
 
 ### ✅ Implémentées
@@ -148,9 +158,11 @@ Pour une compréhension complète de l'architecture, consulter les documents dan
 
 ### 🎧 Scrobbling Apple Music (Last.fm)
 
-Pour scrobbler vos écoutes Apple Music sur Last.fm, deux solutions recommandées :
+Pour scrobbler vos écoutes Apple Music sur Last.fm, plusieurs solutions recommandées :
 
+- **Sur iOS** : [Last.fm (app officielle)](https://apps.apple.com/ch/app/last-fm/id1188681944?l=fr-FR) — Application officielle de Last.fm pour iOS, permettant de scrobbler vos écoutes et de suivre votre historique musical en temps réel.
 - **Sur iOS** : [Marvis Pro](https://apps.apple.com/ch/app/marvis-pro/id1447768809?l=fr-FR) — Application puissante permettant de scrobbler automatiquement vos lectures Apple Music vers Last.fm.
+- **Sur iOS** : [QuietScrob - Last.fm Scrobbler](https://apps.apple.com/ch/app/quietscrob-last-fm-scrobbler/id741599377?l=fr-FR) — Alternative légère et discrète pour scrobbler automatiquement vos écoutes vers Last.fm avec une interface minimaliste.
 - **Sur Mac OS X** : [NepTunes for Last.fm](https://apps.apple.com/ch/app/neptunes-for-last-fm/id1006739057?l=fr-FR&mt=12) — Utilitaire léger pour scrobbler Apple Music (et d'autres lecteurs) directement sur votre Mac.
 
 Ces outils permettent d'assurer que toutes vos écoutes Apple Music sont bien prises en compte dans l'historique Last.fm, et donc agrégées dans AIME.

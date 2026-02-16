@@ -126,12 +126,13 @@ class AIService:
         Raises:
             KeyError: Si clés manquantes dans config
         """
-        # Chercher secrets.json (backend/config puis racine/config)
+        # Chercher secrets.json (vérifier plusieurs parents de façon sûre)
         base_path = Path(__file__).resolve()
-        candidate_paths = [
-            base_path.parents[4] / "config" / "secrets.json",
-            base_path.parents[5] / "config" / "secrets.json"
-        ]
+        candidate_paths = []
+        # Tester parents[3], parents[4], parents[5] si disponibles
+        for idx in range(3, 6):
+            if len(base_path.parents) > idx:
+                candidate_paths.append(base_path.parents[idx] / "config" / "secrets.json")
         
         for secrets_path in candidate_paths:
             if secrets_path.exists():

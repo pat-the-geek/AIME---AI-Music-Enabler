@@ -13,6 +13,7 @@ export interface Album {
   support?: string
   discogs_id?: string
   spotify_url?: string
+  apple_music_url?: string
   discogs_url?: string
   artists: string[]
   images: string[]
@@ -28,6 +29,7 @@ export interface AlbumDetail extends Album {
   film_year?: number
   film_director?: string
   artist_images?: Record<string, string>
+  apple_music_url?: string
 }
 
 export interface ListeningHistory {
@@ -46,6 +48,7 @@ export interface ListeningHistory {
   album_image?: string
   album_lastfm_image?: string
   spotify_url?: string
+  apple_music_url?: string
   discogs_url?: string
   ai_info?: string
 }

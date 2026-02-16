@@ -559,7 +559,7 @@ export default function Journal() {
                   Top 10 artistes
                 </Typography>
                 <Stack spacing={0.5} sx={{ mt: 1 }}>
-                  {stats.top_artists.map((artist, idx) => (
+                  {stats.top_artists.map((artist: any, idx: number) => (
                     <Typography key={artist.name} variant="body2">
                       {idx + 1}. {artist.name} <span style={{ color: '#888' }}>({artist.play_count})</span>
                     </Typography>
@@ -574,7 +574,7 @@ export default function Journal() {
                   Top 10 albums
                 </Typography>
                 <Stack spacing={0.5} sx={{ mt: 1 }}>
-                  {stats.top_albums.map((album, idx) => (
+                  {stats.top_albums.map((album: any, idx: number) => (
                     <Typography key={album.title} variant="body2">
                       {idx + 1}. {album.title} <span style={{ color: '#888' }}>({album.play_count})</span>
                     </Typography>

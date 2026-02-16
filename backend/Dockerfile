@@ -5,6 +5,8 @@ WORKDIR /app
 # Installer les dépendances système si nécessaires
 RUN apt-get update && apt-get install -y \
     gcc \
+    curl \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 # Copier requirements et installer

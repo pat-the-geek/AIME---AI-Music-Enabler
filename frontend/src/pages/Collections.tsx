@@ -454,7 +454,7 @@ export default function Collections() {
     window.open(url, '_blank')
   }
 
-  const handleOpenAppleMusic = (event: React.MouseEvent, albumTitle?: string, artistName?: string, appleMusicUrl?: string | null) => {
+  const handleOpenAppleMusic = (event: React.MouseEvent, albumTitle?: string | null, artistName?: string | null, appleMusicUrl?: string | null) => {
     event.stopPropagation()
     if (appleMusicUrl) {
       const w = window.open(appleMusicUrl, '_blank')

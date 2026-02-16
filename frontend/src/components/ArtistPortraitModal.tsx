@@ -39,7 +39,7 @@ export default function ArtistPortraitModal({
     if (!open || !artistId) return
 
     let abortController: AbortController | null = null
-    let reader: ReadableStreamDefaultReader<Uint8Array> | null = null
+    let reader: ReadableStreamDefaultReader<Uint8Array> | undefined | null = null
 
     const generatePortrait = async () => {
       setIsStreaming(true)
