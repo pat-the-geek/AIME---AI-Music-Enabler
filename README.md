@@ -44,7 +44,54 @@ Cette application est empaquetée et prête pour un déploiement via Docker Comp
 
 Voir `deploy/FINAL-README.md` pour la checklist complète et les commandes.
 
-## 📋 Fonctionnalités
+## �️ Développement & Release — Workflow Sûr
+
+Maintenant que l'application tourne en production via Docker, vous pouvez développer de nouvelles fonctionnalités **sans risquer de casser la production**. Voici le workflow recommandé :
+
+### Résumé du Workflow
+
+1. **Développer en branche** (`feature/*`) — modifiez le code librement.
+2. **Tester localement** : `docker compose build && docker compose up`.
+3. **Merger vers `main`** quand ok.
+4. **Tagger et publier** une version (`v4.8.0`).
+5. **Déployer en production** avec un tag immuable (pas `latest`).
+6. **Rollback rapide** : revenir à la version antérieure en 1 commande si problème.
+
+### Points Clés
+
+- **Isolement** : Votre code en développement ne touche pas la production.
+- **Immuabilité** : Les images Docker taggées (`v4.8.0`) ne changent jamais — reproductibilité garantie.
+- **Sécurité** : Secret et configs restent hors du dépôt (`deploy/deploy.sh --copy-secrets`).
+- **Contrôle** : Vous décidez quand et comment déployer — pas d'automatisation cachée.
+
+### Commandes Rapides
+
+```bash
+# Développer une feature
+git checkout -b feature/my-new-feature
+# ... modifiez le code ...
+docker compose build && docker compose up
+# ... testez ...
+
+# Merger et relâcher
+git checkout main && git merge feature/my-new-feature
+git tag -a v4.8.0 -m "Release v4.8.0"
+git push origin main --tags
+
+# Publier les images
+docker compose build --no-cache
+docker tag aime-backend:latest mon-username/aime-backend:v4.8.0
+docker tag aime-frontend:latest mon-username/aime-frontend:v4.8.0
+docker push mon-username/aime-backend:v4.8.0
+docker push mon-username/aime-frontend:v4.8.0
+
+# Déployer en production
+./deploy/deploy.sh --host user@prod-server --copy-secrets
+```
+
+📖 **Pour toutes les étapes détaillées** : consultez [deploy/RELEASE.md](deploy/RELEASE.md).
+
+## �📋 Fonctionnalités
 
 ### ✅ Implémentées
 
