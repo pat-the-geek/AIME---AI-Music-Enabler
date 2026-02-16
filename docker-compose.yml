@@ -10,10 +10,13 @@ services:
       - ./data:/app/data
       - ./config:/app/config
       - ./backend:/app/backend
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     environment:
       - ENVIRONMENT=production
       - PYTHONUNBUFFERED=1
       - PROJECT_ROOT=/app
+      - TZ=Europe/Paris
     restart: unless-stopped
     networks:
       - music-tracker-network
@@ -40,10 +43,13 @@ services:
     volumes:
       - ./data:/app/data
       - ./config:/app/config
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     environment:
       - ENVIRONMENT=production
       - PYTHONUNBUFFERED=1
       - PROJECT_ROOT=/app
+      - TZ=Europe/Paris
     networks:
       - music-tracker-network
     profiles:
@@ -56,6 +62,11 @@ services:
     container_name: music-tracker-frontend
     ports:
       - "80:80"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - TZ=Europe/Paris
     restart: unless-stopped
     networks:
       - music-tracker-network
