@@ -18,6 +18,14 @@ services:
       - PYTHONUNBUFFERED=1
       - PROJECT_ROOT=/app
       - TZ=Europe/Paris
+      # Variables EurIA pour l'IA musicale
+      - EURIA_API_URL=https://api.infomaniak.com/2/ai/106561/openai/v1/chat/completions
+      - EURIA_BEARER_TOKEN=xAw7abygtFt9iB0cOJANoFPpkjPwjtSwTycaS_AGBd9sQedV11GH1ejHfYzL8zz3nWNNIL15pv18nkf2
+      - EURIA_MAX_ATTEMPTS=5
+      - EURIA_ERROR_MESSAGE=Aucune information disponible
+      # Variables Spotify pour enrichissement
+      - SPOTIFY_CLIENT_ID=3a00f0d1a886417eacf56c1908822bcf
+      - SPOTIFY_CLIENT_SECRET=cfc44da675264b5589dff6458d08071e
     restart: unless-stopped
     networks:
       - music-tracker-network

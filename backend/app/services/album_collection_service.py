@@ -529,15 +529,16 @@ class AlbumCollectionService:
             for album in albums:
                 title_key = (album.title or "").strip().lower()
                 artist_names = [a.name.strip().lower() for a in album.artists] if album.artists else ["unknown"]
-                artist_key = "|".join(sorted(artist_names))
-                album_key = (title_key, artist_key)
+                album_key = (title_key, "|".join(sorted(artist_names)))
                 if album_key in seen_keys:
                     continue
                 seen_keys.add(album_key)
                 unique_albums.append(album)
 
             albums = unique_albums
-            album_ids = [album.id for album in albums]
+            # Flush pour garantir que tous les albums ont un ID
+            self.db.flush()
+            album_ids = [album.id for album in albums if album.id is not None]
             
             # Afficher le détail des albums avant ajout
             logger.info(f"📋 ALBUMS À AJOUTER À LA COLLECTION ({len(albums)} total):")
@@ -967,10 +968,14 @@ class AlbumCollectionService:
 
             if not client_id or not client_secret:
                 base_path = Path(__file__).resolve()
-                candidate_paths = [
-                    base_path.parents[3] / "config" / "secrets.json",
-                    base_path.parents[4] / "config" / "secrets.json"
-                ]
+                candidate_paths = []
+                # Ajoute uniquement les parents existants pour éviter IndexError
+                for idx in [3, 4]:
+                    try:
+                        parent = base_path.parents[idx]
+                        candidate_paths.append(parent / "config" / "secrets.json")
+                    except IndexError:
+                        continue
                 for secrets_path in candidate_paths:
                     if not secrets_path.exists():
                         continue
@@ -1113,7 +1118,10 @@ class AlbumCollectionService:
             
             # Afficher le détail des albums créés pour debugging
             for album in albums_created:
-                artists_names = ", ".join([a.name for a in album.artists])
+                try:
+                    artists_names = ", ".join([a.name for a in album.artists])
+                except Exception:
+                    artists_names = "Unknown"
                 logger.info(f"  ✅ ALBUM CRÉÉ: '{album.title}' de {artists_names} ({album.year}) - Genre: {album.genre}, Source pour recherche Euria")
             
             return albums_created

@@ -1,0 +1,5 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Sauvegarde musique.db chaque jour à 2h du matin
+0 2 * * * cd "$(dirname $0)/.." && bash ./scripts/backup_db.sh >> ./logs/backup_db.log 2>&1
