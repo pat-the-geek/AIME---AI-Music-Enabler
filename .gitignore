@@ -11,6 +11,10 @@ data/musique.db-journal
 *.db
 *.db-journal
 
+# Fichiers temporaires SQLite
+*.db-shm
+*.db-wal
+
 # Build
 frontend/dist/
 frontend/node_modules/
