@@ -1,0 +1,786 @@
+{
+  "id": "2026-02-19-005",
+  "edition_number": 5,
+  "generated_at": "2026-02-19T11:39:17.778786+00:00",
+  "albums": [
+    {
+      "id": 1162,
+      "title": "Only Heaven",
+      "artist": "The Young Gods",
+      "year": 2025,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273be0c4bf8000c1fa3881c4c48",
+      "spotify_url": "https://open.spotify.com/album/24v38lQNUR0nGWxSX4fyRB",
+      "apple_music_url": "https://music.apple.com/search?term=Only%20Heaven%20The%20Young%20Gods",
+      "description": "**Album Review: *Only Heaven* – The Young Gods (2025)**\n\n*The Young Gods* return in 2025 with *Only Heaven*, a bold and atmospheric reinvention that blends industrial metal, post-punk, and darkwave into a hauntingly cinematic experience. The Swiss trio’s signature blend of crushing rhythms, eerie synthesizers, and Franz Treichler’s commanding vocals remains intact, but with a sharper, more polished production that amplifies their signature tension.\n\nThe album’s emotional impact is immediate—*Only Heaven* thrives in its moody, almost apocalyptic atmosphere, weaving themes of existential dread and defiance. Tracks like the title cut, *Only Heaven*, and *Ashes to Ashes* showcase Treichler’s growling delivery over relentless percussion and brooding synthscapes, while *Blackout* delivers a pulsating, club-friendly edge. The production is sleek yet raw, with crisp guitars and immersive sound design that heightens the album’s dramatic weight.\n\nStandout moments include the industrial juggernaut *Down in Flames* and the haunting *Lament*, where spare piano and ghostly electronics create an unforgettable melanch",
+      "style": null
+    },
+    {
+      "id": 302,
+      "title": "Mayhem",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b0860cf0a98e09663c82290c",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/3ARwSvDQv2OHYnLeDC3Lxi",
+      "apple_music_url": "https://music.apple.com/search?term=Mayhem%20Lady%20Gaga",
+      "artist": "Lady Gaga",
+      "description": "**Mayhem** de *Lady Gaga* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 301,
+      "title": "Hit Me Hard and Soft",
+      "year": 2024,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7aJuG4TFXa2hmE4z1yxc3n",
+      "apple_music_url": "https://music.apple.com/search?term=Hit%20Me%20Hard%20and%20Soft%20Billie%20Eilish",
+      "artist": "Billie Eilish",
+      "description": "*Hit Me Hard and Soft* marque un moment dans la carrière de Billie Eilish. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 256,
+      "title": "Live From the Royal Albert Hall",
+      "year": 2021,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/19QnzYQMY8g44JmxHgu683",
+      "apple_music_url": "https://music.apple.com/search?term=Live%20From%20the%20Royal%20Albert%20Hall%20Ry%20X%20%26%20London%20Contemporary%20Orchestra",
+      "artist": "Ry X & London Contemporary Orchestra",
+      "description": "*Live From the Royal Albert Hall* marque un moment dans la carrière de Ry X & London Contemporary Orchestra. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 241,
+      "title": "Liberty (original Edition)",
+      "year": 2011,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2731e393c08ddd4c0854c758400",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1bMT2UKaqEI3TF4KERmUBB",
+      "apple_music_url": "https://music.apple.com/search?term=Liberty%20%28original%20Edition%29%20Anette%20Askvik",
+      "artist": "Anette Askvik",
+      "description": "Anette Askvik livre avec *Liberty (original Edition)* (2011) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 306,
+      "title": "Head Hunters",
+      "year": 1973,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b170840d6fdbc754ba304058",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/5fmIolILp5NAtNYiRPjhzA",
+      "apple_music_url": "https://music.apple.com/search?term=Head%20Hunters%20Herbie%20Hancock",
+      "artist": "Herbie Hancock",
+      "description": "Dans *Head Hunters*, Herbie Hancock nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 322,
+      "title": "The Wall (remastered 2011 Version)",
+      "year": 2020,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273394a5add67c488985d470fac",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/4XJwNchONBIImInCbhBuTI",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Wall%20%28remastered%202011%20Version%29%20Pink%20Floyd",
+      "artist": "Pink Floyd",
+      "description": "Pink Floyd livre avec *The Wall (remastered 2011 Version)* (2020) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 317,
+      "title": "Strange Days (50th Anniversary Expanded Edition; 2017 Remaster)",
+      "year": 2017,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27304521a139cc9b956a83dace6",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6bGa4Ox4GI6WAdsLbrR0bw",
+      "apple_music_url": "https://music.apple.com/search?term=Strange%20Days%20%2850th%20Anniversary%20Expanded%20Edition%3B%202017%20Remaster%29%20The%20Doors",
+      "artist": "The Doors",
+      "description": "*Strange Days (50th Anniversary Expanded Edition; 2017 Remaster)* marque un moment dans la carrière de The Doors. Ce disque de 2017 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "album_id": 1397,
+      "album_title": "Blow-Up",
+      "artist_name": "Herbie Hancock",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+      "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+      "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+      "count": 19
+    },
+    {
+      "id": 267,
+      "title": "Preacher Kids",
+      "artist": "Robert Randolph",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f9560cf7664563dd6da1454d",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/1fr0maIiPbbXdPyI5hLxnV",
+      "apple_music_url": "https://music.apple.com/search?term=Preacher%20Kids%20Robert%20Randolph",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "playful",
+        "accentColor": "#ab47bc",
+        "specialEffect": "tilt"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 271,
+      "title": "Big Money",
+      "artist": "Jon Batiste",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2734788bd968a2f7368e16418f0",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/7qYbLlvM7qPAz4XAWnXDC3",
+      "apple_music_url": "https://music.apple.com/search?term=Big%20Money%20Jon%20Batiste",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "asymmetric",
+        "composition": "dramatic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+    },
+    {
+      "id": 2,
+      "title": "Torches",
+      "artist": "Foster the People",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+      "year": 2011,
+      "spotify_url": "https://open.spotify.com/album/7Kmmw7Z5D2UD5MVwdm10sT",
+      "apple_music_url": "https://music.apple.com/search?term=Torches%20Foster%20the%20People",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 281,
+      "title": "Live-action",
+      "artist": "Nate Smith",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/6KpA380vLBVA6d6lYebIk3",
+      "apple_music_url": "https://music.apple.com/search?term=Live-action%20Nate%20Smith",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Âmes de Musique*."
+    },
+    {
+      "id": 245,
+      "title": "Is This It",
+      "artist": "The Strokes",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+      "year": 2001,
+      "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Strokes%20Is%20This%20It",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#ab47bc",
+        "specialEffect": "tilt"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 244,
+      "title": "If You Wait (deluxe Version)",
+      "artist": "London Grammar",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738e411f06d11a04c99df55247",
+      "year": 2013,
+      "spotify_url": "https://open.spotify.com/album/0Jxn7c5MQwqvkahOp4YiB5",
+      "apple_music_url": "https://music.apple.com/search?term=London%20Grammar%20If%20You%20Wait%20%28deluxe%20Version%29",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "chaos",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 252,
+      "title": "Lungs",
+      "artist": "Florence + the Machine",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273003f81b1f4246362638e682d",
+      "year": 2024,
+      "spotify_url": "https://open.spotify.com/album/6qaCznAyIPlFLBbbh2vHub",
+      "apple_music_url": "https://music.apple.com/search?term=Lungs%20Florence%20%2B%20the%20Machine",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "chaos",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 247,
+      "title": "Who's Next",
+      "artist": "The Who",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b738367ec6cdbd3e29d7efdf",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/4uehIELOvaBf8ZbhQGrhkd",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Who%20Who%27s%20Next"
+    },
+    {
+      "id": 418,
+      "title": "Platinum",
+      "artist": "Frank Sinatra",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2730d41ac3629a40e814cadf0a4",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7CDx7wRXHEOVPREC1CiYXj",
+      "apple_music_url": "https://music.apple.com/search?term=Platinum%20Frank%20Sinatra"
+    },
+    {
+      "id": 283,
+      "title": "Without Further Ado, Vol 1",
+      "artist": "Christian Mcbride",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+      "apple_music_url": "https://music.apple.com/search?term=Without%20Further%20Ado%2C%20Vol%201%20Christian%20Mcbride"
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1162,
+          "title": "Only Heaven",
+          "artist": "The Young Gods",
+          "year": 2025,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273be0c4bf8000c1fa3881c4c48",
+          "spotify_url": "https://open.spotify.com/album/24v38lQNUR0nGWxSX4fyRB",
+          "apple_music_url": "https://music.apple.com/search?term=Only%20Heaven%20The%20Young%20Gods",
+          "description": "**Album Review: *Only Heaven* – The Young Gods (2025)**\n\n*The Young Gods* return in 2025 with *Only Heaven*, a bold and atmospheric reinvention that blends industrial metal, post-punk, and darkwave into a hauntingly cinematic experience. The Swiss trio’s signature blend of crushing rhythms, eerie synthesizers, and Franz Treichler’s commanding vocals remains intact, but with a sharper, more polished production that amplifies their signature tension.\n\nThe album’s emotional impact is immediate—*Only Heaven* thrives in its moody, almost apocalyptic atmosphere, weaving themes of existential dread and defiance. Tracks like the title cut, *Only Heaven*, and *Ashes to Ashes* showcase Treichler’s growling delivery over relentless percussion and brooding synthscapes, while *Blackout* delivers a pulsating, club-friendly edge. The production is sleek yet raw, with crisp guitars and immersive sound design that heightens the album’s dramatic weight.\n\nStandout moments include the industrial juggernaut *Down in Flames* and the haunting *Lament*, where spare piano and ghostly electronics create an unforgettable melanch",
+          "style": null
+        },
+        "artist_images": {
+          "The Young Gods": "https://i.discogs.com/qazWV92JvAB7KqH6a_7_UQKl3N_OxUQ8mMkGUDyIqm0/rs:fit/g:sm/q:90/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTI4MzQ4/MTE0LTE0NjY4NDQ4/MDEtMjAzOC5qcGVn.jpeg"
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "medium"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Etta James",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "right",
+        "imageSize": "medium",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#ff6b35",
+        "specialEffect": "zoom"
+      },
+      "content": {
+        "artist": {
+          "name": "Etta James",
+          "albums_count": 7,
+          "haiku": "**Mayhem**\nNuits électriques en feu\nChuchotements de violons fous",
+          "bio": "**Etta James** nous offre 7 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5eb058531dfd9746a96ad85265f"
+        },
+        "albums": [
+          {
+            "id": 302,
+            "title": "Mayhem",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b0860cf0a98e09663c82290c",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/3ARwSvDQv2OHYnLeDC3Lxi",
+            "apple_music_url": "https://music.apple.com/search?term=Mayhem%20Lady%20Gaga",
+            "artist": "Lady Gaga",
+            "description": "**Mayhem** de *Lady Gaga* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 301,
+            "title": "Hit Me Hard and Soft",
+            "year": 2024,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7aJuG4TFXa2hmE4z1yxc3n",
+            "apple_music_url": "https://music.apple.com/search?term=Hit%20Me%20Hard%20and%20Soft%20Billie%20Eilish",
+            "artist": "Billie Eilish",
+            "description": "*Hit Me Hard and Soft* marque un moment dans la carrière de Billie Eilish. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 256,
+            "title": "Live From the Royal Albert Hall",
+            "year": 2021,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/19QnzYQMY8g44JmxHgu683",
+            "apple_music_url": "https://music.apple.com/search?term=Live%20From%20the%20Royal%20Albert%20Hall%20Ry%20X%20%26%20London%20Contemporary%20Orchestra",
+            "artist": "Ry X & London Contemporary Orchestra",
+            "description": "*Live From the Royal Albert Hall* marque un moment dans la carrière de Ry X & London Contemporary Orchestra. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 241,
+            "title": "Liberty (original Edition)",
+            "year": 2011,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2731e393c08ddd4c0854c758400",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1bMT2UKaqEI3TF4KERmUBB",
+            "apple_music_url": "https://music.apple.com/search?term=Liberty%20%28original%20Edition%29%20Anette%20Askvik",
+            "artist": "Anette Askvik",
+            "description": "Anette Askvik livre avec *Liberty (original Edition)* (2011) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 306,
+            "title": "Head Hunters",
+            "year": 1973,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b170840d6fdbc754ba304058",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/5fmIolILp5NAtNYiRPjhzA",
+            "apple_music_url": "https://music.apple.com/search?term=Head%20Hunters%20Herbie%20Hancock",
+            "artist": "Herbie Hancock",
+            "description": "Dans *Head Hunters*, Herbie Hancock nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 322,
+            "title": "The Wall (remastered 2011 Version)",
+            "year": 2020,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273394a5add67c488985d470fac",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/4XJwNchONBIImInCbhBuTI",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Wall%20%28remastered%202011%20Version%29%20Pink%20Floyd",
+            "artist": "Pink Floyd",
+            "description": "Pink Floyd livre avec *The Wall (remastered 2011 Version)* (2020) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 317,
+            "title": "Strange Days (50th Anniversary Expanded Edition; 2017 Remaster)",
+            "year": 2017,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27304521a139cc9b956a83dace6",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6bGa4Ox4GI6WAdsLbrR0bw",
+            "apple_music_url": "https://music.apple.com/search?term=Strange%20Days%20%2850th%20Anniversary%20Expanded%20Edition%3B%202017%20Remaster%29%20The%20Doors",
+            "artist": "The Doors",
+            "description": "*Strange Days (50th Anniversary Expanded Edition; 2017 Remaster)* marque un moment dans la carrière de The Doors. Ce disque de 2017 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "remaster_detail"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 600,
+        "text_columns": 2,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "left",
+        "imageSize": "massive",
+        "textLayout": "masonry",
+        "composition": "classic",
+        "accentColor": "#ff006e",
+        "specialEffect": "none"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 74,
+        "unique_albums": 107,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 68
+          },
+          {
+            "artist_id": 123,
+            "artist_name": "Orbital",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb2fbad6f69231d3d9cb2fb58c",
+            "count": 25
+          },
+          {
+            "artist_id": 78,
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebca17170af02af227d6ea0c31",
+            "count": 19
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 18
+          },
+          {
+            "artist_id": 955,
+            "artist_name": "The Cure & Daniel Avery",
+            "image_url": null,
+            "count": 18
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 1397,
+            "album_title": "Blow-Up",
+            "artist_name": "Herbie Hancock",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27335d15e88427abe2304635149",
+            "spotify_url": "https://open.spotify.com/album/1NACGaotxNRFPquvQb4Crs",
+            "apple_music_url": "https://music.apple.com/search?term=Blow-Up%20Herbie%20Hancock",
+            "count": 19
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "apple_music_url": "https://music.apple.com/search?term=Mixes%20Of%20A%20Lost%20World%20The%20Cure%2C%20The%20Cure%20%26%20Daniel%20Avery%2C%20The%20Cure%20%26%20Orbital",
+            "count": 18
+          },
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+            "count": 18
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "apple_music_url": "https://music.apple.com/search?term=Speaking%20in%20Tongues%20Talking%20Heads",
+            "count": 17
+          },
+          {
+            "album_id": 1926,
+            "album_title": "Come to My Garden",
+            "artist_name": "Minnie Riperton",
+            "image_url": "https://i.scdn.co/image/80230921f3d0c8bd777b39133506f3e103317539",
+            "spotify_url": "https://open.spotify.com/album/3FuJjgDLCnwRgnRLfjjGPV",
+            "apple_music_url": "https://music.apple.com/search?term=Come%20to%20My%20Garden%20Minnie%20Riperton",
+            "count": 14
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "donut",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Âmes de Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Âmes de Musique",
+          "description": "*Âmes de Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 267,
+              "title": "Preacher Kids",
+              "artist": "Robert Randolph",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273f9560cf7664563dd6da1454d",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/1fr0maIiPbbXdPyI5hLxnV",
+              "apple_music_url": "https://music.apple.com/search?term=Preacher%20Kids%20Robert%20Randolph",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 271,
+              "title": "Big Money",
+              "artist": "Jon Batiste",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2734788bd968a2f7368e16418f0",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/7qYbLlvM7qPAz4XAWnXDC3",
+              "apple_music_url": "https://music.apple.com/search?term=Big%20Money%20Jon%20Batiste",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 2,
+              "title": "Torches",
+              "artist": "Foster the People",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273121d5f92cf90576907dfb1e5",
+              "year": 2011,
+              "spotify_url": "https://open.spotify.com/album/7Kmmw7Z5D2UD5MVwdm10sT",
+              "apple_music_url": "https://music.apple.com/search?term=Torches%20Foster%20the%20People",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "none"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 281,
+              "title": "Live-action",
+              "artist": "Nate Smith",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/6KpA380vLBVA6d6lYebIk3",
+              "apple_music_url": "https://music.apple.com/search?term=Live-action%20Nate%20Smith",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "classic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Âmes de Musique*."
+            },
+            {
+              "id": 245,
+              "title": "Is This It",
+              "artist": "The Strokes",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+              "year": 2001,
+              "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+              "apple_music_url": "https://music.apple.com/search?term=The%20Strokes%20Is%20This%20It",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 244,
+              "title": "If You Wait (deluxe Version)",
+              "artist": "London Grammar",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2738e411f06d11a04c99df55247",
+              "year": 2013,
+              "spotify_url": "https://open.spotify.com/album/0Jxn7c5MQwqvkahOp4YiB5",
+              "apple_music_url": "https://music.apple.com/search?term=London%20Grammar%20If%20You%20Wait%20%28deluxe%20Version%29",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "chaos",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 252,
+              "title": "Lungs",
+              "artist": "Florence + the Machine",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273003f81b1f4246362638e682d",
+              "year": 2024,
+              "spotify_url": "https://open.spotify.com/album/6qaCznAyIPlFLBbbh2vHub",
+              "apple_music_url": "https://music.apple.com/search?term=Lungs%20Florence%20%2B%20the%20Machine",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "chaos",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "artistic",
+        "image_position": "left"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 4,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 247,
+            "title": "Who's Next",
+            "artist": "The Who",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b738367ec6cdbd3e29d7efdf",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/4uehIELOvaBf8ZbhQGrhkd",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Who%20Who%27s%20Next"
+          },
+          {
+            "id": 418,
+            "title": "Platinum",
+            "artist": "Frank Sinatra",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2730d41ac3629a40e814cadf0a4",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7CDx7wRXHEOVPREC1CiYXj",
+            "apple_music_url": "https://music.apple.com/search?term=Platinum%20Frank%20Sinatra"
+          },
+          {
+            "id": 283,
+            "title": "Without Further Ado, Vol 1",
+            "artist": "Christian Mcbride",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+            "apple_music_url": "https://music.apple.com/search?term=Without%20Further%20Ado%2C%20Vol%201%20Christian%20Mcbride"
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 247,
+            "album_title": "Who's Next",
+            "haiku": "**Who's Next**\nAmplis rugissant l'orage\nPianos noyant le temps",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "right",
+              "imageSize": "small",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#ff6b35",
+              "specialEffect": "none"
+            },
+            "description": "*Who's Next* marque un moment dans la carrière de The Who. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          },
+          {
+            "album_id": 418,
+            "album_title": "Platinum",
+            "haiku": "**Platinum**\nVoix d'or sous les lumières\nNuits de velours et jazz",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "diagonal",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#06b6d4",
+              "specialEffect": "gradient"
+            },
+            "description": "Frank Sinatra livre avec *Platinum* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 283,
+            "album_title": "Without Further Ado, Vol 1",
+            "haiku": "**Without Further Ado, Vol 1**\nNotes en équilibre fragile\nNell'ombre d'un jazz séditieux",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "left",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "dramatic",
+              "accentColor": "#06b6d4",
+              "specialEffect": "none"
+            },
+            "description": "*Without Further Ado, Vol 1* marque un moment dans la carrière de Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "small",
+        "columns": 3,
+        "spacing": "spacious"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}
