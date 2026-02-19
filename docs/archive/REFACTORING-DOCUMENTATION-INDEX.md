@@ -9,40 +9,40 @@
 ## 🎯 Start Here: Reading Guide
 
 ### For Business Stakeholders (5 min read)
-1. **[CODE-ORGANIZATION-SUMMARY.md](CODE-ORGANIZATION-SUMMARY.md)** 
+1. (lien supprimé, fichier manquant)
    - What was broken
    - What's being fixed
    - Benefits and timeline
 
 ### For Developers Continuing the Work (20 min read)
-1. **[QUICK-START-CONTINUE.md](QUICK-START-CONTINUE.md)** ⭐ START HERE
+1. (lien supprimé, fichier manquant) ⭐ START HERE
    - What's been done
    - What's next (pick one option)
    - Template for migrating services
    - Common mistakes to avoid
    
-2. **[CODE-ORGANIZATION-VISUAL.md](CODE-ORGANIZATION-VISUAL.md)**
+2. (lien supprimé, fichier manquant)
    - Visual before/after
    - File mappings
    - Import changes
 
-3. **[REFACTORING-IMPLEMENTATION-GUIDE.md](REFACTORING-IMPLEMENTATION-GUIDE.md)**
+3. [REFACTORING-IMPLEMENTATION-GUIDE.md](REFACTORING-IMPLEMENTATION-GUIDE.md)
    - Complete implementation guide
    - Phase-by-phase breakdown
    - Code patterns and examples
 
 ### For Project Leads (30 min read)
-1. **[REFACTORING-AUDIT-2026-02-07.md](REFACTORING-AUDIT-2026-02-07.md)**
+1. [REFACTORING-AUDIT-2026-02-07.md](REFACTORING-AUDIT-2026-02-07.md)
    - Complete duplication audit
    - Architecture analysis
    - Proposed solution
 
-2. **[REFACTORING-ACTION-PLAN.md](REFACTORING-ACTION-PLAN.md)**
+2. [REFACTORING-ACTION-PLAN.md](REFACTORING-ACTION-PLAN.md)
    - Detailed action plan
    - Resource estimates
    - Risk analysis
 
-3. **[CODE-ORGANIZATION-SUMMARY.md](CODE-ORGANIZATION-SUMMARY.md)**
+3. (lien supprimé, fichier manquant)
    - Overall summary
    - Goals and metrics
 

@@ -189,7 +189,7 @@ Lors du déploiement initial, plusieurs problèmes ont été identifiés et rés
 - **Solution**: Option `--reload-dir app` pour limiter surveillance
 - **Fichier**: `scripts/start-dev.sh`
 
-**Documentation complète**: Voir [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
+**Documentation complète**: Voir (lien supprimé, fichier manquant)
 
 ## 🛠️ Technologies Utilisées
 

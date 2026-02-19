@@ -267,9 +267,3 @@ Target Phase 5 aim:              75% (5,550 / 7,402)
 
 ---
 
-## 🔗 Related Files
-- Test Results: [Coverage HTML Report](./backend/test-reports/coverage)
-- JUnit XML: [Test Results](./backend/test-reports/junit.xml)
-- Configuration: [pytest.ini](./pytest.ini)
-- Test Suite: [backend/tests/](./backend/tests/)
-

@@ -17,13 +17,13 @@ Bonjour ! Votre **page Magazine** est maintenant **complètement implémentée e
 - ✅ Configuration modulable
 
 ### ✅ Documentation
-- ✅ Guide utilisateur (MAGAZINE-GUIDE.md)
-- ✅ Documentation technique (MAGAZINE-IMPLEMENTATION.md)
-- ✅ Améliorations futures (MAGAZINE-IMPROVEMENTS.md)
-- ✅ Prompts Euria testés (MAGAZINE-EURIA-PROMPTS.md)
-- ✅ Guide de testing complet (MAGAZINE-TESTING.md)
-- ✅ Vue d'ensemble visuelle (MAGAZINE-VISUAL.md)
-- ✅ Index documentation (MAGAZINE-INDEX.md)
+- ✅ Guide utilisateur (lien supprimé, fichier manquant)
+- ✅ Documentation technique (lien supprimé, fichier manquant)
+- ✅ Améliorations futures (lien supprimé, fichier manquant)
+- ✅ Prompts Euria testés (lien supprimé, fichier manquant)
+- ✅ Guide de testing complet (lien supprimé, fichier manquant)
+- ✅ Vue d'ensemble visuelle (lien supprimé, fichier manquant)
+- ✅ Index documentation (lien supprimé, fichier manquant)
 - ✅ Changelog (MAGAZINE-CHANGELOG.md)
 - ✅ Résumé de livraison (ce fichier)
 
@@ -131,24 +131,24 @@ http://localhost:5173/magazine
 ## 📚 Guide de Lecture de la Doc
 
 **Pour comprendre rapidement** (15 min)
-1. [MAGAZINE-README.md](./MAGAZINE-README.md) ← Start here
+1. (lien supprimé, fichier manquant)
 
 **Pour développer** (30-40 min)
-1. [MAGAZINE-IMPLEMENTATION.md](./MAGAZINE-IMPLEMENTATION.md)
-2. [MAGAZINE-GUIDE.md](./MAGAZINE-GUIDE.md)
+1. (lien supprimé, fichier manquant)
+2. (lien supprimé, fichier manquant)
 
 **Pour améliorer** (40 min)
-1. [MAGAZINE-IMPROVEMENTS.md](./MAGAZINE-IMPROVEMENTS.md)
-2. [MAGAZINE-EURIA-PROMPTS.md](./MAGAZINE-EURIA-PROMPTS.md)
+1. (lien supprimé, fichier manquant)
+2. (lien supprimé, fichier manquant)
 
 **Pour tester** (15-20 min)
-1. [MAGAZINE-TESTING.md](./MAGAZINE-TESTING.md)
+1. (lien supprimé, fichier manquant)
 
 **Pour visualiser** (15 min)
-1. [MAGAZINE-VISUAL.md](./MAGAZINE-VISUAL.md)
+1. (lien supprimé, fichier manquant)
 
 **Pour naviguer** (5 min)
-1. [MAGAZINE-INDEX.md](./MAGAZINE-INDEX.md)
+1. (lien supprimé, fichier manquant)
 
 ---
 
@@ -288,17 +288,17 @@ http://localhost:5173/magazine
 | Minuteur ne décrémente pas | Vérifiez timer useEffect |
 | Performance lente | Vérifiez appels Euria |
 
-Voir `MAGAZINE-TESTING.md` pour debugging complet.
+(lien supprimé, fichier manquant)
 
 ---
 
 ## 📞 Besoin d'Aide ?
 
-1. **Utilisation** → Lisez [MAGAZINE-README.md](./MAGAZINE-README.md)
-2. **Technique** → Lisez [MAGAZINE-IMPLEMENTATION.md](./MAGAZINE-IMPLEMENTATION.md)
-3. **Tester** → Lisez [MAGAZINE-TESTING.md](./MAGAZINE-TESTING.md)
-4. **Améliorer** → Lisez [MAGAZINE-IMPROVEMENTS.md](./MAGAZINE-IMPROVEMENTS.md)
-5. **Navigation** → Lisez [MAGAZINE-INDEX.md](./MAGAZINE-INDEX.md)
+1. **Utilisation** → (lien supprimé, fichier manquant)
+2. **Technique** → (lien supprimé, fichier manquant)
+3. **Tester** → (lien supprimé, fichier manquant)
+4. **Améliorer** → (lien supprimé, fichier manquant)
+5. **Navigation** → (lien supprimé, fichier manquant)
 
 ---
 
@@ -361,9 +361,9 @@ Vous avez maintenant une **feature complète, documentée, testée et prête à 
 ## 📋 Fichiers Clés
 
 **À consulter en premier:**
-- [MAGAZINE-README.md](./MAGAZINE-README.md) - Vue d'ensemble
-- [MAGAZINE-IMPLEMENTATION.md](./MAGAZINE-IMPLEMENTATION.md) - Détails techniques
-- [MAGAZINE-TESTING.md](./MAGAZINE-TESTING.md) - Comment tester
+- (lien supprimé, fichier manquant)
+- (lien supprimé, fichier manquant)
+- (lien supprimé, fichier manquant)
 
 **Code source:**
 - `backend/app/services/magazine_generator_service.py`

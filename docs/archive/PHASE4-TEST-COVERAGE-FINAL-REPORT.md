@@ -329,7 +329,7 @@ TARGET TOTAL:          5,900+ statements at 80%
 ### Resources Generated
 - ✅ Test infrastructure: 13 files, 1,365+ lines
 - ✅ Type hints improved: 15+ docstrings, AsyncIterator, Dict[str, Any]
-- ✅ Test coverage report: [PHASE4-COVERAGE-REPORT.md](./PHASE4-COVERAGE-REPORT.md)
+- ✅ Test coverage report: (lien supprimé, fichier manquant)
 - ✅ Summary executable: [PHASE4-SUMMARY.sh](./PHASE4-SUMMARY.sh)
 - ✅ Test results: [HTML Coverage Report](./backend/test-reports/coverage/index.html)
 
