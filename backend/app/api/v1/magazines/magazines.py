@@ -92,24 +92,29 @@ async def regenerate_magazine(db: Session = Depends(get_db)):
 @router.get("/editions")
 async def list_editions(limit: int = 50, db: Session = Depends(get_db)):
     """
-    Lister toutes les éditions de magazines disponibles.
-    
-    Args:
-        limit: Nombre maximum d'éditions à retourner (défaut: 50)
-    
-    Returns:
-        Liste des métadonnées des éditions
+    Lister toutes les éditions de magazines disponibles (métadonnées uniquement).
+    Retourne une liste de dicts: id, edition_number, generated_at, album_count, page_count, enrichment_completed
     """
     try:
+        logger.info(f"🔥 API: Appel de list_editions (limit={limit})")
         edition_service = MagazineEditionService(db)
         editions = edition_service.list_editions(limit=limit)
-        
-        logger.info(f"📚 Liste de {len(editions)} éditions retournée")
+        # Ne retourner que les métadonnées attendues par le frontend
+        meta_editions = []
+        for ed in editions:
+            meta_editions.append({
+                "id": ed.get("id"),
+                "edition_number": ed.get("edition_number"),
+                "generated_at": ed.get("generated_at"),
+                "album_count": ed.get("album_count"),
+                "page_count": ed.get("page_count"),
+                "enrichment_completed": ed.get("enrichment_completed", False)
+            })
+        logger.info(f"📚 Liste de {len(meta_editions)} éditions retournée (meta)")
         return {
-            "count": len(editions),
-            "editions": editions
+            "count": len(meta_editions),
+            "editions": meta_editions
         }
-        
     except Exception as e:
         logger.error(f"❌ Erreur lors du listage des éditions: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Erreur listage éditions: {str(e)}")
@@ -193,3 +198,18 @@ async def generate_batch(count: int = 10, delay_minutes: int = 30, db: Session =
     except Exception as e:
         logger.error(f"❌ Erreur lors de la génération du lot: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Erreur génération lot: {str(e)}")
+
+
+@router.get("/debug-list")
+def debug_list_magazines():
+    from pathlib import Path
+    base_path = Path("/app/data/magazine-editions")
+    try:
+        folders = [str(p) for p in base_path.iterdir() if p.is_dir()]
+        files = {}
+        for folder in folders:
+            folder_path = Path(folder)
+            files[folder] = [str(f) for f in folder_path.glob("*.json")]
+        return {"folders": folders, "files": files}
+    except Exception as e:
+        return {"error": str(e)}

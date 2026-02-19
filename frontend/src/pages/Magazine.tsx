@@ -78,6 +78,11 @@ export default function Magazine() {
   const [isPolling, setIsPolling] = useState(false)
 
   // Charger la liste des éditions disponibles
+  useEffect(() => {
+    if (editionsList) {
+      console.log('DEBUG editionsList:', editionsList)
+    }
+  }, [editionsList])
   const { data: editionsList } = useQuery({
     queryKey: ['magazine-editions'],
     queryFn: async () => {
@@ -374,6 +379,9 @@ export default function Magazine() {
                         primary={`Édition #${edition.edition_number}`}
                         secondary={`${new Date(edition.generated_at).toLocaleDateString('fr-FR')} • ${edition.album_count} albums`}
                       />
+                      <Box sx={{ fontSize: '10px', color: '#888', mt: 1 }}>
+                        {JSON.stringify(edition)}
+                      </Box>
                     </MenuItem>
                   ))}
                 </Menu>

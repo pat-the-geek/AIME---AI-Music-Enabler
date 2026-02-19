@@ -39,6 +39,9 @@ htmlcov/
 coverage.xml
 *.cover
 
+# Ignore docker-compose config
+docker-compose.yml
+
 # Backups (keep structure only)
 data/backups/*.db
 data/backups/*.json

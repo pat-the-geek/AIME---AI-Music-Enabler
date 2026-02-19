@@ -42,6 +42,7 @@ from app.services.spotify_service import SpotifyService
 from app.core.config import get_settings
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 class MagazineEditionService:
@@ -152,7 +153,8 @@ class MagazineEditionService:
         )
         
         self.magazine_service = MagazineGeneratorService(db, self.ai_service, self.spotify_service)
-        self.base_path = Path(__file__).parent.parent.parent.parent / "data" / "magazine-editions"
+        # Correction: chemin absolu pour Docker
+        self.base_path = Path("/app/data/magazine-editions")
         self.base_path.mkdir(parents=True, exist_ok=True)
         
     def _get_edition_path(self, edition_id: str) -> Path:
@@ -363,18 +365,27 @@ class MagazineEditionService:
         """
         try:
             editions = []
-            
+            logger.info(f"🧩 Scan magazine-editions: base_path={self.base_path}")
+            try:
+                folder_contents = list(self.base_path.iterdir())
+                logger.info(f"🗂️ Contenu du dossier magazine-editions: {folder_contents}")
+            except Exception as e:
+                logger.warning(f"⚠️ Impossible de lister magazine-editions: {e}")
+            scanned_any = False
             # Parcourir tous les dossiers de dates
             for date_folder in sorted(self.base_path.iterdir(), reverse=True):
+                scanned_any = True
+                logger.info(f"🗂️ Dossier trouvé: {date_folder} (is_dir={date_folder.is_dir()})")
                 if not date_folder.is_dir():
                     continue
-                
                 # Parcourir tous les fichiers JSON dans le dossier
-                for edition_file in sorted(date_folder.glob("*.json"), reverse=True):
+                files = list(date_folder.glob("*.json"))
+                logger.info(f"🔍 Fichiers JSON trouvés dans {date_folder}: {files}")
+                for edition_file in sorted(files, reverse=True):
                     try:
+                        logger.info(f"📖 Lecture magazine: {edition_file}")
                         with open(edition_file, 'r', encoding='utf-8') as f:
                             edition = json.load(f)
-                        
                         # Extraire les métadonnées
                         editions.append({
                             'id': edition['id'],
@@ -384,19 +395,18 @@ class MagazineEditionService:
                             'page_count': len(edition.get('pages', [])),
                             'enrichment_completed': edition.get('enrichment_completed', False)
                         })
-                        
+                        logger.info(f"✅ Magazine ajouté: {edition['id']}")
                         if len(editions) >= limit:
                             break
                     except Exception as e:
                         logger.warning(f"⚠️ Erreur lors de la lecture de {edition_file}: {e}")
                         continue
-                
                 if len(editions) >= limit:
                     break
-            
-            logger.info(f"📚 {len(editions)} éditions listées")
+            if not scanned_any:
+                logger.warning(f"⚠️ Aucun dossier de magazines scanné dans {self.base_path}")
+            print(f"🔥 PRINT: {len(editions)} éditions listées (scan={scanned_any}, base_path={self.base_path})")
             return editions
-            
         except Exception as e:
             logger.error(f"❌ Erreur lors du listage des éditions: {e}")
             return []

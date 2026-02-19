@@ -1935,16 +1935,16 @@ Réponds uniquement en français."""
         try:
             edition_service = MagazineEditionService(db)
             
-            # Générer 10 éditions avec 30 minutes d'intervalle
-            generated_ids = await edition_service.generate_daily_batch(count=10, delay_minutes=30)
-            
-            # Nettoyer les éditions de plus de 30 jours
-            deleted_count = edition_service.cleanup_old_editions(keep_days=30)
-            
-            # Nettoyer l'excédent si > 100 éditions
-            excess_deleted = edition_service.cleanup_excess_editions(max_editions=100)
-            
-            logger.info(f"✅ Génération magazines terminée: {len(generated_ids)} créées, {deleted_count} anciennes supprimées, {excess_deleted} excédent supprimé")
+            # Supprimer tous les anciens magazines avant création (max 5 conservés)
+            excess_deleted = edition_service.cleanup_excess_editions(max_editions=0)
+
+            # Générer 5 éditions avec 30 minutes d'intervalle
+            generated_ids = await edition_service.generate_daily_batch(count=5, delay_minutes=30)
+
+            # Limiter à 5 magazines maximum après génération
+            excess_deleted_after = edition_service.cleanup_excess_editions(max_editions=5)
+
+            logger.info(f"✅ Génération magazines terminée: {len(generated_ids)} créées, {excess_deleted} anciennes supprimées, {excess_deleted_after} excédent supprimé (max 5)")
             self._record_execution('generate_magazine_editions', 'success')
             
         except Exception as e:

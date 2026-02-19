@@ -1,3 +1,4 @@
+version: '3.8'
 services:
   backend:
     build:
@@ -20,13 +21,13 @@ services:
       - PROJECT_ROOT=/app
       - TZ=Europe/Paris
       # Variables EurIA pour l'IA musicale
-      - EURIA_API_URL=https://api.infomaniak.com/2/ai/106561/openai/v1/chat/completions
-      - EURIA_BEARER_TOKEN=xAw7abygtFt9iB0cOJANoFPpkjPwjtSwTycaS_AGBd9sQedV11GH1ejHfYzL8zz3nWNNIL15pv18nkf2
+      - EURIA_API_URL=https://api.euria.com/your-endpoint
+      - EURIA_BEARER_TOKEN=__YOUR_EURIA_TOKEN__
       - EURIA_MAX_ATTEMPTS=5
       - EURIA_ERROR_MESSAGE=Aucune information disponible
       # Variables Spotify pour enrichissement
-      - SPOTIFY_CLIENT_ID=3a00f0d1a886417eacf56c1908822bcf
-      - SPOTIFY_CLIENT_SECRET=cfc44da675264b5589dff6458d08071e
+      - SPOTIFY_CLIENT_ID=__YOUR_SPOTIFY_CLIENT_ID__
+      - SPOTIFY_CLIENT_SECRET=__YOUR_SPOTIFY_CLIENT_SECRET__
     restart: unless-stopped
     networks:
       - music-tracker-network
@@ -107,3 +108,5 @@ networks:
 volumes:
   data:
   config:
+
+# Copiez ce fichier en docker-compose.yml et adaptez les variables sensibles (tokens, secrets, etc.) à votre environnement local.
