@@ -39,7 +39,7 @@ interface Magazine {
   edition_number?: number
   generated_at: string
   pages: MagazinePage[]
-  total_pages: number
+  total_pages?: number
 }
 
 interface EditionMeta {
@@ -78,11 +78,6 @@ export default function Magazine() {
   const [isPolling, setIsPolling] = useState(false)
 
   // Charger la liste des éditions disponibles
-  useEffect(() => {
-    if (editionsList) {
-      console.log('DEBUG editionsList:', editionsList)
-    }
-  }, [editionsList])
   const { data: editionsList } = useQuery({
     queryKey: ['magazine-editions'],
     queryFn: async () => {
@@ -92,6 +87,11 @@ export default function Magazine() {
     enabled: usePregenerated,
     staleTime: 5 * 60 * 1000, // 5 minutes
   })
+  useEffect(() => {
+    if (editionsList) {
+      console.log('DEBUG editionsList:', editionsList)
+    }
+  }, [editionsList])
 
   // Charger le magazine
   const { data: magazine, isLoading, error, refetch } = useQuery({
@@ -105,20 +105,26 @@ export default function Magazine() {
         
         try {
           const response = await apiClient.get<Magazine>(endpoint)
-          return response.data
+          const data = response.data
+          data.total_pages = data.total_pages ?? (Array.isArray(data.pages) ? data.pages.length : 0)
+          return data
         } catch (error: any) {
           // Si aucune édition n'est disponible, générer un nouveau magazine
           if (error.response?.status === 404) {
             console.log('Aucune édition disponible, génération d\'un nouveau magazine...')
             const response = await apiClient.get<Magazine>('/magazines/generate')
-            return response.data
+            const data = response.data
+            data.total_pages = data.total_pages ?? (Array.isArray(data.pages) ? data.pages.length : 0)
+            return data
           }
           throw error
         }
       } else {
         // Générer un nouveau magazine
         const response = await apiClient.get<Magazine>('/magazines/generate')
-        return response.data
+        const data = response.data
+        data.total_pages = data.total_pages ?? (Array.isArray(data.pages) ? data.pages.length : 0)
+        return data
       }
     },
     staleTime: Infinity,
@@ -130,10 +136,12 @@ export default function Magazine() {
     const timer = setInterval(() => {
       setNextRefreshIn(prev => {
         if (prev <= 1) {
-          // Rafraîchir le magazine
-          refetch()
-          setCurrentPage(0)
-          showSnackbar('📖 Nouvelle édition générée !', 'success')
+          // Rafraîchir le magazine uniquement si pas déjà en chargement
+          if (!isLoading) {
+            refetch()
+            setCurrentPage(0)
+            showSnackbar('📖 Nouvelle édition générée !', 'success')
+          }
           return 900 // Reset à 15 minutes
         }
         return prev - 1
@@ -141,7 +149,7 @@ export default function Magazine() {
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [refetch])
+  }, [refetch, isLoading])
 
   // Polling du statut de rafraîchissement en arrière-plan
   useEffect(() => {
@@ -218,7 +226,7 @@ export default function Magazine() {
     if (!magazine) return
 
     const targetPage = direction === 'next' 
-      ? Math.min(currentPage + 1, magazine.total_pages - 1)
+      ? Math.min(currentPage + 1, (magazine.total_pages ?? magazine.pages.length) - 1)
       : Math.max(currentPage - 1, 0)
     
     setCurrentPage(targetPage)
@@ -278,7 +286,7 @@ export default function Magazine() {
     )
   }
 
-  if (error || !magazine) {
+  if (error || !magazine || !Array.isArray(magazine.pages) || magazine.pages.length === 0) {
     return (
       <Box sx={{
         display: 'flex',
@@ -289,7 +297,7 @@ export default function Magazine() {
         gap: 2
       }}>
         <Typography variant="h6" color="error">
-          Erreur lors de la génération du magazine
+          Erreur lors de la génération du magazine (données invalides)
         </Typography>
         <Button variant="contained" onClick={handleNewEdition}>
           Réessayer
@@ -562,7 +570,7 @@ export default function Magazine() {
               scrollSnapAlign: 'start'
             }}
           >
-            <MagazinePage page={page} index={index} totalPages={magazine.total_pages} />
+            <MagazinePage page={page} index={index} totalPages={magazine.total_pages ?? magazine.pages.length} />
           </Box>
         ))}
       </Box>
@@ -652,7 +660,7 @@ export default function Magazine() {
 
           <Button
             variant="outlined"
-            disabled={currentPage === magazine.total_pages - 1}
+            disabled={currentPage === (magazine.total_pages ?? magazine.pages.length) - 1}
             onClick={() => handleNavigate('next')}
           >
             Suivante →

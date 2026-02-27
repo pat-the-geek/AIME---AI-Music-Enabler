@@ -100,18 +100,18 @@ Bienvenue dans la documentation du projet AIME - AI Music Enabler !
 Voici un aperçu visuel de l'application :
 
 ### Collection & Albums
-![Collection - Albums](../Screen%20captures/Collection%20-%20Albums.png)
-![Détail Album](../Screen%20captures/Collection%20-%20Album%20-%20Detail.png)
+![Collection - Albums](screenshots/Screen%20captures/Collection%20-%20Albums.png)
+![Détail Album](screenshots/Screen%20captures/Collection%20-%20Album%20-%20Detail.png)
 
 ### Journal d'Écoute
-![Journal d'Écoute](../Screen%20captures/Journal.png)
+![Journal d'Écoute](screenshots/Screen%20captures/Journal.png)
 
 ### Timeline Horaire
-![Timeline](../Screen%20captures/TimeLine.png)
-![Détail Timeline](../Screen%20captures/TimeLine%20-%20Detail.png)
+![Timeline](screenshots/Screen%20captures/TimeLine.png)
+![Détail Timeline](screenshots/Screen%20captures/TimeLine%20-%20Detail.png)
 
 ### Paramètres & Trackers
-![Paramètres Trackers](../Screen%20captures/Settings%20-%20Lastfm%20-%20Trackers.png)
+![Paramètres Scheduler](screenshots/Screen%20captures/Settings%20-%20Scheduler.png)
 
 ---
 
@@ -177,7 +177,7 @@ Cette documentation est **vivante** et doit être mise à jour en continu :
 → [PROJECT-SUMMARY.md](archive/PROJECT-SUMMARY.md)
 
 ### "Je veux savoir ce qui a changé"
-→ [CHANGELOG.md](../CHANGELOG.md)
+→ [CHANGELOG.md](changelogs/CHANGELOG.md)
 
 ## 🐛 Problèmes Connus (Tous Résolus ✅)
 
@@ -254,7 +254,7 @@ tail -f backend/logs/app.log  # si logs activés
 1. Lisez l'[ARCHITECTURE.md](architecture/ARCHITECTURE.md) pour comprendre le code
 2. Consultez l'[API.md](api/API.md) pour les endpoints
 3. Suivez les conventions TypeScript/Python du projet
-4. Documentez vos changements dans [CHANGELOG.md](../CHANGELOG.md)
+4. Documentez vos changements dans [CHANGELOG.md](changelogs/CHANGELOG.md)
 
 ## 📞 Support
 

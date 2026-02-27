@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useImageSource } from '@/hooks/useImageSource'
 import {
   Box,
   Typography,
@@ -19,6 +20,11 @@ import {
   Snackbar,
   Chip,
   Paper,
+  Radio,
+  RadioGroup,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
 } from '@mui/material'
 import {
   PlayArrow,
@@ -47,7 +53,16 @@ const formatLastActivity = (isoDate: string | null | undefined): string => {
   }
 }
 
-export default function Settings() {
+function Settings() {
+  // Source d'images d'album (connecté à l'API)
+  const {
+    imageSource,
+    isLoading: isImageSourceLoading,
+    isError: isImageSourceError,
+    setImageSource,
+    isSaving: isImageSourceSaving,
+    refetch: refetchImageSource
+  } = useImageSource()
   const [importLimit, setImportLimit] = useState<number | null>(null) // null = import ALL
   const [importDialogOpen, setImportDialogOpen] = useState(false)
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' })
@@ -277,6 +292,53 @@ export default function Settings() {
       <Typography variant="h4" gutterBottom>
         Paramètres
       </Typography>
+
+      {/* Choix de la source des images d'albums */}
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom>
+            🖼️ Source des images d'albums
+          </Typography>
+          <Divider sx={{ mb: 2 }} />
+          {isImageSourceLoading ? (
+            <CircularProgress size={24} />
+          ) : isImageSourceError ? (
+            <Alert severity="error">Erreur lors du chargement de la source d'images</Alert>
+          ) : (
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Choisissez la source des images :</FormLabel>
+              <RadioGroup
+                row
+                value={imageSource}
+                onChange={e => setImageSource(e.target.value as 'spotify' | 'lastfm')}
+                name="image-source-radio"
+              >
+                <FormControlLabel value="spotify" control={<Radio />} label="Spotify (par défaut)" />
+                <FormControlLabel value="lastfm" control={<Radio />} label="Last.fm" />
+              </RadioGroup>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ mt: 1 }}
+                onClick={() => refetchImageSource()}
+                disabled={isImageSourceLoading || isImageSourceSaving}
+              >
+                Recharger la source
+              </Button>
+              {isImageSourceSaving && (
+                <Typography variant="caption" color="text.secondary" sx={{ ml: 2 }}>
+                  Sauvegarde en cours...
+                </Typography>
+              )}
+            </FormControl>
+          )}
+          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1 }}>
+            Ce paramètre détermine la source utilisée pour récupérer les images d'albums et d'artistes.<br/>
+            <strong>Spotify</strong> : Images officielles, haute résolution.<br/>
+            <strong>Last.fm</strong> : Images communautaires, parfois plus variées.
+          </Typography>
+        </CardContent>
+      </Card>
 
       {/* Tracker Last.fm */}
       <Card sx={{ mb: 3 }}>
@@ -1106,3 +1168,5 @@ export default function Settings() {
     </Box>
   )
 }
+
+export default Settings

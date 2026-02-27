@@ -2,6 +2,28 @@
 
 Tous les changements notables de ce projet sont documentés dans ce fichier.
 
+## [4.7.5] - 2026-02-27
+
+### 🐛 Bugfixes critiques + Nouvelles fonctionnalités
+
+**Documentation détaillée :** [CHANGELOG-v4.7.5-BUGFIXES.md](CHANGELOG-v4.7.5-BUGFIXES.md)
+
+#### 🐛 Bugs corrigés
+- **Settings.tsx** : Crash React « return outside of function » — composant `Settings()` manquant
+- **Source d'images** : Erreur au chargement — URL incorrecte et endpoints déclarés avant `router = APIRouter()`
+- **Magazine** : « Données invalides » — double préfixe `/api/v1` supprimé, `total_pages` normalisé depuis `pages.length`
+
+#### ✨ Nouvelles fonctionnalités
+- **Sélection source d'images** : Nouveau hook `useImageSource.ts` + endpoints `GET/PATCH /services/config/image-source` pour choisir Spotify ou Last.fm comme source d'images albums
+- **LastFMImageService** : Nouveau service `lastfm_image_service.py` pour récupérer images et URLs via l'API Last.fm
+- **Colonne `albums.lastfm_url`** : Stockage du lien direct vers la page Last.fm de l'album (migration Alembic `0802cd4cd3b7`)
+
+#### 🗄️ Base de Données
+- Nouvelle colonne : `albums.lastfm_url` (VARCHAR 500, nullable)
+- Migration : `0802cd4cd3b7_ajout_champ_lastfm_url_sur_album.py`
+
+---
+
 ## [4.7.4] - 2026-02-15
 
 ### 🔧 Collection Sorting Fix ✨

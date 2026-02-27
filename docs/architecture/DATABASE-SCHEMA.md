@@ -2,7 +2,7 @@
 
 ## Vue d'ensemble
 
-Base de données SQLite pour AIME - AI Music Enabler avec 10 tables principales et 1 table de liaison.
+Base de données SQLite pour AIME - AI Music Enabler avec 11 tables principales et tables de liaison.
 
 ## Diagramme ER (Entity Relationship)
 
@@ -23,7 +23,10 @@ erDiagram
         string discogs_id UK
         string spotify_url
         string apple_music_url "v4.7.0 - Direct link or search"
+        string lastfm_url "v4.7.5 - Page album sur Last.fm"
         string discogs_url
+        string ai_description "Description IA"
+        string ai_style "Style musical IA"
         datetime created_at
         datetime updated_at
     }

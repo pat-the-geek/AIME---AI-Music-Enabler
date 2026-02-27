@@ -264,11 +264,13 @@ class MarkdownExportService:
         # Section liens (sur une ligne)
         md += "\n"
         links = []
+        # Afficher le lien Spotify si présent, sinon Last.fm si présent
         if album.spotify_url:
-            links.append(f"[Spotify]({album.spotify_url})")
+            links.append(f"[Jouer sur Spotify]({album.spotify_url})")
+        elif getattr(album, 'lastfm_url', None):
+            links.append(f"[Ouvrir sur Last.fm]({album.lastfm_url})")
         if album.discogs_url:
             links.append(f"[Discogs]({album.discogs_url})")
-        
         if links:
             md += "**Liens:** " + " | ".join(links) + "\n"
         

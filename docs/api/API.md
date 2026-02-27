@@ -12,6 +12,41 @@ Actuellement aucune authentification n'est requise. À implémenter pour la prod
 
 ## Endpoints
 
+### Services — Configuration
+
+#### Obtenir la source d'images albums
+
+```http
+GET /services/config/image-source
+```
+
+**Response:**
+```json
+{"image_album_source": "spotify"}
+```
+Valeurs possibles : `spotify`, `lastfm`
+
+---
+
+#### Modifier la source d'images albums
+
+```http
+PATCH /services/config/image-source
+```
+
+**Body:**
+```json
+{"image_album_source": "lastfm"}
+```
+
+**Response:**
+```json
+{"image_album_source": "lastfm"}
+```
+Valeurs acceptées : `spotify`, `lastfm`. Persisté dans `config/app.json`.
+
+---
+
 ### Collection
 
 #### Liste des albums

@@ -32,6 +32,8 @@ class Settings(BaseSettings):
     app_name: str = "AIME - AI Music Enabler"
     app_version: str = "4.0.0"
     environment: str = "development"
+    # Source d'images et d'URL d'album : 'spotify' ou 'lastfm'
+    image_album_source: str = "spotify"  # ou "lastfm"
     
     # Server
     host: str = "127.0.0.1"

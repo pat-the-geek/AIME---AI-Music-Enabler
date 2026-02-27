@@ -10,14 +10,54 @@
    
    cp data/db/musique.db data/db/musique.db.sauvegarde_avant_restauration
 
-4. Restaurez la sauvegarde choisie :
+4. Supprimez les fichiers WAL et SHM éventuellement présents (évite les conflits de journal) :
+
+   rm -f data/db/musique.db-wal data/db/musique.db-shm
+
+5. Restaurez la sauvegarde choisie :
    
    cp data/db_backups/musique.db.<DATE>.bak data/db/musique.db
 
-5. Redémarrez l’application :
+6. Redémarrez l'application :
    
    docker-compose start backend
 
-6. Vérifiez le bon fonctionnement de l’application et l’intégrité des données.
+7. Vérifiez le bon fonctionnement de l'application et l'intégrité des données :
 
-**Remarque** : Cette procédure peut être adaptée pour d’autres environnements (Docker, local, serveur distant). Toujours vérifier les droits d’accès sur les fichiers.
+   curl "http://localhost:8000/api/v1/collection/albums?page=1&page_size=1"
+
+**Remarque** : Cette procédure peut être adaptée pour d'autres environnements (Docker, local, serveur distant). Toujours vérifier les droits d'accès sur les fichiers.
+
+---
+
+## ⚠️ Problème fréquent : décalage de schéma après restauration
+
+Une sauvegarde ancienne peut manquer des colonnes ajoutées par des migrations récentes.  
+**Symptôme :** L'API retourne une erreur `sqlite3.OperationalError: no such column: albums.xxx`.
+
+**Solution :** Appliquer les colonnes manquantes manuellement (ou via Alembic).
+
+### Colonnes connues ajoutées récemment
+
+| Version | Table | Colonne | Commande SQL |
+|---------|-------|---------|--------------|
+| v4.7.0 | `albums` | `apple_music_url` | `ALTER TABLE albums ADD COLUMN apple_music_url VARCHAR(500);` |
+| v4.7.5 | `albums` | `lastfm_url` | `ALTER TABLE albums ADD COLUMN lastfm_url VARCHAR(500);` |
+
+**Exemple d'application via Docker :**
+```bash
+docker exec music-tracker-backend python -c "
+import sqlite3
+conn = sqlite3.connect('/app/data/db/musique.db')
+cur = conn.cursor()
+cur.execute(\"PRAGMA table_info(albums)\")
+cols = [r[1] for r in cur.fetchall()]
+if 'lastfm_url' not in cols:
+    cur.execute('ALTER TABLE albums ADD COLUMN lastfm_url VARCHAR(500)')
+    conn.commit()
+    print('lastfm_url ajoutée')
+else:
+    print('lastfm_url déjà présente')
+conn.close()
+"
+```

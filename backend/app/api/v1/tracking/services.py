@@ -1,5 +1,5 @@
 """Routes API pour les services externes."""
-from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks, Query
+from fastapi import APIRouter, Body, Depends, HTTPException, BackgroundTasks, Query
 from sqlalchemy.orm import Session, joinedload
 from datetime import datetime, timezone
 from pydantic import BaseModel
@@ -20,6 +20,32 @@ from app.models import Album, Artist, Image, Metadata, Track, ListeningHistory, 
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
+
+
+# === Pydantic models pour image source ===
+class ImageSourceResponse(BaseModel):
+    image_album_source: str
+
+class ImageSourceUpdateRequest(BaseModel):
+    image_album_source: str
+
+# === Endpoints pour la source d'images d'albums (Spotify/Last.fm) ===
+@router.get("/config/image-source", response_model=ImageSourceResponse)
+async def get_image_album_source():
+    """Retourne la source actuelle des images d'albums (spotify ou lastfm)."""
+    settings = get_settings()
+    source = settings.app_config.get("image_album_source") or getattr(settings, "image_album_source", "spotify")
+    return {"image_album_source": source}
+
+@router.patch("/config/image-source", response_model=ImageSourceResponse)
+async def set_image_album_source(data: ImageSourceUpdateRequest = Body(...)):
+    """Modifie la source des images d'albums (spotify ou lastfm)."""
+    settings = get_settings()
+    if data.image_album_source not in ("spotify", "lastfm"):
+        raise HTTPException(status_code=400, detail="Source invalide (spotify ou lastfm)")
+    settings.app_config["image_album_source"] = data.image_album_source
+    settings.save_app_config()
+    return {"image_album_source": data.image_album_source}
 
 
 # Pydantic models pour les requêtes

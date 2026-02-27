@@ -150,5 +150,6 @@
         "pipeline": "optimize_scheduler_with_ai.py"
       }
     ]
-  }
+  },
+  "image_album_source": "lastfm"
 }

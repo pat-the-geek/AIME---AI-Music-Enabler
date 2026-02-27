@@ -26,6 +26,7 @@ class Album(Base):
     source = Column(String(20), nullable=False, default="manual", index=True)  # Source d'origine
     discogs_id = Column(String(100), unique=True, nullable=True)
     spotify_url = Column(String(500), nullable=True)
+    lastfm_url = Column(String(500), nullable=True)  # URL de l'album sur Last.fm
     apple_music_url = Column(String(500), nullable=True)
     discogs_url = Column(String(500), nullable=True)
     genre = Column(String(200), nullable=True, index=True)  # Genre musical principal

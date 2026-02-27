@@ -1,7 +1,7 @@
-# 📚 Index de la Documentation - AIME v4.7.0
+# 📚 Index de la Documentation - AIME v4.7.5
 
-**Date:** 14 février 2026  
-**Dernière réorganisation:** 14 février 2026
+**Date:** 27 février 2026  
+**Dernière mise à jour:** 27 février 2026
 
 ---
 
@@ -249,6 +249,7 @@
 
 | Fichier | Description |
 |---------|-------------|
+| **[IMAGE-SOURCE-SETTINGS.md](settings/IMAGE-SOURCE-SETTINGS.md)** | ☆ Configuration source d'images albums (v4.7.5) |
 | **[README-SETTINGS-INTEGRATION.md](settings/README-SETTINGS-INTEGRATION.md)** | README intégration settings |
 | **[SETTINGS-INTEGRATION-SUMMARY.txt](settings/SETTINGS-INTEGRATION-SUMMARY.txt)** | Résumé intégration |
 | **[SETTINGS-OPTIMIZATION-DISPLAY.md](settings/SETTINGS-OPTIMIZATION-DISPLAY.md)** | Affichage optimisations |
@@ -289,6 +290,7 @@
 | Fichier | Description |
 |---------|-------------|
 | **[CHANGELOG.md](changelogs/CHANGELOG.md)** | Journal principal des changements |
+| **[CHANGELOG-v4.7.5-BUGFIXES.md](changelogs/CHANGELOG-v4.7.5-BUGFIXES.md)** | ★ v4.7.5 — Bugfixes Settings, Magazine + source d'images |
 | **[CHANGELOG-UI-ENRICHMENT.md](changelogs/CHANGELOG-UI-ENRICHMENT.md)** | Améliorations UI |
 | **[CHANGELOG-UNIFIED-ALBUM-DISPLAY.md](changelogs/CHANGELOG-UNIFIED-ALBUM-DISPLAY.md)** | Affichage albums unifié |
 | **[CHANGELOG-ANALYTICS-ADVANCED.md](changelogs/CHANGELOG-ANALYTICS-ADVANCED.md)** | Analytics avancés |
@@ -352,9 +354,10 @@ Spécifications techniques et designs.
 3. [features/scheduler/SCHEDULER-OPTIMIZATION-REPORT.md](features/scheduler/SCHEDULER-OPTIMIZATION-REPORT.md)
 
 ### 🎛️ Intégration Roon
-1. [features/roon/ROON-TRACKER-DOC.md](features/roon/ROON-TRACKER-DOC.md)
-2. [features/roon/ROON-CONTROLS-GUIDE.md](features/roon/ROON-CONTROLS-GUIDE.md)
-3. [features/roon/ROON-PLAYLISTS-GUIDE.md](features/roon/ROON-PLAYLISTS-GUIDE.md)
+
+1. `features/roon/ROON-TRACKER-DOC.md` *(documentation à venir)*
+2. `features/roon/ROON-CONTROLS-GUIDE.md` *(documentation à venir)*
+3. `features/roon/ROON-PLAYLISTS-GUIDE.md` *(documentation à venir)*
 
 ### 🔧 Maintenance et Dépannage
 1. [guides/troubleshooting/TROUBLESHOOTING.md](guides/troubleshooting/TROUBLESHOOTING.md)
@@ -402,6 +405,6 @@ Spécifications techniques et designs.
 
 ---
 
-**Version:** 4.6.0  
-**Date de réorganisation:** 6 février 2026  
+**Version:** 4.7.5  
+**Date de mise à jour:** 27 février 2026  
 **Auteur:** Patrick Ostertag
