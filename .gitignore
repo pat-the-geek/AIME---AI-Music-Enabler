@@ -8,8 +8,13 @@ frontend/.env
 # Base de données
 data/musique.db
 data/musique.db-journal
+data/db/
+data/db_backups/
 *.db
 *.db-journal
+
+# package-lock.json racine (pas de package.json racine)
+/package-lock.json
 
 # Fichiers temporaires SQLite
 *.db-shm
