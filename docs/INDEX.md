@@ -353,12 +353,6 @@ Spécifications techniques et designs.
 2. [features/ai/SCHEDULER-AI-OPTIMIZATION.md](features/ai/SCHEDULER-AI-OPTIMIZATION.md)
 3. [features/scheduler/SCHEDULER-OPTIMIZATION-REPORT.md](features/scheduler/SCHEDULER-OPTIMIZATION-REPORT.md)
 
-### 🎛️ Intégration Roon
-
-1. `features/roon/ROON-TRACKER-DOC.md` *(documentation à venir)*
-2. `features/roon/ROON-CONTROLS-GUIDE.md` *(documentation à venir)*
-3. `features/roon/ROON-PLAYLISTS-GUIDE.md` *(documentation à venir)*
-
 ### 🔧 Maintenance et Dépannage
 1. [guides/troubleshooting/TROUBLESHOOTING.md](guides/troubleshooting/TROUBLESHOOTING.md)
 2. [guides/troubleshooting/RELIABILITY-GUIDE.md](guides/troubleshooting/RELIABILITY-GUIDE.md)
