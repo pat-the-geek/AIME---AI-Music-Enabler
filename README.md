@@ -116,7 +116,7 @@ docker push mon-username/aime-frontend:v4.8.0
    - Suggestions d'albums basées sur le contexte musicale
    - **Aperçu visuel**: Affichage automatique des 5 premières couvertures d'albums de chaque collection
    
-   ![Collection Créée par IA](docs/screenshots/Screen%20captures/Collection%20-%20Cr%C3%A9er%20par%20IA.png)
+   ![Collection Créée par IA](docs/screenshots/Screen%20captures/Discover%20-%20Collection%20-%20Cr%C3%A9er%20par%20IA.png)
 
 3. **Journal d'Écoute**
    - Liste chronologique inversée
@@ -199,7 +199,7 @@ docker push mon-username/aime-frontend:v4.8.0
 
 ### Prérequis
 
-- Python 3.10-3.13 (⚠️ Python 3.14 nécessite SQLAlchemy dev - voir [TROUBLESHOOTING](docs/TROUBLESHOOTING.md#problème-1-python-314-incompatible-avec-sqlalchemy))
+- Python 3.10-3.13 (⚠️ Python 3.14 nécessite SQLAlchemy dev - voir [TROUBLESHOOTING](docs/guides/troubleshooting/TROUBLESHOOTING.md#problème-1-python-314-incompatible-avec-sqlalchemy))
 - Node.js 18+
 - Git
 
