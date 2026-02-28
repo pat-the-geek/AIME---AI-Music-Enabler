@@ -211,11 +211,14 @@ class LastFMService:
             
             tracks = []
             for track in recent_tracks:
+                # Ignorer le track "now playing" (pas encore scrobblé, timestamp absent)
+                if not getattr(track, 'timestamp', None):
+                    continue
                 tracks.append({
                     "artist": str(track.track.artist),
                     "title": str(track.track.title),
-                    "album": str(track.album) if hasattr(track, 'album') and track.album else "Unknown",
-                    "timestamp": int(track.timestamp) if hasattr(track, 'timestamp') and track.timestamp else 0
+                    "album": str(track.album) if getattr(track, 'album', None) else "Unknown",
+                    "timestamp": int(track.timestamp)
                 })
             
             return tracks

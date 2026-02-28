@@ -48,6 +48,19 @@ async def set_image_album_source(data: ImageSourceUpdateRequest = Body(...)):
     return {"image_album_source": data.image_album_source}
 
 
+# === Endpoint UI config (intervalles de rafraîchissement) ===
+@router.get("/config/ui")
+async def get_ui_config():
+    """Retourne la configuration UI (intervalles de rafraîchissement en secondes)."""
+    settings = get_settings()
+    ui = settings.app_config.get("ui", {})
+    tracker_interval = settings.app_config.get("tracker", {}).get("interval_seconds", 120)
+    return {
+        "timeline_refresh_seconds": ui.get("timeline_refresh_seconds", tracker_interval),
+        "journal_refresh_seconds": ui.get("journal_refresh_seconds", tracker_interval),
+    }
+
+
 # Pydantic models pour les requêtes
 # Instances globales
 _tracker_instance = None
