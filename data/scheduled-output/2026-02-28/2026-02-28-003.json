@@ -1,0 +1,686 @@
+{
+  "id": "2026-02-28-003",
+  "edition_number": 3,
+  "generated_at": "2026-02-28T03:00:08.999750+00:00",
+  "albums": [
+    {
+      "id": 378,
+      "title": "Rubber Soul (remastered 2009)",
+      "artist": "The Beatles",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273ed801e58a9ababdea6ac7ce4",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/50o7kf2wLwVmOTVYJOTplm",
+      "apple_music_url": "https://music.apple.com/search?term=Rubber%20Soul%20%28remastered%202009%29%20The%20Beatles"
+    },
+    {
+      "id": 246,
+      "title": "Diamonds",
+      "artist": "Elton John",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273904e306cf32fa5dc93dd927a",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/45F4Pmp3EJi3T6qYonm4Ml",
+      "apple_music_url": "https://music.apple.com/search?term=Elton%20John%20Diamonds"
+    },
+    {
+      "id": 345,
+      "title": "And Then There Were Three (2007 Remaster)",
+      "artist": "Genesis",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273d9c20a78df6b65574835c4c0",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/4nh8I6fmXqcS4AqpVSu3aI",
+      "apple_music_url": "https://music.apple.com/search?term=Genesis%20And%20Then%20There%20Were%20Three%20%282007%20Remaster%29"
+    },
+    {
+      "album_id": 387,
+      "album_title": "Little Creatures",
+      "artist_name": "Talking Heads",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+      "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+      "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+      "count": 18
+    },
+    {
+      "id": 1221,
+      "title": "House of Gucci (music From the Motion Picture)",
+      "artist": "Various",
+      "year": 2022,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27342ea4917d8e3aa442614b072",
+      "spotify_url": "https://open.spotify.com/album/23zvBBS5QteJrQ2xVDUC1I",
+      "apple_music_url": "https://music.apple.com/search?term=House%20of%20Gucci%20%28music%20From%20the%20Motion%20Picture%29%20Various",
+      "description": "**Album Review: *House of Gucci (Music From the Motion Picture)* – Various Artists (2022)**\n\n*House of Gucci (Music From the Motion Picture)* is a lush, cinematic soundtrack that seamlessly blends orchestral grandeur with modern electronic and vocal textures, perfectly mirroring the opulence and intrigue of Ridley Scott’s fashion drama. The score, primarily composed by Alexandre Desplat, leans into sweeping classical arrangements—rich strings, dramatic horns, and haunting woodwinds—while incorporating moody synths and Italian-inspired melodies to evoke both glamour and tension.\n\nThe album’s emotional impact is profound, shifting from lavish, romantic swells (\"The Gucci Family\") to eerie, suspenseful undertones (\"The Betrayal\"). Desplat’s production is pristine, with impeccable sound design that immerses listeners in the film’s lavish yet treacherous world. Standout tracks include the hauntingly beautiful \"Gucci Bells,\" driven by ethereal vocals and delicate piano, and the intense \"A Game of Power,\" where pulsating synths and driving percussion heighten the drama.\n\nFeaturing contributions from artists like Lady Gaga (who delivers a",
+      "style": null
+    },
+    {
+      "id": 302,
+      "title": "Mayhem",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b0860cf0a98e09663c82290c",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/3ARwSvDQv2OHYnLeDC3Lxi",
+      "apple_music_url": "https://music.apple.com/search?term=Mayhem%20Lady%20Gaga",
+      "artist": "Lady Gaga",
+      "description": "**Mayhem** de *Lady Gaga* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 292,
+      "title": "Songs of a Lost World",
+      "year": 2024,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738613a922e2b503736fb2f91f",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/4wjxmqXnSQvBZWL3IbYngX",
+      "apple_music_url": "https://music.apple.com/search?term=Songs%20of%20a%20Lost%20World%20The%20Cure",
+      "artist": "The Cure",
+      "description": "Dans *Songs of a Lost World*, The Cure nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 318,
+      "title": "David Bowie (aka Space Oddity) (2015 Remaster)",
+      "year": 1969,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733395f3e809dfbc2b1101d464",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1ay9Z4R5ZYI2TY7WiDhNYQ",
+      "apple_music_url": "https://music.apple.com/search?term=David%20Bowie%20%28aka%20Space%20Oddity%29%20%282015%20Remaster%29%20David%20Bowie",
+      "artist": "David Bowie",
+      "description": "Dans *David Bowie (aka Space Oddity) (2015 Remaster)*, David Bowie nous offre un **voyage sonore** particulier. Sorti en 1969, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 275,
+      "title": "Cold Beer & Country Music",
+      "year": 2024,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273eff0aba5b84f925e09f70b29",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2liHjGjIgWvjrfBgKGBYuF",
+      "apple_music_url": "https://music.apple.com/search?term=Cold%20Beer%20%26%20Country%20Music%20Zach%20Top",
+      "artist": "Zach Top",
+      "description": "Zach Top livre avec *Cold Beer & Country Music* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "existing"
+    },
+    {
+      "id": 308,
+      "title": "Fourplay",
+      "year": 1991,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273de138ee8ff61fde0b9a4217d",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7a8Qq25Yo744FGAFxoINs6",
+      "apple_music_url": "https://music.apple.com/search?term=Fourplay%20Fourplay",
+      "artist": "Fourplay",
+      "description": "La **poésie musicale** de *Fourplay* de Fourplay transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 310,
+      "title": "Fear of Music (deluxe Version)",
+      "year": 1979,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738365f74aa622b1b86962c8dd",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/5dVZpNJraoqCo3BssinMoo",
+      "apple_music_url": "https://music.apple.com/search?term=Fear%20of%20Music%20%28deluxe%20Version%29%20Talking%20Heads",
+      "artist": "Talking Heads",
+      "description": "*Fear of Music (deluxe Version)* marque un moment dans la carrière de Talking Heads. Ce disque de 1979 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 255,
+      "title": "Little Dark Age",
+      "artist": "Mgmt",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273872a896e7c3776d6949df476",
+      "year": 2018,
+      "spotify_url": "https://open.spotify.com/album/7GjVWG39IOj4viyWplJV4H",
+      "apple_music_url": "https://music.apple.com/search?term=Mgmt%20Little%20Dark%20Age",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "asymmetric",
+        "composition": "playful",
+        "accentColor": "#06b6d4",
+        "specialEffect": "gradient"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 278,
+      "title": "Bad As I Used To Be (from F1® the Movie)",
+      "artist": "Chris Stapleton",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27339e6d052ab967e46e022b851",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/7sax23n4Dim8d6MPcyEi8b",
+      "apple_music_url": "https://music.apple.com/search?term=Bad%20As%20I%20Used%20To%20Be%20%28from%20F1%C2%AE%20the%20Movie%29%20Chris%20Stapleton",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 248,
+      "title": "Surfer Rosa (2007 Remaster)",
+      "artist": "Pixies",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738aa545a0ea869940cce358b5",
+      "year": 1988,
+      "spotify_url": "https://open.spotify.com/album/50j4Wm1b9hLpSpPIA39Vp9",
+      "apple_music_url": "https://music.apple.com/search?term=Pixies%20Surfer%20Rosa%20%282007%20Remaster%29",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "asymmetric",
+        "composition": "classic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "gradient"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 280,
+      "title": "A Matter of Time",
+      "artist": "Laufey",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738f68f6e65c1cfd36bb21561c",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/5rMOCuiWWbEBcHaKM69Hmv",
+      "apple_music_url": "https://music.apple.com/search?term=A%20Matter%20of%20Time%20Laufey",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 250,
+      "title": "L.a. Woman",
+      "artist": "The Doors",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+      "year": 1971,
+      "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20L.a.%20Woman",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#ff6b35",
+        "specialEffect": "gradient"
+      },
+      "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Échos Musique*."
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 4,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 378,
+            "title": "Rubber Soul (remastered 2009)",
+            "artist": "The Beatles",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273ed801e58a9ababdea6ac7ce4",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/50o7kf2wLwVmOTVYJOTplm",
+            "apple_music_url": "https://music.apple.com/search?term=Rubber%20Soul%20%28remastered%202009%29%20The%20Beatles"
+          },
+          {
+            "id": 246,
+            "title": "Diamonds",
+            "artist": "Elton John",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273904e306cf32fa5dc93dd927a",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/45F4Pmp3EJi3T6qYonm4Ml",
+            "apple_music_url": "https://music.apple.com/search?term=Elton%20John%20Diamonds"
+          },
+          {
+            "id": 345,
+            "title": "And Then There Were Three (2007 Remaster)",
+            "artist": "Genesis",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273d9c20a78df6b65574835c4c0",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/4nh8I6fmXqcS4AqpVSu3aI",
+            "apple_music_url": "https://music.apple.com/search?term=Genesis%20And%20Then%20There%20Were%20Three%20%282007%20Remaster%29"
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 378,
+            "album_title": "Rubber Soul (remastered 2009)",
+            "haiku": "**Rubber Soul**\nÉchos de velours\nQui dansent sous la pluie",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "left",
+              "imageSize": "small",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#ff6b35",
+              "specialEffect": "none"
+            },
+            "description": "Dans *Rubber Soul (remastered 2009)*, The Beatles nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 246,
+            "album_title": "Diamonds",
+            "haiku": "**Diamonds**\nÉclats de piano sous lune\nNotes scintillent, éphémères",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "top",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "playful",
+              "accentColor": "#10b981",
+              "specialEffect": "zoom"
+            },
+            "description": "La **poésie musicale** de *Diamonds* de Elton John transcende les années depuis 2017. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 345,
+            "album_title": "And Then There Were Three (2007 Remaster)",
+            "haiku": "**And Then There Were Three (2007 Remaster)**\nSymphonie triomphante\nTrois voix sous les étoiles",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "left",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#06b6d4",
+              "specialEffect": "none"
+            },
+            "description": "La **poésie musicale** de *And Then There Were Three (2007 Remaster)* de Genesis transcende les années depuis 1978. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "large",
+        "columns": 1,
+        "spacing": "spacious"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "corner",
+        "imageSize": "micro",
+        "textLayout": "triple-column",
+        "composition": "magazine",
+        "accentColor": "#10b981",
+        "specialEffect": "tilt"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 74,
+        "unique_albums": 113,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 68
+          },
+          {
+            "artist_id": 113,
+            "artist_name": "Florence + the Machine",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb836eb0a7a82eb8f4133ee04d",
+            "count": 38
+          },
+          {
+            "artist_id": 27,
+            "artist_name": "Beck",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb675a6e778640f767626f2e66",
+            "count": 17
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 17
+          },
+          {
+            "artist_id": 955,
+            "artist_name": "The Cure & Daniel Avery",
+            "image_url": null,
+            "count": 17
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+            "count": 18
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "apple_music_url": "https://music.apple.com/search?term=Mixes%20Of%20A%20Lost%20World%20The%20Cure%2C%20The%20Cure%20%26%20Daniel%20Avery%2C%20The%20Cure%20%26%20Orbital",
+            "count": 17
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "apple_music_url": "https://music.apple.com/search?term=Speaking%20in%20Tongues%20Talking%20Heads",
+            "count": 17
+          },
+          {
+            "album_id": 1926,
+            "album_title": "Come to My Garden",
+            "artist_name": "Minnie Riperton",
+            "image_url": "https://i.scdn.co/image/80230921f3d0c8bd777b39133506f3e103317539",
+            "spotify_url": "https://open.spotify.com/album/3FuJjgDLCnwRgnRLfjjGPV",
+            "apple_music_url": "https://music.apple.com/search?term=Come%20to%20My%20Garden%20Minnie%20Riperton",
+            "count": 14
+          },
+          {
+            "album_id": 1920,
+            "album_title": "The Mountain",
+            "artist_name": "Gorillaz",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd5b57b40cf2aaeccd07835e",
+            "spotify_url": "https://open.spotify.com/album/28eOS4i1HMR5lCmaf4UHoh",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Mountain%20Gorillaz",
+            "count": 12
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "bar",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1221,
+          "title": "House of Gucci (music From the Motion Picture)",
+          "artist": "Various",
+          "year": 2022,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b27342ea4917d8e3aa442614b072",
+          "spotify_url": "https://open.spotify.com/album/23zvBBS5QteJrQ2xVDUC1I",
+          "apple_music_url": "https://music.apple.com/search?term=House%20of%20Gucci%20%28music%20From%20the%20Motion%20Picture%29%20Various",
+          "description": "**Album Review: *House of Gucci (Music From the Motion Picture)* – Various Artists (2022)**\n\n*House of Gucci (Music From the Motion Picture)* is a lush, cinematic soundtrack that seamlessly blends orchestral grandeur with modern electronic and vocal textures, perfectly mirroring the opulence and intrigue of Ridley Scott’s fashion drama. The score, primarily composed by Alexandre Desplat, leans into sweeping classical arrangements—rich strings, dramatic horns, and haunting woodwinds—while incorporating moody synths and Italian-inspired melodies to evoke both glamour and tension.\n\nThe album’s emotional impact is profound, shifting from lavish, romantic swells (\"The Gucci Family\") to eerie, suspenseful undertones (\"The Betrayal\"). Desplat’s production is pristine, with impeccable sound design that immerses listeners in the film’s lavish yet treacherous world. Standout tracks include the hauntingly beautiful \"Gucci Bells,\" driven by ethereal vocals and delicate piano, and the intense \"A Game of Power,\" where pulsating synths and driving percussion heighten the drama.\n\nFeaturing contributions from artists like Lady Gaga (who delivers a",
+          "style": null
+        },
+        "artist_images": {
+          "Various": "https://i.scdn.co/image/ab67616d0000b2735b18da1b6db845c4ff67cbf7"
+        }
+      },
+      "dimensions": {
+        "image_size": "small",
+        "description_length": "full",
+        "font_size": "small"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Giorgio Conte",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "corner",
+        "imageSize": "small",
+        "textLayout": "double-column",
+        "composition": "chaos",
+        "accentColor": "#764ba2",
+        "specialEffect": "tilt"
+      },
+      "content": {
+        "artist": {
+          "name": "Giorgio Conte",
+          "albums_count": 6,
+          "haiku": "**Mayhem**\nÉclats d'or sous les projecteurs\nChants brisés, miroir noir",
+          "bio": "**Giorgio Conte** nous offre 6 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab67616d0000b2735bf531e7f2ab0f15db379d0b"
+        },
+        "albums": [
+          {
+            "id": 302,
+            "title": "Mayhem",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b0860cf0a98e09663c82290c",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/3ARwSvDQv2OHYnLeDC3Lxi",
+            "apple_music_url": "https://music.apple.com/search?term=Mayhem%20Lady%20Gaga",
+            "artist": "Lady Gaga",
+            "description": "**Mayhem** de *Lady Gaga* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 292,
+            "title": "Songs of a Lost World",
+            "year": 2024,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738613a922e2b503736fb2f91f",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/4wjxmqXnSQvBZWL3IbYngX",
+            "apple_music_url": "https://music.apple.com/search?term=Songs%20of%20a%20Lost%20World%20The%20Cure",
+            "artist": "The Cure",
+            "description": "Dans *Songs of a Lost World*, The Cure nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 318,
+            "title": "David Bowie (aka Space Oddity) (2015 Remaster)",
+            "year": 1969,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2733395f3e809dfbc2b1101d464",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1ay9Z4R5ZYI2TY7WiDhNYQ",
+            "apple_music_url": "https://music.apple.com/search?term=David%20Bowie%20%28aka%20Space%20Oddity%29%20%282015%20Remaster%29%20David%20Bowie",
+            "artist": "David Bowie",
+            "description": "Dans *David Bowie (aka Space Oddity) (2015 Remaster)*, David Bowie nous offre un **voyage sonore** particulier. Sorti en 1969, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 275,
+            "title": "Cold Beer & Country Music",
+            "year": 2024,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273eff0aba5b84f925e09f70b29",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2liHjGjIgWvjrfBgKGBYuF",
+            "apple_music_url": "https://music.apple.com/search?term=Cold%20Beer%20%26%20Country%20Music%20Zach%20Top",
+            "artist": "Zach Top",
+            "description": "Zach Top livre avec *Cold Beer & Country Music* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 308,
+            "title": "Fourplay",
+            "year": 1991,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273de138ee8ff61fde0b9a4217d",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7a8Qq25Yo744FGAFxoINs6",
+            "apple_music_url": "https://music.apple.com/search?term=Fourplay%20Fourplay",
+            "artist": "Fourplay",
+            "description": "La **poésie musicale** de *Fourplay* de Fourplay transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 310,
+            "title": "Fear of Music (deluxe Version)",
+            "year": 1979,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738365f74aa622b1b86962c8dd",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/5dVZpNJraoqCo3BssinMoo",
+            "apple_music_url": "https://music.apple.com/search?term=Fear%20of%20Music%20%28deluxe%20Version%29%20Talking%20Heads",
+            "artist": "Talking Heads",
+            "description": "*Fear of Music (deluxe Version)* marque un moment dans la carrière de Talking Heads. Ce disque de 1979 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "remaster_detail"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 300,
+        "text_columns": 1,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Échos Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Échos Musique",
+          "description": "*Échos Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 255,
+              "title": "Little Dark Age",
+              "artist": "Mgmt",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273872a896e7c3776d6949df476",
+              "year": 2018,
+              "spotify_url": "https://open.spotify.com/album/7GjVWG39IOj4viyWplJV4H",
+              "apple_music_url": "https://music.apple.com/search?term=Mgmt%20Little%20Dark%20Age",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "playful",
+                "accentColor": "#06b6d4",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 278,
+              "title": "Bad As I Used To Be (from F1® the Movie)",
+              "artist": "Chris Stapleton",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27339e6d052ab967e46e022b851",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/7sax23n4Dim8d6MPcyEi8b",
+              "apple_music_url": "https://music.apple.com/search?term=Bad%20As%20I%20Used%20To%20Be%20%28from%20F1%C2%AE%20the%20Movie%29%20Chris%20Stapleton",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 248,
+              "title": "Surfer Rosa (2007 Remaster)",
+              "artist": "Pixies",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2738aa545a0ea869940cce358b5",
+              "year": 1988,
+              "spotify_url": "https://open.spotify.com/album/50j4Wm1b9hLpSpPIA39Vp9",
+              "apple_music_url": "https://music.apple.com/search?term=Pixies%20Surfer%20Rosa%20%282007%20Remaster%29",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "gradient"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 280,
+              "title": "A Matter of Time",
+              "artist": "Laufey",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2738f68f6e65c1cfd36bb21561c",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/5rMOCuiWWbEBcHaKM69Hmv",
+              "apple_music_url": "https://music.apple.com/search?term=A%20Matter%20of%20Time%20Laufey",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "classic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 250,
+              "title": "L.a. Woman",
+              "artist": "The Doors",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+              "year": 1971,
+              "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+              "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20L.a.%20Woman",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#ff6b35",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Captivant** et *authentique*, cet album incarne l'essence de *Échos Musique*."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "minimal",
+        "image_position": "left"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

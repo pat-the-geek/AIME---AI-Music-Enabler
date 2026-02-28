@@ -1,0 +1,748 @@
+{
+  "id": "2026-02-28-005",
+  "edition_number": 5,
+  "generated_at": "2026-02-28T04:00:12.976605+00:00",
+  "albums": [
+    {
+      "id": 1254,
+      "title": "The Slow Rush",
+      "artist": "Tame Impala",
+      "year": 2022,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27358267bd34420a00d5cf83a49",
+      "spotify_url": "https://open.spotify.com/album/0PUdc9WBtlyjG9Ba9DPmKa",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Slow%20Rush%20Tame%20Impala",
+      "description": "**Album Review: *The Slow Rush* by Tame Impala (2022)**\n\nTame Impala’s *The Slow Rush* (2022) is a mesmerizing blend of psychedelic rock, funk, and dream-pop, showcasing Kevin Parker’s signature synth-driven sound with a sleek, modern polish. The album balances euphoric grooves with introspective lyricism, creating an immersive atmosphere that feels both nostalgic and fresh. Parker’s meticulous production elevates *The Slow Rush*, with lush layers of synthesizers, intricate percussion, and shimmering guitar textures that craft a rich sonic tapestry.\n\nEmotionally, the record oscillates between melancholy and optimism, exploring themes of time, love, and longing. Tracks like *\"Borderline\"* and *\"It Might Be Time\"* stand out for their infectious melodies and dynamic arrangements, while *\"Lost in Yesterday\"* delivers a haunting, hypnotic bassline that anchors the album’s dreamy vibe. The instrumentation is masterfully executed, blending live and electronic elements seamlessly.\n\nWith its pristine sound design and timeless appeal, *The Slow Rush* solidifies Tame Impala",
+      "style": null
+    },
+    {
+      "id": 438,
+      "title": "Best of the Song Books - the Collection",
+      "artist": "Ella Fitzgerald",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a4dc742e60af65abd2c7f9e4",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/5Am3x63dty0dIjwBi2WBk6",
+      "apple_music_url": "https://music.apple.com/search?term=Best%20of%20the%20Song%20Books%20-%20the%20Collection%20Ella%20Fitzgerald"
+    },
+    {
+      "id": 379,
+      "title": "The Lamb Lies Down On Broadway (2007 Stereo Mix)",
+      "artist": "Genesis",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27302cb21292aeb764d270b85c0",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/49BxISwAbZZfmlhqD6Vh88",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Lamb%20Lies%20Down%20On%20Broadway%20%282007%20Stereo%20Mix%29%20Genesis"
+    },
+    {
+      "id": 414,
+      "title": "Ultimate Sinatra",
+      "artist": "Frank Sinatra",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b19cb81319fbfd9ed54baeae",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7gmak9ZGm10y4PtZa9SBQn",
+      "apple_music_url": "https://music.apple.com/search?term=Ultimate%20Sinatra%20Frank%20Sinatra"
+    },
+    {
+      "id": 283,
+      "title": "Without Further Ado, Vol 1",
+      "artist": "Christian Mcbride",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+      "apple_music_url": "https://music.apple.com/search?term=Without%20Further%20Ado%2C%20Vol%201%20Christian%20Mcbride",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#ab47bc",
+        "specialEffect": "none"
+      },
+      "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+    },
+    {
+      "id": 1,
+      "title": "Nevermind",
+      "artist": "Nirvana",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+      "year": 1991,
+      "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+      "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 282,
+      "title": "A Tribute To Benny Moré and Nat King Cole",
+      "artist": "Gonzalo Rubalcaba, Yainer Horta & Joey Calveiro",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27360b945d9b545e3d640082f8a",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/6mc7lnm4NVfPYz87YVTbAT",
+      "apple_music_url": "https://music.apple.com/search?term=A%20Tribute%20To%20Benny%20Mor%C3%A9%20and%20Nat%20King%20Cole%20Gonzalo%20Rubalcaba%2C%20Yainer%20Horta%20%26%20Joey%20Calveiro",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "chaos",
+        "accentColor": "#ff6b35",
+        "specialEffect": "tilt"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 272,
+      "title": "Wild and Clear and Blue",
+      "artist": "I’m With Her",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273e1917e26e66f38eac61be589",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/2AAAjeTyO8T9juLBOKsCaV",
+      "apple_music_url": "https://music.apple.com/search?term=Wild%20and%20Clear%20and%20Blue%20I%E2%80%99m%20With%20Her",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "medium",
+        "textLayout": "asymmetric",
+        "composition": "chaos",
+        "accentColor": "#ff6b35",
+        "specialEffect": "gradient"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 271,
+      "title": "Big Money",
+      "artist": "Jon Batiste",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2734788bd968a2f7368e16418f0",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/7qYbLlvM7qPAz4XAWnXDC3",
+      "apple_music_url": "https://music.apple.com/search?term=Big%20Money%20Jon%20Batiste",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "asymmetric",
+        "composition": "classic",
+        "accentColor": "#ab47bc",
+        "specialEffect": "tilt"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 279,
+      "title": "Brightside",
+      "artist": "Arkai",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f3454bf8893ec60318e2b377",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/2uKlHTuXAa9qacjncF1s4L",
+      "apple_music_url": "https://music.apple.com/search?term=Brightside%20Arkai",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "chaos",
+        "accentColor": "#ab47bc",
+        "specialEffect": "none"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 266,
+      "title": "A Tribute To the King of Zydeco",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273146a4587303793c56ba0749b",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/5rHi2X55kKOr3yvfMsFaIz",
+      "apple_music_url": "https://music.apple.com/search?term=A%20Tribute%20To%20the%20King%20of%20Zydeco%20Lucinda%20Williams%2C%20Tommy%20Mclain%2C%20Keith%20Frank",
+      "artist": "Lucinda Williams, Tommy Mclain, Keith Frank",
+      "description": "Dans *A Tribute To the King of Zydeco*, Lucinda Williams, Tommy Mclain, Keith Frank nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 253,
+      "title": "The Universe Smiles Upon You",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273e08ee206ad63148105336a19",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/45ZWDMMVK0N0Hd2p7fLTCB",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Universe%20Smiles%20Upon%20You%20Khruangbin",
+      "artist": "Khruangbin",
+      "description": "**The Universe Smiles Upon You** de *Khruangbin* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 246,
+      "title": "Diamonds",
+      "year": 2017,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273904e306cf32fa5dc93dd927a",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/45F4Pmp3EJi3T6qYonm4Ml",
+      "apple_music_url": "https://music.apple.com/search?term=Elton%20John%20Diamonds",
+      "artist": "Elton John",
+      "description": "La **poésie musicale** de *Diamonds* de Elton John transcende les années depuis 2017. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 281,
+      "title": "Live-action",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6KpA380vLBVA6d6lYebIk3",
+      "apple_music_url": "https://music.apple.com/search?term=Live-action%20Nate%20Smith",
+      "artist": "Nate Smith",
+      "description": "La **poésie musicale** de *Live-action* de Nate Smith transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 320,
+      "title": "Peter Gabriel 1: Car (remastered)",
+      "year": 1977,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2736b141e77892ab2ccb60cf3cf",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0kDFjyfGFtiIMXlxJ120Ok",
+      "apple_music_url": "https://music.apple.com/search?term=Peter%20Gabriel%20Peter%20Gabriel%201%3A%20Car%20%28remastered%29",
+      "artist": "Peter Gabriel",
+      "description": "*Peter Gabriel 1: Car (remastered)* marque un moment dans la carrière de Peter Gabriel. Ce disque de 1977 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 331,
+      "title": "Peter Gabriel 3: Melt (remastered)",
+      "year": 1980,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273c3e9ebd5e1999ae3ab639023",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0KLyPao7XpXHSAMmbkxCoz",
+      "apple_music_url": "https://music.apple.com/search?term=Peter%20Gabriel%20Peter%20Gabriel%203%3A%20Melt%20%28remastered%29",
+      "artist": "Peter Gabriel",
+      "description": "La **poésie musicale** de *Peter Gabriel 3: Melt (remastered)* de Peter Gabriel transcende les années depuis 1980. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 323,
+      "title": "Invisible Touch (2007 Remaster)",
+      "year": 1986,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273b917174eb6069392e8a3cc7f",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/632b0oXuFpstA4DO2cUKdG",
+      "apple_music_url": "https://music.apple.com/search?term=Genesis%20Invisible%20Touch%20%282007%20Remaster%29",
+      "artist": "Genesis",
+      "description": "*Invisible Touch (2007 Remaster)* marque un moment dans la carrière de Genesis. Ce disque de 1986 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "album_id": 387,
+      "album_title": "Little Creatures",
+      "artist_name": "Talking Heads",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+      "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+      "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+      "count": 18
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1254,
+          "title": "The Slow Rush",
+          "artist": "Tame Impala",
+          "year": 2022,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b27358267bd34420a00d5cf83a49",
+          "spotify_url": "https://open.spotify.com/album/0PUdc9WBtlyjG9Ba9DPmKa",
+          "apple_music_url": "https://music.apple.com/search?term=The%20Slow%20Rush%20Tame%20Impala",
+          "description": "**Album Review: *The Slow Rush* by Tame Impala (2022)**\n\nTame Impala’s *The Slow Rush* (2022) is a mesmerizing blend of psychedelic rock, funk, and dream-pop, showcasing Kevin Parker’s signature synth-driven sound with a sleek, modern polish. The album balances euphoric grooves with introspective lyricism, creating an immersive atmosphere that feels both nostalgic and fresh. Parker’s meticulous production elevates *The Slow Rush*, with lush layers of synthesizers, intricate percussion, and shimmering guitar textures that craft a rich sonic tapestry.\n\nEmotionally, the record oscillates between melancholy and optimism, exploring themes of time, love, and longing. Tracks like *\"Borderline\"* and *\"It Might Be Time\"* stand out for their infectious melodies and dynamic arrangements, while *\"Lost in Yesterday\"* delivers a haunting, hypnotic bassline that anchors the album’s dreamy vibe. The instrumentation is masterfully executed, blending live and electronic elements seamlessly.\n\nWith its pristine sound design and timeless appeal, *The Slow Rush* solidifies Tame Impala",
+          "style": null
+        },
+        "artist_images": {
+          "Tame Impala": "https://i.discogs.com/FnGF8pCrCzWPRfVKxLPVeOBH1z7eFoJH7Gvn4CqVtbY/rs:fit/g:sm/q:90/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTE0NjMw/NzA2LTEzNzc2NTUx/MTMtNjkyNi5qcGVn.jpeg"
+        }
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "description_length": "full",
+        "font_size": "large"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 438,
+            "title": "Best of the Song Books - the Collection",
+            "artist": "Ella Fitzgerald",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273a4dc742e60af65abd2c7f9e4",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/5Am3x63dty0dIjwBi2WBk6",
+            "apple_music_url": "https://music.apple.com/search?term=Best%20of%20the%20Song%20Books%20-%20the%20Collection%20Ella%20Fitzgerald"
+          },
+          {
+            "id": 379,
+            "title": "The Lamb Lies Down On Broadway (2007 Stereo Mix)",
+            "artist": "Genesis",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27302cb21292aeb764d270b85c0",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/49BxISwAbZZfmlhqD6Vh88",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Lamb%20Lies%20Down%20On%20Broadway%20%282007%20Stereo%20Mix%29%20Genesis"
+          },
+          {
+            "id": 414,
+            "title": "Ultimate Sinatra",
+            "artist": "Frank Sinatra",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b19cb81319fbfd9ed54baeae",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7gmak9ZGm10y4PtZa9SBQn",
+            "apple_music_url": "https://music.apple.com/search?term=Ultimate%20Sinatra%20Frank%20Sinatra"
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 438,
+            "album_title": "Best of the Song Books - the Collection",
+            "haiku": "**Best of the Song Books - the Collection**\nNotes dorées vibrantes\nChant d'étoiles légères",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "diagonal",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "playful",
+              "accentColor": "#10b981",
+              "specialEffect": "none"
+            },
+            "description": "Dans *Best of the Song Books - the Collection*, Ella Fitzgerald nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 379,
+            "album_title": "The Lamb Lies Down On Broadway (2007 Stereo Mix)",
+            "haiku": "**The Lamb Lies Down On Broadway**\nUn rêve en contrejour\nÉcho d'un désert urbain",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "left",
+              "imageSize": "massive",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#06b6d4",
+              "specialEffect": "gradient"
+            },
+            "description": "Dans *The Lamb Lies Down On Broadway (2007 Stereo Mix)*, Genesis nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 414,
+            "album_title": "Ultimate Sinatra",
+            "haiku": "**Ultimate Sinatra**\nVoix d'or dans la nuit\nUn jazz enivré de soie",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "right",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "gradient"
+            },
+            "description": "**Ultimate Sinatra** de *Frank Sinatra* (2015) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "columns": 3,
+        "spacing": "normal"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Échos Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Échos Musique",
+          "description": "*Échos Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 283,
+              "title": "Without Further Ado, Vol 1",
+              "artist": "Christian Mcbride",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+              "apple_music_url": "https://music.apple.com/search?term=Without%20Further%20Ado%2C%20Vol%201%20Christian%20Mcbride",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "Un album qui **transcende** et offre une nouvelle *perspective* sonore."
+            },
+            {
+              "id": 1,
+              "title": "Nevermind",
+              "artist": "Nirvana",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+              "year": 1991,
+              "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+              "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "scattered",
+                "composition": "playful",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 282,
+              "title": "A Tribute To Benny Moré and Nat King Cole",
+              "artist": "Gonzalo Rubalcaba, Yainer Horta & Joey Calveiro",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27360b945d9b545e3d640082f8a",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/6mc7lnm4NVfPYz87YVTbAT",
+              "apple_music_url": "https://music.apple.com/search?term=A%20Tribute%20To%20Benny%20Mor%C3%A9%20and%20Nat%20King%20Cole%20Gonzalo%20Rubalcaba%2C%20Yainer%20Horta%20%26%20Joey%20Calveiro",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "chaos",
+                "accentColor": "#ff6b35",
+                "specialEffect": "tilt"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 272,
+              "title": "Wild and Clear and Blue",
+              "artist": "I’m With Her",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273e1917e26e66f38eac61be589",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/2AAAjeTyO8T9juLBOKsCaV",
+              "apple_music_url": "https://music.apple.com/search?term=Wild%20and%20Clear%20and%20Blue%20I%E2%80%99m%20With%20Her",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "chaos",
+                "accentColor": "#ff6b35",
+                "specialEffect": "gradient"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 271,
+              "title": "Big Money",
+              "artist": "Jon Batiste",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2734788bd968a2f7368e16418f0",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/7qYbLlvM7qPAz4XAWnXDC3",
+              "apple_music_url": "https://music.apple.com/search?term=Big%20Money%20Jon%20Batiste",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "classic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 279,
+              "title": "Brightside",
+              "artist": "Arkai",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273f3454bf8893ec60318e2b377",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/2uKlHTuXAa9qacjncF1s4L",
+              "apple_music_url": "https://music.apple.com/search?term=Brightside%20Arkai",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "chaos",
+                "accentColor": "#ab47bc",
+                "specialEffect": "none"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "minimal",
+        "image_position": "top"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Dead Tired",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "right",
+        "imageSize": "micro",
+        "textLayout": "scattered",
+        "composition": "dramatic",
+        "accentColor": "#f7931e",
+        "specialEffect": "gradient"
+      },
+      "content": {
+        "artist": {
+          "name": "Dead Tired",
+          "albums_count": 7,
+          "haiku": "**A Tribute To the King of Zydeco**\nAccordéon qui pleure en douceur\nRythmes suaves dans la nuit",
+          "bio": "**Dead Tired** nous offre 7 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5ebc4c32585377dd2bd3cc4f563"
+        },
+        "albums": [
+          {
+            "id": 266,
+            "title": "A Tribute To the King of Zydeco",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273146a4587303793c56ba0749b",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/5rHi2X55kKOr3yvfMsFaIz",
+            "apple_music_url": "https://music.apple.com/search?term=A%20Tribute%20To%20the%20King%20of%20Zydeco%20Lucinda%20Williams%2C%20Tommy%20Mclain%2C%20Keith%20Frank",
+            "artist": "Lucinda Williams, Tommy Mclain, Keith Frank",
+            "description": "Dans *A Tribute To the King of Zydeco*, Lucinda Williams, Tommy Mclain, Keith Frank nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 253,
+            "title": "The Universe Smiles Upon You",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273e08ee206ad63148105336a19",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/45ZWDMMVK0N0Hd2p7fLTCB",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Universe%20Smiles%20Upon%20You%20Khruangbin",
+            "artist": "Khruangbin",
+            "description": "**The Universe Smiles Upon You** de *Khruangbin* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 246,
+            "title": "Diamonds",
+            "year": 2017,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273904e306cf32fa5dc93dd927a",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/45F4Pmp3EJi3T6qYonm4Ml",
+            "apple_music_url": "https://music.apple.com/search?term=Elton%20John%20Diamonds",
+            "artist": "Elton John",
+            "description": "La **poésie musicale** de *Diamonds* de Elton John transcende les années depuis 2017. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 281,
+            "title": "Live-action",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273428432a6ab2043a7c6eb2d95",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6KpA380vLBVA6d6lYebIk3",
+            "apple_music_url": "https://music.apple.com/search?term=Live-action%20Nate%20Smith",
+            "artist": "Nate Smith",
+            "description": "La **poésie musicale** de *Live-action* de Nate Smith transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 320,
+            "title": "Peter Gabriel 1: Car (remastered)",
+            "year": 1977,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2736b141e77892ab2ccb60cf3cf",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0kDFjyfGFtiIMXlxJ120Ok",
+            "apple_music_url": "https://music.apple.com/search?term=Peter%20Gabriel%20Peter%20Gabriel%201%3A%20Car%20%28remastered%29",
+            "artist": "Peter Gabriel",
+            "description": "*Peter Gabriel 1: Car (remastered)* marque un moment dans la carrière de Peter Gabriel. Ce disque de 1977 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 331,
+            "title": "Peter Gabriel 3: Melt (remastered)",
+            "year": 1980,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273c3e9ebd5e1999ae3ab639023",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0KLyPao7XpXHSAMmbkxCoz",
+            "apple_music_url": "https://music.apple.com/search?term=Peter%20Gabriel%20Peter%20Gabriel%203%3A%20Melt%20%28remastered%29",
+            "artist": "Peter Gabriel",
+            "description": "La **poésie musicale** de *Peter Gabriel 3: Melt (remastered)* de Peter Gabriel transcende les années depuis 1980. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 323,
+            "title": "Invisible Touch (2007 Remaster)",
+            "year": 1986,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273b917174eb6069392e8a3cc7f",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/632b0oXuFpstA4DO2cUKdG",
+            "apple_music_url": "https://music.apple.com/search?term=Genesis%20Invisible%20Touch%20%282007%20Remaster%29",
+            "artist": "Genesis",
+            "description": "*Invisible Touch (2007 Remaster)* marque un moment dans la carrière de Genesis. Ce disque de 1986 explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "remaster_detail"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 300,
+        "text_columns": 1,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "bottom",
+        "imageSize": "small",
+        "textLayout": "masonry",
+        "composition": "dramatic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "frame"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 74,
+        "unique_albums": 113,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 68
+          },
+          {
+            "artist_id": 113,
+            "artist_name": "Florence + the Machine",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb836eb0a7a82eb8f4133ee04d",
+            "count": 38
+          },
+          {
+            "artist_id": 27,
+            "artist_name": "Beck",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb675a6e778640f767626f2e66",
+            "count": 17
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 17
+          },
+          {
+            "artist_id": 955,
+            "artist_name": "The Cure & Daniel Avery",
+            "image_url": null,
+            "count": 17
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+            "count": 18
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "apple_music_url": "https://music.apple.com/search?term=Mixes%20Of%20A%20Lost%20World%20The%20Cure%2C%20The%20Cure%20%26%20Daniel%20Avery%2C%20The%20Cure%20%26%20Orbital",
+            "count": 17
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "apple_music_url": "https://music.apple.com/search?term=Speaking%20in%20Tongues%20Talking%20Heads",
+            "count": 17
+          },
+          {
+            "album_id": 1926,
+            "album_title": "Come to My Garden",
+            "artist_name": "Minnie Riperton",
+            "image_url": "https://i.scdn.co/image/80230921f3d0c8bd777b39133506f3e103317539",
+            "spotify_url": "https://open.spotify.com/album/3FuJjgDLCnwRgnRLfjjGPV",
+            "apple_music_url": "https://music.apple.com/search?term=Come%20to%20My%20Garden%20Minnie%20Riperton",
+            "count": 14
+          },
+          {
+            "album_id": 1920,
+            "album_title": "The Mountain",
+            "artist_name": "Gorillaz",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd5b57b40cf2aaeccd07835e",
+            "spotify_url": "https://open.spotify.com/album/28eOS4i1HMR5lCmaf4UHoh",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Mountain%20Gorillaz",
+            "count": 12
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "area",
+        "color_scheme": "newspaper"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

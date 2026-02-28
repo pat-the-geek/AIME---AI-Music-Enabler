@@ -1,0 +1,667 @@
+{
+  "id": "2026-02-28-001",
+  "edition_number": 1,
+  "generated_at": "2026-02-28T02:00:01.853706+00:00",
+  "albums": [
+    {
+      "album_id": 387,
+      "album_title": "Little Creatures",
+      "artist_name": "Talking Heads",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+      "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+      "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+      "count": 18
+    },
+    {
+      "id": 341,
+      "title": "So (remastered)",
+      "year": 1986,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27311bb04f55be562c76d8e8ecf",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/0hQb1KT6L3iEYRkS5u8cjm",
+      "apple_music_url": "https://music.apple.com/search?term=So%20%28remastered%29%20Peter%20Gabriel",
+      "artist": "Peter Gabriel",
+      "description": "La **poésie musicale** de *So (remastered)* de Peter Gabriel transcende les années depuis 1986. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "remaster_detail"
+    },
+    {
+      "id": 257,
+      "title": "Dropout Boogie",
+      "year": 2022,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2730e8e7267c0b377e5751630f3",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7LLyQJzyD56Avzk3uFzKUk",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Black%20Keys%20Dropout%20Boogie",
+      "artist": "The Black Keys",
+      "description": "Dans *Dropout Boogie*, The Black Keys nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 305,
+      "title": "Street Lady",
+      "year": 1973,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273bdda6a4e9793de67f7598c91",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7Iw2Tx6Jh0Y8iKEVfx7Sua",
+      "apple_music_url": "https://music.apple.com/search?term=Street%20Lady%20Donald%20Byrd",
+      "artist": "Donald Byrd",
+      "description": "Donald Byrd livre avec *Street Lady* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "existing"
+    },
+    {
+      "id": 293,
+      "title": "As Alive As You Need Me To Be",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27317ff2581a6b924fb3a704395",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6KWRGQeL4dzohXRiSwJHK0",
+      "apple_music_url": "https://music.apple.com/search?term=As%20Alive%20As%20You%20Need%20Me%20To%20Be%20Nine%20Inch%20Nails",
+      "artist": "Nine Inch Nails",
+      "description": "**As Alive As You Need Me To Be** de *Nine Inch Nails* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 328,
+      "title": "Morrison Hotel",
+      "year": 1970,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f12a8a7e0b2cbe16d2bef4dc",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6AFLOkpJjFF652jevcSOZX",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20Morrison%20Hotel",
+      "artist": "The Doors",
+      "description": "*Morrison Hotel* marque un moment dans la carrière de The Doors. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 269,
+      "title": "More Songs About Buildings and Food",
+      "year": 1978,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27391237668384c4d646b30c05c",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/39jsLMRmrTpfdq2vE4TCUe",
+      "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20More%20Songs%20About%20Buildings%20and%20Food",
+      "artist": "Talking Heads",
+      "description": "Talking Heads livre avec *More Songs About Buildings and Food* (1978) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "existing"
+    },
+    {
+      "id": 253,
+      "title": "The Universe Smiles Upon You",
+      "artist": "Khruangbin",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273e08ee206ad63148105336a19",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/45ZWDMMVK0N0Hd2p7fLTCB",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Universe%20Smiles%20Upon%20You%20Khruangbin",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "dramatic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 240,
+      "title": "A Moon Shaped Pool (radiohead)",
+      "artist": "Radiohead",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27345643f5cf119cbc9d2811c22",
+      "year": 2016,
+      "spotify_url": "https://open.spotify.com/album/2ix8vWvvSp2Yo7rKMiWpkg",
+      "apple_music_url": "https://music.apple.com/search?term=Radiohead%20A%20Moon%20Shaped%20Pool%20%28radiohead%29",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+    },
+    {
+      "id": 250,
+      "title": "L.a. Woman",
+      "artist": "The Doors",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+      "year": 1971,
+      "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20L.a.%20Woman",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "asymmetric",
+        "composition": "chaos",
+        "accentColor": "#06b6d4",
+        "specialEffect": "gradient"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 1,
+      "title": "Nevermind",
+      "artist": "Nirvana",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+      "year": 1991,
+      "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+      "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#FF00FF",
+        "specialEffect": "tilt"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 298,
+      "title": "Wicked: One Wonderful Night (live) – the Soundtrack",
+      "artist": "Cynthia Erivo",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273c111a1f33d362055e786fdf1",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/39ixJY2rOByyed4OmCmAe2",
+      "apple_music_url": "https://music.apple.com/search?term=Wicked%3A%20One%20Wonderful%20Night%20%28live%29%20%E2%80%93%20the%20Soundtrack%20Cynthia%20Erivo"
+    },
+    {
+      "id": 445,
+      "title": "The Essential Louis Armstrong",
+      "artist": "Louis Armstrong",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273edee2ddbcd5853a01f8ee696",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6S9Dm1I3P06Fcszze4YjCO",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Essential%20Louis%20Armstrong%20Louis%20Armstrong"
+    },
+    {
+      "id": 256,
+      "title": "Live From the Royal Albert Hall",
+      "artist": "Ry X & London Contemporary Orchestra",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/19QnzYQMY8g44JmxHgu683",
+      "apple_music_url": "https://music.apple.com/search?term=Live%20From%20the%20Royal%20Albert%20Hall%20Ry%20X%20%26%20London%20Contemporary%20Orchestra"
+    },
+    {
+      "id": 1280,
+      "title": "Play",
+      "artist": "Moby",
+      "year": 1999,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273f675ddc7a8c113362f983f8b",
+      "spotify_url": "https://open.spotify.com/album/4KZWx8zo5ym89aopr0dBIb",
+      "apple_music_url": "https://music.apple.com/search?term=Moby%20Play",
+      "description": "**Moby – *Play* (1999) – Album Review**\n\nMoby’s *Play* is a groundbreaking electronic album that seamlessly blends downtempo, ambient, and trip-hop with soulful samples, creating an atmospheric and deeply emotional listening experience. The album’s minimalist yet rich production masterfully layers ethereal vocal samples—many from gospel and folk recordings—over hypnotic breakbeats and warm synth pads, crafting a hypnotic, almost meditative mood. Tracks like the title song, *Honey*, and *Natural Blues* showcase Moby’s genius in balancing melancholy and hope, with the latter’s haunting vocal loop and steady percussion evoking both nostalgia and introspection.\n\nThe sound design is impeccable, with lush textures and subtle dynamics that make every listen feel immersive. Standout instrumentals, such as the lullaby-like *God Moving Over the Face of the Waters*, highlight Moby’s ability to evoke vast emotional landscapes with simplicity. A timeless work, *Play* remains a defining album of late-'90s electronica, celebrated for its artistry and enduring emotional resonance.",
+      "style": null
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "corner",
+        "imageSize": "fullscreen",
+        "textLayout": "scattered",
+        "composition": "dramatic",
+        "accentColor": "#00b4d8",
+        "specialEffect": "tilt"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 74,
+        "unique_albums": 113,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 68
+          },
+          {
+            "artist_id": 113,
+            "artist_name": "Florence + the Machine",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb836eb0a7a82eb8f4133ee04d",
+            "count": 38
+          },
+          {
+            "artist_id": 27,
+            "artist_name": "Beck",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb675a6e778640f767626f2e66",
+            "count": 17
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 17
+          },
+          {
+            "artist_id": 955,
+            "artist_name": "The Cure & Daniel Avery",
+            "image_url": null,
+            "count": 17
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+            "count": 18
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "apple_music_url": "https://music.apple.com/search?term=Mixes%20Of%20A%20Lost%20World%20The%20Cure%2C%20The%20Cure%20%26%20Daniel%20Avery%2C%20The%20Cure%20%26%20Orbital",
+            "count": 17
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "apple_music_url": "https://music.apple.com/search?term=Speaking%20in%20Tongues%20Talking%20Heads",
+            "count": 17
+          },
+          {
+            "album_id": 1926,
+            "album_title": "Come to My Garden",
+            "artist_name": "Minnie Riperton",
+            "image_url": "https://i.scdn.co/image/80230921f3d0c8bd777b39133506f3e103317539",
+            "spotify_url": "https://open.spotify.com/album/3FuJjgDLCnwRgnRLfjjGPV",
+            "apple_music_url": "https://music.apple.com/search?term=Come%20to%20My%20Garden%20Minnie%20Riperton",
+            "count": 14
+          },
+          {
+            "album_id": 1920,
+            "album_title": "The Mountain",
+            "artist_name": "Gorillaz",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd5b57b40cf2aaeccd07835e",
+            "spotify_url": "https://open.spotify.com/album/28eOS4i1HMR5lCmaf4UHoh",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Mountain%20Gorillaz",
+            "count": 12
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "donut",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Bill Evans",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "small",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#10b981",
+        "specialEffect": "zoom"
+      },
+      "content": {
+        "artist": {
+          "name": "Bill Evans",
+          "albums_count": 6,
+          "haiku": "**So (remastered)**\nÉchos d'une voix en vol\nRivière de notes sans fin",
+          "bio": "**Bill Evans** nous offre 6 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6772690000c46c3b629f4118d018321c44f88f"
+        },
+        "albums": [
+          {
+            "id": 341,
+            "title": "So (remastered)",
+            "year": 1986,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27311bb04f55be562c76d8e8ecf",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/0hQb1KT6L3iEYRkS5u8cjm",
+            "apple_music_url": "https://music.apple.com/search?term=So%20%28remastered%29%20Peter%20Gabriel",
+            "artist": "Peter Gabriel",
+            "description": "La **poésie musicale** de *So (remastered)* de Peter Gabriel transcende les années depuis 1986. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "remaster_detail"
+          },
+          {
+            "id": 257,
+            "title": "Dropout Boogie",
+            "year": 2022,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2730e8e7267c0b377e5751630f3",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7LLyQJzyD56Avzk3uFzKUk",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Black%20Keys%20Dropout%20Boogie",
+            "artist": "The Black Keys",
+            "description": "Dans *Dropout Boogie*, The Black Keys nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 305,
+            "title": "Street Lady",
+            "year": 1973,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273bdda6a4e9793de67f7598c91",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7Iw2Tx6Jh0Y8iKEVfx7Sua",
+            "apple_music_url": "https://music.apple.com/search?term=Street%20Lady%20Donald%20Byrd",
+            "artist": "Donald Byrd",
+            "description": "Donald Byrd livre avec *Street Lady* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 293,
+            "title": "As Alive As You Need Me To Be",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27317ff2581a6b924fb3a704395",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6KWRGQeL4dzohXRiSwJHK0",
+            "apple_music_url": "https://music.apple.com/search?term=As%20Alive%20As%20You%20Need%20Me%20To%20Be%20Nine%20Inch%20Nails",
+            "artist": "Nine Inch Nails",
+            "description": "**As Alive As You Need Me To Be** de *Nine Inch Nails* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 328,
+            "title": "Morrison Hotel",
+            "year": 1970,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f12a8a7e0b2cbe16d2bef4dc",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6AFLOkpJjFF652jevcSOZX",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20Morrison%20Hotel",
+            "artist": "The Doors",
+            "description": "*Morrison Hotel* marque un moment dans la carrière de The Doors. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 269,
+            "title": "More Songs About Buildings and Food",
+            "year": 1978,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27391237668384c4d646b30c05c",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/39jsLMRmrTpfdq2vE4TCUe",
+            "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20More%20Songs%20About%20Buildings%20and%20Food",
+            "artist": "Talking Heads",
+            "description": "Talking Heads livre avec *More Songs About Buildings and Food* (1978) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 400,
+        "text_columns": 1,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Nuits Musique",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Nuits Musique",
+          "description": "*Nuits Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 269,
+              "title": "More Songs About Buildings and Food",
+              "artist": "Talking Heads",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27391237668384c4d646b30c05c",
+              "year": 1978,
+              "spotify_url": "https://open.spotify.com/album/39jsLMRmrTpfdq2vE4TCUe",
+              "apple_music_url": "https://music.apple.com/search?term=Talking%20Heads%20More%20Songs%20About%20Buildings%20and%20Food",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "asymmetric",
+                "composition": "dramatic",
+                "accentColor": "#ab47bc",
+                "specialEffect": "gradient"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 253,
+              "title": "The Universe Smiles Upon You",
+              "artist": "Khruangbin",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273e08ee206ad63148105336a19",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/45ZWDMMVK0N0Hd2p7fLTCB",
+              "apple_music_url": "https://music.apple.com/search?term=The%20Universe%20Smiles%20Upon%20You%20Khruangbin",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "dramatic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "none"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 240,
+              "title": "A Moon Shaped Pool (radiohead)",
+              "artist": "Radiohead",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27345643f5cf119cbc9d2811c22",
+              "year": 2016,
+              "spotify_url": "https://open.spotify.com/album/2ix8vWvvSp2Yo7rKMiWpkg",
+              "apple_music_url": "https://music.apple.com/search?term=Radiohead%20A%20Moon%20Shaped%20Pool%20%28radiohead%29",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "playful",
+                "accentColor": "#ff6b35",
+                "specialEffect": "none"
+              },
+              "reason": "Une **pièce maîtresse** qui définit l'esprit de cette playlist."
+            },
+            {
+              "id": 250,
+              "title": "L.a. Woman",
+              "artist": "The Doors",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+              "year": 1971,
+              "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+              "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20L.a.%20Woman",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "medium",
+                "textLayout": "asymmetric",
+                "composition": "chaos",
+                "accentColor": "#06b6d4",
+                "specialEffect": "gradient"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 1,
+              "title": "Nevermind",
+              "artist": "Nirvana",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+              "year": 1991,
+              "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+              "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "playful",
+                "accentColor": "#FF00FF",
+                "specialEffect": "tilt"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "minimal",
+        "image_position": "background"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#8b5cf6",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 298,
+            "title": "Wicked: One Wonderful Night (live) – the Soundtrack",
+            "artist": "Cynthia Erivo",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273c111a1f33d362055e786fdf1",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/39ixJY2rOByyed4OmCmAe2",
+            "apple_music_url": "https://music.apple.com/search?term=Wicked%3A%20One%20Wonderful%20Night%20%28live%29%20%E2%80%93%20the%20Soundtrack%20Cynthia%20Erivo"
+          },
+          {
+            "id": 445,
+            "title": "The Essential Louis Armstrong",
+            "artist": "Louis Armstrong",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273edee2ddbcd5853a01f8ee696",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6S9Dm1I3P06Fcszze4YjCO",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Essential%20Louis%20Armstrong%20Louis%20Armstrong"
+          },
+          {
+            "id": 256,
+            "title": "Live From the Royal Albert Hall",
+            "artist": "Ry X & London Contemporary Orchestra",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273684a9438dddd0b3657a1aef8",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/19QnzYQMY8g44JmxHgu683",
+            "apple_music_url": "https://music.apple.com/search?term=Live%20From%20the%20Royal%20Albert%20Hall%20Ry%20X%20%26%20London%20Contemporary%20Orchestra"
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 298,
+            "album_title": "Wicked: One Wonderful Night (live) – the Soundtrack",
+            "haiku": "**Wicked: One Wonderful Night (live)**\nNotes envoûtantes volent\nÉcho d'un cœur magique\n\n*(Inspiré par la puissance vocale de Cynthia Erivo et l'émotion live de l'album.)*",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "top",
+              "imageSize": "large",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "zoom"
+            },
+            "description": "Cynthia Erivo livre avec *Wicked: One Wonderful Night (live) – the Soundtrack* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          },
+          {
+            "album_id": 445,
+            "album_title": "The Essential Louis Armstrong",
+            "haiku": "**The Essential Louis Armstrong**\nSouffle chaud de jazz\nNotes dorées s'envolent",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "diagonal",
+              "imageSize": "medium",
+              "textLayout": "single-column",
+              "composition": "classic",
+              "accentColor": "#ab47bc",
+              "specialEffect": "gradient"
+            },
+            "description": "Dans *The Essential Louis Armstrong*, Louis Armstrong nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 256,
+            "album_title": "Live From the Royal Albert Hall",
+            "haiku": "**Live From the Royal Albert Hall**\nÉchos sacrés flottants\nLarmes d'or au violon",
+            "layout": {
+              "columns": 1,
+              "imagePosition": "diagonal",
+              "imageSize": "large",
+              "textLayout": "asymmetric",
+              "composition": "classic",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "gradient"
+            },
+            "description": "*Live From the Royal Albert Hall* marque un moment dans la carrière de Ry X & London Contemporary Orchestra. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "small",
+        "columns": 1,
+        "spacing": "normal"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "right",
+        "imageSize": "medium",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1280,
+          "title": "Play",
+          "artist": "Moby",
+          "year": 1999,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b273f675ddc7a8c113362f983f8b",
+          "spotify_url": "https://open.spotify.com/album/4KZWx8zo5ym89aopr0dBIb",
+          "apple_music_url": "https://music.apple.com/search?term=Moby%20Play",
+          "description": "**Moby – *Play* (1999) – Album Review**\n\nMoby’s *Play* is a groundbreaking electronic album that seamlessly blends downtempo, ambient, and trip-hop with soulful samples, creating an atmospheric and deeply emotional listening experience. The album’s minimalist yet rich production masterfully layers ethereal vocal samples—many from gospel and folk recordings—over hypnotic breakbeats and warm synth pads, crafting a hypnotic, almost meditative mood. Tracks like the title song, *Honey*, and *Natural Blues* showcase Moby’s genius in balancing melancholy and hope, with the latter’s haunting vocal loop and steady percussion evoking both nostalgia and introspection.\n\nThe sound design is impeccable, with lush textures and subtle dynamics that make every listen feel immersive. Standout instrumentals, such as the lullaby-like *God Moving Over the Face of the Waters*, highlight Moby’s ability to evoke vast emotional landscapes with simplicity. A timeless work, *Play* remains a defining album of late-'90s electronica, celebrated for its artistry and enduring emotional resonance.",
+          "style": null
+        },
+        "artist_images": {
+          "Moby": "https://i.scdn.co/image/ab6761610000e5eb51998989b51d8bda6a7486f2"
+        }
+      },
+      "dimensions": {
+        "image_size": "small",
+        "description_length": "full",
+        "font_size": "small"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}

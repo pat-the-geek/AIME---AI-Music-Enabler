@@ -1,0 +1,753 @@
+{
+  "id": "2026-02-28-004",
+  "edition_number": 4,
+  "generated_at": "2026-02-28T03:30:11.322342+00:00",
+  "albums": [
+    {
+      "id": 243,
+      "title": "Illinois",
+      "year": 2005,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273712c76b4152918fb8d37c53d",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1pOl0KEC1iQnA6F0XxV4To",
+      "apple_music_url": "https://music.apple.com/search?term=Sufjan%20Stevens%20Illinois",
+      "artist": "Sufjan Stevens",
+      "description": "**Illinois** de *Sufjan Stevens* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 294,
+      "title": "Never Enough",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2738386e4a4fb9d20e5008f4d71",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/52yD51X7yDinwlg6tbCtpP",
+      "apple_music_url": "https://music.apple.com/search?term=Never%20Enough%20Turnstile",
+      "artist": "Turnstile",
+      "description": "**Never Enough** de *Turnstile* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 330,
+      "title": "90125",
+      "year": 1983,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2739d9a49f795b4340538f43435",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/6nNlTIiFd3J06W0rJiiwlz",
+      "apple_music_url": "https://music.apple.com/search?term=Yes%2090125",
+      "artist": "Yes",
+      "description": "Dans *90125*, Yes nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 245,
+      "title": "Is This It",
+      "year": 2001,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Strokes%20Is%20This%20It",
+      "artist": "The Strokes",
+      "description": "The Strokes livre avec *Is This It* (2001) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+      "content_type": "existing"
+    },
+    {
+      "id": 335,
+      "title": "Crime of the Century",
+      "year": 1974,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27389d7032603b62e9aedb03fa2",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2wrHaulTgqqkVKx0k7Kq4r",
+      "apple_music_url": "https://music.apple.com/search?term=Supertramp%20Crime%20of%20the%20Century",
+      "artist": "Supertramp",
+      "description": "La **poésie musicale** de *Crime of the Century* de Supertramp transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+      "content_type": "existing"
+    },
+    {
+      "id": 286,
+      "title": "Trilogy 3 (live)",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273636688536fdadbf58c806e9a",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/1TfKOn7USTqlVKw00xSGiy",
+      "apple_music_url": "https://music.apple.com/search?term=Trilogy%203%20%28live%29%20Chick%20Corea%2C%20Brian%20Blade%20%26%20Christian%20Mcbride",
+      "artist": "Chick Corea, Brian Blade & Christian Mcbride",
+      "description": "*Trilogy 3 (live)* marque un moment dans la carrière de Chick Corea, Brian Blade & Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "id": 1,
+      "title": "Nevermind",
+      "year": 1991,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+      "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+      "artist": "Nirvana",
+      "description": "**Nevermind** de *Nirvana* (1991) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+      "content_type": "existing"
+    },
+    {
+      "id": 283,
+      "title": "Without Further Ado, Vol 1",
+      "year": 2025,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+      "apple_music_url": "https://music.apple.com/search?term=Without%20Further%20Ado%2C%20Vol%201%20Christian%20Mcbride",
+      "artist": "Christian Mcbride",
+      "description": "*Without Further Ado, Vol 1* marque un moment dans la carrière de Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+      "content_type": "existing"
+    },
+    {
+      "album_id": 387,
+      "album_title": "Little Creatures",
+      "artist_name": "Talking Heads",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+      "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+      "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+      "count": 18
+    },
+    {
+      "id": 288,
+      "title": "Let God Sort Em Out",
+      "artist": "Clipse",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273ef854fe1d04279372a96f3d6",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/17ScNnJ0lSWajodZaRpHdQ",
+      "apple_music_url": "https://music.apple.com/search?term=Let%20God%20Sort%20Em%20Out%20Clipse",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "single-column",
+        "composition": "dramatic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "tilt"
+      },
+      "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+    },
+    {
+      "id": 263,
+      "title": "Orbital 2 (the Brown Album Expanded)",
+      "artist": "Orbital",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273eaef26541dc08b0d74a7f609",
+      "year": 2025,
+      "spotify_url": "https://open.spotify.com/album/6cni6TMOVlY9jAbEGAjOif",
+      "apple_music_url": "https://music.apple.com/search?term=Orbital%202%20%28the%20Brown%20Album%20Expanded%29%20Orbital",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "scattered",
+        "composition": "playful",
+        "accentColor": "#06b6d4",
+        "specialEffect": "gradient"
+      },
+      "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+    },
+    {
+      "id": 274,
+      "title": "Beautifully Broken (pickin’ Up the Pieces)",
+      "artist": "Jelly Roll",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273d48a214080d6d848654c5a41",
+      "year": 2024,
+      "spotify_url": "https://open.spotify.com/album/2NqI5Hd3wWXNWUrZNuZvO9",
+      "apple_music_url": "https://music.apple.com/search?term=Beautifully%20Broken%20%28pickin%E2%80%99%20Up%20the%20Pieces%29%20Jelly%20Roll",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "dramatic",
+        "accentColor": "#FF00FF",
+        "specialEffect": "none"
+      },
+      "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+    },
+    {
+      "id": 257,
+      "title": "Dropout Boogie",
+      "artist": "The Black Keys",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2730e8e7267c0b377e5751630f3",
+      "year": 2022,
+      "spotify_url": "https://open.spotify.com/album/7LLyQJzyD56Avzk3uFzKUk",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Black%20Keys%20Dropout%20Boogie",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "diagonal",
+        "imageSize": "large",
+        "textLayout": "scattered",
+        "composition": "classic",
+        "accentColor": "#06b6d4",
+        "specialEffect": "tilt"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Nuits Musique."
+    },
+    {
+      "id": 240,
+      "title": "A Moon Shaped Pool (radiohead)",
+      "artist": "Radiohead",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27345643f5cf119cbc9d2811c22",
+      "year": 2016,
+      "spotify_url": "https://open.spotify.com/album/2ix8vWvvSp2Yo7rKMiWpkg",
+      "apple_music_url": "https://music.apple.com/search?term=Radiohead%20A%20Moon%20Shaped%20Pool%20%28radiohead%29",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "massive",
+        "textLayout": "single-column",
+        "composition": "playful",
+        "accentColor": "#ab47bc",
+        "specialEffect": "tilt"
+      },
+      "reason": "*Parfait* pour capturer l'**atmosphère** de Nuits Musique."
+    },
+    {
+      "id": 250,
+      "title": "L.a. Woman",
+      "artist": "The Doors",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20L.a.%20Woman"
+    },
+    {
+      "id": 379,
+      "title": "The Lamb Lies Down On Broadway (2007 Stereo Mix)",
+      "artist": "Genesis",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b27302cb21292aeb764d270b85c0",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/49BxISwAbZZfmlhqD6Vh88",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Lamb%20Lies%20Down%20On%20Broadway%20%282007%20Stereo%20Mix%29%20Genesis"
+    },
+    {
+      "id": 437,
+      "title": "The Essential Melody Gardot",
+      "artist": "Melody Gardot",
+      "image_url": "https://i.scdn.co/image/ab67616d0000b273a1032d1098bcabc7bea02e68",
+      "genre": null,
+      "spotify_url": "https://open.spotify.com/album/7wrIaVOzLdLi6kao638zAY",
+      "apple_music_url": "https://music.apple.com/search?term=The%20Essential%20Melody%20Gardot%20Melody%20Gardot"
+    },
+    {
+      "id": 1279,
+      "title": "Flame Job",
+      "artist": "The Cramps",
+      "year": 2023,
+      "genre": null,
+      "image_url": "https://i.scdn.co/image/ab67616d0000b2736092b34ae60b71af7351e9ca",
+      "spotify_url": "https://open.spotify.com/album/1zKZp5YFCL5cja4cyfnuVQ",
+      "apple_music_url": "https://music.apple.com/search?term=Flame%20Job%20The%20Cramps",
+      "description": "**Album Review: *Flame Job* by The Cramps (2023)**\n\nThe Cramps’ *Flame Job* (2023) is a scorching revival of their signature psychobilly sound, blending raw garage rock, surf twang, and primal blues into a high-octane sonic inferno. The album’s emotional impact is immediate—its rebellious energy and lurid lyricism evoke a carnival of vice and chaos, wrapped in a deliciously sinister atmosphere. The production is gritty yet polished, with thunderous basslines, reverb-drenched guitars, and Lux Interior’s iconic snarling vocals cutting through the mix like a switchblade. Standout tracks include the manic opener *Flame Job*, a surf-punk anthem with frenzied drumming and razor-sharp riffs, and *Voodoo Girl*, where eerie organ swirls and sinister harmonies create a hypnotic, devilish groove. The instrumentation is tight yet unrefined, leaning into lo-fi charm while delivering maximum impact. A feral, unapologetic blast of rock ‘n’ roll heresy, *Flame Job* is",
+      "style": null
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 1,
+      "type": "artist_showcase",
+      "title": "Le 12h30",
+      "layout": {
+        "columns": 3,
+        "imagePosition": "top",
+        "imageSize": "micro",
+        "textLayout": "scattered",
+        "composition": "dramatic",
+        "accentColor": "#f7931e",
+        "specialEffect": "none"
+      },
+      "content": {
+        "artist": {
+          "name": "Le 12h30",
+          "albums_count": 8,
+          "haiku": "**Illinois**\nNotes de neige sur Chicago\nÉcho de trains perdus",
+          "bio": "**Le 12h30** nous offre 8 albums de *musique* avec une palette sonore unique. Une **expérience musicale** authentique qui **touche l'âme** et inspire. ✨",
+          "image_url": "https://i.scdn.co/image/ab6761610000e5ebf6a41bf2a81a01f2d25de40c"
+        },
+        "albums": [
+          {
+            "id": 243,
+            "title": "Illinois",
+            "year": 2005,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273712c76b4152918fb8d37c53d",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1pOl0KEC1iQnA6F0XxV4To",
+            "apple_music_url": "https://music.apple.com/search?term=Sufjan%20Stevens%20Illinois",
+            "artist": "Sufjan Stevens",
+            "description": "**Illinois** de *Sufjan Stevens* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 294,
+            "title": "Never Enough",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2738386e4a4fb9d20e5008f4d71",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/52yD51X7yDinwlg6tbCtpP",
+            "apple_music_url": "https://music.apple.com/search?term=Never%20Enough%20Turnstile",
+            "artist": "Turnstile",
+            "description": "**Never Enough** de *Turnstile* (?) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 330,
+            "title": "90125",
+            "year": 1983,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2739d9a49f795b4340538f43435",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/6nNlTIiFd3J06W0rJiiwlz",
+            "apple_music_url": "https://music.apple.com/search?term=Yes%2090125",
+            "artist": "Yes",
+            "description": "Dans *90125*, Yes nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 245,
+            "title": "Is This It",
+            "year": 2001,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Strokes%20Is%20This%20It",
+            "artist": "The Strokes",
+            "description": "The Strokes livre avec *Is This It* (2001) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement.",
+            "content_type": "existing"
+          },
+          {
+            "id": 335,
+            "title": "Crime of the Century",
+            "year": 1974,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27389d7032603b62e9aedb03fa2",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2wrHaulTgqqkVKx0k7Kq4r",
+            "apple_music_url": "https://music.apple.com/search?term=Supertramp%20Crime%20of%20the%20Century",
+            "artist": "Supertramp",
+            "description": "La **poésie musicale** de *Crime of the Century* de Supertramp transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*.",
+            "content_type": "existing"
+          },
+          {
+            "id": 286,
+            "title": "Trilogy 3 (live)",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273636688536fdadbf58c806e9a",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/1TfKOn7USTqlVKw00xSGiy",
+            "apple_music_url": "https://music.apple.com/search?term=Trilogy%203%20%28live%29%20Chick%20Corea%2C%20Brian%20Blade%20%26%20Christian%20Mcbride",
+            "artist": "Chick Corea, Brian Blade & Christian Mcbride",
+            "description": "*Trilogy 3 (live)* marque un moment dans la carrière de Chick Corea, Brian Blade & Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          },
+          {
+            "id": 1,
+            "title": "Nevermind",
+            "year": 1991,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273fbc71c99f9c1296c56dd51b6",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/2UJcKiJxNryhL050F5Z1Fk",
+            "apple_music_url": "https://music.apple.com/search?term=Nirvana%20Nevermind",
+            "artist": "Nirvana",
+            "description": "**Nevermind** de *Nirvana* (1991) est une œuvre qui mérite l'attention. Cet album de musique *capture* quelque chose d'essentiel : une **émotion brute**, une **vision artistique** affirmée. Les compositions révèlent une *sensibilité unique*, une **recherche sonore** qui va au-delà des conventions. L'écoute devient une *expérience immersive*, où chaque morceau contribue à une **narration globale** subtile et profonde.",
+            "content_type": "existing"
+          },
+          {
+            "id": 283,
+            "title": "Without Further Ado, Vol 1",
+            "year": 2025,
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+            "apple_music_url": "https://music.apple.com/search?term=Without%20Further%20Ado%2C%20Vol%201%20Christian%20Mcbride",
+            "artist": "Christian Mcbride",
+            "description": "*Without Further Ado, Vol 1* marque un moment dans la carrière de Christian Mcbride. Ce disque de ? explore le musique avec une *approche personnelle* et **authentique**. Les morceaux s'enchaînent avec une **cohérence** remarquable, créant une *atmosphère* particulière. La **sensibilité artistique** transparaît dans chaque note, chaque silence. Une œuvre qui *résonne* bien au-delà de sa sortie.",
+            "content_type": "existing"
+          }
+        ],
+        "filler": []
+      },
+      "dimensions": {
+        "image_height": 500,
+        "text_columns": 3,
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 4,
+      "type": "timeline_stats",
+      "title": "Vos Dernières Écoutes",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "small",
+        "textLayout": "vertical",
+        "composition": "chaos",
+        "accentColor": "#ff006e",
+        "specialEffect": "blur"
+      },
+      "content": {
+        "total_recent_listens": 300,
+        "unique_artists": 74,
+        "unique_albums": 113,
+        "top_artists": [
+          {
+            "artist_id": 112,
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "count": 68
+          },
+          {
+            "artist_id": 113,
+            "artist_name": "Florence + the Machine",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb836eb0a7a82eb8f4133ee04d",
+            "count": 38
+          },
+          {
+            "artist_id": 27,
+            "artist_name": "Beck",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5eb675a6e778640f767626f2e66",
+            "count": 17
+          },
+          {
+            "artist_id": 52,
+            "artist_name": "The Cure",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "count": 17
+          },
+          {
+            "artist_id": 955,
+            "artist_name": "The Cure & Daniel Avery",
+            "image_url": null,
+            "count": 17
+          }
+        ],
+        "top_albums": [
+          {
+            "album_id": 387,
+            "album_title": "Little Creatures",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273948dc970e1e9fbeb8959f7f9",
+            "spotify_url": "https://open.spotify.com/album/5Dja2ASXd7MOM628iwYdtA",
+            "apple_music_url": "https://music.apple.com/search?term=Little%20Creatures%20Talking%20Heads",
+            "count": 18
+          },
+          {
+            "album_id": 1902,
+            "album_title": "Mixes Of A Lost World",
+            "artist_name": "The Cure, The Cure & Daniel Avery, The Cure & Orbital, The Cure & Paul Oakenfold",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868",
+            "spotify_url": "https://open.spotify.com/album/2OlRb9ISy8xZku7ImTV9n8",
+            "apple_music_url": "https://music.apple.com/search?term=Mixes%20Of%20A%20Lost%20World%20The%20Cure%2C%20The%20Cure%20%26%20Daniel%20Avery%2C%20The%20Cure%20%26%20Orbital",
+            "count": 17
+          },
+          {
+            "album_id": 1910,
+            "album_title": "Speaking in Tongues",
+            "artist_name": "Talking Heads",
+            "image_url": "https://i.scdn.co/image/e4c5b04fce8706c87663357b1f78522a3a5c641b",
+            "spotify_url": "https://open.spotify.com/album/4sLCQxMRfn3gAHrBNZtbTH",
+            "apple_music_url": "https://music.apple.com/search?term=Speaking%20in%20Tongues%20Talking%20Heads",
+            "count": 17
+          },
+          {
+            "album_id": 1926,
+            "album_title": "Come to My Garden",
+            "artist_name": "Minnie Riperton",
+            "image_url": "https://i.scdn.co/image/80230921f3d0c8bd777b39133506f3e103317539",
+            "spotify_url": "https://open.spotify.com/album/3FuJjgDLCnwRgnRLfjjGPV",
+            "apple_music_url": "https://music.apple.com/search?term=Come%20to%20My%20Garden%20Minnie%20Riperton",
+            "count": 14
+          },
+          {
+            "album_id": 1920,
+            "album_title": "The Mountain",
+            "artist_name": "Gorillaz",
+            "image_url": "https://i.scdn.co/image/ab6761610000e5ebdd5b57b40cf2aaeccd07835e",
+            "spotify_url": "https://open.spotify.com/album/28eOS4i1HMR5lCmaf4UHoh",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Mountain%20Gorillaz",
+            "count": 12
+          }
+        ]
+      },
+      "dimensions": {
+        "chart_type": "bar",
+        "color_scheme": "newspaper"
+      }
+    },
+    {
+      "page_number": 5,
+      "type": "playlist_theme",
+      "title": "Playlist: Nuits Musique",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "playlist": {
+          "theme": "Nuits Musique",
+          "description": "*Nuits Musique* vous propose **50 albums** soigneusement sélectionnés : diverses ambiances musicales. Une **expérience sonore** authentique qui **transporte** et *inspire*. ✨",
+          "albums": [
+            {
+              "id": 288,
+              "title": "Let God Sort Em Out",
+              "artist": "Clipse",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273ef854fe1d04279372a96f3d6",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/17ScNnJ0lSWajodZaRpHdQ",
+              "apple_music_url": "https://music.apple.com/search?term=Let%20God%20Sort%20Em%20Out%20Clipse",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "tilt"
+              },
+              "reason": "Une **sélection poétique** qui résonne parfaitement avec le thème de cette playlist."
+            },
+            {
+              "id": 263,
+              "title": "Orbital 2 (the Brown Album Expanded)",
+              "artist": "Orbital",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273eaef26541dc08b0d74a7f609",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/6cni6TMOVlY9jAbEGAjOif",
+              "apple_music_url": "https://music.apple.com/search?term=Orbital%202%20%28the%20Brown%20Album%20Expanded%29%20Orbital",
+              "layout": {
+                "columns": 2,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "scattered",
+                "composition": "playful",
+                "accentColor": "#06b6d4",
+                "specialEffect": "gradient"
+              },
+              "reason": "Apporte une **profondeur émotionnelle** incomparable à cette playlist."
+            },
+            {
+              "id": 274,
+              "title": "Beautifully Broken (pickin’ Up the Pieces)",
+              "artist": "Jelly Roll",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b273d48a214080d6d848654c5a41",
+              "year": 2024,
+              "spotify_url": "https://open.spotify.com/album/2NqI5Hd3wWXNWUrZNuZvO9",
+              "apple_music_url": "https://music.apple.com/search?term=Beautifully%20Broken%20%28pickin%E2%80%99%20Up%20the%20Pieces%29%20Jelly%20Roll",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "dramatic",
+                "accentColor": "#FF00FF",
+                "specialEffect": "none"
+              },
+              "reason": "**Incontournable** pour ceux qui recherchent l'*authenticité* musicale."
+            },
+            {
+              "id": 257,
+              "title": "Dropout Boogie",
+              "artist": "The Black Keys",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2730e8e7267c0b377e5751630f3",
+              "year": 2022,
+              "spotify_url": "https://open.spotify.com/album/7LLyQJzyD56Avzk3uFzKUk",
+              "apple_music_url": "https://music.apple.com/search?term=The%20Black%20Keys%20Dropout%20Boogie",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "diagonal",
+                "imageSize": "large",
+                "textLayout": "scattered",
+                "composition": "classic",
+                "accentColor": "#06b6d4",
+                "specialEffect": "tilt"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Nuits Musique."
+            },
+            {
+              "id": 283,
+              "title": "Without Further Ado, Vol 1",
+              "artist": "Christian Mcbride",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b2732d6c2f607eb0110dbec3f9f2",
+              "year": 2025,
+              "spotify_url": "https://open.spotify.com/album/3vkNGUlipZ7lxgJzaO6VXy",
+              "apple_music_url": "https://music.apple.com/search?term=Without%20Further%20Ado%2C%20Vol%201%20Christian%20Mcbride",
+              "layout": {
+                "columns": 1,
+                "imagePosition": "top",
+                "imageSize": "large",
+                "textLayout": "single-column",
+                "composition": "classic",
+                "accentColor": "#ff6b35",
+                "specialEffect": "gradient"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Nuits Musique."
+            },
+            {
+              "id": 240,
+              "title": "A Moon Shaped Pool (radiohead)",
+              "artist": "Radiohead",
+              "image_url": "https://i.scdn.co/image/ab67616d0000b27345643f5cf119cbc9d2811c22",
+              "year": 2016,
+              "spotify_url": "https://open.spotify.com/album/2ix8vWvvSp2Yo7rKMiWpkg",
+              "apple_music_url": "https://music.apple.com/search?term=Radiohead%20A%20Moon%20Shaped%20Pool%20%28radiohead%29",
+              "layout": {
+                "columns": 3,
+                "imagePosition": "top",
+                "imageSize": "massive",
+                "textLayout": "single-column",
+                "composition": "playful",
+                "accentColor": "#ab47bc",
+                "specialEffect": "tilt"
+              },
+              "reason": "*Parfait* pour capturer l'**atmosphère** de Nuits Musique."
+            }
+          ]
+        }
+      },
+      "dimensions": {
+        "card_style": "detailed",
+        "image_position": "background"
+      }
+    },
+    {
+      "page_number": 3,
+      "type": "albums_haikus",
+      "title": "Haïkus Musicaux",
+      "layout": {
+        "columns": 2,
+        "imagePosition": "top",
+        "imageSize": "medium",
+        "textLayout": "single-column",
+        "composition": "classic",
+        "accentColor": "#ff6b35",
+        "specialEffect": "none"
+      },
+      "content": {
+        "albums": [
+          {
+            "id": 250,
+            "title": "L.a. Woman",
+            "artist": "The Doors",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2733992c7ab57975935b29fa22b",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7IKUTIc9UWuVngyGPtqNHS",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Doors%20L.a.%20Woman"
+          },
+          {
+            "id": 379,
+            "title": "The Lamb Lies Down On Broadway (2007 Stereo Mix)",
+            "artist": "Genesis",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27302cb21292aeb764d270b85c0",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/49BxISwAbZZfmlhqD6Vh88",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Lamb%20Lies%20Down%20On%20Broadway%20%282007%20Stereo%20Mix%29%20Genesis"
+          },
+          {
+            "id": 437,
+            "title": "The Essential Melody Gardot",
+            "artist": "Melody Gardot",
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273a1032d1098bcabc7bea02e68",
+            "genre": null,
+            "spotify_url": "https://open.spotify.com/album/7wrIaVOzLdLi6kao638zAY",
+            "apple_music_url": "https://music.apple.com/search?term=The%20Essential%20Melody%20Gardot%20Melody%20Gardot"
+          }
+        ],
+        "haikus": [
+          {
+            "album_id": 250,
+            "album_title": "L.a. Woman",
+            "haiku": "**L.a. Woman**\nChuchotements du désert chaud\nGuitares en feu dans la nuit",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "top",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#8b5cf6",
+              "specialEffect": "gradient"
+            },
+            "description": "La **poésie musicale** de *L.a. Woman* de The Doors transcende les années depuis ?. Cet album de musique déploie une *esthétique sonore* unique, où **créativité** et *intention* se rejoignent. Chaque titre contribue à une **architecture globale** réfléchie. L'écoute révèle des *détails subtils*, des **moments de grâce** inattendus. Une œuvre qui continue de *résonner*."
+          },
+          {
+            "album_id": 379,
+            "album_title": "The Lamb Lies Down On Broadway (2007 Stereo Mix)",
+            "haiku": "**The Lamb Lies Down On Broadway**\nL'agneau chante dans le béton\nRêves fuyant la ville\n\n*(Inspiré par l'album conceptuel de Genesis, mêlant mythologie urbaine et quête initiatique, avec des références aux rives du Bronx et aux symboles spirituels.)*",
+            "layout": {
+              "columns": 2,
+              "imagePosition": "left",
+              "imageSize": "medium",
+              "textLayout": "asymmetric",
+              "composition": "dramatic",
+              "accentColor": "#ff6b35",
+              "specialEffect": "gradient"
+            },
+            "description": "Dans *The Lamb Lies Down On Broadway (2007 Stereo Mix)*, Genesis nous offre un **voyage sonore** particulier. Sorti en ?, cet album de musique déploie une *palette musicale* riche et variée. La **production soignée** met en valeur des arrangements *inventifs*, des textures **envoûtantes**. C'est une œuvre qui respire, qui vit, qui *dialogue* avec l'auditeur. Une **proposition artistique** qui mérite qu'on s'y attarde."
+          },
+          {
+            "album_id": 437,
+            "album_title": "The Essential Melody Gardot",
+            "haiku": "**The Essential Melody Gardot**\nVoix de miel et soie\nNotes flottant comme un rêve\n\n*(Ou une autre version plus métaphorique :)*\n\n**The Essential Melody Gardot**\nChuchotements de brise\nÉcho d'une âme en jazz",
+            "layout": {
+              "columns": 3,
+              "imagePosition": "top",
+              "imageSize": "massive",
+              "textLayout": "asymmetric",
+              "composition": "playful",
+              "accentColor": "#ff6b35",
+              "specialEffect": "zoom"
+            },
+            "description": "Melody Gardot livre avec *The Essential Melody Gardot* (?) une œuvre de musique **sincère** et *touchante*. L'album révèle une **maturation artistique** évidente, une *profondeur* qui ne se dévoile qu'à l'écoute attentive. Les compositions allient **technique** et *émotion* avec élégance. C'est un disque qui prend son temps, qui *s'apprivoise*, qui finit par **marquer** durablement."
+          }
+        ]
+      },
+      "dimensions": {
+        "image_size": "medium",
+        "columns": 1,
+        "spacing": "compact"
+      }
+    },
+    {
+      "page_number": 2,
+      "type": "album_detail",
+      "title": "Album du Jour",
+      "layout": {
+        "columns": 1,
+        "imagePosition": "left",
+        "imageSize": "large",
+        "textLayout": "double-column",
+        "composition": "classic",
+        "accentColor": "#10b981",
+        "specialEffect": "none"
+      },
+      "content": {
+        "album": {
+          "id": 1279,
+          "title": "Flame Job",
+          "artist": "The Cramps",
+          "year": 2023,
+          "genre": null,
+          "image_url": "https://i.scdn.co/image/ab67616d0000b2736092b34ae60b71af7351e9ca",
+          "spotify_url": "https://open.spotify.com/album/1zKZp5YFCL5cja4cyfnuVQ",
+          "apple_music_url": "https://music.apple.com/search?term=Flame%20Job%20The%20Cramps",
+          "description": "**Album Review: *Flame Job* by The Cramps (2023)**\n\nThe Cramps’ *Flame Job* (2023) is a scorching revival of their signature psychobilly sound, blending raw garage rock, surf twang, and primal blues into a high-octane sonic inferno. The album’s emotional impact is immediate—its rebellious energy and lurid lyricism evoke a carnival of vice and chaos, wrapped in a deliciously sinister atmosphere. The production is gritty yet polished, with thunderous basslines, reverb-drenched guitars, and Lux Interior’s iconic snarling vocals cutting through the mix like a switchblade. Standout tracks include the manic opener *Flame Job*, a surf-punk anthem with frenzied drumming and razor-sharp riffs, and *Voodoo Girl*, where eerie organ swirls and sinister harmonies create a hypnotic, devilish groove. The instrumentation is tight yet unrefined, leaning into lo-fi charm while delivering maximum impact. A feral, unapologetic blast of rock ‘n’ roll heresy, *Flame Job* is",
+          "style": null
+        },
+        "artist_images": {
+          "The Cramps": "https://i.scdn.co/image/ab6772690000c46c74cdbefb22ed5e63ad519673"
+        }
+      },
+      "dimensions": {
+        "image_size": "large",
+        "description_length": "full",
+        "font_size": "medium"
+      }
+    }
+  ],
+  "ai_layouts": {},
+  "enrichment_completed": true,
+  "version": "1.0"
+}
